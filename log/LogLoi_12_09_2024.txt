@@ -1,0 +1,160 @@
+================Err in Time: 00:30:51 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: skillere
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.map.Zone.addPlayer(com.girlkun.models.player.Player)" because "player.zone" is null
+	at com.girlkun.services.func.ChangeMapService.goToMap(ChangeMapService.java:680)
+	at com.girlkun.models.player.NewPet.joinMapMaster(NewPet.java:51)
+	at com.girlkun.models.player.NewPet.update(NewPet.java:81)
+	at com.girlkun.models.player.Player.update(Player.java:392)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:37:07 ========================
+Chú thích l?i g?p ph?i: Loi UDB Usopp
+Có l?i t?i class: com.girlkun.models.boss.BossManager - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read the array length because "<local3>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Usopp.wakeupAnotherBossWhenDisappear(Usopp.java:102)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 11:27:38 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:27:38 ========================
+Chú thích l?i g?p ph?i: L?i update map Vách núi ?en
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 2 out of bounds for length 2
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:20:34 ========================
+Chú thích l?i g?p ph?i: Loi UDB Usopp
+Có l?i t?i class: com.girlkun.models.boss.BossManager - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read the array length because "<local3>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Usopp.wakeupAnotherBossWhenDisappear(Usopp.java:102)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:25:31 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 15:25:31 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 16:35:58 ========================
+Có l?i t?i class: com.girlkun.services.EffectSkillService - t?i ph??ng th?c: sendEffectUseSkill
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "skillId" because "skill" is null
+	at com.girlkun.services.EffectSkillService.sendEffectUseSkill(EffectSkillService.java:49)
+	at com.girlkun.services.SkillService.useSkillAlone(SkillService.java:947)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:110)
+	at com.girlkun.services.Service.attackMob(Service.java:2057)
+	at com.girlkun.server.Controller.onMessage(Controller.java:590)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 16:36:00 ========================
+Có l?i t?i class: com.girlkun.services.EffectSkillService - t?i ph??ng th?c: sendEffectUseSkill
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "skillId" because "skill" is null
+	at com.girlkun.services.EffectSkillService.sendEffectUseSkill(EffectSkillService.java:49)
+	at com.girlkun.services.SkillService.useSkillAlone(SkillService.java:947)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:110)
+	at com.girlkun.services.Service.attackMob(Service.java:2057)
+	at com.girlkun.server.Controller.onMessage(Controller.java:590)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 16:36:01 ========================
+Có l?i t?i class: com.girlkun.services.EffectSkillService - t?i ph??ng th?c: sendEffectUseSkill
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "skillId" because "skill" is null
+	at com.girlkun.services.EffectSkillService.sendEffectUseSkill(EffectSkillService.java:49)
+	at com.girlkun.services.SkillService.useSkillAlone(SkillService.java:947)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:110)
+	at com.girlkun.services.Service.attackMob(Service.java:2057)
+	at com.girlkun.server.Controller.onMessage(Controller.java:590)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 19:23:03 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 21:47:22 ========================
+Có l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: playerAttackPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "map" because "this.player.zone" is null
+	at com.girlkun.models.player.FightMabu.changePoint(FightMabu.java:17)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1265)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.services.Service.attackPlayer(Service.java:2450)
+	at com.girlkun.server.Controller.onMessage(Controller.java:596)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

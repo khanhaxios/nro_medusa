@@ -1,0 +1,97 @@
+================Err in Time: 01:38:43 ========================
+Có l?i t?i class: com.girlkun.services.func.UseItem - t?i ph??ng th?c: getItem
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 64 out of bounds for length 58
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.services.InventoryServiceNew.itemBagToBody(InventoryServiceNew.java:402)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:99)
+	at com.girlkun.server.Controller.onMessage(Controller.java:507)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 12:43:10 ========================
+Chú thích l?i g?p ph?i: L?i t?o player m?i
+Có l?i t?i class: com.girlkun.jdbc.daos.PlayerDAO - t?i ph??ng th?c: createNewPlayer
+Chi ti?t l?i:
+com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '14547' for key 'account_id'
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.Util.getInstance(Util.java:386)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1040)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4120)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4052)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2503)
+	at com.mysql.jdbc.ServerPreparedStatement.serverExecute(ServerPreparedStatement.java:1399)
+	at com.mysql.jdbc.ServerPreparedStatement.executeInternal(ServerPreparedStatement.java:857)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2458)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2375)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2359)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)
+	at com.girlkun.database.GirlkunDB.executeUpdate(GirlkunDB.java:194)
+	at com.girlkun.jdbc.daos.PlayerDAO.createNewPlayer(PlayerDAO.java:352)
+	at com.girlkun.server.Controller.createChar(Controller.java:793)
+	at com.girlkun.server.Controller.messageNotMap(Controller.java:675)
+	at com.girlkun.server.Controller.onMessage(Controller.java:611)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:39:23 ========================
+Có l?i t?i class: com.girlkun.services.EffectSkillService - t?i ph??ng th?c: sendEffectEndCharge
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "skillId" because "player.playerSkill.skillSelect" is null
+	at com.girlkun.services.EffectSkillService.sendEffectEndCharge(EffectSkillService.java:501)
+	at com.girlkun.services.EffectSkillService.monkeyDown(EffectSkillService.java:273)
+	at com.girlkun.models.player.EffectSkill.update(EffectSkill.java:101)
+	at com.girlkun.models.player.Player.update(Player.java:380)
+	at com.girlkun.models.boss.Boss.update(Boss.java:226)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:749)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:07:25 ========================
+Có l?i t?i class: com.girlkun.services.func.UseItem - t?i ph??ng th?c: getItem
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "isUpToUp" because "itemAdd.template" is null
+	at com.girlkun.services.InventoryServiceNew.addItemList(InventoryServiceNew.java:830)
+	at com.girlkun.services.InventoryServiceNew.addItemBox(InventoryServiceNew.java:807)
+	at com.girlkun.services.InventoryServiceNew.itemBagToBox(InventoryServiceNew.java:583)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:93)
+	at com.girlkun.server.Controller.onMessage(Controller.java:507)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:07:31 ========================
+Có l?i t?i class: com.girlkun.services.func.UseItem - t?i ph??ng th?c: getItem
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "isUpToUp" because "itemAdd.template" is null
+	at com.girlkun.services.InventoryServiceNew.addItemList(InventoryServiceNew.java:830)
+	at com.girlkun.services.InventoryServiceNew.addItemBox(InventoryServiceNew.java:807)
+	at com.girlkun.services.InventoryServiceNew.itemBagToBox(InventoryServiceNew.java:583)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:93)
+	at com.girlkun.server.Controller.onMessage(Controller.java:507)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

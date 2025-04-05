@@ -1,0 +1,211 @@
+================Err in Time: 03:31:47 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: sendPlayerMove
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.network.session.ISession.isConnected()" because "this.session" is null
+	at com.girlkun.network.io.Sender.sendMessage(Sender.java:65)
+	at com.girlkun.network.session.Session.sendMessage(Session.java:108)
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.Service.sendMessAllPlayerInMap(Service.java:705)
+	at com.girlkun.services.MapService.sendPlayerMove(MapService.java:305)
+	at com.girlkun.services.PlayerService.playerMove(PlayerService.java:168)
+	at com.girlkun.models.player.NewPet.followMaster(NewPet.java:104)
+	at com.girlkun.models.player.NewPet.followMaster(NewPet.java:90)
+	at com.girlkun.services.PlayerService.playerMove(PlayerService.java:163)
+	at com.girlkun.server.Controller.onMessage(Controller.java:369)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 03:31:47 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: chat
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.network.session.ISession.isConnected()" because "this.session" is null
+	at com.girlkun.network.io.Sender.sendMessage(Sender.java:65)
+	at com.girlkun.network.session.Session.sendMessage(Session.java:108)
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.Service.sendMessAllPlayerInMap(Service.java:705)
+	at com.girlkun.services.Service.chat(Service.java:1411)
+	at com.girlkun.models.boss.Boss.chat(Boss.java:645)
+	at com.girlkun.models.boss.Boss.chatE(Boss.java:509)
+	at com.girlkun.models.boss.Boss.update(Boss.java:263)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 03:31:47 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: sendPlayerMove
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "x" because "player.location" is null
+	at com.girlkun.services.MapService.sendPlayerMove(MapService.java:303)
+	at com.girlkun.services.PlayerService.playerMove(PlayerService.java:168)
+	at com.girlkun.server.Controller.onMessage(Controller.java:369)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 07:38:05 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: [SVIP] Super black GôTam
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1604)
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230)
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:632)
+	at com.girlkun.models.mob.Mob.getTiemNangForPlayer(Mob.java:218)
+	at com.girlkun.models.mob.Mob.injured(Mob.java:168)
+	at com.girlkun.services.SkillService.playerAttackMob(SkillService.java:1309)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:733)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.player.Thu_TrieuHoi.update(Thu_TrieuHoi.java:283)
+	at com.girlkun.models.player.Player.update(Player.java:398)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 11:38:48 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isBan()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:372)
+	at com.girlkun.models.player.Pet.DaoLu.DaoLu.update(DaoLu.java:148)
+	at com.girlkun.models.player.Player.update(Player.java:395)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 11:38:48 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isGoToGas()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:431)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 12:43:44 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.item.Item.getInfo(Item.java:47)
+	at com.girlkun.services.Service.showInfoPet(Service.java:2659)
+	at com.girlkun.server.Controller.onMessage(Controller.java:235)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 12:45:45 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isGoToGas()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:431)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:01:51 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.network.session.ISession.isConnected()" because "this.session" is null
+	at com.girlkun.network.io.Sender.sendMessage(Sender.java:65)
+	at com.girlkun.network.session.Session.sendMessage(Session.java:108)
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.Service.showInfoPet(Service.java:2716)
+	at com.girlkun.server.Controller.onMessage(Controller.java:235)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:51:14 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.network.session.ISession.isConnected()" because "this.session" is null
+	at com.girlkun.network.io.Sender.sendMessage(Sender.java:65)
+	at com.girlkun.network.session.Session.sendMessage(Session.java:108)
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.Service.showInfoPet(Service.java:2716)
+	at com.girlkun.server.Controller.onMessage(Controller.java:235)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:04:08 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:359)
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:333)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:563)
+	at com.girlkun.models.map.Zone.load_Me_To_Another(Zone.java:480)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:385)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:278)
+	at com.girlkun.models.boss.Boss.joinMapByZone(Boss.java:340)
+	at com.girlkun.models.boss.BossManager.callBoss(BossManager.java:748)
+	at com.girlkun.models.npc.NpcFactory$60.confirmMenu(NpcFactory.java:6465)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:58)
+	at com.girlkun.server.Controller.onMessage(Controller.java:563)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:35:17 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:359)
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:333)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:563)
+	at com.girlkun.models.map.Zone.load_Me_To_Another(Zone.java:480)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:385)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:278)
+	at com.girlkun.models.boss.Boss.joinMapByZone(Boss.java:340)
+	at com.girlkun.models.boss.BossManager.callBoss(BossManager.java:748)
+	at com.girlkun.models.npc.NpcFactory$60.confirmMenu(NpcFactory.java:6465)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:58)
+	at com.girlkun.server.Controller.onMessage(Controller.java:563)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

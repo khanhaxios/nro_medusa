@@ -1,0 +1,125 @@
+================Err in Time: 02:48:34 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: sendThongBaoOK
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:04:00 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: changeFlag
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2412)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:56)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:52:18 ========================
+Chú thích l?i g?p ph?i: L?i update map Làng Aru
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:01:48 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: sendThongBaoOK
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 15:58:26 ========================
+Chú thích l?i g?p ph?i: L?i save player null
+Có l?i t?i class: com.girlkun.jdbc.daos.PlayerDAO - t?i ph??ng th?c: updatePlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "mpg" because "player.nPoint" is null
+	at com.girlkun.jdbc.daos.PlayerDAO.updatePlayer(PlayerDAO.java:434)
+	at com.girlkun.server.Client.remove(Client.java:181)
+	at com.girlkun.server.Client.remove(Client.java:83)
+	at com.girlkun.server.Client.kickSession(Client.java:191)
+	at com.girlkun.server.ServerManager$2.sessionDisconnect(ServerManager.java:163)
+	at com.girlkun.network.io.Collector.run(Collector.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:58:26 ========================
+Có l?i t?i class: com.girlkun.server.io.MySession - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.map.Zone.load_Me_To_Another(com.girlkun.models.player.Player)" because "player.zone" is null
+	at com.girlkun.server.Controller.sendInfo(Controller.java:854)
+	at com.girlkun.server.io.MySession.login(MySession.java:216)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:647)
+	at com.girlkun.server.Controller.onMessage(Controller.java:613)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:58:26 ========================
+Có l?i t?i class: com.girlkun.server.io.MySession - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.map.Zone.load_Me_To_Another(com.girlkun.models.player.Player)" because "player.zone" is null
+	at com.girlkun.server.Controller.sendInfo(Controller.java:854)
+	at com.girlkun.server.io.MySession.login(MySession.java:216)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:647)
+	at com.girlkun.server.Controller.onMessage(Controller.java:613)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:58:26 ========================
+Chú thích l?i g?p ph?i: L?i save player null
+Có l?i t?i class: com.girlkun.jdbc.daos.PlayerDAO - t?i ph??ng th?c: updatePlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "isUseXiMuoi" because "player.itemTimesieucap" is null
+	at com.girlkun.jdbc.daos.PlayerDAO.updatePlayer(PlayerDAO.java:619)
+	at com.girlkun.server.Client.remove(Client.java:181)
+	at com.girlkun.server.Client.remove(Client.java:83)
+	at com.girlkun.server.Client.kickSession(Client.java:191)
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:135)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:647)
+	at com.girlkun.server.Controller.onMessage(Controller.java:613)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 17:52:22 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.network.session.ISession.isConnected()" because "this.session" is null
+	at com.girlkun.network.io.Sender.sendMessage(Sender.java:65)
+	at com.girlkun.network.session.Session.sendMessage(Session.java:108)
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.Service.showInfoPet(Service.java:2704)
+	at com.girlkun.server.Controller.onMessage(Controller.java:235)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

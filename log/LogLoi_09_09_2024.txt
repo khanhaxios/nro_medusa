@@ -1,0 +1,5674 @@
+================Err in Time: 00:52:49 ========================
+Chú thích l?i g?p ph?i: L?i update map Tây thánh ??a
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1604)
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230)
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:632)
+	at com.girlkun.models.mob.Mob.mobAttackPlayer(Mob.java:383)
+	at com.girlkun.models.mob.Mob.attackPlayer(Mob.java:298)
+	at com.girlkun.models.mob.Mob.update(Mob.java:267)
+	at com.girlkun.models.map.Zone.udMob(Zone.java:89)
+	at com.girlkun.models.map.Zone.update(Zone.java:114)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 08:35:32 ========================
+Có l?i t?i class: com.girlkun.services.func.UseItem - t?i ph??ng th?c: getItem
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index -2 out of bounds for length 70
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.services.InventoryServiceNew.itemBoxToBodyOrBag(InventoryServiceNew.java:533)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:89)
+	at com.girlkun.server.Controller.onMessage(Controller.java:509)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 11:28:39 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: loadById
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.get(int)" because "opt" is null
+	at com.girlkun.jdbc.daos.GodGK.loadById(GodGK.java:1869)
+	at com.girlkun.services.Service.showListTop(Service.java:591)
+	at com.girlkun.models.npc.NpcFactory$68.confirmMenu(NpcFactory.java:7240)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:563)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 11:40:48 ========================
+Có l?i t?i class: com.girlkun.server.io.MySession - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:40:48 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: ngocrong
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:40:49 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: player
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "taskMain" because "pl.playerTask" is null
+	at com.girlkun.services.Service.player(Service.java:1675)
+	at com.girlkun.server.Controller.messageNotMap(Controller.java:694)
+	at com.girlkun.server.Controller.onMessage(Controller.java:613)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 11:40:49 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: Send_Caitrang
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "isBienhinh" because "this.itemTimesieucap" is null
+	at com.girlkun.models.player.Player.getHead(Player.java:630)
+	at com.girlkun.services.Service.Send_Caitrang(Service.java:2074)
+	at com.girlkun.server.Controller.messageNotMap(Controller.java:695)
+	at com.girlkun.server.Controller.onMessage(Controller.java:613)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 11:40:49 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:40:50 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:40:51 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:40:52 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:40:53 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:40:54 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:40:55 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:40:56 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:40:57 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:40:58 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:40:59 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:00 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:01 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:02 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:03 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:04 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:05 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:06 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:07 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:08 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:09 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:10 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:11 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:12 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:13 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:14 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:15 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:16 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:17 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:18 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:19 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:20 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:21 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:22 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:23 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:24 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:25 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:26 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:27 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:28 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:29 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:30 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:31 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:32 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:33 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:34 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:35 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:36 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:37 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:38 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:39 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:40 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:41 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:42 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:43 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:44 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:45 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:46 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:47 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:48 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:49 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:50 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:51 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:52 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:53 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:54 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:55 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:56 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:57 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:58 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:41:59 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:00 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:01 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:02 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:03 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:04 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:05 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:06 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:07 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:08 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:09 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:10 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:11 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:12 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:13 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:14 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:15 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:16 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:17 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:18 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:19 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:20 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:21 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:22 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:23 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:24 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:25 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:26 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:27 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:28 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:29 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:30 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:31 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:32 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:33 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:34 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:35 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:36 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:37 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:38 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:39 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:40 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:41 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:42 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:43 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:44 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:45 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:46 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:47 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:48 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:49 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:50 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:51 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:52 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:53 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:54 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:55 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:56 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:57 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:58 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:42:59 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:00 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:01 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:02 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:03 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:04 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:06 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:07 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:08 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:09 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:10 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:11 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:12 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:13 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:14 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:15 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:16 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:17 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:18 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:19 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:20 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:21 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:22 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:23 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:24 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:25 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:26 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:27 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:28 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:29 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:30 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:31 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:32 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:33 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:34 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:35 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:36 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:37 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:38 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:39 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:40 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:41 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:42 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:43 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:44 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:45 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:46 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:47 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:48 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:49 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:50 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:51 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:52 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:53 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:54 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:55 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:56 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:57 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:58 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:43:59 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:00 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:01 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:02 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:03 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:04 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:05 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:06 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:07 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:08 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:09 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:10 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:11 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:12 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:13 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:14 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:15 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:16 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:17 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:18 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:19 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:20 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:21 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:22 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:23 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:24 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:25 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:26 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:27 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:28 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:29 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:30 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:31 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:32 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:33 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:34 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:35 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:36 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:37 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:38 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:39 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:40 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:41 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:42 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:43 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:44 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:45 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:46 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:47 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:48 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:49 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:50 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:51 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:52 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:53 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:54 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:55 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:56 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:57 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:58 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:44:59 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:00 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:01 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:02 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:03 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:04 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:05 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:06 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:07 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:08 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:09 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:10 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:11 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:12 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:13 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:14 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:15 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:16 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:17 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:18 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:19 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:20 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:21 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:22 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:23 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:24 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:25 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:26 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:27 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:28 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:29 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:30 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:31 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:32 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:33 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:34 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:35 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:36 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:37 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:38 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:39 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:40 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:41 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:42 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:43 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:44 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:45 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:46 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:47 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:48 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:49 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:50 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:51 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:52 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:53 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:54 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:55 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:56 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:57 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:58 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:45:59 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:00 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:01 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:02 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:03 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:04 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:05 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:06 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:07 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:08 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:09 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:10 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:11 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:12 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:13 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:14 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:15 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:16 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:17 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:18 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:19 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:20 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:21 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:22 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:23 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:24 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:25 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:26 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:27 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:28 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:29 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:30 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:31 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:32 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:33 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:34 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:35 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:36 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:37 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:38 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:39 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:40 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:41 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:42 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:43 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:44 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:45 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:46 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:47 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:48 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:49 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:50 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:51 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:52 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:53 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:54 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:55 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:56 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:57 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:58 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:46:59 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:00 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:01 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:02 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:03 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:04 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:05 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:06 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:07 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:08 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:09 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:10 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:11 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:12 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:13 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:14 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:15 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:16 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:17 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:18 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:19 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:20 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:21 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:22 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:23 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:24 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:25 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:26 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:27 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:28 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:29 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:30 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:31 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:32 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:33 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:34 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:35 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:36 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:37 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:38 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:39 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:40 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:41 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:42 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:43 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:44 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:45 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:46 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:47 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:48 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:49 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:50 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:51 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:52 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:53 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:54 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:55 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:56 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:57 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:58 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:47:59 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:00 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:01 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:02 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:03 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:04 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:05 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:06 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:07 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:08 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:09 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:10 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:11 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:12 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:13 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:14 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:15 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:16 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:17 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:18 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:19 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:20 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:21 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:22 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:23 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:24 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:25 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:26 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:27 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:28 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:29 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:30 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:31 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:32 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:33 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:34 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:35 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:36 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:37 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:38 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:39 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:40 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:41 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:42 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:43 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:44 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:45 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:46 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:47 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:48 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:49 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:50 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:51 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:52 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:53 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:54 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:55 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:56 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:57 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:58 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:48:59 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:00 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:01 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:02 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:03 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:04 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:05 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:06 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:07 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:08 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:09 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:10 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:11 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:12 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:13 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:14 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:15 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:16 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:17 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:18 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:19 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:20 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:21 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:22 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:23 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:24 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:25 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:26 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:27 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:28 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:29 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:30 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:31 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:33 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:33 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:34 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:35 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:36 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:37 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:38 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:39 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:40 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:41 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:42 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:43 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:44 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:45 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:46 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:47 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:48 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:49 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:50 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:51 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:52 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:53 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:54 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:55 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:56 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:57 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:58 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:49:59 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:00 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:01 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:02 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:03 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:04 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:05 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:06 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:07 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:08 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:09 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:10 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:11 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:12 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:13 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:14 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:15 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:16 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:17 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:18 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:19 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:20 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:21 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:22 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:23 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:24 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:25 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:26 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:27 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:28 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:29 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:30 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:31 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:32 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:33 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:34 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:35 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:36 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:37 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:38 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:39 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:40 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:41 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:42 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:50:43 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 14:14:49 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isGoToGas()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:431)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 14:33:36 ========================
+Có l?i t?i class: com.girlkun.server.Controller - t?i ph??ng th?c: messageNotLogin
+Chi ti?t l?i:
+java.io.EOFException
+	at java.base/java.io.DataInputStream.readFully(DataInputStream.java:203)
+	at java.base/java.io.DataInputStream.readUTF(DataInputStream.java:614)
+	at java.base/java.io.DataInputStream.readUTF(DataInputStream.java:570)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:40:14 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: [SVIP] banhbao
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.map.Zone.addPlayer(com.girlkun.models.player.Player)" because "player.zone" is null
+	at com.girlkun.services.func.ChangeMapService.goToMap(ChangeMapService.java:680)
+	at com.girlkun.models.player.NewPet.joinMapMaster(NewPet.java:51)
+	at com.girlkun.models.player.NewPet.update(NewPet.java:81)
+	at com.girlkun.models.player.Player.update(Player.java:392)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:58:09 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: [SVIP] orona
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.map.Zone.addPlayer(com.girlkun.models.player.Player)" because "player.zone" is null
+	at com.girlkun.services.func.ChangeMapService.goToMap(ChangeMapService.java:680)
+	at com.girlkun.models.player.NewPet.joinMapMaster(NewPet.java:51)
+	at com.girlkun.models.player.NewPet.update(NewPet.java:81)
+	at com.girlkun.models.player.Player.update(Player.java:392)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:37:40 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 18:39:58 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.item.Item.getInfo(Item.java:47)
+	at com.girlkun.services.Service.showInfoPet(Service.java:2649)
+	at com.girlkun.server.Controller.onMessage(Controller.java:235)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 19:47:36 ========================
+Có l?i t?i class: com.girlkun.server.Controller - t?i ph??ng th?c: messageNotLogin
+Chi ti?t l?i:
+java.io.UTFDataFormatException: malformed input around byte 14
+	at java.base/java.io.DataInputStream.readUTF(DataInputStream.java:661)
+	at java.base/java.io.DataInputStream.readUTF(DataInputStream.java:570)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:29:40 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:359)
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:333)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:563)
+	at com.girlkun.models.map.Zone.load_Me_To_Another(Zone.java:480)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:385)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:278)
+	at com.girlkun.models.boss.Boss.joinMapByZone(Boss.java:340)
+	at com.girlkun.models.boss.BossManager.callBoss(BossManager.java:748)
+	at com.girlkun.models.npc.NpcFactory$60.confirmMenu(NpcFactory.java:6553)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:563)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:35:51 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:359)
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:333)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:563)
+	at com.girlkun.models.map.Zone.load_Me_To_Another(Zone.java:480)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:385)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:278)
+	at com.girlkun.models.boss.Boss.joinMapByZone(Boss.java:340)
+	at com.girlkun.models.boss.BossManager.callBoss(BossManager.java:748)
+	at com.girlkun.models.npc.NpcFactory$60.confirmMenu(NpcFactory.java:6553)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:563)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:36:03 ========================
+Có l?i t?i class: com.girlkun.services.NpcService - t?i ph??ng th?c: createMenu
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:359)
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:333)
+	at com.girlkun.services.NpcService.createMenu(NpcService.java:53)
+	at com.girlkun.services.NpcService.createMenuSieuCap(NpcService.java:31)
+	at com.girlkun.services.func.SummonSieuCap.showConfirmSieuCap(SummonSieuCap.java:326)
+	at com.girlkun.models.npc.NpcFactory$74.confirmMenu(NpcFactory.java:7629)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:45)
+	at com.girlkun.server.Controller.onMessage(Controller.java:563)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:57:57 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: changeFlag
+Chi ti?t l?i:
+java.lang.ArrayIndexOutOfBoundsException: Index -1 out of bounds for length 12
+	at com.girlkun.services.Service.changeFlag(Service.java:2379)
+	at com.girlkun.services.Service.chooseFlag(Service.java:2443)
+	at com.girlkun.server.Controller.onMessage(Controller.java:353)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:39:40 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 21:39:40 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 22:21:55 ========================
+Chú thích l?i g?p ph?i: L?i update map Tây thánh ??a
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1604)
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230)
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:632)
+	at com.girlkun.models.mob.Mob.mobAttackPlayer(Mob.java:383)
+	at com.girlkun.models.mob.Mob.attackPlayer(Mob.java:298)
+	at com.girlkun.models.mob.Mob.update(Mob.java:267)
+	at com.girlkun.models.map.Zone.udMob(Zone.java:89)
+	at com.girlkun.models.map.Zone.update(Zone.java:114)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 23:47:09 ========================
+Chú thích l?i g?p ph?i: L?i update map ??i n?m tím
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================

@@ -1,0 +1,450 @@
+================Err in Time: 00:32:12 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: superkok99
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.map.Zone.addPlayer(com.girlkun.models.player.Player)" because "player.zone" is null
+	at com.girlkun.services.func.ChangeMapService.goToMap(ChangeMapService.java:680)
+	at com.girlkun.models.player.NewPet.joinMapMaster(NewPet.java:51)
+	at com.girlkun.models.player.NewPet.update(NewPet.java:81)
+	at com.girlkun.models.player.Player.update(Player.java:392)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 00:58:55 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:388)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 00:59:36 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:388)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 01:00:12 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:388)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 01:02:34 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:388)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 01:03:18 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:388)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 01:04:35 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:388)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 01:05:13 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:388)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 01:07:00 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:388)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 01:09:15 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:388)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 01:10:41 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:388)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 01:15:23 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:388)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 01:17:22 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:388)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 01:28:17 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isBan()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:372)
+	at com.girlkun.models.player.Pet.DaoLu.DaoLu.update(DaoLu.java:148)
+	at com.girlkun.models.player.Player.update(Player.java:395)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 01:28:17 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isGoToGas()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:431)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 05:40:01 ========================
+Có l?i t?i class: com.girlkun.server.Controller - t?i ph??ng th?c: messageNotLogin
+Chi ti?t l?i:
+java.io.EOFException
+	at java.base/java.io.DataInputStream.readFully(DataInputStream.java:203)
+	at java.base/java.io.DataInputStream.readUTF(DataInputStream.java:614)
+	at java.base/java.io.DataInputStream.readUTF(DataInputStream.java:570)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 08:42:47 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 08:42:47 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 11:34:48 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: [SVIP] C?n M?a Mèn Mén
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.map.Zone.addPlayer(com.girlkun.models.player.Player)" because "player.zone" is null
+	at com.girlkun.services.func.ChangeMapService.goToMap(ChangeMapService.java:680)
+	at com.girlkun.models.player.NewPet.joinMapMaster(NewPet.java:51)
+	at com.girlkun.models.player.NewPet.update(NewPet.java:81)
+	at com.girlkun.models.player.Player.update(Player.java:392)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 11:34:48 ========================
+Chú thích l?i g?p ph?i: L?i update map Vách núi ?en
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 3 out of bounds for length 3
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 12:15:07 ========================
+Có l?i t?i class: com.girlkun.services.NpcService - t?i ph??ng th?c: createMenu
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:359)
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:333)
+	at com.girlkun.services.NpcService.createMenu(NpcService.java:53)
+	at com.girlkun.services.NpcService.createMenuSieuCap(NpcService.java:31)
+	at com.girlkun.services.func.SummonSieuCap.showConfirmSieuCap(SummonSieuCap.java:326)
+	at com.girlkun.models.npc.NpcFactory$74.confirmMenu(NpcFactory.java:7629)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:45)
+	at com.girlkun.server.Controller.onMessage(Controller.java:563)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:56:12 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isGoToGas()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:431)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:43:37 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:359)
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:333)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:563)
+	at com.girlkun.models.map.Zone.load_Me_To_Another(Zone.java:480)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:385)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:278)
+	at com.girlkun.models.boss.Boss.joinMapByZone(Boss.java:340)
+	at com.girlkun.models.boss.BossManager.callBoss(BossManager.java:748)
+	at com.girlkun.models.npc.NpcFactory$60.confirmMenu(NpcFactory.java:6553)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:563)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:45:25 ========================
+Chú thích l?i g?p ph?i: L?i ban th??ng ng?c r?ng ?en 2 sao cho clan 3295
+Có l?i t?i class: com.girlkun.models.map.blackball.BlackBallWar - t?i ph??ng th?c: win
+Chi ti?t l?i:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.map.blackball.BlackBallWar.win(BlackBallWar.java:158)
+	at com.girlkun.models.map.blackball.BlackBallWar.update(BlackBallWar.java:128)
+	at com.girlkun.models.player.Player.update(Player.java:428)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:45:47 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:359)
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:333)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:563)
+	at com.girlkun.models.map.Zone.load_Me_To_Another(Zone.java:480)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:385)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:278)
+	at com.girlkun.models.boss.Boss.joinMapByZone(Boss.java:340)
+	at com.girlkun.models.boss.BossManager.callBoss(BossManager.java:748)
+	at com.girlkun.models.npc.NpcFactory$60.confirmMenu(NpcFactory.java:6553)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:563)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:45:57 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:359)
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:333)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:563)
+	at com.girlkun.models.map.Zone.load_Me_To_Another(Zone.java:480)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:385)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:278)
+	at com.girlkun.models.boss.Boss.joinMapByZone(Boss.java:340)
+	at com.girlkun.models.boss.BossManager.callBoss(BossManager.java:748)
+	at com.girlkun.models.npc.NpcFactory$60.confirmMenu(NpcFactory.java:6553)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:563)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:46:13 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:359)
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:333)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:563)
+	at com.girlkun.models.map.Zone.load_Me_To_Another(Zone.java:480)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:385)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:278)
+	at com.girlkun.models.boss.Boss.joinMapByZone(Boss.java:340)
+	at com.girlkun.models.boss.BossManager.callBoss(BossManager.java:748)
+	at com.girlkun.models.npc.NpcFactory$60.confirmMenu(NpcFactory.java:6553)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:563)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:46:17 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 20:46:32 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:24:14 ========================
+Chú thích l?i g?p ph?i: L?i update map Map Vip 2
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

@@ -1,0 +1,101 @@
+================Err in Time: 11:08:25 ========================
+Chú thích l?i g?p ph?i: L?i update map Vách núi ?en
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 2 out of bounds for length 2
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 12:19:06 ========================
+Chú thích l?i g?p ph?i: L?i init boss
+Có l?i t?i class: com.girlkun.models.map.gas.GasService - t?i ph??ng th?c: openKhiGas
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "khiGas" because "player.clan" is null
+	at com.girlkun.models.map.gas.GasService.openKhiGas(GasService.java:102)
+	at com.girlkun.models.npc.NpcFactory$2.confirmMenu(NpcFactory.java:255)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:560)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 12:25:37 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.network.session.ISession.isConnected()" because "this.session" is null
+	at com.girlkun.network.io.Sender.sendMessage(Sender.java:65)
+	at com.girlkun.network.session.Session.sendMessage(Session.java:108)
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.Service.showInfoPet(Service.java:2704)
+	at com.girlkun.server.Controller.onMessage(Controller.java:235)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 12:25:37 ========================
+Chú thích l?i g?p ph?i: L?i update map Vách núi ?en
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.network.session.ISession.isConnected()" because "this.session" is null
+	at com.girlkun.network.io.Sender.sendMessage(Sender.java:65)
+	at com.girlkun.network.session.Session.sendMessage(Session.java:108)
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.models.mob.Mob.sendMobAttackMe(Mob.java:410)
+	at com.girlkun.models.mob.Mob.mobAttackPlayer(Mob.java:397)
+	at com.girlkun.models.mob.Mob.attackPlayer(Mob.java:300)
+	at com.girlkun.models.mob.Mob.update(Mob.java:269)
+	at com.girlkun.models.map.Zone.udMob(Zone.java:89)
+	at com.girlkun.models.map.Zone.update(Zone.java:114)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 17:15:33 ========================
+Chú thích l?i g?p ph?i: L?i update map Vách núi ?en
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 2 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 17:50:32 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.network.session.ISession.isConnected()" because "this.session" is null
+	at com.girlkun.network.io.Sender.sendMessage(Sender.java:65)
+	at com.girlkun.network.session.Session.sendMessage(Session.java:108)
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.Service.showInfoPet(Service.java:2704)
+	at com.girlkun.server.Controller.onMessage(Controller.java:235)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

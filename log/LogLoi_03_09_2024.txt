@@ -1,0 +1,371 @@
+================Err in Time: 07:48:22 ========================
+Chú thích lỗi gặp phải: Lỗi update map Vách núi đen
+Có lỗi tại class: com.girlkun.models.map.Map - tại phương thức: run
+Chi tiết lỗi:
+java.lang.IndexOutOfBoundsException: Index 2 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:01:59 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:01:59 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:01:59 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:01:59 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:01:59 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:01:59 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:11:38 ========================
+Chú thích lỗi gặp phải: Lỗi update map Map Vip 2
+Có lỗi tại class: com.girlkun.models.map.Map - tại phương thức: run
+Chi tiết lỗi:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:15:00 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isGoToGas()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:431)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 16:58:37 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 17:37:14 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 17:37:14 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:00:34 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isGoToGas()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:431)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:37:02 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isGoToGas()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:431)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:37:02 ========================
+Chú thích lỗi gặp phải: Lỗi update map Nam thánh Địa
+Có lỗi tại class: com.girlkun.models.map.Map - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.server.io.MySession.sendMessage(com.girlkun.network.io.Message)" because "this.session" is null
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.Service.sendMessAllPlayerInMap(Service.java:679)
+	at com.girlkun.models.mob.Mob.sendMobHoiSinh(Mob.java:450)
+	at com.girlkun.models.mob.Mob.update(Mob.java:264)
+	at com.girlkun.models.map.Zone.udMob(Zone.java:89)
+	at com.girlkun.models.map.Zone.update(Zone.java:114)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:37:02 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: InfoPetGoc
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.server.io.MySession.sendMessage(com.girlkun.network.io.Message)" because "this.session" is null
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.Service.InfoPetGoc(Service.java:2540)
+	at com.girlkun.server.Controller.onMessage(Controller.java:252)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:37:02 ========================
+Có lỗi tại class: com.girlkun.services.PlayerService - tại phương thức: sendInfoHp
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.server.io.MySession.sendMessage(com.girlkun.network.io.Message)" because "this.session" is null
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.PlayerService.sendInfoHp(PlayerService.java:64)
+	at com.girlkun.services.PlayerService.sendInfoHpMp(PlayerService.java:84)
+	at com.girlkun.services.PlayerService.hoiPhuc(PlayerService.java:94)
+	at com.girlkun.services.SkillService.hutHPMP(SkillService.java:1158)
+	at com.girlkun.services.SkillService.playerAttackMob(SkillService.java:1307)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:733)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.services.Service.attackMob(Service.java:2057)
+	at com.girlkun.server.Controller.onMessage(Controller.java:590)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:37:02 ========================
+Có lỗi tại class: com.girlkun.services.PlayerService - tại phương thức: sendInfoMp
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "mp" because "player.nPoint" is null
+	at com.girlkun.services.PlayerService.sendInfoMp(PlayerService.java:75)
+	at com.girlkun.services.PlayerService.sendInfoHpMp(PlayerService.java:85)
+	at com.girlkun.services.PlayerService.hoiPhuc(PlayerService.java:94)
+	at com.girlkun.services.SkillService.hutHPMP(SkillService.java:1158)
+	at com.girlkun.services.SkillService.playerAttackMob(SkillService.java:1307)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:733)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.services.Service.attackMob(Service.java:2057)
+	at com.girlkun.server.Controller.onMessage(Controller.java:590)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:44:36 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: [SVIP] Super black GôTam
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.map.Zone.addPlayer(com.girlkun.models.player.Player)" because "player.zone" is null
+	at com.girlkun.services.func.ChangeMapService.goToMap(ChangeMapService.java:680)
+	at com.girlkun.models.player.NewPet.joinMapMaster(NewPet.java:51)
+	at com.girlkun.models.player.NewPet.update(NewPet.java:81)
+	at com.girlkun.models.player.Player.update(Player.java:392)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:45:51 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:58:40 ========================
+Có lỗi tại class: com.girlkun.services.func.UseItem - tại phương thức: getItem
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "isUpToUp" because "itemAdd.template" is null
+	at com.girlkun.services.InventoryServiceNew.addItemList(InventoryServiceNew.java:830)
+	at com.girlkun.services.InventoryServiceNew.addItemBox(InventoryServiceNew.java:807)
+	at com.girlkun.services.InventoryServiceNew.itemBagToBox(InventoryServiceNew.java:583)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:93)
+	at com.girlkun.server.Controller.onMessage(Controller.java:509)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:59:00 ========================
+Có lỗi tại class: com.girlkun.services.func.UseItem - tại phương thức: getItem
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "isUpToUp" because "itemAdd.template" is null
+	at com.girlkun.services.InventoryServiceNew.addItemList(InventoryServiceNew.java:830)
+	at com.girlkun.services.InventoryServiceNew.addItemBox(InventoryServiceNew.java:807)
+	at com.girlkun.services.InventoryServiceNew.itemBagToBox(InventoryServiceNew.java:583)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:93)
+	at com.girlkun.server.Controller.onMessage(Controller.java:509)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:00:37 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isGoToGas()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:431)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:47:10 ========================
+Có lỗi tại class: com.girlkun.server.io.MySession - tại phương thức: login
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.Player.dispose()" because "player" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:931)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 23:16:07 ========================
+C� l?i t?i class: com.girlkun.server.Controller - t?i ph??ng th?c: messageNotLogin
+Chi ti?t l?i:
+java.io.UTFDataFormatException: malformed input around byte 6
+	at java.base/java.io.DataInputStream.readUTF(DataInputStream.java:661)
+	at java.base/java.io.DataInputStream.readUTF(DataInputStream.java:570)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

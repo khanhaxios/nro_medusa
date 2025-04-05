@@ -1,0 +1,163 @@
+================Err in Time: 05:01:52 ========================
+C� l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: sendPlayerMove
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 06:00:07 ========================
+Ch� th�ch l?i g?p ph?i: L?i update map Map Vip 2
+C� l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:03:24 ========================
+Ch� th�ch l?i g?p ph?i: L?i save player null
+C� l?i t?i class: com.girlkun.jdbc.daos.PlayerDAO - t?i ph??ng th?c: updatePlayer
+Chi ti?t l?i:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.jdbc.daos.PlayerDAO.updatePlayer(PlayerDAO.java:461)
+	at com.girlkun.server.Client.remove(Client.java:181)
+	at com.girlkun.server.Client.remove(Client.java:83)
+	at com.girlkun.server.Client.kickSession(Client.java:191)
+	at com.girlkun.server.ServerManager$2.sessionDisconnect(ServerManager.java:163)
+	at com.girlkun.network.io.Collector.run(Collector.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:56:51 ========================
+Chú thích lỗi gặp phải: Lỗi save player [SVIP] Thị Mẹt
+Có lỗi tại class: com.girlkun.jdbc.daos.PlayerDAO - tại phương thức: updatePlayer
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "x" because "player.location" is null
+	at com.girlkun.jdbc.daos.PlayerDAO.updatePlayer(PlayerDAO.java:397)
+	at com.girlkun.server.Client.remove(Client.java:181)
+	at com.girlkun.server.Client.remove(Client.java:83)
+	at com.girlkun.server.Client.kickSession(Client.java:191)
+	at com.girlkun.server.ServerManager$2.sessionDisconnect(ServerManager.java:163)
+	at com.girlkun.network.io.Collector.run(Collector.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:50:40 ========================
+Chú thích lỗi gặp phải: Lỗi init boss
+Có lỗi tại class: com.girlkun.models.map.gas.GasService - tại phương thức: openKhiGas
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "khiGas" because "player.clan" is null
+	at com.girlkun.models.map.gas.GasService.openKhiGas(GasService.java:102)
+	at com.girlkun.models.npc.NpcFactory$2.confirmMenu(NpcFactory.java:255)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:560)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:03:26 ========================
+Chú thích lỗi gặp phải: Lỗi init boss
+Có lỗi tại class: com.girlkun.models.map.gas.GasService - tại phương thức: openKhiGas
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "khiGas" because "player.clan" is null
+	at com.girlkun.models.map.gas.GasService.openKhiGas(GasService.java:102)
+	at com.girlkun.models.npc.NpcFactory$2.confirmMenu(NpcFactory.java:255)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:560)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:03:26 ========================
+Chú thích lỗi gặp phải: Lỗi init boss
+Có lỗi tại class: com.girlkun.models.map.gas.GasService - tại phương thức: openKhiGas
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "khiGas" because "player.clan" is null
+	at com.girlkun.models.map.gas.GasService.openKhiGas(GasService.java:102)
+	at com.girlkun.models.npc.NpcFactory$2.confirmMenu(NpcFactory.java:255)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:560)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:59:53 ========================
+Chú thích lỗi gặp phải: Lỗi update map Tây thánh địa
+Có lỗi tại class: com.girlkun.models.map.Map - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.network.session.ISession.isConnected()" because "this.session" is null
+	at com.girlkun.network.io.Sender.sendMessage(Sender.java:65)
+	at com.girlkun.network.session.Session.sendMessage(Session.java:108)
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.Service.sendMessAllPlayerInMap(Service.java:677)
+	at com.girlkun.models.mob.Mob.sendMobHoiSinh(Mob.java:450)
+	at com.girlkun.models.mob.Mob.update(Mob.java:264)
+	at com.girlkun.models.map.Zone.udMob(Zone.java:89)
+	at com.girlkun.models.map.Zone.update(Zone.java:114)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 23:54:22 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2412)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:56)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 23:56:01 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2412)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:56)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 23:56:01 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2412)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:56)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

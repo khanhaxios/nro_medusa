@@ -1,0 +1,1733 @@
+================Err in Time: 02:37:05 ========================
+C� l?i t?i class: com.girlkun.services.func.UseItem - t?i ph??ng th?c: getItem
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index -2 out of bounds for length 60
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.services.InventoryServiceNew.itemBoxToBodyOrBag(InventoryServiceNew.java:533)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:89)
+	at com.girlkun.server.Controller.onMessage(Controller.java:507)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:37:23 ========================
+Có lỗi tại class: com.girlkun.server.io.MySession - tại phương thức: login
+Chi tiết lỗi:
+java.lang.IndexOutOfBoundsException: Index 8 out of bounds for length 8
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.player.SetClothes.setupDeoLung(SetClothes.java:466)
+	at com.girlkun.models.player.SetClothes.setup(SetClothes.java:76)
+	at com.girlkun.server.Controller.sendInfo(Controller.java:864)
+	at com.girlkun.server.io.MySession.login(MySession.java:216)
+	at com.girlkun.server.ServerManager.run(ServerManager.java:135)
+	at com.girlkun.server.ServerManager.main(ServerManager.java:74)
+
+
+
+================================================================
+================Err in Time: 10:37:23 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isBan()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:372)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:37:24 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isBan()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:372)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:37:25 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isBan()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:372)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:37:26 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isBan()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:372)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:37:27 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isBan()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:372)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:37:28 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:29 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:30 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:31 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:32 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:33 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:34 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:35 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:36 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:37 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:38 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:39 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:40 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:41 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:42 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:43 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:44 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:45 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:46 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:47 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:48 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:49 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:50 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:51 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:52 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:53 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:54 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:55 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:56 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:57 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:58 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:37:59 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:00 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:01 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:02 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:03 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:04 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:05 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:06 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:07 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:08 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:09 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:10 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:11 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:12 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:13 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:14 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:15 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:16 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:17 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:18 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:19 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:20 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:21 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:22 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:22 ========================
+Có lỗi tại class: com.girlkun.server.io.MySession - tại phương thức: login
+Chi tiết lỗi:
+java.lang.IndexOutOfBoundsException: Index 8 out of bounds for length 8
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.player.SetClothes.setupDeoLung(SetClothes.java:466)
+	at com.girlkun.models.player.SetClothes.setup(SetClothes.java:76)
+	at com.girlkun.server.Controller.sendInfo(Controller.java:864)
+	at com.girlkun.server.io.MySession.login(MySession.java:216)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:648)
+	at com.girlkun.server.Controller.onMessage(Controller.java:614)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:38:23 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:23 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:23 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: player
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "taskMain" because "pl.playerTask" is null
+	at com.girlkun.services.Service.player(Service.java:1673)
+	at com.girlkun.server.Controller.messageNotMap(Controller.java:692)
+	at com.girlkun.server.Controller.onMessage(Controller.java:611)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:38:23 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: Send_Caitrang
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "isBienhinh" because "this.itemTimesieucap" is null
+	at com.girlkun.models.player.Player.getHead(Player.java:630)
+	at com.girlkun.services.Service.Send_Caitrang(Service.java:2072)
+	at com.girlkun.server.Controller.messageNotMap(Controller.java:693)
+	at com.girlkun.server.Controller.onMessage(Controller.java:611)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:38:24 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:24 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:25 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:25 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:26 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:26 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:27 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:27 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:28 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:28 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:29 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:29 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:30 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:30 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:31 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:31 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:32 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:32 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:33 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:38:33 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: null
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 13:37:57 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:37:57 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:37:58 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:37:58 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:37:58 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:37:58 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:37:58 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:37:59 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:37:59 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:37:59 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:38:00 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:38:00 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:38:00 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:38:00 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:38:00 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:38:01 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:38:01 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:38:01 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:38:01 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.injured(MaTroiHong.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.attack(MaTroiHong.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiHong.update(MaTroiHong.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:48 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:49 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:49 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:49 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:49 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:49 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:49 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:50 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:50 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:50 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:50 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:50 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:51 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:51 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:52 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:52 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:52 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:52 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:52 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:53 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:53 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:53 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:54 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:39:54 ========================
+C� l?i t?i class: com.girlkun.services.SkillService - t?i ph??ng th?c: phanSatThuong
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "setClothes" because "plAtt" is null
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.injured(MaTroiXanh.java:126)
+	at com.girlkun.services.SkillService.phanSatThuong(SkillService.java:1138)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1167)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.attack(MaTroiXanh.java:106)
+	at com.girlkun.models.boss.Boss.active(Boss.java:417)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh.update(MaTroiXanh.java:71)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:769)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:40:42 ========================
+Ch� th�ch l?i g?p ph?i: L?i t?o player m?i
+C� l?i t?i class: com.girlkun.jdbc.daos.PlayerDAO - t?i ph??ng th?c: createNewPlayer
+Chi ti?t l?i:
+com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '14764' for key 'account_id'
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.Util.getInstance(Util.java:386)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1040)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4120)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4052)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2503)
+	at com.mysql.jdbc.ServerPreparedStatement.serverExecute(ServerPreparedStatement.java:1399)
+	at com.mysql.jdbc.ServerPreparedStatement.executeInternal(ServerPreparedStatement.java:857)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2458)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2375)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2359)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)
+	at com.girlkun.database.GirlkunDB.executeUpdate(GirlkunDB.java:194)
+	at com.girlkun.jdbc.daos.PlayerDAO.createNewPlayer(PlayerDAO.java:352)
+	at com.girlkun.server.Controller.createChar(Controller.java:792)
+	at com.girlkun.server.Controller.messageNotMap(Controller.java:674)
+	at com.girlkun.server.Controller.onMessage(Controller.java:610)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:41:05 ========================
+Ch� th�ch l?i g?p ph?i: L?i t?o player m?i
+C� l?i t?i class: com.girlkun.jdbc.daos.PlayerDAO - t?i ph??ng th?c: createNewPlayer
+Chi ti?t l?i:
+com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '14764' for key 'account_id'
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.Util.getInstance(Util.java:386)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1040)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4120)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4052)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2503)
+	at com.mysql.jdbc.ServerPreparedStatement.serverExecute(ServerPreparedStatement.java:1399)
+	at com.mysql.jdbc.ServerPreparedStatement.executeInternal(ServerPreparedStatement.java:857)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2458)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2375)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2359)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)
+	at com.girlkun.database.GirlkunDB.executeUpdate(GirlkunDB.java:194)
+	at com.girlkun.jdbc.daos.PlayerDAO.createNewPlayer(PlayerDAO.java:352)
+	at com.girlkun.server.Controller.createChar(Controller.java:792)
+	at com.girlkun.server.Controller.messageNotMap(Controller.java:674)
+	at com.girlkun.server.Controller.onMessage(Controller.java:610)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

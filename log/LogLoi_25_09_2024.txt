@@ -1,0 +1,14 @@
+================Err in Time: 08:43:22 ========================
+Chú thích l?i g?p ph?i: Loi UDB Usopp
+Có l?i t?i class: com.girlkun.models.boss.BossManager - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read the array length because "<local3>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Usopp.wakeupAnotherBossWhenDisappear(Usopp.java:102)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:549)
+	at com.girlkun.models.boss.Boss.update(Boss.java:271)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:774)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

@@ -1,0 +1,118 @@
+================Err in Time: 05:34:27 ========================
+Chú thích l?i g?p ph?i: Loi UDB Usopp
+Có l?i t?i class: com.girlkun.models.boss.BossManager - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read the array length because "<local3>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Usopp.wakeupAnotherBossWhenDisappear(Usopp.java:102)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:549)
+	at com.girlkun.models.boss.Boss.update(Boss.java:271)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:774)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:45:45 ========================
+Chú thích l?i g?p ph?i: L?i update map Vách núi ?en
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 6 out of bounds for length 5
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 12:07:49 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.isGoToGas()" because "this.iDMark" is null
+	at com.girlkun.models.player.Player.update(Player.java:431)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:04:49 ========================
+Chú thích l?i g?p ph?i: Loi UDB Usopp
+Có l?i t?i class: com.girlkun.models.boss.BossManager - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read the array length because "<local3>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Usopp.wakeupAnotherBossWhenDisappear(Usopp.java:102)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:549)
+	at com.girlkun.models.boss.Boss.update(Boss.java:271)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:774)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 16:19:20 ========================
+Chú thích l?i g?p ph?i: Loi UDB Usopp
+Có l?i t?i class: com.girlkun.models.boss.BossManager - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read the array length because "<local3>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Usopp.wakeupAnotherBossWhenDisappear(Usopp.java:102)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:549)
+	at com.girlkun.models.boss.Boss.update(Boss.java:271)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:774)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 19:51:22 ========================
+Có l?i t?i class: com.girlkun.services.NpcService - t?i ph??ng th?c: createMenu
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "String.length()" because "str" is null
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:359)
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:333)
+	at com.girlkun.services.NpcService.createMenu(NpcService.java:53)
+	at com.girlkun.services.NpcService.createMenuRongThieng(NpcService.java:24)
+	at com.girlkun.services.func.SummonDragon.showConfirmShenron(SummonDragon.java:583)
+	at com.girlkun.models.npc.NpcFactory$72.confirmMenu(NpcFactory.java:7630)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:48)
+	at com.girlkun.server.Controller.onMessage(Controller.java:563)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:08:50 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 20:08:50 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 20:18:46 ========================
+Chú thích l?i g?p ph?i: L?i t?i player: null
+Có l?i t?i class: com.girlkun.models.player.Player - t?i ph??ng th?c: update
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================

@@ -1,0 +1,131 @@
+================Err in Time: 04:15:17 ========================
+Chú thích lỗi gặp phải: Lỗi update map Map Vip 2
+Có lỗi tại class: com.girlkun.models.map.Map - tại phương thức: run
+Chi tiết lỗi:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:12:18 ========================
+Có lỗi tại class: com.girlkun.services.func.UseItem - tại phương thức: getItem
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "isUpToUp" because "itemAdd.template" is null
+	at com.girlkun.services.InventoryServiceNew.addItemList(InventoryServiceNew.java:830)
+	at com.girlkun.services.InventoryServiceNew.addItemBox(InventoryServiceNew.java:807)
+	at com.girlkun.services.InventoryServiceNew.itemBagToBox(InventoryServiceNew.java:583)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:93)
+	at com.girlkun.server.Controller.onMessage(Controller.java:506)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:31:15 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: [SVIP] shiba1k
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "map" because "player.zone" is null
+	at com.girlkun.models.map.bdkb.BanDoKhoBauService.kickOutOfBDKB(BanDoKhoBauService.java:90)
+	at com.girlkun.models.map.bdkb.BanDoKhoBauService.ketthucbdkb(BanDoKhoBauService.java:100)
+	at com.girlkun.models.map.bdkb.BanDoKhoBauService.update(BanDoKhoBauService.java:63)
+	at com.girlkun.models.player.Player.update(Player.java:426)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:48:08 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: [SVIP] shiba1k
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "map" because "player.zone" is null
+	at com.girlkun.models.map.bdkb.BanDoKhoBauService.kickOutOfBDKB(BanDoKhoBauService.java:90)
+	at com.girlkun.models.map.bdkb.BanDoKhoBauService.ketthucbdkb(BanDoKhoBauService.java:100)
+	at com.girlkun.models.map.bdkb.BanDoKhoBauService.update(BanDoKhoBauService.java:63)
+	at com.girlkun.models.player.Player.update(Player.java:426)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:52:54 ========================
+Có lỗi tại class: com.girlkun.jdbc.daos.GodGK - tại phương thức: loadById
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.get(int)" because "dataItem" is null
+	at com.girlkun.jdbc.daos.GodGK.loadById(GodGK.java:1554)
+	at com.girlkun.services.Service.showListTop(Service.java:603)
+	at com.girlkun.models.npc.NpcFactory$68.confirmMenu(NpcFactory.java:7155)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:560)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 19:57:09 ========================
+Chú thích lỗi gặp phải: Lỗi update map Map Vip 2
+Có lỗi tại class: com.girlkun.models.map.Map - tại phương thức: run
+Chi tiết lỗi:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:35:01 ========================
+Chú thích lỗi gặp phải: Lỗi ban thưởng ngọc rồng đen 1 sao cho clan 978
+Có lỗi tại class: com.girlkun.models.map.blackball.BlackBallWar - tại phương thức: win
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.RewardBlackBall.reward(byte)" because "pl.rewardBlackBall" is null
+	at com.girlkun.models.map.blackball.BlackBallWar.win(BlackBallWar.java:160)
+	at com.girlkun.models.map.blackball.BlackBallWar.update(BlackBallWar.java:128)
+	at com.girlkun.models.player.Player.update(Player.java:428)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:46:58 ========================
+Có lỗi tại class: com.girlkun.jdbc.daos.GodGK - tại phương thức: loadById
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.loadById(GodGK.java:1576)
+	at com.girlkun.services.Service.showListTop(Service.java:603)
+	at com.girlkun.models.npc.NpcFactory$68.confirmMenu(NpcFactory.java:7155)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:560)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

@@ -1,0 +1,84 @@
+================Err in Time: 13:19:39 ========================
+Có l?i t?i class: com.girlkun.services.func.UseItem - t?i ph??ng th?c: getItem
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index -13 out of bounds for length 120
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.services.InventoryServiceNew.itemBagToBody(InventoryServiceNew.java:402)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:99)
+	at com.girlkun.server.Controller.onMessage(Controller.java:507)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:12:10 ========================
+Chú thích l?i g?p ph?i: L?i update map Map Vip 2
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:44:54 ========================
+Chú thích l?i g?p ph?i: L?i update map Map Vip 2
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 19:39:09 ========================
+Có l?i t?i class: com.girlkun.services.func.UseItem - t?i ph??ng th?c: getItem
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "isUpToUp" because "itemAdd.template" is null
+	at com.girlkun.services.InventoryServiceNew.addItemList(InventoryServiceNew.java:830)
+	at com.girlkun.services.InventoryServiceNew.addItemBox(InventoryServiceNew.java:807)
+	at com.girlkun.services.InventoryServiceNew.itemBagToBox(InventoryServiceNew.java:583)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:93)
+	at com.girlkun.server.Controller.onMessage(Controller.java:507)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:21:47 ========================
+Có l?i t?i class: com.girlkun.services.func.UseItem - t?i ph??ng th?c: getItem
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "isUpToUp" because "itemAdd.template" is null
+	at com.girlkun.services.InventoryServiceNew.addItemList(InventoryServiceNew.java:830)
+	at com.girlkun.services.InventoryServiceNew.addItemBox(InventoryServiceNew.java:807)
+	at com.girlkun.services.InventoryServiceNew.itemBagToBox(InventoryServiceNew.java:583)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:93)
+	at com.girlkun.server.Controller.onMessage(Controller.java:507)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

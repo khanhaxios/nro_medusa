@@ -1,0 +1,189 @@
+================Err in Time: 07:54:45 ========================
+Có l?i t?i class: com.girlkun.server.io.MySession - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "pointCapCanhGioi" because "this.player.petDaoLu" is null
+	at com.girlkun.models.player.NPoint.setHpMax(NPoint.java:999)
+	at com.girlkun.models.player.NPoint.setBasePoint(NPoint.java:708)
+	at com.girlkun.models.player.NPoint.setPointWhenWearClothes(NPoint.java:675)
+	at com.girlkun.models.player.NPoint.calPoint(NPoint.java:181)
+	at com.girlkun.server.io.MySession.login(MySession.java:195)
+	at com.girlkun.server.ServerManager.run(ServerManager.java:135)
+	at com.girlkun.server.ServerManager.main(ServerManager.java:74)
+
+
+
+================================================================
+================Err in Time: 07:55:11 ========================
+Có l?i t?i class: com.girlkun.server.io.MySession - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "pointCapCanhGioi" because "this.player.petDaoLu" is null
+	at com.girlkun.models.player.NPoint.setHpMax(NPoint.java:999)
+	at com.girlkun.models.player.NPoint.setBasePoint(NPoint.java:708)
+	at com.girlkun.models.player.NPoint.setPointWhenWearClothes(NPoint.java:675)
+	at com.girlkun.models.player.NPoint.calPoint(NPoint.java:181)
+	at com.girlkun.server.io.MySession.login(MySession.java:195)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:648)
+	at com.girlkun.server.Controller.onMessage(Controller.java:614)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 07:55:16 ========================
+Có l?i t?i class: com.girlkun.server.io.MySession - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "pointCapCanhGioi" because "this.player.petDaoLu" is null
+	at com.girlkun.models.player.NPoint.setHpMax(NPoint.java:999)
+	at com.girlkun.models.player.NPoint.setBasePoint(NPoint.java:708)
+	at com.girlkun.models.player.NPoint.setPointWhenWearClothes(NPoint.java:675)
+	at com.girlkun.models.player.NPoint.calPoint(NPoint.java:181)
+	at com.girlkun.server.io.MySession.login(MySession.java:195)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:648)
+	at com.girlkun.server.Controller.onMessage(Controller.java:614)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 07:55:25 ========================
+Có l?i t?i class: com.girlkun.server.io.MySession - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "pointCapCanhGioi" because "this.player.petDaoLu" is null
+	at com.girlkun.models.player.NPoint.setHpMax(NPoint.java:999)
+	at com.girlkun.models.player.NPoint.setBasePoint(NPoint.java:708)
+	at com.girlkun.models.player.NPoint.setPointWhenWearClothes(NPoint.java:675)
+	at com.girlkun.models.player.NPoint.calPoint(NPoint.java:181)
+	at com.girlkun.server.io.MySession.login(MySession.java:195)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:648)
+	at com.girlkun.server.Controller.onMessage(Controller.java:614)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 07:55:25 ========================
+Có l?i t?i class: com.girlkun.server.io.MySession - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "pointCapCanhGioi" because "this.player.petDaoLu" is null
+	at com.girlkun.models.player.NPoint.setHpMax(NPoint.java:999)
+	at com.girlkun.models.player.NPoint.setBasePoint(NPoint.java:708)
+	at com.girlkun.models.player.NPoint.setPointWhenWearClothes(NPoint.java:675)
+	at com.girlkun.models.player.NPoint.calPoint(NPoint.java:181)
+	at com.girlkun.server.io.MySession.login(MySession.java:195)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:648)
+	at com.girlkun.server.Controller.onMessage(Controller.java:614)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 07:55:26 ========================
+Có l?i t?i class: com.girlkun.server.io.MySession - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "pointCapCanhGioi" because "this.player.petDaoLu" is null
+	at com.girlkun.models.player.NPoint.setHpMax(NPoint.java:999)
+	at com.girlkun.models.player.NPoint.setBasePoint(NPoint.java:708)
+	at com.girlkun.models.player.NPoint.setPointWhenWearClothes(NPoint.java:675)
+	at com.girlkun.models.player.NPoint.calPoint(NPoint.java:181)
+	at com.girlkun.server.io.MySession.login(MySession.java:195)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:648)
+	at com.girlkun.server.Controller.onMessage(Controller.java:614)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 07:55:27 ========================
+Có l?i t?i class: com.girlkun.server.io.MySession - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "pointCapCanhGioi" because "this.player.petDaoLu" is null
+	at com.girlkun.models.player.NPoint.setHpMax(NPoint.java:999)
+	at com.girlkun.models.player.NPoint.setBasePoint(NPoint.java:708)
+	at com.girlkun.models.player.NPoint.setPointWhenWearClothes(NPoint.java:675)
+	at com.girlkun.models.player.NPoint.calPoint(NPoint.java:181)
+	at com.girlkun.server.io.MySession.login(MySession.java:195)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:648)
+	at com.girlkun.server.Controller.onMessage(Controller.java:614)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 07:58:09 ========================
+Có l?i t?i class: com.girlkun.server.io.MySession - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "pointCapCanhGioi" because "this.player.petDaoLu" is null
+	at com.girlkun.models.player.NPoint.setHpMax(NPoint.java:999)
+	at com.girlkun.models.player.NPoint.setBasePoint(NPoint.java:708)
+	at com.girlkun.models.player.NPoint.setPointWhenWearClothes(NPoint.java:675)
+	at com.girlkun.models.player.NPoint.calPoint(NPoint.java:181)
+	at com.girlkun.server.io.MySession.login(MySession.java:195)
+	at com.girlkun.server.ServerManager.run(ServerManager.java:135)
+	at com.girlkun.server.ServerManager.main(ServerManager.java:74)
+
+
+
+================================================================
+================Err in Time: 07:58:19 ========================
+Có l?i t?i class: com.girlkun.server.io.MySession - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "pointCapCanhGioi" because "this.player.petDaoLu" is null
+	at com.girlkun.models.player.NPoint.setHpMax(NPoint.java:999)
+	at com.girlkun.models.player.NPoint.setBasePoint(NPoint.java:708)
+	at com.girlkun.models.player.NPoint.setPointWhenWearClothes(NPoint.java:675)
+	at com.girlkun.models.player.NPoint.calPoint(NPoint.java:181)
+	at com.girlkun.server.io.MySession.login(MySession.java:195)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:648)
+	at com.girlkun.server.Controller.onMessage(Controller.java:614)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 14:23:29 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: chat
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.network.session.ISession.isConnected()" because "this.session" is null
+	at com.girlkun.network.io.Sender.sendMessage(Sender.java:65)
+	at com.girlkun.network.session.Session.sendMessage(Session.java:108)
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.Service.sendMessAllPlayerInMap(Service.java:701)
+	at com.girlkun.services.Service.chat(Service.java:1407)
+	at com.girlkun.models.boss.Boss.chat(Boss.java:633)
+	at com.girlkun.models.boss.Boss.chat(Boss.java:638)
+	at com.girlkun.models.boss.Boss.chatM(Boss.java:407)
+	at com.girlkun.models.boss.Boss.update(Boss.java:253)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:749)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 14:23:29 ========================
+Chú thích l?i g?p ph?i: L?i update map Vách núi ?en
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.network.session.ISession.isConnected()" because "this.session" is null
+	at com.girlkun.network.io.Sender.sendMessage(Sender.java:65)
+	at com.girlkun.network.session.Session.sendMessage(Session.java:108)
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.Service.sendMessAnotherNotMeInMap(Service.java:753)
+	at com.girlkun.models.mob.Mob.sendMobAttackPlayer(Mob.java:424)
+	at com.girlkun.models.mob.Mob.mobAttackPlayer(Mob.java:398)
+	at com.girlkun.models.mob.Mob.attackPlayer(Mob.java:300)
+	at com.girlkun.models.mob.Mob.update(Mob.java:269)
+	at com.girlkun.models.map.Zone.udMob(Zone.java:89)
+	at com.girlkun.models.map.Zone.update(Zone.java:114)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

@@ -1,0 +1,957 @@
+================Err in Time: 00:02:50 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: sendThongBaoOK
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 00:33:33 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: sendThongBaoOK
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 01:34:59 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: sendThongBaoOK
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 02:05:42 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: sendThongBaoOK
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 02:36:29 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 03:37:55 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: sendThongBaoOK
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 04:02:45 ========================
+Có l?i t?i class: com.girlkun.server.io.MySession - t?i ph??ng th?c: login
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.map.Zone.load_Me_To_Another(com.girlkun.models.player.Player)" because "player.zone" is null
+	at com.girlkun.server.Controller.sendInfo(Controller.java:855)
+	at com.girlkun.server.io.MySession.login(MySession.java:216)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:648)
+	at com.girlkun.server.Controller.onMessage(Controller.java:614)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 04:02:45 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: player
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "taskMain" because "pl.playerTask" is null
+	at com.girlkun.services.Service.player(Service.java:1669)
+	at com.girlkun.server.Controller.messageNotMap(Controller.java:692)
+	at com.girlkun.server.Controller.onMessage(Controller.java:611)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 04:02:45 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: Send_Caitrang
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "isBienhinh" because "this.itemTimesieucap" is null
+	at com.girlkun.models.player.Player.getHead(Player.java:630)
+	at com.girlkun.services.Service.Send_Caitrang(Service.java:2068)
+	at com.girlkun.server.Controller.messageNotMap(Controller.java:693)
+	at com.girlkun.server.Controller.onMessage(Controller.java:611)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 04:08:39 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 04:39:23 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 05:10:05 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: sendThongBaoOK
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 05:40:51 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 06:42:17 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 07:13:00 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 08:45:11 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: sendThongBaoOK
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 09:15:56 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:17:21 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 10:34:27 ========================
+Chú thích l?i g?p ph?i: L?i save player null
+Có l?i t?i class: com.girlkun.jdbc.daos.PlayerDAO - t?i ph??ng th?c: updatePlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "gold" because "player.inventory" is null
+	at com.girlkun.jdbc.daos.PlayerDAO.updatePlayer(PlayerDAO.java:381)
+	at com.girlkun.server.Client.remove(Client.java:175)
+	at com.girlkun.server.Client.remove(Client.java:83)
+	at com.girlkun.server.Client.kickSession(Client.java:185)
+	at com.girlkun.server.ServerManager$2.sessionDisconnect(ServerManager.java:163)
+	at com.girlkun.network.io.Collector.run(Collector.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:48:04 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: sendThongBaoOK
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 13:26:20 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 19:09:29 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: loadById
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "options" is null
+	at com.girlkun.jdbc.daos.GodGK.loadById(GodGK.java:1560)
+	at com.girlkun.services.Service.showListTop(Service.java:587)
+	at com.girlkun.models.npc.NpcFactory$68.confirmMenu(NpcFactory.java:7140)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:561)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:36:03 ========================
+Chú thích l?i g?p ph?i: L?i ban th??ng ng?c r?ng ?en 2 sao cho clan 978
+Có l?i t?i class: com.girlkun.models.map.blackball.BlackBallWar - t?i ph??ng th?c: win
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.RewardBlackBall.reward(byte)" because "pl.rewardBlackBall" is null
+	at com.girlkun.models.map.blackball.BlackBallWar.win(BlackBallWar.java:160)
+	at com.girlkun.models.map.blackball.BlackBallWar.update(BlackBallWar.java:128)
+	at com.girlkun.models.player.Player.update(Player.java:428)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:36:36 ========================
+Chú thích l?i g?p ph?i: L?i ban th??ng ng?c r?ng ?en 1 sao cho clan 978
+Có l?i t?i class: com.girlkun.models.map.blackball.BlackBallWar - t?i ph??ng th?c: win
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.RewardBlackBall.reward(byte)" because "pl.rewardBlackBall" is null
+	at com.girlkun.models.map.blackball.BlackBallWar.win(BlackBallWar.java:160)
+	at com.girlkun.models.map.blackball.BlackBallWar.update(BlackBallWar.java:128)
+	at com.girlkun.models.player.Player.update(Player.java:428)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:38:47 ========================
+Chú thích l?i g?p ph?i: L?i ban th??ng ng?c r?ng ?en 7 sao cho clan 978
+Có l?i t?i class: com.girlkun.models.map.blackball.BlackBallWar - t?i ph??ng th?c: win
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.RewardBlackBall.reward(byte)" because "pl.rewardBlackBall" is null
+	at com.girlkun.models.map.blackball.BlackBallWar.win(BlackBallWar.java:160)
+	at com.girlkun.models.map.blackball.BlackBallWar.update(BlackBallWar.java:128)
+	at com.girlkun.models.player.Player.update(Player.java:428)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:43:49 ========================
+Chú thích l?i g?p ph?i: L?i ban th??ng ng?c r?ng ?en 1 sao cho clan 978
+Có l?i t?i class: com.girlkun.models.map.blackball.BlackBallWar - t?i ph??ng th?c: win
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.RewardBlackBall.reward(byte)" because "pl.rewardBlackBall" is null
+	at com.girlkun.models.map.blackball.BlackBallWar.win(BlackBallWar.java:160)
+	at com.girlkun.models.map.blackball.BlackBallWar.update(BlackBallWar.java:128)
+	at com.girlkun.models.player.Player.update(Player.java:428)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:45:21 ========================
+Chú thích l?i g?p ph?i: L?i ban th??ng ng?c r?ng ?en 1 sao cho clan 978
+Có l?i t?i class: com.girlkun.models.map.blackball.BlackBallWar - t?i ph??ng th?c: win
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.RewardBlackBall.reward(byte)" because "pl.rewardBlackBall" is null
+	at com.girlkun.models.map.blackball.BlackBallWar.win(BlackBallWar.java:160)
+	at com.girlkun.models.map.blackball.BlackBallWar.update(BlackBallWar.java:128)
+	at com.girlkun.models.player.Player.update(Player.java:428)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:46:55 ========================
+Chú thích l?i g?p ph?i: L?i ban th??ng ng?c r?ng ?en 3 sao cho clan 978
+Có l?i t?i class: com.girlkun.models.map.blackball.BlackBallWar - t?i ph??ng th?c: win
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.RewardBlackBall.reward(byte)" because "pl.rewardBlackBall" is null
+	at com.girlkun.models.map.blackball.BlackBallWar.win(BlackBallWar.java:160)
+	at com.girlkun.models.map.blackball.BlackBallWar.update(BlackBallWar.java:128)
+	at com.girlkun.models.player.Player.update(Player.java:428)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:47:37 ========================
+Chú thích l?i g?p ph?i: L?i ban th??ng ng?c r?ng ?en 3 sao cho clan 978
+Có l?i t?i class: com.girlkun.models.map.blackball.BlackBallWar - t?i ph??ng th?c: win
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.RewardBlackBall.reward(byte)" because "pl.rewardBlackBall" is null
+	at com.girlkun.models.map.blackball.BlackBallWar.win(BlackBallWar.java:160)
+	at com.girlkun.models.map.blackball.BlackBallWar.update(BlackBallWar.java:128)
+	at com.girlkun.models.player.Player.update(Player.java:428)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:02:14 ========================
+Chú thích l?i g?p ph?i: L?i save player null
+Có l?i t?i class: com.girlkun.jdbc.daos.PlayerDAO - t?i ph??ng th?c: updatePlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "level" because "player.magicTree" is null
+	at com.girlkun.jdbc.daos.PlayerDAO.updatePlayer(PlayerDAO.java:440)
+	at com.girlkun.server.Client.remove(Client.java:175)
+	at com.girlkun.server.Client.remove(Client.java:83)
+	at com.girlkun.server.Client.kickSession(Client.java:185)
+	at com.girlkun.server.ServerManager$2.sessionDisconnect(ServerManager.java:163)
+	at com.girlkun.network.io.Collector.run(Collector.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:08:55 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "power" because "pl.nPoint" is null
+	at com.girlkun.services.Service.getCurrLevel(Service.java:1928)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:567)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.server.Controller.messageNotMap(Controller.java:694)
+	at com.girlkun.server.Controller.onMessage(Controller.java:611)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:08:55 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "itemsBody" because "plInfo.inventory" is null
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:613)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.server.Controller.messageNotMap(Controller.java:694)
+	at com.girlkun.server.Controller.onMessage(Controller.java:611)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:12:52 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "power" because "pl.nPoint" is null
+	at com.girlkun.services.Service.getCurrLevel(Service.java:1928)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:567)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:257)
+	at com.girlkun.services.func.UseItem.choseMapCapsule(UseItem.java:1966)
+	at com.girlkun.server.Controller.onMessage(Controller.java:522)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:12:52 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "itemsBody" because "plInfo.inventory" is null
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:613)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:257)
+	at com.girlkun.services.func.UseItem.choseMapCapsule(UseItem.java:1966)
+	at com.girlkun.server.Controller.onMessage(Controller.java:522)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:35:45 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "power" because "pl.nPoint" is null
+	at com.girlkun.services.Service.getCurrLevel(Service.java:1928)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:567)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:257)
+	at com.girlkun.services.func.UseItem.choseMapCapsule(UseItem.java:1966)
+	at com.girlkun.server.Controller.onMessage(Controller.java:522)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:35:45 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "itemsBody" because "plInfo.inventory" is null
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:613)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:257)
+	at com.girlkun.services.func.UseItem.choseMapCapsule(UseItem.java:1966)
+	at com.girlkun.server.Controller.onMessage(Controller.java:522)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:39:28 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "power" because "pl.nPoint" is null
+	at com.girlkun.services.Service.getCurrLevel(Service.java:1928)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:567)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapWaypoint(ChangeMapService.java:472)
+	at com.girlkun.server.Controller.onMessage(Controller.java:449)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:39:28 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "itemsBody" because "plInfo.inventory" is null
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:613)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapWaypoint(ChangeMapService.java:472)
+	at com.girlkun.server.Controller.onMessage(Controller.java:449)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:54:44 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "power" because "pl.nPoint" is null
+	at com.girlkun.services.Service.getCurrLevel(Service.java:1928)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:567)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:257)
+	at com.girlkun.services.func.UseItem.choseMapCapsule(UseItem.java:1966)
+	at com.girlkun.server.Controller.onMessage(Controller.java:522)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:54:44 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "itemsBody" because "plInfo.inventory" is null
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:613)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:257)
+	at com.girlkun.services.func.UseItem.choseMapCapsule(UseItem.java:1966)
+	at com.girlkun.server.Controller.onMessage(Controller.java:522)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:55:54 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "power" because "pl.nPoint" is null
+	at com.girlkun.services.Service.getCurrLevel(Service.java:1928)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:567)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeZone(ChangeMapService.java:220)
+	at com.girlkun.server.Controller.onMessage(Controller.java:290)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:55:54 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "itemsBody" because "plInfo.inventory" is null
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:613)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeZone(ChangeMapService.java:220)
+	at com.girlkun.server.Controller.onMessage(Controller.java:290)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:13:30 ========================
+Có l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.network.session.ISession.isConnected()" because "this.session" is null
+	at com.girlkun.network.io.Sender.sendMessage(Sender.java:65)
+	at com.girlkun.network.session.Session.sendMessage(Session.java:108)
+	at com.girlkun.models.player.Player.sendMessage(Player.java:306)
+	at com.girlkun.services.Service.showInfoPet(Service.java:2700)
+	at com.girlkun.server.Controller.onMessage(Controller.java:236)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:15:53 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "power" because "pl.nPoint" is null
+	at com.girlkun.services.Service.getCurrLevel(Service.java:1928)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:567)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:257)
+	at com.girlkun.services.func.UseItem.choseMapCapsule(UseItem.java:1966)
+	at com.girlkun.server.Controller.onMessage(Controller.java:522)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:15:53 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "itemsBody" because "plInfo.inventory" is null
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:613)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:257)
+	at com.girlkun.services.func.UseItem.choseMapCapsule(UseItem.java:1966)
+	at com.girlkun.server.Controller.onMessage(Controller.java:522)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:28:50 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "power" because "pl.nPoint" is null
+	at com.girlkun.services.Service.getCurrLevel(Service.java:1928)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:567)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:257)
+	at com.girlkun.services.func.UseItem.choseMapCapsule(UseItem.java:1966)
+	at com.girlkun.server.Controller.onMessage(Controller.java:522)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:28:50 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "itemsBody" because "plInfo.inventory" is null
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:613)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:257)
+	at com.girlkun.services.func.UseItem.choseMapCapsule(UseItem.java:1966)
+	at com.girlkun.server.Controller.onMessage(Controller.java:522)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:30:40 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "power" because "pl.nPoint" is null
+	at com.girlkun.services.Service.getCurrLevel(Service.java:1928)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:567)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeZone(ChangeMapService.java:220)
+	at com.girlkun.server.Controller.onMessage(Controller.java:290)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:30:40 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "itemsBody" because "plInfo.inventory" is null
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:613)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeZone(ChangeMapService.java:220)
+	at com.girlkun.server.Controller.onMessage(Controller.java:290)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:36:27 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "power" because "pl.nPoint" is null
+	at com.girlkun.services.Service.getCurrLevel(Service.java:1928)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:567)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeZone(ChangeMapService.java:220)
+	at com.girlkun.server.Controller.onMessage(Controller.java:290)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:36:27 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "itemsBody" because "plInfo.inventory" is null
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:613)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeZone(ChangeMapService.java:220)
+	at com.girlkun.server.Controller.onMessage(Controller.java:290)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:36:54 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "power" because "pl.nPoint" is null
+	at com.girlkun.services.Service.getCurrLevel(Service.java:1928)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:567)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeZone(ChangeMapService.java:220)
+	at com.girlkun.server.Controller.onMessage(Controller.java:290)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:36:54 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "itemsBody" because "plInfo.inventory" is null
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:613)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeZone(ChangeMapService.java:220)
+	at com.girlkun.server.Controller.onMessage(Controller.java:290)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:46:54 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "power" because "pl.nPoint" is null
+	at com.girlkun.services.Service.getCurrLevel(Service.java:1928)
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:567)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:257)
+	at com.girlkun.services.func.UseItem.choseMapCapsule(UseItem.java:1966)
+	at com.girlkun.server.Controller.onMessage(Controller.java:522)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:46:54 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "itemsBody" because "plInfo.inventory" is null
+	at com.girlkun.models.map.Zone.infoPlayer(Zone.java:613)
+	at com.girlkun.models.map.Zone.load_Another_To_Me(Zone.java:515)
+	at com.girlkun.services.func.ChangeMapService.changeMap(ChangeMapService.java:388)
+	at com.girlkun.services.func.ChangeMapService.changeMapBySpaceShip(ChangeMapService.java:257)
+	at com.girlkun.services.func.UseItem.choseMapCapsule(UseItem.java:1966)
+	at com.girlkun.server.Controller.onMessage(Controller.java:522)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:49:27 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 22:49:27 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:03:05 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:03:05 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:06:23 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:06:23 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:07:16 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:07:16 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:10:39 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:10:39 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:11:40 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:11:40 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:17:46 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:17:46 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:18:57 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:18:57 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:19:50 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:19:50 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:23:52 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:23:52 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:46:47 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:46:47 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:48:45 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:48:45 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:51:02 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:51:02 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:59:53 ========================
+Có l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:59:53 ========================
+Có l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================

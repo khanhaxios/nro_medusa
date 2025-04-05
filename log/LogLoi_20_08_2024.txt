@@ -1,0 +1,219 @@
+================Err in Time: 07:49:23 ========================
+Chú thích l?i g?p ph?i: L?i update map Map Vip 2
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 08:36:56 ========================
+Chú thích l?i g?p ph?i: L?i update map Map Vip 2
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:53:27 ========================
+Chú thích l?i g?p ph?i: L?i update map Map Vip 2
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 11:42:39 ========================
+Chú thích l?i g?p ph?i: L?i update map Map Vip 2
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 11:59:08 ========================
+Chú thích l?i g?p ph?i: L?i save player null
+Có l?i t?i class: com.girlkun.jdbc.daos.PlayerDAO - t?i ph??ng th?c: updatePlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "level" because "player.magicTree" is null
+	at com.girlkun.jdbc.daos.PlayerDAO.updatePlayer(PlayerDAO.java:445)
+	at com.girlkun.server.Client.remove(Client.java:181)
+	at com.girlkun.server.Client.remove(Client.java:83)
+	at com.girlkun.server.Client.kickSession(Client.java:191)
+	at com.girlkun.server.ServerManager$2.sessionDisconnect(ServerManager.java:163)
+	at com.girlkun.network.io.Collector.run(Collector.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 12:27:26 ========================
+Chú thích l?i g?p ph?i: L?i update map Map Vip 2
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 14:56:30 ========================
+Có l?i t?i class: com.girlkun.jdbc.daos.GodGK - t?i ph??ng th?c: loadById
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.size()" because "options" is null
+	at com.girlkun.jdbc.daos.GodGK.loadById(GodGK.java:1583)
+	at com.girlkun.services.Service.showListTop(Service.java:603)
+	at com.girlkun.models.npc.NpcFactory$68.confirmMenu(NpcFactory.java:7155)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:560)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 17:38:31 ========================
+Chú thích l?i g?p ph?i: L?i init boss
+Có l?i t?i class: com.girlkun.models.map.gas.GasService - t?i ph??ng th?c: openKhiGas
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "dame" because "play.nPoint" is null
+	at com.girlkun.models.map.gas.GasService.openKhiGas(GasService.java:89)
+	at com.girlkun.models.npc.NpcFactory$2.confirmMenu(NpcFactory.java:255)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:560)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:59:10 ========================
+Có l?i t?i class: com.girlkun.services.func.UseItem - t?i ph??ng th?c: getItem
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index -2 out of bounds for length 20
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.services.InventoryServiceNew.itemBoxToBodyOrBag(InventoryServiceNew.java:533)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:89)
+	at com.girlkun.server.Controller.onMessage(Controller.java:506)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:20:26 ========================
+Có l?i t?i class: com.girlkun.services.func.UseItem - t?i ph??ng th?c: getItem
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "isUpToUp" because "itemAdd.template" is null
+	at com.girlkun.services.InventoryServiceNew.addItemList(InventoryServiceNew.java:830)
+	at com.girlkun.services.InventoryServiceNew.addItemBox(InventoryServiceNew.java:807)
+	at com.girlkun.services.InventoryServiceNew.itemBagToBox(InventoryServiceNew.java:583)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:93)
+	at com.girlkun.server.Controller.onMessage(Controller.java:506)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:26:40 ========================
+Chú thích l?i g?p ph?i: L?i update map Map Vip 2
+Có l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:43:01 ========================
+Chú thích l?i g?p ph?i: L?i save player null
+Có l?i t?i class: com.girlkun.jdbc.daos.PlayerDAO - t?i ph??ng th?c: updatePlayer
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot read field "x" because "player.location" is null
+	at com.girlkun.jdbc.daos.PlayerDAO.updatePlayer(PlayerDAO.java:397)
+	at com.girlkun.server.Client.remove(Client.java:181)
+	at com.girlkun.server.Client.remove(Client.java:83)
+	at com.girlkun.server.Client.kickSession(Client.java:191)
+	at com.girlkun.server.ServerManager$2.sessionDisconnect(ServerManager.java:163)
+	at com.girlkun.network.io.Collector.run(Collector.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 23:12:12 ========================
+Có l?i t?i class: com.girlkun.services.func.UseItem - t?i ph??ng th?c: getItem
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 23:12:15 ========================
+Có l?i t?i class: com.girlkun.services.func.UseItem - t?i ph??ng th?c: getItem
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================

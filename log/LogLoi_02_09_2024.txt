@@ -1,0 +1,914 @@
+================Err in Time: 09:24:58 ========================
+Chú thích lỗi gặp phải: Loi UDB Bé Quỳnh được picdz hộ tống
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "map" because "this.zone" is null
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:105)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:27:09 ========================
+Chú thích lỗi gặp phải: Loi UDB Bé Quỳnh được phitieu hộ tống
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "x" because "pl1.location" is null
+	at com.girlkun.utils.Util.getDistance(Util.java:270)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:68)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:28:12 ========================
+Chú thích lỗi gặp phải: Loi UDB Bé Quỳnh được picdz hộ tống
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "map" because "this.zone" is null
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:105)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:33:52 ========================
+Chú thích lỗi gặp phải: Loi UDB Bé Quỳnh được phitieu hộ tống
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "map" because "this.zone" is null
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:105)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:35:40 ========================
+Chú thích lỗi gặp phải: Loi UDB Nhân Bảnahihihi1
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:763)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:35:49 ========================
+Chú thích lỗi gặp phải: Loi UDB Nhân Bảnahihihi1
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:763)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:36:50 ========================
+Chú thích lỗi gặp phải: Loi UDB Bé Quỳnh được phitieu hộ tống
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "map" because "this.zone" is null
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:105)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:40:17 ========================
+Chú thích lỗi gặp phải: Loi UDB Bé Quỳnh được phitieu hộ tống
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "map" because "this.zone" is null
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:105)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:40:25 ========================
+Chú thích lỗi gặp phải: Loi UDB Trung Úy Xanh Lơ
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:763)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:41:54 ========================
+Chú thích lỗi gặp phải: Loi UDB Trung Úy Xanh Lơ
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:763)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:42:55 ========================
+Chú thích lỗi gặp phải: Loi UDB Trung Úy Xanh Lơ
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:763)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:44:15 ========================
+Chú thích lỗi gặp phải: Loi UDB Trung Úy Xanh Lơ
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:763)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:47:05 ========================
+Chú thích lỗi gặp phải: Loi UDB Trung Úy Xanh Lơ
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:763)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:48:14 ========================
+Chú thích lỗi gặp phải: Loi UDB Trung Úy Xanh Lơ
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:763)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:49:48 ========================
+Chú thích lỗi gặp phải: Loi UDB Super Broly
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:763)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:54:47 ========================
+Chú thích lỗi gặp phải: Loi UDB Trung Úy Xanh Lơ
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:763)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:55:52 ========================
+Chú thích lỗi gặp phải: Loi UDB Bé Quỳnh được phitieu hộ tống
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 09:55:59 ========================
+Chú thích lỗi gặp phải: Loi UDB Trung Úy Xanh Lơ
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:763)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:57:03 ========================
+Chú thích lỗi gặp phải: Loi UDB Trung Úy Xanh Lơ
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:763)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:57:54 ========================
+Chú thích lỗi gặp phải: Loi UDB Bé Quỳnh được phitieu hộ tống
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 09:58:04 ========================
+Chú thích lỗi gặp phải: Loi UDB Trung Úy Xanh Lơ
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+	at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:763)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 09:58:29 ========================
+Chú thích lỗi gặp phải: Loi UDB Bé Quỳnh được phitieu hộ tống
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "x" because "pl1.location" is null
+	at com.girlkun.utils.Util.getDistance(Util.java:270)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:68)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:766)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 10:31:54 ========================
+Có lỗi tại class: com.girlkun.services.func.UseItem - tại phương thức: getItem
+Chi tiết lỗi:
+java.lang.IndexOutOfBoundsException: Index -13 out of bounds for length 120
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.services.InventoryServiceNew.itemBagToBody(InventoryServiceNew.java:402)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:99)
+	at com.girlkun.server.Controller.onMessage(Controller.java:509)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 11:18:21 ========================
+Có lỗi tại class: com.girlkun.jdbc.daos.GodGK - tại phương thức: login
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "org.json.simple.JSONArray.get(int)" because "dataArray" is null
+	at com.girlkun.jdbc.daos.GodGK.login(GodGK.java:189)
+	at com.girlkun.server.io.MySession.login(MySession.java:186)
+	at com.girlkun.server.Controller.messageNotLogin(Controller.java:650)
+	at com.girlkun.server.Controller.onMessage(Controller.java:616)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 11:44:09 ========================
+Chú thích lỗi gặp phải: Loi UDB Vinsmoke Sanji
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Sanji.wakeupAnotherBossWhenDisappear(Sanji.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 12:01:44 ========================
+Có lỗi tại class: com.girlkun.services.func.UseItem - tại phương thức: getItem
+Chi tiết lỗi:
+java.lang.IndexOutOfBoundsException: Index -2 out of bounds for length 12
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.services.InventoryServiceNew.itemBodyToBag(InventoryServiceNew.java:428)
+	at com.girlkun.services.func.UseItem.getItem(UseItem.java:102)
+	at com.girlkun.server.Controller.onMessage(Controller.java:509)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 12:07:50 ========================
+Chú thích lỗi gặp phải: Lỗi save player null
+Có lỗi tại class: com.girlkun.jdbc.daos.PlayerDAO - tại phương thức: updatePlayer
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "x" because "player.location" is null
+	at com.girlkun.jdbc.daos.PlayerDAO.updatePlayer(PlayerDAO.java:397)
+	at com.girlkun.server.Client.remove(Client.java:181)
+	at com.girlkun.server.Client.remove(Client.java:83)
+	at com.girlkun.server.Client.kickSession(Client.java:191)
+	at com.girlkun.server.ServerManager$2.sessionDisconnect(ServerManager.java:163)
+	at com.girlkun.network.io.Collector.run(Collector.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 12:39:30 ========================
+Chú thích lỗi gặp phải: Loi UDB Franky
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Franky.wakeupAnotherBossWhenDisappear(Franky.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 12:39:30 ========================
+Chú thích lỗi gặp phải: Loi UDB Brook
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local1>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Brook.wakeupAnotherBossWhenDisappear(Brook.java:100)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:34:44 ========================
+Chú thích lỗi gặp phải: Loi UDB Roronoa Zoro
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Zoro.wakeupAnotherBossWhenDisappear(Zoro.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:34:44 ========================
+Chú thích lỗi gặp phải: Loi UDB Vinsmoke Sanji
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Sanji.wakeupAnotherBossWhenDisappear(Sanji.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:34:44 ========================
+Chú thích lỗi gặp phải: Loi UDB Nico Robin
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local1>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.NicoRobin.wakeupAnotherBossWhenDisappear(NicoRobin.java:100)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:34:44 ========================
+Chú thích lỗi gặp phải: Loi UDB Franky
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Franky.wakeupAnotherBossWhenDisappear(Franky.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:34:44 ========================
+Chú thích lỗi gặp phải: Loi UDB Brook
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local1>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Brook.wakeupAnotherBossWhenDisappear(Brook.java:100)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 13:34:44 ========================
+Chú thích lỗi gặp phải: Loi UDB Nami
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local1>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Nami.wakeupAnotherBossWhenDisappear(Nami.java:100)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 14:50:54 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:05:14 ========================
+Chú thích lỗi gặp phải: Lỗi init boss
+Có lỗi tại class: com.girlkun.models.map.gas.GasService - tại phương thức: openKhiGas
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "khiGas" because "player.clan" is null
+	at com.girlkun.models.map.gas.GasService.openKhiGas(GasService.java:102)
+	at com.girlkun.models.npc.NpcFactory$2.confirmMenu(NpcFactory.java:255)
+	at com.girlkun.server.MenuController.doSelectMenu(MenuController.java:55)
+	at com.girlkun.server.Controller.onMessage(Controller.java:563)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:05:15 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 15:05:15 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 16:31:45 ========================
+Chú thích lỗi gặp phải: Lỗi save player [SVIP] caidamu
+Có lỗi tại class: com.girlkun.jdbc.daos.PlayerDAO - tại phương thức: updatePlayer
+Chi tiết lỗi:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 16:31:45 ========================
+Chú thích lỗi gặp phải: Loi UDB Brook
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local1>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Brook.wakeupAnotherBossWhenDisappear(Brook.java:100)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 16:31:45 ========================
+Chú thích lỗi gặp phải: Loi UDB Nami
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local1>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Nami.wakeupAnotherBossWhenDisappear(Nami.java:100)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 16:31:46 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 16:31:46 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 16:31:46 ========================
+Có lỗi tại class: com.girlkun.services.Service - tại phương thức: changeFlag
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2414)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:64)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.list_boss.MiNuong.update(MiNuong.java:55)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 16:31:47 ========================
+Chú thích lỗi gặp phải: Loi UDB Roronoa Zoro
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Zoro.wakeupAnotherBossWhenDisappear(Zoro.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 17:39:57 ========================
+Chú thích lỗi gặp phải: Loi UDB Roronoa Zoro
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Zoro.wakeupAnotherBossWhenDisappear(Zoro.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 17:39:57 ========================
+Chú thích lỗi gặp phải: Loi UDB Vinsmoke Sanji
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Sanji.wakeupAnotherBossWhenDisappear(Sanji.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 17:39:57 ========================
+Chú thích lỗi gặp phải: Loi UDB Franky
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Franky.wakeupAnotherBossWhenDisappear(Franky.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 17:39:57 ========================
+Chú thích lỗi gặp phải: Loi UDB Brook
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local1>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Brook.wakeupAnotherBossWhenDisappear(Brook.java:100)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:59:58 ========================
+Chú thích lỗi gặp phải: Loi UDB Roronoa Zoro
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Zoro.wakeupAnotherBossWhenDisappear(Zoro.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:59:58 ========================
+Chú thích lỗi gặp phải: Loi UDB Vinsmoke Sanji
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Sanji.wakeupAnotherBossWhenDisappear(Sanji.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:59:58 ========================
+Chú thích lỗi gặp phải: Loi UDB Nico Robin
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local1>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.NicoRobin.wakeupAnotherBossWhenDisappear(NicoRobin.java:100)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:59:58 ========================
+Chú thích lỗi gặp phải: Loi UDB Franky
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Franky.wakeupAnotherBossWhenDisappear(Franky.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:59:58 ========================
+Chú thích lỗi gặp phải: Loi UDB Brook
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local1>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Brook.wakeupAnotherBossWhenDisappear(Brook.java:100)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 19:30:44 ========================
+Chú thích lỗi gặp phải: Lỗi update map Map Vip 2
+Có lỗi tại class: com.girlkun.models.map.Map - tại phương thức: run
+Chi tiết lỗi:
+java.lang.IndexOutOfBoundsException: Index 1 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:359)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:97)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:19:59 ========================
+Chú thích lỗi gặp phải: Loi UDB Roronoa Zoro
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Zoro.wakeupAnotherBossWhenDisappear(Zoro.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:19:59 ========================
+Chú thích lỗi gặp phải: Loi UDB Vinsmoke Sanji
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Sanji.wakeupAnotherBossWhenDisappear(Sanji.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 20:19:59 ========================
+Chú thích lỗi gặp phải: Loi UDB Franky
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Franky.wakeupAnotherBossWhenDisappear(Franky.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:16:44 ========================
+Chú thích lỗi gặp phải: Loi UDB Roronoa Zoro
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Zoro.wakeupAnotherBossWhenDisappear(Zoro.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:16:44 ========================
+Chú thích lỗi gặp phải: Loi UDB Vinsmoke Sanji
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Sanji.wakeupAnotherBossWhenDisappear(Sanji.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:16:44 ========================
+Chú thích lỗi gặp phải: Loi UDB Nico Robin
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local1>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.NicoRobin.wakeupAnotherBossWhenDisappear(NicoRobin.java:100)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:16:44 ========================
+Chú thích lỗi gặp phải: Loi UDB Franky
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local4>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Franky.wakeupAnotherBossWhenDisappear(Franky.java:105)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:16:44 ========================
+Chú thích lỗi gặp phải: Loi UDB Brook
+Có lỗi tại class: com.girlkun.models.boss.BossManager - tại phương thức: run
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read the array length because "<local1>" is null
+	at com.girlkun.models.boss.list_boss.OnePiece.Brook.wakeupAnotherBossWhenDisappear(Brook.java:100)
+	at com.girlkun.models.boss.Boss.leaveMap(Boss.java:546)
+	at com.girlkun.models.boss.Boss.update(Boss.java:269)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:767)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 21:43:43 ========================
+Chú thích lỗi gặp phải: Lỗi tại player: [SVIP] shiba1k
+Có lỗi tại class: com.girlkun.models.player.Player - tại phương thức: update
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "map" because "player.zone" is null
+	at com.girlkun.models.map.bdkb.BanDoKhoBauService.kickOutOfBDKB(BanDoKhoBauService.java:90)
+	at com.girlkun.models.map.bdkb.BanDoKhoBauService.ketthucbdkb(BanDoKhoBauService.java:100)
+	at com.girlkun.models.map.bdkb.BanDoKhoBauService.update(BanDoKhoBauService.java:63)
+	at com.girlkun.models.player.Player.update(Player.java:426)
+	at com.girlkun.models.map.Zone.udPlayer(Zone.java:99)
+	at com.girlkun.models.map.Zone.update(Zone.java:115)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 22:55:50 ========================
+Ch� th�ch l?i g?p ph?i: L?i update map T�y th�nh ??a
+C� l?i t?i class: com.girlkun.models.map.Map - t?i ph??ng th?c: run
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.network.session.ISession.isConnected()" because "this.session" is null
+	at com.girlkun.network.io.Sender.sendMessage(Sender.java:65)
+	at com.girlkun.network.session.Session.sendMessage(Session.java:108)
+	at com.girlkun.models.player.Player.sendMessage(Player.java:307)
+	at com.girlkun.services.Service.sendMessAllPlayerInMap(Service.java:679)
+	at com.girlkun.models.mob.Mob.sendMobHoiSinh(Mob.java:450)
+	at com.girlkun.models.mob.Mob.update(Mob.java:264)
+	at com.girlkun.models.map.Zone.udMob(Zone.java:89)
+	at com.girlkun.models.map.Zone.update(Zone.java:114)
+	at com.girlkun.models.map.Map.run(Map.java:132)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================

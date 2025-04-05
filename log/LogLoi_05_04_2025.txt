@@ -1,0 +1,21 @@
+================Err in Time: 08:51:12 ========================
+Chú thích lỗi gặp phải: Lỗi load database
+Có lỗi tại class: com.girlkun.server.Manager - tại phương thức: loadDatabase
+Chi tiết lỗi:
+java.lang.IndexOutOfBoundsException: Index 220 out of bounds for length 0
+	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:70)
+	at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:266)
+	at java.base/java.util.Objects.checkIndex(Objects.java:361)
+	at java.base/java.util.ArrayList.get(ArrayList.java:427)
+	at com.girlkun.services.ItemService.getTemplate(ItemService.java:177)
+	at com.girlkun.server.Manager.loadDatabase(Manager.java:727)
+	at com.girlkun.server.Manager.<init>(Manager.java:231)
+	at com.girlkun.server.Manager.gI(Manager.java:219)
+	at com.girlkun.server.ServerManager.init(ServerManager.java:52)
+	at com.girlkun.server.ServerManager.gI(ServerManager.java:67)
+	at com.girlkun.server.ServerManager.main(ServerManager.java:74)
+
+
+
+================================================================

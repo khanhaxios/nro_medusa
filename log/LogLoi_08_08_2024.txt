@@ -1,0 +1,117 @@
+================Err in Time: 15:07:29 ========================
+C� l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 15:07:29 ========================
+C� l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 15:10:49 ========================
+C� l?i t?i class: com.girlkun.models.map.Zone - t?i ph??ng th?c: infoPlayer
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 15:10:49 ========================
+C� l?i t?i class: com.girlkun.services.MapService - t?i ph??ng th?c: load_Another_To_Me
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 15:12:20 ========================
+C� l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: showInfoPet
+Chi ti?t l?i:
+java.lang.NullPointerException
+
+
+
+================================================================
+================Err in Time: 16:03:40 ========================
+Chú thích lỗi gặp phải: Lỗi CMD -> -60
+Có lỗi tại class: com.girlkun.server.Controller - tại phương thức: onMessage
+Chi tiết lỗi:
+java.util.NoSuchElementException: No value present
+	at java.base/java.util.Optional.get(Optional.java:143)
+	at com.girlkun.models.boss.list_boss.BossSieuCap.BossJiren.reward(BossJiren.java:37)
+	at com.girlkun.models.boss.Boss.die(Boss.java:483)
+	at com.girlkun.models.boss.list_boss.BossSieuCap.BossJiren.injured(BossJiren.java:74)
+	at com.girlkun.services.SkillService.playerAttackPlayer(SkillService.java:1166)
+	at com.girlkun.services.SkillService.useSkillAttack(SkillService.java:730)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:103)
+	at com.girlkun.services.Service.attackPlayer(Service.java:2444)
+	at com.girlkun.server.Controller.onMessage(Controller.java:594)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 16:06:08 ========================
+Chú thích lỗi gặp phải: Lỗi CMD -> -60
+Có lỗi tại class: com.girlkun.server.Controller - tại phương thức: onMessage
+Chi tiết lỗi:
+java.lang.NullPointerException: Cannot read field "template" because "skillBefore" is null
+	at com.girlkun.services.SkillService.selectSkill(SkillService.java:1585)
+	at com.girlkun.services.SkillService.useSkill(SkillService.java:128)
+	at com.girlkun.services.Service.attackPlayer(Service.java:2444)
+	at com.girlkun.server.Controller.onMessage(Controller.java:594)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 16:31:50 ========================
+Chú thích lỗi gặp phải: Lỗi CMD -> 44
+Có lỗi tại class: com.girlkun.server.Controller - tại phương thức: onMessage
+Chi tiết lỗi:
+java.lang.NumberFormatException: For input string: ""
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:678)
+	at java.base/java.lang.Integer.parseInt(Integer.java:786)
+	at com.girlkun.services.Service.chat(Service.java:1199)
+	at com.girlkun.server.Controller.onMessage(Controller.java:554)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 18:37:45 ========================
+C� l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: changeFlag
+Chi ti?t l?i:
+java.lang.NullPointerException: Cannot invoke "com.girlkun.models.player.IDMark.setLastTimeChangeFlag(long)" because "pl.iDMark" is null
+	at com.girlkun.services.Service.changeFlag(Service.java:2408)
+	at com.girlkun.models.boss.list_boss.MiNuong.active(MiNuong.java:56)
+	at com.girlkun.models.boss.Boss.update(Boss.java:257)
+	at com.girlkun.models.boss.BossManager.run(BossManager.java:749)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
+================Err in Time: 23:24:03 ========================
+C� l?i t?i class: com.girlkun.services.Service - t?i ph??ng th?c: changeFlag
+Chi ti?t l?i:
+java.lang.ArrayIndexOutOfBoundsException: Index -1 out of bounds for length 12
+	at com.girlkun.services.Service.changeFlag(Service.java:2373)
+	at com.girlkun.services.Service.chooseFlag(Service.java:2437)
+	at com.girlkun.server.Controller.onMessage(Controller.java:354)
+	at com.girlkun.network.io.Collector.run(Collector.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+
+
+
+================================================================
