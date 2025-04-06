@@ -90,12 +90,8 @@ public class ServerManager {
             while (isRunning) {
                 Socket client = panelSocket.accept();
                 if (panelClient != null && !panelClient.isClosed()) {
-                    // Reject new connection
-                    BufferedOutputStream outputStream = new BufferedOutputStream(client.getOutputStream());
-                    outputStream.write("Đã có một kết nối khác đang hoạt động".getBytes(StandardCharsets.UTF_8));
-                    outputStream.flush();
-                    client.close();
-                    Logger.log("Rejected new connection. Already connected.");
+                    panelClient.close();
+                    panelClient = client;
                 } else {
                     // Accept this new client
                     panelClient = client;
