@@ -84,7 +84,7 @@ public class Manager {
     public static byte SUKIEN = 0;// sau khi chinh
     public static final String[] CONTENT_SUKIEN
             = new String[]{"Không có sự kiện nào", "Sự kiện Trung Thu", "Sự kiện Hè", "Sự kiện Tết", "Sự kiện Valentine", "Sự kiện Giỗ Tổ", "Sự kiện Giáng Sinh", "Sự kiện Halloween"};
-    public static short KHUYEN_MAI_NAP = 1;
+    public static short KHUYEN_MAI_NAP = 200;
     public static Player medusa;
 
     public static String[] VERSION_CLIENT = {};
