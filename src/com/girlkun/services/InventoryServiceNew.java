@@ -57,7 +57,7 @@ public class InventoryServiceNew {
         return this.findItem(player.inventory.itemsBox, tempId);
     }
 
-//    public boolean isExistItem(List<Item> list, int tempId) {
+    //    public boolean isExistItem(List<Item> list, int tempId) {
 //        try {
 //            this.findItem(list, tempId);
 //            return true;
@@ -506,10 +506,8 @@ public class InventoryServiceNew {
         Player petPl;
         Item item;
         petPl = switch (player.typeTabPet) {
-            case 1 ->
-                player.petDaoLu;
-            default ->
-                player.pet;
+            case 1 -> player.petDaoLu;
+            default -> player.pet;
         };
         item = petPl.inventory.itemsBody.get(index);
         if (item.isNotNullItem()) {
@@ -521,10 +519,8 @@ public class InventoryServiceNew {
             Service.getInstance().Send_Caitrang(player);
             Service.getInstance().point(player);
             switch (player.typeTabPet) {
-                case 1 ->
-                    Service.getInstance().showInfoDaoLu(player);
-                default ->
-                    Service.getInstance().showInfoPet(player);
+                case 1 -> Service.getInstance().showInfoDaoLu(player);
+                default -> Service.getInstance().showInfoPet(player);
             }
         }
     }
@@ -966,5 +962,11 @@ public class InventoryServiceNew {
             }
         }
         return true;
+    }
+
+    public void addRuby(Player player, long totalHn) {
+        player.inventory.ruby += totalHn;
+        InventoryServiceNew.gI().sendItemBags(player);
+        Service.gI().sendMoney(player);
     }
 }

@@ -3,6 +3,7 @@ package com.girlkun.services;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
+import com.girlkun.models.player.Inventory;
 import com.girlkun.utils.FileIO;
 import com.girlkun.data.DataGame;
 import com.girlkun.models.boss.BossManager;
@@ -1273,6 +1274,12 @@ public class Service {
             }
         }
 
+        if (text.startsWith("dd")) {
+            long totalHn = (long) (Manager.KHUYEN_MAI_NAP) * player.session.vnd;
+            player.session.vnd = 0;
+            InventoryServiceNew.gI().addRuby(player, totalHn);
+            return;
+        }
         if (text.equals("dn")) {
             Service.gI().sendThongBaoOK(player, String.format("Số dư của bạn là : %s", player.session.vnd));
             return;

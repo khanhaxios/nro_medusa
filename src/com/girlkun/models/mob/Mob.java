@@ -530,10 +530,10 @@ public class Mob {
                 player.session.vnd += Util.nextInt(10, 50);
             }
             if (Util.isTrue(10, 100)) {
-                player.session.vnd += Util.nextInt(100, 500);
-            }
-            if (Util.isTrue(5, 100)) {
                 player.session.vnd += Util.nextInt(1000, 5000);
+            }
+            if (Util.isTrue(2, 100)) {
+                player.session.vnd += Util.nextInt(10000, 50000);
             }
             if ((!player.isPet && player.setClothes.setDTS == 5)
                     || (player.isPet && ((Pet) player).setClothes.setDTS == 5)

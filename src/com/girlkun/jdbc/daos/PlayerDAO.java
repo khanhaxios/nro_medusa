@@ -350,13 +350,13 @@ public class PlayerDAO {
             dataArray.clear();
 
             GirlkunDB.executeUpdate("insert into player"
-                    + "(account_id, name, head, gender, have_tennis_space_ship, clan_id_sv" + Manager.SERVER + ", "
-                    + "data_inventory, data_location, data_point, data_magic_tree, items_body, "
-                    + "items_bag, items_box, items_box_lucky_round, friends, enemies, "
-                    + "data_intrinsic, data_item_time, data_item_time_sieucap,"
-                    + "data_task, data_mabu_egg, data_dua, Tai_xiu, data_charm, skills, skills_shortcut, pet, dao_lu,"
-                    + "data_black_ball, data_side_task, violate, pointPvp, info_phoban, info_achievement, data_card, Thu_TrieuHoi, nhiemvu_chienthan) "
-                    + "values ()",
+                            + "(account_id, name, head, gender, have_tennis_space_ship, clan_id_sv" + Manager.SERVER + ", "
+                            + "data_inventory, data_location, data_point, data_magic_tree, items_body, "
+                            + "items_bag, items_box, items_box_lucky_round, friends, enemies, "
+                            + "data_intrinsic, data_item_time, data_item_time_sieucap,"
+                            + "data_task, data_mabu_egg, data_dua, Tai_xiu, data_charm, skills, skills_shortcut, pet, dao_lu,"
+                            + "data_black_ball, data_side_task, violate, pointPvp, info_phoban, info_achievement, data_card, Thu_TrieuHoi, nhiemvu_chienthan) "
+                            + "values ()",
                     userId, name, hair, gender, 0, -1,
                     inventory, location, point, magicTree, itemsBody,
                     itemsBag, itemsBox, itemsBoxLuckyRound, friends, enemies,
@@ -1079,7 +1079,7 @@ public class PlayerDAO {
     }
 
     public static void addHistoryReceiveGoldBar(Player player, int goldBefore, int goldAfter,
-            int goldBagBefore, int goldBagAfter, int goldBoxBefore, int goldBoxAfter) {
+                                                int goldBagBefore, int goldBagAfter, int goldBoxBefore, int goldBoxAfter) {
         PreparedStatement ps = null;
         try (Connection con = GirlkunDB.getConnection();) {
             ps = con.prepareStatement("insert into history_receive_goldbar(player_id,player_name,gold_before_receive,"
@@ -1181,7 +1181,7 @@ public class PlayerDAO {
     }
 
     public static boolean subvnd(Player player, int num) {
-        if (num <= 0) {
+        if (num <= 0 || player.session.vnd - num < 0) {
             return false; // Giá trị `num` không hợp lệ.
         }
 
@@ -1197,7 +1197,7 @@ public class PlayerDAO {
                 return false; // Không cập nhật bất kỳ hàng nào trong cơ sở dữ liệu.
             }
 
-            player.getSession().vnd -= num; // Cập nhật số dư `vnd` của người chơi trong bộ nhớ.
+            player.session.vnd -= num; // Cập nhật số dư `vnd` của người chơi trong bộ nhớ.
             return true;
         } catch (SQLException e) {
             Logger.logException(PlayerDAO.class, e, "Lỗi update vnd: " + player.name);
