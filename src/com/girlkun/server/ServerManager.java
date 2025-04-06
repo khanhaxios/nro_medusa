@@ -4,6 +4,7 @@ import com.girlkun.data.DataGame;
 import com.girlkun.database.GirlkunDB;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 
 import com.girlkun.jdbc.daos.HistoryTransactionDAO;
@@ -85,91 +86,85 @@ public class ServerManager {
 
     public void activePanelControllerApi() {
         try {
-            panelSocket = new ServerSocket(8888);
+            panelSocket = new ServerSocket(8888, 50, InetAddress.getByName("0.0.0.0"));
             Logger.log(Logger.CYAN, "Server API is waiting on port 8888\n");
             while (isRunning) {
                 Socket client = panelSocket.accept();
-                if (panelClient != null && !panelClient.isClosed()) {
-                    panelClient.close();
-                    panelClient = client;
-                } else {
-                    // Accept this new client
-                    panelClient = client;
-                    Logger.log("New client connected: " + client.getInetAddress().getHostAddress());
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(panelClient.getInputStream(), "UTF-8"));
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(panelClient.getOutputStream(), "UTF-8"));
-                    new Thread(() -> {
-                        try {
-                            String line;
-                            while ((line = reader.readLine()) != null) {
-                                String command = line.split(":")[0];
-                                if (command == null) {
-                                    continue;
-                                }
-                                switch (command) {
-                                    case PanelCommand.CMD_GET_INFO:
-                                        // send data
-                                        writer.write(String.format("DATA:%s:%s:%s:%s:%s:%s",
-                                                GirlkunSessionManager.gI().getSessions().size(), Client.gI().getPlayers().size(), Thread.activeCount(), Manager.CONTENT_SUKIEN[Manager.SUKIEN], Manager.KHUYEN_MAI_NAP, Manager.RATE_EXP_SERVER));
-                                        writer.newLine();
-                                        writer.flush();
-                                        break;
-                                    case PanelCommand.CMD_KICK_OUT:
-                                        Client.gI().close();
-                                        break;
-                                    case PanelCommand.CMD_NOTIFY:
-                                        // get message first
-                                        String[] messages = line.split(":");
-                                        Message msg = new Message(93);
-                                        try {
-                                            msg.writer().writeUTF(messages[1]);
-                                        } catch (IOException ex) {
-                                            Logger.error(ex.getMessage());
-                                        }
-                                        Service.getInstance().sendMessAllPlayer(msg);
-                                        msg.cleanup();
-                                        break;
-                                    case PanelCommand.CMD_MAINTAIN:
-                                        // start maintain progress
-                                        Maintenance.gI().maintenance30Second();
-                                        break;
-                                    case PanelCommand.CMD_SET_EVENT:
-                                        String[] sukiens = line.split(":");
-                                        byte sukien = Byte.parseByte(sukiens[1]);
-                                        if (sukien < 0) {
-                                            return;
-                                        }
-                                        Manager.SUKIEN = sukien;
-                                        if (sukien > 0) {
-                                            Service.getInstance().sendThongBaoAllPlayer(String.format("|7|Sự kiện %s đang được diễn ra"
-                                                    + "\n|5|Thông tin chi tiết Sự kiện vui lòng tự tìm kiếm", Manager.CONTENT_SUKIEN[sukien]));
-                                        }
-                                        break;
-                                    case PanelCommand.CMD_SET_EXP:
-                                        String[] exps = line.split(":");
-                                        byte exp = Byte.parseByte(exps[1]);
-                                        if (exp <= 0) {
-                                            return;
-                                        }
-                                        Manager.RATE_EXP_SERVER = exp;
-                                        Service.gI().sendThongBaoAllPlayer("Tỷ lệ exp server đã thay đổi thành x" + Manager.RATE_EXP_SERVER);
-                                        break;
-                                    case PanelCommand.CMD_SET_TRADE_RATE:
-                                        String[] trades = line.split(":");
-                                        byte trade = Byte.parseByte(trades[1]);
-                                        if (trade <= 0) {
-                                            return;
-                                        }
-                                        Manager.KHUYEN_MAI_NAP = trade;
-                                        Service.gI().sendThongBaoAllPlayer("Tỷ lệ quy đổi đã thay đổi thành x" + Manager.RATE_EXP_SERVER);
-                                        break;
-                                }
+                panelClient = client;
+                Logger.log("New client connected: " + client.getInetAddress().getHostAddress());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(panelClient.getInputStream(), "UTF-8"));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(panelClient.getOutputStream(), "UTF-8"));
+                new Thread(() -> {
+                    try {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            String command = line.split(":")[0];
+                            if (command == null) {
+                                continue;
                             }
-                        } catch (Exception e) {
-
+                            switch (command) {
+                                case PanelCommand.CMD_GET_INFO:
+                                    // send data
+                                    writer.write(String.format("DATA:%s:%s:%s:%s:%s:%s",
+                                            GirlkunSessionManager.gI().getSessions().size(), Client.gI().getPlayers().size(), Thread.activeCount(), Manager.CONTENT_SUKIEN[Manager.SUKIEN], Manager.KHUYEN_MAI_NAP, Manager.RATE_EXP_SERVER));
+                                    writer.newLine();
+                                    writer.flush();
+                                    break;
+                                case PanelCommand.CMD_KICK_OUT:
+                                    Client.gI().close();
+                                    break;
+                                case PanelCommand.CMD_NOTIFY:
+                                    // get message first
+                                    String[] messages = line.split(":");
+                                    Message msg = new Message(93);
+                                    try {
+                                        msg.writer().writeUTF(messages[1]);
+                                    } catch (IOException ex) {
+                                        Logger.error(ex.getMessage());
+                                    }
+                                    Service.getInstance().sendMessAllPlayer(msg);
+                                    msg.cleanup();
+                                    break;
+                                case PanelCommand.CMD_MAINTAIN:
+                                    // start maintain progress
+                                    Maintenance.gI().maintenance30Second();
+                                    break;
+                                case PanelCommand.CMD_SET_EVENT:
+                                    String[] sukiens = line.split(":");
+                                    byte sukien = Byte.parseByte(sukiens[1]);
+                                    if (sukien < 0) {
+                                        return;
+                                    }
+                                    Manager.SUKIEN = sukien;
+                                    if (sukien > 0) {
+                                        Service.getInstance().sendThongBaoAllPlayer(String.format("|7|Sự kiện %s đang được diễn ra"
+                                                + "\n|5|Thông tin chi tiết Sự kiện vui lòng tự tìm kiếm", Manager.CONTENT_SUKIEN[sukien]));
+                                    }
+                                    break;
+                                case PanelCommand.CMD_SET_EXP:
+                                    String[] exps = line.split(":");
+                                    byte exp = Byte.parseByte(exps[1]);
+                                    if (exp <= 0) {
+                                        return;
+                                    }
+                                    Manager.RATE_EXP_SERVER = exp;
+                                    Service.gI().sendThongBaoAllPlayer("Tỷ lệ exp server đã thay đổi thành x" + Manager.RATE_EXP_SERVER);
+                                    break;
+                                case PanelCommand.CMD_SET_TRADE_RATE:
+                                    String[] trades = line.split(":");
+                                    byte trade = Byte.parseByte(trades[1]);
+                                    if (trade <= 0) {
+                                        return;
+                                    }
+                                    Manager.KHUYEN_MAI_NAP = trade;
+                                    Service.gI().sendThongBaoAllPlayer("Tỷ lệ quy đổi đã thay đổi thành x" + Manager.RATE_EXP_SERVER);
+                                    break;
+                            }
                         }
-                    }).start();
-                }
+                    } catch (Exception e) {
+
+                    }
+                }).start();
             }
         } catch (Exception e) {
             Logger.error("Error when init panel server socket " + e.getMessage());
