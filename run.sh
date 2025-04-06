@@ -1,0 +1,1 @@
+nohup java -jar ./game.jar > game.log 2>&1 &
