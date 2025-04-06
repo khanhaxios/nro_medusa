@@ -255,7 +255,7 @@ public class JFramePanel extends javax.swing.JFrame {
                         + "Hiện tại:  x" + Manager.KHUYEN_MAI_NAP + " Đổi tiền"
                 , "Tỉ Lệ Quy Đổi Nạp", JOptionPane.QUESTION_MESSAGE);
         if (naptien != null) {
-            Manager.KHUYEN_MAI_NAP = Byte.parseByte(naptien);
+            Manager.KHUYEN_MAI_NAP = Short.parseShort(naptien);
             Logger.log(Logger.PURPLE, "Giá trị Khuyến mãi hiện tại là: " + naptien + "\n");
         }
     }//GEN-LAST:event_jButton8ActionPerformed
