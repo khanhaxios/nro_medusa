@@ -61,6 +61,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.girlkun.utils.Util;
+
 import java.io.InputStreamReader;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -74,6 +75,7 @@ public class Manager {
     private static Manager i;
 
     public static byte SERVER = 1;
+    public static Map<String, String> SERVER_SETTINGS = new HashMap<>();
     public static byte SECOND_WAIT_LOGIN = 10;
     public static int MAX_PER_IP = 3;
     public static int MAX_PLAYER = 2000000;
@@ -203,16 +205,16 @@ public class Manager {
     public static final short[][] doSKHThuong = {{0, 6, 21, 27}, {1, 7, 22, 28}, {2, 8, 23, 29}};
 
     public static final short[] MEDUSA_KEYWORD = {1492, 1493, 1494, 1495, 1496};
-    
+
     public static final short[] setJiren = {1519, 1520, 1521, 1522, 1523};
     public static final short[] setGokuUI = {1527, 1528, 1529, 1530, 1531};
     public static final String[] setCoTheDungHop = {"Jiren", "Goku UI"};
 
     //doSKHVip[gender][typeDo][randomLVDo]
     public static final List<AchievementTemplate> ACHIEVEMENTS = new ArrayList<>();
-    
+
     public static final ExecutorService executor = Executors.newCachedThreadPool();
-    public static boolean haveEffectNightSky = false; 
+    public static boolean haveEffectNightSky = false;
 
     public static Manager gI() {
         if (i == null) {
@@ -221,9 +223,23 @@ public class Manager {
         return i;
     }
 
+    private void loadServerSettings() {
+        try {
+//            GirlkunResultSet resultSet = GirlkunDB.executeQuery("select val_,key_ from server_settings");
+//            while (resultSet.next()) {
+//                SERVER_SETTINGS.put(resultSet.getString("key_"), resultSet.getString("val_"));
+//            }
+//            RATE_EXP_SERVER = Byte.parseByte(SERVER_SETTINGS.get("exp_rate"));
+//            SUKIEN = Byte.parseByte(SERVER_SETTINGS.get("active_event"));
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+        }
+    }
+
     private Manager() {
         try {
             loadProperties();
+            loadServerSettings();
         } catch (IOException ex) {
             Logger.logException(Manager.class, ex, "Lỗi load properites");
             System.exit(0);
@@ -747,7 +763,7 @@ public class Manager {
                 }
             }
             Logger.success("Load reward lucky round thành công (" + LUCKY_ROUND_REWARDS.size() + ")\n");
-            
+
             //load reward lucky round special
             folder = new File("data/girlkun/data_lucky_round_reward_special");
             for (File fileEntry : folder.listFiles()) {
@@ -782,7 +798,7 @@ public class Manager {
                 }
             }
             Logger.success("Load reward lucky special round thành công (" + LUCKY_ROUND_REWARDS_SPECIAL.size() + ")\n");
-            
+
             //load reward mob
             folder = new File("data/girlkun/mob_reward");
             for (File fileEntry : folder.listFiles()) {

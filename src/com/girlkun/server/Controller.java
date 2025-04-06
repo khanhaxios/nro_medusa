@@ -219,11 +219,11 @@ public class Controller implements IMessageHandler {
                     break;
                 case -86:
                     if (player != null) {
-                        if (player.getSession().actived) {//mo cai nay dc r
+                        if (player.getSession().actived) {
                             TransactionService.gI().controller(player, _msg);
                         } else {
                             Service.gI().sendThongBao(player, "|7|Vui lòng Mở thành viên để giao dịch!");
-                        }//mở code này là khoá gd
+                        }
                     }
                     break;
                 case -107:

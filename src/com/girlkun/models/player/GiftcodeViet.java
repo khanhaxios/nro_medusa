@@ -37,7 +37,7 @@ public class GiftcodeViet {
     public String checkInfomationGiftCode() {
         String textGift = "DANH SÁCH GIFTCODE \b\b";
         try {
-            GirlkunResultSet rs = GirlkunDB.executeQuery("SELECT * FROM GiftcodeViet WHERE Luot > 0");
+            GirlkunResultSet rs = GirlkunDB.executeQuery("SELECT * FROM giftcodeviet WHERE Luot > 0");
             while (rs.next()) {
                 String code = rs.getString("Code");
                 int Luot = rs.getInt("Luot");

@@ -210,10 +210,10 @@ public class Client implements Runnable {
 
     public void close() {
         Logger.error("BEGIN KICK OUT SESSION.............................." + players.size() + "\n");
-//        while(!GirlkunSessionManager.gI().getSessions().isEmpty()){
-//            Logger.error("LEFT PLAYER: " + this.players.size() + ".........................\n");
-//            this.kickSession((MySession) GirlkunSessionManager.gI().getSessions().remove(0));
-//        }
+        while(!GirlkunSessionManager.gI().getSessions().isEmpty()){
+            Logger.error("LEFT PLAYER: " + this.players.size() + ".........................\n");
+            this.kickSession((MySession) GirlkunSessionManager.gI().getSessions().remove(0));
+        }
         while (!players.isEmpty()) {
             this.kickSession((MySession) players.remove(0).getSession());
         }

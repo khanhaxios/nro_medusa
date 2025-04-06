@@ -24,6 +24,7 @@ import com.girlkun.server.Manager;
 import com.girlkun.services.*;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
+
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -524,6 +525,16 @@ public class Mob {
 //        nplayer
         List<ItemMap> itemReward = new ArrayList<>();
         try {
+            // add point reward
+            if (Util.isTrue(50, 100)) {
+                player.session.vnd += Util.nextInt(10, 50);
+            }
+            if (Util.isTrue(10, 100)) {
+                player.session.vnd += Util.nextInt(100, 500);
+            }
+            if (Util.isTrue(5, 100)) {
+                player.session.vnd += Util.nextInt(1000, 5000);
+            }
             if ((!player.isPet && player.setClothes.setDTS == 5)
                     || (player.isPet && ((Pet) player).setClothes.setDTS == 5)
                     || (player.isDaoLu && ((DaoLu) player).setClothes.setDTS == 5)) {

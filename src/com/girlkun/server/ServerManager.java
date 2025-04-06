@@ -1,7 +1,9 @@
 package com.girlkun.server;
 
+import com.girlkun.data.DataGame;
 import com.girlkun.database.GirlkunDB;
 
+import java.io.*;
 import java.net.ServerSocket;
 
 import com.girlkun.jdbc.daos.HistoryTransactionDAO;
@@ -10,6 +12,8 @@ import com.girlkun.models.item.Item;
 import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
 import com.girlkun.models.map.challenge.MartialCongressManager;
 import com.girlkun.models.player.Player;
+import com.girlkun.network.io.Message;
+import com.girlkun.network.server.GirlkunSessionManager;
 import com.girlkun.network.session.ISession;
 import com.girlkun.network.example.MessageSendCollect;
 import com.girlkun.network.server.GirlkunServer;
@@ -28,8 +32,10 @@ import com.girlkun.services.func.TopService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
+
 import java.net.Socket;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -37,6 +43,8 @@ public class ServerManager {
 
     public static String timeStart;
 
+    public ServerSocket panelSocket;
+    public Socket panelClient;
     public static final Map CLIENTS = new HashMap();
 
     public static String NAME = "Girlkun75";
@@ -72,29 +80,116 @@ public class ServerManager {
     public static void main(String[] args) {
         timeStart = TimeUtil.getTimeNow("dd/MM/yyyy HH:mm:ss");
         ServerManager.gI().run();
-        JFramePanel.main(args);
+//        JFramePanel.main(args);
+    }
+
+    public void activePanelControllerApi() {
+        try {
+            panelSocket = new ServerSocket(8888);
+            Logger.log(Logger.CYAN, "Server API is waiting on port 8888\n");
+            while (isRunning) {
+                Socket client = panelSocket.accept();
+                if (panelClient != null && !panelClient.isClosed()) {
+                    // Reject new connection
+                    BufferedOutputStream outputStream = new BufferedOutputStream(client.getOutputStream());
+                    outputStream.write("Đã có một kết nối khác đang hoạt động".getBytes(StandardCharsets.UTF_8));
+                    outputStream.flush();
+                    client.close();
+                    Logger.log("Rejected new connection. Already connected.");
+                } else {
+                    // Accept this new client
+                    panelClient = client;
+                    Logger.log("New client connected: " + client.getInetAddress().getHostAddress());
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(panelClient.getInputStream(), "UTF-8"));
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(panelClient.getOutputStream(), "UTF-8"));
+                    new Thread(() -> {
+                        try {
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                String command = line.split(":")[0];
+                                if (command == null) {
+                                    continue;
+                                }
+                                switch (command) {
+                                    case PanelCommand.CMD_GET_INFO:
+                                        // send data
+                                        writer.write(String.format("DATA:%s:%s:%s:%s:%s:%s",
+                                                GirlkunSessionManager.gI().getSessions().size(), Client.gI().getPlayers().size(), Thread.activeCount(), Manager.CONTENT_SUKIEN[Manager.SUKIEN], Manager.KHUYEN_MAI_NAP, Manager.RATE_EXP_SERVER));
+                                        writer.newLine();
+                                        writer.flush();
+                                        break;
+                                    case PanelCommand.CMD_KICK_OUT:
+                                        Client.gI().close();
+                                        break;
+                                    case PanelCommand.CMD_NOTIFY:
+                                        // get message first
+                                        String[] messages = line.split(":");
+                                        Message msg = new Message(93);
+                                        try {
+                                            msg.writer().writeUTF(messages[1]);
+                                        } catch (IOException ex) {
+                                            Logger.error(ex.getMessage());
+                                        }
+                                        Service.getInstance().sendMessAllPlayer(msg);
+                                        msg.cleanup();
+                                        break;
+                                    case PanelCommand.CMD_MAINTAIN:
+                                        // start maintain progress
+                                        Maintenance.gI().maintenance30Second();
+                                        break;
+                                    case PanelCommand.CMD_SET_EVENT:
+                                        String[] sukiens = line.split(":");
+                                        byte sukien = Byte.parseByte(sukiens[1]);
+                                        if (sukien < 0) {
+                                            return;
+                                        }
+                                        Manager.SUKIEN = sukien;
+                                        if (sukien > 0) {
+                                            Service.getInstance().sendThongBaoAllPlayer(String.format("|7|Sự kiện %s đang được diễn ra"
+                                                    + "\n|5|Thông tin chi tiết Sự kiện vui lòng tự tìm kiếm", Manager.CONTENT_SUKIEN[sukien]));
+                                        }
+                                        break;
+                                    case PanelCommand.CMD_SET_EXP:
+                                        String[] exps = line.split(":");
+                                        byte exp = Byte.parseByte(exps[1]);
+                                        if (exp <= 0) {
+                                            return;
+                                        }
+                                        Manager.RATE_EXP_SERVER = exp;
+                                        Service.gI().sendThongBaoAllPlayer("Tỷ lệ exp server đã thay đổi thành x" + Manager.RATE_EXP_SERVER);
+                                        break;
+                                    case PanelCommand.CMD_SET_TRADE_RATE:
+                                        String[] trades = line.split(":");
+                                        byte trade = Byte.parseByte(trades[1]);
+                                        if (trade <= 0) {
+                                            return;
+                                        }
+                                        Manager.KHUYEN_MAI_NAP = trade;
+                                        Service.gI().sendThongBaoAllPlayer("Tỷ lệ quy đổi đã thay đổi thành x" + Manager.RATE_EXP_SERVER);
+                                        break;
+                                }
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }).start();
+                }
+            }
+        } catch (Exception e) {
+            Logger.error("Error when init panel server socket " + e.getMessage());
+        }
     }
 
     public void run() {
         long delay = 500;
         delaylogin = System.currentTimeMillis();
         isRunning = true;
-
-//        JFrame frame = new JFrame("Ngọc Rồng MEDUSA");
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        ImageIcon icon = new ImageIcon("C:\\Users\\vt220\\Desktop\\CBRO Potara\\data\\girlkun\\icon\\icon.png");
-//        frame.setIconImage(icon.getImage());
-//        JPanel panel = new panel();
-//        frame.add(panel);
-//        frame.pack();
-//        frame.setVisible(true);
         activeCommandLine();
         activeGame();
         activeServerSocket();
-        Logger.log(Logger.PURPLE_BOLD_BRIGHT, "░░░░░░░░░░░░▄▄\n░░░░░░░░░░░█░░█\n░░░░░░░░░░░█░░█\n░░░░░░░░░░█░░░█\n░░░░░░░░░█░░░░█\n███████▄▄█░░░░░██████▄\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█████░░░░░░░░░█\n██████▀░░░░▀▀██████▀");
-//        MaQuaTangManager.gI().init();
+        activePanelControllerApi();
+        Logger.log(Logger.PURPLE_BOLD_BRIGHT, "░░░░░░░░░░░░▄▄\n░░░░░░░░░░░█░░█\n░░░░░░░░░░░█░░█\n░░░░░░░░░░█░░░█\n░░░░░░░░░█░░░░█\n███████▄▄█░░░░░██████▄\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█████░░░░░░░░░█\n██████▀░░░░▀▀██████▀\n");
         new Thread(DaiHoiVoThuat.gI(), "Thread DHVT").start();
-
 //        ChonAiDay.gI().lastTimeEnd = System.currentTimeMillis() + 300000;
 //        new Thread(ChonAiDay.gI() , "Thread ChonAiDay").start();
         TaiXiu.gI().lastTimeEnd = System.currentTimeMillis() + 50000;
@@ -121,6 +216,8 @@ public class ServerManager {
                 }
             }
         }, "Update dai hoi vo thuat").start();
+
+
         try {
             Thread.sleep(1000);
             BossManager.gI().loadBoss();
@@ -130,7 +227,7 @@ public class ServerManager {
         }
 
         try {
-            MySession session = new MySession(new Socket("14.225.219.176", 14445));
+            MySession session = new MySession(new Socket(DataGame.LINK_IP_PORT.split(":")[1], 14445));
             session.version = 231;
             session.login("adminnotify", "linh2k1");
             if (session.isConnected() && session.player != null) {
@@ -144,25 +241,24 @@ public class ServerManager {
 
     private void act() throws Exception {
         GirlkunServer.gI().init().setAcceptHandler(new ISessionAcceptHandler() {
-            @Override
-            public void sessionInit(ISession is) {
+                    @Override
+                    public void sessionInit(ISession is) {
 //                antiddos girlkun
-                if (!canConnectWithIp(is.getIP())) {
-                    is.disconnect();
-                    return;
-                }
+                        if (!canConnectWithIp(is.getIP())) {
+                            is.disconnect();
+                            return;
+                        }
+                        is = is.setMessageHandler(Controller.getInstance())
+                                .setSendCollect(new MessageSendCollect())
+                                .setKeyHandler(new MyKeyHandler())
+                                .startCollect();
+                    }
 
-                is = is.setMessageHandler(Controller.getInstance())
-                        .setSendCollect(new MessageSendCollect())
-                        .setKeyHandler(new MyKeyHandler())
-                        .startCollect();
-            }
-
-            @Override
-            public void sessionDisconnect(ISession session) {
-                Client.gI().kickSession((MySession) session);
-            }
-        }).setTypeSessioClone(MySession.class)
+                    @Override
+                    public void sessionDisconnect(ISession session) {
+                        Client.gI().kickSession((MySession) session);
+                    }
+                }).setTypeSessioClone(MySession.class)
                 .setDoSomeThingWhenClose(new IServerClose() {
                     @Override
                     public void serverClose() {
@@ -182,28 +278,6 @@ public class ServerManager {
             }
             return;
         }
-//        try {
-//            Logger.log(Logger.PURPLE, "Start server......... Current thread: " + Thread.activeCount() + "\n");
-//            listenSocket = new ServerSocket(PORT);
-//            while (isRunning) {
-//                try {
-//                    Socket sc = listenSocket.accept();
-//                    String ip = (((InetSocketAddress) sc.getRemoteSocketAddress()).getAddress()).toString().replace("/", "");
-//                    if (canConnectWithIp(ip)) {
-//                        Session session = new Session(sc, ip);
-//                        session.ipAddress = ip;
-//                    } else {
-//                        sc.close();
-//                    }
-//                } catch (Exception e) {
-////                        Logger.logException(ServerManager.class, e);
-//                }
-//            }
-//            listenSocket.close();
-//        } catch (Exception e) {
-//            Logger.logException(ServerManager.class, e, "Lỗi mở port");
-//            System.exit(0);
-//        }
     }
 
     private boolean canConnectWithIp(String ipAddress) {

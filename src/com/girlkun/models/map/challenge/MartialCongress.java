@@ -49,10 +49,6 @@ public class MartialCongress {
                 }
             } else {
                 endChallenge();
-//                if (boss != null) {
-//                    boss.leaveMap();
-//                }
-//                MartialCongressManager.gI().remove(this);
             }
 
         } else {

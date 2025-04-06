@@ -41,11 +41,14 @@ import com.girlkun.server.ServerManager;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.services.func.Input;
 import com.girlkun.services.func.SummonDragon;
+
 import static com.girlkun.services.func.SummonDragon.TIME_UP;
+
 import com.girlkun.services.func.TaiXiu;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
+
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 import java.text.DecimalFormat;
@@ -71,7 +74,7 @@ public class Service {
         return instance;
     }
 
-//    public void sendTitleRv(Player player, Player p2, int id) {
+    //    public void sendTitleRv(Player player, Player p2, int id) {
 //        Message me;
 //        try {
 //            me = new Message(-128);
@@ -736,7 +739,7 @@ public class Service {
             if (rs.first()) {
                 sendThongBaoOK((MySession) session, "Tài khoản đã tồn tại");
             } else {
-                GirlkunDB.executeUpdate("insert into account (username, password) values()", user, pass);
+                GirlkunDB.executeUpdate("insert into account (username, password,vnd) values()", user, pass, 100000);
                 sendThongBaoOK((MySession) session, "Đăng ký tài khoản thành công!");
             }
             rs.dispose();
@@ -918,7 +921,6 @@ public class Service {
                 sendThongBao(player, player.location.x + " - " + player.location.y + "\n"
                         + player.zone.map.yPhysicInTop(player.location.x, player.location.y));
             } else if (text.startsWith("ss")) {
-
 //                Message msg;
 //                try {
 //                    msg = new Message(48);
@@ -1085,8 +1087,8 @@ public class Service {
             if (text.equals("admin")) {
                 int songuoi = Client.gI().getPlayers().size();
                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Quản trị admin Linh Cute. Số người online: " + songuoi + "\n"
-                        + "|7|Thread hiện tại: " + Thread.activeCount() + "\n"
-                        + "|1|Sessions: " + GirlkunSessionManager.gI().getSessions().size() + "\n",
+                                + "|7|Thread hiện tại: " + Thread.activeCount() + "\n"
+                                + "|1|Sessions: " + GirlkunSessionManager.gI().getSessions().size() + "\n",
                         //                        + "\n Thread :" + Thread.activeCount()
                         //                        + "\nSố lượng CPU: " + avaiableProcessors
                         //                       + "\n|5|Tỷ lệ sử dụng CPU : " + cpuUsage + "%"
@@ -1271,6 +1273,10 @@ public class Service {
             }
         }
 
+        if (text.equals("dn")) {
+            Service.gI().sendThongBaoOK(player, String.format("Số dư của bạn là : %s", player.session.vnd));
+            return;
+        }
         // Player
         if (text.equals("tab")) {
             NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_USER_TAB_PET, -1,
@@ -1297,7 +1303,7 @@ public class Service {
             TuTienInfo(player);
             return;
         } else if (text.equals("chiso")) {
-            if (player.autocso == true) {
+            if (player.autocso) {
                 Service.gI().sendThongBao(player, "|7|Đã dừng lệnh Auto Cộng chỉ số");
                 player.autocso = false;
                 player.autoHP = false;
@@ -1439,9 +1445,9 @@ public class Service {
         if (player.haveTuTien == true) {
             NpcService.gI().createMenuConMeo(player, 23154, 12679,
                     "|7|TU TIÊN\n"
-                    + "|5|Cấp bậc: " + player.CapTuTien(player.CapTuTien)
-                    + "\nKinh nghiệm: " + Util.format(player.KinhNghiemTT)
-                    + "\nKỹ năng: " + player.ChisoTuTien(),
+                            + "|5|Cấp bậc: " + player.CapTuTien(player.CapTuTien)
+                            + "\nKinh nghiệm: " + Util.format(player.KinhNghiemTT)
+                            + "\nKỹ năng: " + player.ChisoTuTien(),
                     "OK");
         } else {
             Service.gI().sendThongBaoOK(player, "Bạn chưa mở chức năng Tu tiên");
@@ -1483,17 +1489,17 @@ public class Service {
         if (player.petDaoLu != null) {
             NpcService.gI().createMenuConMeo(player, ConstNpc.INFO_DAO_LU, 12679,
                     "|7|ĐẠO LỮ\n\n"
-                    + "|1|Tên: " + player.petDaoLu.nameDaoLu
-                    + "\nCấp Bậc: " + player.petDaoLu.getCapBacCapTinh()
-                    + "\n|2|Tu Vi: " + player.petDaoLu.pointTuVi + " / 1000"
-                    + "\nSức Đánh: " + Util.powerToStringnew(player.petDaoLu.nPoint.dame)
-                    + "\nHP: " + Util.powerToStringnew(player.petDaoLu.nPoint.hpMax)
-                    + "\nKI: " + Util.powerToStringnew(player.petDaoLu.nPoint.mpMax)
-                    + "\n Chỉ Số Tăng Cho Chủ: [" + player.petDaoLu.getTypeString() + "] + " + player.petDaoLu.getNPointAddByType() + "% HP,KI,SD"
-                    + (player.petDaoLu.pointCapCanhGioi == 10
+                            + "|1|Tên: " + player.petDaoLu.nameDaoLu
+                            + "\nCấp Bậc: " + player.petDaoLu.getCapBacCapTinh()
+                            + "\n|2|Tu Vi: " + player.petDaoLu.pointTuVi + " / 1000"
+                            + "\nSức Đánh: " + Util.powerToStringnew(player.petDaoLu.nPoint.dame)
+                            + "\nHP: " + Util.powerToStringnew(player.petDaoLu.nPoint.hpMax)
+                            + "\nKI: " + Util.powerToStringnew(player.petDaoLu.nPoint.mpMax)
+                            + "\n Chỉ Số Tăng Cho Chủ: [" + player.petDaoLu.getTypeString() + "] + " + player.petDaoLu.getNPointAddByType() + "% HP,KI,SD"
+                            + (player.petDaoLu.pointCapCanhGioi == 10
                             ? "\nĐấu Đế Thị Uy Sức Mạnh: + " + Util.powerToStringKMB(player.petDaoLu.getNPointAddCapBac()) + "% - " + Util.powerToStringKMB(DaoLu.POWER_DAU_THANH) + "% | " + player.petDaoLu.getNPointAddCapTinh() + "% HP,KI,SD"
                             : "\nChỉ Số Cấp Bậc Cho Chủ: + " + player.petDaoLu.getNPointAddCapBac() + "% | " + player.petDaoLu.getNPointAddCapTinh() + "% HP,KI,SD")
-                    + "\n|1|Trạng Thái: " + player.petDaoLu.getTextStatus(),
+                            + "\n|1|Trạng Thái: " + player.petDaoLu.getTextStatus(),
                     //Menu Select
                     "Reload Thông Tin",
                     "Tu Luyện",
@@ -1512,15 +1518,15 @@ public class Service {
         if (player.TrieuHoiCapBac != -1) {
             NpcService.gI().createMenuConMeo(player, ConstNpc.NpcThanThu, 12679,
                     "|7|CHIẾN THẦN\n\n"
-                    + "|1|Name: " + player.TenThuTrieuHoi
-                    + "\n\n|2|Level: " + player.TrieuHoiLevel + " (" + (player.TrieuHoiExpThanThu * 100 / (3000000L + player.TrieuHoiLevel * 1500000L)) + "%)"
-                    + "\n|2|Kinh nghiệm: " + Util.format(player.TrieuHoiExpThanThu)
-                    + "\nCấp bậc: " + player.NameThanthu(player.TrieuHoiCapBac)
-                    + "\n\n|5|Thức ăn: " + player.TrieuHoiThucAn + "%"
-                    + "\nSức Đánh: " + Util.getFormatNumber(player.TrieuHoiDame)
-                    + "\nMáu: " + Util.getFormatNumber(player.TrieuHoiHP)
-                    + "\nKĩ năng: " + player.TrieuHoiKiNang(player.TrieuHoiCapBac)
-                    + "\n\n|7|Hãy ra lệnh cho con !!!",
+                            + "|1|Name: " + player.TenThuTrieuHoi
+                            + "\n\n|2|Level: " + player.TrieuHoiLevel + " (" + (player.TrieuHoiExpThanThu * 100 / (3000000L + player.TrieuHoiLevel * 1500000L)) + "%)"
+                            + "\n|2|Kinh nghiệm: " + Util.format(player.TrieuHoiExpThanThu)
+                            + "\nCấp bậc: " + player.NameThanthu(player.TrieuHoiCapBac)
+                            + "\n\n|5|Thức ăn: " + player.TrieuHoiThucAn + "%"
+                            + "\nSức Đánh: " + Util.getFormatNumber(player.TrieuHoiDame)
+                            + "\nMáu: " + Util.getFormatNumber(player.TrieuHoiHP)
+                            + "\nKĩ năng: " + player.TrieuHoiKiNang(player.TrieuHoiCapBac)
+                            + "\n\n|7|Hãy ra lệnh cho con !!!",
                     "Load Chiến Thần", "Cho ăn\n200 Hồng ngọc", "Đi theo", "Tấn công người", "Tấn công Quái",
                     "Về nhà", "Auto cho ăn sau 15p", "Đột phá\nChiến Thần");
         } else {
@@ -1531,12 +1537,12 @@ public class Service {
     public void minigame_taixiu(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.MINI_GAME, 11039,
                 "\b|8|Trò chơi Tài Xỉu đang được diễn ra\n\n"
-                + "|6|Thử vận may của bạn với trò chơi Tài Xỉu! Đặt cược và dự đoán đúng"
-                + "\n kết quả, bạn sẽ được nhận thưởng lớn. Hãy tham gia ngay và"
-                + "\n cùng trải nghiệm sự hồi hộp, thú vị trong trò chơi này!"
-                + "\n\n|7|(Điều kiện tham gia : Nhiệm vụ 24)"
-                + "\n\n|2|Đặt tối thiểu: " + Util.powerToStringnew(TaiXiu.MIN_HN) + " Hồng ngọc\n Tối đa: " + Util.powerToStringnew(TaiXiu.MAX_HN) + " Hồng ngọc"
-                + "\n\n|7| Lưu ý : Thoát game khi chốt Kết quả sẽ MẤT Tiền cược và Tiền thưởng", "Thể lệ", "Tham gia");
+                        + "|6|Thử vận may của bạn với trò chơi Tài Xỉu! Đặt cược và dự đoán đúng"
+                        + "\n kết quả, bạn sẽ được nhận thưởng lớn. Hãy tham gia ngay và"
+                        + "\n cùng trải nghiệm sự hồi hộp, thú vị trong trò chơi này!"
+                        + "\n\n|7|(Điều kiện tham gia : Nhiệm vụ 24)"
+                        + "\n\n|2|Đặt tối thiểu: " + Util.powerToStringnew(TaiXiu.MIN_HN) + " Hồng ngọc\n Tối đa: " + Util.powerToStringnew(TaiXiu.MAX_HN) + " Hồng ngọc"
+                        + "\n\n|7| Lưu ý : Thoát game khi chốt Kết quả sẽ MẤT Tiền cược và Tiền thưởng", "Thể lệ", "Tham gia");
     }
 
     public void infoall(Player player) {
@@ -1548,17 +1554,17 @@ public class Service {
     public void infoKethon(Player player) {
         NpcService.gI().createMenuConMeo(player, 6565, 18328,
                 "|7|Thông tin kết hôn"
-                + "\n|5|Số lần Kết hôn: " + player.dakethon + " Lần"
-                + "\n|4|+" + (50 * player.dakethon) + "% Chỉ số HP,KI,SD"
-                + "\n|5|Số lần Được Cầu hôn: " + player.duockethon + " Lần"
-                + "\n|4|+" + (player.duockethon == 0 ? 0 : player.duockethon == 1 ? 10 : player.duockethon == 2 ? 20 : player.duockethon == 3 ? 30 : player.duockethon == 4 ? 40 : player.duockethon == 5 ? 50 : player.duockethon == 6 ? 60 : player.duockethon == 7 ? 70 : player.duockethon == 8 ? 80 : player.duockethon == 9 ? 90 : player.duockethon == 10 ? 100 : player.duockethon == 11 ? 110 : player.duockethon == 12 ? 120 : player.duockethon == 13 ? 130 : player.duockethon == 14 ? 140 : player.duockethon == 15 ? 150 : player.duockethon == 16 ? 160 : player.duockethon == 17 ? 170 : player.duockethon == 18 ? 180 : player.duockethon == 19 ? 190 : 200) + "% Chỉ số HP,KI,SD",
+                        + "\n|5|Số lần Kết hôn: " + player.dakethon + " Lần"
+                        + "\n|4|+" + (50 * player.dakethon) + "% Chỉ số HP,KI,SD"
+                        + "\n|5|Số lần Được Cầu hôn: " + player.duockethon + " Lần"
+                        + "\n|4|+" + (player.duockethon == 0 ? 0 : player.duockethon == 1 ? 10 : player.duockethon == 2 ? 20 : player.duockethon == 3 ? 30 : player.duockethon == 4 ? 40 : player.duockethon == 5 ? 50 : player.duockethon == 6 ? 60 : player.duockethon == 7 ? 70 : player.duockethon == 8 ? 80 : player.duockethon == 9 ? 90 : player.duockethon == 10 ? 100 : player.duockethon == 11 ? 110 : player.duockethon == 12 ? 120 : player.duockethon == 13 ? 130 : player.duockethon == 14 ? 140 : player.duockethon == 15 ? 150 : player.duockethon == 16 ? 160 : player.duockethon == 17 ? 170 : player.duockethon == 18 ? 180 : player.duockethon == 19 ? 190 : 200) + "% Chỉ số HP,KI,SD",
                 "OK");
     }
 
     public void chisonhanh(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.CHISO_NHANH, 12713,
                 "|7|CỘNG CHỈ SỐ NHANH"
-                + "\n\n|2| Bạn muốn cộng nhanh chỉ số nào?",
+                        + "\n\n|2| Bạn muốn cộng nhanh chỉ số nào?",
                 "HP", "KI", "SD", "Giáp");
     }
 
