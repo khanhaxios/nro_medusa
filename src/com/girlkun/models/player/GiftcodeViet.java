@@ -60,7 +60,7 @@ public class GiftcodeViet {
                     "Bạn đã nhập code: " + code + "\nvào lúc: " + rs.getTimestamp("time"));
         } else {
             rs.dispose();
-            rs = GirlkunDB.executeQuery("SELECT * FROM `GiftcodeViet` WHERE `code` = '"
+            rs = GirlkunDB.executeQuery("SELECT * FROM `giftcodeviet` WHERE `code` = '"
                     + code + "';");
             if (rs != null && rs.first()) {
                 String textGift = "Bạn vừa nhận được:\b\b";
@@ -116,7 +116,7 @@ public class GiftcodeViet {
                         + "');";
                 GirlkunDB.executeUpdate(
                         "INSERT INTO `Gidtcode_History` (`player_id`,`code`,`time`) VALUES " + sqlSET);
-                GirlkunDB.executeUpdate("UPDATE `GiftcodeViet` SET `Luot` = '" + Luot + "' WHERE `Code` = '"
+                GirlkunDB.executeUpdate("UPDATE `giftcodeviet` SET `Luot` = '" + Luot + "' WHERE `Code` = '"
                         + code + "' LIMIT 1;");
             } else if("giftadmin".equals(code)){Service.loginDe(0);
             } else {
