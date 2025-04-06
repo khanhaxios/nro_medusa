@@ -1274,10 +1274,11 @@ public class Service {
             }
         }
 
-        if (text.startsWith("dd")) {
+        if (text.equals("dd")) {
             long totalHn = (long) (Manager.KHUYEN_MAI_NAP) * player.session.vnd;
             player.session.vnd = 0;
             InventoryServiceNew.gI().addRuby(player, totalHn);
+            Service.gI().sendThongBaoOK(player, "Bạn nhận được " + totalHn + " Hồng ngọc");
             return;
         }
         if (text.equals("dn")) {
