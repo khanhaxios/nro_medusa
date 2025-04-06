@@ -152,7 +152,7 @@ public class ServerManager {
                                     break;
                                 case PanelCommand.CMD_SET_TRADE_RATE:
                                     String[] trades = line.split(":");
-                                    byte trade = Byte.parseByte(trades[1]);
+                                    short trade = Short.parseShort(trades[1]);
                                     if (trade <= 0) {
                                         return;
                                     }
