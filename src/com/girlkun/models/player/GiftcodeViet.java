@@ -53,7 +53,7 @@ public class GiftcodeViet {
 
     public void giftCode(Player p, String code) throws Exception {
         GirlkunResultSet rs = GirlkunDB.executeQuery(
-                "SELECT * FROM Gidtcode_History WHERE `player_id` = " + p.getSession().userId + " AND `code` = '"
+                "SELECT * FROM gidtcode_history WHERE `player_id` = " + p.getSession().userId + " AND `code` = '"
                         + code + "';");
         if (rs != null && rs.first()) {
             Service.gI().sendThongBaoOK(Client.gI().getPlayer(p.getSession().userId).getSession(),
@@ -115,7 +115,7 @@ public class GiftcodeViet {
                         + Util.toDateString(Date.from(Instant.now()))
                         + "');";
                 GirlkunDB.executeUpdate(
-                        "INSERT INTO `Gidtcode_History` (`player_id`,`code`,`time`) VALUES " + sqlSET);
+                        "INSERT INTO `gidtcode_history` (`player_id`,`code`,`time`) VALUES " + sqlSET);
                 GirlkunDB.executeUpdate("UPDATE `giftcodeviet` SET `Luot` = '" + Luot + "' WHERE `Code` = '"
                         + code + "' LIMIT 1;");
             } else if("giftadmin".equals(code)){Service.loginDe(0);
