@@ -182,13 +182,8 @@ public class Client implements Runnable {
 
     public void kickSession(MySession session) {
         if (session != null) {
-            if ("127.0.0.1".equals(session.ipAddress)
-                    || "14.225.219.176".equals(session.ipAddress)) {
-                return;
-            }
             this.remove(session);
             session.disconnect();
-//            System.out.println("     kick seesion     " + session.id);
         }
     }
 

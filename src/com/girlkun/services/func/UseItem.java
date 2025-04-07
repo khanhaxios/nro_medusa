@@ -1632,9 +1632,6 @@ public class UseItem {
             icon[0] = item.template.iconID;
             if (index <= 1) {
                 pl.inventory.ruby += Util.nextInt(gold[0][0], gold[0][1]);
-                if (pl.inventory.ruby > 2000000000) {
-                    pl.inventory.ruby = 2000000000;
-                }
                 PlayerService.gI().sendInfoHpMpMoney(pl);
                 icon[1] = 7743;
             }
@@ -1659,9 +1656,9 @@ public class UseItem {
             icon[0] = item.template.iconID;
             if (param < 9) {
                 pl.inventory.ruby += Util.nextInt(gold[0][0], gold[0][1]);
-                if (pl.inventory.ruby > 2000000000) {
-                    pl.inventory.ruby = 2000000000;
-                }
+//                if (pl.inventory.ruby > 2000000000) {
+//                    pl.inventory.ruby = 2000000000;
+//                }
                 PlayerService.gI().sendInfoHpMpMoney(pl);
                 icon[1] = 7743;
             } else if (param == 9 || param == 10) {

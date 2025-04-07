@@ -112,7 +112,7 @@ public class PlayerService {
             msg.writer().writeInt(player.inventory.gem);//luong
             msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.hp));//chp
             msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.mp));//cmp
-            msg.writer().writeInt(player.inventory.ruby);//ruby
+            msg.writer().writeLong(player.inventory.ruby);//ruby
             player.sendMessage(msg);
         } catch (Exception e) {
             Logger.logException(PlayerService.class, e);

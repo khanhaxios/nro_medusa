@@ -102,16 +102,11 @@ public class Mob {
     }
 
     public boolean isQuaiBay() {
-        return this.tempId == 10 || this.tempId == 69 || this.tempId == 30 || this.tempId == 37
-                || this.tempId == 21 || this.tempId == 49 || this.tempId == 25 || this.tempId == 33 || this.tempId == 32
-                || this.tempId == 28 || this.tempId == 29 || this.tempId == 31 || this.tempId == 12 || this.tempId == 79
-                || this.tempId == 75 || this.tempId == 11 || this.tempId == 50 || this.tempId == 43
-                || this.tempId == 9 || this.tempId == 8 || this.tempId == 7;
+        return this.tempId == 10 || this.tempId == 69 || this.tempId == 30 || this.tempId == 37 || this.tempId == 21 || this.tempId == 49 || this.tempId == 25 || this.tempId == 33 || this.tempId == 32 || this.tempId == 28 || this.tempId == 29 || this.tempId == 31 || this.tempId == 12 || this.tempId == 79 || this.tempId == 75 || this.tempId == 11 || this.tempId == 50 || this.tempId == 43 || this.tempId == 9 || this.tempId == 8 || this.tempId == 7;
     }
 
     public boolean isQuaiSen() {
-        return this.tempId == 58 || this.tempId == 59 || this.tempId == 60 || this.tempId == 61
-                || this.tempId == 62 || this.tempId == 63 || this.tempId == 64 || this.tempId == 65;
+        return this.tempId == 58 || this.tempId == 59 || this.tempId == 60 || this.tempId == 61 || this.tempId == 62 || this.tempId == 63 || this.tempId == 64 || this.tempId == 65;
     }
 
     public synchronized void injured(Player plAtt, double damage, boolean dieWhenHpFull) {
@@ -380,11 +375,7 @@ public class Mob {
     //**************************************************************************
     private void mobAttackPlayer(Player player) {
         double dameMob = this.point.getDameAttack();
-        if (!player.isDie() && !player.isNewPet && !player.isBoss
-                && !player.zone.items.stream().anyMatch(it -> it != null
-                && (it.playerId == player.id || isMemInMap(player))
-                && it.itemTemplate.id == 344
-                && Util.getDistance(it.x, it.y, player.location.x, player.location.y) <= 200)) {
+        if (!player.isDie() && !player.isNewPet && !player.isBoss && !player.zone.items.stream().anyMatch(it -> it != null && (it.playerId == player.id || isMemInMap(player)) && it.itemTemplate.id == 344 && Util.getDistance(it.x, it.y, player.location.x, player.location.y) <= 200)) {
             if (player.charms.tdDaTrau > System.currentTimeMillis()) {
                 dameMob /= 2;
             }
@@ -526,18 +517,21 @@ public class Mob {
         List<ItemMap> itemReward = new ArrayList<>();
         try {
             // add point reward
-            if (Util.isTrue(50, 100)) {
-                player.session.vnd += Util.nextInt(10, 50);
-            }
-            if (Util.isTrue(10, 100)) {
-                player.session.vnd += Util.nextInt(1000, 5000);
+            int totalMoney = 500;
+            if (Util.isTrue(20, 100)) {
+                totalMoney += Util.nextInt(10000, 50000);
             }
             if (Util.isTrue(2, 100)) {
-                player.session.vnd += Util.nextInt(10000, 50000);
+                totalMoney += Util.nextInt(1000000, 500000);
+                Service.gI().sendThongBao(player, "Nổ hũ" + Util.format(totalMoney) + " Điểm");
             }
-            if ((!player.isPet && player.setClothes.setDTS == 5)
-                    || (player.isPet && ((Pet) player).setClothes.setDTS == 5)
-                    || (player.isDaoLu && ((DaoLu) player).setClothes.setDTS == 5)) {
+            if (player.session.vnd + totalMoney > 2000000000) {
+                player.session.vnd = 2000000000;
+                Service.gI().sendThongBaoOK(player, "Số dư của bạn vượt quá giới hạn 2 tỷ\nhãy dùng đi nào!");
+            } else {
+                player.session.vnd += totalMoney;
+            }
+            if ((!player.isPet && player.setClothes.setDTS == 5) || (player.isPet && ((Pet) player).setClothes.setDTS == 5) || (player.isDaoLu && ((DaoLu) player).setClothes.setDTS == 5)) {
                 if (Util.isTrue(30, 100)) {
                     byte random = 1;
                     if (Util.isTrue(2, 100)) {
@@ -553,8 +547,7 @@ public class Mob {
 
 //            itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10),
 //                    this.zone.map.yPhysicInTop(this.location.x, this.location.y));
-            itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10),
-                    this.location.y);
+            itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10), this.location.y);
             if (itemTask != null) {
                 itemReward.add(itemTask);
             }
@@ -684,8 +677,7 @@ public class Mob {
             list.add(Util.ratiDa(zone, Manager.danangcap[randomVp4], 1, this.location.x, this.location.y, player.id));
         }
         if (player.isPl()) {
-            if (Util.isTrue(2f, 100) && player.inventory.itemsBody.get(5).isNotNullItem()
-                    && player.inventory.haveOption(player.inventory.itemsBody, 5, 110)) {
+            if (Util.isTrue(2f, 100) && player.inventory.itemsBody.get(5).isNotNullItem() && player.inventory.haveOption(player.inventory.itemsBody, 5, 110)) {
                 byte randomVp2 = (byte) new Random().nextInt(Manager.spl.length);
                 list.add(Util.ratiSpl(zone, Manager.spl[randomVp2], 1, this.location.x, this.location.y, player.id));
             }
@@ -783,8 +775,7 @@ public class Mob {
                 list.add(item);
             }
             if (Util.isTrue(1, 1000)) {
-                ItemMap itCaiTrang = new ItemMap(zone, 951, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                        this.location.y - 24), player.id);
+                ItemMap itCaiTrang = new ItemMap(zone, 951, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), player.id);
                 itCaiTrang.options.add(new Item.ItemOption(230, 1));
                 itCaiTrang.options.add(new Item.ItemOption(50, Util.nextInt(200, 345)));
                 itCaiTrang.options.add(new Item.ItemOption(77, Util.nextInt(200, 345)));

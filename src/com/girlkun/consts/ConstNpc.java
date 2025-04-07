@@ -280,7 +280,7 @@ public class ConstNpc {
     public static final int SHENRON_1_1 = 502;
     public static final int SHENRON_1_2 = 503;
     public static final int SHENRON_2 = 504;
-//    public static final int SHENRON_3 = 505;
+    //    public static final int SHENRON_3 = 505;
     public static final int NAMEC_1 = 506;
 
     //index menu rong xuong
@@ -291,7 +291,7 @@ public class ConstNpc {
     //index menu rong sieu cap
     public static final int SUPER_CONFIRM = 509;
     public static final int SUPER_1 = 510;
-//    public static final int HALLOWEN_1_2 = 509;
+    //    public static final int HALLOWEN_1_2 = 509;
     //index menu magic tree
     public static final int MAGIC_TREE_NON_UPGRADE_LEFT_PEA = 501;
     public static final int MAGIC_TREE_NON_UPGRADE_FULL_PEA = 502;
@@ -377,6 +377,8 @@ public class ConstNpc {
     public static final int RORONOA_ZORO = 115;
     public static final int LUFFY = 114;
 
+    public static final int QUY_DOI_BUA_ZENO = 123138;
+    public static final int CONFIRM_DOI_BUA_ZENO = 1312313;
 }
 
 /**

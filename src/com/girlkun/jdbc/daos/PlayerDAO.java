@@ -1032,6 +1032,7 @@ public class PlayerDAO {
                         player.NguHanhSonPoint,
                         JSONValue.toJSONString(player.Cards),
                         player.id);
+                PlayerDAO.subvnd(player, 0);
                 Logger.success("Total time save player " + player.name + " thành công! " + (System.currentTimeMillis() - st) + "\n");
             } catch (Exception e) {
                 Logger.logException(PlayerDAO.class, e, "Lỗi save player " + player.name);

@@ -1279,12 +1279,12 @@ public class Service {
             long totalHn = (long) (Manager.KHUYEN_MAI_NAP) * player.session.vnd;
             player.session.vnd = 0;
             InventoryServiceNew.gI().addRuby(player, totalHn);
-            Service.gI().sendThongBaoOK(player, "Bạn nhận được " + totalHn + " Hồng ngọc");
+            Service.gI().sendThongBaoOK(player, "Bạn nhận được " + Util.format(totalHn) + " Hồng ngọc");
             PlayerDAO.subvnd(player, 0);
             return;
         }
         if (text.equals("dn")) {
-            Service.gI().sendThongBaoOK(player, String.format("Số dư của bạn là : %s", player.session.vnd));
+            Service.gI().sendThongBaoOK(player, String.format("Số dư của bạn là : %s", Util.format(player.session.vnd)));
             return;
         }
         // Player
@@ -2238,7 +2238,7 @@ public class Service {
                 msg.writer().writeInt((int) pl.inventory.gold);
             }
             msg.writer().writeInt(pl.inventory.gem);
-            msg.writer().writeInt(pl.inventory.ruby);
+            msg.writer().writeLong(pl.inventory.ruby);
             pl.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
