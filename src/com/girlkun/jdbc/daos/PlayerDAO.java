@@ -1181,7 +1181,7 @@ public class PlayerDAO {
     }
 
     public static boolean subvnd(Player player, int num) {
-        if (num <= 0 || player.session.vnd - num < 0) {
+        if (num < 0 || player.session.vnd - num < 0) {
             return false; // Giá trị `num` không hợp lệ.
         }
 
