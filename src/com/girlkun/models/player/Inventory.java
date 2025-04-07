@@ -22,7 +22,7 @@ public class Inventory {
 
     public long gold;
     public int gem;
-    public long ruby;
+    public int ruby;
     public int skMedusa;
     public int event;
     public int eventSanMa;
@@ -39,7 +39,7 @@ public class Inventory {
         giftCode = new ArrayList<>();
     }
 
-    public long getGemAndRuby() {
+    public int getGemAndRuby() {
         return this.gem + this.ruby;
     }
     

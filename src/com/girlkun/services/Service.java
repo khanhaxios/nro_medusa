@@ -2238,7 +2238,7 @@ public class Service {
                 msg.writer().writeInt((int) pl.inventory.gold);
             }
             msg.writer().writeInt(pl.inventory.gem);
-            msg.writer().writeLong(pl.inventory.ruby);
+            msg.writer().writeInt(pl.inventory.ruby);
             pl.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
