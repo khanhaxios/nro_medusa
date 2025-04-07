@@ -178,7 +178,6 @@ public class ServerManager {
         activeCommandLine();
         activeGame();
         activeServerSocket();
-        activePanelControllerApi();
         Logger.log(Logger.PURPLE_BOLD_BRIGHT, "░░░░░░░░░░░░▄▄\n░░░░░░░░░░░█░░█\n░░░░░░░░░░░█░░█\n░░░░░░░░░░█░░░█\n░░░░░░░░░█░░░░█\n███████▄▄█░░░░░██████▄\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█████░░░░░░░░░█\n██████▀░░░░▀▀██████▀\n");
         new Thread(DaiHoiVoThuat.gI(), "Thread DHVT").start();
 //        ChonAiDay.gI().lastTimeEnd = System.currentTimeMillis() + 300000;
@@ -228,6 +227,7 @@ public class ServerManager {
         } catch (Exception e) {
             Logger.logException(ServerManager.class, e, "lỗi load bot");
         }
+        new Thread(this::activePanelControllerApi).start();
     }
 
     private void act() throws Exception {

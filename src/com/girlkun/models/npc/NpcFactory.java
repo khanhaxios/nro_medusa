@@ -8331,7 +8331,7 @@ public class NpcFactory {
                                 break;
                             case 1:
                                 String time = ((TaiXiu.gI().lastTimeEnd - System.currentTimeMillis()) / 1000) + " giây";
-                                if (TaiXiu.gI().baotri == false) {
+                                if (!TaiXiu.gI().baotri) {
                                     if (player.goldTai == 0 && player.goldXiu == 0) {
                                         createOtherMenu(player, ConstNpc.TAIXIU, "\n|7|---NHÀ CÁI TÀI XỈU---\n\n|3|Kết quả kì trước:  " + TaiXiu.gI().x + " : " + TaiXiu.gI().y + " : " + TaiXiu.gI().z
                                                 + "\n\n|6|Tổng nhà TÀI: " + Util.format(TaiXiu.gI().goldTai) + " Hồng ngọc"

@@ -1188,9 +1188,10 @@ public class PlayerDAO {
         Connection con = null;
         PreparedStatement ps = null;
         try {
+            int afterCalc = player.session.vnd - num;
             con = GirlkunDB.getConnection();
-            ps = con.prepareStatement("UPDATE account SET vnd = (vnd - ?) WHERE id = ?");
-            ps.setInt(1, num);
+            ps = con.prepareStatement("UPDATE account SET vnd = ? WHERE id = ?");
+            ps.setInt(1, afterCalc);
             ps.setInt(2, player.getSession().userId);
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated == 0) {

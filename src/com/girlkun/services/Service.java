@@ -3,6 +3,7 @@ package com.girlkun.services;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
+import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.player.Inventory;
 import com.girlkun.utils.FileIO;
 import com.girlkun.data.DataGame;
@@ -1279,6 +1280,7 @@ public class Service {
             player.session.vnd = 0;
             InventoryServiceNew.gI().addRuby(player, totalHn);
             Service.gI().sendThongBaoOK(player, "Bạn nhận được " + totalHn + " Hồng ngọc");
+            PlayerDAO.subvnd(player, 0);
             return;
         }
         if (text.equals("dn")) {
