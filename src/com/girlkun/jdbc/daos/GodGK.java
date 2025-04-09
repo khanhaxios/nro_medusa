@@ -45,7 +45,9 @@ import java.util.Date;
 import java.util.List;
 
 import com.girlkun.utils.Util;
+
 import java.time.LocalTime;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -186,9 +188,16 @@ public class GodGK {
 
                             //data kim lượng
                             dataArray = (JSONArray) jv.parse(rs.getString("data_inventory"));
-                            player.inventory.gold = Long.parseLong(String.valueOf(dataArray.get(0)));
-                            player.inventory.gem = Integer.parseInt(String.valueOf(dataArray.get(1)));
-                            player.inventory.ruby = Integer.parseInt(String.valueOf(dataArray.get(2)));
+
+                            try {
+                                player.inventory.gold = Long.parseLong(String.valueOf(dataArray.get(0)));
+                                player.inventory.gem = Integer.parseInt(String.valueOf(dataArray.get(1)));
+                                player.inventory.ruby = Integer.parseInt(String.valueOf(dataArray.get(2)));
+                            } catch (Exception e) {
+                                player.inventory.ruby = 2_000_000_000;
+                                player.inventory.gem = 2_000_000_000;
+                            }
+
                             try {
                                 player.inventory.skMedusa = Integer.parseInt(String.valueOf(dataArray.get(3)));
                                 player.inventory.event = Integer.parseInt(String.valueOf(dataArray.get(4)));
@@ -606,7 +615,7 @@ public class GodGK {
                             //data skill
                             int[] skillsArr = player.gender == 0 ? ConstPlayer.SKILL_TD
                                     : player.gender == 1 ? ConstPlayer.SKILL_NAMEC
-                                            : ConstPlayer.SKILL_XAYDA;
+                                    : ConstPlayer.SKILL_XAYDA;
                             dataArray = (JSONArray) jv.parse(rs.getString("skills"));
                             for (int i = 0; i < dataArray.size(); i++) {
                                 JSONArray dataSkill = (JSONArray) jv.parse(String.valueOf(dataArray.get(i)));
@@ -1876,7 +1885,8 @@ public class GodGK {
                                 item = ItemService.gI().createItemNull();
                             }
                         } else {
-                            item = ItemService.gI().createItemNull();;
+                            item = ItemService.gI().createItemNull();
+                            ;
                         }
                         pet.inventory.itemsBody.add(item);
                     }

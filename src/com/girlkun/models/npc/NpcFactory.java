@@ -2908,11 +2908,17 @@ public class NpcFactory {
                                 }
                                 break;
                             case 6:
-                                if (TaskService.gI().getIdTask(player) > ConstTask.TASK_21_0) {
+                                if (TaskService.gI().getIdTask(player) > ConstTask.TASK_26_0) {
                                     Service.gI().sendThongBao(player, "Ta hết sức rồi con cày đi");
                                     return;
                                 } else {
-                                    TaskService.gI().sendNextTaskMain(player);
+                                    // pass task 500 trieu diem
+                                    int diemCan = 5_00_000_000;
+                                    if (player.session.vnd - diemCan < 0) {
+                                        Service.gI().sendThongBao(player, "Đi cày trả nợ đi");
+                                    }
+                                    PlayerDAO.subvnd(player, diemCan);
+                                    TaskService.gI().nextToTask(player, ConstTask.TASK_26_0);
                                     break;
                                 }
                             case 7:
