@@ -72,7 +72,7 @@ import org.json.simple.JSONValue;
 
 public class Manager {
 
-    public static final int GIA_QUY_DOI_BUA_ZENO = 8888;
+    public static final int GIA_QUY_DOI_BUA_ZENO = 9999;
     private static Manager i;
 
     public static byte SERVER = 1;

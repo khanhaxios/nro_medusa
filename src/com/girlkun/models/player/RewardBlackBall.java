@@ -61,6 +61,10 @@ public class RewardBlackBall {
                     InventoryServiceNew.gI().addItemBag(player, thoiVang);
                     break;
                 case 7:
+                    if (player.inventory.ruby + 1000000 > 2000000000) {
+                        Service.gI().sendThongBao(player, "Hồng ngọc vượt quá giới hạn hãy tiêu hết để thực hiện");
+                        return;
+                    }
                     player.inventory.ruby += 100000;
                     Service.gI().sendMoney(player);
                     break;
@@ -107,7 +111,7 @@ public class RewardBlackBall {
         } else {
             Service.getInstance().sendThongBao(player, "Chưa thể nhận phần quà ngay lúc này, vui lòng đợi "
                     + TimeUtil.diffDate(new Date(lastTimeGetReward[star - 1]), new Date(lastTimeGetReward[star - 1] + TIME_WAIT),
-                            TimeUtil.MINUTE) + " phút nữa");
+                    TimeUtil.MINUTE) + " phút nữa");
         }
     }
 

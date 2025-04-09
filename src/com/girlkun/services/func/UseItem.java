@@ -36,6 +36,7 @@ import com.girlkun.services.RewardService;
 import com.girlkun.services.SkillService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
+
 import java.util.Date;
 import java.util.Random;
 
@@ -54,11 +55,11 @@ public class UseItem {
     private static final byte ACCEPT_THROW_ITEM = 2;
     private static final byte ACCEPT_USE_ITEM = 3;
     public static final int[][][] LIST_ITEM_CLOTHES = {
-        // áo , quần , găng ,giày,rada
-        //td -> nm -> xd
-        {{0, 33, 3, 34, 136, 137, 138, 139, 230, 231, 232, 233, 555}, {6, 35, 9, 36, 140, 141, 142, 143, 242, 243, 244, 245, 556}, {21, 24, 37, 38, 144, 145, 146, 147, 254, 255, 256, 257, 562}, {27, 30, 39, 40, 148, 149, 150, 151, 266, 267, 268, 269, 563}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}},
-        {{1, 41, 4, 42, 152, 153, 154, 155, 234, 235, 236, 237, 557}, {7, 43, 10, 44, 156, 157, 158, 159, 246, 247, 248, 249, 558}, {22, 46, 25, 45, 160, 161, 162, 163, 258, 259, 260, 261, 564}, {28, 47, 31, 48, 164, 165, 166, 167, 270, 271, 272, 273, 565}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}},
-        {{2, 49, 5, 50, 168, 169, 170, 171, 238, 239, 240, 241, 559}, {8, 51, 11, 52, 172, 173, 174, 175, 250, 251, 252, 253, 560}, {23, 53, 26, 54, 176, 177, 178, 179, 262, 263, 264, 265, 566}, {29, 55, 32, 56, 180, 181, 182, 183, 274, 275, 276, 277, 567}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}}
+            // áo , quần , găng ,giày,rada
+            //td -> nm -> xd
+            {{0, 33, 3, 34, 136, 137, 138, 139, 230, 231, 232, 233, 555}, {6, 35, 9, 36, 140, 141, 142, 143, 242, 243, 244, 245, 556}, {21, 24, 37, 38, 144, 145, 146, 147, 254, 255, 256, 257, 562}, {27, 30, 39, 40, 148, 149, 150, 151, 266, 267, 268, 269, 563}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}},
+            {{1, 41, 4, 42, 152, 153, 154, 155, 234, 235, 236, 237, 557}, {7, 43, 10, 44, 156, 157, 158, 159, 246, 247, 248, 249, 558}, {22, 46, 25, 45, 160, 161, 162, 163, 258, 259, 260, 261, 564}, {28, 47, 31, 48, 164, 165, 166, 167, 270, 271, 272, 273, 565}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}},
+            {{2, 49, 5, 50, 168, 169, 170, 171, 238, 239, 240, 241, 559}, {8, 51, 11, 52, 172, 173, 174, 175, 250, 251, 252, 253, 560}, {23, 53, 26, 54, 176, 177, 178, 179, 262, 263, 264, 265, 566}, {29, 55, 32, 56, 180, 181, 182, 183, 274, 275, 276, 277, 567}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}}
     };
 
     private static UseItem instance;
@@ -103,10 +104,8 @@ public class UseItem {
                     break;
                 case ITEM_BAG_TO_PET_BODY:
                     switch (player.typeTabPet) {
-                        case 1 ->
-                            InventoryServiceNew.gI().itemBagToPetDaoLuBody(player, index);
-                        case 0 ->
-                            InventoryServiceNew.gI().itemBagToPetBody(player, index);
+                        case 1 -> InventoryServiceNew.gI().itemBagToPetDaoLuBody(player, index);
+                        case 0 -> InventoryServiceNew.gI().itemBagToPetBody(player, index);
                     }
                     break;
                 case ITEM_BODY_PET_TO_BAG:
@@ -1995,7 +1994,12 @@ public class UseItem {
                 Service.getInstance().sendThongBao(pl, "Chúc mừng bạn đã nhận được " + hopDo.template.name);
                 break;
             case 861:
-                pl.inventory.ruby += 1_000_000;
+                long total = pl.inventory.ruby + 1000_000;
+                if (total > 2000_000_000) {
+                    Service.gI().sendThongBao(pl, "Đã vượt quá giới hạn hồng ngọc hãy thử lại sau");
+                    return;
+                }
+                pl.inventory.ruby = (int) total;
                 Service.getInstance().sendThongBao(pl, "Chúc mừng bạn đã nhận được 1M hồng ngọc");
                 break;
             case 457:
@@ -2210,6 +2214,5 @@ public class UseItem {
 }
 
 /**
- *
  *
  */

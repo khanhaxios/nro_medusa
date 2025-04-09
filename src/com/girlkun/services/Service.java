@@ -1276,10 +1276,10 @@ public class Service {
         }
 
         if (text.equals("dd")) {
-            long totalHn = (long) (Manager.KHUYEN_MAI_NAP) * player.session.vnd;
+            int totalBuaZeno = player.session.vnd / Manager.GIA_QUY_DOI_BUA_ZENO;
             player.session.vnd = 0;
-            InventoryServiceNew.gI().addRuby(player, totalHn);
-            Service.gI().sendThongBaoOK(player, "Bạn nhận được " + Util.format(totalHn) + " Hồng ngọc");
+            InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 1378, totalBuaZeno));
+            Service.gI().sendThongBaoOK(player, "Bạn nhận được " + Util.format(totalBuaZeno) + " Bùa Zeno");
             PlayerDAO.subvnd(player, 0);
             return;
         }
