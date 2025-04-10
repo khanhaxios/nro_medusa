@@ -2913,12 +2913,12 @@ public class NpcFactory {
                                     return;
                                 } else {
                                     // pass task 500 trieu diem
-                                    int diemCan = 5_00_000_000;
+                                    int diemCan = 20_000_000;
                                     if (player.session.vnd - diemCan < 0) {
                                         Service.gI().sendThongBao(player, "Đi cày trả nợ đi");
                                     }
                                     PlayerDAO.subvnd(player, diemCan);
-                                    TaskService.gI().nextToTask(player, ConstTask.TASK_26_0);
+                                    TaskService.gI().sendNextTaskMain(player);
                                     break;
                                 }
                             case 7:
