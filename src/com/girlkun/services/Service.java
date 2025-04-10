@@ -1285,7 +1285,9 @@ public class Service {
             int totalBuaZeno = player.session.vnd / Manager.GIA_QUY_DOI_BUA_ZENO;
             player.session.vnd %= Manager.GIA_QUY_DOI_BUA_ZENO;
             PlayerDAO.subvnd(player, 0);
-            InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 1378, totalBuaZeno));
+            Item buaZeno = ItemService.gI().createNewItem((short) 1378, totalBuaZeno);
+            buaZeno.itemOptions.add(new ItemOption(30, 0));
+            InventoryServiceNew.gI().addItemBag(player, buaZeno);
             InventoryServiceNew.gI().sendItemBags(player);
             Service.gI().sendThongBaoOK(player, "Bạn nhận được " + Util.format(totalBuaZeno) + " Bùa Zeno");
             return;
