@@ -589,10 +589,15 @@ public class GodGK {
                             }
                             dataArray.clear();
 
+                            try {
+
+                            }catch (Exception e){
+
+                            }
                             //data tài xỉu
                             dataArray = (JSONArray) JSONValue.parse(rs.getString("Tai_xiu"));
                             player.taixiu.hotong = Integer.parseInt(String.valueOf(dataArray.get(0)));
-                            player.taixiu.chuyensinh = Byte.parseByte(String.valueOf(dataArray.get(1)));
+                            player.taixiu.chuyensinh = Integer.parseInt(String.valueOf(dataArray.get(1)));
                             player.taixiu.toptaixiu = Long.parseLong(String.valueOf(dataArray.get(2)));
                             player.taixiu.win = Integer.parseInt(String.valueOf(dataArray.get(3)));
                             player.taixiu.bongtai = Integer.parseInt(String.valueOf(dataArray.get(4)));
@@ -1181,7 +1186,7 @@ public class GodGK {
                     //data kim lượng
                     dataArray = (JSONArray) JSONValue.parse(rs.getString("Tai_xiu"));
                     player.taixiu.hotong = Integer.parseInt(String.valueOf(dataArray.get(0)));
-                    player.taixiu.chuyensinh = Byte.parseByte(String.valueOf(dataArray.get(1)));
+                    player.taixiu.chuyensinh = Integer.parseInt(String.valueOf(dataArray.get(1)));
                     player.taixiu.toptaixiu = Long.parseLong(String.valueOf(dataArray.get(2)));
                     if (dataArray.size() == 4) {
                         player.taixiu.win = Integer.parseInt(String.valueOf(dataArray.get(3)));
@@ -1385,7 +1390,7 @@ public class GodGK {
                 //data tài xỉu
                 dataArray = (JSONArray) JSONValue.parse(rs.getString("Tai_xiu"));
                 player.taixiu.hotong = Integer.parseInt(String.valueOf(dataArray.get(0)));
-                player.taixiu.chuyensinh = Byte.parseByte(String.valueOf(dataArray.get(1)));
+                player.taixiu.chuyensinh = Integer.parseInt(String.valueOf(dataArray.get(1)));
                 player.taixiu.toptaixiu = Long.parseLong(String.valueOf(dataArray.get(2)));
                 if (dataArray.size() == 4) {
                     player.taixiu.win = Integer.parseInt(String.valueOf(dataArray.get(3)));
