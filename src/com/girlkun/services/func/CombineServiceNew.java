@@ -29,7 +29,7 @@ public class CombineServiceNew {
     private static final int TIME_COMBINE = 1500;
 
     private static final byte MAX_STAR_ITEM = 30;
-    private static final byte MAX_LEVEL_ITEM = 16;
+    private static final byte MAX_LEVEL_ITEM = 102;
 
     private static final byte OPEN_TAB_COMBINE = 0;
     private static final byte REOPEN_TAB_COMBINE = 1;
@@ -102,7 +102,7 @@ public class CombineServiceNew {
      * Mở tab đập đồ
      *
      * @param player
-     * @param type kiểu đập đồ
+     * @param type   kiểu đập đồ
      */
     public void openTabCombine(Player player, int type) {
         player.combineNew.setTypeCombine(type);
@@ -320,9 +320,9 @@ public class CombineServiceNew {
                         }
                         if (level < MAX_LEVEL_ITEM) {
                             player.combineNew.goldCombine = getGoldNangCapDo(level);
-                            player.combineNew.ratioCombine = (float) getTileNangCapDo(level);
+                            player.combineNew.ratioCombine = (float) player.luyenKhiSu.getPercentUpgradeEquipment(itemDo);
                             player.combineNew.countDaNangCap = getCountDaNangCapDo(level);
-                            player.combineNew.countDaBaoVe = (short) getCountDaBaoVe(level);
+//                            player.combineNew.countDaBaoVe = (short) getCountDaBaoVe(level);
                             String npcSay = "|2|Hiện tại " + itemDo.template.name + " (+" + level + ")\n|0|";
                             for (Item.ItemOption io : itemDo.itemOptions) {
                                 if (io.optionTemplate.id != 72) {
@@ -1268,7 +1268,7 @@ public class CombineServiceNew {
                             if (player.combineNew.itemsCombine
                                     .stream()
                                     .filter(itemFilter -> itemFilter.isNotNullItem()
-                                    && itemFilter.isDJiren()).count() < 5) {
+                                            && itemFilter.isDJiren()).count() < 5) {
                                 this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
                                         "Vui lòng đặt 5 món áo quần găng giày rada của set Jiren vào đây", "Đóng");
                                 return;
@@ -1283,7 +1283,7 @@ public class CombineServiceNew {
                             if (player.combineNew.itemsCombine
                                     .stream()
                                     .filter(itemFilter -> itemFilter.isNotNullItem()
-                                    && itemFilter.isDGoku()).count() < 5) {
+                                            && itemFilter.isDGoku()).count() < 5) {
                                 this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
                                         "Vui lòng đặt 5 món áo quần găng giày rada của set Goku UI vào đây", "Đóng");
                                 return;
@@ -1309,9 +1309,9 @@ public class CombineServiceNew {
                             }
                             this.baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE,
                                     "|2|Ngươi có chắc chắn dùng 5 món đồ " + type + " và 5000 đá ngũ sắc\n"
-                                    + "|2|Để dung hợp thành 1 món set kích hoạt không?\n"
-                                    + "|7|Tỉ lệ thành công: " + getRatioDungHopDoVip(type) + "%\n"
-                                    + "|3|Thất bại sẽ mất hết toàn bộ vật phẩm",
+                                            + "|2|Để dung hợp thành 1 món set kích hoạt không?\n"
+                                            + "|7|Tỉ lệ thành công: " + getRatioDungHopDoVip(type) + "%\n"
+                                            + "|3|Thất bại sẽ mất hết toàn bộ vật phẩm",
                                     "Dung Hợp", "Đóng");
                         } else {
                             this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
@@ -1709,6 +1709,11 @@ public class CombineServiceNew {
         Item itemManh = player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isManhTS() && item.quantity >= 999).findFirst().get();
 
         player.inventory.gold -= COST;
+
+        int point = Util.nextInt(10, 50);
+        player.luyenKhiSu.addExp(point);
+        player.luyenKhiSu.getLinhHoa().addExp(point);
+
         sendEffectSuccessCombine(player);
         short[][] itemIds = {{1048, 1051, 1054, 1057, 1060}, {1049, 1052, 1055, 1058, 1061}, {1050, 1053, 1056, 1059, 1062}}; // thứ tự td - 0,nm - 1, xd - 2
 
@@ -1723,6 +1728,7 @@ public class CombineServiceNew {
         Service.getInstance().sendThongBao(player, "Bạn đã nhận được " + itemTS.template.name);
         player.combineNew.itemsCombine.clear();
         reOpenItemCombine(player);
+
     }
 
     public void openSKHVIP(Player player) {
@@ -2070,7 +2076,7 @@ public class CombineServiceNew {
         reOpenItemCombine(player);
     }
 
-//    private void phaLeHoaTrangBi(Player player) {
+    //    private void phaLeHoaTrangBi(Player player) {
 //        if (!player.combineNew.itemsCombine.isEmpty()) {
 //            int gold = player.combineNew.goldCombine;
 //            int gem = player.combineNew.gemCombine;
@@ -2721,18 +2727,18 @@ public class CombineServiceNew {
             if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.template.type == 14).count() != 1) {
                 return;
             }
-            if (player.combineNew.itemsCombine.size() == 3 && player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.template.id == 987).count() != 1) {
-                return;//admin
-            }
+//            if (player.combineNew.itemsCombine.size() == 3 && player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.template.id == 987).count() != 1) {
+//                return;//admin
+//            }
             Item itemDo = null;
             Item itemDNC = null;
-            Item itemDBV = null;
+//            Item itemDBV = null;
             for (int j = 0; j < player.combineNew.itemsCombine.size(); j++) {
                 if (player.combineNew.itemsCombine.get(j).isNotNullItem()) {
-                    if (player.combineNew.itemsCombine.size() == 3 && player.combineNew.itemsCombine.get(j).template.id == 987) {
-                        itemDBV = player.combineNew.itemsCombine.get(j);
-                        continue;
-                    }
+//                    if (player.combineNew.itemsCombine.size() == 3 && player.combineNew.itemsCombine.get(j).template.id == 987) {
+//                        itemDBV = player.combineNew.itemsCombine.get(j);
+//                        continue;
+//                    }
                     if (player.combineNew.itemsCombine.get(j).template.type < 5) {
                         itemDo = player.combineNew.itemsCombine.get(j);
                     } else {
@@ -2743,7 +2749,6 @@ public class CombineServiceNew {
             if (isCoupleItemNangCapCheck(itemDo, itemDNC)) {
                 int countDaNangCap = player.combineNew.countDaNangCap;
                 int gold = player.combineNew.goldCombine;
-                short countDaBaoVe = player.combineNew.countDaBaoVe;
                 if (player.inventory.gold < gold) {
                     Service.getInstance().sendThongBao(player, "Không đủ vàng để thực hiện");
                     return;
@@ -2752,14 +2757,14 @@ public class CombineServiceNew {
                 if (itemDNC.quantity < countDaNangCap) {
                     return;
                 }
-                if (player.combineNew.itemsCombine.size() == 3) {
-                    if (Objects.isNull(itemDBV)) {
-                        return;
-                    }
-                    if (itemDBV.quantity < countDaBaoVe) {
-                        return;
-                    }
-                }
+//                if (player.combineNew.itemsCombine.size() == 3) {
+//                    if (Objects.isNull(itemDBV)) {
+//                        return;
+//                    }
+//                    if (itemDBV.quantity < countDaBaoVe) {
+//                        return;
+//                    }
+//                }
 
                 int level = 0;
                 Item.ItemOption optionLevel = null;
@@ -2770,6 +2775,31 @@ public class CombineServiceNew {
                         break;
                     }
                 }
+                boolean isTienKhi = level >= 100;
+                int luyenKhiLevel = player.luyenKhiSu.getLevel();
+                int nextLevel = level + 1;
+                if (luyenKhiLevel == 0) {
+                    Service.gI().sendThongBaoOK(player, "Bạn cần học luyện khí để nâng cấp đồ");
+                    return;
+                }
+
+                if (!isTienKhi) {
+                    if (nextLevel / 10 > luyenKhiLevel) {
+                        Service.gI().sendThongBaoOK(player, "Bạn cần nâng cảnh giới luyện khí để tiếp tục nâng cấp");
+                        return;
+                    }
+                } else {
+                    if ((luyenKhiLevel < 101 && nextLevel >= 101) ||
+                            (luyenKhiLevel < 102 && nextLevel >= 102)) {
+                        Service.gI().sendThongBaoOK(player, "Bạn cần nâng cảnh giới luyện khí để tiếp tục nâng cấp");
+                        return;
+                    }
+                }
+                if ((level + 1) / 10 > player.luyenKhiSu.getLinhHoa().getLevel() - 1) {
+                    Service.gI().sendThongBaoOK(player, "Linh Hỏa quá yếu hãy nâng cấp Linh Hỏa để tiếp tục");
+                    return;
+                }
+
                 if (level < MAX_LEVEL_ITEM) {
                     player.inventory.gold -= gold;
                     Item.ItemOption option = null;
@@ -2789,33 +2819,46 @@ public class CombineServiceNew {
                         }
                     }
                     if (Util.isTrue(player.combineNew.ratioCombine, 100)) {
-                        option.param += (option.param * 10 / 100);
+                        int baseLucky = 1;
+                        if (Util.isTrue(5, 100)) {
+                            baseLucky = Util.nextInt(2, 3);
+                        }
+                        if (isTienKhi) {
+                            baseLucky += Util.nextInt(10, 100);
+                        }
+                        option.param += (option.param * (baseLucky * 10) / 100);
                         if (option2 != null) {
-                            option2.param += (option2.param * 10 / 100);
+                            option2.param += (option2.param * (baseLucky * 10) / 100);
                         }
                         if (optionLevel == null) {
                             itemDo.itemOptions.add(new Item.ItemOption(72, 1));
                         } else {
                             optionLevel.param++;
                         }
-//                        if (optionLevel != null && optionLevel.param >= 5) {
-//                            ServerNotify.gI().notify("Chúc mừng " + player.name + " vừa nâng cấp "
-//                                    + "thành công " + trangBi.template.name + " lên +" + optionLevel.param);
-//                        }
+                        if (baseLucky > 1) {
+                            Service.gI().sendThongBao(player, "Thiên đạo phù hộ!Lần này luyện khí được tăng phúc x" + baseLucky + "Chỉ số");
+                        }
                         sendEffectSuccessCombine(player);
                     } else {
+                        int baseLucky = 1;
+                        if (Util.isTrue(1, 100)) {
+                            baseLucky = Util.nextInt(2, 3);
+                        }
                         if ((level == 2 || level == 4 || level == 6) && (player.combineNew.itemsCombine.size() != 3)) {
-                            option.param -= (option.param * 15 / 100);
+                            option.param -= (option.param * (baseLucky * 15) / 100);
                             if (option2 != null) {
-                                option2.param -= (option2.param * 15 / 100);
+                                option2.param -= (option2.param * (baseLucky * 15) / 100);
                             }
                             optionLevel.param--;
                         }
+                        if (baseLucky > 1) {
+                            Service.gI().sendThongBao(player, "Khí vận điêu tàn!Lần này luyện khí được bị trừng phạt trừ đi x" + baseLucky + "Chỉ số");
+                        }
                         sendEffectFailCombine(player);
                     }
-                    if (player.combineNew.itemsCombine.size() == 3) {
-                        InventoryServiceNew.gI().subQuantityItemsBag(player, itemDBV, countDaBaoVe);
-                    }
+//                    if (player.combineNew.itemsCombine.size() == 3) {
+//                        InventoryServiceNew.gI().subQuantityItemsBag(player, itemDBV, countDaBaoVe);
+//                    }
                     InventoryServiceNew.gI().subQuantityItemsBag(player, itemDNC, player.combineNew.countDaNangCap);
                     InventoryServiceNew.gI().sendItemBags(player);
                     Service.getInstance().sendMoney(player);
@@ -3334,7 +3377,7 @@ public class CombineServiceNew {
                     if (player.combineNew.itemsCombine
                             .stream()
                             .filter(itemFilter -> itemFilter.isNotNullItem()
-                            && itemFilter.isDJiren()).count() < 5) {
+                                    && itemFilter.isDJiren()).count() < 5) {
                         this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
                                 "Vui lòng đặt 5 món áo quần găng giày rada của set Jiren vào đây", "Đóng");
                         return;
@@ -3349,7 +3392,7 @@ public class CombineServiceNew {
                     if (player.combineNew.itemsCombine
                             .stream()
                             .filter(itemFilter -> itemFilter.isNotNullItem()
-                            && itemFilter.isDGoku()).count() < 5) {
+                                    && itemFilter.isDGoku()).count() < 5) {
                         this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
                                 "Vui lòng đặt 5 món áo quần găng giày rada của set Goku UI vào đây", "Đóng");
                         return;
@@ -3418,6 +3461,7 @@ public class CombineServiceNew {
     }
 
     //--------------------------------------------------------------------------
+
     /**
      * r
      * Hiệu ứng mở item
@@ -3959,42 +4003,8 @@ public class CombineServiceNew {
     }
 
     private int getCountDaNangCapDo(int level) {
-        switch (level) {
-            case 0:
-                return 3;
-            case 1:
-                return 7;
-            case 2:
-                return 11;
-            case 3:
-                return 17;
-            case 4:
-                return 23;
-            case 5:
-                return 35;
-            case 6:
-                return 50;
-            case 7:
-                return 60;
-            case 8:
-                return 70;
-            case 9:
-                return 70;
-            case 10:
-                return 70;
-            case 11:
-                return 80;
-            case 12:
-                return 90;
-            case 13:
-                return 90;
-            case 14:
-                return 90;
-            case 15:
-                return 99;
-
-        }
-        return 0;
+        int baseCount = 8;
+        return baseCount * level;
     }
 
     private int getCountDaBaoVe(int level) {

@@ -33,6 +33,49 @@ public class InventoryServiceNew {
         //**********************************************************************
     }
 
+    public List<Item> findItems(List<Item> list, int tempId) {
+        List<Item> items = new ArrayList<>();
+        for (Item item : list) {
+            if (item.isNotNullItem() && item.template.id == tempId) {
+                items.add(item);
+            }
+        }
+        return items;
+    }
+
+    public List<Item> findItemInListIds(Player player, short[] ids) {
+        List<Item> resultItem = new ArrayList<>();
+        List<Item> itemBags = player.inventory.itemsBag;
+
+        for (Item itemBag : itemBags) {
+            if (itemBag != null) {
+                for (short id : ids) {
+                    if (itemBag.template.id == id) {
+                        resultItem.add(itemBag);
+                        break; // đã tìm thấy thì không cần kiểm tra tiếp
+                    }
+                }
+            }
+        }
+
+        return resultItem;
+    }
+
+    public Item findItemWithoutOption(List<Item> list, int optionId) {
+        Item item = null;
+        boolean has = false;
+        for (Item item1 : list) {
+            List<ItemOption> itemOptions = item1.itemOptions;
+            for (ItemOption itemOption : itemOptions) {
+                if (itemOption.optionTemplate.id == optionId) {
+                    has = true;
+                }
+            }
+            if (!has) item = item1;
+        }
+        return item;
+    }
+
     public Item findItem(List<Item> list, int tempId) {
         try {
             for (Item item : list) {
@@ -162,13 +205,13 @@ public class InventoryServiceNew {
                     removeItemBag(player, index);
                     sortItems(player.inventory.itemsBag);
                     sendItemBags(player);
-//                    if ((itemThrow.template.type >= 0 && itemThrow.template.type <= 4) || (itemThrow.template.id >= 222 && itemThrow.template.id <= 226)) {
-//                        if (!itemThrow.isSKH() && !itemThrow.isDHD() && !itemThrow.isDTL() && !itemThrow.isDTS()) {
-//                            ItemMap item = new ItemMap(player.zone, itemThrow.template.id, itemThrow.quantity, Util.nextInt((player.location.x - 50), (player.location.x + 50)), player.location.y, player.id);
-//                            item.options = itemThrow.itemOptions;
-//                            Service.getInstance().dropItemMap(player.zone, item);
-//                        }
-//                    }
+                    if ((itemThrow.template.type >= 0 && itemThrow.template.type <= 4) || (itemThrow.template.id >= 222 && itemThrow.template.id <= 226)) {
+                        if (!itemThrow.isSKH() && !itemThrow.isDHD() && !itemThrow.isDTL() && !itemThrow.isDTS()) {
+                            ItemMap item = new ItemMap(player.zone, itemThrow.template.id, itemThrow.quantity, Util.nextInt((player.location.x - 50), (player.location.x + 50)), player.location.y, player.id);
+                            item.options = itemThrow.itemOptions;
+                            Service.getInstance().dropItemMap(player.zone, item);
+                        }
+                    }
                 } else {
                     Service.getInstance().sendThongBao(player, "|7|Không thể vứt bỏ Chân mệnh");
                 }

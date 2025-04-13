@@ -210,6 +210,7 @@ public class GodGK {
                             }
                             dataArray.clear();
 
+
                             //data danh hiệu
                             dataArray = (JSONArray) jv.parse(rs.getString("dhieu"));
                             player.titleitem = Integer.parseInt(String.valueOf(dataArray.get(0))) == 1 ? true : false;
@@ -906,7 +907,26 @@ public class GodGK {
                                 player.TrieuHoiCapBac = -1;
                             }
                             dataArray.clear();
+                            // data luyen khi su
+                            try {
+                                dataArray = (JSONArray) JSONValue.parse(rs.getString("data_lks"));
+                                //read data
+                                JSONArray luyenkhisuData = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(0)));
+                                JSONArray linhHoaData = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(1)));
 
+                                player.luyenKhiSu.setLevel(Byte.parseByte(String.valueOf(luyenkhisuData.get(0))));
+                                player.luyenKhiSu.setExp(Long.parseLong(String.valueOf(luyenkhisuData.get(1))));
+                                player.luyenKhiSu.setMaxExp(Long.parseLong(String.valueOf(luyenkhisuData.get(2))));
+
+                                player.luyenKhiSu.getLinhHoa().setLevel(Byte.parseByte(String.valueOf(linhHoaData.get(0))));
+                                player.luyenKhiSu.getLinhHoa().setExp(Long.parseLong(String.valueOf(linhHoaData.get(1))));
+                                player.luyenKhiSu.getLinhHoa().setMaxExp(Long.parseLong(String.valueOf(linhHoaData.get(2))));
+                                // done load data luyen khi
+                                dataArray.clear();
+                            } catch (Exception e) {
+                                player.luyenKhiSu.init();
+                            }
+                            // end data
                             //data Nhiệm vụ nhận Chiến Thần
                             dataArray = (JSONArray) JSONValue.parse(rs.getString("nhiemvu_chienthan"));
                             player.chienthan.tasknow = Integer.parseInt(String.valueOf(dataArray.get(0)));

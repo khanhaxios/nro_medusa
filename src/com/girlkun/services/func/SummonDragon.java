@@ -2,6 +2,7 @@ package com.girlkun.services.func;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import com.girlkun.models.item.Item;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
@@ -20,14 +21,13 @@ import com.girlkun.services.ItemService;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.utils.Logger;
+
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- *
  * @Stole By Hoàng Việt💖
- *
  */
 public class SummonDragon {
 
@@ -61,14 +61,14 @@ public class SummonDragon {
 
     public static final String[] SHENRON_1_STAR_WISHES_1
             = new String[]{"Giàu có\n+2 Tỷ\nVàng", "Găng tay\nđang mang\nlên 1 cấp", "Chí mạng\nGốc +2%",
-                "Thay\nChiêu 2-3\nĐệ tử", "Điều ước\nkhác"};
+            "Thay\nChiêu 2-3\nĐệ tử", "Điều ước\nkhác"};
     public static final String[] SHENRON_1_STAR_WISHES_2
             = new String[]{"Đẹp trai\nnhất\nVũ trụ", "Thay\nChiêu 4\nĐệ tử", "+2 Tỷ\nSức mạnh\nvà tiềm\nnăng",
-                "Găng tay đệ\nđang mang\nlên 1 cấp",
-                "Điều ước\nkhác"};
+            "Găng tay đệ\nđang mang\nlên 1 cấp",
+            "Điều ước\nkhác"};
     public static final String[] SHENRON_2_STARS_WHISHES
             = new String[]{"+20 Tr\nSức mạnh\nvà tiềm năng", "Giàu có\n+200 Tr\nVàng", "Thay\nChiêu 2\nĐệ tử"};
-//    public static final String[] SHENRON_3_STARS_WHISHES
+    //    public static final String[] SHENRON_3_STARS_WHISHES
 //            = new String[]{"Giàu có\n+200\nNgọc", "+2 Tr\nSức mạnh\nvà tiềm năng", "Giàu có\n+20 Tr\nVàng"};
     //--------------------------------------------------------------------------
     private static SummonDragon instance;
@@ -76,7 +76,7 @@ public class SummonDragon {
     public long lastTimeShenronAppeared;
     private long lastTimeShenronWait;
     public final int timeResummonShenron = 600000;
-//    private final int timeResummonShenron = 0;
+    //    private final int timeResummonShenron = 0;
     public boolean isShenronAppear;
     private final int timeShenronWait = 150000;
 
@@ -319,39 +319,41 @@ public class SummonDragon {
                         }
                         break;
                     case 1: //găng tay đang đeo lên 1 cấp
-                        Item item = this.playerSummonShenron.inventory.itemsBody.get(2);
-                        if (item.isNotNullItem()) {
-                            int level = 0;
-                            for (ItemOption io : item.itemOptions) {
-                                if (io.optionTemplate.id == 72) {
-                                    level = io.param;
-                                    if (level < 15) {
-                                        io.param++;
-                                    }
-                                    break;
-                                }
-                            }
-                            if (level < 15) {
-                                if (level == 0) {
-                                    item.itemOptions.add(new ItemOption(72, 1));
-                                }
-                                for (ItemOption io : item.itemOptions) {
-                                    if (io.optionTemplate.id == 0) {
-                                        io.param += (io.param * 10 / 100);
-                                        break;
-                                    }
-                                }
-                                InventoryServiceNew.gI().sendItemBody(playerSummonShenron);
-                            } else {
-                                Service.getInstance().sendThongBao(playerSummonShenron, "Găng tay của ngươi đã đạt cấp tối đa");
-                                reOpenShenronWishes(playerSummonShenron);
-                                return;
-                            }
-                        } else {
-                            Service.getInstance().sendThongBao(playerSummonShenron, "Ngươi hiện tại có đeo găng đâu");
-                            reOpenShenronWishes(playerSummonShenron);
-                            return;
-                        }
+                        Service.gI().sendThongBao(playerSummonShenron, "Có cái nịt");
+                        reOpenShenronWishes(playerSummonShenron);
+//                        Item item = this.playerSummonShenron.inventory.itemsBody.get(2);
+//                        if (item.isNotNullItem()) {
+//                            int level = 0;
+//                            for (ItemOption io : item.itemOptions) {
+//                                if (io.optionTemplate.id == 72) {
+//                                    level = io.param;
+//                                    if (level < 15) {
+//                                        io.param++;
+//                                    }
+//                                    break;
+//                                }
+//                            }
+//                            if (level < 15) {
+//                                if (level == 0) {
+//                                    item.itemOptions.add(new ItemOption(72, 1));
+//                                }
+//                                for (ItemOption io : item.itemOptions) {
+//                                    if (io.optionTemplate.id == 0) {
+//                                        io.param += (io.param * 10 / 100);
+//                                        break;
+//                                    }
+//                                }
+//                                InventoryServiceNew.gI().sendItemBody(playerSummonShenron);
+//                            } else {
+//                                Service.getInstance().sendThongBao(playerSummonShenron, "Găng tay của ngươi đã đạt cấp tối đa");
+//                                reOpenShenronWishes(playerSummonShenron);
+//                                return;
+//                            }
+//                        } else {
+//                            Service.getInstance().sendThongBao(playerSummonShenron, "Ngươi hiện tại có đeo găng đâu");
+//                            reOpenShenronWishes(playerSummonShenron);
+//                            return;
+//                        }
                         break;
                     case 2: //chí mạng +2%
                         if (this.playerSummonShenron.nPoint.critg < 21) {
@@ -428,45 +430,48 @@ public class SummonDragon {
                         }
                         break;
                     case 3: //găng tay đệ lên 1 cấp
-                        if (this.playerSummonShenron.pet != null) {
-                            Item item = this.playerSummonShenron.pet.inventory.itemsBody.get(2);
-                            if (item.isNotNullItem()) {
-                                int level = 0;
-                                for (ItemOption io : item.itemOptions) {
-                                    if (io.optionTemplate.id == 72) {
-                                        level = io.param;
-                                        if (level < 15) {
-                                            io.param++;
-                                        }
-                                        break;
-                                    }
-                                }
-                                if (level < 15) {
-                                    if (level == 0) {
-                                        item.itemOptions.add(new ItemOption(72, 1));
-                                    }
-                                    for (ItemOption io : item.itemOptions) {
-                                        if (io.optionTemplate.id == 0) {
-                                            io.param += (io.param * 10 / 100);
-                                            break;
-                                        }
-                                    }
-                                    Service.getInstance().point(playerSummonShenron);
-                                } else {
-                                    Service.getInstance().sendThongBao(playerSummonShenron, "Găng tay của đệ ngươi đã đạt cấp tối đa");
-                                    reOpenShenronWishes(playerSummonShenron);
-                                    return;
-                                }
-                            } else {
-                                Service.getInstance().sendThongBao(playerSummonShenron, "Đệ ngươi hiện tại có đeo găng đâu");
-                                reOpenShenronWishes(playerSummonShenron);
-                                return;
-                            }
-                        } else {
-                            Service.getInstance().sendThongBao(playerSummonShenron, "Ngươi đâu có đệ tử");
-                            reOpenShenronWishes(playerSummonShenron);
-                            return;
-                        }
+                        Service.gI().sendThongBao(playerSummonShenron, "Có cái nịt");
+                        reOpenShenronWishes(playerSummonShenron);
+
+//                        if (this.playerSummonShenron.pet != null) {
+//                            Item item = this.playerSummonShenron.pet.inventory.itemsBody.get(2);
+//                            if (item.isNotNullItem()) {
+//                                int level = 0;
+//                                for (ItemOption io : item.itemOptions) {
+//                                    if (io.optionTemplate.id == 72) {
+//                                        level = io.param;
+//                                        if (level < 15) {
+//                                            io.param++;
+//                                        }
+//                                        break;
+//                                    }
+//                                }
+//                                if (level < 15) {
+//                                    if (level == 0) {
+//                                        item.itemOptions.add(new ItemOption(72, 1));
+//                                    }
+//                                    for (ItemOption io : item.itemOptions) {
+//                                        if (io.optionTemplate.id == 0) {
+//                                            io.param += (io.param * 10 / 100);
+//                                            break;
+//                                        }
+//                                    }
+//                                    Service.getInstance().point(playerSummonShenron);
+//                                } else {
+//                                    Service.getInstance().sendThongBao(playerSummonShenron, "Găng tay của đệ ngươi đã đạt cấp tối đa");
+//                                    reOpenShenronWishes(playerSummonShenron);
+//                                    return;
+//                                }
+//                            } else {
+//                                Service.getInstance().sendThongBao(playerSummonShenron, "Đệ ngươi hiện tại có đeo găng đâu");
+//                                reOpenShenronWishes(playerSummonShenron);
+//                                return;
+//                            }
+//                        } else {
+//                            Service.getInstance().sendThongBao(playerSummonShenron, "Ngươi đâu có đệ tử");
+//                            reOpenShenronWishes(playerSummonShenron);
+//                            return;
+//                        }
                         break;
                 }
                 break;

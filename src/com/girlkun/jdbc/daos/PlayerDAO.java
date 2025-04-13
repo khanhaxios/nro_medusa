@@ -829,6 +829,29 @@ public class PlayerDAO {
                     pet = dataArray.toJSONString();
                 }
                 dataArray.clear();
+// data lks
+                String luyenKhiSu = dataArray.toJSONString();
+                String lkData = dataArray.toJSONString();
+                String linhHoaData = dataArray.toJSONString();
+                if (player.luyenKhiSu != null) {
+                    dataArray.add(player.luyenKhiSu.getLevel());
+                    dataArray.add(player.luyenKhiSu.getExp());
+                    dataArray.add(player.luyenKhiSu.getMaxExp());
+                    lkData = dataArray.toJSONString();
+                    dataArray.clear();
+                    if (player.luyenKhiSu.getLinhHoa() != null) {
+                        dataArray.add(player.luyenKhiSu.getLinhHoa().getLevel());
+                        dataArray.add(player.luyenKhiSu.getLinhHoa().getExp());
+                        dataArray.add(player.luyenKhiSu.getLinhHoa().getMaxExp());
+                        linhHoaData = dataArray.toJSONString();
+                        dataArray.clear();
+                    }
+                    dataArray.add(lkData);
+                    dataArray.add(linhHoaData);
+                    luyenKhiSu = dataArray.toJSONString();
+                    dataArray.clear();
+                }
+
 
                 //data pet Dao Lu
                 String petDaoLu = dataArray.toJSONString();
@@ -985,7 +1008,7 @@ public class PlayerDAO {
                         + "items_body = ?, items_bag = ?, items_box = ?, items_box_lucky_round = ?, friends = ?,"
                         + "enemies = ?, data_intrinsic = ?, data_item_time = ?,data_item_time_sieucap = ?, data_task = ?, data_mabu_egg = ?, data_dua = ?, Tai_xiu = ?, pet = ?, dao_lu = ?,"
                         + "data_black_ball = ?, data_side_task = ?, data_charm = ?, skills = ?, skills_shortcut = ?, violate=?, pointPvp=?,info_phoban =?, info_achievement =?,"
-                        + " Thu_TrieuHoi= ?,  nhiemvu_chienthan= ?, NguHanhSonPoint=?, data_card=? where id = ?";
+                        + " Thu_TrieuHoi= ?,  nhiemvu_chienthan= ?, NguHanhSonPoint=?, data_card=?, data_lks=? where id = ?";
                 GirlkunDB.executeUpdate(query,
                         dk_kethon,
                         kethon,
@@ -1031,6 +1054,7 @@ public class PlayerDAO {
                         chienthan,
                         player.NguHanhSonPoint,
                         JSONValue.toJSONString(player.Cards),
+                        luyenKhiSu,
                         player.id);
                 PlayerDAO.subvnd(player, 0);
                 Logger.success("Total time save player " + player.name + " thành công! " + (System.currentTimeMillis() - st) + "\n");

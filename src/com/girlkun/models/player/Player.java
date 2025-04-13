@@ -133,7 +133,7 @@ public class Player {
     public boolean isNewPet;
     public boolean isTrieuhoipet;
     public boolean isDaoLu;
-//    public boolean isNewPet1;
+    //    public boolean isNewPet1;
     public boolean isBoss;
     public int NguHanhSonPoint = 0;
     public IPVP pvp;
@@ -155,6 +155,7 @@ public class Player {
     public Thu_TrieuHoi TrieuHoipet;
     public NhiemvuChienthan chienthan;
 //    public NewPet newpet1;
+    public LuyenKhiSu luyenKhiSu;
     public MobMe mobMe;
     public Location location;
     public SetClothes setClothes;
@@ -286,6 +287,7 @@ public class Player {
         skillSpecial = new SkillSpecial(this);
         achievement = new BoMong(this);
         chienthan = new NhiemvuChienthan();
+        luyenKhiSu = new LuyenKhiSu(this);
     }
 
     //--------------------------------------------------------------------------
@@ -575,13 +577,13 @@ public class Player {
      * {867, 878, 869}: ht c2 xayda
      */
     private static final short[][] idOutfitFusion = {
-        {380, 381, 382}, {383, 384, 385}, {391, 392, 393},// btc1
-        //        {1080, 1081, 1082}, {1086, 1087, 1088}, {1083, 1084, 1085}, // btc2
-        {1204, 1205, 1206}, {1207, 1208, 1209}, {1210, 1211, 1212}, //btc2
-        {1375, 1376, 1377}, {1372, 1373, 1374}, {1369, 1370, 1371}, //btc3
-        {1255, 1256, 1257}, {1249, 1250, 1251}, {1246, 1247, 1248}, //btc4
-        {1252, 1253, 1254}, {793, 794, 795}, {390, 295, 296}, //btc5
-        {1454, 1455, 1456}, {1457, 1458, 1459}, {1451, 1452, 1453} //btc6
+            {380, 381, 382}, {383, 384, 385}, {391, 392, 393},// btc1
+            //        {1080, 1081, 1082}, {1086, 1087, 1088}, {1083, 1084, 1085}, // btc2
+            {1204, 1205, 1206}, {1207, 1208, 1209}, {1210, 1211, 1212}, //btc2
+            {1375, 1376, 1377}, {1372, 1373, 1374}, {1369, 1370, 1371}, //btc3
+            {1255, 1256, 1257}, {1249, 1250, 1251}, {1246, 1247, 1248}, //btc4
+            {1252, 1253, 1254}, {793, 794, 795}, {390, 295, 296}, //btc5
+            {2038, 2039, 2040}, {2033, 2034, 2035}, {1451, 1452, 1453} //btc6
     };
 
     public byte getAura() {
@@ -598,18 +600,10 @@ public class Player {
             return -1;
         }
         switch (item.template.id) {
-            case 1204:
+            case 1204, 1238, 9502, 9501:
                 return 11;
-            case 1238:
-                return 11;
-            case 1444:
+            case 1444, 1445:
                 return 16;
-            case 1445:
-                return 16;
-            case 9501:
-                return 11;
-            case 9502:
-                return 11;
             default:
                 return -1;
         }
@@ -673,7 +667,6 @@ public class Player {
     }
 
     public short getBody() {
-        /// Remake By ndq (Zalo - 0372475179) ====================
         if (effectSkill != null && effectSkill.isBienHinh) {
             return (short) ConstPlayer.BODY_BIEN_HINH[this.gender][effectSkill.levelBienHinh - 1];
         }
@@ -757,11 +750,11 @@ public class Player {
             if (leg != -1) {
                 return (short) leg;
             }
-        } else if (this.gender == 0 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
+        } else if (this.gender == 0 && this.CapTuTien >= 19 && this.haveTuTien && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
             return 1233;
-        } else if (this.gender == 1 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
+        } else if (this.gender == 1 && this.CapTuTien >= 19 && this.haveTuTien && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
             return 915;
-        } else if (this.gender == 2 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
+        } else if (this.gender == 2 && this.CapTuTien >= 19 && this.haveTuTien && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
             return 1432;
         }
         if (inventory != null && inventory.itemsBody.get(1).isNotNullItem()) {

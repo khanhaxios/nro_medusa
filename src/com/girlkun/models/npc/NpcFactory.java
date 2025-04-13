@@ -6717,6 +6717,200 @@ public class NpcFactory {
         };
     }
 
+    public static Npc thanCapLks(int mapId, int status, int cx, int cy, int tempId, int avartar) {
+        return new Npc(mapId, status, cx, cy, tempId, avartar) {
+            @Override
+            public void openBaseMenu(Player player) {
+                if (canOpenNpc(player)) {
+                    this.createOtherMenu(player, ConstNpc.BASE_LKS_MENU, "Luyện khí sư là nghề phụ không thể thiếu,\nThần cấp luyện khí sư càng là cao quý.\nTiểu hỏa tử , ta thấy người thiên phú kinh người\n là cái luyện khí liệu", "Học\n Luyện Khí", "Hướng dẫn", "Đột phá", "Truyền công", "Tỷ lệ\ntăng phúc");
+                }
+            }
+
+            @Override
+            public void confirmMenu(Player player, int select) {
+                if (canOpenNpc(player)) {
+                    if (mapId == 0 && player.iDMark.getIndexMenu() == ConstNpc.BASE_LKS_MENU) {
+                        switch (select) {
+                            case 0:
+                                // hoc luyen khi
+                                if (player.luyenKhiSu.getLevel() > 0) {
+                                    Service.gI().sendThongBaoOK(player, "Bạn đã học luyện khí");
+                                    return;
+                                }
+                                createOtherMenu(player, ConstNpc.MO_LK, "Luyện khí là một nghề phụ hao tâm tổn chí\n Con có muốn học luyện khí với giá 100m điểm không?\nSau khi học con sẽ nhận được Linh Hỏa", "Học", "Từ chối");
+                                break;
+                            case 1:
+                                NpcService.gI().createTutorial(player, -1, "|7|Hướng dẫn luyện khí cho người mới bắt đầu\nLuyện khí là một hệ thống quan trọng trong tu tiên các cảnh giới bao gồm\nSơ Cấp,Trung Cấp,Cao Cấp,Tiên Cấp,Thánh Cấp,Thần Cấp/\nTăng cấp bậc luyện khí sẽ mở giới hạn nâng cấp đồ(+10 -> +102)\nHọc luyện khí ở npc Thần Cấp Luyện Khí Sư tại làng Aru\nSẽ mất 100 tr điểm để mở Linh Hỏa\nPhân giã đồ và tạo đồ sẽ nhận được điểm kinh nghiệm , Phân giã đồ sẽ nhận thêm các loại đá cường hóa ngẫu nhiên\nSau khi điểm kinh nghiệm đầy có thể đột phá tại Npc Thần Cấp Luyện Khí Sư\nCấp càng cao thì tỷ lệ đột phá càng thấp");
+                                break;
+                            case 2:
+                                createOtherMenu(player, ConstNpc.DOT_PHA_LKS, "Muốn tiến thêm một bước?\nTiểu hỏa tử ngươi tìm đúng người rồi", "Đột phá\nLuyện Khí", "Đột phá Linh Hỏa");
+                                // show menu dot pha
+                                break;
+                            case 3:
+                                // truyen cong
+                                // ton hao 50tr diem 1 lan truyen cong -> giu goc 10000 diem luyen khi
+                                createOtherMenu(player, ConstNpc.TRUYEN_CONG_LUYEN_KHI, "Ta sẽ truyền cho người kiến thức và tu vi về luyện khí", "Truyền công\n Luyện Khí", "Truyền công\nLinh Hỏa", "Từ chối");
+                                break;
+                            case 4:
+                                createOtherMenu(player, 1231231,
+                                        String.format("Tỷ lệ tăng phúc của Luyện Khí Sư như sau\n" +
+                                                        "Sơ cấp luyện khí sư (1) : " + player.luyenKhiSu.getPercentBounce(1) + "%\n" +
+                                                        "Sơ cấp luyện khí sư (2) : " + player.luyenKhiSu.getPercentBounce(2) + "%\n" +
+                                                        "Sơ cấp luyện khí sư (3) : " + player.luyenKhiSu.getPercentBounce(3) + "%\n" +
+                                                        "Trung cấp luyện khí sư (4) : " + player.luyenKhiSu.getPercentBounce(4) + "%\n" +
+                                                        "Trung cấp luyện khí sư (5) : " + player.luyenKhiSu.getPercentBounce(5) + "%\n" +
+                                                        "Trung cấp luyện khí sư (6) : " + player.luyenKhiSu.getPercentBounce(6) + "%\n" +
+                                                        "Cao cấp luyện khí sư (7) : " + player.luyenKhiSu.getPercentBounce(7) + "%\n" +
+                                                        "Cao cấp luyện khí sư (8) : " + player.luyenKhiSu.getPercentBounce(8) + "%\n" +
+                                                        "Cao cấp luyện khí sư (9) : " + player.luyenKhiSu.getPercentBounce(9) + "%\n" +
+                                                        "Tiên cấp luyện khí sư (10) : " + player.luyenKhiSu.getPercentBounce(10) + "%\n" +
+                                                        "Thánh cấp luyện khí sư (11) : " + player.luyenKhiSu.getPercentBounce(11) + "%\n" +
+                                                        "Thần cấp luyện khí sư (12) : " + player.luyenKhiSu.getPercentBounce(12) + "%\n" +
+                                                        "|7|Tỷ lệ tăng phúc của Linh Hỏa tương tự, Cả 2 sẽ được cộng dồn khi nâng cấp đồ"
+                                                , "Đóng"));
+                        }
+                    } else if (mapId == 0 && player.iDMark.getIndexMenu() == ConstNpc.MO_LK) {
+                        switch (select) {
+                            case 0:
+                                int checkDiem = player.session.vnd - 100_000_000;
+                                if (checkDiem <= 0) {
+                                    Service.gI().sendThongBao(player, "Bạn không đủ điểm để học");
+                                    return;
+                                }
+                                PlayerDAO.subvnd(player, 100_000_000);
+                                player.luyenKhiSu.levelUp();
+                                player.luyenKhiSu.getLinhHoa().levelUp();
+                                break;
+                        }
+                    } else if (mapId == 0 && player.iDMark.getIndexMenu() == ConstNpc.DOT_PHA_LKS) {
+                        switch (select) {
+                            case 0 ->
+                                    createOtherMenu(player, ConstNpc.CONFIRM_DOT_PHA_LKS, "|7|Đột phá Luyện Khí\n|5|Cảnh giới hiện tại " + player.luyenKhiSu.getName() + "(" + player.luyenKhiSu.getLevel() + ")" + "\n" + "Cảnh giới tiếp theo " + player.luyenKhiSu.getNextLevelName() + "\n" + "Kinh Nghiệm Luyện Khí : " + player.luyenKhiSu.getCurrentExpStr() + "\n" + "Tu vi Linh Hoả : " + player.luyenKhiSu.getLinhHoa().getCurrentExpStr() + "\n" + "Tỷ lệ thành công : " + player.luyenKhiSu.getTyLeDotPha() + "%", "Đột phá", "Từ chối");
+                            case 1 ->
+                                    createOtherMenu(player, ConstNpc.CONFIRM_DOT_PHA_LINH_HOA, "|7|Đột phá Linh Hỏa\n|5|Cảnh giới hiện tại " + player.luyenKhiSu.getLinhHoa().getName() + "(" + player.luyenKhiSu.getLinhHoa().getLevel() + ")" + "\n" + "Cấp giới tiếp theo " + player.luyenKhiSu.getLinhHoa().getNextLevelName() + "\n" + "Tu vi Linh Hoả : " + player.luyenKhiSu.getLinhHoa().getCurrentExpStr() + "\n" + "Tỷ lệ thành công : " + player.luyenKhiSu.getLinhHoa().getTyLeDotPha() + "%", "Đột phá", "Từ chối");
+                        }
+                    } else if (mapId == 0 && player.iDMark.getIndexMenu() == ConstNpc.CONFIRM_DOT_PHA_LKS) {
+                        switch (select) {
+                            case 0:
+                                // dot pha luyen khi su o day ne
+                                if (!player.luyenKhiSu.canLevelUp()) {
+                                    Service.gI().sendThongBaoOK(player, "Kinh nghiệm luyện khí chưa đủ");
+                                    return;
+                                }
+                                int tienCan = 1_000_000;
+                                // get vnd
+                                if (player.session.vnd - tienCan < 0) {
+                                    Service.gI().sendThongBaoOK(player, "Bạn không đủ điểm");
+                                    npcChat(player, "Giang hồ không tiền , nửa bước khó đi aaa");
+                                    return;
+                                }
+                                PlayerDAO.subvnd(player, tienCan);
+                                float ratio = player.luyenKhiSu.getTyLeDotPha();
+                                if (Util.isTrue(ratio, 150)) {
+                                    //dot pha thanh cong
+                                    player.luyenKhiSu.levelUp();
+                                    Service.gI().sendThongBao(player, "Chúc mừng bạn đã đột phá thành công " + player.luyenKhiSu.getName() + "(" + player.luyenKhiSu.getLevel() + ")");
+                                } else {
+                                    player.luyenKhiSu.restExp();
+                                    Service.gI().sendThongBao(player, "Đột phá thất bại huhuhuhuh");
+                                }
+                                break;
+                        }
+                    } else if (mapId == 0 && player.iDMark.getIndexMenu() == ConstNpc.CONFIRM_DOT_PHA_LINH_HOA) {
+                        switch (select) {
+                            case 0:
+                                // check lks
+                                if (player.luyenKhiSu.getLinhHoa().getLevel() + 1 > player.luyenKhiSu.getLevel()) {
+                                    Service.gI().sendThongBaoOK(player, "Cấp Linh Hỏa không thể lớn hơn cảnh giới Luyện Khí");
+                                    return;
+                                }
+                                if (!player.luyenKhiSu.getLinhHoa().canLevelUp()) {
+                                    Service.gI().sendThongBaoOK(player, "Linh hỏa chưa đủ tu vi");
+                                    return;
+                                }
+                                // dot pha thoi
+                                int tienCan = 1_000_000;
+                                // get vnd
+                                if (player.session.vnd - tienCan < 0) {
+                                    Service.gI().sendThongBaoOK(player, "Bạn không đủ điểm");
+                                    npcChat(player, "Giang hồ không tiền , nửa bước khó đi aaa");
+                                    return;
+                                }
+                                PlayerDAO.subvnd(player, tienCan);
+                                float ratio = player.luyenKhiSu.getLinhHoa().getTyLeDotPha();
+                                if (Util.isTrue(ratio, 150)) {
+                                    //dot pha thanh cong
+                                    player.luyenKhiSu.getLinhHoa().levelUp();
+                                    Service.gI().sendThongBao(player, "Chúc mừng bạn đã đột phá thành công " + player.luyenKhiSu.getLinhHoa().getName() + "(" + player.luyenKhiSu.getLinhHoa().getLevel() + ")");
+                                } else {
+                                    player.luyenKhiSu.restExp();
+                                    Service.gI().sendThongBao(player, "Đột phá thất bại huhuhuhuh");
+                                }
+                                break;
+                        }
+                    } else if (player.iDMark.getIndexMenu() == ConstNpc.TRUYEN_CONG_LUYEN_KHI) {
+                        switch (select) {
+                            case 0:
+                                createOtherMenu(player, ConstNpc.CF_TRUYEN_CONG_LK, "Truyền công luyện khi 50tr 1 lần,Mại Zô , Mại Zô", "Truyền công", "Từ chối");
+                                break;
+                            case 1:
+                                createOtherMenu(player, ConstNpc.CF_TRUYEN_CONG_LH, "Truyền công Linh Hoả 50tr 1 lần,Mại Zô , Mại Zô", "Truyền công", "Từ chối");
+                                break;
+                        }
+                    } else if (player.iDMark.getIndexMenu() == ConstNpc.CF_TRUYEN_CONG_LK) {
+                        // kinh nghiem
+                        int tienCan = 50_000_000;
+
+                        if (player.session.vnd - tienCan < 0) {
+                            Service.gI().sendThongBao(player, "Bạn không đủ tiền");
+                            npcChat(player, "Ăn mày ở đâu ra, Cút đi");
+                            return;
+                        }
+                        PlayerDAO.subvnd(player, tienCan);
+                        long exp = 10000;
+                        if (Util.isTrue(50, 100)) {
+                            exp += Util.nextInt(1000, 10000);
+                        } else if (Util.isTrue(10, 100)) {
+                            exp += Util.nextInt(10000, 40000);
+                        }
+                        player.luyenKhiSu.addExp(exp);
+                        // random nhan đá
+                        int soLuong = Util.nextInt(100, 5000);
+                        int randomId = Util.nextInt(0, Manager.idsDaCuongHoa.length - 1);
+                        Item item = ItemService.gI().createNewItem(Manager.idsDaCuongHoa[randomId], soLuong);
+                        InventoryServiceNew.gI().addItemBag(player, item);
+                        InventoryServiceNew.gI().sendItemBags(player);
+                        Service.gI().sendThongBaoOK(player, "Truyền công hoàn tất bạn nhận được \n" + Util.format(exp) + " Kinh nghiệm luyện khí\nx" + soLuong + " " + item.template.name);
+                    } else if (player.iDMark.getIndexMenu() == ConstNpc.CF_TRUYEN_CONG_LH) {
+                        // kinh nghiem
+                        int tienCan = 50_000_000;
+
+                        if (player.session.vnd - tienCan < 0) {
+                            Service.gI().sendThongBao(player, "Bạn không đủ tiền");
+                            npcChat(player, "Ăn mày ở đâu ra, Cút đi");
+                            return;
+                        }
+                        PlayerDAO.subvnd(player, tienCan);
+                        long exp = 10000;
+                        if (Util.isTrue(50, 100)) {
+                            exp += Util.nextInt(1000, 10000);
+                        } else if (Util.isTrue(10, 100)) {
+                            exp += Util.nextInt(10000, 40000);
+                        }
+                        player.luyenKhiSu.getLinhHoa().addExp(exp);
+                        // random nhan đá
+                        int soLuong = Util.nextInt(100, 5000);
+                        int randomId = Util.nextInt(0, Manager.idsDaCuongHoa.length - 1);
+                        Item item = ItemService.gI().createNewItem(Manager.idsDaCuongHoa[randomId], soLuong);
+                        InventoryServiceNew.gI().addItemBag(player, item);
+                        InventoryServiceNew.gI().sendItemBags(player);
+                        Service.gI().sendThongBaoOK(player, "Truyền công hoàn tất bạn nhận được \n" + Util.format(exp) + " Tu vi Linh Hỏa\nx" + soLuong + " " + item.template.name);
+                    }
+                }
+            }
+        };
+    }
+
     public static Npc createNPC(int mapId, int status, int cx, int cy, int tempId) {
         int avatar = Manager.NPC_TEMPLATES.get(tempId).avatar;
         try {
@@ -6789,6 +6983,8 @@ public class NpcFactory {
 //                    return meothantai(mapId, status, cx, cy, tempId, avatar);
 //                case ConstNpc.CUA_HANG_KY_GUI:
 //                    return kyGui(mapId, status, cx, cy, tempId, avatar);
+                case ConstNpc.THAN_CAP_LKS:
+                    return thanCapLks(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.MI_NUONG:
                     return minuong(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.CHIEN_THAN:
@@ -6825,7 +7021,6 @@ public class NpcFactory {
                     return NPC_KetHon(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.NPC_KICHDUC:
                     return NPC_KICHDUC(mapId, status, cx, cy, tempId, avatar);
-
                 case ConstNpc.RONG_OMEGA:
                     return rongOmega(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.RONG_1S:

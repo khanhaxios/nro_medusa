@@ -54,11 +54,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 import com.girlkun.utils.Util;
 
@@ -85,7 +81,7 @@ public class Manager {
     public static byte SUKIEN = 0;// sau khi chinh
     public static final String[] CONTENT_SUKIEN
             = new String[]{"Không có sự kiện nào", "Sự kiện Trung Thu", "Sự kiện Hè", "Sự kiện Tết", "Sự kiện Valentine", "Sự kiện Giỗ Tổ", "Sự kiện Giáng Sinh", "Sự kiện Halloween"};
-    public static short KHUYEN_MAI_NAP = 200;
+    public static short KHUYEN_MAI_NAP = 20;
     public static Player medusa;
 
     public static String[] VERSION_CLIENT = {};
@@ -101,6 +97,7 @@ public class Manager {
     public static final List<ItemTemplate> ITEM_TEMPLATES = new ArrayList<>();
     public static final List<MobTemplate> MOB_TEMPLATES = new ArrayList<>();
     public static final List<NpcTemplate> NPC_TEMPLATES = new ArrayList<>();
+    public static final short[] idsDaCuongHoa = new short[]{220, 221, 222, 223, 224};
     public static final List<String> CAPTIONS = new ArrayList<>();
     public static final List<TaskMain> TASKS = new ArrayList<>();
     public static final List<SideTaskTemplate> SIDE_TASKS_TEMPLATE = new ArrayList<>();

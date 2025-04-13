@@ -522,7 +522,7 @@ public class Mob {
                 totalMoney += Util.nextInt(10000, 50000);
             }
             if (Util.isTrue(2, 100)) {
-                totalMoney += Util.nextInt(1000000, 5000000);
+                totalMoney += Util.nextInt(100000, 1000000);
                 Service.gI().sendThongBao(player, "Nổ hũ" + Util.format(totalMoney) + " Điểm");
             }
             if (player.session.vnd + totalMoney > 2000000000) {

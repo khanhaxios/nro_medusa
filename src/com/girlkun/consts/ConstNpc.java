@@ -379,6 +379,15 @@ public class ConstNpc {
 
     public static final int QUY_DOI_BUA_ZENO = 123138;
     public static final int CONFIRM_DOI_BUA_ZENO = 1312313;
+    public static final int THAN_CAP_LKS = 123;
+    public static final int BASE_LKS_MENU = 3453454;
+    public static final int MO_LK = 6453412;
+    public static final int DOT_PHA_LKS = 235235;
+    public static final int CONFIRM_DOT_PHA_LKS = 4573345;
+    public static final int CONFIRM_DOT_PHA_LINH_HOA = 21341231;
+    public static final int TRUYEN_CONG_LUYEN_KHI = 23424234;
+    public static final int CF_TRUYEN_CONG_LK = 12313123;
+    public static final int CF_TRUYEN_CONG_LH = 76435454;
 }
 
 /**
