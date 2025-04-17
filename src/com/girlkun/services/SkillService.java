@@ -19,6 +19,7 @@ import com.girlkun.services.func.RadaService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -145,12 +146,9 @@ public class SkillService {
     private void userSkillSpecial(Player player, byte st, byte skillId, Short dx, Short dy, byte dir, Short x, Short y) {
         try {
             switch (skillId) {
-                case Skill.SUPER_KAME ->
-                    sendEffSkillSpecialID24(player, dir);
-                case Skill.LIEN_HOAN_CHUONG ->
-                    sendEffSkillSpecialID25(player, dir);
-                case Skill.MA_PHONG_BA ->
-                    sendEffSkillSpecialID26(player, dir);
+                case Skill.SUPER_KAME -> sendEffSkillSpecialID24(player, dir);
+                case Skill.LIEN_HOAN_CHUONG -> sendEffSkillSpecialID25(player, dir);
+                case Skill.MA_PHONG_BA -> sendEffSkillSpecialID26(player, dir);
             }
             affterUseSkill(player, player.playerSkill.skillSelect.template.id);
             player.skillSpecial.setSkillSpecial(dir, dx, dy, x, y);
@@ -730,7 +728,7 @@ public class SkillService {
                     playerAttackPlayer(player, plTarget, miss);
                 }
                 if (mobTarget != null) {
-                    playerAttackMob(player, mobTarget, miss, false);
+                    playerAttackMob(player, mobTarget, miss, true);
                 }
                 if (player.mobMe != null) {
                     player.mobMe.attack(plTarget, mobTarget);
@@ -918,7 +916,7 @@ public class SkillService {
                         if (pl != null && !player.equals(pl) && !pl.nPoint.khangTDHS && pl.dakethon < 3) {
                             if (Util.getDistance(player, pl) <= SkillUtil.getRangeStun(player.playerSkill.skillSelect.point)
                                     && canAttackPlayer(player, pl) //                                        && (!pl.playerSkill.prepareQCKK && !pl.playerSkill.prepareLaze && !pl.playerSkill.prepareTuSat)
-                                    ) {
+                            ) {
                                 if (player.isPet && ((Pet) player).master.equals(pl)) {
                                     continue;
                                 }
@@ -1034,7 +1032,7 @@ public class SkillService {
                     player.tusat = true;
                     for (Mob mob : player.zone.mobs) {
                         mob.injured(player, dame, true);
-//                        if (Util.getDistance(player, mob) <= rangeBom) { //khoảng cách có tác dụng bom
+//                        if (Util.getDistance(player, mob) <= rangeBom) {
 //                            mob.injured(player, dame, true);
 //                        }
                     }

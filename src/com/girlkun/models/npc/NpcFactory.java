@@ -2514,6 +2514,10 @@ public class NpcFactory {
 
                             InventoryServiceNew.gI().subQuantityItemsBag(player, buaZeno, qtyBua);
 
+                            if (player.taixiu.chuyensinh + 1 > 2000) {
+                                Service.gI().sendThongBaoOK(player, "Bạn đã đạt giới hạn chuyển sinh");
+                                return;
+                            }
                             if (Util.isTrue(percent, 100)) {
                                 player.nPoint.power = 1500000;
                                 player.taixiu.chuyensinh++;
