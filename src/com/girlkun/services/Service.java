@@ -1543,7 +1543,7 @@ public class Service {
             case "goku":
                 return 1200;
         }
-        return 1;
+        return 0;
     }
 
     public void chatJustForMe(Player me, Player plChat, String text) {
