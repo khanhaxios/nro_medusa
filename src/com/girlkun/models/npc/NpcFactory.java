@@ -2915,7 +2915,8 @@ public class NpcFactory {
                                     // pass task 500 trieu diem
                                     int diemCan = 20_000_000;
                                     if (player.session.vnd - diemCan < 0) {
-                                        Service.gI().sendThongBao(player, "Đi cày trả nợ đi");
+                                        Service.gI().sendThongBao(player, "Có cái nịt");
+                                        return;
                                     }
                                     PlayerDAO.subvnd(player, diemCan);
                                     TaskService.gI().sendNextTaskMain(player);

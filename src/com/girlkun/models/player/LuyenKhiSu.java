@@ -74,8 +74,8 @@ public class LuyenKhiSu {
         successRate += getBouncePercentOfLinhHoa();
         successRate -= getSubBasePercentOfItemOptionLevel(capKhongDu);
         // %cua cap luyen khi cong them
-        if (successRate < 0) {
-            successRate = .01f;
+        if (successRate < 0.3f) {
+            successRate = .03f;
         }
         return successRate;
     }
@@ -123,25 +123,25 @@ public class LuyenKhiSu {
     public float getSubBasePercentOfItemOptionLevel(int capKhongDu) {
         switch (capKhongDu) {
             case 1:
-                return 10;
+                return 3f;
             case 2:
-                return 12;
+                return 5f;
             case 3:
-                return 15;
+                return 7f;
             case 4:
-                return 20;
+                return 9f;
             case 5:
-                return 25;
+                return 12f;
             case 6:
-                return 30;
+                return 14f;
             case 7:
-                return 35;
+                return 16f;
             case 8:
-                return 40;
+                return 18f;
             case 9:
-                return 45;
+                return 20f;
             default:
-                return 60;
+                return 25f;
         }
     }
 
@@ -179,9 +179,9 @@ public class LuyenKhiSu {
     public float getBasePercentOfItemOptionLevel(int capdu) {
         switch (capdu) {
             case 1:
-                return 15;
-            case 2:
                 return 12;
+            case 2:
+                return 10;
             case 3:
                 return 8;
             case 4:
@@ -189,15 +189,15 @@ public class LuyenKhiSu {
             case 5:
                 return 5;
             case 6:
-                return 3;
+                return 4;
             case 7:
-                return 2;
+                return 3;
             case 8:
-                return 1;
+                return 2;
             case 9:
-                return .3f;
+                return 1;
             default:
-                return .1f;
+                return 0.5f;
         }
     }
 
@@ -235,27 +235,27 @@ public class LuyenKhiSu {
     public float getPercentBounce() {
         switch (level) {
             case 1:
-                return .5f;
-            case 2:
-                return 1f;
-            case 3:
-                return 2f;
-            case 4:
                 return 3f;
+            case 2:
+                return 4f;
+            case 3:
+                return 6f;
+            case 4:
+                return 8f;
             case 5:
-                return 5f;
-            case 6:
-                return 7f;
-            case 7:
-                return 9f;
-            case 8:
                 return 10f;
-            case 9:
+            case 6:
                 return 12f;
+            case 7:
+                return 14f;
+            case 8:
+                return 16f;
+            case 9:
+                return 18f;
             case 10:
-                return 15f;
-            case 11:
                 return 20f;
+            case 11:
+                return 23f;
             case 12:
                 return 25f;
             default:

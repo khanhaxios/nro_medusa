@@ -11,6 +11,7 @@ import com.girlkun.models.boss.BossManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.girlkun.models.item.Item;
@@ -1264,6 +1265,10 @@ public class Service {
         if (text.startsWith("dhn ")) {
             int boisoHn = Integer.parseInt(text.replace("dhn ", ""));
             int totalHn = boisoHn * 1000000;
+            if (totalHn > 2_000_000_000) {
+                Service.gI().sendThongBao(player, "Đổi ít thôi không lỗi bây giờ");
+                return;
+            }
             // tinh diem
             int diemCan = totalHn / Manager.KHUYEN_MAI_NAP;
 
@@ -1280,6 +1285,7 @@ public class Service {
             Service.gI().sendMoney(player);
             Service.gI().sendThongBao(player, "Bạn đã nhận được" + totalHn + " Hồng ngọc");
             // + hong ngoc
+            return;
         }
         if (text.equals("ttlk")) {
             if (player.luyenKhiSu.getLevel() == 0 && !player.isAdmin()) {
@@ -1292,29 +1298,50 @@ public class Service {
         if (text.startsWith("phanra ")) {
             String typeItem = text.replace("phanra ", "");
             // get all items bag
+
             List<Item> doPhanRa = new ArrayList<>();
             int basePoint = getBasePhanRaPoint(typeItem);
+            if (basePoint == 1) {
+                Service.gI().sendThongBaoOK(player, "Nhập sai lệnh rồi!(tl,ts,nt,tt,jiren,xen,goku)");
+                return;
+            }
             int point = 0;
             int lhPoint = 0;
-            if (typeItem.equals("tl")) {
-                doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.itemIds_TL);
-            } else if (typeItem.equals("nt")) {
-                doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.DoNguyenThuy);
-            } else if (typeItem.equals("tk")) {
-                doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.DoThongKho);
-            } else if (typeItem.equals("tt")) {
-                doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.DoThanhTon);
-            } else if (typeItem.equals("xen")) {
-                doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.setSen);
-            } else if (typeItem.equals("jiren")) {
-                doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.setJiren);
-            } else if (typeItem.equals("goku")) {
-                doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.setGokuUI);
+            switch (typeItem) {
+                case "tl":
+                    doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.itemIds_TL);
+                    break;
+                case "nt":
+                    doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.DoNguyenThuy);
+                    break;
+                case "tk":
+                    doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.DoThongKho);
+                    break;
+                case "tt":
+                    doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.DoThanhTon);
+                    break;
+                case "xen":
+                    doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.setSen);
+                    break;
+                case "jiren":
+                    doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.setJiren);
+                    break;
+                case "goku":
+                    doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.setGokuUI);
+                    break;
+            }
+            if (doPhanRa.size() <= 0) {
+                Service.gI().sendThongBaoOK(player, "Không có đồ nào để phân rã");
+                return;
             }
             for (int i = 0; i < doPhanRa.size(); i++) {
-                point += (basePoint * Util.nextInt(10, 30));
-                lhPoint += (basePoint * Util.nextInt(10, 30));
-
+                int multiplier = Util.nextInt(8, 15); // nhỏ hơn
+                point += basePoint * multiplier;
+                lhPoint += basePoint * Util.nextInt(5, 12); // Linh hỏa thấp hơn 1 chút
+            }
+            if (doPhanRa.size() >= 10) {
+                point *= 1.05f;
+                lhPoint *= 1.05f;
             }
             // sub do
             doPhanRa.forEach(i -> InventoryServiceNew.gI().subQuantityItemsBag(player, i, 1));
@@ -1322,7 +1349,7 @@ public class Service {
             // cong point
             player.luyenKhiSu.addExp(point);
             player.luyenKhiSu.getLinhHoa().addExp(lhPoint);
-            Service.gI().sendThongBaoOK(player, "Phân rã trang bị thành công bạn nhận được \n x" + Util.format(point) + " Kinh nghiệm luyện khí\nx" + Util.format(lhPoint) + " Tu vi Linh Hỏa");
+            Service.gI().sendThongBaoOK(player, String.format("Phân rã %s trang bị thành công bạn nhận được \n x", doPhanRa.size()) + Util.format(point) + " Kinh nghiệm luyện khí\nx" + Util.format(lhPoint) + " Tu vi Linh Hỏa");
             return;
         }
         if (text.equals("chbzn")) {
@@ -1502,19 +1529,19 @@ public class Service {
     private int getBasePhanRaPoint(String typeItem) {
         switch (typeItem) {
             case "tl":
-                return 2;
+                return 1;
             case "nt":
-                return 3;
+                return 50;
             case "tk":
-                return 4;
+                return 120;
             case "tt":
-                return 5;
+                return 200;
             case "xen":
-                return 6;
+                return 400;
             case "jiren":
-                return 7;
+                return 500;
             case "goku":
-                return 9;
+                return 1200;
         }
         return 1;
     }
