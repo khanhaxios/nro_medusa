@@ -2919,7 +2919,7 @@ public class NpcFactory {
                                     // pass task 500 trieu diem
                                     int diemCan = 20_000_000;
                                     if (player.session.vnd - diemCan < 0) {
-                                        Service.gI().sendThongBao(player, "Có cái nịt");
+                                        Service.gI().sendThongBao(player, "Cần 20tr điểm để next nghiệm vụ");
                                         return;
                                     }
                                     PlayerDAO.subvnd(player, diemCan);

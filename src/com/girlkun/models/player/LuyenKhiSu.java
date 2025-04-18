@@ -122,6 +122,8 @@ public class LuyenKhiSu {
 
     public float getSubBasePercentOfItemOptionLevel(int capKhongDu) {
         switch (capKhongDu) {
+            case 0:
+                return 1f;
             case 1:
                 return 3f;
             case 2:
@@ -178,24 +180,26 @@ public class LuyenKhiSu {
 
     public float getBasePercentOfItemOptionLevel(int capdu) {
         switch (capdu) {
+            case 0:
+                return 15f;
             case 1:
-                return 12;
+                return 12f;
             case 2:
-                return 10;
+                return 10f;
             case 3:
-                return 8;
+                return 8f;
             case 4:
-                return 6;
+                return 6f;
             case 5:
-                return 5;
+                return 5f;
             case 6:
-                return 4;
+                return 4f;
             case 7:
-                return 3;
+                return 3f;
             case 8:
-                return 2;
+                return 2f;
             case 9:
-                return 1;
+                return 1f;
             default:
                 return 0.5f;
         }

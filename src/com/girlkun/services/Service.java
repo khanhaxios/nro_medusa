@@ -1301,7 +1301,7 @@ public class Service {
 
             List<Item> doPhanRa = new ArrayList<>();
             int basePoint = getBasePhanRaPoint(typeItem);
-            if (basePoint == 1) {
+            if (basePoint == 0) {
                 Service.gI().sendThongBaoOK(player, "Nhập sai lệnh rồi!(tl,ts,nt,tt,jiren,xen,goku)");
                 return;
             }
@@ -1330,7 +1330,7 @@ public class Service {
                     doPhanRa = InventoryServiceNew.gI().findItemInListIds(player, Manager.setGokuUI);
                     break;
             }
-            if (doPhanRa.size() <= 0) {
+            if (doPhanRa.size() == 0) {
                 Service.gI().sendThongBaoOK(player, "Không có đồ nào để phân rã");
                 return;
             }
@@ -1363,6 +1363,15 @@ public class Service {
             InventoryServiceNew.gI().addItemBag(player, item);
             InventoryServiceNew.gI().sendItemBags(player);
             Service.gI().sendThongBaoOK(player, "Bạn nhận được x" + quantityOfItem + " Bùa zeno khóa");
+            return;
+        }
+        if (text.equals("rshn")) {
+            if (player.inventory.ruby < 0) {
+                player.inventory.ruby = 0;
+                PlayerService.gI().sendInfoHpMpMoney(player);
+                Service.gI().sendMoney(player);
+                Service.gI().sendThongBaoOK(player, "Đã reset hồng ngọc về 0");
+            }
             return;
         }
         // phan gia do

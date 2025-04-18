@@ -21,6 +21,8 @@ import com.girlkun.utils.Util;
  */
 public class BossJiren extends Boss {
 
+    private long lastTimeHoiSuc = System.currentTimeMillis();
+
     public BossJiren() throws Exception {
         super(BossID.BOSS_JIREN, BossesData.BOSS_JIREN);
     }
@@ -48,13 +50,22 @@ public class BossJiren extends Boss {
                 && Util.canDoWithTime(st, 2700000)) {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
+        if (this.bossStatus == BossStatus.ACTIVE) {
+            if (Util.canDoWithTime(lastTimeHoiSuc, 20000) && !this.effectSkill.isStun && this.nPoint.hp < this.nPoint.hpMax) {
+                this.nPoint.hp += this.nPoint.hpMax * 20 / 100;
+                this.chat("Hồi sức aaaaa");
+                lastTimeHoiSuc = System.currentTimeMillis();
+            }
+        }
     }
 
     @Override
     public void joinMap() {
+
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override
@@ -65,6 +76,9 @@ public class BossJiren extends Boss {
                 return 0;
             }
             damage = this.nPoint.subDameInjureWithDeff(damage);
+            if (damage > this.nPoint.hpMax * 2 / 100) {
+                damage = this.nPoint.hpMax * 1 / 100;
+            }
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);

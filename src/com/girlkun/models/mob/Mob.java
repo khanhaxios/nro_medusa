@@ -516,20 +516,22 @@ public class Mob {
 //        nplayer
         List<ItemMap> itemReward = new ArrayList<>();
         try {
-            // add point reward
-            int totalMoney = 2000;
-            if (Util.isTrue(20, 100)) {
-                totalMoney += Util.nextInt(10000, 50000);
-            }
-            if (Util.isTrue(2, 100)) {
-                totalMoney += Util.nextInt(100000, 1000000);
-                Service.gI().sendThongBao(player, "Nổ hũ" + Util.format(totalMoney) + " Điểm");
-            }
-            if (player.session.vnd + totalMoney > 2000000000) {
-                player.session.vnd = 2000000000;
-                Service.gI().sendThongBaoOK(player, "Số dư của bạn vượt quá giới hạn 2 tỷ\nhãy dùng đi nào!");
-            } else {
-                player.session.vnd += totalMoney;
+            if (player.session != null) {
+                // add point reward
+                int totalMoney = 2000;
+                if (Util.isTrue(20, 100)) {
+                    totalMoney += Util.nextInt(10000, 50000);
+                }
+                if (Util.isTrue(2, 100)) {
+                    totalMoney += Util.nextInt(100000, 1000000);
+                    Service.gI().sendThongBao(player, "Nổ hũ" + Util.format(totalMoney) + " Điểm");
+                }
+                if (player.session.vnd + totalMoney > 2000000000) {
+                    player.session.vnd = 2000000000;
+                    Service.gI().sendThongBaoOK(player, "Số dư của bạn vượt quá giới hạn 2 tỷ\nhãy dùng đi nào!");
+                } else {
+                    player.session.vnd += totalMoney;
+                }
             }
             if ((!player.isPet && player.setClothes.setDTS == 5) || (player.isPet && ((Pet) player).setClothes.setDTS == 5) || (player.isDaoLu && ((DaoLu) player).setClothes.setDTS == 5)) {
                 if (Util.isTrue(30, 100)) {

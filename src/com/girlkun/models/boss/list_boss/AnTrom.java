@@ -1,6 +1,7 @@
 package com.girlkun.models.boss.list_boss;
 
 import com.girlkun.consts.ConstPlayer;
+import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossesData;
@@ -17,6 +18,7 @@ import com.girlkun.services.Service;
 import com.girlkun.services.SkillService;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Util;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,7 @@ import java.util.List;
 public class AnTrom extends Boss {
 
     private long goldAnTrom;
+    private long diemAnTrom;
     private long thoivangAnTrom;
     private long lastTimeAnTrom;
     private long lastTimeJoinMap;
@@ -47,6 +50,12 @@ public class AnTrom extends Boss {
                 ItemMap it = new ItemMap(this.zone, 190, (int) (goldAnTrom / 5), this.location.x + Util.nextInt(10, 20), this.zone.map.yPhysicInTop(this.location.x,
                         this.location.y - 24), plKill.id);
                 Service.gI().dropItemMap(this.zone, it);
+            }
+            diemAnTrom = diemAnTrom * 5 / 10;
+            if (plKill.getSession() != null) {
+                plKill.getSession().vnd += diemAnTrom;
+                PlayerDAO.subvnd(plKill, 0);
+                Service.gI().sendThongBao(plKill, "Bạn nhận được " + diemAnTrom + " Điểm nạp");
             }
         }
     }
@@ -98,6 +107,7 @@ public class AnTrom extends Boss {
                         if (!Util.canDoWithTime(this.lastTimeAnTrom, 500) || goldAnTrom > 2_000_000_000L) {
                             return;
                         }
+                        int diem = Util.nextInt(10, 10000);
                         int gold = 0;
 
                         if (pl.inventory.gold >= 100000000) {//nếu số vàng trong túi của người chơi lớn hơn hoặc bằng 100tr
@@ -118,6 +128,10 @@ public class AnTrom extends Boss {
                             Service.gI().sendToAntherMePickItem(this, itemMap.itemMapId);
                             this.zone.removeItemMap(itemMap);
                             this.lastTimeAnTrom = System.currentTimeMillis();
+                        }
+                        if (pl.getSession() != null && pl.getSession().vnd - diem > 0) {
+                            PlayerDAO.subvnd(pl, diem);
+                            Service.gI().sendThongBao(pl, "Bạn bị ăn trộm " + diem + " Điểm Nạp");
                         }
                     } else {
 //                    System.out.println("moveTo");

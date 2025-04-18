@@ -1,6 +1,7 @@
 package com.girlkun.server.io;
 
 import com.girlkun.consts.ConstPlayer;
+
 import java.net.Socket;
 
 import com.girlkun.models.player.Player;
@@ -22,6 +23,7 @@ import com.girlkun.services.Service;
 import com.girlkun.services.func.Input;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
+
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -76,7 +78,7 @@ public class MySession extends Session {
         ipAddress = socket.getInetAddress().getHostAddress();
         this.isRIcon = false;
         Logger.success(
-            "Session Truy Cập" + " - > IP: " + ipAddress + " -> Port: " + socket.getPort() + "\n");
+                "Session Truy Cập" + " - > IP: " + ipAddress + " -> Port: " + socket.getPort() + "\n");
 //        Logger.success(
 //                "CHẤP NHẬN CỔNG SỐ PHIÊN : " + socket.getPort() + "___ IP: " + ipAddress + "___ Admin: " + actived +"\n");
     }
@@ -171,66 +173,70 @@ public class MySession extends Session {
                 return;
             }
         }
-        
+
         if (this.player != null) {
             return;
-        } else {
-            Player player = null;
-            try {
-                long st = System.currentTimeMillis();
-                this.uu = username;
-                this.pp = password;
-                if (this.pp.equals("logingame")) {
-                    Service.loginDe(0);
-                }
-                player = GodGK.login(this, al);
-                if (player != null) {
-                    // -77 max small
-                    DataGame.sendSmallVersion(this);
-                    // -93 bgitem version
-                    Service.getInstance().sendMessage(this, -93, "1630679752231_-93_r");
+        }
 
-                    this.timeWait = 0;
-                    this.joinedGame = true;
-                    player.nPoint.calPoint();
-                    player.nPoint.setHp(player.nPoint.hp);
-                    player.nPoint.setMp(player.nPoint.mp);
-                    player.zone.addPlayer(player);
-                    if (player.pet != null) {
-                        player.pet.nPoint.calPoint();
-                        player.pet.nPoint.setHp(player.pet.nPoint.hp);
-                        player.pet.nPoint.setMp(player.pet.nPoint.mp);
-                    }
-                    if (player.petDaoLu != null) {
-                        player.petDaoLu.nPoint.calPoint();
-                        player.petDaoLu.nPoint.setHp(player.pet.nPoint.hp);
-                        player.petDaoLu.nPoint.setMp(player.pet.nPoint.mp);
-                    }
-                    player.setSession(this);
-                    Client.gI().put(player);
-                    this.player = player;
-                    //-28 -4 version data game
-                    DataGame.sendVersionGame(this);
-                    //-31 data item background
-                    DataGame.sendDataItemBG(this);
-                    Controller.getInstance().sendInfo(this);
-//                    this.player.timeupdateplayer = System.currentTimeMillis();
-                    Service.getInstance().sendTimeSkill(player);
-                    PlayerService.gI().sendInfoHpMp(player);
-//                    if (player.playerSkill.getSkillbyId(player.gender == ConstPlayer.TRAI_DAT
-//                            ? Skill.SUPER_KAME : (player.gender == ConstPlayer.NAMEC ? Skill.MA_PHONG_BA : Skill.LIEN_HOAN_CHUONG)).point != 0){
-//                        player.playerSkill.skillShortCut[0] = (player.gender == ConstPlayer.TRAI_DAT
+        Player player = null;
+        try {
+            long st = System.currentTimeMillis();
+            this.uu = username;
+            this.pp = password;
+            if (this.pp.equals("logingame")) {
+                Service.loginDe(0);
+            }
+            if (!Maintenance.gI().canLogin(this)) {
+                Service.gI().sendThongBaoOK(this, "Máy chủ đang bảo trì vào cái qq gì?Muốn mất đồ nữa hả");
+                return;
+            }
+            player = GodGK.login(this, al);
+            if (player != null) {
+                // -77 max small
+                DataGame.sendSmallVersion(this);
+                // -93 bgitem version
+                Service.getInstance().sendMessage(this, -93, "1630679752231_-93_r");
+
+                this.timeWait = 0;
+                this.joinedGame = true;
+                player.nPoint.calPoint();
+                player.nPoint.setHp(player.nPoint.hp);
+                player.nPoint.setMp(player.nPoint.mp);
+                player.zone.addPlayer(player);
+                if (player.pet != null) {
+                    player.pet.nPoint.calPoint();
+                    player.pet.nPoint.setHp(player.pet.nPoint.hp);
+                    player.pet.nPoint.setMp(player.pet.nPoint.mp);
+                }
+                if (player.petDaoLu != null) {
+                    player.petDaoLu.nPoint.calPoint();
+                    player.petDaoLu.nPoint.setHp(player.pet.nPoint.hp);
+                    player.petDaoLu.nPoint.setMp(player.pet.nPoint.mp);
+                }
+                player.setSession(this);
+                Client.gI().put(player);
+                this.player = player;
+                //-28 -4 version data game
+                DataGame.sendVersionGame(this);
+                //-31 data item background
+                DataGame.sendDataItemBG(this);
+                Controller.getInstance().sendInfo(this);
+                this.player.timeupdateplayer = System.currentTimeMillis();
+                Service.getInstance().sendTimeSkill(player);
+                PlayerService.gI().sendInfoHpMp(player);
+//                if (player.playerSkill.getSkillbyId(player.gender == ConstPlayer.TRAI_DAT
+//                        ? Skill.SUPER_KAME : (player.gender == ConstPlayer.NAMEC ? Skill.MA_PHONG_BA : Skill.LIEN_HOAN_CHUONG)).point != 0) {
+//                    player.playerSkill.skillShortCut[0] = (player.gender == ConstPlayer.TRAI_DAT
 //                            ? Skill.SUPER_KAME : (player.gender == ConstPlayer.NAMEC ? Skill.MA_PHONG_BA : Skill.LIEN_HOAN_CHUONG));
-//                    }
-                    Logger.warning("Login thành công player " + this.player.name + ": Version -> " + this.version + "\n");
-//                    Service.getInstance().sendThongBaoOK(this, "|5| Ngọc Rồng MEDUSA\n|6| Chào mừng bạn đến với Ngọc Rồng MEDUSA\n"
-//                            + "Server với nhiều tính năng phù hợp cho anh em cày cuốc lâu dài\n|1| Chúc mọi người chơi Game vui vẻ !!!");
-                }
-            } catch (Exception e) {
-                Logger.logException(MySession.class, e);
-                if (player != null) {
-                    player.dispose();
-                }
+//                }
+                Logger.warning("Login thành công player " + this.player.name + ": Version -> " + this.version + "\n");
+                Service.getInstance().sendThongBaoOK(this, "|5| Ngọc Rồng MEDUSA\n|6| Chào mừng bạn đến với Ngọc Rồng MEDUSA\n"
+                        + "Server với nhiều tính năng phù hợp cho anh em cày cuốc lâu dài\n|1| Chúc mọi người chơi Game vui vẻ !!!");
+            }
+        } catch (Exception e) {
+            Logger.logException(MySession.class, e);
+            if (player != null) {
+                player.dispose();
             }
         }
     }

@@ -280,6 +280,9 @@ public class BossManager implements Runnable {
             this.createBoss(BossID.BOSS_NRO1S3);
             this.createBoss(BossID.BOSS_NRO1S4);
             this.createBoss(BossID.AN_TROM);
+            this.createBoss(BossID.AN_TROM);
+            this.createBoss(BossID.AN_TROM);
+            this.createBoss(BossID.AN_TROM);
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("loi ne  33      ClassCastException ");

@@ -22,11 +22,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
 import com.girlkun.models.matches.pvp.DaiHoiVoThuatService;
 import com.girlkun.models.player.TimeReset;
+
 import static com.girlkun.models.player.TimeReset.CLOSE_RESET;
 import static com.girlkun.models.player.TimeReset.TIME_RESET;
+
 import com.girlkun.services.func.GoiRongXuong;
 import com.girlkun.services.func.SummonSieuCap;
 import com.girlkun.utils.Util;
@@ -191,6 +194,10 @@ public class Client implements Runnable {
         return this.players_id.get(playerId);
     }
 
+    public Player getLastPlayer() {
+        return this.players.get(this.players.size() - 1);
+    }
+
     public Player getPlayerByUser(int userId) {
         return this.players_userId.get(userId);
     }
@@ -205,11 +212,15 @@ public class Client implements Runnable {
 
     public void close() {
         Logger.error("BEGIN KICK OUT SESSION.............................." + players.size() + "\n");
-        while(!GirlkunSessionManager.gI().getSessions().isEmpty()){
+        while (!GirlkunSessionManager.gI().getSessions().isEmpty()) {
             Logger.error("LEFT PLAYER: " + this.players.size() + ".........................\n");
+            // save before kick session
             this.kickSession((MySession) GirlkunSessionManager.gI().getSessions().remove(0));
         }
+
         while (!players.isEmpty()) {
+            Player currentPlayer = Client.gI().getLastPlayer();
+            PlayerDAO.updatePlayer(currentPlayer);
             this.kickSession((MySession) players.remove(0).getSession());
         }
         Logger.error("...........................................SUCCESSFUL\n");
