@@ -229,10 +229,8 @@ public class Controller implements IMessageHandler {
                 case -107:
                     if (player != null) {
                         switch (player.typeTabPet) {
-                            case 1 ->
-                                Service.getInstance().showInfoDaoLu(player);
-                            default ->
-                                Service.getInstance().showInfoPet(player);
+                            case 1 -> Service.getInstance().showInfoDaoLu(player);
+                            default -> Service.getInstance().showInfoPet(player);
                         }
                     }
                     break;
@@ -246,10 +244,8 @@ public class Controller implements IMessageHandler {
                 case -109:
                     if (player != null) {
                         switch (player.typeTabPet) {
-                            case 1 ->
-                                Service.getInstance().InfoDaoLuGoc(player);
-                            default ->
-                                Service.getInstance().InfoPetGoc(player);
+                            case 1 -> Service.getInstance().InfoDaoLuGoc(player);
+                            default -> Service.getInstance().InfoPetGoc(player);
                         }
                     }
                     break;
@@ -633,8 +629,8 @@ public class Controller implements IMessageHandler {
             }
         } catch (Exception e) {
             byte cmd = _msg.command;
-//            System.out.println("Lỗi CMD -> " + cmd);
-//            Logger.logException(Controller.class, e, "Lỗi CMD -> " + cmd);
+            System.out.println("Lỗi CMD -> " + cmd);
+            Logger.log(e.getMessage());
         } finally {
             _msg.cleanup();
             _msg.dispose();
@@ -875,13 +871,13 @@ public class Controller implements IMessageHandler {
         if (TaskService.gI().getIdTask(player) == ConstTask.TASK_0_0) {
             NpcService.gI().createTutorial(player, -1,
                     "Chào mừng " + player.name + " đến với Ngọc rồng online server MEDUSA\n"
-                    + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
-                    + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
+                            + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
+                            + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
         } else {
             NpcService.gI().createTutorial(player, -1,
                     "Chào mừng " + player.name + " đến với Ngọc rồng online server MEDUSA\n"
-                    + " Để hiểu rõ về cơ chế cũng như xem Giftcode Máy chủ Server MEDUSA vui lòng bấm vào mục Chức năng -> Thông báo\n"
-                    + "Chúc anh em chơi game vui vẻ");
+                            + " Để hiểu rõ về cơ chế cũng như xem Giftcode Máy chủ Server MEDUSA vui lòng bấm vào mục Chức năng -> Thông báo\n"
+                            + "Chúc anh em chơi game vui vẻ");
         }
         if (GoiRongXuong.gI().playerRongXuong != null
                 && GoiRongXuong.gI().playerRongXuong.id == player.id) {
@@ -910,7 +906,7 @@ public class Controller implements IMessageHandler {
 //                    DaoLu.effDauDeXuatHien(player);
                 }
                 default -> ServerNotify.gI().notify("Người chơi: " + player.name + " sở hữu Đạo Lữ cảnh giới "
-                            + player.petDaoLu.getCapBacCapTinh() + " đã vào game!");
+                        + player.petDaoLu.getCapBacCapTinh() + " đã vào game!");
             }
         } else if (player.TrieuHoiCapBac != -1) {
             ServerNotify.gI().notify("Người chơi: " + player.name + " sở hữu Chiến Thần cấp bậc: "

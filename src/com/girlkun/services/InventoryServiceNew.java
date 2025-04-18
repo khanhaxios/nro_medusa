@@ -48,7 +48,7 @@ public class InventoryServiceNew {
         List<Item> itemBags = player.inventory.itemsBag;
 
         for (Item itemBag : itemBags) {
-            if (itemBag != null) {
+            if (itemBag.isNotNullItem() && itemBag.template != null) {
                 for (short id : ids) {
                     if (itemBag.template.id == id) {
                         resultItem.add(itemBag);

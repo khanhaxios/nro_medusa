@@ -1296,6 +1296,10 @@ public class Service {
             return;
         }
         if (text.startsWith("phanra ")) {
+            if (player.luyenKhiSu.getLevel() == 0 && !player.isAdmin()) {
+                Service.gI().sendThongBao(player, "Bạn phải học luyện khí để phân rã trang bị");
+                return;
+            }
             String typeItem = text.replace("phanra ", "");
             // get all items bag
 

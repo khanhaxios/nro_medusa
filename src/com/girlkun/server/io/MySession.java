@@ -221,7 +221,7 @@ public class MySession extends Session {
                 //-31 data item background
                 DataGame.sendDataItemBG(this);
                 Controller.getInstance().sendInfo(this);
-                this.player.timeupdateplayer = System.currentTimeMillis();
+//                this.player.timeupdateplayer = System.currentTimeMillis();
                 Service.getInstance().sendTimeSkill(player);
                 PlayerService.gI().sendInfoHpMp(player);
 //                if (player.playerSkill.getSkillbyId(player.gender == ConstPlayer.TRAI_DAT
@@ -230,8 +230,6 @@ public class MySession extends Session {
 //                            ? Skill.SUPER_KAME : (player.gender == ConstPlayer.NAMEC ? Skill.MA_PHONG_BA : Skill.LIEN_HOAN_CHUONG));
 //                }
                 Logger.warning("Login thành công player " + this.player.name + ": Version -> " + this.version + "\n");
-                Service.getInstance().sendThongBaoOK(this, "|5| Ngọc Rồng MEDUSA\n|6| Chào mừng bạn đến với Ngọc Rồng MEDUSA\n"
-                        + "Server với nhiều tính năng phù hợp cho anh em cày cuốc lâu dài\n|1| Chúc mọi người chơi Game vui vẻ !!!");
             }
         } catch (Exception e) {
             Logger.logException(MySession.class, e);
