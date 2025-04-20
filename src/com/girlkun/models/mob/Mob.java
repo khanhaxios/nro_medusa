@@ -84,7 +84,6 @@ public class Mob {
     public static void initMopbbdkb(Mob mob, byte level) {
         mob.point.dame = (level * 3250 * mob.level * 4) * 5;
         mob.point.maxHp = (level * 12472 * mob.point.hp + level * 7263 * mob.tempId) / 2;
-        //code by Việt Nguyễn
     }
 
     public void setTiemNang() {
@@ -131,7 +130,6 @@ public class Mob {
                             damage *= plAtt.nPoint.multicationChuong;
                             plAtt.nPoint.lastTimeMultiChuong = System.currentTimeMillis();
                         }
-
                 }
             }
             this.point.hp -= damage;

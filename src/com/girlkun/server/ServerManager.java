@@ -46,14 +46,13 @@ public class ServerManager {
 
     public ServerSocket panelSocket;
     public Socket panelClient;
-    public static final Map CLIENTS = new HashMap();
+    public static final Map<Object, Object> CLIENTS = new HashMap<>();
 
     public static String NAME = "Girlkun75";
     public static int PORT = 14445;
 
     private static ServerManager instance;
 
-    public static ServerSocket listenSocket;
     public static boolean isRunning;
     public static long delaylogin;
 
@@ -81,7 +80,6 @@ public class ServerManager {
     public static void main(String[] args) {
         timeStart = TimeUtil.getTimeNow("dd/MM/yyyy HH:mm:ss");
         ServerManager.gI().run();
-//        JFramePanel.main(args);
     }
 
     public void activePanelControllerApi() {
@@ -230,44 +228,35 @@ public class ServerManager {
         new Thread(this::activePanelControllerApi).start();
     }
 
-    private void act() throws Exception {
-        GirlkunServer.gI().init().setAcceptHandler(new ISessionAcceptHandler() {
-                    @Override
-                    public void sessionInit(ISession is) {
-//                antiddos girlkun
-                        if (!canConnectWithIp(is.getIP())) {
-                            is.disconnect();
-                            return;
-                        }
-                        is = is.setMessageHandler(Controller.getInstance())
-                                .setSendCollect(new MessageSendCollect())
-                                .setKeyHandler(new MyKeyHandler())
-                                .startCollect();
+    private void activeServerSocket() {
+        try {
+            ISessionAcceptHandler sessionAcceptHandler = new ISessionAcceptHandler() {
+                @Override
+                public void sessionInit(ISession iSession) {
+                    if (!canConnectWithIp(iSession.getIP())) {
+                        iSession.disconnect();
+                        return;
                     }
+                    iSession.setMessageHandler(Controller.getInstance())
+                            .setSendCollect(new MessageSendCollect())
+                            .setKeyHandler(new MyKeyHandler())
+                            .startCollect();
+                }
 
-                    @Override
-                    public void sessionDisconnect(ISession session) {
-                        Client.gI().kickSession((MySession) session);
-                    }
-                }).setTypeSessioClone(MySession.class)
-                .setDoSomeThingWhenClose(new IServerClose() {
-                    @Override
-                    public void serverClose() {
+                @Override
+                public void sessionDisconnect(ISession iSession) {
+                    Client.gI().kickSession((MySession) iSession);
+                    GirlkunSessionManager.gI().removeSession(iSession);
+                }
+            };
+            GirlkunServer.gI().init().setAcceptHandler(sessionAcceptHandler).setTypeSessioClone(MySession.class)
+                    .setDoSomeThingWhenClose(() -> {
                         System.out.println("server close");
                         System.exit(0);
-                    }
-                })
-                .start(PORT);
-
-    }
-
-    private void activeServerSocket() {
-        if (true) {
-            try {
-                this.act();
-            } catch (Exception e) {
-            }
-            return;
+                    })
+                    .start(PORT);
+        } catch (Exception e) {
+            Logger.error("Lỗi khi khởi tạo session handler : " + e.getMessage());
         }
     }
 

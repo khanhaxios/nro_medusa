@@ -4,6 +4,7 @@ import com.girlkun.database.GirlkunDB;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.jdbc.daos.PlayerDAO;
+import com.girlkun.models.boss.Boss;
 import com.girlkun.models.player.Inventory;
 import com.girlkun.utils.FileIO;
 import com.girlkun.data.DataGame;
@@ -889,6 +890,14 @@ public class Service {
 //                }).start();
 //                return;
 //            }
+            if (text.startsWith("callboss ")) {
+                int bossID = Integer.parseInt(text.replace("callboss ", ""));
+                Boss boss = BossManager.gI().createBoss(bossID);
+                boss.joinMapByZone(player);
+                BossManager.gI().getBosses().add(boss);
+                return;
+            }
+
             if (text.equals("r")) { // hồi all skill, Ki
                 Service.getInstance().releaseCooldownSkill(player);
                 return;

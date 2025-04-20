@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 public class CombineServiceNew {
 
+    private static final int[] TIEN_KHI_OPTIONS_ID = new int[]{254, 255, 256};
     private static final int COST_DOI_VE_DOI_DO_HUY_DIET = 500000000;
     private static final int COST_DAP_DO_KICH_HOAT = 500000000;
     private static final int COST_DOI_MANH_KICH_HOAT = 500000000;
@@ -322,7 +323,7 @@ public class CombineServiceNew {
                             player.combineNew.goldCombine = getGoldNangCapDo(level);
                             player.combineNew.ratioCombine = (float) player.luyenKhiSu.getPercentUpgradeEquipment(itemDo);
                             player.combineNew.countDaNangCap = getCountDaNangCapDo(level);
-//                            player.combineNew.countDaBaoVe = (short) getCountDaBaoVe(level);
+                            player.combineNew.countDaBaoVe = (short) getCountDaBaoVe(level);
                             String npcSay = "|2|Hiện tại " + itemDo.template.name + " (+" + level + ")\n|0|";
                             for (Item.ItemOption io : itemDo.itemOptions) {
                                 if (io.optionTemplate.id != 72) {
@@ -2727,18 +2728,20 @@ public class CombineServiceNew {
             if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.template.type == 14).count() != 1) {
                 return;
             }
-//            if (player.combineNew.itemsCombine.size() == 3 && player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.template.id == 987).count() != 1) {
-//                return;//admin
-//            }
+            if (player.combineNew.itemsCombine.size() == 3 && player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.template.id == 987).count() != 1) {
+                return;//admin
+            }
             Item itemDo = null;
             Item itemDNC = null;
-//            Item itemDBV = null;
+            Item itemDBV = null;
+            int countDaBaoVe = 0;
             for (int j = 0; j < player.combineNew.itemsCombine.size(); j++) {
                 if (player.combineNew.itemsCombine.get(j).isNotNullItem()) {
-//                    if (player.combineNew.itemsCombine.size() == 3 && player.combineNew.itemsCombine.get(j).template.id == 987) {
-//                        itemDBV = player.combineNew.itemsCombine.get(j);
-//                        continue;
-//                    }
+                    if (player.combineNew.itemsCombine.size() == 3 && player.combineNew.itemsCombine.get(j).template.id == 987) {
+                        itemDBV = player.combineNew.itemsCombine.get(j);
+                        countDaBaoVe = itemDBV.quantity;
+                        continue;
+                    }
                     if (player.combineNew.itemsCombine.get(j).template.type < 5) {
                         itemDo = player.combineNew.itemsCombine.get(j);
                     } else {
@@ -2757,27 +2760,32 @@ public class CombineServiceNew {
                 if (itemDNC.quantity < countDaNangCap) {
                     return;
                 }
-//                if (player.combineNew.itemsCombine.size() == 3) {
-//                    if (Objects.isNull(itemDBV)) {
-//                        return;
-//                    }
-//                    if (itemDBV.quantity < countDaBaoVe) {
-//                        return;
-//                    }
-//                }
+                if (player.combineNew.itemsCombine.size() == 3) {
+                    if (Objects.isNull(itemDBV)) {
+                        return;
+                    }
+                    if (itemDBV.quantity < countDaBaoVe) {
+                        return;
+                    }
+                }
 
                 int level = 0;
                 Item.ItemOption optionLevel = null;
+                ItemOption tienKhiOption = null;
                 for (Item.ItemOption io : itemDo.itemOptions) {
                     if (io.optionTemplate.id == 72) {
                         level = io.param;
                         optionLevel = io;
                         break;
                     }
+                    if (io.optionTemplate.id >= 100 && io.optionTemplate.id <= 102) {
+                        tienKhiOption = io;
+                    }
                 }
                 boolean isTienKhi = level >= 100;
-                int luyenKhiLevel = player.luyenKhiSu.getLevel();
+                byte luyenKhiLevel = player.luyenKhiSu.getLevel();
                 int nextLevel = level + 1;
+                boolean isSuccess = false;
                 if (luyenKhiLevel == 0) {
                     Service.gI().sendThongBaoOK(player, "Bạn cần học luyện khí để nâng cấp đồ");
                     return;
@@ -2838,6 +2846,7 @@ public class CombineServiceNew {
                         if (baseLucky > 1) {
                             Service.gI().sendThongBao(player, "Thiên đạo phù hộ!Lần này luyện khí được tăng phúc x" + baseLucky + "Chỉ số");
                         }
+                        isSuccess = true;
                         sendEffectSuccessCombine(player);
                     } else {
                         int baseLucky = 1;
@@ -2850,15 +2859,56 @@ public class CombineServiceNew {
                                 option2.param -= (option2.param * (baseLucky * 15) / 100);
                             }
                             optionLevel.param--;
-                        }
-                        if (baseLucky > 1) {
-                            Service.gI().sendThongBao(player, "Khí vận điêu tàn!Lần này luyện khí được bị trừng phạt trừ đi x" + baseLucky + "Chỉ số");
+                            if (baseLucky > 1) {
+                                Service.gI().sendThongBao(player, "Khí vận điêu tàn!Lần này luyện khí được bị trừng phạt trừ đi x" + baseLucky + "Chỉ số");
+                            }
                         }
                         sendEffectFailCombine(player);
                     }
-//                    if (player.combineNew.itemsCombine.size() == 3) {
-//                        InventoryServiceNew.gI().subQuantityItemsBag(player, itemDBV, countDaBaoVe);
-//                    }
+
+                    // +do
+
+                    if (isSuccess && nextLevel >= 100) {
+                        int tienLucCong = 1;
+
+                        if (nextLevel == 100) {
+                            ItemOption itemOption = new ItemOption(254, 0);
+                            itemDo.itemOptions.add(itemOption);
+                            tienLucCong += Util.nextInt(1, 2);
+                        } else if (nextLevel == 101) {
+                            tienLucCong += Util.nextInt(2, 5);
+                            // remove tien khi option
+                            ItemOption itemTienKhi = null;
+                            for (ItemOption itemOption : itemDo.itemOptions) {
+                                if (itemOption.optionTemplate.id == 254) {
+                                    itemTienKhi = itemOption;
+                                    break;
+                                }
+                            }
+                            itemDo.itemOptions.remove(itemTienKhi);
+                            ItemOption itemOption = new ItemOption(255, 0);
+                            itemDo.itemOptions.add(itemOption);
+                        } else if (nextLevel == 102) {
+                            tienLucCong += Util.nextInt(6, 12);
+                            if (Util.isTrue(10, 100)) {
+                                tienLucCong += Util.nextInt(6, 66);
+                            }
+                            List<ItemOption> itemTienKhi = new ArrayList<>();
+                            for (ItemOption itemOption : itemDo.itemOptions) {
+                                if (itemOption.optionTemplate.id == 254 || itemOption.optionTemplate.id == 255) {
+                                    itemTienKhi.add(itemOption);
+                                }
+                            }
+                            itemDo.itemOptions.removeAll(itemTienKhi);
+                            ItemOption itemOption = new ItemOption(256, 0);
+                            itemDo.itemOptions.add(itemOption);
+                            itemDo.itemOptions.add(new ItemOption(257, tienLucCong));
+                        }
+                        // remove tien khi option
+                    }
+                    if (player.combineNew.itemsCombine.size() == 3) {
+                        InventoryServiceNew.gI().subQuantityItemsBag(player, itemDBV, countDaBaoVe);
+                    }
                     InventoryServiceNew.gI().subQuantityItemsBag(player, itemDNC, player.combineNew.countDaNangCap);
                     InventoryServiceNew.gI().sendItemBags(player);
                     Service.getInstance().sendMoney(player);

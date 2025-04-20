@@ -41,7 +41,7 @@ public class LuyenKhiSu {
     }
 
     public void restExp() {
-        this.exp = 0;
+        this.exp = this.exp - maxExp;
         this.maxExp = getNextLevelExp();
     }
 
@@ -383,9 +383,6 @@ public class LuyenKhiSu {
 
     public void addExp(long bounceExp) {
         this.exp += bounceExp;
-        if (exp > maxExp) {
-            exp = maxExp;
-        }
     }
 
     public void setLinhHoa(LinhHoa linhHoa) {
@@ -393,6 +390,6 @@ public class LuyenKhiSu {
     }
 
     public boolean canLevelUp() {
-        return (this.exp == this.maxExp && this.level + 1 <= MAX_LEVEL);
+        return (this.exp >= this.maxExp && this.level + 1 <= MAX_LEVEL);
     }
 }

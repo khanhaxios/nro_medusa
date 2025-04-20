@@ -61,11 +61,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Player {
-
     public boolean tusat = false;
     public int pointPvpthuong;
     public int pointPvpVip;
-
     public boolean autoUse;
     public boolean autoUseNow;
     public boolean muanhieu;
@@ -80,6 +78,7 @@ public class Player {
     public byte countBDKB;
     public boolean firstJoinBDKB;
     public long lastimeJoinBDKB;
+
     public int goldChallenge;
     public boolean receivedWoodChest;
     public List<String> textRuongGo = new ArrayList<>();
@@ -98,16 +97,13 @@ public class Player {
     public boolean autoKI = false;
     public boolean autoSD = false;
     public boolean autoGiap = false;
-
     public boolean autodau = false;
-
     public boolean batco = false;
     public boolean haveBeQuynh;
+    public int tienLuc = 0;
     public int mapHoTong;
     public long lastTimeHoTong;
-
     public boolean titleitem;
-
     public boolean titlett;
     public boolean isTitleUse1;
     public long lastTimeTitle1;
@@ -154,7 +150,7 @@ public class Player {
     public NewPet newpet;
     public Thu_TrieuHoi TrieuHoipet;
     public NhiemvuChienthan chienthan;
-//    public NewPet newpet1;
+    //    public NewPet newpet1;
     public LuyenKhiSu luyenKhiSu;
     public MobMe mobMe;
     public Location location;
@@ -1208,6 +1204,18 @@ public class Player {
                         }
                     }
                     setDie(plAtt);
+                }
+            }
+            // handle tien luc
+            // check map nua
+            if (plAtt != null && !isMobAttack) {
+                // subdame
+                float tyle = (plAtt.tienLuc - this.tienLuc) / 100f;
+
+                if (tyle < 0) {
+                    damage -= (Math.abs(tyle) * 10) * damage;
+                } else {
+                    damage += damage * tyle;
                 }
             }
             return damage;

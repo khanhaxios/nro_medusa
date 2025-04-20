@@ -58,7 +58,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     public byte cX;
 
     public Zone zoneFinal = null;
-    
+
     public static final byte DAME_5 = 5;
     public static final long DAME_1M = 1_000_000;
     public static final long DAME_10M = 10_000_000;
@@ -92,6 +92,12 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                         this.bossAppearTogether[i][j] = boss;
                     }
                 }
+            }
+        }
+        if (Util.isTrue(10, 100)) {
+            for (int i = 0; i <= this.data.length - 1; i++) {
+                this.data[i].setName(String.format("[Tiên] %s", this.data[i].getName()));
+                this.tienLuc += 1;
             }
         }
     }
@@ -451,7 +457,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
-//                System.out.println("loi ne    22    ClassCastException ");
             }
         }
     }

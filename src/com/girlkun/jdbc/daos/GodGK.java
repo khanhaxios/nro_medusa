@@ -158,6 +158,7 @@ public class GodGK {
                             player.haveTennisSpaceShip = rs.getBoolean("have_tennis_space_ship");
                             player.diemdanh = rs.getLong("violate");
                             player.NguHanhSonPoint = rs.getInt("NguHanhSonPoint");
+                            player.tienLuc = rs.getInt("tien_luc");
                             // data rada card
                             // data rada card
                             dataArray = (JSONArray) jv.parse(rs.getString("data_card"));
@@ -591,7 +592,7 @@ public class GodGK {
 
                             try {
 
-                            }catch (Exception e){
+                            } catch (Exception e) {
 
                             }
                             //data tài xỉu

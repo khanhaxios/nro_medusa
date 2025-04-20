@@ -1032,7 +1032,9 @@ public class TaskService {
         }
         if (player.playerTask.taskMain.id >= 26 && player.playerTask.taskMain.id <= 29) {
             int totalBuaZeno = 55555;
-            InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 1378, totalBuaZeno));
+            Item item1 = ItemService.gI().createNewItem((short) 1378, totalBuaZeno);
+            item1.itemOptions.add(new Item.ItemOption(30, 0));
+            InventoryServiceNew.gI().addItemBag(player, item1);
             InventoryServiceNew.gI().sendItemBags(player);
             Service.gI().sendThongBaoOK(player, "Bạn nhận được " + Util.format(totalBuaZeno) + " Bùa Zeno");
             PlayerDAO.subvnd(player, 0);

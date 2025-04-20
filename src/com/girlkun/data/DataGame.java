@@ -69,8 +69,8 @@ public class DataGame {
             msg.writer().writeByte(0);
 
             long[] smtieuchuan = {1000L, 3000L, 15000L, 40000L, 90000L, 170000L, 340000L, 700000L,
-                1500000L, 15000000L, 150000000L, 1500000000L, 5000000000L, 10000000000L, 40000000000L,
-                50010000000L, 60010000000L, 70010000000L, 80010000000L, 100010000000L};
+                    1500000L, 15000000L, 150000000L, 1500000000L, 5000000000L, 10000000000L, 40000000000L,
+                    50010000000L, 60010000000L, 70010000000L, 80010000000L, 100010000000L};
             msg.writer().writeByte(smtieuchuan.length);
             for (int i = 0; i < smtieuchuan.length; i++) {
                 msg.writer().writeLong(smtieuchuan[i]);
@@ -525,7 +525,8 @@ public class DataGame {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (IOException e) {
-            System.out.println("        loi 16");
+            Logger.error(e.getMessage());
+            System.out.println("loi 16");
         }
     }
 

@@ -6785,6 +6785,7 @@ public class NpcFactory {
                                 PlayerDAO.subvnd(player, 100_000_000);
                                 player.luyenKhiSu.levelUp();
                                 player.luyenKhiSu.getLinhHoa().levelUp();
+                                Service.gI().sendThongBaoOK(player, "Bạn đã học luyện khí thành công hãy tiếp tục cố gắng nhé");
                                 break;
                         }
                     } else if (mapId == 0 && player.iDMark.getIndexMenu() == ConstNpc.DOT_PHA_LKS) {
@@ -6811,7 +6812,7 @@ public class NpcFactory {
                                 }
                                 PlayerDAO.subvnd(player, tienCan);
                                 float ratio = player.luyenKhiSu.getTyLeDotPha();
-                                if (Util.isTrue(ratio, 150)) {
+                                if (Util.isTrue(ratio, 100)) {
                                     //dot pha thanh cong
                                     player.luyenKhiSu.levelUp();
                                     Service.gI().sendThongBao(player, "Chúc mừng bạn đã đột phá thành công " + player.luyenKhiSu.getName() + "(" + player.luyenKhiSu.getLevel() + ")");

@@ -10,6 +10,9 @@ public class SetClothes {
         this.player = player;
     }
 
+    public byte tienKhi;
+    public byte thanhKhi;
+    public byte thanKhi;
     public byte NhanHoang;
     public byte MaThan;
     public byte ThienTu;
@@ -472,10 +475,8 @@ public class SetClothes {
             Item deoLung = this.player.inventory.itemsBody.get(8);
             if (deoLung != null && deoLung.isNotNullItem()) {
                 switch (deoLung.template.id) {
-                    case 1406 ->
-                        this.isThuongLinhDietMa = true;
-                    case 1405 ->
-                        this.isDaoYeuLinhPhucMa = true;
+                    case 1406 -> this.isThuongLinhDietMa = true;
+                    case 1405 -> this.isDaoYeuLinhPhucMa = true;
                 }
             }
         }

@@ -867,6 +867,7 @@ public class Manager {
                     NOTIFY.add(notify.toString());
                 }
             }
+            
             Logger.success("Load notify thành công (" + NOTIFY.size() + ")\n");
 
             //load caption

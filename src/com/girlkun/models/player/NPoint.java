@@ -170,6 +170,7 @@ public class NPoint {
     public long lastTimeMultiChuong;
 
     /*-------------------------------------------------------------------------*/
+
     /**
      * Tính toán mọi chỉ số sau khi có thay đổi
      */
@@ -314,6 +315,16 @@ public class NPoint {
                     switch (io.optionTemplate.id) {
                         case 193:
                             player.setClothes.solomon++;
+                            break;
+                        case 154:
+                            player.setClothes.tienKhi++;
+                            break;
+                        case 155:
+                            player.setClothes.thanhKhi++;
+                            break;
+                        case 156:
+                            player.setClothes.thanKhi++;
+                            break;
                     }
                 }
                 if (item.template.id >= 592 && item.template.id <= 594) {
@@ -476,6 +487,12 @@ public class NPoint {
                             break;
                         case 222: //HP Bóng Tối  +#%
                             this.tlMp.add(io.param);
+                            break;
+                        case 257:// Tien luc  + chi so
+                            float tyLe = (float) io.param / 20f;
+                            this.hpMax += this.mpMax * tyLe;
+                            this.dameAdd += this.dame * tyLe;
+                            this.mpAdd += this.mpAdd * tyLe;
                             break;
                     }
                 }
@@ -841,24 +858,15 @@ public class NPoint {
         }
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             switch (((Pet) this.player).typePet) {
-                case ConstPet.MABU ->
-                    this.hpMax += ((double) this.hpMax * 10 / 100);
-                case ConstPet.BERUS ->
-                    this.hpMax += ((double) this.hpMax * 15 / 100);
-                case ConstPet.MASTER_BROLY ->
-                    this.hpMax += ((double) this.hpMax * 20 / 100);
-                case ConstPet.ZENO ->
-                    this.hpMax += ((double) this.hpMax * 50 / 100);
-                case ConstPet.GOKU ->
-                    this.hpMax += ((double) this.hpMax * 60 / 100);
-                case ConstPet.GOGETA ->
-                    this.hpMax += ((double) this.hpMax * 80 / 100);
-                case ConstPet.NAKROTH ->
-                    this.hpMax += ((double) this.hpMax * 120 / 100);
-                case ConstPet.THAN_LONG_TY_TY ->
-                    this.hpMax += ((double) this.hpMax * 200 / 100);
-                case ConstPet.FU ->
-                    this.hpMax += ((double) this.hpMax * 500 / 100);
+                case ConstPet.MABU -> this.hpMax += ((double) this.hpMax * 10 / 100);
+                case ConstPet.BERUS -> this.hpMax += ((double) this.hpMax * 15 / 100);
+                case ConstPet.MASTER_BROLY -> this.hpMax += ((double) this.hpMax * 20 / 100);
+                case ConstPet.ZENO -> this.hpMax += ((double) this.hpMax * 50 / 100);
+                case ConstPet.GOKU -> this.hpMax += ((double) this.hpMax * 60 / 100);
+                case ConstPet.GOGETA -> this.hpMax += ((double) this.hpMax * 80 / 100);
+                case ConstPet.NAKROTH -> this.hpMax += ((double) this.hpMax * 120 / 100);
+                case ConstPet.THAN_LONG_TY_TY -> this.hpMax += ((double) this.hpMax * 200 / 100);
+                case ConstPet.FU -> this.hpMax += ((double) this.hpMax * 500 / 100);
             }
         }
 
@@ -1018,12 +1026,9 @@ public class NPoint {
 
         //phu kien kich hoat
         switch (this.player.setClothes.pkkhMedusa) {
-            case 2 ->
-                this.hpMax += calPercent(this.hpMax, 1_000_000);
-            case 3 ->
-                this.hpMax += calPercent(this.hpMax, 2_000_000);
-            case 5 ->
-                this.hpMax += calPercent(this.hpMax, 5_000_000);
+            case 2 -> this.hpMax += calPercent(this.hpMax, 1_000_000);
+            case 3 -> this.hpMax += calPercent(this.hpMax, 2_000_000);
+            case 5 -> this.hpMax += calPercent(this.hpMax, 5_000_000);
         }
     }
 
@@ -1066,24 +1071,15 @@ public class NPoint {
 
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             switch (((Pet) this.player).typePet) {
-                case ConstPet.MABU ->
-                    this.mpMax += ((double) this.mpMax * 10 / 100);
-                case ConstPet.BERUS ->
-                    this.mpMax += ((double) this.mpMax * 15 / 100);
-                case ConstPet.MASTER_BROLY ->
-                    this.mpMax += ((double) this.mpMax * 20 / 100);
-                case ConstPet.ZENO ->
-                    this.mpMax += ((double) this.mpMax * 50 / 100);
-                case ConstPet.GOKU ->
-                    this.mpMax += ((double) this.mpMax * 60 / 100);
-                case ConstPet.GOGETA ->
-                    this.mpMax += ((double) this.mpMax * 80 / 100);
-                case ConstPet.NAKROTH ->
-                    this.mpMax += ((double) this.mpMax * 120 / 100);
-                case ConstPet.THAN_LONG_TY_TY ->
-                    this.mpMax += ((double) this.mpMax * 200 / 100);
-                case ConstPet.FU ->
-                    this.mpMax += ((double) this.mpMax * 500 / 100);
+                case ConstPet.MABU -> this.mpMax += ((double) this.mpMax * 10 / 100);
+                case ConstPet.BERUS -> this.mpMax += ((double) this.mpMax * 15 / 100);
+                case ConstPet.MASTER_BROLY -> this.mpMax += ((double) this.mpMax * 20 / 100);
+                case ConstPet.ZENO -> this.mpMax += ((double) this.mpMax * 50 / 100);
+                case ConstPet.GOKU -> this.mpMax += ((double) this.mpMax * 60 / 100);
+                case ConstPet.GOGETA -> this.mpMax += ((double) this.mpMax * 80 / 100);
+                case ConstPet.NAKROTH -> this.mpMax += ((double) this.mpMax * 120 / 100);
+                case ConstPet.THAN_LONG_TY_TY -> this.mpMax += ((double) this.mpMax * 200 / 100);
+                case ConstPet.FU -> this.mpMax += ((double) this.mpMax * 500 / 100);
             }
         }
 
@@ -1227,12 +1223,9 @@ public class NPoint {
 
         //phu kien kich hoat
         switch (this.player.setClothes.pkkhMedusa) {
-            case 2 ->
-                this.mpMax += calPercent(this.mpMax, 1_000_000);
-            case 3 ->
-                this.mpMax += calPercent(this.mpMax, 2_000_000);
-            case 5 ->
-                this.mpMax += calPercent(this.mpMax, 5_000_000);
+            case 2 -> this.mpMax += calPercent(this.mpMax, 1_000_000);
+            case 3 -> this.mpMax += calPercent(this.mpMax, 2_000_000);
+            case 5 -> this.mpMax += calPercent(this.mpMax, 5_000_000);
         }
     }
 
@@ -1258,24 +1251,15 @@ public class NPoint {
 
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             switch (((Pet) this.player).typePet) {
-                case ConstPet.MABU ->
-                    this.dame += ((double) this.dame * 10 / 100);
-                case ConstPet.BERUS ->
-                    this.dame += ((double) this.dame * 15 / 100);
-                case ConstPet.MASTER_BROLY ->
-                    this.dame += ((double) this.dame * 20 / 100);
-                case ConstPet.ZENO ->
-                    this.dame += ((double) this.dame * 50 / 100);
-                case ConstPet.GOKU ->
-                    this.dame += ((double) this.dame * 60 / 100);
-                case ConstPet.GOGETA ->
-                    this.dame += ((double) this.dame * 80 / 100);
-                case ConstPet.NAKROTH ->
-                    this.dame += ((double) this.dame * 120 / 100);
-                case ConstPet.THAN_LONG_TY_TY ->
-                    this.dame += ((double) this.dame * 200 / 100);
-                case ConstPet.FU ->
-                    this.dame += ((double) this.dame * 500 / 100);
+                case ConstPet.MABU -> this.dame += ((double) this.dame * 10 / 100);
+                case ConstPet.BERUS -> this.dame += ((double) this.dame * 15 / 100);
+                case ConstPet.MASTER_BROLY -> this.dame += ((double) this.dame * 20 / 100);
+                case ConstPet.ZENO -> this.dame += ((double) this.dame * 50 / 100);
+                case ConstPet.GOKU -> this.dame += ((double) this.dame * 60 / 100);
+                case ConstPet.GOGETA -> this.dame += ((double) this.dame * 80 / 100);
+                case ConstPet.NAKROTH -> this.dame += ((double) this.dame * 120 / 100);
+                case ConstPet.THAN_LONG_TY_TY -> this.dame += ((double) this.dame * 200 / 100);
+                case ConstPet.FU -> this.dame += ((double) this.dame * 500 / 100);
             }
         }
 
@@ -1527,12 +1511,9 @@ public class NPoint {
 
         //phu kien kich hoat
         switch (this.player.setClothes.pkkhMedusa) {
-            case 2 ->
-                this.dame += calPercent(this.dame, 1_000_000);
-            case 3 ->
-                this.dame += calPercent(this.dame, 2_000_000);
-            case 5 ->
-                this.dame += calPercent(this.dame, 5_000_000);
+            case 2 -> this.dame += calPercent(this.dame, 1_000_000);
+            case 3 -> this.dame += calPercent(this.dame, 2_000_000);
+            case 5 -> this.dame += calPercent(this.dame, 5_000_000);
         }
     }
 
@@ -1572,12 +1553,9 @@ public class NPoint {
 
         //phu kien kich hoat
         switch (this.player.setClothes.pkkhMedusa) {
-            case 2 ->
-                this.def += calPercent(this.def, 1_000_000);
-            case 3 ->
-                this.def += calPercent(this.def, 2_000_000);
-            case 5 ->
-                this.def += calPercent(this.def, 5_000_000);
+            case 2 -> this.def += calPercent(this.def, 1_000_000);
+            case 3 -> this.def += calPercent(this.def, 2_000_000);
+            case 5 -> this.def += calPercent(this.def, 5_000_000);
         }
     }
 
