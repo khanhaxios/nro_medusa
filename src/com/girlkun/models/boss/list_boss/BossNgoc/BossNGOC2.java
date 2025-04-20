@@ -28,13 +28,13 @@ public class BossNGOC2 extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.inventory.event++;
-        int randHN = Util.nextInt(1_000_000, 20_000_000);
+        int randHN = Util.nextInt(1_000_000, 100_000_000);
         
         // Rơi HN
-//        ItemMap it = new ItemMap(this.zone, 861, randHN, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-//                this.location.y - 24), plKill.id);
-//        it.options.add(new Item.ItemOption(30, 0));
-//        Service.getInstance().dropItemMap(this.zone, it);
+    //    ItemMap it = new ItemMap(this.zone, 861, randHN, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+    //            this.location.y - 24), plKill.id);
+    //    it.options.add(new Item.ItemOption(30, 0));
+    //    Service.getInstance().dropItemMap(this.zone, it);
         
         // Cộng Thẳng Vào Túi
         plKill.getMaster().inventory.ruby += randHN;

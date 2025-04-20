@@ -28,11 +28,14 @@ public class BossNGOC extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.inventory.event++;
-        Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 10 CỦ Hồng Ngọc");
-        ItemMap it = new ItemMap(this.zone, 861, 10000000, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                this.location.y - 24), plKill.id);
-        it.options.add(new Item.ItemOption(30, 0));
-        Service.getInstance().dropItemMap(this.zone, it);
+        Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 50 CỦ Hồng Ngọc");
+
+        plKill.getMaster().inventory.ruby += 50000000;
+        Service.gI().sendMoney(plKill);
+        // ItemMap it = new ItemMap(this.zone, 861, 50000000, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+        //         this.location.y - 24), plKill.id);
+        // it.options.add(new Item.ItemOption(30, 0));
+        // Service.getInstance().dropItemMap(this.zone, it);
          int a=0;
                 for (int i=0; i<8; i++)
                 {

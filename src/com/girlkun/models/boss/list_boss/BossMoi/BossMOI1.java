@@ -29,27 +29,33 @@ public class BossMOI1 extends Boss {
     public void reward(Player plKill) {
         plKill.inventory.event++;
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
-        ItemMap it = new ItemMap(this.zone, 1261, 50, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+        int randTK = Util.nextInt(1, 50);
+        // Hoa Hon Thach
+        ItemMap it = new ItemMap(this.zone, 1215, randTK, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);
         it.options.add(new Item.ItemOption(30, 0));
         Service.getInstance().dropItemMap(this.zone, it);
-         int a=0;
-                for (int i=0; i<8; i++)
-                {
-                      ItemMap it1 = new ItemMap(this.zone, 457, 100, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-                       it.options.add(new Item.ItemOption(30, 0));
+
+        
+        int a = 0;
+        for (int i = 0; i < 8; i++) {
+            // thỏi vàng
+            ItemMap it1 = new ItemMap(this.zone, 457, 100, this.location.x + a,
+                    this.zone.map.yPhysicInTop(this.location.x,
+                            this.location.y - 24),
+                    plKill.id);
+            it.options.add(new Item.ItemOption(30, 0));
             Service.getInstance().dropItemMap(this.zone, it1);
-            a+=10;
-                }
-                ItemMap it1 = new ItemMap(this.zone, 1338, 5, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
+            a += 10;
+        }
+        // ItemMap it1 = new ItemMap(this.zone, 1338, 5, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+        //         this.location.y - 24), plKill.id);
+        // Service.getInstance().dropItemMap(this.zone, it1);
     }
 
     @Override
     public void active() {
-        super.active(); //To change body of generated methods, choose Tools | Templates.
+        super.active(); // To change body of generated methods, choose Tools | Templates.
         if (Util.canDoWithTime(st, 2500000)) {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
@@ -57,9 +63,10 @@ public class BossMOI1 extends Boss {
 
     @Override
     public void joinMap() {
-        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
+        super.joinMap(); // To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override
