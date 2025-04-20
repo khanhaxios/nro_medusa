@@ -208,7 +208,9 @@ public class BossID {
     public static final int LUFFY_GEAR_FIVE = -322;
 
     public static final int BOSS_JIREN = -323;
+    public static final int BOSS_JIREN2 = -3231;
     public static final int BOSS_GOKU_UI = -324;
+    public static final int BOSS_GOKU_UI_2 = -3241;
     
     public static final int MA_TROI_PINK = -325;
     public static final int MA_TROI_BLUE = -326;

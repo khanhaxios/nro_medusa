@@ -28,20 +28,20 @@ public class BossVANG extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.inventory.event++;
-        Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 2 CỦ Thỏi Vàng");
-        ItemMap it = new ItemMap(this.zone, 457, 2000000, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+        Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 100 Thỏi Vàng");
+        ItemMap it = new ItemMap(this.zone, 457, 92, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);
         it.options.add(new Item.ItemOption(30, 0));
         Service.getInstance().dropItemMap(this.zone, it);
          int a=0;
                 for (int i=0; i<8; i++)
                 {
-                      ItemMap it1 = new ItemMap(this.zone, 1464, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
+                      ItemMap it1 = new ItemMap(this.zone, 457, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
                     this.location.y - 24),  plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
             a+=10;
                 }
-                ItemMap it1 = new ItemMap(this.zone, 1457, 10, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                ItemMap it1 = new ItemMap(this.zone, 457, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
                     this.location.y - 24),  plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
     }
@@ -74,6 +74,10 @@ public class BossVANG extends Boss {
                     EffectSkillService.gI().breakShield(this);
                 }
                 damage = 1;
+            }
+            if (damage > this.nPoint.hpMax * 2 / 100) {
+                this.chat("Mày biết nhiều về tao, vậy mày biết gì về mày chưa!");
+                damage = this.nPoint.hpMax * 1 / 10;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {

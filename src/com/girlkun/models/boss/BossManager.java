@@ -69,7 +69,9 @@ import com.girlkun.models.boss.list_boss.BossVANG1;
 import com.girlkun.models.boss.list_boss.BossNgoc.BossNGOC1;
 import com.girlkun.models.boss.list_boss.BossNgoc.BossNGOC2;
 import com.girlkun.models.boss.list_boss.BossSieuCap.BossGokuUI;
+import com.girlkun.models.boss.list_boss.BossSieuCap.BossGokuUI2;
 import com.girlkun.models.boss.list_boss.BossSieuCap.BossJiren;
+import com.girlkun.models.boss.list_boss.BossSieuCap.BossJiren2;
 ////
 import com.girlkun.models.boss.list_boss.Boss1S.Boss1S1;
 import com.girlkun.models.boss.list_boss.Boss1S.Boss1S2;
@@ -173,7 +175,9 @@ public class BossManager implements Runnable {
             this.createBoss(BossID.BOSS_THOTRANG);
             this.createBoss(BossID.BOSS_CAPYBARA);
             this.createBoss(BossID.BOSS_JIREN);
+            this.createBoss(BossID.BOSS_JIREN2);
             this.createBoss(BossID.BOSS_GOKU_UI);
+            this.createBoss(BossID.BOSS_GOKU_UI_2);
             this.createBoss(BossID.TDST);
             this.createBoss(BossID.BROLY);
 //            this.createBoss(BossID.BROLY);
@@ -580,8 +584,12 @@ public class BossManager implements Runnable {
                     return new Usopp();
                 case BossID.BOSS_JIREN:
                     return new BossJiren();
+                case BossID.BOSS_JIREN2:
+                    return new BossJiren2();
                 case BossID.BOSS_GOKU_UI:
                     return new BossGokuUI();
+                case BossID.BOSS_GOKU_UI_2:
+                    return new BossGokuUI2();
                 case BossID.BOSS_CAPYBARA:
                     return new BossCapybara();
                 case BossID.MA_TROI_PINK:

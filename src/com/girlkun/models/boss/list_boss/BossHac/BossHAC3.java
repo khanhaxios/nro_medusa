@@ -76,7 +76,10 @@ public class BossHAC3 extends Boss {
                 }
                 damage = 1;
             }
-            this.nPoint.subHP(damage);
+            if (damage > this.nPoint.hpMax * 2 / 100) {
+                damage = this.nPoint.hpMax * 1 / 100;
+            }
+             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);
                 die(plAtt);
