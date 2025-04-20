@@ -73,8 +73,11 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     public Boss(int id, BossData... data) throws Exception {
         this.id = id;
         this.isBoss = true;
-        if (data == null || data.length == 0) {
-            throw new Exception("Dữ liệu boss không hợp lệ");
+        if (data == null) {
+            throw new Exception("Dữ liệu boss bị null");
+        }
+        if (data.length == 0) {
+            throw new Exception("Dữ liệu boss rỗng");
         }
         this.data = data;
         this.secondsRest = this.data[0].getSecondsRest();
