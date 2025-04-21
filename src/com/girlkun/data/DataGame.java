@@ -545,6 +545,7 @@ public class DataGame {
     }
 
     public static void sendSizeRes(MySession session) {
+//        antiKeoRes(session, (short) 11060, (short) 30000);
         Message msg;
         try {
             msg = new Message(-74);

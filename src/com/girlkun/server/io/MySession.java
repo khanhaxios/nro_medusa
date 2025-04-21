@@ -79,8 +79,6 @@ public class MySession extends Session {
         this.isRIcon = false;
         Logger.success(
                 "Session Truy Cập" + " - > IP: " + ipAddress + " -> Port: " + socket.getPort() + "\n");
-//        Logger.success(
-//                "CHẤP NHẬN CỔNG SỐ PHIÊN : " + socket.getPort() + "___ IP: " + ipAddress + "___ Admin: " + actived +"\n");
     }
 
     public void initItemsReward() {
