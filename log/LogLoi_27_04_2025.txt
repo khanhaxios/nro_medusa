@@ -1,0 +1,128 @@
+================Err in Time: 15:22:24 ========================
+Chú thích lỗi gặp phải: Lỗi load database
+Có lỗi tại class: com.girlkun.server.Manager - tại phương thức: loadDatabase
+Chi tiết lỗi:
+com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'medusa.shop_ky_gui' doesn't exist
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.Util.getInstance(Util.java:386)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1053)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4120)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4052)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2503)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2664)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2794)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:2155)
+	at com.mysql.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:2322)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at com.girlkun.server.Manager.loadDatabase(Manager.java:908)
+	at com.girlkun.server.Manager.<init>(Manager.java:245)
+	at com.girlkun.server.Manager.gI(Manager.java:219)
+	at com.girlkun.server.ServerManager.init(ServerManager.java:60)
+	at com.girlkun.server.ServerManager.gI(ServerManager.java:75)
+	at com.girlkun.server.ServerManager.main(ServerManager.java:82)
+
+
+
+================================================================
+================Err in Time: 15:22:42 ========================
+Chú thích lỗi gặp phải: Lỗi load database
+Có lỗi tại class: com.girlkun.server.Manager - tại phương thức: loadDatabase
+Chi tiết lỗi:
+com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'medusa.shop_ky_gui' doesn't exist
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.Util.getInstance(Util.java:386)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1053)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4120)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4052)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2503)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2664)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2794)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:2155)
+	at com.mysql.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:2322)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at com.girlkun.server.Manager.loadDatabase(Manager.java:908)
+	at com.girlkun.server.Manager.<init>(Manager.java:245)
+	at com.girlkun.server.Manager.gI(Manager.java:219)
+	at com.girlkun.server.ServerManager.init(ServerManager.java:60)
+	at com.girlkun.server.ServerManager.gI(ServerManager.java:75)
+	at com.girlkun.server.ServerManager.main(ServerManager.java:82)
+
+
+
+================================================================
+================Err in Time: 15:23:06 ========================
+Chú thích lỗi gặp phải: Lỗi load database
+Có lỗi tại class: com.girlkun.server.Manager - tại phương thức: loadDatabase
+Chi tiết lỗi:
+com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'medusa.shop_ky_gui' doesn't exist
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.Util.getInstance(Util.java:386)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1053)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4120)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4052)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2503)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2664)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2794)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:2155)
+	at com.mysql.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:2322)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at com.girlkun.server.Manager.loadDatabase(Manager.java:908)
+	at com.girlkun.server.Manager.<init>(Manager.java:245)
+	at com.girlkun.server.Manager.gI(Manager.java:219)
+	at com.girlkun.server.ServerManager.init(ServerManager.java:60)
+	at com.girlkun.server.ServerManager.gI(ServerManager.java:75)
+	at com.girlkun.server.ServerManager.main(ServerManager.java:82)
+
+
+
+================================================================
+================Err in Time: 15:24:05 ========================
+Chú thích lỗi gặp phải: Lỗi load database
+Có lỗi tại class: com.girlkun.server.Manager - tại phương thức: loadDatabase
+Chi tiết lỗi:
+com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'medusa.shop_ky_gui' doesn't exist
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.Util.getInstance(Util.java:386)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1053)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4120)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:4052)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2503)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2664)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2794)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:2155)
+	at com.mysql.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:2322)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at com.girlkun.server.Manager.loadDatabase(Manager.java:908)
+	at com.girlkun.server.Manager.<init>(Manager.java:245)
+	at com.girlkun.server.Manager.gI(Manager.java:219)
+	at com.girlkun.server.ServerManager.init(ServerManager.java:60)
+	at com.girlkun.server.ServerManager.gI(ServerManager.java:75)
+	at com.girlkun.server.ServerManager.main(ServerManager.java:82)
+
+
+
+================================================================

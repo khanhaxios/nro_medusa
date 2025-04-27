@@ -554,7 +554,7 @@ public class DataGame {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-            System.out.println("        loi 18");
+            System.out.println("        loi 18" + e.getMessage());
         }
     }
 
@@ -595,7 +595,7 @@ public class DataGame {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-            System.out.println("        loi 20");
+            System.out.println("loi 20");
         }
     }
     /**

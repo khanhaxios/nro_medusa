@@ -77,8 +77,9 @@ public class NPoint {
     /**
      * Chỉ số cộng thêm
      */
-    public int hpAdd, mpAdd, dameAdd, defAdd, critAdd, hpHoiAdd, mpHoiAdd;
+    public int hpAdd, mpAdd, defAdd, critAdd, hpHoiAdd, mpHoiAdd;
 
+    public long dameAdd;
     /**
      * //+#% sức đánh chí mạng
      */
@@ -380,9 +381,16 @@ public class NPoint {
                         case 33: //dịch chuyển tức thời
                             this.teleport = true;
                             break;
+                        case 44:
+                            this.player.tienLuc += io.param;
+                            break;
+                        case 45:
+                            this.dameAdd += io.param * 1_000_000L;
+                            break;
                         case 47: //Giáp+#
                             this.defAdd += io.param;
                             break;
+
                         case 48: //HP/KI+#
                             this.hpAdd += io.param;
                             this.mpAdd += io.param;
@@ -489,7 +497,7 @@ public class NPoint {
                             this.tlMp.add(io.param);
                             break;
                         case 257:// Tien luc  + chi so
-                            float tyLe = (float) io.param / 20f;
+                            float tyLe = (float) (io.param + 50) / 100f;
                             this.hpMax += this.mpMax * tyLe;
                             this.dameAdd += this.dame * tyLe;
                             this.mpAdd += this.mpAdd * tyLe;

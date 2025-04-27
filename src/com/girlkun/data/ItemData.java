@@ -19,9 +19,6 @@ public class ItemData {
         int count = 925;
 //        updateItemTemplate(session, count);
 //        updateItemTemplate(session, count, Manager.ITEM_TEMPLATES.size());
-
-
-    
         updateItemTemplate(session, count);
         updateItemTemplate(session, count, Manager.ITEM_TEMPLATES.size());
 //        updateItemTemplate(session, 1500, Manager.ITEM_TEMPLATES.size());

@@ -2915,15 +2915,14 @@ public class NpcFactory {
                                 if (TaskService.gI().getIdTask(player) > ConstTask.TASK_17_0) {
                                     Service.gI().sendThongBao(player, "Ta hết sức rồi con cày đi");
                                     return;
-                                }
-                                else {
-                                //     // pass task 500 trieu diem
-                                //     int diemCan = 20_000_000;
-                                //     if (player.session.vnd - diemCan < 0) {
-                                //         Service.gI().sendThongBao(player, "Cần 20tr điểm để next nghiệm vụ");
-                                //         return;
-                                //     }
-                                //     PlayerDAO.subvnd(player, diemCan);
+                                } else {
+                                    //     // pass task 500 trieu diem
+                                    //     int diemCan = 20_000_000;
+                                    //     if (player.session.vnd - diemCan < 0) {
+                                    //         Service.gI().sendThongBao(player, "Cần 20tr điểm để next nghiệm vụ");
+                                    //         return;
+                                    //     }
+                                    //     PlayerDAO.subvnd(player, diemCan);
                                     TaskService.gI().sendNextTaskMain(player);
                                     break;
                                 }
@@ -7497,6 +7496,40 @@ public class NpcFactory {
                                 break;
                             case 6:
                                 Input.gI().buffdanhhieu(player);
+                                break;
+                        }
+                        break;
+                    case 123123:
+                        switch (select) {
+                            case 0:
+                                // che do
+                                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHE_DO, -1, "Bạn muốn luyện chế đồ gì nào?", "Đồ\nThống Khổ", "Đồ\nJiren", "Đồ Goku\n UI");
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_CHE_DO:
+                        switch (select) {
+                            case 0:
+                                // che do thong kho
+                                if (player.luyenKhiSu.getLevel() < 4) {
+                                    Service.gI().sendThongBao(player, "Cần Trung cấp luyện khí(4)");
+                                    return;
+                                }
+                                CombineServiceNew.gI().cheDoThongKho(player);
+                                break;
+                            case 1:
+                                if (player.luyenKhiSu.getLevel() < 6) {
+                                    Service.gI().sendThongBao(player, "Cần Cao cấp luyện khí(6)");
+                                    return;
+                                }
+                                CombineServiceNew.gI().cheDoJiren(player);
+                                break;
+                            case 2:
+                                if (player.luyenKhiSu.getLevel() < 9) {
+                                    Service.gI().sendThongBao(player, "Cần Tiên cấp luyện khí(9)");
+                                    return;
+                                }
+                                CombineServiceNew.gI().cheDoGoku(player);
                                 break;
                         }
                         break;

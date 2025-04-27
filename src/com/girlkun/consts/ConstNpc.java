@@ -388,6 +388,7 @@ public class ConstNpc {
     public static final int TRUYEN_CONG_LUYEN_KHI = 23424234;
     public static final int CF_TRUYEN_CONG_LK = 12313123;
     public static final int CF_TRUYEN_CONG_LH = 76435454;
+    public static final int MENU_CHE_DO = 12312222;
 }
 
 /**

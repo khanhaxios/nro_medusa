@@ -354,6 +354,14 @@ public class ItemService {
         return options[gender];
     }
 
+    public int randomSKHJiren(byte gender) {
+        if (gender == 3) {
+            gender = 2;
+        }
+        int[] options = {235, 236, 237};
+        return options[gender];
+    }
+
     public int randomSKHThongKho(byte gender) {
         if (gender == 3) {
             gender = 2;
@@ -374,6 +382,18 @@ public class ItemService {
         return 0;
     }
 
+    public int optionIdSKHJiren(int skhId) {
+        switch (skhId) {
+            case 235: //Set Thánh tôn trái dất
+                return 238;
+            case 236: //Set Thánh tôn namec
+                return 239;
+            case 237: //Set Thánh tôn xayda
+                return 240;
+        }
+        return 0;
+    }
+
     public int optionIdSKHNguyenThuy(int skhId) {
         switch (skhId) {
             case 213: //Set NguyenThuy trái dất
@@ -384,6 +404,77 @@ public class ItemService {
                 return 218;
         }
         return 0;
+    }
+
+    public Item createRandomDoThongKho() {
+        Item item = null;
+        short itemId;
+        itemId = Manager.DoThongKho[Util.nextInt(0, 4)];
+        int skhId = ItemService.gI().randomSKHThongKho((byte) Util.nextInt(0, 2));
+        if (new Item(itemId).isThongKho()) {
+            item = Util.ratiItemThongKho(itemId);
+            item.itemOptions.add(new Item.ItemOption(skhId, 1));
+            item.itemOptions.add(new Item.ItemOption(ItemService.gI().optionIdSKHThongKho(skhId), 1));
+            item.itemOptions.remove(item.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst().get());
+            item.itemOptions.add(new Item.ItemOption(21, 500));
+        } else {
+            item = ItemService.gI().itemSKH(itemId, skhId);
+        }
+        return item;
+    }
+
+    public Item createRandomDoJiren() {
+        Item item = null;
+        short itemId;
+        itemId = Manager.setJiren[Util.nextInt(0, 4)];
+        int skhId = ItemService.gI().randomSKHJiren((byte) Util.nextInt(0, 2));
+        if (new Item(itemId).isDJiren()) {
+            item = Util.ratiItemSKHJiren(itemId);
+            item.itemOptions.add(new Item.ItemOption(skhId, 1));
+            item.itemOptions.add(new Item.ItemOption(ItemService.gI().optionIdSKHJiren(skhId), 1));
+            item.itemOptions.remove(item.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst().get());
+            item.itemOptions.add(new Item.ItemOption(21, 500));
+        } else {
+            item = ItemService.gI().itemSKH(itemId, skhId);
+        }
+        return item;
+    }
+
+    public Item createRandomDoGoku(Player player) {
+        Item item = null;
+        short itemId;
+        itemId = Manager.setGokuUI[Util.nextInt(0, 4)];
+        int skhId = ItemService.gI().randomSKHGK((byte) Util.nextInt(0, 2));
+        if (new Item(itemId).isDGoku()) {
+            item = Util.ratiItemSKHGokuUI(itemId);
+            item.itemOptions.add(new Item.ItemOption(skhId, 1));
+            item.itemOptions.add(new Item.ItemOption(ItemService.gI().optionSKHGK(skhId), 1));
+            item.itemOptions.remove(item.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst().get());
+            item.itemOptions.add(new Item.ItemOption(21, 500));
+        } else {
+            item = ItemService.gI().itemSKH(itemId, skhId);
+        }
+        return item;
+    }
+
+    private int optionSKHGK(int skhId) {
+        switch (skhId) {
+            case 241: //Set Thánh tôn trái dất
+                return 244;
+            case 242: //Set Thánh tôn namec
+                return 245;
+            case 243: //Set Thánh tôn xayda
+                return 246;
+        }
+        return 0;
+    }
+
+    private int randomSKHGK(byte nextInt) {
+        if (nextInt == 3) {
+            nextInt = 2;
+        }
+        int[] options = {241, 242, 243};
+        return options[nextInt];
     }
 
     public int optionIdSKHThongKho(int skhId) {

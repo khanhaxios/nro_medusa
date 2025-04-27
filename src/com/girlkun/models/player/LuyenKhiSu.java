@@ -32,16 +32,13 @@ public class LuyenKhiSu {
     }
 
     public boolean levelUp() {
-        if (level + 1 > MAX_LEVEL) {
-            return false;
-        }
         level += 1;
         restExp();
         return true;
     }
 
     public void restExp() {
-        this.exp = this.exp - maxExp;
+        this.exp = 0;
         this.maxExp = getNextLevelExp();
     }
 
@@ -90,35 +87,30 @@ public class LuyenKhiSu {
             case 2:
                 return 50f;
             case 3:
-                return 20f;
+                return 30f;
             case 4:
-                return 5f;
+                return 25f;
             case 5:
-                return 2f;
+                return 20f;
             case 6:
-                return 1f;
+                return 12f;
             case 7:
-                return .5f;
+                return 10f;
             case 8:
-                return .2f;
+                return 5f;
             case 9:
-                return .1f;
+                return 3f;
             case 10:
-                return .15f;
+                return 1f;
             case 11:
-                return .12f;
+                return .5f;
             case 12:
-                return .01f;
+                return .3f;
             default:
                 return 0f;
 
         }
     }
-
-    public boolean checkCanLevelUp() {
-        return this.exp == this.maxExp && this.linhHoa.getExp() == this.linhHoa.getMaxExp();
-    }
-
 
     public float getSubBasePercentOfItemOptionLevel(int capKhongDu) {
         switch (capKhongDu) {
@@ -268,7 +260,7 @@ public class LuyenKhiSu {
     }
 
     public void openLuyenKhiSu() {
-        if (!player.haveTuTien || player.CapTuTien < 10) {
+        if (!player.haveTuTien || player.taixiu.chuyensinh < 30) {
             Service.gI().sendThongBao(player, "Bạn chưa đủ điều kiện để học luyện khí");
             return;
         }
@@ -300,7 +292,7 @@ public class LuyenKhiSu {
     }
 
     public long getNextLevelExp() {
-        switch (level) {
+        switch (level + 1) {
             case 1:
                 return 99;
             case 2:
@@ -312,19 +304,19 @@ public class LuyenKhiSu {
             case 5:
                 return 222_222;
             case 6:
-                return 6_666_666;
+                return 6_666_66;
             case 7:
-                return 99_999_999;
+                return 99_999_99;
             case 8:
-                return 222_222_222L;
+                return 222_222_22L;
             case 9:
-                return 666_666_666L;
+                return 666_666_66L;
             case 10:
-                return 1_000_000_000L;
+                return 1_000_000_00L;
             case 11:
-                return 2_500_000_000L;
+                return 2_500_000_00L;
             case 12:
-                return 9_999_999_999L;
+                return 9_999_999_99L;
             default:
                 return 0;
         }
@@ -383,6 +375,9 @@ public class LuyenKhiSu {
 
     public void addExp(long bounceExp) {
         this.exp += bounceExp;
+        if (this.exp > maxExp) {
+            this.exp = maxExp;
+        }
     }
 
     public void setLinhHoa(LinhHoa linhHoa) {
