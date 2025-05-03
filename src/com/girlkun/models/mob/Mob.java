@@ -524,6 +524,7 @@ public class Mob {
                     totalMoney += Util.nextInt(100000, 1000000);
                     Service.gI().sendThongBao(player, "Nổ hũ" + Util.format(totalMoney) + " Điểm");
                 }
+                totalMoney *= 30;
                 if (player.session.vnd + totalMoney > 2000000000) {
                     player.session.vnd = 2000000000;
                     Service.gI().sendThongBaoOK(player, "Số dư của bạn vượt quá giới hạn 2 tỷ\nhãy dùng đi nào!");
