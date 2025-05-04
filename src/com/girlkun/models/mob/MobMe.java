@@ -51,7 +51,7 @@ public final class MobMe extends Mob {
                     msg.writer().writeInt(this.id);
                     msg.writer().writeInt((int) pl.id);
                     msg.writer().writeInt(1);
-                    msg.writer().writeInt(Util.DoubleGioihan(pl.nPoint.hp));
+                    msg.writer().writeDouble(Util.DoubleGioihang(pl.nPoint.hp));
 
                     Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
                     msg.cleanup();
@@ -84,11 +84,11 @@ public final class MobMe extends Mob {
                         if (mob.tempId == 0) {
                             tnsm = 1;
                             mob.point.sethp(mob.point.gethp() - 10);
-                            msg.writer().writeInt(Util.DoubleGioihan(mob.point.gethp()));
+                            msg.writer().writeInt(Util.DoubleGioihana(mob.point.gethp()));
                             msg.writer().writeInt(10);
                         } else {
                             mob.point.sethp((int) (mob.point.gethp() - dame));
-                            msg.writer().writeInt(Util.DoubleGioihan(mob.point.gethp()));
+                            msg.writer().writeInt(Util.DoubleGioihana(mob.point.gethp()));
                             msg.writer().writeInt((int) dame);
                         }
                         Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
@@ -111,7 +111,7 @@ public final class MobMe extends Mob {
             msg.writer().writeByte(0);//type
             msg.writer().writeInt((int) player.id);
             msg.writer().writeShort(this.tempId);
-            msg.writer().writeInt(Util.DoubleGioihan(this.point.hp));// hp mob
+            msg.writer().writeInt(Util.DoubleGioihana(this.point.hp));// hp mob
             Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
         } catch (Exception e) {

@@ -1171,7 +1171,7 @@ public class Player {
                 damage = 1;
             }
             if (isMobAttack && this.charms.tdBatTu > System.currentTimeMillis() && damage >= this.nPoint.hp) {
-                damage = Util.DoubleGioihan(this.nPoint.hp - 1);
+                damage = Util.DoubleGioihang(this.nPoint.hp - 1);
             }
 
             this.nPoint.subHP(damage);
@@ -1180,7 +1180,7 @@ public class Player {
                     if (plAtt != null && this.zone.map.mapId == 175) {
                         plAtt.pointPvpthuong++;
                         Service.gI().sendThongBao(plAtt, "Bạn vừa hạ đối thủ và nhận được 1 điểm PVP Thường");
-                        if (plAtt.tusat == true) {
+                        if (plAtt.tusat) {
                             ChangeMapService.gI().changeMapNonSpaceship(plAtt, plAtt.gender + 21, -1, 250);
                             PlayerService.gI().hoiSinh(plAtt);
                             plAtt.tusat = false;

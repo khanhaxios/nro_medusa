@@ -26,6 +26,7 @@ import com.girlkun.services.Service;
 import com.girlkun.services.TaskService;
 import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.NgocRongNamecService;
+
 import static com.girlkun.services.NgocRongNamecService.TIME_BL;
 import static com.girlkun.services.NgocRongNamecService.TIME_OP;
 //import com.girlkun.services.func.TopService;
@@ -36,6 +37,7 @@ import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -547,13 +549,6 @@ public class Zone {
             } else {
                 msg.writer().writeInt(-1);
             }
-//            if (plInfo.clan != null) {
-//                msg.writer().writeInt(plInfo.clan.id);
-//                name = "[" + plInfo.clan.name + "]" + plInfo.name;//test
-//            } else {
-//                msg.writer().writeInt(-1);
-//                name = plInfo.name; //test
-//            }
             msg.writer().writeByte(Service.getInstance().getCurrLevel(plInfo));
             msg.writer().writeBoolean(false);
             msg.writer().writeByte(plInfo.typePk);
@@ -561,8 +556,8 @@ public class Zone {
             msg.writer().writeByte(plInfo.gender);
             msg.writer().writeShort(plInfo.getHead());
             msg.writer().writeUTF(plInfo.name);//plInfo.name
-            msg.writer().writeInt(Util.DoubleGioihan(plInfo.nPoint.hp));
-            msg.writer().writeInt(Util.DoubleGioihan(plInfo.nPoint.hpMax));
+            msg.writer().writeDouble(Util.DoubleGioihan(plInfo.nPoint.hp));
+            msg.writer().writeDouble(Util.DoubleGioihan(plInfo.nPoint.hpMax));
             msg.writer().writeShort(plInfo.getBody());
             msg.writer().writeShort(plInfo.getLeg());
             msg.writer().writeByte(plInfo.getFlagBag()); //bag
@@ -668,9 +663,9 @@ public class Zone {
                 msg.writer().writeBoolean(false); //is wind
                 msg.writer().writeByte(mob.tempId);
                 msg.writer().writeByte(0);
-                msg.writer().writeInt(Util.DoubleGioihan(mob.point.gethp()));
+                msg.writer().writeInt(Util.DoubleGioihana(mob.point.gethp()));
                 msg.writer().writeByte(mob.level);
-                msg.writer().writeInt((Util.DoubleGioihan(mob.point.getHpFull())));
+                msg.writer().writeInt((Util.DoubleGioihana(mob.point.getHpFull())));
                 msg.writer().writeShort(mob.location.x);
                 msg.writer().writeShort(mob.location.y);
                 msg.writer().writeByte(mob.status);

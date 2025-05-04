@@ -396,8 +396,8 @@ public class PlayerDAO {
                 mapId = player.mapIdBeforeLogout;
                 int x = player.location.x;
                 int y = player.location.y;
-                int hp = Util.DoubleGioihan(player.nPoint.hp);
-                int mp = Util.DoubleGioihan(player.nPoint.mp);
+                double hp = Util.DoubleGioihang(player.nPoint.hp);
+                double mp = Util.DoubleGioihang(player.nPoint.mp);
 
                 if (player.isDie()) {
                     mapId = player.gender + 21;
@@ -430,8 +430,8 @@ public class PlayerDAO {
                 dataArray.add(player.nPoint.tiemNang);
                 dataArray.add(player.nPoint.stamina);
                 dataArray.add(player.nPoint.maxStamina);
-                dataArray.add(Util.DoubleToInter(player.nPoint.hpg));
-                dataArray.add(Util.DoubleToInter(player.nPoint.mpg));
+                dataArray.add(Util.DoubleGioihang(player.nPoint.hpg));
+                dataArray.add(Util.DoubleGioihang(player.nPoint.mpg));
                 dataArray.add(player.nPoint.dameg);
                 dataArray.add(player.nPoint.defg);
                 dataArray.add(player.nPoint.critg);
@@ -762,8 +762,8 @@ public class PlayerDAO {
                     petInfo = dataArray.toJSONString();
                     dataArray.clear();
 
-                    int hpp = Util.DoubleGioihan(player.pet.nPoint.hp);
-                    int mpp = Util.DoubleGioihan(player.pet.nPoint.mp);
+                    double hpp = Util.DoubleGioihang(player.pet.nPoint.hp);
+                    double mpp = Util.DoubleGioihang(player.pet.nPoint.mp);
 
                     dataArray.add(player.pet.nPoint.limitPower);
                     dataArray.add(player.pet.nPoint.power);
@@ -1214,10 +1214,10 @@ public class PlayerDAO {
         Connection con = null;
         PreparedStatement ps = null;
         try {
-            int afterCalc = player.session.vnd - num;
+            long afterCalc = player.session.vnd - num;
             con = GirlkunDB.getConnection();
             ps = con.prepareStatement("UPDATE account SET vnd = ? WHERE id = ?");
-            ps.setInt(1, afterCalc);
+            ps.setLong(1, afterCalc);
             ps.setInt(2, player.getSession().userId);
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated == 0) {

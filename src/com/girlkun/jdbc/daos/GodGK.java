@@ -84,7 +84,7 @@ public class GodGK {
                 session.actived = rs.getBoolean("active");
                 session.goldBar = rs.getInt("account.thoi_vang");
                 session.bdPlayer = rs.getDouble("account.bd_player");
-                session.vnd = rs.getInt("vnd");
+                session.vnd = rs.getLong("vnd");
                 long lastTimeLogin = rs.getTimestamp("last_time_login").getTime();
                 int secondsPass1 = (int) ((System.currentTimeMillis() - lastTimeLogin) / 1000);
                 long lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
@@ -136,8 +136,8 @@ public class GodGK {
                             if (plInGame != null) {
                                 Client.gI().kickSession(plInGame.getSession());
                             }
-                            int plHp = 200000000;
-                            int plMp = 200000000;
+                            double plHp = 200000000;
+                            double plMp = 200000000;
                             JSONValue jv = new JSONValue();
                             JSONArray dataArray = null;
 
@@ -279,14 +279,14 @@ public class GodGK {
                             player.nPoint.tiemNang = Long.parseLong(String.valueOf(dataArray.get(2)));
                             player.nPoint.stamina = Short.parseShort(String.valueOf(dataArray.get(3)));
                             player.nPoint.maxStamina = Short.parseShort(String.valueOf(dataArray.get(4)));
-                            player.nPoint.hpg = Integer.parseInt(String.valueOf(dataArray.get(5)));
-                            player.nPoint.mpg = Integer.parseInt(String.valueOf(dataArray.get(6)));
-                            player.nPoint.dameg = Integer.parseInt(String.valueOf(dataArray.get(7)));
+                            player.nPoint.hpg = Double.parseDouble(String.valueOf(dataArray.get(5)));
+                            player.nPoint.mpg = Double.parseDouble(String.valueOf(dataArray.get(6)));
+                            player.nPoint.dameg = Long.parseLong(String.valueOf(dataArray.get(7)));
                             player.nPoint.defg = Integer.parseInt(String.valueOf(dataArray.get(8)));
                             player.nPoint.critg = Byte.parseByte(String.valueOf(dataArray.get(9)));
-                            dataArray.get(10); //** Năng động
-                            plHp = Integer.parseInt(String.valueOf(dataArray.get(11)));
-                            plMp = Integer.parseInt(String.valueOf(dataArray.get(11)));
+//                            player.session.dataArray.get(10); //** Năng động
+                            plHp = Double.parseDouble((String.valueOf(dataArray.get(11))));
+                            plMp = Double.parseDouble((String.valueOf(dataArray.get(11))));
                             dataArray.clear();
 
                             //data đậu thần
@@ -694,13 +694,13 @@ public class GodGK {
                                 pet.nPoint.tiemNang = Long.parseLong(String.valueOf(dataArray.get(2)));
                                 pet.nPoint.stamina = Short.parseShort(String.valueOf(dataArray.get(3)));
                                 pet.nPoint.maxStamina = Short.parseShort(String.valueOf(dataArray.get(4)));
-                                pet.nPoint.hpg = Integer.parseInt(String.valueOf(dataArray.get(5)));
-                                pet.nPoint.mpg = Integer.parseInt(String.valueOf(dataArray.get(6)));
-                                pet.nPoint.dameg = Integer.parseInt(String.valueOf(dataArray.get(7)));
-                                pet.nPoint.defg = Integer.parseInt(String.valueOf(dataArray.get(8)));
+                                pet.nPoint.hpg = Double.parseDouble(String.valueOf(dataArray.get(5)));
+                                pet.nPoint.mpg = Double.parseDouble(String.valueOf(dataArray.get(6)));
+                                pet.nPoint.dameg = Long.parseLong(String.valueOf(dataArray.get(7)));
+                                pet.nPoint.defg = Long.parseLong(String.valueOf(dataArray.get(8)));
                                 pet.nPoint.critg = Integer.parseInt(String.valueOf(dataArray.get(9)));
-                                int hp = Integer.parseInt(String.valueOf(dataArray.get(10)));
-                                int mp = Integer.parseInt(String.valueOf(dataArray.get(11)));
+                                double hp = Double.parseDouble(String.valueOf(dataArray.get(10)));
+                                double mp = Double.parseDouble(String.valueOf(dataArray.get(11)));
 
                                 //data body
                                 dataArray = (JSONArray) jv.parse(String.valueOf(petData.get(2)));
@@ -790,8 +790,8 @@ public class GodGK {
                                 petDaoLu.nPoint.maxStamina = Short.parseShort(String.valueOf(dataArray.get(4)));
                                 petDaoLu.nPoint.hpg = Double.parseDouble(String.valueOf(dataArray.get(5)));
                                 petDaoLu.nPoint.mpg = Double.parseDouble(String.valueOf(dataArray.get(6)));
-                                petDaoLu.nPoint.dameg = Integer.parseInt(String.valueOf(dataArray.get(7)));
-                                petDaoLu.nPoint.defg = Integer.parseInt(String.valueOf(dataArray.get(8)));
+                                petDaoLu.nPoint.dameg = Long.parseLong(String.valueOf(dataArray.get(7)));
+                                petDaoLu.nPoint.defg = Long.parseLong(String.valueOf(dataArray.get(8)));
                                 petDaoLu.nPoint.critg = Integer.parseInt(String.valueOf(dataArray.get(9)));
                                 double hp = Double.parseDouble(String.valueOf(dataArray.get(10)));
                                 double mp = Double.parseDouble(String.valueOf(dataArray.get(11)));
@@ -1467,8 +1467,8 @@ public class GodGK {
         try {
             rs = GirlkunDB.executeQuery("select * from player where id = ? limit 1", id);
             if (rs.first()) {
-                int plHp = 200000000;
-                int plMp = 200000000;
+                double plHp = 200000000;
+                double plMp = 200000000;
                 JSONValue jv = new JSONValue();
                 JSONArray dataArray = null;
 
@@ -1527,14 +1527,14 @@ public class GodGK {
                 player.nPoint.tiemNang = Long.parseLong(String.valueOf(dataArray.get(2)));
                 player.nPoint.stamina = Short.parseShort(String.valueOf(dataArray.get(3)));
                 player.nPoint.maxStamina = Short.parseShort(String.valueOf(dataArray.get(4)));
-                player.nPoint.hpg = Integer.parseInt(String.valueOf(dataArray.get(5)));
-                player.nPoint.mpg = Integer.parseInt(String.valueOf(dataArray.get(6)));
-                player.nPoint.dameg = Integer.parseInt(String.valueOf(dataArray.get(7)));
+                player.nPoint.hpg = Double.parseDouble(String.valueOf(dataArray.get(5)));
+                player.nPoint.mpg = Double.parseDouble(String.valueOf(dataArray.get(6)));
+                player.nPoint.dameg = Long.parseLong(String.valueOf(dataArray.get(7)));
                 player.nPoint.defg = Integer.parseInt(String.valueOf(dataArray.get(8)));
                 player.nPoint.critg = Byte.parseByte(String.valueOf(dataArray.get(9)));
                 dataArray.get(10); //** Năng động
-                plHp = Integer.parseInt(String.valueOf(dataArray.get(11)));
-                plMp = Integer.parseInt(String.valueOf(dataArray.get(12)));
+                plHp = Double.parseDouble(String.valueOf(dataArray.get(11)));
+                plMp = Double.parseDouble(String.valueOf(dataArray.get(12)));
                 dataArray.clear();
 
                 //data đậu thần
@@ -1884,13 +1884,13 @@ public class GodGK {
                     pet.nPoint.tiemNang = Long.parseLong(String.valueOf(dataArray.get(2)));
                     pet.nPoint.stamina = Short.parseShort(String.valueOf(dataArray.get(3)));
                     pet.nPoint.maxStamina = Short.parseShort(String.valueOf(dataArray.get(4)));
-                    pet.nPoint.hpg = Integer.parseInt(String.valueOf(dataArray.get(5)));
-                    pet.nPoint.mpg = Integer.parseInt(String.valueOf(dataArray.get(6)));
-                    pet.nPoint.dameg = Integer.parseInt(String.valueOf(dataArray.get(7)));
+                    pet.nPoint.hpg = Double.parseDouble(String.valueOf(dataArray.get(5)));
+                    pet.nPoint.mpg = Double.parseDouble(String.valueOf(dataArray.get(6)));
+                    pet.nPoint.dameg = Long.parseLong(String.valueOf(dataArray.get(7)));
                     pet.nPoint.defg = Integer.parseInt(String.valueOf(dataArray.get(8)));
                     pet.nPoint.critg = Integer.parseInt(String.valueOf(dataArray.get(9)));
-                    int hp = Integer.parseInt(String.valueOf(dataArray.get(10)));
-                    int mp = Integer.parseInt(String.valueOf(dataArray.get(11)));
+                    double hp = Double.parseDouble(String.valueOf(dataArray.get(10)));
+                    double mp = Double.parseDouble(String.valueOf(dataArray.get(11)));
 
                     //data body
                     dataArray = (JSONArray) jv.parse(String.valueOf(petData.get(2)));
@@ -1977,7 +1977,7 @@ public class GodGK {
                     petDaoLu.nPoint.maxStamina = Short.parseShort(String.valueOf(dataArray.get(4)));
                     petDaoLu.nPoint.hpg = Double.parseDouble(String.valueOf(dataArray.get(5)));
                     petDaoLu.nPoint.mpg = Double.parseDouble(String.valueOf(dataArray.get(6)));
-                    petDaoLu.nPoint.dameg = Integer.parseInt(String.valueOf(dataArray.get(7)));
+                    petDaoLu.nPoint.dameg = Long.parseLong(String.valueOf(dataArray.get(7)));
                     petDaoLu.nPoint.defg = Integer.parseInt(String.valueOf(dataArray.get(8)));
                     petDaoLu.nPoint.critg = Integer.parseInt(String.valueOf(dataArray.get(9)));
                     double hp = Double.parseDouble(String.valueOf(dataArray.get(10)));

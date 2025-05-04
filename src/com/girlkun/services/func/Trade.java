@@ -347,10 +347,9 @@ public class Trade {
                     InventoryServiceNew.gI().sendItemBags(player2);
                     PlayerService.gI().sendInfoHpMpMoney(player1);
                     PlayerService.gI().sendInfoHpMpMoney(player2);
-
-                    HistoryTransactionDAO.insert(player1, player2, goldTrade1, goldTrade2, itemsTrade1, itemsTrade2,
-                            bag1Before, bag2Before, this.player1.inventory.itemsBag, this.player2.inventory.itemsBag,
-                            gold1Before, gold2Before, this.player1.inventory.gold, this.player2.inventory.gold);
+//                    HistoryTransactionDAO.insert(player1, player2, goldTrade1, goldTrade2, itemsTrade1, itemsTrade2,
+//                            bag1Before, bag2Before, this.player1.inventory.itemsBag, this.player2.inventory.itemsBag,
+//                            gold1Before, gold2Before, this.player1.inventory.gold, this.player2.inventory.gold);
                 }
                 sendNotifyTrade(tradeStatus);
             }

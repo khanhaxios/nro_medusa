@@ -511,7 +511,7 @@ public class ChangeMapService {
                 msg.writer().writeByte(0);//type
                 msg.writer().writeInt((int) player.id);
                 msg.writer().writeShort(player.mobMe.tempId);
-                msg.writer().writeInt(Util.DoubleGioihan(player.mobMe.point.gethp()));// hp mob
+                msg.writer().writeInt(Util.DoubleGioihana(player.mobMe.point.gethp()));// hp mob
                 Service.getInstance().sendMessAnotherNotMeInMap(player, msg);
                 msg.cleanup();
             }
@@ -520,7 +520,7 @@ public class ChangeMapService {
                 msg.writer().writeByte(0);//type
                 msg.writer().writeInt((int) player.pet.mobMe.id);
                 msg.writer().writeShort(player.pet.mobMe.tempId);
-                msg.writer().writeInt(Util.DoubleGioihan(player.pet.mobMe.point.gethp()));// hp mob
+                msg.writer().writeInt(Util.DoubleGioihana(player.pet.mobMe.point.gethp()));// hp mob
                 Service.getInstance().sendMessAnotherNotMeInMap(player, msg);
                 msg.cleanup();
             }
@@ -635,7 +635,7 @@ public class ChangeMapService {
                         msg.writer().writeByte(0);//type
                         msg.writer().writeInt((int) pl.id);
                         msg.writer().writeShort(pl.mobMe.tempId);
-                        msg.writer().writeInt(Util.DoubleGioihan(pl.mobMe.point.gethp()));// hp mob
+                        msg.writer().writeInt(Util.DoubleGioihana(pl.mobMe.point.gethp()));// hp mob
                         player.sendMessage(msg);
                         msg.cleanup();
                     }

@@ -5,14 +5,12 @@ import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.boss.Boss;
-import com.girlkun.models.player.Inventory;
 import com.girlkun.utils.FileIO;
 import com.girlkun.data.DataGame;
 import com.girlkun.models.boss.BossManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.girlkun.models.item.Item;
@@ -22,10 +20,8 @@ import com.girlkun.models.player.Thu_TrieuHoi;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.map.Zone;
-import com.girlkun.database.GirlkunDB;
 import com.girlkun.jdbc.daos.GodGK;
 import com.girlkun.models.matches.TOP;
-import com.girlkun.models.npc.NpcFactory;
 import com.girlkun.models.player.NewPet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Player;
@@ -41,7 +37,6 @@ import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
 import com.girlkun.server.MenuController;
-import com.girlkun.server.ServerManager;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.services.func.Input;
 import com.girlkun.services.func.SummonDragon;
@@ -53,12 +48,7 @@ import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.OperatingSystemMXBean;
-import java.text.DecimalFormat;
-
 import java.util.Set;
-import java.util.logging.Level;
 
 public class Service {
 
@@ -776,9 +766,9 @@ public class Service {
         try {
             msg = Service.getInstance().messageSubCommand((byte) 14);//Cập nhật máu
             msg.writer().writeInt((int) pl.id);
-            msg.writer().writeInt(Util.DoubleGioihan(pl.nPoint.hp));
+            msg.writer().writeDouble(Util.DoubleGioihang(pl.nPoint.hp));
             msg.writer().writeByte(0);//Hiệu ứng Ăn Đậu
-            msg.writer().writeInt(Util.DoubleGioihan(pl.nPoint.hpMax));
+            msg.writer().writeDouble(Util.DoubleGioihang(pl.nPoint.hpMax));
             sendMessAnotherNotMeInMap(pl, msg);
             msg.cleanup();
         } catch (Exception e) {
@@ -791,9 +781,9 @@ public class Service {
         try {
             msg = Service.getInstance().messageSubCommand((byte) 14);
             msg.writer().writeInt((int) pl.id);
-            msg.writer().writeInt(Util.DoubleGioihan(pl.nPoint.hp));
+            msg.writer().writeDouble(Util.DoubleGioihang(pl.nPoint.hp));
             msg.writer().writeByte(1);
-            msg.writer().writeInt(Util.DoubleGioihan(pl.nPoint.hpMax));
+            msg.writer().writeDouble(Util.DoubleGioihang(pl.nPoint.hpMax));
             sendMessAnotherNotMeInMap(pl, msg);
             msg.cleanup();
         } catch (Exception e) {
@@ -1389,15 +1379,15 @@ public class Service {
         }
         // phan gia do
         if (text.equals("dd")) {
-            int totalBuaZeno = player.session.vnd / Manager.GIA_QUY_DOI_BUA_ZENO;
-            player.session.vnd %= Manager.GIA_QUY_DOI_BUA_ZENO;
-            PlayerDAO.subvnd(player, 0);
-            Item buaZeno = ItemService.gI().createNewItem((short) 1378, totalBuaZeno);
-            buaZeno.itemOptions.add(new ItemOption(30, 0));
-            InventoryServiceNew.gI().addItemBag(player, buaZeno);
-            InventoryServiceNew.gI().sendItemBags(player);
-            Service.gI().sendThongBaoOK(player, "Bạn nhận được " + Util.format(totalBuaZeno) + " Bùa Zeno");
-            return;
+//            int totalBuaZeno = player.session.vnd / Manager.GIA_QUY_DOI_BUA_ZENO;
+//            player.session.vnd %= Manager.GIA_QUY_DOI_BUA_ZENO;
+//            PlayerDAO.subvnd(player, 0);
+//            Item buaZeno = ItemService.gI().createNewItem((short) 1378, totalBuaZeno);
+//            buaZeno.itemOptions.add(new ItemOption(30, 0));
+//            InventoryServiceNew.gI().addItemBag(player, buaZeno);
+//            InventoryServiceNew.gI().sendItemBags(player);
+//            Service.gI().sendThongBaoOK(player, "Bạn nhận được " + Util.format(totalBuaZeno) + " Bùa Zeno");
+//            return;
         }
         if (text.equals("dn")) {
             Service.gI().sendThongBaoOK(player, String.format("Số dư của bạn là : %s", Util.format(player.session.vnd)));
@@ -1474,7 +1464,7 @@ public class Service {
                 player.muanhieu = false;
             }
         } else if (text.equals("use")) {
-            if (player.autoUse == false) {
+            if (!player.autoUse) {
                 Service.gI().sendThongBao(player, "|2|Đã Bật Auto Sử dụng");
                 player.autoUse = true;
             } else {
@@ -1719,23 +1709,23 @@ public class Service {
             Message msg;
             try {
                 msg = new Message(-42);
-                msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.hpg + player.taixiu.addNPointChuyenSinh()));
-                msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.mpg + player.taixiu.addNPointChuyenSinh()));
-                msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.dameg + player.taixiu.addNPointChuyenSinh()));
-                msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.hpMax));// hp full
-                msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.mpMax));// mp full
-                msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.hp));// hp
-                msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.mp));// mp
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpg + player.taixiu.addNPointChuyenSinh()));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpg + player.taixiu.addNPointChuyenSinh()));
+                msg.writer().writeLong(Util.DoubleGioihan(player.nPoint.dameg + player.taixiu.addNPointChuyenSinh()));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpMax));// hp full
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpMax));// mp full
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hp));// hp
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mp));// mp
                 msg.writer().writeByte(player.nPoint.speed);// speed
                 msg.writer().writeByte(20);
                 msg.writer().writeByte(20);
                 msg.writer().writeByte(1);
-                msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.dame));// dam base
-                msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.def));// def full
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.dame));// dam base
+                msg.writer().writeInt(Util.DoubleGioihana(player.nPoint.def));// def full
                 msg.writer().writeByte(player.nPoint.crit);// crit full
                 msg.writer().writeLong(player.nPoint.tiemNang);
                 msg.writer().writeShort(100);
-                msg.writer().writeShort(Util.DoubleGioihan(player.nPoint.defg));
+                msg.writer().writeInt(Util.DoubleGioihana(player.nPoint.defg));
                 msg.writer().writeByte(player.nPoint.critg);
                 player.sendMessage(msg);
                 msg.cleanup();
@@ -2094,13 +2084,12 @@ public class Service {
 
             msg = messageSubCommand((byte) 15);
             msg.writer().writeInt((int) pl.id);
-            msg.writer().writeInt(Util.DoubleGioihan(hp));
-            msg.writer().writeInt(Util.DoubleGioihan(mp));
+            msg.writer().writeDouble(Util.DoubleGioihang(hp));
+            msg.writer().writeDouble(Util.DoubleGioihang(mp));
             msg.writer().writeShort(pl.location.x);
             msg.writer().writeShort(pl.location.y);
             sendMessAllPlayerInMap(pl, msg);
             msg.cleanup();
-
             Send_Info_NV(pl);
             PlayerService.gI().sendInfoHpMp(pl);
         } catch (Exception e) {
@@ -2635,14 +2624,13 @@ public class Service {
             Message msg;
             try {
                 msg = new Message(-109);
-                msg.writer().writeInt(Util.DoubleGioihan(pl.pet.nPoint.hpg)); //hp
-                msg.writer().writeInt(Util.DoubleGioihan(pl.pet.nPoint.mpg)); //hpfull
-                msg.writer().writeInt(Util.DoubleGioihan(pl.pet.nPoint.dameg)); //mp
-                msg.writer().writeInt(Util.DoubleGioihan(pl.pet.nPoint.defg)); //mpfull
+                msg.writer().writeDouble(Util.DoubleGioihang(pl.pet.nPoint.hpg)); //hp
+                msg.writer().writeDouble(Util.DoubleGioihang(pl.pet.nPoint.mpg)); //hpfull
+                msg.writer().writeLong(Util.DoubleGioihan(pl.pet.nPoint.dameg)); //mp
+                msg.writer().writeInt(Util.DoubleGioihana(pl.pet.nPoint.defg)); //mpfull
                 msg.writer().writeByte(pl.pet.nPoint.critg); //mpfull
                 pl.sendMessage(msg);
                 msg.cleanup();
-
             } catch (Exception e) {
                 Logger.logException(Service.class, e);
             }
@@ -2654,10 +2642,10 @@ public class Service {
             Message msg;
             try {
                 msg = new Message(-109);
-                msg.writer().writeInt(Util.DoubleGioihan(pl.petDaoLu.nPoint.hpg)); //hp
-                msg.writer().writeInt(Util.DoubleGioihan(pl.petDaoLu.nPoint.mpg)); //hpfull
-                msg.writer().writeInt(Util.DoubleGioihan(pl.petDaoLu.nPoint.dameg)); //mp
-                msg.writer().writeInt(Util.DoubleGioihan(pl.petDaoLu.nPoint.defg)); //mpfull
+                msg.writer().writeDouble(Util.DoubleGioihang(pl.petDaoLu.nPoint.hpg)); //hp
+                msg.writer().writeDouble(Util.DoubleGioihang(pl.petDaoLu.nPoint.mpg)); //hpfull
+                msg.writer().writeLong(Util.DoubleGioihan(pl.petDaoLu.nPoint.dameg)); //mp
+                msg.writer().writeInt(Util.DoubleGioihana(pl.petDaoLu.nPoint.defg)); //mpfull
                 msg.writer().writeByte(pl.petDaoLu.nPoint.critg); //mpfull
                 pl.sendMessage(msg);
                 msg.cleanup();
@@ -2696,11 +2684,11 @@ public class Service {
                     }
                 }
 
-                msg.writer().writeInt(Util.DoubleGioihan(pl.petDaoLu.nPoint.hp)); //hp
-                msg.writer().writeInt(Util.DoubleGioihan(pl.petDaoLu.nPoint.hpMax)); //hpfull
-                msg.writer().writeInt(Util.DoubleGioihan(pl.petDaoLu.pointTuVi)); //mp
-                msg.writer().writeInt(Util.DoubleGioihan(1000)); //mpfull
-                msg.writer().writeInt(Util.DoubleGioihan(pl.petDaoLu.nPoint.dame)); //damefull
+                msg.writer().writeDouble(Util.DoubleGioihang(pl.petDaoLu.nPoint.hp)); //hp
+                msg.writer().writeDouble(Util.DoubleGioihang(pl.petDaoLu.nPoint.hpMax)); //hpfull
+                msg.writer().writeDouble(Util.DoubleGioihang(pl.petDaoLu.pointTuVi)); //mp
+                msg.writer().writeDouble(Util.DoubleGioihang(1000)); //mpfull
+                msg.writer().writeDouble(Util.DoubleGioihang(pl.petDaoLu.nPoint.dame)); //damefull
                 msg.writer().writeUTF(pl.petDaoLu.name); //name
                 String txtCB = pl.petDaoLu.getCapBacCapTinh();
                 msg.writer().writeUTF(txtCB); //curr level
@@ -2710,7 +2698,7 @@ public class Service {
                 msg.writer().writeShort(pl.petDaoLu.nPoint.stamina); //stamina
                 msg.writer().writeShort(pl.petDaoLu.nPoint.maxStamina); //stamina full
                 msg.writer().writeByte(pl.petDaoLu.nPoint.crit); //crit
-                msg.writer().writeShort(Util.DoubleGioihan(pl.petDaoLu.nPoint.def)); //def
+                msg.writer().writeInt(Util.DoubleGioihana(pl.petDaoLu.nPoint.def)); //def
                 int sizeSkill = pl.petDaoLu.playerSkill.skills.size();
                 msg.writer().writeByte(sizeSkill); //counnt pet skill
                 for (int i = 0; i < sizeSkill; i++) {
@@ -2727,7 +2715,6 @@ public class Service {
                 }
                 pl.sendMessage(msg);
                 msg.cleanup();
-
             } catch (Exception e) {
                 Logger.logException(Service.class, e, "Lỗi show thông tin đạo lữ tại người chơi: " + pl.name);
             }
@@ -2761,16 +2748,11 @@ public class Service {
                     }
                 }
 
-//                msg.writer().writeInt(Util.DoubleGioihan(pl.pet.nPoint.hpg)); //hp
-//                msg.writer().writeInt(Util.DoubleGioihan(pl.pet.nPoint.mpg)); //hpfull
-//                msg.writer().writeInt(Util.DoubleGioihan(pl.pet.nPoint.dameg)); //mp
-//                msg.writer().writeInt(Util.DoubleGioihan(pl.pet.nPoint.defg)); //mpfull
-//                msg.writer().writeByte(pl.pet.nPoint.critg); //mpfull
-                msg.writer().writeInt(Util.DoubleGioihan(pl.pet.nPoint.hp)); //hp
-                msg.writer().writeInt(Util.DoubleGioihan(pl.pet.nPoint.hpMax)); //hpfull
-                msg.writer().writeInt(Util.DoubleGioihan(pl.pet.nPoint.mp)); //mp
-                msg.writer().writeInt(Util.DoubleGioihan(pl.pet.nPoint.mpMax)); //mpfull
-                msg.writer().writeInt(Util.DoubleGioihan(pl.pet.nPoint.dame)); //damefull
+                msg.writer().writeDouble(Util.DoubleGioihang(pl.pet.nPoint.hp)); //hp
+                msg.writer().writeDouble(Util.DoubleGioihang(pl.pet.nPoint.hpMax)); //hpfull
+                msg.writer().writeDouble(Util.DoubleGioihang(pl.pet.nPoint.mp)); //mp
+                msg.writer().writeDouble(Util.DoubleGioihang(pl.pet.nPoint.mpMax)); //mpfull
+                msg.writer().writeDouble(Util.DoubleGioihang(pl.pet.nPoint.dame)); //damefull
                 msg.writer().writeUTF(pl.pet.name); //name
                 msg.writer().writeUTF(getCurrStrLevel(pl.pet)); //curr level
                 msg.writer().writeLong(pl.pet.nPoint.power); //power
@@ -2779,7 +2761,7 @@ public class Service {
                 msg.writer().writeShort(pl.pet.nPoint.stamina); //stamina
                 msg.writer().writeShort(pl.pet.nPoint.maxStamina); //stamina full
                 msg.writer().writeByte(pl.pet.nPoint.crit); //crit
-                msg.writer().writeShort(Util.DoubleGioihan(pl.pet.nPoint.def)); //def
+                msg.writer().writeInt(Util.DoubleGioihana(pl.pet.nPoint.def)); //def
 //                int sizeSkill = pl.pet.playerSkill.skills.size();
                 msg.writer().writeByte(5); //counnt pet skill
                 for (int i = 0; i < pl.pet.playerSkill.skills.size(); i++) {

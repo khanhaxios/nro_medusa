@@ -728,7 +728,7 @@ public class SkillService {
                     playerAttackPlayer(player, plTarget, miss);
                 }
                 if (mobTarget != null) {
-                    playerAttackMob(player, mobTarget, miss, true);
+                    playerAttackMob(player, mobTarget, miss, false);
                 }
                 if (player.mobMe != null) {
                     player.mobMe.attack(plTarget, mobTarget);
@@ -1027,14 +1027,10 @@ public class SkillService {
                     }
                     //nổ
                     player.playerSkill.prepareTuSat = !player.playerSkill.prepareTuSat;
-                    int rangeBom = SkillUtil.getRangeBom(player.playerSkill.skillSelect.point);
                     double dame = player.nPoint.hpMax;
                     player.tusat = true;
                     for (Mob mob : player.zone.mobs) {
                         mob.injured(player, dame, true);
-//                        if (Util.getDistance(player, mob) <= rangeBom) {
-//                            mob.injured(player, dame, true);
-//                        }
                     }
                     List<Player> playersMap = null;
                     if (player.isBoss) {
@@ -1135,8 +1131,8 @@ public class SkillService {
                 }
                 damePST = (damePST >= plAtt.nPoint.hp || plAtt.nPoint.hp < 2) ? 0 : plAtt.injured(null, damePST, true, false);
                 plAtt.nPoint.hp = (damePST >= plAtt.nPoint.hp) ? 1 : (plAtt.nPoint.hp - damePST);
-                msg.writer().writeInt(Util.DoubleGioihan(plAtt.nPoint.hp));
-                msg.writer().writeInt(Util.DoubleGioihan(damePST));
+                msg.writer().writeDouble(Util.DoubleGioihang(plAtt.nPoint.hp));
+                msg.writer().writeDouble(Util.DoubleGioihang(damePST));
                 msg.writer().writeBoolean(false);
                 msg.writer().writeByte(36);
                 Service.getInstance().sendMessAllPlayerInMap(plAtt, msg);
@@ -1150,8 +1146,8 @@ public class SkillService {
     private void hutHPMP(Player player, double dame, boolean attackMob) {
         int tiLeHutHp = player.nPoint.getTileHutHp(attackMob);
         int tiLeHutMp = player.nPoint.getTiLeHutMp();
-        int hpHoi = Util.DoubleGioihan(dame * tiLeHutHp / 100);
-        int mpHoi = Util.DoubleGioihan(dame * tiLeHutMp / 100);
+        long hpHoi = Util.DoubleGioihan(dame * tiLeHutHp / 100);
+        long mpHoi = Util.DoubleGioihan(dame * tiLeHutMp / 100);
         if (hpHoi > 0 || mpHoi > 0) {
             PlayerService.gI().hoiPhuc(player, hpHoi, mpHoi);
         }
@@ -1164,9 +1160,6 @@ public class SkillService {
         double dameHit = plInjure.injured(plAtt, miss ? 0 : plAtt.nPoint.getDameAttack(false), false, false);
         phanSatThuong(plAtt, plInjure, Util.DoubleGioihan(dameHit));
         hutHPMP(plAtt, dameHit, false);
-//        if (dameHit > 2123456789){
-//                dameHit = 2123456000;
-//            }
         Message msg;
         try {
             msg = new Message(-60);
@@ -1177,55 +1170,7 @@ public class SkillService {
             byte typeSkill = SkillUtil.getTyleSkillAttack(plAtt.playerSkill.skillSelect);
             msg.writer().writeByte(typeSkill == 2 ? 0 : 1); //read continue
             msg.writer().writeByte(0); //type skill
-            if (dameHit > 2123456789) {
-                if (plAtt.isPl()) {
-                    plAtt.Hppl = "\n|8|Name Boss:\b|4|" + plInjure.name;
-                    plAtt.Hppl += "\n|8|Hp Boss:\b|7|" + Util.powerToStringnew(plInjure.nPoint.hp);
-                    if (dameHit > 1) {
-                        plAtt.Hppl += "\b|8|Dame lên Boss:\b|7|" + Util.powerToStringnew(dameHit);
-                    } else {
-                        plAtt.Hppl += "\nDame lên Boss: HỤT";
-                    }
-                }
-                if (plInjure instanceof TestDame) {
-                    plAtt.dametong += dameHit;
-                    Service.getInstance().sendThongBao(plAtt, "|4|Dame thật: \b|5|" + Util.format(dameHit)
-                            + "\n\n|1| Tổng DAME trong 5 Giây: \b|7|" + Util.powerToStringnew(plAtt.dametong));
-
-                    if (plAtt.resetdame == true) {
-                        plAtt.lastTimeDame = System.currentTimeMillis();
-                        plAtt.resetdame = false;
-                    }
-                }
-                if (dameHit > 2123455999 && !(plInjure instanceof TestDame)) {
-                    Service.getInstance().sendThongBao(plAtt, "|4|Dame thật: \b|5|" + Util.powerToStringNDQ(dameHit));
-                }
-                dameHit = 2123456000;
-                msg.writer().writeInt(Util.DoubleGioihan(dameHit)); //dame ăn
-            } else {
-                if (plAtt.isPl()) {
-                    plAtt.Hppl = "\n|8|Name Boss:\b|4|" + plInjure.name;
-                    plAtt.Hppl += "\n|8|Hp Boss:\b|7|" + Util.powerToStringnew(plInjure.nPoint.hp);
-                    if (dameHit > 1) {
-                        plAtt.Hppl += "\b|8|Dame lên Boss:\b|7|" + Util.powerToStringnew(dameHit);
-                    } else {
-                        plAtt.Hppl += "\nDame lên Boss: HỤT";
-                    }
-                }
-
-                if (plInjure instanceof TestDame) {
-                    plAtt.dametong += dameHit;
-                    Service.getInstance().sendThongBao(plAtt, "|4|Dame thật: \b|5|" + Util.format(dameHit)
-                            + "\n\n|1| Tổng DAME trong 5 Giây: \b|7|" + Util.powerToStringnew(plAtt.dametong));
-
-                    if (plAtt.resetdame == true) {
-                        plAtt.lastTimeDame = System.currentTimeMillis();
-                        plAtt.resetdame = false;
-                    }
-                }
-                msg.writer().writeInt(Util.DoubleGioihan(dameHit)); //dame ăn
-            }
-
+            msg.writer().writeDouble(Util.DoubleGioihang(dameHit)); //dame ăn
             msg.writer().writeBoolean(plInjure.isDie()); //is die
             msg.writer().writeBoolean(plAtt.nPoint.isCrit); //crit
             if (typeSkill != 1) {
@@ -1241,7 +1186,7 @@ public class SkillService {
                 msg.writer().writeInt((int) plInjure.id); //id ăn pem
                 msg.writer().writeByte(typeSkill == 2 ? 0 : 1); //read continue
                 msg.writer().writeByte(0); //type skill
-                msg.writer().writeInt(Util.DoubleGioihan(dameHit)); //dame ăn
+                msg.writer().writeDouble(Util.DoubleGioihang(dameHit)); //dame ăn
                 msg.writer().writeBoolean(plInjure.isDie()); //is die
                 msg.writer().writeBoolean(plAtt.nPoint.isCrit); //crit
                 Service.getInstance().sendMessAnotherNotMeInMap(plInjure, msg);
@@ -1250,9 +1195,9 @@ public class SkillService {
             try {
                 msg = Service.getInstance().messageSubCommand((byte) 14);
                 msg.writer().writeInt((int) plInjure.id);
-                msg.writer().writeInt(Util.DoubleGioihan(plInjure.nPoint.hp));
+                msg.writer().writeDouble(Util.DoubleGioihang(plInjure.nPoint.hp));
                 msg.writer().writeByte(0);
-                msg.writer().writeInt(Util.DoubleGioihan(plInjure.nPoint.hpMax));
+                msg.writer().writeDouble(Util.DoubleGioihang(plInjure.nPoint.hpMax));
                 Service.getInstance().sendMessAnotherNotMeInMap(plInjure, msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -1265,18 +1210,6 @@ public class SkillService {
 
         } catch (Exception e) {
             Logger.logException(SkillService.class, e);
-        }
-
-        if (plInjure.isBoss && plInjure.nPoint.hp > 2100000000) {
-            try {
-                msg = new Message(44);
-                msg.writer().writeInt((int) plInjure.id);
-                msg.writer().writeUTF("Hp của ta:\b|7| " + Util.format(plInjure.nPoint.hp));
-                Service.getInstance().sendMessAllPlayerInMap(plInjure, msg);
-                msg.cleanup();
-            } catch (Exception e) {
-                Logger.logException(Service.class, e);
-            }
         }
     }
 
@@ -1305,15 +1238,6 @@ public class SkillService {
             hutHPMP(plAtt, dameHit, true);
             sendPlayerAttackMob(plAtt, mob);
             mob.injured(plAtt, dameHit, dieWhenHpFull);
-            if (plAtt.isPl() && !plAtt.isDie()) {
-                plAtt.HpQuai = "|6|Mục tiêu: QUÁI\n";
-                plAtt.HpQuai += "\n|7|Hp Quái:\n" + Util.powerToString(mob.point.hp);
-                if (dameHit > 1) {
-                    plAtt.HpQuai += "\b|2|Dame Quái:\n" + Util.powerToString(dameHit);
-                } else {
-                    plAtt.HpQuai += "\nDame Quái: HỤT";
-                }
-            }
         }
     }
 

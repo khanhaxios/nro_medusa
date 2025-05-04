@@ -9,14 +9,15 @@ import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.MapService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class EffectSkin {
 
     private static final String[] textOdo = new String[]{
-        "Hôi quá", "Tránh ra đi thằng ở dơ", "Mùi gì kinh quá vậy?",
-        "Kinh tởm quá", "Biến đi thằng ở dơ", "Kính ngài ở dơ"
+            "Hôi quá", "Tránh ra đi thằng ở dơ", "Mùi gì kinh quá vậy?",
+            "Kinh tởm quá", "Biến đi thằng ở dơ", "Kính ngài ở dơ"
     };
 
     private Player player;
@@ -104,7 +105,7 @@ public class EffectSkin {
 
     private void updateHoihp30s() {
         try {
-            int param = this.player.nPoint.hpHoiAdd;
+            double param = this.player.nPoint.hpHoiAdd;
             if (param > 0) {
                 if (!this.player.isDie() && Util.canDoWithTime(lastTimeHP30s, 30000)) {
                     double hpHoi = this.player.nPoint.hpMax * param / 100;
@@ -121,7 +122,7 @@ public class EffectSkin {
 
     private void updateHoimp30s() {
         try {
-            int param = this.player.nPoint.mpHoiAdd;
+            double param = this.player.nPoint.mpHoiAdd;
             if (param > 0) {
                 if (!this.player.isDie() && Util.canDoWithTime(lastTimeMP30s, 30000)) {
                     double mpHoi = this.player.nPoint.mpMax * param / 100;
@@ -141,8 +142,8 @@ public class EffectSkin {
             int param = this.player.nPoint.tlHutHpMpXQ;
             if (param > 0) {
                 if (!this.player.isDie() && Util.canDoWithTime(lastTimeXenHutHpKi, 5000)) {
-                    int hpHut = 0;
-                    int mpHut = 0;
+                    double hpHut = 0;
+                    double mpHut = 0;
                     List<Player> players = new ArrayList<>();
                     List<Player> playersMap = this.player.zone.getNotBosses();
                     for (Player pl : playersMap) {
@@ -154,7 +155,7 @@ public class EffectSkin {
                     for (Mob mob : this.player.zone.mobs) {
                         if (mob.point.gethp() > 1) {
                             if (Util.getDistance(this.player, mob) <= 200) {
-                                double subHp = Util.DoubleGioihan(mob.point.getHpFull()) * param / 100;
+                                double subHp = Util.DoubleGioihang(mob.point.getHpFull()) * param / 100;
                                 if (subHp >= mob.point.gethp()) {
                                     subHp = mob.point.gethp() - 1;
                                 }
@@ -164,13 +165,13 @@ public class EffectSkin {
                         }
                     }
                     for (Player pl : players) {
-                        long subHp = Util.DoubleGioihan(pl.nPoint.hpMax * param / 100);
-                        long subMp = Util.DoubleGioihan(pl.nPoint.mpMax * param / 100);
+                        double subHp = Util.DoubleGioihang(pl.nPoint.hpMax * param / 100);
+                        double subMp = Util.DoubleGioihang(pl.nPoint.mpMax * param / 100);
                         if (subHp >= pl.nPoint.hp) {
-                            subHp = Util.DoubleGioihan(pl.nPoint.hp - 1);
+                            subHp = Util.DoubleGioihang(pl.nPoint.hp - 1);
                         }
                         if (subMp >= pl.nPoint.mp) {
-                            subMp = Util.DoubleGioihan(pl.nPoint.mp - 1);
+                            subMp = Util.DoubleGioihang(pl.nPoint.mp - 1);
                         }
                         hpHut += subHp;
                         mpHut += subMp;

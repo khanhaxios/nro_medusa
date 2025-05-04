@@ -67,7 +67,7 @@ public class MySession extends Session {
     public double bdPlayer;
 
     public int version;
-    public int vnd;
+    public long vnd;
     public int Bar;
 
     public boolean isRIcon;

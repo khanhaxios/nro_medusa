@@ -29,7 +29,7 @@ public class PlayerService {
             try {
                 msg = new Message(-3);
                 msg.writer().writeByte(type);// 0 là cộng sm, 1 cộng tn, 2 là cộng cả 2
-                msg.writer().writeInt((int) param);// số tn cần cộng
+                msg.writer().writeLong(Util.DoubleGioihan(param));// số tn cần cộng
                 player.sendMessage(msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -60,7 +60,7 @@ public class PlayerService {
         Message msg;
         try {
             msg = Service.getInstance().messageSubCommand((byte) 5);
-            msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.hp));
+            msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hp));
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
@@ -72,7 +72,7 @@ public class PlayerService {
         Message msg;
         try {
             msg = Service.getInstance().messageSubCommand((byte) 6);
-            msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.mp));
+            msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mp));
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
@@ -110,8 +110,8 @@ public class PlayerService {
                 msg.writer().writeInt((int) player.inventory.gold);
             }
             msg.writer().writeInt(player.inventory.gem);//luong
-            msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.hp));//chp
-            msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.mp));//cmp
+            msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hp));//chp
+            msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mp));//cmp
             msg.writer().writeLong(player.inventory.ruby);//ruby
             player.sendMessage(msg);
         } catch (Exception e) {

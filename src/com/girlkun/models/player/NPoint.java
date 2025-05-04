@@ -77,9 +77,7 @@ public class NPoint {
     /**
      * Chỉ số cộng thêm
      */
-    public int hpAdd, mpAdd, defAdd, critAdd, hpHoiAdd, mpHoiAdd;
-
-    public long dameAdd;
+    public double hpAdd, mpAdd, defAdd, critAdd, hpHoiAdd, mpHoiAdd, dameAdd;
     /**
      * //+#% sức đánh chí mạng
      */
@@ -103,7 +101,7 @@ public class NPoint {
     /**
      * Lượng hp, mp hồi mỗi 30s, mp hồi cho người khác
      */
-    public int hpHoi, mpHoi, mpHoiCute;
+    public long hpHoi, mpHoi, mpHoiCute;
 
     /**
      * Tỉ lệ hp, mp hồi cộng thêm
@@ -190,23 +188,23 @@ public class NPoint {
         if (this.player.rewardBlackBall.timeOutOfDateReward[2] > System.currentTimeMillis()) {
             this.tlDameCrit.add(RewardBlackBall.R3S_2);
         }
-//        if (this.player.rewardBlackBall.timeOutOfDateReward[1] > System.currentTimeMillis()) {
-//            tlHutMp += RewardBlackBall.R2S_1;
-//        }
-//        if (this.player.rewardBlackBall.timeOutOfDateReward[3] > System.currentTimeMillis()) {
-//            tlDameAttMob.add(RewardBlackBall.R4S_2);
-//        }
-//        if (this.player.rewardBlackBall.timeOutOfDateReward[4] > System.currentTimeMillis()) {
-//            tlPST += RewardBlackBall.R5S_1;
-//        }
-//        if (this.player.rewardBlackBall.timeOutOfDateReward[5] > System.currentTimeMillis()) {
-//            tlPST += RewardBlackBall.R6S_1;
-//            tlNeDon += RewardBlackBall.R6S_2;
-//        }
-//        if (this.player.rewardBlackBall.timeOutOfDateReward[6] > System.currentTimeMillis()) {
-//            tlHpHoi += RewardBlackBall.R7S_1;
-//            tlHutHp += RewardBlackBall.R7S_2;
-//        }
+        if (this.player.rewardBlackBall.timeOutOfDateReward[1] > System.currentTimeMillis()) {
+            tlHutMp += RewardBlackBall.R2S_1;
+        }
+        if (this.player.rewardBlackBall.timeOutOfDateReward[3] > System.currentTimeMillis()) {
+            tlDameAttMob.add(RewardBlackBall.R4S_2);
+        }
+        if (this.player.rewardBlackBall.timeOutOfDateReward[4] > System.currentTimeMillis()) {
+            tlPST += RewardBlackBall.R5S_1;
+        }
+        if (this.player.rewardBlackBall.timeOutOfDateReward[5] > System.currentTimeMillis()) {
+            tlPST += RewardBlackBall.R6S_1;
+            tlNeDon += RewardBlackBall.R6S_2;
+        }
+        if (this.player.rewardBlackBall.timeOutOfDateReward[6] > System.currentTimeMillis()) {
+            tlHpHoi += RewardBlackBall.R7S_1;
+            tlHutHp += RewardBlackBall.R7S_2;
+        }
 
         for (Card card : player.Cards) {
             if (card != null && card.Used == 1) {
@@ -383,6 +381,10 @@ public class NPoint {
                             break;
                         case 44:
                             this.player.tienLuc += io.param;
+                            float tyLe = (float) (io.param + 50) / 100f;
+                            this.hpAdd += this.hpMax * tyLe;
+                            this.dameAdd += this.dame * tyLe;
+                            this.mpAdd += this.mpMax * tyLe;
                             break;
                         case 45:
                             this.dameAdd += io.param * 1_000_000L;
@@ -390,7 +392,6 @@ public class NPoint {
                         case 47: //Giáp+#
                             this.defAdd += io.param;
                             break;
-
                         case 48: //HP/KI+#
                             this.hpAdd += io.param;
                             this.mpAdd += io.param;
@@ -495,12 +496,6 @@ public class NPoint {
                             break;
                         case 222: //HP Bóng Tối  +#%
                             this.tlMp.add(io.param);
-                            break;
-                        case 257:// Tien luc  + chi so
-                            float tyLe = (float) (io.param + 50) / 100f;
-                            this.hpMax += this.mpMax * tyLe;
-                            this.dameAdd += this.dame * tyLe;
-                            this.mpAdd += this.mpAdd * tyLe;
                             break;
                     }
                 }
@@ -858,8 +853,7 @@ public class NPoint {
         }
         //khỉ
         if (this.player.effectSkill.isMonkey) {
-            if (!this.player.isPet || (this.player.isPet
-                    && ((Pet) this.player).status != Pet.FUSION)) {
+            if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
                 int percent = SkillUtil.getPercentHpMonkey(player.effectSkill.levelMonkey);
                 this.hpMax += ((double) this.hpMax * percent / 100);
             }
@@ -879,12 +873,10 @@ public class NPoint {
         }
 
         //đuôi khỉ
-        if (!this.player.isPet && this.player.itemTime.isDuoikhi
-                || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
+        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
             this.hpMax += ((double) this.hpMax * 10 / 100);
         }
-        if (!this.player.isPet && this.player.itemTime.isUseMayDo2
-                || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
+        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
             this.hpMax += ((double) this.hpMax * 30 / 100);
         }
         //phù
@@ -896,9 +888,7 @@ public class NPoint {
             this.hpMax += this.player.pet.nPoint.hpMax;
         }
         //huýt sáo
-        if (!this.player.isPet
-                || (this.player.isPet
-                && ((Pet) this.player).status != Pet.FUSION)) {
+        if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
             if (this.player.effectSkill.tiLeHPHuytSao != 0) {
                 this.hpMax += ((double) this.hpMax * this.player.effectSkill.tiLeHPHuytSao / 100);
 
@@ -947,8 +937,7 @@ public class NPoint {
         if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4126) {
             this.hpMax += ((double) this.hpMax * 50 / 100);
         }
-        if (this.player.zone != null && MapService.gI().isMapCold(this.player.zone.map)
-                && !this.isKhongLanh) {
+        if (this.player.zone != null && MapService.gI().isMapCold(this.player.zone.map) && !this.isKhongLanh) {
             this.hpMax /= 2;
         }
         //mèo mun
@@ -957,8 +946,7 @@ public class NPoint {
         }
         //Tu tiên
         if (this.player.isPl()) {
-            if (!this.player.isPet && this.player.haveTuTien == true
-                    || this.player.isPet && ((Pet) this.player).master.haveTuTien == true) {
+            if (!this.player.isPet && this.player.haveTuTien == true || this.player.isPet && ((Pet) this.player).master.haveTuTien == true) {
                 this.hpMax += (double) this.hpMax * ((this.player.CapTuTien + 1) * 5) / 100;
             }
         }
@@ -977,9 +965,7 @@ public class NPoint {
         }
 
         if (this.player.isPl()) {
-            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME
-                    && (this.player.TrieuHoiCapBac == 7 || this.player.TrieuHoiCapBac == 8 || this.player.TrieuHoiCapBac == 9
-                    || this.player.TrieuHoiCapBac == 10)) {
+            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 7 || this.player.TrieuHoiCapBac == 8 || this.player.TrieuHoiCapBac == 9 || this.player.TrieuHoiCapBac == 10)) {
                 switch (this.player.TrieuHoiCapBac) {
                     case 7:
                     case 8:
@@ -993,8 +979,7 @@ public class NPoint {
                         break;
                 }
             }
-            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME
-                    && (this.player.TrieuHoiCapBac == 0 || this.player.TrieuHoiCapBac == 3 || this.player.TrieuHoiCapBac == 4)) {
+            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 0 || this.player.TrieuHoiCapBac == 3 || this.player.TrieuHoiCapBac == 4)) {
                 switch (this.player.TrieuHoiCapBac) {
                     case 0:
                     case 3:
@@ -1025,8 +1010,7 @@ public class NPoint {
         }
         // biến hình
         if (this.player.effectSkill.isBienHinh) {
-            if (!this.player.isPet || (this.player.isPet
-                    && ((Pet) this.player).status != Pet.FUSION)) {
+            if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
                 int percent = SkillUtil.getPercentHpMpBienHinh(player.effectSkill.levelBienHinh);
                 this.hpMax += calPercent(this.hpMax, percent);
             }
@@ -1092,12 +1076,10 @@ public class NPoint {
         }
 
         //đuôi khỉ
-        if (!this.player.isPet && this.player.itemTime.isDuoikhi
-                || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
+        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
             this.mpMax += ((double) this.mpMax * 10 / 100);
         }
-        if (!this.player.isPet && this.player.itemTime.isUseMayDo2
-                || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
+        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
             this.mpMax += ((double) this.mpMax * 30 / 100);
         }
         //hợp thể
@@ -1107,8 +1089,7 @@ public class NPoint {
 
         //Tu tiên
         if (this.player.isPl()) {
-            if (!this.player.isPet && this.player.haveTuTien == true
-                    || this.player.isPet && ((Pet) this.player).master.haveTuTien == true) {
+            if (!this.player.isPet && this.player.haveTuTien == true || this.player.isPet && ((Pet) this.player).master.haveTuTien == true) {
                 this.mpMax += (double) this.mpMax * ((this.player.CapTuTien + 1) * 5) / 100;
             }
         }
@@ -1173,9 +1154,7 @@ public class NPoint {
             this.mpMax += ((double) this.mpMax * 15 / 100);
         }
         if (this.player.isPl()) {
-            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME
-                    && (this.player.TrieuHoiCapBac == 7 || this.player.TrieuHoiCapBac == 8 || this.player.TrieuHoiCapBac == 9
-                    || this.player.TrieuHoiCapBac == 10)) {
+            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 7 || this.player.TrieuHoiCapBac == 8 || this.player.TrieuHoiCapBac == 9 || this.player.TrieuHoiCapBac == 10)) {
                 switch (this.player.TrieuHoiCapBac) {
                     case 7:
                     case 8:
@@ -1189,8 +1168,7 @@ public class NPoint {
                         break;
                 }
             }
-            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME
-                    && (this.player.TrieuHoiCapBac == 1 || this.player.TrieuHoiCapBac == 3 || this.player.TrieuHoiCapBac == 4)) {
+            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 1 || this.player.TrieuHoiCapBac == 3 || this.player.TrieuHoiCapBac == 4)) {
                 switch (this.player.TrieuHoiCapBac) {
                     case 1:
                     case 3:
@@ -1222,8 +1200,7 @@ public class NPoint {
 
         // biến hình
         if (this.player.effectSkill.isBienHinh) {
-            if (!this.player.isPet || (this.player.isPet
-                    && ((Pet) this.player).status != Pet.FUSION)) {
+            if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
                 int percent = SkillUtil.getPercentHpMpBienHinh(player.effectSkill.levelBienHinh);
                 this.mpMax += calPercent(this.mpMax, percent);
             }
@@ -1272,15 +1249,13 @@ public class NPoint {
         }
 
         //đuôi khỉ
-        if (!this.player.isPet && this.player.itemTime.isDuoikhi
-                || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
+        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
             this.dame += ((double) this.dame * 15 / 100);
         }
 
         //Tu tiên
         if (this.player.isPl()) {
-            if (!this.player.isPet && this.player.haveTuTien == true
-                    || this.player.isPet && ((Pet) this.player).master.haveTuTien == true) {
+            if (!this.player.isPet && this.player.haveTuTien == true || this.player.isPet && ((Pet) this.player).master.haveTuTien == true) {
                 this.dame += (double) this.dame * ((this.player.CapTuTien + 1) * 5) / 100;
             }
         }
@@ -1297,8 +1272,7 @@ public class NPoint {
             this.dame += ((double) this.dame * this.player.dakethon * 50 / 100);
         }
 
-        if (!this.player.isPet && this.player.itemTime.isUseMayDo2
-                || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
+        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
             this.dame += ((double) this.dame * 20 / 100);
         }
         //hợp thể
@@ -1324,8 +1298,7 @@ public class NPoint {
         }
 
         //thức ăn
-        if (!this.player.isPet && this.player.itemTimesieucap.isEatMeal
-                || this.player.isPet && ((Pet) this.player).master.itemTimesieucap.isEatMeal) {
+        if (!this.player.isPet && this.player.itemTimesieucap.isEatMeal || this.player.isPet && ((Pet) this.player).master.itemTimesieucap.isEatMeal) {
             this.dame += ((double) this.dame * 10 / 100);
         }
         if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseCuongNo3) {
@@ -1355,8 +1328,7 @@ public class NPoint {
         //giảm dame
         this.dame -= ((double) this.dame * tlSubSD / 100);
         //map cold
-        if (this.player.zone != null && MapService.gI().isMapCold(this.player.zone.map)
-                && !this.isKhongLanh) {
+        if (this.player.zone != null && MapService.gI().isMapCold(this.player.zone.map) && !this.isKhongLanh) {
             this.dame /= 2;
         }
         //ngọc rồng đen 1 sao
@@ -1463,16 +1435,13 @@ public class NPoint {
         }
         //khỉ
         if (this.player.effectSkill.isMonkey) {
-            if (!this.player.isPet || (this.player.isPet
-                    && ((Pet) this.player).status != Pet.FUSION)) {
+            if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
                 int percent = SkillUtil.getPercentDameMonkey(player.effectSkill.levelMonkey);
                 this.dame += ((double) this.dame * percent / 100);
             }
         }
         if (this.player.isPl()) {
-            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME
-                    && (this.player.TrieuHoiCapBac == 5 || this.player.TrieuHoiCapBac == 7 || this.player.TrieuHoiCapBac == 8 || this.player.TrieuHoiCapBac == 9
-                    || this.player.TrieuHoiCapBac == 10)) {
+            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 5 || this.player.TrieuHoiCapBac == 7 || this.player.TrieuHoiCapBac == 8 || this.player.TrieuHoiCapBac == 9 || this.player.TrieuHoiCapBac == 10)) {
                 switch (this.player.TrieuHoiCapBac) {
                     case 5:
                     case 7:
@@ -1487,8 +1456,7 @@ public class NPoint {
                         break;
                 }
             }
-            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME
-                    && (this.player.TrieuHoiCapBac == 2 || this.player.TrieuHoiCapBac == 3)) {
+            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 2 || this.player.TrieuHoiCapBac == 3)) {
                 this.dame += ((this.player.TrieuHoiLevel + 1) * 10);
             }
             if (this.player.petDaoLu != null && this.player.petDaoLu.status != DaoLu.GOHOME) {
@@ -1510,8 +1478,7 @@ public class NPoint {
         }
         // biến hình
         if (this.player.effectSkill.isBienHinh) {
-            if (!this.player.isPet || (this.player.isPet
-                    && ((Pet) this.player).status != Pet.FUSION)) {
+            if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
                 int percent = SkillUtil.getPercentHpMpBienHinh(player.effectSkill.levelBienHinh);
                 this.dame += calPercent(this.dame, percent);
             }
@@ -1538,9 +1505,7 @@ public class NPoint {
         }
 
         if (this.player.isPl()) {
-            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME
-                    && (this.player.TrieuHoiCapBac == 4 || this.player.TrieuHoiCapBac == 7 || this.player.TrieuHoiCapBac == 8 || this.player.TrieuHoiCapBac == 9
-                    || this.player.TrieuHoiCapBac == 10)) {
+            if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 4 || this.player.TrieuHoiCapBac == 7 || this.player.TrieuHoiCapBac == 8 || this.player.TrieuHoiCapBac == 9 || this.player.TrieuHoiCapBac == 10)) {
                 switch (this.player.TrieuHoiCapBac) {
                     case 4:
                         this.def += ((this.player.TrieuHoiLevel + 1) * 30);
@@ -1662,8 +1627,7 @@ public class NPoint {
     }
 
     private void setIsCrit() {
-        if (intrinsic != null && intrinsic.id == 25
-                && this.getCurrPercentHP() <= intrinsic.param1) {
+        if (intrinsic != null && intrinsic.id == 25 && this.getCurrPercentHP() <= intrinsic.param1) {
             isCrit = true;
         } else if (isCrit100) {
             isCrit100 = false;
@@ -1827,8 +1791,7 @@ public class NPoint {
                 break;
             case Skill.DICH_CHUYEN_TUC_THOI:
                 dameAttack *= 2;
-                dameAttack = Util.GioiHannextdame(dameAttack - (dameAttack * 5 / 100),
-                        dameAttack + (dameAttack * 5 / 100));
+                dameAttack = Util.GioiHannextdame(dameAttack - (dameAttack * 5 / 100), dameAttack + (dameAttack * 5 / 100));
                 return dameAttack;
             case Skill.MAKANKOSAPPO:
                 percentDameSkill = skillSelect.damage;
@@ -1873,17 +1836,14 @@ public class NPoint {
         dameAttack = Util.GioiHannextdame(dameAttack - (dameAttack * 5 / 100), dameAttack + (dameAttack * 5 / 100));
         if (player.isPl()) {
             if (player.inventory.haveOption(player.inventory.itemsBody, 5, 159)) {
-                if (Util.canDoWithTime(player.lastTimeUseOption, 60000)
-                        && SkillUtil.isSkillXDame(player.playerSkill.skillSelect.template.id)) {
+                if (Util.canDoWithTime(player.lastTimeUseOption, 60000) && SkillUtil.isSkillXDame(player.playerSkill.skillSelect.template.id)) {
                     dameAttack *= player.inventory.getParam(player.inventory.itemsBody.get(5), 159);
                     player.lastTimeUseOption = System.currentTimeMillis();
                     Service.getInstance().sendThongBao(player, "|1|Bạn vừa gây ra x" + player.inventory.getParam(player.inventory.itemsBody.get(5), 159) + " Sát thương chiêu thức cơ bản");
                 }
             }
         }
-        if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME
-                && (this.player.TrieuHoiCapBac == 6 || this.player.TrieuHoiCapBac == 9
-                || this.player.TrieuHoiCapBac == 10)) {
+        if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 6 || this.player.TrieuHoiCapBac == 9 || this.player.TrieuHoiCapBac == 10)) {
             switch (this.player.TrieuHoiCapBac) {
                 case 6:
                 case 9:
@@ -1952,12 +1912,10 @@ public class NPoint {
                 tiemNang += tn * 3;
             }
 
-            if (!this.player.isPet && this.player.itemTime.isDuoikhi
-                    || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
+            if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
                 tiemNang += tn * 3;
             }
-            if (!this.player.isPet && this.player.itemTimesieucap.isKeo
-                    || this.player.isPet && ((Pet) this.player).master.itemTimesieucap.isKeo) {
+            if (!this.player.isPet && this.player.itemTimesieucap.isKeo || this.player.isPet && ((Pet) this.player).master.itemTimesieucap.isKeo) {
                 tiemNang += tn * 2;
             }
             if (this.intrinsic != null && this.intrinsic.id == 24) {
@@ -2453,10 +2411,8 @@ public class NPoint {
         if (player != null && player.effectSkill != null) {
             if (player.effectSkill.isCharging && player.effectSkill.countCharging < 10) {
                 long tiLeHoiPhuc = SkillUtil.getPercentCharge(player.playerSkill.skillSelect.point);
-                if (player.effectSkill.isCharging && !player.isDie() && !player.effectSkill.isHaveEffectSkill()
-                        && (hp < hpMax || mp < mpMax)) {
-                    PlayerService.gI().hoiPhuc(player, hpMax / 100 * tiLeHoiPhuc,
-                            mpMax / 100 * tiLeHoiPhuc);
+                if (player.effectSkill.isCharging && !player.isDie() && !player.effectSkill.isHaveEffectSkill() && (hp < hpMax || mp < mpMax)) {
+                    PlayerService.gI().hoiPhuc(player, hpMax / 100 * tiLeHoiPhuc, mpMax / 100 * tiLeHoiPhuc);
                     if (player.effectSkill.countCharging % 3 == 0) {
                         Service.getInstance().chat(player, "Phục hồi năng lượng " + getCurrPercentHP() + "%");
                     }

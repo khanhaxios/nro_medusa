@@ -904,30 +904,30 @@ public class Manager {
             }
             Logger.success("Load mob template thành công (" + MOB_TEMPLATES.size() + ")\n");
 
-            ps = con.prepareStatement("SELECT * FROM shop_ky_gui");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                int i = rs.getInt("id");
-                int idPl = rs.getInt("player_id");
-                byte tab = rs.getByte("tab");
-                short itemId = rs.getShort("item_id");
-                int gold = rs.getInt("gold");
-                int gem = rs.getInt("gem");
-                int quantity = rs.getInt("quantity");
-                byte isUp = rs.getByte("isUpTop");
-                boolean isBuy = rs.getByte("isBuy") == 1;
-                long thoigian = rs.getLong("Thoi_gian");
-                List<Item.ItemOption> op = new ArrayList<>();
-                JSONArray jsa2 = (JSONArray) JSONValue.parse(rs.getString("itemOption"));
-                for (int j = 0; j < jsa2.size(); ++j) {
-                    JSONObject jso2 = (JSONObject) jsa2.get(j);
-                    int idOptions = Integer.parseInt(jso2.get("id").toString());
-                    int param = Integer.parseInt(jso2.get("param").toString());
-                    op.add(new Item.ItemOption(idOptions, param));
-                }
-                ShopKyGuiManager.gI().listItem.add(new ItemKyGui(i, itemId, idPl, tab, gold, gem, quantity, isUp, op, isBuy, thoigian));
-            }
-            Logger.success("Thông báo tải dữ liệu item ký gửi [" + ShopKyGuiManager.gI().listItem.size() + "]!\n");
+//            ps = con.prepareStatement("SELECT * FROM shop_ky_gui");
+//            rs = ps.executeQuery();
+//            while (rs.next()) {
+//                int i = rs.getInt("id");
+//                int idPl = rs.getInt("player_id");
+//                byte tab = rs.getByte("tab");
+//                short itemId = rs.getShort("item_id");
+//                int gold = rs.getInt("gold");
+//                int gem = rs.getInt("gem");
+//                int quantity = rs.getInt("quantity");
+//                byte isUp = rs.getByte("isUpTop");
+//                boolean isBuy = rs.getByte("isBuy") == 1;
+//                long thoigian = rs.getLong("Thoi_gian");
+//                List<Item.ItemOption> op = new ArrayList<>();
+//                JSONArray jsa2 = (JSONArray) JSONValue.parse(rs.getString("itemOption"));
+//                for (int j = 0; j < jsa2.size(); ++j) {
+//                    JSONObject jso2 = (JSONObject) jsa2.get(j);
+//                    int idOptions = Integer.parseInt(jso2.get("id").toString());
+//                    int param = Integer.parseInt(jso2.get("param").toString());
+//                    op.add(new Item.ItemOption(idOptions, param));
+//                }
+//                ShopKyGuiManager.gI().listItem.add(new ItemKyGui(i, itemId, idPl, tab, gold, gem, quantity, isUp, op, isBuy, thoigian));
+//            }
+//            Logger.success("Thông báo tải dữ liệu item ký gửi [" + ShopKyGuiManager.gI().listItem.size() + "]!\n");
 
             //load npc template
             ps = con.prepareStatement("select * from npc_template");

@@ -392,7 +392,7 @@ public class Mob {
             try {
                 msg = new Message(-11);
                 msg.writer().writeByte(this.id);
-                msg.writer().writeInt(Util.DoubleGioihan(dame)); //dame
+                msg.writer().writeInt(Util.DoubleGioihana(dame)); //dame
                 player.sendMessage(msg);
                 msg.cleanup();
             } catch (IOException e) {
@@ -406,7 +406,7 @@ public class Mob {
             msg = new Message(-10);
             msg.writer().writeByte(this.id);
             msg.writer().writeInt((int) player.id);
-            msg.writer().writeInt(Util.DoubleGioihan(player.nPoint.hp));
+            msg.writer().writeInt(Util.DoubleGioihana(player.nPoint.hp));
             Service.getInstance().sendMessAnotherNotMeInMap(player, msg);
             msg.cleanup();
         } catch (IOException e) {
@@ -432,7 +432,7 @@ public class Mob {
             msg.writer().writeByte(this.id);
             msg.writer().writeByte(this.tempId);
             msg.writer().writeByte(lvMob);
-            msg.writer().writeInt(Util.DoubleGioihan(this.point.hp));
+            msg.writer().writeInt(Util.DoubleGioihana(this.point.hp));
             Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
         } catch (IOException e) {
@@ -445,7 +445,7 @@ public class Mob {
         try {
             msg = new Message(-12);
             msg.writer().writeByte(this.id);
-            msg.writer().writeInt(Util.DoubleGioihan(dameHit));
+            msg.writer().writeDouble(Util.DoubleGioihang(dameHit));
             msg.writer().writeBoolean(plKill.nPoint.isCrit); // crit
             List<ItemMap> items = mobReward(plKill, this.dropItemTask(plKill), msg);
             Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
@@ -516,18 +516,18 @@ public class Mob {
         try {
             if (player.session != null) {
                 // add point reward
-                int totalMoney = 2000;
-                if (Util.isTrue(20, 100)) {
+                int totalMoney = 1000;
+                if (Util.isTrue(50, 100)) {
                     totalMoney += Util.nextInt(10000, 50000);
                 }
-                if (Util.isTrue(2, 100)) {
-                    totalMoney += Util.nextInt(100000, 1000000);
+                if (Util.isTrue(5, 100)) {
+                    totalMoney += Util.nextInt(10000, 100000);
                     Service.gI().sendThongBao(player, "Nổ hũ" + Util.format(totalMoney) + " Điểm");
                 }
                 totalMoney *= 30;
-                if (player.session.vnd + totalMoney > 2000000000) {
-                    player.session.vnd = 2000000000;
-                    Service.gI().sendThongBaoOK(player, "Số dư của bạn vượt quá giới hạn 2 tỷ\nhãy dùng đi nào!");
+                if (player.session.vnd + totalMoney > 100_000_000_000L) {
+                    player.session.vnd = 100_000_000_000L;
+                    Service.gI().sendThongBaoOK(player, "Số dư của bạn vượt quá giới hạn 100 tỷ\nhãy dùng đi nào!");
                 } else {
                     player.session.vnd += totalMoney;
                 }
@@ -848,8 +848,8 @@ public class Mob {
         try {
             msg = new Message(-9);
             msg.writer().writeByte(this.id);
-            msg.writer().writeInt(Util.DoubleGioihan(this.point.gethp()));
-            msg.writer().writeInt(Util.DoubleGioihan(dameHit));
+            msg.writer().writeInt(Util.DoubleGioihana(this.point.gethp()));
+            msg.writer().writeDouble(Util.DoubleGioihang(dameHit));
             msg.writer().writeBoolean(crit); // chí mạng
             msg.writer().writeInt(-1);
             Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
