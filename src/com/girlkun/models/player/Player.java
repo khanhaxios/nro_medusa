@@ -260,7 +260,7 @@ public class Player {
         location = new Location();
         nPoint = new NPoint(this);
         inventory = new Inventory();
-        taixiu = new Taixiu();
+        taixiu = new Taixiu(this);
         playerSkill = new PlayerSkill(this);
         setClothes = new SetClothes(this);
         effectSkill = new EffectSkill(this);

@@ -15,8 +15,8 @@ public class RewardBlackBall {
     private static final int TIME_REWARD = 79200000;
 
     public static final int R1S_1 = 20;
-    public static final int R1S_2 = 5000;
-    public static final int R2S_1 = 10000;
+    public static final int R1S_2 = 500;
+    public static final int R2S_1 = 300;
     public static final int R2S_2 = 10000;
     public static final int R3S_1 = 20;
     public static final int R3S_2 = 1000;
