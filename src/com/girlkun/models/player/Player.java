@@ -1010,7 +1010,7 @@ public class Player {
         switch (CapBac) {
             case 19:
                 return "Tìm " + ((CapBac + 1) * 75) + " Hồng ngọc cho Bản thân và Đệ tử\n"
-                        + "Tăng " + ((CapBac + 1) * 5) + "%HP, KI, SD cho Bản thân và Đệ tử\n";
+                        + "Tăng " + ((CapBac + 1) * 2) + "%HP, KI, SD cho Bản thân và Đệ tử\n";
             case 18:
             case 17:
             case 16:
@@ -1030,7 +1030,7 @@ public class Player {
             case 2:
             case 1:
             case 0:
-                return "Tăng " + ((CapBac + 1) * 5) + "%HP, Ki, SD cho Bản thân và Đệ tử";
+                return "Tăng " + ((CapBac + 1) * 2) + "%HP, Ki, SD cho Bản thân và Đệ tử";
             default:
                 return "Phế vật mà làm được gì !!!";
         }
@@ -1154,7 +1154,7 @@ public class Player {
             }
             if (this.setClothes.isSetGokuUI()) {
                 int tl = 60 + (this.nPoint.tlNeDon - TileChinhxac);
-                tl = tl > 95 ? 95 : tl;
+                tl = Math.min(tl, 95);
                 if (!piercing && Util.isTrue(tl, 100)) {
                     return 0;
                 }

@@ -1170,6 +1170,14 @@ public class Util {
         Arrays.sort(answer);
         return answer;
     }
+
+    public static byte byteGioiHan(int critg) {
+        if (critg > 100) {
+
+            critg = 100;
+        }
+        return (byte) critg;
+    }
 }
 
 /**

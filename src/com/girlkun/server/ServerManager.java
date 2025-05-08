@@ -213,18 +213,6 @@ public class ServerManager {
         } catch (InterruptedException ex) {
             java.util.logging.Logger.getLogger(BossManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        try {
-            MySession session = new MySession(new Socket(DataGame.LINK_IP_PORT.split(":")[1], 14445));
-            session.version = 231;
-            session.login("adminnotify", "linh2k1");
-            if (session.isConnected() && session.player != null) {
-                Manager.medusa = session.player;
-                Manager.medusa.isBot = true;
-            }
-        } catch (Exception e) {
-            Logger.logException(ServerManager.class, e, "lỗi load bot");
-        }
         new Thread(this::activePanelControllerApi).start();
     }
 

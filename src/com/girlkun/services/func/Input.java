@@ -878,13 +878,13 @@ public class Input {
                                     } catch (Exception e) {
                                     }
                                     PlayerDAO.subvnd(player, goldTrade1);//* coinGold
-                                    Item thoiVang = ItemService.gI().createNewItem((short) 457, Manager.SUKIEN != 1 ? ((goldTrade1 / 100)) : (goldTrade1 / 100));// x3
+                                    Item thoiVang = ItemService.gI().createNewItem((short) 457, ((goldTrade1 / 100)));// x3
                                     InventoryServiceNew.gI().addItemBag(player, thoiVang);
                                     InventoryServiceNew.gI().sendItemBags(player);
                                     player.achievement.numPayMoney += goldTrade1;
                                     if (thehongngoc != null) {
                                         Service.getInstance().sendThongBao(player, "|3|Bạn đã có Vé tặng ngọc rồi nên không nhận được nữa !!");
-                                        Service.getInstance().sendThongBao(player, "Bạn nhận được " + (Manager.SUKIEN != 1 ? Util.format(((goldTrade1 / 100))) : Util.format((goldTrade1 / 100)))//* ratioGold * 2
+                                        Service.getInstance().sendThongBao(player, "Bạn nhận được " + (Util.format(((goldTrade1 / 100))))//* ratioGold * 2
                                                 + " " + (thoiVang.template.name));
                                     } else {
                                         Item thehn = ItemService.gI().createNewItem((short) 1132, 1);

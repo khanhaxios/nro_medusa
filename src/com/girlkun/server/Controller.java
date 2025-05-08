@@ -70,7 +70,7 @@ public class Controller implements IMessageHandler {
 //            if (cmd != -29 && cmd != -107 && cmd != 29 && cmd != -30 && cmd != 74 && cmd != -16 && cmd != -101 && cmd != 126 && cmd != -74 && cmd != 21 && cmd != -15 && cmd != -103) {
 //                System.out.println(cmd);
 //            }
-            System.out.println("***************************CMD receive: " + cmd);
+//            System.out.println("***************************CMD receive: " + cmd);
             switch (cmd) {
                 case -100:
                     byte action = _msg.reader().readByte();

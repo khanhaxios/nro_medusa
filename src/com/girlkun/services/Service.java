@@ -1724,11 +1724,11 @@ public class Service {
                 msg.writer().writeByte(1);
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.dame));// dam base
                 msg.writer().writeInt(Util.DoubleGioihana(player.nPoint.def));// def full
-                msg.writer().writeByte(player.nPoint.crit);// crit full
+                msg.writer().writeByte(Util.byteGioiHan(player.nPoint.crit));// crit full
                 msg.writer().writeLong(player.nPoint.tiemNang);
                 msg.writer().writeShort(100);
                 msg.writer().writeInt(Util.DoubleGioihana(player.nPoint.defg));
-                msg.writer().writeByte(player.nPoint.critg);
+                msg.writer().writeByte(Util.byteGioiHan(player.nPoint.critg));
                 player.sendMessage(msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2630,7 +2630,7 @@ public class Service {
                 msg.writer().writeDouble(Util.DoubleGioihang(pl.pet.nPoint.mpg)); //hpfull
                 msg.writer().writeLong(Util.DoubleGioihan(pl.pet.nPoint.dameg)); //mp
                 msg.writer().writeInt(Util.DoubleGioihana(pl.pet.nPoint.defg)); //mpfull
-                msg.writer().writeByte(pl.pet.nPoint.critg); //mpfull
+                msg.writer().writeByte(Util.byteGioiHan(pl.pet.nPoint.critg)); //mpfull
                 pl.sendMessage(msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -2648,10 +2648,9 @@ public class Service {
                 msg.writer().writeDouble(Util.DoubleGioihang(pl.petDaoLu.nPoint.mpg)); //hpfull
                 msg.writer().writeLong(Util.DoubleGioihan(pl.petDaoLu.nPoint.dameg)); //mp
                 msg.writer().writeInt(Util.DoubleGioihana(pl.petDaoLu.nPoint.defg)); //mpfull
-                msg.writer().writeByte(pl.petDaoLu.nPoint.critg); //mpfull
+                msg.writer().writeByte(Util.byteGioiHan(pl.petDaoLu.nPoint.critg)); //mpfull
                 pl.sendMessage(msg);
                 msg.cleanup();
-
             } catch (Exception e) {
                 Logger.logException(Service.class, e);
             }
@@ -2699,7 +2698,7 @@ public class Service {
                 msg.writer().writeByte(pl.petDaoLu.getStatus()); //status
                 msg.writer().writeShort(pl.petDaoLu.nPoint.stamina); //stamina
                 msg.writer().writeShort(pl.petDaoLu.nPoint.maxStamina); //stamina full
-                msg.writer().writeByte(pl.petDaoLu.nPoint.crit); //crit
+                msg.writer().writeByte(Util.byteGioiHan(pl.petDaoLu.nPoint.crit)); //crit
                 msg.writer().writeInt(Util.DoubleGioihana(pl.petDaoLu.nPoint.def)); //def
                 int sizeSkill = pl.petDaoLu.playerSkill.skills.size();
                 msg.writer().writeByte(sizeSkill); //counnt pet skill
@@ -2762,7 +2761,7 @@ public class Service {
                 msg.writer().writeByte(pl.pet.getStatus()); //status
                 msg.writer().writeShort(pl.pet.nPoint.stamina); //stamina
                 msg.writer().writeShort(pl.pet.nPoint.maxStamina); //stamina full
-                msg.writer().writeByte(pl.pet.nPoint.crit); //crit
+                msg.writer().writeByte(Util.byteGioiHan(pl.pet.nPoint.crit)); //crit
                 msg.writer().writeInt(Util.DoubleGioihana(pl.pet.nPoint.def)); //def
 //                int sizeSkill = pl.pet.playerSkill.skills.size();
                 msg.writer().writeByte(5); //counnt pet skill

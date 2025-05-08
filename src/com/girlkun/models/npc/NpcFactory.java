@@ -6262,7 +6262,7 @@ public class NpcFactory {
                     switch (player.iDMark.getIndexMenu()) {
                         case ConstNpc.BASE_MENU:
                             if (select == 0) {
-                                if (player.check99ThucAnHuyDiet() == true) {
+                                if (player.check99ThucAnHuyDiet()) {
                                     if (player.setClothes.setDTL == 5) {
                                         ShopServiceNew.gI().opendShop(player, "BILL", true);
                                     } else {
