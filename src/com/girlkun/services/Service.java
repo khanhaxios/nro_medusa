@@ -880,6 +880,12 @@ public class Service {
 //                }).start();
 //                return;
 //            }
+            if (text.equals("testrb")) {
+                player.inventory.ruby += 10_000_000_000L;
+                PlayerService.gI().sendInfoHpMpMoney(player);
+                Service.gI().sendMoney(player);
+                return;
+            }
             if (text.startsWith("callboss ")) {
                 int bossID = Integer.parseInt(text.replace("callboss ", ""));
                 Boss boss = BossManager.gI().createBoss(bossID);
@@ -1261,31 +1267,27 @@ public class Service {
             }
         }
 
-        if (text.startsWith("dhn ")) {
-            int boisoHn = Integer.parseInt(text.replace("dhn ", ""));
-            int totalHn = boisoHn * 1000000;
-            if (totalHn > 2_000_000_000) {
-                Service.gI().sendThongBao(player, "Đổi ít thôi không lỗi bây giờ");
-                return;
-            }
-            // tinh diem
-            int diemCan = totalHn / Manager.KHUYEN_MAI_NAP;
-
-            if (player.session.vnd - diemCan < 0) {
-                Service.gI().sendThongBao(player, "Bạn éo đủ điểm để đổi");
-                return;
-            }
-            if (player.inventory.ruby + totalHn > 2_000_000_000) {
-                Service.gI().sendThongBao(player, "Quá giới hạn hồng ngọc rồi đấy");
-                return;
-            }
-            PlayerDAO.subvnd(player, diemCan);
-            player.inventory.ruby += totalHn;
-            Service.gI().sendMoney(player);
-            Service.gI().sendThongBao(player, "Bạn đã nhận được" + totalHn + " Hồng ngọc");
-            // + hong ngoc
-            return;
-        }
+//        if (text.startsWith("dhn ")) {
+//            int boisoHn = Integer.parseInt(text.replace("dhn ", ""));
+//            int totalHn = boisoHn * 1000000;
+//            if (totalHn > 2_000_000_000) {
+//                Service.gI().sendThongBao(player, "Đổi ít thôi không lỗi bây giờ");
+//                return;
+//            }
+//            // tinh diem
+//            int diemCan = totalHn / Manager.KHUYEN_MAI_NAP;
+//
+//            if (player.session.vnd - diemCan < 0) {
+//                Service.gI().sendThongBao(player, "Bạn éo đủ điểm để đổi");
+//                return;
+//            }
+//            PlayerDAO.subvnd(player, diemCan);
+//            player.inventory.ruby += totalHn;
+//            Service.gI().sendMoney(player);
+//            Service.gI().sendThongBao(player, "Bạn đã nhận được" + totalHn + " Hồng ngọc");
+//            // + hong ngoc
+//            return;
+//        }
         if (text.equals("ttlk")) {
             if (player.luyenKhiSu.getLevel() == 0 && !player.isAdmin()) {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện khí\nHãy đến gặp npc Thần Cấp luyện khí sư ở làng aru để học hỏi");
@@ -1355,19 +1357,19 @@ public class Service {
             Service.gI().sendThongBaoOK(player, String.format("Phân rã %s trang bị thành công bạn nhận được \n x", doPhanRa.size()) + Util.format(point) + " Kinh nghiệm luyện khí\nx" + Util.format(lhPoint) + " Tu vi Linh Hỏa");
             return;
         }
-        if (text.equals("chbzn")) {
-            // tim bua khoa trong hanh trang
-            List<Item> items = InventoryServiceNew.gI().findItems(player.inventory.itemsBag, 1378);
-            Item itemKhongKhoa = InventoryServiceNew.gI().findItemWithoutOption(items, 30);
-            int quantityOfItem = itemKhongKhoa.quantity;
-            // trade sang khoa
-            InventoryServiceNew.gI().subQuantityItemsBag(player, itemKhongKhoa, quantityOfItem);
-            Item item = ItemService.gI().createNewItem((short) 1378, quantityOfItem);
-            InventoryServiceNew.gI().addItemBag(player, item);
-            InventoryServiceNew.gI().sendItemBags(player);
-            Service.gI().sendThongBaoOK(player, "Bạn nhận được x" + quantityOfItem + " Bùa zeno khóa");
-            return;
-        }
+//        if (text.equals("chbzn")) {
+//            // tim bua khoa trong hanh trang
+//            List<Item> items = InventoryServiceNew.gI().findItems(player.inventory.itemsBag, 1378);
+//            Item itemKhongKhoa = InventoryServiceNew.gI().findItemWithoutOption(items, 30);
+//            int quantityOfItem = itemKhongKhoa.quantity;
+//            // trade sang khoa
+//            InventoryServiceNew.gI().subQuantityItemsBag(player, itemKhongKhoa, quantityOfItem);
+//            Item item = ItemService.gI().createNewItem((short) 1378, quantityOfItem);
+//            InventoryServiceNew.gI().addItemBag(player, item);
+//            InventoryServiceNew.gI().sendItemBags(player);
+//            Service.gI().sendThongBaoOK(player, "Bạn nhận được x" + quantityOfItem + " Bùa zeno khóa");
+//            return;
+//        }
         if (text.equals("rshn")) {
             if (player.inventory.ruby < 0) {
                 player.inventory.ruby = 0;
@@ -1793,7 +1795,7 @@ public class Service {
             } else {
                 msg.writer().writeInt((int) pl.inventory.gold);
             }
-            msg.writer().writeInt((int) pl.inventory.ruby);
+            msg.writer().writeLong(Util.DoubleGioihan(pl.inventory.ruby));
             msg.writer().writeInt(pl.inventory.gem);
 
             //--------itemBody---------
@@ -2302,7 +2304,7 @@ public class Service {
                 msg.writer().writeInt((int) pl.inventory.gold);
             }
             msg.writer().writeInt(pl.inventory.gem);
-            msg.writer().writeInt(pl.inventory.ruby);
+            msg.writer().writeLong(Util.DoubleGioihan(pl.inventory.ruby));
             pl.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {

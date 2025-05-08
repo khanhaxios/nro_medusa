@@ -17,11 +17,8 @@ public class ItemData {
     public static void updateItem(MySession session) {
         updateItemOptionItemplate(session);
         int count = 925;
-//        updateItemTemplate(session, count);
-//        updateItemTemplate(session, count, Manager.ITEM_TEMPLATES.size());
         updateItemTemplate(session, count);
         updateItemTemplate(session, count, Manager.ITEM_TEMPLATES.size());
-//        updateItemTemplate(session, 1500, Manager.ITEM_TEMPLATES.size());
     }
 
     private static void updateItemOptionItemplate(MySession session) {
@@ -31,7 +28,7 @@ public class ItemData {
             msg.writer().writeByte(8);
             msg.writer().writeByte(DataGame.vsItem); //vcitem
             msg.writer().writeByte(0); //update option
-            msg.writer().writeByte(Manager.ITEM_OPTION_TEMPLATES.size());
+            msg.writer().writeShort(Manager.ITEM_OPTION_TEMPLATES.size());
             for (ItemOptionTemplate io : Manager.ITEM_OPTION_TEMPLATES) {
                 msg.writer().writeUTF(io.name);
                 msg.writer().writeByte(io.type);

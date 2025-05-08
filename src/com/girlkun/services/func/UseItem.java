@@ -1994,12 +1994,7 @@ public class UseItem {
                 Service.getInstance().sendThongBao(pl, "Chúc mừng bạn đã nhận được " + hopDo.template.name);
                 break;
             case 861:
-                long total = pl.inventory.ruby + 1000_000;
-                if (total > 2000_000_000) {
-                    Service.gI().sendThongBao(pl, "Đã vượt quá giới hạn hồng ngọc hãy thử lại sau");
-                    return;
-                }
-                pl.inventory.ruby = (int) total;
+                pl.inventory.ruby = pl.inventory.ruby + 1000_000;
                 Service.getInstance().sendThongBao(pl, "Chúc mừng bạn đã nhận được 1M hồng ngọc");
                 break;
             case 457:

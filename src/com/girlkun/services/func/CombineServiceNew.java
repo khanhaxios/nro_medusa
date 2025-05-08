@@ -29,7 +29,7 @@ public class CombineServiceNew {
 
     private static final int TIME_COMBINE = 1500;
 
-    private static final byte MAX_STAR_ITEM = 30;
+    private static final byte MAX_STAR_ITEM = 8;
     private static final byte MAX_LEVEL_ITEM = 102;
 
     private static final byte OPEN_TAB_COMBINE = 0;
