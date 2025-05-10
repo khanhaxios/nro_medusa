@@ -1,6 +1,7 @@
 package com.girlkun.utils;
 
 import java.util.List;
+
 import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.NClass;
 import com.girlkun.models.skill.Skill;
@@ -58,11 +59,11 @@ public class SkillUtil {
         int skillId = player.playerSkill.skillSelect.template.id;
         return (skillId == Skill.KAMEJOKO || skillId == Skill.MASENKO || skillId == Skill.ANTOMIC);
     }
-    
+
     public static int getPercentHpMpBienHinh(int level) { //tỉ lệ máu khỉ cộng thêm v
-        return level * 100_000;
+        return level * 60;
     }
-    
+
     public static int getTimeBienHinh(int level, int coolDown) { //thời gian biến hình
         int per = 350; //(level + 3) * 10;
         return coolDown * per / 100;
@@ -75,7 +76,7 @@ public class SkillUtil {
     public static int getPercentHpMonkey(int level) { //tỉ lệ máu khỉ cộng thêm v
         return (level + 3) * 2;
     }
-    
+
     public static int getPercentDameMonkey(int level) { //tỉ lệ dam khỉ cộng thêm v
         return (level + 3);
     }
@@ -87,6 +88,7 @@ public class SkillUtil {
     public static int getTimeSocola() {
         return 30000;
     }
+
     public static int getTimeBinh() {
         return 10000;
     }
@@ -173,7 +175,7 @@ public class SkillUtil {
             }
         }
         skill = new Skill(skill);
-        if(index == 1){
+        if (index == 1) {
             skill.coolDown = 1000;
         }
         skills.set(index, skill);
@@ -224,7 +226,7 @@ public class SkillUtil {
         } else if (id >= 502 && id <= 508) {
             return Skill.TROI;
         } else if (id >= 509 && id <= 515) {
-            return Skill.HUYT_SAO;            
+            return Skill.HUYT_SAO;
         } else if (id >= 1565 && id <= 1569) {
             return Skill.BIEN_HINH_TD;
         } else if (id >= 1570 && id <= 1574) {
@@ -300,11 +302,11 @@ public class SkillUtil {
             }
         }
     }
-    
+
     public static boolean isSkillXDame(int idSkill) {
         return idSkill == Skill.DRAGON || idSkill == Skill.DEMON || idSkill == Skill.GALICK
-                || idSkill == Skill.LIEN_HOAN || idSkill ==  Skill.KAIOKEN 
-                || idSkill == Skill.KAMEJOKO|| idSkill == Skill.MASENKO|| idSkill == Skill.ANTOMIC;
+                || idSkill == Skill.LIEN_HOAN || idSkill == Skill.KAIOKEN
+                || idSkill == Skill.KAMEJOKO || idSkill == Skill.MASENKO || idSkill == Skill.ANTOMIC;
     }
 
     public static byte getTyleSkillAttack(Skill skill) {

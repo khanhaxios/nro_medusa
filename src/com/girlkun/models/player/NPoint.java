@@ -156,7 +156,6 @@ public class NPoint {
     public int voHieuChuong;
 
     /*------------------------Effect skin-------------------------------------*/
-    public Item trainArmor;
     public boolean wornTrainArmor;
     public boolean wearingTrainArmor;
 
@@ -549,7 +548,6 @@ public class NPoint {
                 }
             }
         }
-        ///
         setDameTrainArmor();
         setBasePoint();
     }
@@ -700,37 +698,42 @@ public class NPoint {
     private void setHpMax() {
         this.hpMax = this.hpg;
         this.hpMax += this.hpAdd;
-        if (player.taixiu.chuyensinh > 0) {
-            hpMax += player.taixiu.addNPointChuyenSinh(this.hpg);
-        }
-        //đồ
+        // TODO : handle when update "luyen the" tree
+//        if (player.taixiu.chuyensinh > 0) {
+//            hpMax += player.taixiu.addNPointChuyenSinh(this.hpg);
+//        }
+        //item body
         for (Integer tl : this.tlHp) {
-            this.hpMax += ((double) this.hpMax * tl / 100);
+            this.hpMax += (this.hpMax * tl / 100);
         }
         //set nappa
         if (this.player.setClothes.nappa == 5) {
-            this.hpMax += ((double) this.hpMax * 100 / 100);
+            this.hpMax += this.mpMax;
         }
+
         //set thanh ton ( thien tu xayda)
         if (this.player.setClothes.ThienTu == 5) {
-            this.hpMax *= 4;
+            this.hpMax *= 3;
         }
         //set tinh ấn
         if (this.player.setClothes.tinhan == 5) {
-            this.hpMax += ((double) this.hpMax * 20 / 100);
+            this.hpMax += ((double) this.hpMax * 5 / 100);
         }
-        //set cơ giáp cấu trang
-        //   if (this.player.setClothes.mahoa == 5) {
-        // this.hpMax += ((double) this.hpMax * 20 / 100);
-        //   }
+        //set ma hoa
+        if (this.player.setClothes.mahoa == 5) {
+            this.hpMax += ((double) this.hpMax * 6 / 100);
+        }
+        if (this.player.setClothes.thanhoa == 5) {
+            this.hpMax += ((double) this.hpMax * 6 / 100);
+        }
         //set solomon
         if (this.player.setClothes.solomon >= 2) {
-            this.hpMax += (this.hpMax * 10 / 100);
+            this.hpMax += (this.hpMax * 5 / 100);
         }
         //ngọc rồng đen 2 sao
-        if (this.player.rewardBlackBall.timeOutOfDateReward[1] > System.currentTimeMillis()) {
-            this.hpMax += (this.hpMax * RewardBlackBall.R2S_1 / 100);
-        }
+//        if (this.player.rewardBlackBall.timeOutOfDateReward[1] > System.currentTimeMillis()) {
+//            this.hpMax += (this.hpMax * RewardBlackBall.R2S_1 / 100);
+//        }
         //khỉ
         if (this.player.effectSkill.isMonkey) {
             if (!this.player.isPet || ((Pet) this.player).status != Pet.FUSION) {
@@ -738,35 +741,40 @@ public class NPoint {
                 this.hpMax += (this.hpMax * percent / 100);
             }
         }
-        if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            switch (((Pet) this.player).typePet) {
-                case ConstPet.MABU -> this.hpMax += (this.hpMax * 10 / 100);
-                case ConstPet.BERUS -> this.hpMax += (this.hpMax * 15 / 100);
-                case ConstPet.MASTER_BROLY -> this.hpMax += (this.hpMax * 20 / 100);
-                case ConstPet.ZENO -> this.hpMax += (this.hpMax * 50 / 100);
-                case ConstPet.GOKU -> this.hpMax += (this.hpMax * 60 / 100);
-                case ConstPet.GOGETA -> this.hpMax += (this.hpMax * 80 / 100);
-                case ConstPet.NAKROTH -> this.hpMax += (this.hpMax * 120 / 100);
-                case ConstPet.THAN_LONG_TY_TY -> this.hpMax += (this.hpMax * 200 / 100);
-                case ConstPet.FU -> this.hpMax += (this.hpMax * 500 / 100);
-            }
-        }
 
-        //đuôi khỉ
-        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
-            this.hpMax += (this.hpMax * 10 / 100);
-        }
-        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
-            this.hpMax += (this.hpMax * 12 / 100);
-        }
-        //phù
-        if (this.player.zone != null && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
-            this.hpMax *= this.player.effectSkin.xHPKI;
-        }
         //+hp đệ
         if (this.player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             this.hpMax += this.player.pet.nPoint.hpMax;
         }
+
+        // chi so  hop the
+        if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
+            switch (((Pet) this.player).typePet) {
+                case ConstPet.MABU -> this.hpMax += (this.hpMax * 10 / 100);
+                case ConstPet.BERUS -> this.hpMax += (this.hpMax * 12 / 100);
+                case ConstPet.MASTER_BROLY -> this.hpMax += (this.hpMax * 15 / 100);
+                case ConstPet.ZENO -> this.hpMax += (this.hpMax * 20 / 100);
+                case ConstPet.GOKU -> this.hpMax += (this.hpMax * 25 / 100);
+                case ConstPet.GOGETA -> this.hpMax += (this.hpMax * 30 / 100);
+                case ConstPet.NAKROTH -> this.hpMax += (this.hpMax * 45 / 100);
+                case ConstPet.THAN_LONG_TY_TY -> this.hpMax += (this.hpMax * 55 / 100);
+                case ConstPet.FU -> this.hpMax += (this.hpMax * 100 / 100);
+            }
+        }
+
+        //đuôi khỉ
+        // TODO : handle when create item buff system
+//        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
+//            this.hpMax += (this.hpMax * 10 / 100);
+//        }
+//        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
+//            this.hpMax += (this.hpMax * 12 / 100);
+//        }
+        //phù
+        if (this.player.zone != null && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
+            this.hpMax *= this.player.effectSkin.xHPKI;
+        }
+
         //huýt sáo
         if (!this.player.isPet || ((Pet) this.player).status != Pet.FUSION) {
             if (this.player.effectSkill.tiLeHPHuytSao != 0) {
@@ -774,62 +782,63 @@ public class NPoint {
 
             }
         }
+        // notice : all items time is developing
         //bổ huyết
-        if (this.player.itemTime != null && this.player.itemTime.isUseBoHuyet) {
-            this.hpMax *= 2;
-        }
-
-        if (this.player.isPl() && this.player.isTitleUse3 && this.player.lastTimeTitle3 > 0) {
-            this.hpMax += (this.hpMax * 10 / 100);
-        }
-        if (this.player.isPl() && this.player.isTitleUse2 && this.player.lastTimeTitle2 > 0) {
-            this.hpMax += (this.hpMax * 10 / 100);
-        }
-        if (this.player.isPl() && this.player.isTitleUse1 && this.player.lastTimeTitle1 > 0) {
-            this.hpMax += (this.hpMax * 10 / 100);
-        }
+//        if (this.player.itemTime != null && this.player.itemTime.isUseBoHuyet) {
+//            this.hpMax *= 2;
+//        }
+//        if (this.player.isPl() && this.player.isTitleUse3 && this.player.lastTimeTitle3 > 0) {
+//            this.hpMax += (this.hpMax * 10 / 100);
+//        }
+//        if (this.player.isPl() && this.player.isTitleUse2 && this.player.lastTimeTitle2 > 0) {
+//            this.hpMax += (this.hpMax * 10 / 100);
+//        }
+//        if (this.player.isPl() && this.player.isTitleUse1 && this.player.lastTimeTitle1 > 0) {
+//            this.hpMax += (this.hpMax * 10 / 100);
+//        }
         //bí ngô
-        if (this.player.itemTime != null && this.player.itemTime.isBiNgo) {
-            this.hpMax += (this.hpMax * 20 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh) {
-            this.hpMax += (this.hpMax * 90 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh1) {
-            this.hpMax += this.hpMax;
-        }
+//        if (this.player.itemTime != null && this.player.itemTime.isBiNgo) {
+//            this.hpMax += (this.hpMax * 20 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh) {
+//            this.hpMax += (this.hpMax * 90 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh1) {
+//            this.hpMax += this.hpMax;
+//        }
         // item sieu cawsp
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseBoHuyet3) {
-            this.hpMax += (this.hpMax * 20 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseXiMuoi) {
-            this.hpMax += (this.hpMax * 20 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4042) {
-            this.hpMax += (this.hpMax * 10 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4043) {
-            this.hpMax += (this.hpMax * 20 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4125) {
-            this.hpMax += (this.hpMax * 30 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4126) {
-            this.hpMax += (this.hpMax * 50 / 100);
-        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseBoHuyet3) {
+//            this.hpMax += (this.hpMax * 20 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseXiMuoi) {
+//            this.hpMax += (this.hpMax * 20 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4042) {
+//            this.hpMax += (this.hpMax * 10 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4043) {
+//            this.hpMax += (this.hpMax * 20 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4125) {
+//            this.hpMax += (this.hpMax * 30 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4126) {
+//            this.hpMax += (this.hpMax * 50 / 100);
+//        }
         if (this.player.zone != null && MapService.gI().isMapCold(this.player.zone.map) && !this.isKhongLanh) {
             this.hpMax /= 2;
         }
         //mèo mun
         if (this.player.effectFlagBag.useMeoMun) {
-            this.hpMax += (this.hpMax * 15 / 100);
+            this.hpMax += (this.hpMax * 5 / 100);
         }
         //Tu tiên
-        if (this.player.isPl()) {
-            if (!this.player.isPet && this.player.haveTuTien || this.player.isPet && ((Pet) this.player).master.haveTuTien) {
-                this.hpMax += this.hpMax * ((this.player.CapTuTien + 1) * 3) / 100;
-            }
-        }
+        // noice : tu tien is developing
+//        if (this.player.isPl()) {
+//            if (!this.player.isPet && this.player.haveTuTien || this.player.isPet && ((Pet) this.player).master.haveTuTien) {
+//                this.hpMax += this.hpMax * ((this.player.CapTuTien + 1) * 3) / 100;
+//            }
+//        }
 
         //Kết hôn
         if (this.player.duockethon != 0) {
@@ -849,45 +858,52 @@ public class NPoint {
                 switch (this.player.TrieuHoiCapBac) {
                     case 7:
                     case 8:
-                        this.hpMax += this.hpMax * ((this.player.TrieuHoiLevel + 1) / 10f) / 100;
+                        this.hpMax += this.hpMax * 6 / 100;
                         break;
                     case 9:
-                        this.hpMax += this.hpMax * ((this.player.TrieuHoiLevel + 1) / 5f) / 100;
+                        this.hpMax += this.hpMax * 7 / 100;
+                        break;
+                    case 10:
+                        this.hpMax += this.hpMax * 10 / 100;
                         break;
                     default:
-                        this.hpMax += this.hpMax * (this.player.TrieuHoiLevel + 1 / 3f) / 100;
+                        this.hpMax += this.hpMax * 1 / 100;
                         break;
                 }
             }
             if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 0 || this.player.TrieuHoiCapBac == 3 || this.player.TrieuHoiCapBac == 4)) {
                 switch (this.player.TrieuHoiCapBac) {
                     case 0:
+                        this.hpMax += 100_000;
+                        break;
                     case 3:
-                        this.hpMax += ((this.player.TrieuHoiLevel + 1) * 12);
+                        this.hpMax += this.mpMax * 10 / 100;
                         break;
                     default:
-                        this.hpMax += ((this.player.TrieuHoiLevel + 1) * 15);
+                        this.hpMax += this.hpMax * 1 / 100;
                         break;
                 }
             }
             // Đạo Lữ Song Tu
-            if (this.player.petDaoLu != null && this.player.petDaoLu.status != DaoLu.GOHOME) {
-                this.hpMax += calPercent(this.hpMax, this.player.petDaoLu.getNPointAddByType());
-                if (this.player.petDaoLu.pointCapCanhGioi == 10) {
-                    this.hpMax += calPercent(this.hpMax, DaoLu.POWER_DAU_THANH);
-                }
-                this.hpMax += calPercent(this.hpMax, this.player.petDaoLu.getNPointAddCapBac());
-                this.hpMax += calPercent(this.hpMax, this.player.petDaoLu.getNPointAddCapTinh());
-            }
+            // note  : he thong dao lu dang phat trien
+//            if (this.player.petDaoLu != null && this.player.petDaoLu.status != DaoLu.GOHOME) {
+//                this.hpMax += calPercent(this.hpMax, this.player.petDaoLu.getNPointAddByType());
+//                if (this.player.petDaoLu.pointCapCanhGioi == 10) {
+//                    this.hpMax += calPercent(this.hpMax, DaoLu.POWER_DAU_THANH);
+//                }
+//                this.hpMax += calPercent(this.hpMax, this.player.petDaoLu.getNPointAddCapBac());
+//                this.hpMax += calPercent(this.hpMax, this.player.petDaoLu.getNPointAddCapTinh());
+//            }
         }
-        if (this.player.isDaoLu) {
-            this.hpMax += calPercent(this.hpMax, ((DaoLu) this.player).getNPointAddByType());
-            if (((DaoLu) this.player).pointCapCanhGioi == 10) {
-                this.hpMax += calPercent(this.hpMax, DaoLu.POWER_DAU_THANH);
-            }
-            this.hpMax += calPercent(this.hpMax, ((DaoLu) this.player).getNPointAddCapBac());
-            this.hpMax += calPercent(this.hpMax, ((DaoLu) this.player).getNPointAddCapTinh());
-        }
+        // he thong dao lu dang phat trien
+//        if (this.player.isDaoLu) {
+//            this.hpMax += calPercent(this.hpMax, ((DaoLu) this.player).getNPointAddByType());
+//            if (((DaoLu) this.player).pointCapCanhGioi == 10) {
+//                this.hpMax += calPercent(this.hpMax, DaoLu.POWER_DAU_THANH);
+//            }
+//            this.hpMax += calPercent(this.hpMax, ((DaoLu) this.player).getNPointAddCapBac());
+//            this.hpMax += calPercent(this.hpMax, ((DaoLu) this.player).getNPointAddCapTinh());
+//        }
         // biến hình
         if (this.player.effectSkill.isBienHinh) {
             if (!this.player.isPet || ((Pet) this.player).status != Pet.FUSION) {
@@ -898,14 +914,12 @@ public class NPoint {
 
         //phu kien kich hoat
         switch (this.player.setClothes.pkkhMedusa) {
-            case 2 -> this.hpMax += calPercent(this.hpMax, 1_000_000);
-            case 3 -> this.hpMax += calPercent(this.hpMax, 2_000_000);
-            case 5 -> this.hpMax += calPercent(this.hpMax, 5_000_000);
+            case 2 -> this.hpMax += calPercent(this.hpMax, 20);
+            case 3 -> this.hpMax += calPercent(this.hpMax, 30);
+            case 5 -> this.hpMax += calPercent(this.hpMax, 50);
         }
     }
 
-    // (hp sư phụ + hp đệ tử ) + 15%
-    // (hp sư phụ + 15% +hp đệ tử)
     private void setHp() {
         if (this.hp > this.hpMax) {
             this.hp = this.hpMax;
@@ -915,10 +929,10 @@ public class NPoint {
     private void setMpMax() {
         this.mpMax = this.mpg;
         this.mpMax += this.mpAdd;
-        if (player.taixiu.chuyensinh > 0) {
-            mpMax += player.taixiu.addNPointChuyenSinh(this.mpg);
-        }
-        //đồ
+//        if (player.taixiu.chuyensinh > 0) {
+//            mpMax += player.taixiu.addNPointChuyenSinh(this.mpg);
+//        }
+//        //đồ
         for (Integer tl : this.tlMp) {
             this.mpMax += (this.mpMax * tl / 100);
         }
@@ -926,7 +940,7 @@ public class NPoint {
             this.mpMax *= 2;
         }
         if (this.player.setClothes.MaThan == 5) {
-            this.mpMax *= 5;
+            this.mpMax *= 3;
         }
         //ngọc rồng đen 2 sao
         if (this.player.rewardBlackBall.timeOutOfDateReward[1] > System.currentTimeMillis()) {
@@ -934,11 +948,14 @@ public class NPoint {
         }
         //set solomon
         if (this.player.setClothes.solomon >= 2) {
-            this.mpMax += ((double) this.mpMax * 10 / 100);
+            this.mpMax += ((double) this.mpMax * 5 / 100);
         }
         //set nhật ấn
         if (this.player.setClothes.nhatan == 5) {
-            this.mpMax += ((double) this.mpMax * 12 / 100);
+            this.mpMax += ((double) this.mpMax * 5 / 100);
+        }
+        if (this.player.fusion.typeFusion != 0) {
+            this.mpMax += this.player.pet.nPoint.mpMax;
         }
 
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
@@ -946,33 +963,30 @@ public class NPoint {
                 case ConstPet.MABU -> this.mpMax += ((double) this.mpMax * 10 / 100);
                 case ConstPet.BERUS -> this.mpMax += ((double) this.mpMax * 15 / 100);
                 case ConstPet.MASTER_BROLY -> this.mpMax += ((double) this.mpMax * 20 / 100);
-                case ConstPet.ZENO -> this.mpMax += ((double) this.mpMax * 50 / 100);
-                case ConstPet.GOKU -> this.mpMax += ((double) this.mpMax * 60 / 100);
-                case ConstPet.GOGETA -> this.mpMax += ((double) this.mpMax * 80 / 100);
-                case ConstPet.NAKROTH -> this.mpMax += ((double) this.mpMax * 120 / 100);
-                case ConstPet.THAN_LONG_TY_TY -> this.mpMax += ((double) this.mpMax * 200 / 100);
-                case ConstPet.FU -> this.mpMax += ((double) this.mpMax * 500 / 100);
+                case ConstPet.ZENO -> this.mpMax += ((double) this.mpMax * 25 / 100);
+                case ConstPet.GOKU -> this.mpMax += ((double) this.mpMax * 30 / 100);
+                case ConstPet.GOGETA -> this.mpMax += ((double) this.mpMax * 55 / 100);
+                case ConstPet.NAKROTH -> this.mpMax += ((double) this.mpMax * 60 / 100);
+                case ConstPet.THAN_LONG_TY_TY -> this.mpMax += ((double) this.mpMax * 65 / 100);
+                case ConstPet.FU -> this.mpMax += ((double) this.mpMax * 120 / 100);
             }
         }
 
         //đuôi khỉ
-        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
-            this.mpMax += ((double) this.mpMax * 10 / 100);
-        }
-        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
-            this.mpMax += ((double) this.mpMax * 12 / 100);
-        }
+//        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
+//            this.mpMax += ((double) this.mpMax * 10 / 100);
+//        }
+//        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
+//            this.mpMax += ((double) this.mpMax * 12 / 100);
+//        }
         //hợp thể
-        if (this.player.fusion.typeFusion != 0) {
-            this.mpMax += this.player.pet.nPoint.mpMax;
-        }
 
         //Tu tiên
-        if (this.player.isPl()) {
-            if (!this.player.isPet && this.player.haveTuTien || this.player.isPet && ((Pet) this.player).master.haveTuTien) {
-                this.mpMax += (double) this.mpMax * ((this.player.CapTuTien + 1) * 5) / 100;
-            }
-        }
+//        if (this.player.isPl()) {
+//            if (!this.player.isPet && this.player.haveTuTien || this.player.isPet && ((Pet) this.player).master.haveTuTien) {
+//                this.mpMax += (double) this.mpMax * ((this.player.CapTuTien + 1) * 5) / 100;
+//            }
+//        }
         //Kết hôn mp
         if (this.player.duockethon != 0) {
             this.mpMax += ((double) this.mpMax * (this.player.duockethon * 5) / 100);
@@ -985,98 +999,103 @@ public class NPoint {
             this.mpMax += ((double) this.mpMax * 50 / 100);
         }
         //bổ khí
-        if (this.player.itemTime != null && this.player.itemTime.isUseBoKhi) {
-            this.mpMax *= 2;
-        }
-        if (this.player.isPl() && this.player.isTitleUse3 && this.player.lastTimeTitle3 > 0) {
-            this.mpMax += ((double) this.mpMax * 10 / 100);
-        }
-        if (this.player.isPl() && this.player.isTitleUse2 && this.player.lastTimeTitle2 > 0) {
-            this.mpMax += ((double) this.mpMax * 10 / 100);
-        }
-        if (this.player.isPl() && this.player.isTitleUse1 && this.player.lastTimeTitle1 > 0) {
-            this.mpMax += ((double) this.mpMax * 10 / 100);
-        }
-        //bí ngô
-        if (this.player.itemTime != null && this.player.itemTime.isBiNgo) {
-            this.mpMax += ((double) this.mpMax * 12 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseBoKhi3) {
-            this.mpMax += ((double) this.mpMax * 20 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh) {
-            this.mpMax += ((double) this.mpMax * 90 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh1) {
-            this.mpMax += ((double) this.mpMax);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseXiMuoi) {
-            this.mpMax += ((double) this.mpMax * 20 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4042) {
-            this.mpMax += ((double) this.mpMax * 10 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4043) {
-            this.mpMax += ((double) this.mpMax * 20 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4125) {
-            this.mpMax += ((double) this.mpMax * 30 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4126) {
-            this.mpMax += ((double) this.mpMax * 50 / 100);
-        }
+//        if (this.player.itemTime != null && this.player.itemTime.isUseBoKhi) {
+//            this.mpMax *= 2;
+//        }
+//        if (this.player.isPl() && this.player.isTitleUse3 && this.player.lastTimeTitle3 > 0) {
+//            this.mpMax += ((double) this.mpMax * 10 / 100);
+//        }
+//        if (this.player.isPl() && this.player.isTitleUse2 && this.player.lastTimeTitle2 > 0) {
+//            this.mpMax += ((double) this.mpMax * 10 / 100);
+//        }
+//        if (this.player.isPl() && this.player.isTitleUse1 && this.player.lastTimeTitle1 > 0) {
+//            this.mpMax += ((double) this.mpMax * 10 / 100);
+//        }
+//        //bí ngô
+//        if (this.player.itemTime != null && this.player.itemTime.isBiNgo) {
+//            this.mpMax += ((double) this.mpMax * 12 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseBoKhi3) {
+//            this.mpMax += ((double) this.mpMax * 20 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh) {
+//            this.mpMax += ((double) this.mpMax * 90 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh1) {
+//            this.mpMax += ((double) this.mpMax);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseXiMuoi) {
+//            this.mpMax += ((double) this.mpMax * 20 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4042) {
+//            this.mpMax += ((double) this.mpMax * 10 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4043) {
+//            this.mpMax += ((double) this.mpMax * 20 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4125) {
+//            this.mpMax += ((double) this.mpMax * 30 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4126) {
+//            this.mpMax += ((double) this.mpMax * 50 / 100);
+//        }
         //phù
         if (this.player.zone != null && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
             this.mpMax *= this.player.effectSkin.xHPKI;
         }
         //xiên cá
         if (this.player.effectFlagBag.useXienCa) {
-            this.mpMax += ((double) this.mpMax * 15 / 100);
+            this.mpMax += ((double) this.mpMax * 5 / 100);
         }
         if (this.player.isPl()) {
             if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 7 || this.player.TrieuHoiCapBac == 8 || this.player.TrieuHoiCapBac == 9 || this.player.TrieuHoiCapBac == 10)) {
                 switch (this.player.TrieuHoiCapBac) {
                     case 7:
                     case 8:
-                        this.mpMax += this.mpMax * ((this.player.TrieuHoiLevel + 1) / 15f) / 100;
+                        this.mpMax += this.mpMax * 6 / 100;
                         break;
                     case 9:
-                        this.mpMax += this.mpMax * ((this.player.TrieuHoiLevel + 1) / 5f) / 100;
+                        this.mpMax += this.mpMax * 7 / 100;
+                        break;
+                    case 10:
+                        this.mpMax += this.mpMax * 10 / 100;
                         break;
                     default:
-                        this.mpMax += this.mpMax * (this.player.TrieuHoiLevel + 1 /  3f) / 100;
+                        this.mpMax += this.mpMax * 1 / 100;
                         break;
                 }
             }
             if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 1 || this.player.TrieuHoiCapBac == 3 || this.player.TrieuHoiCapBac == 4)) {
                 switch (this.player.TrieuHoiCapBac) {
                     case 1:
+                        this.mpMax += 100000;
+                        break;
                     case 3:
-                        this.mpMax += ((this.player.TrieuHoiLevel + 1) * 2);
+                        this.mpMax += this.mpMax * 10 / 100;
                         break;
                     default:
-                        this.mpMax += ((this.player.TrieuHoiLevel + 1) * 3);
+                        this.mpMax += this.mpMax * 1 / 100;
                         break;
                 }
             }
             // Đạo Lữ Song Tu
-            if (this.player.petDaoLu != null && this.player.petDaoLu.status != DaoLu.GOHOME) {
-                this.mpMax += calPercent(this.mpMax, this.player.petDaoLu.getNPointAddByType());
-                if (this.player.petDaoLu.pointCapCanhGioi == 10) {
-                    this.mpMax += calPercent(this.mpMax, DaoLu.POWER_DAU_THANH);
-                }
-                this.mpMax += calPercent(this.mpMax, this.player.petDaoLu.getNPointAddCapBac());
-                this.mpMax += calPercent(this.mpMax, this.player.petDaoLu.getNPointAddCapTinh());
-            }
+//            if (this.player.petDaoLu != null && this.player.petDaoLu.status != DaoLu.GOHOME) {
+//                this.mpMax += calPercent(this.mpMax, this.player.petDaoLu.getNPointAddByType());
+//                if (this.player.petDaoLu.pointCapCanhGioi == 10) {
+//                    this.mpMax += calPercent(this.mpMax, DaoLu.POWER_DAU_THANH);
+//                }
+//                this.mpMax += calPercent(this.mpMax, this.player.petDaoLu.getNPointAddCapBac());
+//                this.mpMax += calPercent(this.mpMax, this.player.petDaoLu.getNPointAddCapTinh());
+//            }
         }
-        if (this.player.isDaoLu) {
-            this.mpMax += calPercent(this.mpMax, ((DaoLu) this.player).getNPointAddByType());
-            if (((DaoLu) this.player).pointCapCanhGioi == 10) {
-                this.mpMax += calPercent(this.mpMax, DaoLu.POWER_DAU_THANH);
-            }
-            this.mpMax += calPercent(this.mpMax, ((DaoLu) this.player).getNPointAddCapBac());
-            this.mpMax += calPercent(this.mpMax, ((DaoLu) this.player).getNPointAddCapTinh());
-        }
+//        if (this.player.isDaoLu) {
+//            this.mpMax += calPercent(this.mpMax, ((DaoLu) this.player).getNPointAddByType());
+//            if (((DaoLu) this.player).pointCapCanhGioi == 10) {
+//                this.mpMax += calPercent(this.mpMax, DaoLu.POWER_DAU_THANH);
+//            }
+//            this.mpMax += calPercent(this.mpMax, ((DaoLu) this.player).getNPointAddCapBac());
+//            this.mpMax += calPercent(this.mpMax, ((DaoLu) this.player).getNPointAddCapTinh());
+//        }
 
         // biến hình
         if (this.player.effectSkill.isBienHinh) {
@@ -1088,9 +1107,9 @@ public class NPoint {
 
         //phu kien kich hoat
         switch (this.player.setClothes.pkkhMedusa) {
-            case 2 -> this.mpMax += calPercent(this.mpMax, 1_000_000);
-            case 3 -> this.mpMax += calPercent(this.mpMax, 2_000_000);
-            case 5 -> this.mpMax += calPercent(this.mpMax, 5_000_000);
+            case 2 -> this.mpMax += calPercent(this.mpMax, 20);
+            case 3 -> this.mpMax += calPercent(this.mpMax, 30);
+            case 5 -> this.mpMax += calPercent(this.mpMax, 50);
         }
     }
 
@@ -1103,9 +1122,9 @@ public class NPoint {
     private void setDame() {
         this.dame = this.dameg;
         this.dame += this.dameAdd;
-        if (player.taixiu.chuyensinh > 0) {
-            dame += player.taixiu.addNPointChuyenSinh(this.dameg);
-        }
+//        if (player.taixiu.chuyensinh > 0) {
+//            dame += player.taixiu.addNPointChuyenSinh(this.dameg);
+//        }
         //đồ
         for (Integer tl : this.tlDame) {
             this.dame += ((double) this.dame * tl / 100);
@@ -1113,32 +1132,35 @@ public class NPoint {
         for (Integer tl : this.tlSDDep) {
             this.dame += ((double) this.dame * tl / 100);
         }
+        if (this.player.fusion.typeFusion != 0) {
+            this.dame += this.player.pet.nPoint.dame;
+        }
 
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             switch (((Pet) this.player).typePet) {
-                case ConstPet.MABU -> this.dame += ((double) this.dame * 10 / 100);
-                case ConstPet.BERUS -> this.dame += ((double) this.dame * 15 / 100);
-                case ConstPet.MASTER_BROLY -> this.dame += ((double) this.dame * 20 / 100);
-                case ConstPet.ZENO -> this.dame += ((double) this.dame * 50 / 100);
-                case ConstPet.GOKU -> this.dame += ((double) this.dame * 60 / 100);
-                case ConstPet.GOGETA -> this.dame += ((double) this.dame * 80 / 100);
-                case ConstPet.NAKROTH -> this.dame += ((double) this.dame * 120 / 100);
-                case ConstPet.THAN_LONG_TY_TY -> this.dame += ((double) this.dame * 200 / 100);
-                case ConstPet.FU -> this.dame += ((double) this.dame * 500 / 100);
+                case ConstPet.MABU -> this.dame += ((double) this.dame * 5 / 100);
+                case ConstPet.BERUS -> this.dame += ((double) this.dame * 10 / 100);
+                case ConstPet.MASTER_BROLY -> this.dame += ((double) this.dame * 15 / 100);
+                case ConstPet.ZENO -> this.dame += ((double) this.dame * 20 / 100);
+                case ConstPet.GOKU -> this.dame += ((double) this.dame * 25 / 100);
+                case ConstPet.GOGETA -> this.dame += ((double) this.dame * 30 / 100);
+                case ConstPet.NAKROTH -> this.dame += ((double) this.dame * 35 / 100);
+                case ConstPet.THAN_LONG_TY_TY -> this.dame += ((double) this.dame * 50 / 100);
+                case ConstPet.FU -> this.dame += ((double) this.dame * 75 / 100);
             }
         }
 
         //đuôi khỉ
-        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
-            this.dame += ((double) this.dame * 15 / 100);
-        }
+//        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
+//            this.dame += ((double) this.dame * 15 / 100);
+//        }
 
-        //Tu tiên
-        if (this.player.isPl()) {
-            if (!this.player.isPet && this.player.haveTuTien || this.player.isPet && ((Pet) this.player).master.haveTuTien) {
-                this.dame += (double) this.dame * ((this.player.CapTuTien + 1) * 2) / 100;
-            }
-        }
+//        //Tu tiên
+//        if (this.player.isPl()) {
+//            if (!this.player.isPet && this.player.haveTuTien || this.player.isPet && ((Pet) this.player).master.haveTuTien) {
+//                this.dame += (double) this.dame * ((this.player.CapTuTien + 1) * 2) / 100;
+//            }
+//        }
 
         //rồng siêu cấp
         if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isRongSieuCap) {
@@ -1149,62 +1171,60 @@ public class NPoint {
             this.dame += ((double) this.dame * (this.player.duockethon * 3) / 100);
         }
         if (this.player.dakethon != 0) {
-            this.dame += ((double) this.dame * this.player.dakethon * 15 / 100);
+            this.dame += ((double) this.dame * this.player.dakethon * 10 / 100);
         }
 
-        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
-            this.dame += ((double) this.dame * 12 / 100);
-        }
+//        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
+//            this.dame += ((double) this.dame * 12 / 100);
+//        }
         //hợp thể
-        if (this.player.fusion.typeFusion != 0) {
-            this.dame += this.player.pet.nPoint.dame;
-        }
+
         //cuồng nộ
-        if (this.player.itemTime != null && this.player.itemTime.isUseCuongNo) {
-            this.dame *= 2;
-        }
+//        if (this.player.itemTime != null && this.player.itemTime.isUseCuongNo) {
+//            this.dame *= 2;
+//        }
         //bí ngô
-        if (this.player.itemTime != null && this.player.itemTime.isBiNgo) {
-            this.dame += ((double) this.dame * 20 / 100);
-        }
-        if (this.player.isPl() && this.player.isTitleUse3 && this.player.lastTimeTitle3 > 0) {
-            this.dame += ((double) this.dame * 10 / 100);
-        }
-        if (this.player.isPl() && this.player.isTitleUse2 && this.player.lastTimeTitle2 > 0) {
-            this.dame += ((double) this.dame * 10 / 100);
-        }
-        if (this.player.isPl() && this.player.isTitleUse1 && this.player.lastTimeTitle1 > 0) {
-            this.dame += ((double) this.dame * 10 / 100);
-        }
+//        if (this.player.itemTime != null && this.player.itemTime.isBiNgo) {
+//            this.dame += ((double) this.dame * 20 / 100);
+//        }
+//        if (this.player.isPl() && this.player.isTitleUse3 && this.player.lastTimeTitle3 > 0) {
+//            this.dame += ((double) this.dame * 10 / 100);
+//        }
+//        if (this.player.isPl() && this.player.isTitleUse2 && this.player.lastTimeTitle2 > 0) {
+//            this.dame += ((double) this.dame * 10 / 100);
+//        }
+//        if (this.player.isPl() && this.player.isTitleUse1 && this.player.lastTimeTitle1 > 0) {
+//            this.dame += ((double) this.dame * 10 / 100);
+//        }
 
         //thức ăn
-        if (!this.player.isPet && this.player.itemTimesieucap.isEatMeal || this.player.isPet && ((Pet) this.player).master.itemTimesieucap.isEatMeal) {
-            this.dame += ((double) this.dame * 10 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseCuongNo3) {
-            this.dame += ((double) this.dame * 20 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh) {
-            this.dame += ((double) this.dame * 90 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh1) {
-            this.dame += ((double) this.dame);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseXiMuoi) {
-            this.dame += ((double) this.dame * 20 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4042) {
-            this.dame += ((double) this.dame * 10 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4043) {
-            this.dame += ((double) this.dame * 20 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4125) {
-            this.dame += ((double) this.dame * 30 / 100);
-        }
-        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4126) {
-            this.dame += ((double) this.dame * 50 / 100);
-        }
+//        if (!this.player.isPet && this.player.itemTimesieucap.isEatMeal || this.player.isPet && ((Pet) this.player).master.itemTimesieucap.isEatMeal) {
+//            this.dame += ((double) this.dame * 10 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseCuongNo3) {
+//            this.dame += ((double) this.dame * 20 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh) {
+//            this.dame += ((double) this.dame * 90 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh1) {
+//            this.dame += ((double) this.dame);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseXiMuoi) {
+//            this.dame += ((double) this.dame * 20 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4042) {
+//            this.dame += ((double) this.dame * 10 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4043) {
+//            this.dame += ((double) this.dame * 20 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4125) {
+//            this.dame += ((double) this.dame * 30 / 100);
+//        }
+//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4126) {
+//            this.dame += ((double) this.dame * 50 / 100);
+//        }
         //giảm dame
         this.dame -= ((double) this.dame * tlSubSD / 100);
         //map cold
@@ -1216,104 +1236,93 @@ public class NPoint {
             this.dame += ((double) this.dame * RewardBlackBall.R1S_2 / 100);
         }
         //set nhan hoang
-//        if (this.player.setClothes.NhanHoang == 5) {
-//            this.dame += ((double) this.dame * 40 / 100);
-//            this.tlDameCrit.add(250);
-//        }
+        if (this.player.setClothes.NhanHoang == 5) {
+            this.dame += ((double) this.dame * 5 / 100);
+            this.tlDameCrit.add(50);
+        }
         //set ma than namec (thanh ton )
         if (this.player.setClothes.MaThan == 5) {
-            this.dame += ((double) this.dame * 30 / 100);
-            this.tlDameCrit.add(250);
+            this.dame += ((double) this.dame * 5 / 100);
+            this.tlDameCrit.add(75);
         }
 //        ////set thien tu xay da ( set thanh ton )
-//        if (this.player.setClothes.ThienTu == 5) {
-//            this.dame += 10000;
-//            this.dame += ((double) this.dame * 50 / 100);
-//            this.tlDameCrit.add(100);
-//        }
-
-        ////set NGUYEN THUY  td
+        if (this.player.setClothes.ThienTu == 5) {
+            this.dame += ((double) this.dame * 5 / 100);
+            this.tlDameCrit.add(75);
+        }
 
         ////set thống khổ td
         if (this.player.setClothes.thongkhotd == 5) {
-            this.dame += 10000;
             this.tlDameCrit.add(100);
-            this.dame += ((double) this.dame * 50 / 100);
+            this.dame += ((double) this.dame * 10 / 100);
         }
 
         if (this.player.setClothes.thongkhoxd == 5) {
             this.tlDameCrit.add(100);
-            this.dame += 10000;
-            this.dame += ((double) this.dame * 50 / 100);
+            this.dame += ((double) this.dame * 10 / 100);
         }
 
         if (this.player.setClothes.thongkhonm == 5) {
             this.tlDameCrit.add(100);
-            this.dame += 10000;
-            this.dame += ((double) this.dame * 50 / 100);
+            this.dame += ((double) this.dame * 10 / 100);
         }
 //        end thong kho
-
         if (this.player.setClothes.nguyenthuytd == 5) {
-            this.dame += 20000;
-            this.dame += ((double) this.dame * 75 / 100);
-            this.tlDameCrit.add(150);
+            this.dame += ((double) this.dame * 15 / 100);
+            this.tlDameCrit.add(120);
         }
 
         ///set NGUYEN THUY  xd
         if (this.player.setClothes.nguyenthuyxd == 5) {
-            this.dame += 20000;
-            this.dame += ((double) this.dame * 75 / 100);
-            this.tlDameCrit.add(150);
+            this.dame += ((double) this.dame * 15 / 100);
+            this.tlDameCrit.add(120);
         }
         ///set NGUYEN THUY  nm
         if (this.player.setClothes.nguyenthuynm == 5) {
-            this.dame += 20000;
-            this.dame += ((double) this.dame * 75 / 100);
-            this.tlDameCrit.add(150);
+            this.dame += ((double) this.dame * 15 / 100);
+            this.tlDameCrit.add(120);
         }
         //set solomon
         if (this.player.setClothes.solomon >= 2) {
-            this.dame += ((double) this.dame * 5 / 100);
+            this.dame += ((double) this.dame * 3 / 100);
             this.tlDameCrit.add(10);
         }
         //set nguyệt ấn
         if (this.player.setClothes.nguyetan == 5) {
-            this.dame += ((double) this.dame * 5 / 100);
+            this.dame += ((double) this.dame * 3 / 100);
         }
         // ma hóa trang bị
         if (this.player.setClothes.mahoa == 5) {
-            this.dame += ((double) this.dame * 12 / 100);
+            this.dame += ((double) this.dame * 3 / 100);
         }
         // thần hóa trang bị
         if (this.player.setClothes.thanhoa == 5) {
-            this.dame += ((double) this.dame * 12 / 100);
+            this.dame += ((double) this.dame * 3 / 100);
         }
-        //phóng heo
+
         //nguyen thuy trang bị
         if (this.player.setClothes.nguyenthuy == 5) {
             this.dame += ((double) this.dame * 12 / 100);
-            this.tlDameCrit.add(2000);
+            this.tlDameCrit.add(60);
         }
         // hu vo trang bị
         if (this.player.setClothes.huvo == 5) {
-            this.dame += ((double) this.dame * 20 / 100);
-            this.tlDameCrit.add(5000);
+            this.dame += ((double) this.dame * 12 / 100);
+            this.tlDameCrit.add(60);
         }
-
         //phóng heo
         if (this.player.effectFlagBag.usePhongHeo) {
-            this.dame += ((double) this.dame * 5 / 100);
+            this.dame += ((double) this.dame * 3 / 100);
         }
         // Set KH Jiren
         if (this.player.setClothes.isSetJiren()) {
-            this.dame += calPercent(this.dame, 1_000_000);
-            this.tlDameCrit.add(1000);
+            this.dame += calPercent(this.dame, 100);
+            this.tlDameCrit.add(150);
         }
         // Set KH Goku UI
         if (this.player.setClothes.isSetGokuUI()) {
-            this.dame += calPercent(this.dame, 2_000_000);
-            this.tlDameCrit.add(1000);
+            this.dame += calPercent(this.dame, 200);
+            this.tlDameCrit.add(175);
         }
         //khỉ
         if (this.player.effectSkill.isMonkey) {
@@ -1328,36 +1337,39 @@ public class NPoint {
                     case 5:
                     case 7:
                     case 8:
-                        this.dame += this.dame * ((this.player.TrieuHoiLevel + 1) / 15f) / 100;
+                        this.dame += this.dame * 6 / 100;
                         break;
                     case 9:
-                        this.dame += this.dame * ((this.player.TrieuHoiLevel + 1) / 12f) / 100;
+                        this.dame += this.dame * 7 / 100;
+                        break;
+                    case 10:
+                        this.dame += this.dame * 10 / 100;
                         break;
                     default:
-                        this.dame += this.dame * ((this.player.TrieuHoiLevel + 1) / 5f) / 100;
+                        this.dame += this.dame * 1 / 100;
                         break;
                 }
             }
             if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 2 || this.player.TrieuHoiCapBac == 3)) {
-                this.dame += ((this.player.TrieuHoiLevel + 1) * 10);
+                this.dame += this.dame * 10 / 100;
             }
-            if (this.player.petDaoLu != null && this.player.petDaoLu.status != DaoLu.GOHOME) {
-                this.dame += calPercent(this.dame, this.player.petDaoLu.getNPointAddByType());
-                if (this.player.petDaoLu.pointCapCanhGioi == 10) {
-                    this.dame += calPercent(this.dame, DaoLu.POWER_DAU_THANH);
-                }
-                this.dame += calPercent(this.dame, this.player.petDaoLu.getNPointAddCapBac());
-                this.dame += calPercent(this.dame, this.player.petDaoLu.getNPointAddCapTinh());
-            }
+//            if (this.player.petDaoLu != null && this.player.petDaoLu.status != DaoLu.GOHOME) {
+//                this.dame += calPercent(this.dame, this.player.petDaoLu.getNPointAddByType());
+//                if (this.player.petDaoLu.pointCapCanhGioi == 10) {
+//                    this.dame += calPercent(this.dame, DaoLu.POWER_DAU_THANH);
+//                }
+//                this.dame += calPercent(this.dame, this.player.petDaoLu.getNPointAddCapBac());
+//                this.dame += calPercent(this.dame, this.player.petDaoLu.getNPointAddCapTinh());
+//            }
         }
-        if (this.player.isDaoLu) {
-            this.dame += calPercent(this.dame, ((DaoLu) this.player).getNPointAddByType());
-            if (((DaoLu) this.player).pointCapCanhGioi == 10) {
-                this.dame += calPercent(this.dame, DaoLu.POWER_DAU_THANH);
-            }
-            this.dame += calPercent(this.dame, ((DaoLu) this.player).getNPointAddCapBac());
-            this.dame += calPercent(this.dame, ((DaoLu) this.player).getNPointAddCapTinh());
-        }
+//        if (this.player.isDaoLu) {
+//            this.dame += calPercent(this.dame, ((DaoLu) this.player).getNPointAddByType());
+//            if (((DaoLu) this.player).pointCapCanhGioi == 10) {
+//                this.dame += calPercent(this.dame, DaoLu.POWER_DAU_THANH);
+//            }
+//            this.dame += calPercent(this.dame, ((DaoLu) this.player).getNPointAddCapBac());
+//            this.dame += calPercent(this.dame, ((DaoLu) this.player).getNPointAddCapTinh());
+//        }
         // biến hình
         if (this.player.effectSkill.isBienHinh) {
             if (!this.player.isPet || ((Pet) this.player).status != Pet.FUSION) {
@@ -1368,9 +1380,9 @@ public class NPoint {
 
         //phu kien kich hoat
         switch (this.player.setClothes.pkkhMedusa) {
-            case 2 -> this.dame += calPercent(this.dame, 1_000_000);
-            case 3 -> this.dame += calPercent(this.dame, 2_000_000);
-            case 5 -> this.dame += calPercent(this.dame, 5_000_000);
+            case 2 -> this.dame += calPercent(this.dame, 20);
+            case 3 -> this.dame += calPercent(this.dame, 30);
+            case 5 -> this.dame += calPercent(this.dame, 50);
         }
     }
 
@@ -1390,17 +1402,17 @@ public class NPoint {
             if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 4 || this.player.TrieuHoiCapBac == 7 || this.player.TrieuHoiCapBac == 8 || this.player.TrieuHoiCapBac == 9 || this.player.TrieuHoiCapBac == 10)) {
                 switch (this.player.TrieuHoiCapBac) {
                     case 4:
-                        this.def += ((this.player.TrieuHoiLevel + 1) * 30);
+                        this.def += 100000;
                         break;
                     case 7:
                     case 8:
-                        this.def += this.def * ((this.player.TrieuHoiLevel + 1) / 5f) / 100;
+                        this.def += this.def * 6 / 100;
                         break;
                     case 9:
-                        this.def += this.def * ((this.player.TrieuHoiLevel + 1) / 3f) / 100;
+                        this.def += this.def * 7 / 100;
                         break;
                     default:
-                        this.def += this.def * (this.player.TrieuHoiLevel + 1) / 100;
+                        this.def += this.def * 1 / 100;
                         break;
                 }
             }
@@ -1408,9 +1420,9 @@ public class NPoint {
 
         //phu kien kich hoat
         switch (this.player.setClothes.pkkhMedusa) {
-            case 2 -> this.def += calPercent(this.def, 1_000_000);
-            case 3 -> this.def += calPercent(this.def, 2_000_000);
-            case 5 -> this.def += calPercent(this.def, 5_000_000);
+            case 2 -> this.def += calPercent(this.def, 20);
+            case 3 -> this.def += calPercent(this.def, 30);
+            case 5 -> this.def += calPercent(this.def, 50);
         }
     }
 
@@ -1536,22 +1548,22 @@ public class NPoint {
                 }
                 //
                 if (this.player.setClothes.NhanHoang == 5) {
-                    percentXDame = 450;
+                    percentXDame = 120;
                 }
                 if (this.player.setClothes.nguyenthuytd == 5) {
-                    percentXDame = 5000;
+                    percentXDame = 150;
                 }
                 // thong kho
                 if (this.player.setClothes.thongkhotd == 5) {
-                    percentXDame = 500000;
+                    percentXDame = 175;
                 }
                 // Jiren
                 if (this.player.setClothes.setJirenTD == 5) {
-                    percentXDame = 1_000_000;
+                    percentXDame = 200;
                 }
                 // Goku UI
                 if (this.player.setClothes.setGokuUITD == 5) {
-                    percentXDame = 2_000_000;
+                    percentXDame = 250;
                 }
                 //
                 break;
@@ -1563,25 +1575,22 @@ public class NPoint {
                 if (this.player.setClothes.kakarot == 5) {
                     percentXDame = 100;
                 }
-//                if (this.player.setClothes.ThienTu == 5) {
-//                    percentXDame = 700;
-//                }
                 if (this.player.setClothes.ThienTu == 5) {
-                    percentXDame = 5000;
+                    percentXDame = 120;
                 }
                 if (this.player.setClothes.nguyenthuyxd == 5) {
-                    percentXDame = 5000;
+                    percentXDame = 150;
                 }
                 if (this.player.setClothes.thongkhoxd == 5) {
-                    percentXDame = 500000;
+                    percentXDame = 175;
                 }
                 // Jiren
                 if (this.player.setClothes.setJirenXD == 5) {
-                    percentXDame = 1_000_000;
+                    percentXDame = 200;
                 }
                 // Goku UI
                 if (this.player.setClothes.setGokuUIXD == 5) {
-                    percentXDame = 2_000_000;
+                    percentXDame = 250;
                 }
                 break;
             case Skill.ANTOMIC:
@@ -1590,12 +1599,11 @@ public class NPoint {
                 }
                 percentDameSkill = skillSelect.damage;
                 if (this.player.setClothes.ThienTu == 5) {
-                    percentXDame = 600;
+                    percentXDame = 120;
                 }
                 if (this.player.setClothes.nguyenthuyxd == 5) {
-                    percentXDame = 10000;
+                    percentXDame = 150;
                 }
-
                 break;
             case Skill.DEMON:
                 if (intrinsic.id == 8) {
@@ -1609,10 +1617,10 @@ public class NPoint {
                 }
                 percentDameSkill = skillSelect.damage;
                 if (this.player.setClothes.MaThan == 5) {
-                    percentXDame = 750;
+                    percentXDame = 120;
                 }
                 if (this.player.setClothes.nguyenthuynm == 5) {
-                    percentXDame = 7000;
+                    percentXDame = 150;
                 }
                 break;
             case Skill.KAIOKEN:
@@ -1624,11 +1632,11 @@ public class NPoint {
                     percentXDame = 100;
                 }
                 if (this.player.setClothes.NhanHoang == 5) {
-                    percentXDame = 650;
+                    percentXDame = 120;
                 }
                 //
                 if (this.player.setClothes.nguyenthuytd == 5) {
-                    percentXDame = 6000;
+                    percentXDame = 150;
                 }
                 break;
             case Skill.SUPER_KAME:
@@ -1646,21 +1654,21 @@ public class NPoint {
                     percentXDame = 100;
                 }
                 if (this.player.setClothes.MaThan == 5) {
-                    percentXDame = 550;
+                    percentXDame = 120;
                 }
                 if (this.player.setClothes.nguyenthuynm == 5) {
-                    percentXDame = 5000;
+                    percentXDame = 150;
                 }
                 if (this.player.setClothes.thongkhonm == 5) {
-                    percentXDame = 500000;
+                    percentXDame = 175;
                 }
                 // Jiren
                 if (this.player.setClothes.setJirenNM == 5) {
-                    percentXDame = 1_000_000;
+                    percentXDame = 200;
                 }
                 // Goku UI
                 if (this.player.setClothes.setGokuUINM == 5) {
-                    percentXDame = 2_000_000;
+                    percentXDame = 250;
                 }
                 break;
             case Skill.DICH_CHUYEN_TUC_THOI:
@@ -1721,7 +1729,7 @@ public class NPoint {
             switch (this.player.TrieuHoiCapBac) {
                 case 6:
                 case 9:
-                    dameAttack += dameAttack * ((this.player.TrieuHoiLevel + 1) / 3) / 100;
+                    dameAttack += dameAttack * ((this.player.TrieuHoiLevel + 1) / 3f) / 100;
                     break;
                 default:
                     dameAttack += dameAttack * (this.player.TrieuHoiLevel + 1) / 100;
@@ -1952,92 +1960,92 @@ public class NPoint {
 
     public int getHpMpLimit() {
         if (limitPower == 0) {
-            return 220000;
+            return 220_000;
         }
         if (limitPower == 1) {
-            return 240000;
+            return 240_000;
         }
         if (limitPower == 2) {
-            return 300000;
+            return 280_000;
         }
         if (limitPower == 3) {
-            return 350000;
+            return 320_000;
         }
         if (limitPower == 4) {
-            return 400000;
+            return 360_000;
         }
         if (limitPower == 5) {
-            return 450000;
+            return 400_000;
         }
         if (limitPower == 6) {
-            return 500000;
+            return 450_000;
         }
         if (limitPower == 7) {
-            return 550000;
+            return 500_000;
         }
         if (limitPower == 8) {
-            return 560000;
+            return 560_000;
         }
         if (limitPower == 9) {
-            return 750000;
+            return 600_000;
         }
         if (limitPower == 10) {
-            return 1000000;
+            return 650_000;
         }
         if (limitPower == 11) {
-            return 5000000;
+            return 700_000;
         }
         if (limitPower == 12) {
-            return 10000000;
+            return 750_000;
         }
         if (limitPower == 13) {
-            return 20000000;
+            return 800_000;
         }
         return 0;
     }
 
     public int getDameLimit() {
         if (limitPower == 0) {
-            return 11000;
+            return 9999;
         }
         if (limitPower == 1) {
-            return 12000;
+            return 11111;
         }
         if (limitPower == 2) {
-            return 15000;
+            return 15555;
         }
         if (limitPower == 3) {
-            return 18000;
+            return 18888;
         }
         if (limitPower == 4) {
-            return 20000;
+            return 22222;
         }
         if (limitPower == 5) {
-            return 22000;
+            return 23333;
         }
         if (limitPower == 6) {
-            return 25000;
+            return 24555;
         }
         if (limitPower == 7) {
-            return 30000;
+            return 28888;
         }
         if (limitPower == 8) {
-            return 31000;
+            return 31111;
         }
         if (limitPower == 9) {
-            return 40000;
+            return 36666;
         }
         if (limitPower == 10) {
-            return 60000;
+            return 40000;
         }
         if (limitPower == 11) {
-            return 300000;
+            return 56666;
         }
         if (limitPower == 12) {
-            return 1234567;
+            return 78888;
         }
         if (limitPower == 13) {
-            return 3000000;
+            return 99999;
         }
         return 0;
     }
@@ -2158,16 +2166,7 @@ public class NPoint {
                     hpg += pointHp;
                 }
             } else {
-                if (player.autocso == true) {
-                    Service.gI().sendThongBao(player, "|7|Đã dừng Auto cộng chỉ số nhanh");
-                    player.autocso = false;
-                    player.autoHP = false;
-                    player.autoKI = false;
-                    player.autoSD = false;
-                    player.autoGiap = false;
-                }
-                Service.getInstance().sendThongBaoOK(player, "Vui lòng mở giới hạn sức mạnh");
-                return;
+                clearAutoCs();
             }
         }
         if (type == 1) {
@@ -2178,53 +2177,27 @@ public class NPoint {
                     mpg += pointMp;
                 }
             } else {
-                if (player.autocso == true) {
-                    Service.gI().sendThongBao(player, "|7|Đã dừng Auto cộng chỉ số nhanh");
-                    player.autocso = false;
-                    player.autoHP = false;
-                    player.autoKI = false;
-                    player.autoSD = false;
-                    player.autoGiap = false;
-                }
-                Service.getInstance().sendThongBaoOK(player, "Vui lòng mở giới hạn sức mạnh");
-                return;
+                clearAutoCs();
             }
         }
         if (type == 2) {
-            tiemNangUse = point * (2 * this.dameg + point - 1) / 2 * 100;
+            tiemNangUse = point * (2 * this.dameg + point - 1) / 2f * 100;
             if ((this.dameg + point) <= getDameLimit()) {
                 if (doUseTiemNang(tiemNangUse)) {
                     dameg += point;
                 }
             } else {
-                if (player.autocso == true) {
-                    Service.gI().sendThongBao(player, "|7|Đã dừng Auto cộng chỉ số nhanh");
-                    player.autocso = false;
-                    player.autoHP = false;
-                    player.autoKI = false;
-                    player.autoSD = false;
-                    player.autoGiap = false;
-                }
-                Service.getInstance().sendThongBaoOK(player, "Vui lòng mở giới hạn sức mạnh");
-                return;
+                clearAutoCs();
             }
         }
         if (type == 3) {
-            tiemNangUse = point * 2 * (this.defg + 5) / 2 * 100000;
+            tiemNangUse = point * 2 * (this.defg + 5) / 2f * 100000;
             if ((this.defg + point) <= getDefLimit()) {
                 if (doUseTiemNang(tiemNangUse)) {
                     defg += point;
                 }
             } else {
-                if (player.autocso == true) {
-                    Service.gI().sendThongBao(player, "|7|Đã dừng Auto cộng chỉ số nhanh");
-                    player.autocso = false;
-                    player.autoHP = false;
-                    player.autoKI = false;
-                    player.autoSD = false;
-                    player.autoGiap = false;
-                }
-                Service.getInstance().sendThongBaoOK(player, "Vui lòng mở giới hạn sức mạnh");
+                clearAutoCs();
                 return;
             }
         }
@@ -2252,9 +2225,21 @@ public class NPoint {
         Service.getInstance().point(player);
     }
 
+    private void clearAutoCs() {
+        if (player.autocso) {
+            Service.gI().sendThongBao(player, "|7|Đã dừng Auto cộng chỉ số nhanh");
+            player.autocso = false;
+            player.autoHP = false;
+            player.autoKI = false;
+            player.autoSD = false;
+            player.autoGiap = false;
+        }
+        Service.getInstance().sendThongBaoOK(player, "Vui lòng mở giới hạn sức mạnh");
+    }
+
     private boolean doUseTiemNang(double tiemNang) {
         if (this.tiemNang < tiemNang) {
-            if (player.autocso == true) {
+            if (player.autocso) {
                 Service.gI().sendThongBao(player, "|7|Đã dừng Auto cộng chỉ số nhanh");
                 player.autocso = false;
                 player.autoHP = false;
@@ -2274,7 +2259,7 @@ public class NPoint {
     }
 
     public double calPercent(double param, int percent) {
-        return ((param / 1000) * (percent / 10f)) / 10;
+        return param * percent / 100f;
     }
 
     //--------------------------------------------------------------------------
@@ -2326,10 +2311,10 @@ public class NPoint {
     }
 
     public double getHP() {
-        return this.hp <= this.hpMax ? this.hp : this.hpMax;
+        return Math.min(this.hp, this.hpMax);
     }
 
     public double getMP() {
-        return this.mp <= this.mpMax ? this.mp : this.mpMax;
+        return Math.min(this.mp, this.mpMax);
     }
 }

@@ -929,29 +929,29 @@ public class Player {
         switch (CapBac) {
             case 10:
                 return "Tìm " + ((TrieuHoiLevel + 1) * 15) + " Hồng ngọc cho Chủ nhân\n"
-                        + "Tăng " + (TrieuHoiLevel + 1) + "% HP, KI, Giáp, SD, SD chí mạng cho Chủ nhân\n";
+                        + "Tăng " + 10 + "% HP, KI, Giáp, SD, SD chí mạng cho Chủ nhân\n";
             case 9:
                 return "Tìm " + ((TrieuHoiLevel + 1) * 12) + " Hồng ngọc cho Chủ nhân\n"
-                        + "Tăng " + ((TrieuHoiLevel + 1) / 2) + "% HP, KI, Giáp, SD, SD chí mạng cho Chủ nhân";
+                        + "Tăng " + 7 + "% HP, KI, Giáp, SD, SD chí mạng cho Chủ nhân";
             case 8:
                 return "Tìm " + ((TrieuHoiLevel + 1) * 10) + " Hồng ngọc cho Chủ nhân\n"
-                        + "Tăng " + ((TrieuHoiLevel + 1) / 5) + "% HP, KI, Giáp, SD cho Chủ nhân";
+                        + "Tăng " + 6 + "% HP, KI, Giáp, SD cho Chủ nhân";
             case 7:
-                return "Tăng " + ((TrieuHoiLevel + 1) / 5) + "% HP, KI, Giáp, SD cho Chủ nhân";
+                return "Tăng " + 6 + "% HP, KI, Giáp, SD cho Chủ nhân";
             case 6:
-                return "Tăng " + ((TrieuHoiLevel + 1) / 3) + "% SD Chí mạng cho Chủ nhân";
+                return "Tăng " + 20 + "% SD Chí mạng cho Chủ nhân";
             case 5:
-                return "Tăng " + ((TrieuHoiLevel + 1) / 5) + "% SD cho Chủ nhân";
+                return "Tăng " + 5 + "% SD cho Chủ nhân";
             case 4:
-                return "Tăng " + ((TrieuHoiLevel + 1) * 30) + " HP, KI, SD, Giáp cho Chủ nhân";
+                return "Tăng " + 10 + " %HP, KI, SD, Giáp cho Chủ nhân";
             case 3:
-                return "Tăng " + ((TrieuHoiLevel + 1) * 20) + " HP, KI\n" + ((TrieuHoiLevel + 1) * 10) + " SD cho Chủ nhân";
+                return "Tăng " + 10 + " %HP, KI\n" + ((TrieuHoiLevel + 1) * 10) + " SD cho Chủ nhân";
             case 2:
-                return "Tăng " + ((TrieuHoiLevel + 1) * 10) + " Sức đánh cho Chủ nhân";
+                return "Tăng " + 10000 + " Sức đánh cho Chủ nhân";
             case 1:
-                return "Tăng " + ((TrieuHoiLevel + 1) * 20) + " KI cho Chủ nhân";
+                return "Tăng " + 100000 + " KI cho Chủ nhân";
             case 0:
-                return "Tăng " + ((TrieuHoiLevel + 1) * 20) + " HP cho Chủ nhân";
+                return "Tăng " + 100000 + " HP cho Chủ nhân";
             default:
                 return "Phế vật mà làm được gì !!!";
         }

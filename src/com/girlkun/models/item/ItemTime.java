@@ -12,7 +12,7 @@ public class ItemTime {
     //id item text
     public static final byte DOANH_TRAI = 0;
     public static final byte BAN_DO_KHO_BAU = 1;
-     public static final byte KHI_GASS= 2;
+    public static final byte KHI_GASS = 2;
     public static final byte RONG_SIEU_CAP = 3;
     public static final int TIME_ITEM = 600000;
     public static final int TIME_BI_NGO = 1800000;
@@ -27,7 +27,7 @@ public class ItemTime {
     public boolean isUseGiapXen;
     public boolean isUseCuongNo;
     public boolean isUseAnDanh;
-    
+
     public long lastTimeBoHuyet;
     public long lastTimeBoKhi;
     public long lastTimeGiapXen;
@@ -38,7 +38,7 @@ public class ItemTime {
     public long lastTimeUseMayDo;//lastime de chung 1 cai neu time = nhau
     public boolean isUseMayDo2;
     public long lastTimeUseMayDo2;
-    
+
     public boolean isBiNgo;
     public long lastTimeBiNgo;
 
@@ -68,14 +68,14 @@ public class ItemTime {
 //                Service.getInstance().Send_Info_NV(this.player);
             }
         }
-        
+
         if (isUseBoKhi) {
             if (Util.canDoWithTime(lastTimeBoKhi, TIME_ITEM)) {
                 isUseBoKhi = false;
                 Service.getInstance().point(player);
             }
         }
-       
+
         if (isUseGiapXen) {
             if (Util.canDoWithTime(lastTimeGiapXen, TIME_ITEM)) {
                 isUseGiapXen = false;
@@ -114,8 +114,8 @@ public class ItemTime {
             }
         }
     }
-    
-    public void dispose(){
+
+    public void dispose() {
         this.player = null;
     }
 }
