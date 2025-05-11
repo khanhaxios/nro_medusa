@@ -4,7 +4,6 @@ import com.girlkun.consts.ConstNpc;
 import com.girlkun.data.ItemData;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.item.Item.ItemOption;
-import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.npc.NpcManager;
 import com.girlkun.models.player.Player;
@@ -324,7 +323,7 @@ public class CombineServiceNew {
                             for (Item.ItemOption io : itemDo.itemOptions) {
                                 if (io.optionTemplate.id == 47 || io.optionTemplate.id == 6 || io.optionTemplate.id == 0 || io.optionTemplate.id == 7 || io.optionTemplate.id == 14 || io.optionTemplate.id == 22 || io.optionTemplate.id == 23) {
                                     option = io.optionTemplate.name;
-                                    param = io.param + (io.param * 10 / 100);
+                                    param = io.param + (io.param * 3 / 100);
                                     break;
                                 }
                             }
@@ -2709,56 +2708,24 @@ public class CombineServiceNew {
                         }
                     }
                     if (Util.isTrue(player.combineNew.ratioCombine, 100)) {
-                        int baseLucky = 1;
-                        if (Util.isTrue(5, 100)) {
-                            baseLucky = Util.nextInt(2, 3);
-                        }
-                        if (isTienKhi) {
-                            baseLucky += Util.nextInt(10, 100);
-                        }
-
                         if (option != null) {
-                            long resultPlus = option.param + (option.param * (baseLucky * 10L) / 100);
-                            short phanNguyen = (short) (resultPlus / 1_000_000);
-                            if (phanNguyen > 1000 && option.optionTemplate.id == 0) {
-                                // xoa option cu
-                                option.param = (int) (resultPlus % 1_000_000);
-                                ItemOption itemOptionSd = null;
-                                // find option 45 more
-                                for (ItemOption itemOption : itemDo.itemOptions) {
-                                    if (itemOption.optionTemplate.id == 45) {
-                                        // get param
-                                        itemOptionSd = itemOption;
-                                    }
-                                }
-                                if (itemOptionSd != null) {
-                                    // cong vao
-                                    itemOptionSd.param += phanNguyen;
-                                } else {
-                                    itemDo.itemOptions.add(new ItemOption(45, phanNguyen));
-                                }
-                            } else {
-                                option.param += (option.param * (baseLucky * 10) / 100);
-                            }
+                            option.param += (option.param * 3 / 100);
                         }
                         if (option2 != null) {
-                            option2.param += (option2.param * (baseLucky * 10) / 100);
+                            option2.param += (option2.param * 10 / 100);
                         }
                         if (optionLevel == null) {
                             itemDo.itemOptions.add(new Item.ItemOption(72, 1));
                         } else {
                             optionLevel.param++;
                         }
-                        if (baseLucky > 1) {
-                            Service.gI().sendThongBao(player, "Thiên đạo phù hộ!Lần này luyện khí được tăng phúc x" + baseLucky + "Chỉ số");
-                        }
                         isSuccess = true;
                         sendEffectSuccessCombine(player);
                     } else {
                         if ((level == 2 || level == 4 || level == 6) && (player.combineNew.itemsCombine.size() != 3)) {
-                            option.param -= (option.param * 15 / 100);
+                            option.param -= (option.param * 3 / 100);
                             if (option2 != null) {
-                                option2.param -= (option2.param * 15 / 100);
+                                option2.param -= (option2.param * 10 / 100);
                             }
                             optionLevel.param--;
                         }
@@ -2768,7 +2735,6 @@ public class CombineServiceNew {
                     // +do
                     if (isSuccess && nextLevel >= 100) {
                         int tienLucCong = 1;
-
                         if (nextLevel == 100) {
                             ItemOption itemOption = new ItemOption(41, 0);
                             itemDo.itemOptions.add(itemOption);
@@ -2805,7 +2771,7 @@ public class CombineServiceNew {
                         itemDo.itemOptions.add(new ItemOption(44, tienLucCong));
                     }
                     if (player.combineNew.itemsCombine.size() == 3) {
-                        InventoryServiceNew.gI().subQuantityItemsBag(player, itemDBV, 5);
+                        InventoryServiceNew.gI().subQuantityItemsBag(player, itemDBV, 1);
                     }
                     InventoryServiceNew.gI().subQuantityItemsBag(player, itemDNC, player.combineNew.countDaNangCap);
                     InventoryServiceNew.gI().sendItemBags(player);
@@ -2846,7 +2812,7 @@ public class CombineServiceNew {
                     }
                 }
 
-                if (item != null && item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && (dangusac.template.id == 1235) && dangusac.quantity >= 1) {
+                if (item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && dangusac.template.id == 1235 && dangusac.quantity >= 1) {
                     if (lvcheck < 6) {
                         if (optionStar == null) {
                             item.itemOptions.add(new Item.ItemOption(198, cap));
@@ -4089,24 +4055,23 @@ public class CombineServiceNew {
                 Service.gI().sendThongBaoOK(player, "Cần x" + itemsNedded[0][1] + " Thiên Nguyệt thạch,x " + itemsNedded[1][1] + " Mịch Lâm Thạch,x" + itemsNedded[2][1] + " Linh Vân Thạch");
                 return;
             }
+            kinhNghiemLuyenkhi += Util.nextInt(1, 10) * 300;
+            knLinhHoa += Util.nextInt(1, 10) * 300;
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d1, itemsNedded[0][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d2, itemsNedded[1][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d3, itemsNedded[2][1]);
             if (Util.isTrue(baseTyle, 100)) {
                 sendEffectSuccessCombine(player);
-                kinhNghiemLuyenkhi += Util.nextInt(1, 10) * 10000;
-                knLinhHoa += Util.nextInt(1, 10) * 10000;
-                // sub item
-                InventoryServiceNew.gI().subQuantityItemsBag(player, d1, itemsNedded[0][1]);
-                InventoryServiceNew.gI().subQuantityItemsBag(player, d2, itemsNedded[1][1]);
-                InventoryServiceNew.gI().subQuantityItemsBag(player, d3, itemsNedded[2][1]);
                 Item item = ItemService.gI().createRandomDoThongKho();
                 InventoryServiceNew.gI().addItemBag(player, item);
-                InventoryServiceNew.gI().sendItemBags(player);
                 Service.gI().sendThongBaoOK(player, "Luyện chế thành công bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
             } else {
                 sendEffectFailCombine(player);
-                kinhNghiemLuyenkhi += Util.nextInt(1, 5) * 5000;
-                knLinhHoa += Util.nextInt(1, 5) * 5000;
                 Service.gI().sendThongBaoOK(player, "Luyện chế thất bại bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
             }
+            player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
+            player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
+            InventoryServiceNew.gI().sendItemBags(player);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4115,8 +4080,8 @@ public class CombineServiceNew {
     public void cheDoJiren(Player player) {
         try {
             // can de vuong thach
-            short[][] itemsNedded = new short[][]{{1263, 30}, {1262, 10}, {1261, 6}};
-            float baseTyle = 3 + (player.luyenKhiSu.getPercentBounce());
+            short[][] itemsNedded = new short[][]{{1263, 30}, {1262, 30}, {1261, 30}};
+            float baseTyle = (player.luyenKhiSu.getPercentBounce()) - 5;
             int kinhNghiemLuyenkhi = 0;
             int knLinhHoa = 0;
             // check player item bag has or not
@@ -4127,24 +4092,23 @@ public class CombineServiceNew {
                 Service.gI().sendThongBaoOK(player, "Cần x" + itemsNedded[0][1] + " Huyết Tinh Thạch,x " + itemsNedded[1][1] + " Thiên Mệnh Thạch,x" + itemsNedded[2][1] + " Hỏa Hồn Thạch");
                 return;
             }
+            kinhNghiemLuyenkhi += Util.nextInt(1, 10) * 350;
+            knLinhHoa += Util.nextInt(1, 10) * 350;
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d1, itemsNedded[0][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d2, itemsNedded[1][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d3, itemsNedded[2][1]);
             if (Util.isTrue(baseTyle, 100)) {
                 sendEffectSuccessCombine(player);
-                kinhNghiemLuyenkhi += Util.nextInt(1, 10) * 20000;
-                knLinhHoa += Util.nextInt(1, 10) * 20000;
-                // sub item
-                InventoryServiceNew.gI().subQuantityItemsBag(player, d1, itemsNedded[0][1]);
-                InventoryServiceNew.gI().subQuantityItemsBag(player, d2, itemsNedded[1][1]);
-                InventoryServiceNew.gI().subQuantityItemsBag(player, d3, itemsNedded[2][1]);
                 Item item = ItemService.gI().createRandomDoJiren();
                 InventoryServiceNew.gI().addItemBag(player, item);
-                InventoryServiceNew.gI().sendItemBags(player);
                 Service.gI().sendThongBaoOK(player, "Luyện chế thành công bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
             } else {
                 sendEffectFailCombine(player);
-                kinhNghiemLuyenkhi += Util.nextInt(1, 5) * 10000;
-                knLinhHoa += Util.nextInt(1, 5) * 10000;
                 Service.gI().sendThongBaoOK(player, "Luyện chế thất bại bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
             }
+            player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
+            player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
+            InventoryServiceNew.gI().sendItemBags(player);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4153,8 +4117,8 @@ public class CombineServiceNew {
     public void cheDoGoku(Player player) {
         try {
             // can de vuong thach
-            short[][] itemsNedded = new short[][]{{1261, 50}, {1260, 10}, {1262, 20}};
-            float baseTyle = 2 + (player.luyenKhiSu.getPercentBounce());
+            short[][] itemsNedded = new short[][]{{1261, 50}, {1260, 50}, {1262, 50}};
+            float baseTyle = Util.nextInt(1, 3) + (player.luyenKhiSu.getPercentBounce()) - 5;
             int kinhNghiemLuyenkhi = 0;
             int knLinhHoa = 0;
             // check player item bag has or not
@@ -4165,24 +4129,23 @@ public class CombineServiceNew {
                 Service.gI().sendThongBaoOK(player, "Cần x" + itemsNedded[0][1] + " Hỏa Hồn Thạch,x " + itemsNedded[1][1] + " Đế Vương Thạch,x" + itemsNedded[2][1] + " Thiên Mệnh Thạch");
                 return;
             }
+            kinhNghiemLuyenkhi += Util.nextInt(1, 10) * 500;
+            knLinhHoa += Util.nextInt(1, 10) * 500;
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d1, itemsNedded[0][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d2, itemsNedded[1][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d3, itemsNedded[2][1]);
             if (Util.isTrue(baseTyle, 100)) {
                 sendEffectSuccessCombine(player);
-                kinhNghiemLuyenkhi += Util.nextInt(1, 10) * 50000;
-                knLinhHoa += Util.nextInt(1, 10) * 50000;
-                // sub item
-                InventoryServiceNew.gI().subQuantityItemsBag(player, d1, itemsNedded[0][1]);
-                InventoryServiceNew.gI().subQuantityItemsBag(player, d2, itemsNedded[1][1]);
-                InventoryServiceNew.gI().subQuantityItemsBag(player, d3, itemsNedded[2][1]);
-                Item item = ItemService.gI().createRandomDoJiren();
+                Item item = ItemService.gI().createRandomDoGoku();
                 InventoryServiceNew.gI().addItemBag(player, item);
-                InventoryServiceNew.gI().sendItemBags(player);
                 Service.gI().sendThongBaoOK(player, "Luyện chế thành công bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
             } else {
                 sendEffectFailCombine(player);
-                kinhNghiemLuyenkhi += Util.nextInt(1, 5) * 20000;
-                knLinhHoa += Util.nextInt(1, 5) * 20000;
                 Service.gI().sendThongBaoOK(player, "Luyện chế thất bại bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
             }
+            player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
+            player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
+            InventoryServiceNew.gI().sendItemBags(player);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4245,14 +4208,15 @@ public class CombineServiceNew {
                 return 1000; // +100% HP
             case 1463:
                 return 1000; // +100% KI
+            // nro sss vip
             case 1470:
-                return 1000; // +5%ki
+                return 10; // +5%ki
             case 1471:
-                return 2000; // +50%sđ
+                return 20; // +50%sđ
             case 1472:
-                return 3000; // +100% HP
+                return 30; // +100% HP
             case 1473:
-                return 5000; // +100% KI
+                return 40; // +100% KI
             default:
                 return -1;
         }
@@ -4524,6 +4488,228 @@ public class CombineServiceNew {
                 return "Vào hành trang\n" + "Chọn 1 trang bị Không thể giao dịch\n" + "Sau đó chọn loại đá mở khóa\n" + "Chọn nâng cấp";
             default:
                 return "";
+        }
+    }
+
+    public void cheDoThanLinh(Player player) {
+        try {
+            // can de vuong thach
+            short[][] itemsNedded = new short[][]{{1266, 3}, {1265, 3}, {1264, 3}};
+            float baseTyle = Util.nextInt(1, 5) + player.luyenKhiSu.getPercentBounce();
+            int kinhNghiemLuyenkhi = 0;
+            int knLinhHoa = 0;
+            // check player item bag has or not
+            Item d1 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[0][0]);
+            Item d2 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[1][0]);
+            Item d3 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[2][0]);
+            if (d1 == null || d2 == null || d3 == null || d1.quantity < itemsNedded[0][1] || d2.quantity < itemsNedded[1][1] || d3.quantity < itemsNedded[2][1]) {
+                Service.gI().sendThongBaoOK(player, "Cần x" + itemsNedded[0][1] + " Thiên Nguyệt thạch,x " + itemsNedded[1][1] + " Mịch Lâm Thạch,x" + itemsNedded[2][1] + " Linh Vân Thạch");
+                return;
+            }
+            kinhNghiemLuyenkhi += Util.nextInt(1, 10) * 20;
+            knLinhHoa += Util.nextInt(1, 10) * 20;
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d1, itemsNedded[0][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d2, itemsNedded[1][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d3, itemsNedded[2][1]);
+            if (Util.isTrue(baseTyle, 100)) {
+                sendEffectSuccessCombine(player);
+                Item item = ItemService.gI().createRanDomDoThanLinh();
+                InventoryServiceNew.gI().addItemBag(player, item);
+                Service.gI().sendThongBaoOK(player, "Luyện chế thành công bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
+            } else {
+                sendEffectFailCombine(player);
+                Service.gI().sendThongBaoOK(player, "Luyện chế thất bại bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
+            }
+            InventoryServiceNew.gI().sendItemBags(player);
+            player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
+            player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+        }
+    }
+
+    public void cheDoHuyDiet(Player player) {
+        try {
+            // can de vuong thach
+            short[][] itemsNedded = new short[][]{{1266, 6}, {1265, 6}, {1264, 6}};
+            float baseTyle = Util.nextInt(1, 5) + player.luyenKhiSu.getPercentBounce();
+            int kinhNghiemLuyenkhi = 0;
+            int knLinhHoa = 0;
+            // check player item bag has or not
+            Item d1 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[0][0]);
+            Item d2 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[1][0]);
+            Item d3 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[2][0]);
+            if (d1 == null || d2 == null || d3 == null || d1.quantity < itemsNedded[0][1] || d2.quantity < itemsNedded[1][1] || d3.quantity < itemsNedded[2][1]) {
+                Service.gI().sendThongBaoOK(player, "Cần x" + itemsNedded[0][1] + " Thiên Nguyệt thạch,x " + itemsNedded[1][1] + " Mịch Lâm Thạch,x" + itemsNedded[2][1] + " Linh Vân Thạch");
+                return;
+            }
+            kinhNghiemLuyenkhi += Util.nextInt(1, 10) * 50;
+            knLinhHoa += Util.nextInt(1, 10) * 50;
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d1, itemsNedded[0][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d2, itemsNedded[1][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d3, itemsNedded[2][1]);
+            if (Util.isTrue(baseTyle, 100)) {
+                sendEffectSuccessCombine(player);
+                Item item = ItemService.gI().createRandomDoHuyDiet();
+                InventoryServiceNew.gI().addItemBag(player, item);
+                Service.gI().sendThongBaoOK(player, "Luyện chế thành công bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
+            } else {
+                sendEffectFailCombine(player);
+                Service.gI().sendThongBaoOK(player, "Luyện chế thất bại bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
+            }
+            InventoryServiceNew.gI().sendItemBags(player);
+            player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
+            player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+        }
+    }
+
+    public void cheDoThienSu(Player player) {
+        try {
+            // can de vuong thach
+            short[][] itemsNedded = new short[][]{{1266, 12}, {1265, 12}, {1264, 12}};
+            float baseTyle = Util.nextInt(1, 5) + player.luyenKhiSu.getPercentBounce();
+            int kinhNghiemLuyenkhi = 0;
+            int knLinhHoa = 0;
+            // check player item bag has or not
+            Item d1 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[0][0]);
+            Item d2 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[1][0]);
+            Item d3 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[2][0]);
+            if (d1 == null || d2 == null || d3 == null || d1.quantity < itemsNedded[0][1] || d2.quantity < itemsNedded[1][1] || d3.quantity < itemsNedded[2][1]) {
+                Service.gI().sendThongBaoOK(player, "Cần x" + itemsNedded[0][1] + " Thiên Nguyệt thạch,x " + itemsNedded[1][1] + " Mịch Lâm Thạch,x" + itemsNedded[2][1] + " Linh Vân Thạch");
+                return;
+            }
+            kinhNghiemLuyenkhi += Util.nextInt(1, 10) * 70;
+            knLinhHoa += Util.nextInt(1, 10) * 70;
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d1, itemsNedded[0][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d2, itemsNedded[1][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d3, itemsNedded[2][1]);
+            if (Util.isTrue(baseTyle, 100)) {
+                sendEffectSuccessCombine(player);
+                Item item = ItemService.gI().createRandomGoThienSu();
+                InventoryServiceNew.gI().addItemBag(player, item);
+                Service.gI().sendThongBaoOK(player, "Luyện chế thành công bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
+            } else {
+                sendEffectFailCombine(player);
+                Service.gI().sendThongBaoOK(player, "Luyện chế thất bại bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
+            }
+            player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
+            player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
+            InventoryServiceNew.gI().sendItemBags(player);
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+        }
+    }
+
+    public void cheDoXen(Player player) {
+        try {
+            // can de vuong thach
+            short[][] itemsNedded = new short[][]{{1266, 24}, {1265, 24}, {1264, 24}};
+            float baseTyle = Util.nextInt(1, 3) + player.luyenKhiSu.getPercentBounce();
+            int kinhNghiemLuyenkhi = 0;
+            int knLinhHoa = 0;
+            // check player item bag has or not
+            Item d1 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[0][0]);
+            Item d2 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[1][0]);
+            Item d3 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[2][0]);
+            if (d1 == null || d2 == null || d3 == null || d1.quantity < itemsNedded[0][1] || d2.quantity < itemsNedded[1][1] || d3.quantity < itemsNedded[2][1]) {
+                Service.gI().sendThongBaoOK(player, "Cần x" + itemsNedded[0][1] + " Thiên Nguyệt thạch,x " + itemsNedded[1][1] + " Mịch Lâm Thạch,x" + itemsNedded[2][1] + " Linh Vân Thạch");
+                return;
+            }
+            kinhNghiemLuyenkhi += Util.nextInt(1, 10) * 100;
+            knLinhHoa += Util.nextInt(1, 10) * 100;
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d1, itemsNedded[0][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d2, itemsNedded[1][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d3, itemsNedded[2][1]);
+            if (Util.isTrue(baseTyle, 100)) {
+                sendEffectSuccessCombine(player);
+                Item item = ItemService.gI().createRandomDoXen();
+                InventoryServiceNew.gI().addItemBag(player, item);
+                Service.gI().sendThongBaoOK(player, "Luyện chế thành công bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
+            } else {
+                sendEffectFailCombine(player);
+                Service.gI().sendThongBaoOK(player, "Luyện chế thất bại bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
+            }
+            player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
+            player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
+            InventoryServiceNew.gI().sendItemBags(player);
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+        }
+    }
+
+    public void cheDoNguyenThuy(Player player) {
+        try {
+            // can de vuong thach
+            short[][] itemsNedded = new short[][]{{1266, 52}, {1265, 52}, {1264, 52}};
+            float baseTyle = Util.nextInt(1, 2) + player.luyenKhiSu.getPercentBounce();
+            int kinhNghiemLuyenkhi = 0;
+            int knLinhHoa = 0;
+            // check player item bag has or not
+            Item d1 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[0][0]);
+            Item d2 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[1][0]);
+            Item d3 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[2][0]);
+            if (d1 == null || d2 == null || d3 == null || d1.quantity < itemsNedded[0][1] || d2.quantity < itemsNedded[1][1] || d3.quantity < itemsNedded[2][1]) {
+                Service.gI().sendThongBaoOK(player, "Cần x" + itemsNedded[0][1] + " Thiên Nguyệt thạch,x " + itemsNedded[1][1] + " Mịch Lâm Thạch,x" + itemsNedded[2][1] + " Linh Vân Thạch");
+                return;
+            }
+            kinhNghiemLuyenkhi += Util.nextInt(1, 10) * 120;
+            knLinhHoa += Util.nextInt(1, 10) * 120;
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d1, itemsNedded[0][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d2, itemsNedded[1][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d3, itemsNedded[2][1]);
+            if (Util.isTrue(baseTyle, 100)) {
+                sendEffectSuccessCombine(player);
+                Item item = ItemService.gI().createRandomDoNguyenThuy();
+                InventoryServiceNew.gI().addItemBag(player, item);
+                Service.gI().sendThongBaoOK(player, "Luyện chế thành công bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
+            } else {
+                sendEffectFailCombine(player);
+                Service.gI().sendThongBaoOK(player, "Luyện chế thất bại bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
+            }
+            player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
+            player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
+            InventoryServiceNew.gI().sendItemBags(player);
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+        }
+    }
+
+    public void cheDoThanhTon(Player player) {
+        try {
+            // can de vuong thach
+            short[][] itemsNedded = new short[][]{{1266, 120}, {1265, 120}, {1264, 120}};
+            float baseTyle = Util.nextInt(1, 2) + player.luyenKhiSu.getPercentBounce() - 5;
+            int kinhNghiemLuyenkhi = 0;
+            int knLinhHoa = 0;
+            // check player item bag has or not
+            Item d1 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[0][0]);
+            Item d2 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[1][0]);
+            Item d3 = InventoryServiceNew.gI().findItemBag(player, itemsNedded[2][0]);
+            if (d1 == null || d2 == null || d3 == null || d1.quantity < itemsNedded[0][1] || d2.quantity < itemsNedded[1][1] || d3.quantity < itemsNedded[2][1]) {
+                Service.gI().sendThongBaoOK(player, "Cần x" + itemsNedded[0][1] + " Thiên Nguyệt thạch,x " + itemsNedded[1][1] + " Mịch Lâm Thạch,x" + itemsNedded[2][1] + " Linh Vân Thạch");
+                return;
+            }
+            kinhNghiemLuyenkhi += Util.nextInt(1, 10) * 150;
+            knLinhHoa += Util.nextInt(1, 10) * 150;
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d1, itemsNedded[0][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d2, itemsNedded[1][1]);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, d3, itemsNedded[2][1]);
+            if (Util.isTrue(baseTyle, 100)) {
+                sendEffectSuccessCombine(player);
+                Item item = ItemService.gI().createRandomDoThanhTon();
+                InventoryServiceNew.gI().addItemBag(player, item);
+                Service.gI().sendThongBaoOK(player, "Luyện chế thành công bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
+            } else {
+                sendEffectFailCombine(player);
+                Service.gI().sendThongBaoOK(player, "Luyện chế thất bại bạn nhận được " + Util.format(kinhNghiemLuyenkhi) + " Kinh nghiệm luyện khí , x" + Util.format(knLinhHoa) + " Tu vi linh hỏa");
+            }
+            player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
+            player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
+            InventoryServiceNew.gI().sendItemBags(player);
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
         }
     }
 }

@@ -1293,7 +1293,7 @@ public class Service {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện khí\nHãy đến gặp npc Thần Cấp luyện khí sư ở làng aru để học hỏi");
                 return;
             }
-            NpcService.gI().createMenuConMeo(player, 123123, -1, String.format("|7|Thông tin luyện khí\n|5|%s(%s)\nKinh Nghiệm: %s\nTỷ lệ đột phá thành công %s\nCấp Càng cao tỷ lệ đột phá càng thấp", player.luyenKhiSu.getName(), player.luyenKhiSu.getLevel(), player.luyenKhiSu.getCurrentExpStr(), player.luyenKhiSu.getTyLeDotPha()), "Chế Đồ", "Đóng");
+            NpcService.gI().createMenuConMeo(player, 123123, -1, String.format("|7|Thông tin luyện khí\n|5|%s(%s)\nKinh Nghiệm: %s\nTỷ lệ đột phá thành công %s\nCấp Càng cao tỷ lệ đột phá càng thấp", player.luyenKhiSu.getName(), player.luyenKhiSu.getLevel(), player.luyenKhiSu.getCurrentExpStr(), player.luyenKhiSu.getTyLeDotPha()), "Chế Đồ", "Kích Hoạt\nTrang Bị", "Đóng");
             return;
         }
         if (text.startsWith("phanra ")) {
@@ -1711,9 +1711,9 @@ public class Service {
             Message msg;
             try {
                 msg = new Message(-42);
-                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpg + player.taixiu.addNPointChuyenSinh()));
-                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpg + player.taixiu.addNPointChuyenSinh()));
-                msg.writer().writeLong(Util.DoubleGioihan(player.nPoint.dameg + player.taixiu.addNPointChuyenSinh()));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpg + player.taixiu.calcHpChuyenSinh()));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpg + player.taixiu.calcMpChuyenSinh()));
+                msg.writer().writeLong(Util.DoubleGioihan(player.nPoint.dameg + player.taixiu.calcDameChuyenSinh()));
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpMax));// hp full
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpMax));// mp full
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hp));// hp
@@ -1816,7 +1816,6 @@ public class Service {
                         msg.writer().writeShort(itemOption.param);
                     }
                 }
-
             }
 
             //--------itemBag---------

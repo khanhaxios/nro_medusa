@@ -378,9 +378,9 @@ public class NPoint {
                         case 33: //dịch chuyển tức thời
                             this.teleport = true;
                             break;
-                        case 44:
+                        case 44: // tien luc
                             this.player.tienLuc += io.param;
-                            float tyLe = (float) (io.param + 50) / 100f;
+                            float tyLe = (float) (io.param * 20) / 100f;
                             this.hpAdd += this.hpMax * tyLe;
                             this.dameAdd += this.dame * tyLe;
                             this.mpAdd += this.mpMax * tyLe;

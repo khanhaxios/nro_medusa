@@ -2310,8 +2310,8 @@ public class NpcFactory {
                                 this.createOtherMenu(player, 987, "|7|CHUYỂN SINH" + "\n\n|5|Bạn đang chuyển sinh : " + player.taixiu.chuyensinh + " \nCấp tiếp theo với tỉ lệ : " + percent + "% \n Mức giá chuyển sinh : " + Util.format(buaZeno) + " bùa zeno\n\n|7|Bạn có muốn chuyển sinh ?", "Đồng ý", "Từ chối");
                                 break; // 
                             case 1:
-                                double addPoint = player.taixiu.addNPointChuyenSinh();
-                                Service.gI().sendThongBaoOK(player, "Bạn đang cấp chuyển sinh: " + player.taixiu.chuyensinh + "\n HP/KI/SD Gốc Tăng Thêm " + Util.format(addPoint));
+                                double addPoint = player.taixiu.addNPointChuyenSinh(player.taixiu.chuyensinh * 3);
+                                Service.gI().sendThongBaoOK(player, "Bạn đang cấp chuyển sinh: " + player.taixiu.chuyensinh + "\n %HP/KI/SD Gốc Tăng Thêm " + Util.format(addPoint));
                                 break;
                             case 2:
                                 if (player.haveTuTien == false) {
@@ -7470,30 +7470,74 @@ public class NpcFactory {
                         switch (select) {
                             case 0:
                                 // che do
-                                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHE_DO, -1, "Bạn muốn luyện chế đồ gì nào?", "Đồ\nThống Khổ", "Đồ\nJiren", "Đồ Goku\n UI");
+                                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHE_DO, -1, "Bạn muốn luyện chế đồ gì nào?", "Set\nThần Linh", "Set\nHủy Diệt", "Set\nThiên Sứ", "Set Xên", "Set\nNguyên Thủy", "Set\nThánh Tôn", "Set\nThống Khổ", "Set\nJiren", "Set\nGoku UI");
                                 break;
                         }
                         break;
                     case ConstNpc.MENU_CHE_DO:
                         switch (select) {
                             case 0:
-                                // che do thong kho
+                                if (player.luyenKhiSu.getLevel() < 1) {
+                                    Service.gI().sendThongBao(player, "Cần Sơ cấp luyện khí(1)");
+                                    return;
+                                }
+                                CombineServiceNew.gI().cheDoThanLinh(player);
+                                // do than linh
+                                break;
+                            case 1:
+                                if (player.luyenKhiSu.getLevel() < 2) {
+                                    Service.gI().sendThongBao(player, "Cần Sơ cấp luyện khí(2)");
+                                    return;
+                                }
+                                CombineServiceNew.gI().cheDoHuyDiet(player);
+                                // do huy diet
+                                break;
+                            case 2:
+                                if (player.luyenKhiSu.getLevel() < 3) {
+                                    Service.gI().sendThongBao(player, "Cần Sơ cấp luyện khí(3)");
+                                    return;
+                                }
+                                CombineServiceNew.gI().cheDoThienSu(player);
+                                // do thien su
+                                break;
+                            case 3:
                                 if (player.luyenKhiSu.getLevel() < 4) {
                                     Service.gI().sendThongBao(player, "Cần Trung cấp luyện khí(4)");
                                     return;
                                 }
+                                CombineServiceNew.gI().cheDoXen(player);
+                                break;
+                            case 4:
+                                if (player.luyenKhiSu.getLevel() < 5) {
+                                    Service.gI().sendThongBao(player, "Cần Trung cấp luyện khí(5)");
+                                    return;
+                                }
+                                CombineServiceNew.gI().cheDoNguyenThuy(player);
+                                break;
+                            case 5:
+                                if (player.luyenKhiSu.getLevel() < 6) {
+                                    Service.gI().sendThongBao(player, "Cần Trung cấp luyện khí(6)");
+                                    return;
+                                }
+                                CombineServiceNew.gI().cheDoThanhTon(player);
+                                break;
+                            case 6:
+                                if (player.luyenKhiSu.getLevel() < 7) {
+                                    Service.gI().sendThongBao(player, "Cần Cao cấp luyện khí(7)");
+                                    return;
+                                }
                                 CombineServiceNew.gI().cheDoThongKho(player);
                                 break;
-                            case 1:
-                                if (player.luyenKhiSu.getLevel() < 6) {
-                                    Service.gI().sendThongBao(player, "Cần Cao cấp luyện khí(6)");
+                            case 7:
+                                if (player.luyenKhiSu.getLevel() < 8) {
+                                    Service.gI().sendThongBao(player, "Cần Cao cấp luyện khí(8)");
                                     return;
                                 }
                                 CombineServiceNew.gI().cheDoJiren(player);
                                 break;
-                            case 2:
+                            case 8:
                                 if (player.luyenKhiSu.getLevel() < 9) {
-                                    Service.gI().sendThongBao(player, "Cần Tiên cấp luyện khí(9)");
+                                    Service.gI().sendThongBao(player, "Cần Cao cấp luyện khí(9)");
                                     return;
                                 }
                                 CombineServiceNew.gI().cheDoGoku(player);

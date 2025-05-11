@@ -35,6 +35,18 @@ public class Taixiu {
         return basePoint * 3 / 100;
     }
 
+    public double calcHpChuyenSinh() {
+        return player.nPoint.hpg * player.taixiu.chuyensinh * 0.01;
+    }
+
+    public double calcMpChuyenSinh() {
+        return player.nPoint.mpg * player.taixiu.chuyensinh * 0.01;
+    }
+
+    public double calcDameChuyenSinh() {
+        return player.nPoint.dameg * player.taixiu.chuyensinh * 0.01;
+    }
+
 
     public int priceNangChuyenSinh() {
         return 50;

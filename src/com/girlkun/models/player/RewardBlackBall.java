@@ -19,7 +19,7 @@ public class RewardBlackBall {
     public static final int R2S_1 = 300;
     public static final int R2S_2 = 10000;
     public static final int R3S_1 = 20;
-    public static final int R3S_2 = 1000;
+    public static final int R3S_2 = 100;
     public static final int R4S_1 = 10;
     public static final int R4S_2 = 100;
     public static final int R5S_1 = 20;

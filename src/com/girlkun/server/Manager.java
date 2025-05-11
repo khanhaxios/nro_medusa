@@ -69,6 +69,8 @@ import org.json.simple.JSONValue;
 public class Manager {
 
     public static final int GIA_QUY_DOI_BUA_ZENO = 9999;
+    public static short[] setNguyenThuy = new short[]{1450, 1451, 1452};
+    public static short[] setThanhTon = new short[]{1431, 1432, 1433, 1434, 1435};
     private static Manager i;
 
     public static byte SERVER = 1;
@@ -164,6 +166,7 @@ public class Manager {
     public static List<TOP> topDaoLu;
     public static long timeRealTop = 0;
     public static final short[] itemIds_TL = {555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561};
+    public static final short[] itemIds_HD = {650, 651, 657, 658, 656, 652, 653, 659, 660, 656, 654, 655, 661, 662, 656};
     public static final byte[] itemIds_NR_SB = {15, 16};
     public static final byte[] itemIds_NR = {20, 19, 18, 17};
     public static final short[] SuKien_TrungThu = {1338, 1339, 1340};
@@ -867,7 +870,7 @@ public class Manager {
                     NOTIFY.add(notify.toString());
                 }
             }
-            
+
             Logger.success("Load notify thành công (" + NOTIFY.size() + ")\n");
 
             //load caption

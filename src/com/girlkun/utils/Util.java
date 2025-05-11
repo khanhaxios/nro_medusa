@@ -581,13 +581,13 @@ public class Util {
             it.itemOptions.add(new Item.ItemOption(47, highlightsItem(it.template.gender == 2, new Random().nextInt(4501) + 4000)));
         }
         if (quan == tempId) {
-            it.itemOptions.add(new Item.ItemOption(22, highlightsItem(it.template.gender == 0, new Random().nextInt(150) + 220)));
+            it.itemOptions.add(new Item.ItemOption(22, Util.nextInt(50, 100) + 300));
         }
         if (gang == tempId) {
-            it.itemOptions.add(new Item.ItemOption(0, highlightsItem(it.template.gender == 2, new Random().nextInt(5000000) + 1000000)));
+            it.itemOptions.add(new Item.ItemOption(0, Util.nextInt(10000) + 32000));
         }
         if (giay == tempId) {
-            it.itemOptions.add(new Item.ItemOption(23, highlightsItem(it.template.gender == 1, new Random().nextInt(100) + 220)));
+            it.itemOptions.add(new Item.ItemOption(23, Util.nextInt(50, 100) + 300));
         }
         if (nhan == tempId) {
             it.itemOptions.add(new Item.ItemOption(14, new Random().nextInt(15) + 40));
@@ -882,24 +882,22 @@ public class Util {
         int gang = 1521;
         int giay = 1522;
         int nhan = 1523;
-        it.itemOptions.add(new Item.ItemOption(230, 1));
         if (ao == tempId) {
             it.itemOptions.add(new Item.ItemOption(47, Util.nextInt(8001) + 8000));
         }
         if (quan == tempId) {
-            it.itemOptions.add(new Item.ItemOption(22, Util.nextInt(300) + 420));
+            it.itemOptions.add(new Item.ItemOption(22, Util.nextInt(100) + 320));
         }
         if (gang == tempId) {
-            it.itemOptions.add(new Item.ItemOption(0, Util.nextInt(300_000_000) + 100_000_000));
+            it.itemOptions.add(new Item.ItemOption(0, Util.nextInt(15000) + 35000));
         }
         if (giay == tempId) {
-            it.itemOptions.add(new Item.ItemOption(23, Util.nextInt(200) + 420));
+            it.itemOptions.add(new Item.ItemOption(23, Util.nextInt(100) + 320));
         }
         if (nhan == tempId) {
             it.itemOptions.add(new Item.ItemOption(14, new Random().nextInt(15) + 50));
         }
         it.itemOptions.add(new Item.ItemOption(21, 1000));
-        it.itemOptions.add(new Item.ItemOption(30, 0));
         return it;
     }
 
@@ -910,24 +908,22 @@ public class Util {
         int gang = 1521;
         int giay = 1522;
         int nhan = 1523;
-        it.options.add(new Item.ItemOption(230, 1));
         if (ao == tempId) {
             it.options.add(new Item.ItemOption(47, Util.nextInt(8001) + 8000));
         }
         if (quan == tempId) {
-            it.options.add(new Item.ItemOption(22, Util.nextInt(300) + 420));
+            it.options.add(new Item.ItemOption(22, Util.nextInt(100) + 320));
         }
         if (gang == tempId) {
-            it.options.add(new Item.ItemOption(0, Util.nextInt(300_000_000) + 100_000_000));
+            it.options.add(new Item.ItemOption(0, Util.nextInt(15000) + 35000));
         }
         if (giay == tempId) {
-            it.options.add(new Item.ItemOption(23, Util.nextInt(200) + 420));
+            it.options.add(new Item.ItemOption(23, Util.nextInt(100) + 320));
         }
         if (nhan == tempId) {
             it.options.add(new Item.ItemOption(14, new Random().nextInt(15) + 50));
         }
         it.options.add(new Item.ItemOption(21, 1000));
-        it.options.add(new Item.ItemOption(30, 0));
         return it;
     }
 
@@ -939,24 +935,22 @@ public class Util {
         int gang = 1529;
         int giay = 1530;
         int nhan = 1531;
-        it.itemOptions.add(new Item.ItemOption(230, 1));
         if (ao == tempId) {
             it.itemOptions.add(new Item.ItemOption(47, Util.nextInt(8001) + 16000));
         }
         if (quan == tempId) {
-            it.itemOptions.add(new Item.ItemOption(22, Util.nextInt(600) + 820));
+            it.itemOptions.add(new Item.ItemOption(22, Util.nextInt(200) + 420));
         }
         if (gang == tempId) {
-            it.itemOptions.add(new Item.ItemOption(0, Util.nextInt(1_000_000_000) + 500_000_000));
+            it.itemOptions.add(new Item.ItemOption(0, Util.nextInt(20000) + 50000));
         }
         if (giay == tempId) {
-            it.itemOptions.add(new Item.ItemOption(23, Util.nextInt(300) + 820));
+            it.itemOptions.add(new Item.ItemOption(23, Util.nextInt(200) + 420));
         }
         if (nhan == tempId) {
             it.itemOptions.add(new Item.ItemOption(14, new Random().nextInt(20) + 60));
         }
         it.itemOptions.add(new Item.ItemOption(21, 2000));
-        it.itemOptions.add(new Item.ItemOption(30, 0));
         return it;
     }
 
@@ -967,24 +961,22 @@ public class Util {
         int gang = 1529;
         int giay = 1530;
         int nhan = 1531;
-        it.options.add(new Item.ItemOption(230, 1));
         if (ao == tempId) {
             it.options.add(new Item.ItemOption(47, Util.nextInt(8001) + 16000));
         }
         if (quan == tempId) {
-            it.options.add(new Item.ItemOption(22, Util.nextInt(600) + 820));
+            it.options.add(new Item.ItemOption(22, Util.nextInt(200) + 420));
         }
         if (gang == tempId) {
-            it.options.add(new Item.ItemOption(0, Util.nextInt(1_000_000_000) + 500_000_000));
+            it.options.add(new Item.ItemOption(0, Util.nextInt(20000) + 50000));
         }
         if (giay == tempId) {
-            it.options.add(new Item.ItemOption(23, Util.nextInt(300) + 820));
+            it.options.add(new Item.ItemOption(23, Util.nextInt(200) + 420));
         }
         if (nhan == tempId) {
             it.options.add(new Item.ItemOption(14, new Random().nextInt(20) + 60));
         }
         it.options.add(new Item.ItemOption(21, 2000));
-        it.options.add(new Item.ItemOption(30, 0));
         return it;
     }
 

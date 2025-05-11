@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 
 public class ItemService {
 
+    int[] optionsRandom = new int[]{3, 4, 8, 24, 25, 26, 29, 82, 83, 88, 95, 96, 97, 101};
+    int[] optionRandomVip = new int[]{5, 14, 22, 23, 50};
     private static ItemService i;
 
     public static ItemService gI() {
@@ -409,52 +411,25 @@ public class ItemService {
     public Item createRandomDoThongKho() {
         Item item = null;
         short itemId;
-        itemId = Manager.DoThongKho[Util.nextInt(0, 4)];
-        int skhId = ItemService.gI().randomSKHThongKho((byte) Util.nextInt(0, 2));
-        if (new Item(itemId).isThongKho()) {
-            item = Util.ratiItemThongKho(itemId);
-            item.itemOptions.add(new Item.ItemOption(skhId, 1));
-            item.itemOptions.add(new Item.ItemOption(ItemService.gI().optionIdSKHThongKho(skhId), 1));
-            item.itemOptions.remove(item.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst().get());
-            item.itemOptions.add(new Item.ItemOption(21, 500));
-        } else {
-            item = ItemService.gI().itemSKH(itemId, skhId);
-        }
-        return item;
+        itemId = Manager.DoThongKho[Util.nextInt(0, Manager.DoThongKho.length - 1)];
+        item = Util.ratiItemThongKho(itemId);
+        return randomOption(item);
     }
 
     public Item createRandomDoJiren() {
         Item item = null;
         short itemId;
         itemId = Manager.setJiren[Util.nextInt(0, 4)];
-        int skhId = ItemService.gI().randomSKHJiren((byte) Util.nextInt(0, 2));
-        if (new Item(itemId).isDJiren()) {
-            item = Util.ratiItemSKHJiren(itemId);
-            item.itemOptions.add(new Item.ItemOption(skhId, 1));
-            item.itemOptions.add(new Item.ItemOption(ItemService.gI().optionIdSKHJiren(skhId), 1));
-            item.itemOptions.remove(item.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst().get());
-            item.itemOptions.add(new Item.ItemOption(21, 500));
-        } else {
-            item = ItemService.gI().itemSKH(itemId, skhId);
-        }
-        return item;
+        item = Util.ratiItemSKHJiren(itemId);
+        return randomOption(item);
     }
 
-    public Item createRandomDoGoku(Player player) {
+    public Item createRandomDoGoku() {
         Item item = null;
         short itemId;
         itemId = Manager.setGokuUI[Util.nextInt(0, 4)];
-        int skhId = ItemService.gI().randomSKHGK((byte) Util.nextInt(0, 2));
-        if (new Item(itemId).isDGoku()) {
-            item = Util.ratiItemSKHGokuUI(itemId);
-            item.itemOptions.add(new Item.ItemOption(skhId, 1));
-            item.itemOptions.add(new Item.ItemOption(ItemService.gI().optionSKHGK(skhId), 1));
-            item.itemOptions.remove(item.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst().get());
-            item.itemOptions.add(new Item.ItemOption(21, 500));
-        } else {
-            item = ItemService.gI().itemSKH(itemId, skhId);
-        }
-        return item;
+        item = Util.ratiItemSKHGokuUI(itemId);
+        return randomOption(item);
     }
 
     private int optionSKHGK(int skhId) {
@@ -1495,4 +1470,183 @@ public class ItemService {
         }
     }
 
+    public Item createRanDomDoThanLinh() {
+        Item item = null;
+        short idItem = Manager.itemIds_TL[Util.nextInt(0, Manager.itemIds_TL.length - 1)];
+        item = ItemService.gI().createNewItem(idItem);
+        // add thuoc tinh cho do than linh
+        int param = 0;
+        int paramID = getParamIdByItemType(item.template.type);
+
+        switch (paramID) {
+            case 47:
+                param = Util.nextInt(1500, 3000);
+                break;
+            case 6:
+            case 7:
+                param = Util.nextInt(45000, 65000);
+                break;
+            case 0:
+                param = Util.nextInt(4000, 9000);
+                break;
+            case 14:
+                Util.nextInt(5, 15);
+                break;
+        }
+        return randommOptionForCheDo(item, param, paramID);
+    }
+
+    public int getParamIdByItemType(byte type) {
+        int[] optionsType = new int[]{47, 6, 0, 7, 14};
+        return optionsType[type];
+    }
+
+    public Item createRandomDoHuyDiet() {
+        Item item = null;
+        short idItem = Manager.itemIds_HD[Util.nextInt(0, Manager.itemIds_HD.length - 1)];
+        item = ItemService.gI().createNewItem(idItem);
+        // add thuoc tinh cho do than linh
+        int param = 0;
+        int paramID = getParamIdByItemType(item.template.type);
+
+        switch (paramID) {
+            case 47:
+                param = Util.nextInt(3500, 6000);
+                break;
+            case 6:
+            case 7:
+                param = Util.nextInt(70000, 95000);
+                break;
+            case 0:
+                param = Util.nextInt(10000, 12000);
+                break;
+            case 14:
+                Util.nextInt(6, 20);
+                break;
+        }
+        return randommOptionForCheDo(item, param, paramID);
+    }
+
+    private Item randommOptionForCheDo(Item item, int param, int paramID) {
+        ItemOption itemOption = new ItemOption(paramID, param);
+        item.itemOptions.add(itemOption);
+        return randomOption(item);
+    }
+
+    private Item randomOption(Item item) {
+        if (Util.isTrue(50, 100)) {
+            item.itemOptions.add(new ItemOption(30, 0));
+        }
+        if (Util.isTrue(80, 100)) {
+            item.itemOptions.add(new ItemOption(optionsRandom[Util.nextInt(0, optionsRandom.length - 1)], Util.nextInt(5, 25)));
+        }
+        if (Util.isTrue(10, 100)) {
+            item.itemOptions.add(new ItemOption(optionRandomVip[Util.nextInt(0, optionRandomVip.length - 1)], Util.nextInt(1, 25)));
+        }
+        return item;
+    }
+
+    public Item createRandomGoThienSu() {
+        Item item = null;
+        short idItem = Manager.itemIds_HD[Util.nextInt(0, Manager.itemIds_HD.length - 1)];
+        item = ItemService.gI().createNewItem(idItem);
+        // add thuoc tinh cho do than linh
+        int param = 0;
+        int paramID = getParamIdByItemType(item.template.type);
+
+        switch (paramID) {
+            case 47:
+                param = Util.nextInt(6500, 9000);
+                break;
+            case 6:
+            case 7:
+                param = Util.nextInt(100000, 150000);
+                break;
+            case 0:
+                param = Util.nextInt(12500, 16000);
+                break;
+            case 14:
+                Util.nextInt(9, 25);
+                break;
+        }
+        return randommOptionForCheDo(item, param, paramID);
+    }
+
+    public Item createRandomDoXen() {
+        Item item = null;
+        short idItem = Manager.setSen[Util.nextInt(0, Manager.setSen.length - 1)];
+        item = ItemService.gI().createNewItem(idItem);
+        // add thuoc tinh cho do than linh
+        int param = 0;
+        int paramID = getParamIdByItemType(item.template.type);
+
+        switch (paramID) {
+            case 47:
+                param = Util.nextInt(9500, 12000);
+                break;
+            case 6:
+            case 7:
+                param = Util.nextInt(165000, 200000);
+                break;
+            case 0:
+                param = Util.nextInt(16200, 21000);
+                break;
+            case 14:
+                Util.nextInt(12, 30);
+                break;
+        }
+        return randommOptionForCheDo(item, param, paramID);
+    }
+
+    public Item createRandomDoNguyenThuy() {
+        Item item = null;
+        short idItem = Manager.setNguyenThuy[Util.nextInt(0, Manager.setNguyenThuy.length - 1)];
+        item = ItemService.gI().createNewItem(idItem);
+        // add thuoc tinh cho do than linh
+        int param = 0;
+        int paramID = getParamIdByItemType(item.template.type);
+
+        switch (paramID) {
+            case 47:
+                param = Util.nextInt(16000, 18000);
+                break;
+            case 6:
+            case 7:
+                param = Util.nextInt(275000, 300000);
+                break;
+            case 0:
+                param = Util.nextInt(25500, 28000);
+                break;
+            case 14:
+                Util.nextInt(20, 40);
+                break;
+        }
+        return randommOptionForCheDo(item, param, paramID);
+    }
+
+    public Item createRandomDoThanhTon() {
+        Item item = null;
+        short idItem = Manager.setThanhTon[Util.nextInt(0, Manager.setThanhTon.length - 1)];
+        item = ItemService.gI().createNewItem(idItem);
+        // add thuoc tinh cho do than linh
+        int param = 0;
+        int paramID = getParamIdByItemType(item.template.type);
+
+        switch (paramID) {
+            case 47:
+                param = Util.nextInt(20000, 25000);
+                break;
+            case 6:
+            case 7:
+                param = Util.nextInt(300000, 350000);
+                break;
+            case 0:
+                param = Util.nextInt(28555, 32000);
+                break;
+            case 14:
+                Util.nextInt(25, 50);
+                break;
+        }
+        return randommOptionForCheDo(item, param, paramID);
+    }
 }

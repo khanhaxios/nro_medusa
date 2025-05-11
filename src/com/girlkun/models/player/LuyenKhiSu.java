@@ -146,17 +146,17 @@ public class LuyenKhiSu {
             case 2:
                 return 1f;
             case 3:
-                return 2f;
+                return 1.5f;
             case 4:
-                return 3f;
+                return 2f;
             case 5:
-                return 5f;
+                return 2.5f;
             case 6:
-                return 7f;
+                return 3f;
             case 7:
-                return 9f;
+                return 4f;
             case 8:
-                return 10f;
+                return 8f;
             case 9:
                 return 12f;
             case 10:
@@ -164,7 +164,7 @@ public class LuyenKhiSu {
             case 11:
                 return 20f;
             case 12:
-                return 30.5f;
+                return 25f;
             default:
                 return 0;
         }
