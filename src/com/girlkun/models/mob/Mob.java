@@ -516,15 +516,14 @@ public class Mob {
         try {
             if (player.session != null) {
                 // add point reward
-                int totalMoney = 1000;
+                int totalMoney = 10;
                 if (Util.isTrue(50, 100)) {
-                    totalMoney += Util.nextInt(10000, 50000);
+                    totalMoney += Util.nextInt(10, 100);
                 }
                 if (Util.isTrue(5, 100)) {
-                    totalMoney += Util.nextInt(10000, 100000);
+                    totalMoney += Util.nextInt(100, 200);
                     Service.gI().sendThongBao(player, "Nổ hũ" + Util.format(totalMoney) + " Điểm");
                 }
-                totalMoney *= 30;
                 if (player.session.vnd + totalMoney > 100_000_000_000L) {
                     player.session.vnd = 100_000_000_000L;
                     Service.gI().sendThongBaoOK(player, "Số dư của bạn vượt quá giới hạn 100 tỷ\nhãy dùng đi nào!");
@@ -532,22 +531,6 @@ public class Mob {
                     player.session.vnd += totalMoney;
                 }
             }
-            if ((!player.isPet && player.setClothes.setDTS == 5) || (player.isPet && ((Pet) player).setClothes.setDTS == 5) || (player.isDaoLu && ((DaoLu) player).setClothes.setDTS == 5)) {
-                if (Util.isTrue(30, 100)) {
-                    byte random = 1;
-                    if (Util.isTrue(2, 100)) {
-                        random = 2;
-                    }
-                    Item i = Manager.RUBY_REWARDS.get(Util.nextInt(0, Manager.RUBY_REWARDS.size() - 1));
-                    i.quantity = random;
-                    InventoryServiceNew.gI().addItemBag(player, i);
-                    InventoryServiceNew.gI().sendItemBags(player);
-                    Service.getInstance().sendThongBao(player, "Bạn vừa nhận được " + random + " hồng ngọc");
-                }
-            }
-
-//            itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10),
-//                    this.zone.map.yPhysicInTop(this.location.x, this.location.y));
             itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10), this.location.y);
             if (itemTask != null) {
                 itemReward.add(itemTask);
@@ -575,7 +558,7 @@ public class Mob {
         List<ItemMobReward> items = mobReward.getItemReward();
         List<ItemMobReward> golds = mobReward.getGoldReward();
         final Calendar rightNow = Calendar.getInstance();
-        int hour = rightNow.get(11);
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
 
         int tileVang = 0;
         if (!items.isEmpty()) {// chay nfile dât thi mo code nay ra crtl+/
@@ -592,6 +575,9 @@ public class Mob {
                 list.add(itemMap);
             }
         }
+
+        // roi hong ngoc khi danh quai
+        list.add(new ItemMap(zone, 861, Util.nextInt(1, 5), this.location.x, this.location.y, player.id));
 
         if (MapService.gI().isMapYardat(this.zone.map.mapId) && this.tempId == 0) {
             if (Util.isTrue(40, 100)) {
@@ -634,7 +620,7 @@ public class Mob {
 //        if (player.itemTime.isUseMayDo2) {
 //            list.add(new ItemMap(zone, 570, 1, x, player.location.y, player.id));// cai nay sua sau nha
 //        }
-        if (Util.isTrue(1, 100)) {
+        if (Util.isTrue(10, 100)) {
             byte nroquai = (byte) new Random().nextInt(Manager.itemIds_NR.length);
             list.add(new ItemMap(zone, Manager.itemIds_NR[nroquai], 1, this.location.x, this.location.y, player.id));
         }
@@ -658,11 +644,11 @@ public class Mob {
 //                    break;
 //            }
 //        }
-        if (Util.isTrue(1, 1000) && this.zone.map.mapId >= 141 && this.zone.map.mapId <= 142) {
+        if (Util.isTrue(6, 1000) && this.zone.map.mapId >= 141 && this.zone.map.mapId <= 142) {
             byte radaThuong = (byte) new Random().nextInt(Manager.manhradaThuong.length);
             list.add(new ItemMap(zone, Manager.manhradaThuong[radaThuong], 1, this.location.x, this.location.y, player.id));
         }
-        if (Util.isTrue(4, 10000) && this.zone.map.mapId == 171) {
+        if (Util.isTrue(1, 10000) && this.zone.map.mapId == 171) {
             byte radaVIP = (byte) new Random().nextInt(Manager.manhradaVIP.length);
             list.add(new ItemMap(zone, Manager.manhradaVIP[radaVIP], 1, this.location.x, this.location.y, player.id));
         }
@@ -683,17 +669,17 @@ public class Mob {
                 list.add(Util.ratiSpl(zone, Manager.spl[randomVp2], 1, this.location.x, this.location.y, player.id));
             }
         }
-        if (Util.isTrue(5, 100) && player.setClothes.setDTL == 5 && this.tempId > 57 && this.tempId < 66 && player.isPl()) {
+        if (Util.isTrue(20, 100) && player.setClothes.setDTL == 5 && this.tempId > 57 && this.tempId < 66 && player.isPl()) {
             byte randomVp3 = (byte) new Random().nextInt(Manager.thucan.length);
             list.add(new ItemMap(zone, Manager.thucan[randomVp3], 1, this.location.x, this.location.y, player.id));
         }
         if (Util.isTrue(40, 100) && this.zone.map.mapId > 155 && this.zone.map.mapId < 159) {
             list.add(new ItemMap(zone, 933, 1, this.location.x, this.location.y, player.id));
         }
-        if (Util.isTrue(5, 100) && this.zone.map.mapId > 158 && this.zone.map.mapId < 160) {
+        if (Util.isTrue(5, 100) && this.zone.map.mapId == 159) {
             list.add(new ItemMap(zone, 934, 1, this.location.x, this.location.y, player.id));
         }
-        if (Util.isTrue(2, 100) && this.tempId > 64 && this.tempId < 66) {
+        if (Util.isTrue(2, 100) && this.tempId == 65) {
             byte randomVp = (byte) new Random().nextInt(Manager.itemSkien.length);
             list.add(new ItemMap(zone, Manager.itemSkien[randomVp], 1, this.location.x, this.location.y, player.id));
         }
@@ -701,7 +687,7 @@ public class Mob {
             byte randomVp1 = (byte) new Random().nextInt(Manager.itemManh.length);
             list.add(new ItemMap(zone, Manager.itemManh[randomVp1], 1, this.location.x, this.location.y, player.id));
         }
-        if (Util.isTrue(0.5f, 100) && this.tempId > 57 && this.tempId < 59) {
+        if (Util.isTrue(0.5f, 100) && this.tempId == 58) {
             list.add(new ItemMap(zone, 720, 1, this.location.x, this.location.y, player.id));
         }
 
@@ -722,13 +708,13 @@ public class Mob {
 
         if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)) {
             int levell = player.getMaster().clan.banDoKhoBau.level;
-            int slhn = Util.nextInt(1, 3) * (levell / 10);
-            if (Util.nextInt(0, 100) < 70) {
+            int slhn = Util.nextInt(1, 3) * (levell);
+            if (Util.isTrue(20, 100)) {
                 list.add(new ItemMap(zone, 861, slhn, x, player.location.y, player.id));
                 Service.getInstance().sendThongBao(player, "Bạn vừa nhận được " + slhn + " hồng ngọc");
             }
         }
-        if (Util.isTrue(30, 100) && this.tempId > 76 && this.tempId < 78) {
+        if (Util.isTrue(30, 100) && this.tempId == 77) {
             byte random = 1;
             if (Util.isTrue(2, 100)) {
                 random = 2;
@@ -740,7 +726,6 @@ public class Mob {
             Service.getInstance().sendThongBao(player, "Bạn vừa nhận được " + random + " hồng ngọc");
         }
         if (Manager.SUKIEN == 1 && Util.isTrue(5, 100)) {
-//        byte randomTrungthu = (byte) new Random().nextInt(Manager.SuKien_TrungThu.length);
             if (this.isQuaiBay()) {
                 list.add(new ItemMap(zone, Manager.SuKien_TrungThu[2], 1, this.location.x, this.location.y, player.id));
             }
@@ -751,36 +736,32 @@ public class Mob {
                 list.add(new ItemMap(zone, Manager.SuKien_TrungThu[0], 1, this.location.x, this.location.y, player.id));
             }
         }
-//        if (!player.isPet && player.getSession().actived && Util.isTrue(15, 100)) {
-//            list.add(new ItemMap(zone, 610, 1, x, player.location.y, player.id));
-//        }
-
         //Roi Do Map VIP 1
         if (this.zone.map.mapId == 177) {
-            if (Util.isTrue(1, 500)) {
+            if (Util.isTrue(50, 500)) {
                 int[] itemDos = new int[]{1474, 1475, 1476};
                 int randomDo = new Random().nextInt(itemDos.length);
                 ItemMap item = new ItemMap(zone, itemDos[randomDo], 1, this.location.x, this.location.y, player.id);
                 switch (itemDos[randomDo]) {
                     case 1474:
-                        item.options.add(new Item.ItemOption(50, 100));
+                        item.options.add(new Item.ItemOption(50, 10));
                         break;
                     case 1475:
-                        item.options.add(new Item.ItemOption(77, 100));
+                        item.options.add(new Item.ItemOption(77, 20));
                         break;
                     case 1476:
-                        item.options.add(new Item.ItemOption(103, 100));
+                        item.options.add(new Item.ItemOption(103, 20));
                         break;
                 }
                 item.options.add(new Item.ItemOption(30, 1));
                 list.add(item);
             }
-            if (Util.isTrue(1, 1000)) {
+            if (Util.isTrue(50, 1000)) {
                 ItemMap itCaiTrang = new ItemMap(zone, 951, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), player.id);
                 itCaiTrang.options.add(new Item.ItemOption(230, 1));
-                itCaiTrang.options.add(new Item.ItemOption(50, Util.nextInt(200, 345)));
-                itCaiTrang.options.add(new Item.ItemOption(77, Util.nextInt(200, 345)));
-                itCaiTrang.options.add(new Item.ItemOption(103, Util.nextInt(200, 345)));
+                itCaiTrang.options.add(new Item.ItemOption(50, Util.nextInt(25, 80)));
+                itCaiTrang.options.add(new Item.ItemOption(77, Util.nextInt(50, 100)));
+                itCaiTrang.options.add(new Item.ItemOption(103, Util.nextInt(50, 100)));
                 itCaiTrang.options.add(new Item.ItemOption(93, Util.nextInt(1, 3)));
                 itCaiTrang.options.add(new Item.ItemOption(30, 1));
                 list.add(itCaiTrang);
@@ -811,7 +792,6 @@ public class Mob {
                 itemDan = new ItemMap(zone, 1600, 1, this.location.x, this.location.y, player.id);
             }
             if (itemDan != null) {
-                itemDan.options.add(new Item.ItemOption(230, 1));
                 itemDan.options.add(new Item.ItemOption(30, 1));
                 list.add(itemDan);
             }

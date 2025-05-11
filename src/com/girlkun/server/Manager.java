@@ -68,7 +68,7 @@ import org.json.simple.JSONValue;
 
 public class Manager {
 
-    public static final int GIA_QUY_DOI_BUA_ZENO = 9999;
+    public static final int GIA_QUY_DOI_BUA_ZENO = 2222;
     public static short[] setNguyenThuy = new short[]{1450, 1451, 1452};
     public static short[] setThanhTon = new short[]{1431, 1432, 1433, 1434, 1435};
     private static Manager i;
