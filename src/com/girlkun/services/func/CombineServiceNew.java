@@ -1235,7 +1235,6 @@ public class CombineServiceNew {
                 phaLeHoaTrangBi(player);
                 break;
             case CHUYEN_HOA_TRANG_BI:
-
                 break;
             case NHAP_NGOC_RONG:
                 nhapNgocRong(player);
@@ -1245,7 +1244,7 @@ public class CombineServiceNew {
                 break;
 //            case MA_HOA:
 //                mahoatrangbi(player);
-//                break;           
+//                break;
 //            case THAN_HOA:
 //                thanhoatrangbi(player);
 //                break;  
@@ -2048,7 +2047,7 @@ public class CombineServiceNew {
                         break;
                     }
                 }
-                if (item != null && item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && (dangusac.template.id == 1232 || dangusac.template.id == 1233 || dangusac.template.id == 1234 || dangusac.template.id == 1441 || dangusac.template.id == 1442 || dangusac.template.id == 807 || dangusac.template.id == 1457) && dangusac.quantity >= 99) {
+                if (item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && (dangusac.template.id == 1232 || dangusac.template.id == 1233 || dangusac.template.id == 1234 || dangusac.template.id == 1441 || dangusac.template.id == 1442 || dangusac.template.id == 807 || dangusac.template.id == 1457) && dangusac.quantity >= 99) {
                     if (optionStar == null) {
                         if (dangusac.template.id == 1232) {
                             item.itemOptions.add(new Item.ItemOption(34, 1));
@@ -2068,8 +2067,8 @@ public class CombineServiceNew {
                         } else if (dangusac.template.id == 807) {
                             item.itemOptions.add(new Item.ItemOption(204, 1));
                             sendEffectSuccessCombine(player);
-                        } else if (dangusac.template.id == 1457) {
-                            item.itemOptions.add(new Item.ItemOption(212, 1));
+                        } else {
+                            item.itemOptions.add(new ItemOption(212, 1));
                             sendEffectSuccessCombine(player);
                         }
 //                    InventoryServiceNew.gI().addItemBag(player, item);
@@ -3035,7 +3034,7 @@ public class CombineServiceNew {
                     if (lvcheck < 10) {
                         if (optionStar == null) {
                             item.itemOptions.add(new Item.ItemOption(253, cap));
-                            if (check == 252) {
+                            if (check == 252252) {
                                 item.itemOptions.add(new Item.ItemOption(check, lvchiso));
                             } else {
                                 item.itemOptions.add(new Item.ItemOption(check, lvchiso * 2));
@@ -4210,13 +4209,13 @@ public class CombineServiceNew {
                 return 1000; // +100% KI
             // nro sss vip
             case 1470:
-                return 10; // +5%ki
+                return 7; // +5%ki
             case 1471:
-                return 20; // +50%sđ
+                return 10; // +50%sđ
             case 1472:
-                return 30; // +100% HP
+                return 15; // +100% HP
             case 1473:
-                return 40; // +100% KI
+                return 18; // +100% KI
             default:
                 return -1;
         }

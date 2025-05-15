@@ -824,11 +824,7 @@ public class InventoryServiceNew {
                 Service.getInstance().sendMoney(player);
                 return true;
             case 34:
-                long total = player.inventory.ruby + item.quantity;
-                if (total > 2000000000) {
-                    Service.gI().sendThongBao(player, "Hồng ngọc vượt quá giới hạn hãy tiêu hết để thực hiện");
-                    return false;
-                }
+                player.inventory.ruby += item.quantity;
                 Service.getInstance().sendMoney(player);
                 return true;
         }

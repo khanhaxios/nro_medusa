@@ -376,7 +376,6 @@ public class PlayerDAO {
             long st = System.currentTimeMillis();
             try {
                 JSONArray dataArray = new JSONArray();
-
                 //data kim lượng
                 dataArray.add(player.inventory.gold > Inventory.LIMIT_GOLD
                         ? Inventory.LIMIT_GOLD : player.inventory.gold);

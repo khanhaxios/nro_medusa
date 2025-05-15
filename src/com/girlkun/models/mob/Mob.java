@@ -159,6 +159,7 @@ public class Mob {
                 this.sendMobStillAliveAffterAttacked(damage, plAtt != null ? plAtt.nPoint.isCrit : false);
             }
             if (plAtt != null) {
+                PlayerService.gI().sendOtherOrigan(plAtt, (byte) 1, Util.nextInt(1000, 100000));
                 Service.getInstance().addSMTN(plAtt, (byte) 2, getTiemNangForPlayer(plAtt, damage), true);
             }
         }

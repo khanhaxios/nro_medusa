@@ -1565,7 +1565,6 @@ public class NPoint {
                 if (this.player.setClothes.setGokuUITD == 5) {
                     percentXDame = 250;
                 }
-                //
                 break;
             case Skill.GALICK:
                 if (intrinsic.id == 16) {
@@ -1634,7 +1633,6 @@ public class NPoint {
                 if (this.player.setClothes.NhanHoang == 5) {
                     percentXDame = 120;
                 }
-                //
                 if (this.player.setClothes.nguyenthuytd == 5) {
                     percentXDame = 150;
                 }
@@ -1654,21 +1652,21 @@ public class NPoint {
                     percentXDame = 100;
                 }
                 if (this.player.setClothes.MaThan == 5) {
-                    percentXDame = 120;
+                    percentXDame = 110;
                 }
                 if (this.player.setClothes.nguyenthuynm == 5) {
-                    percentXDame = 150;
+                    percentXDame = 120;
                 }
                 if (this.player.setClothes.thongkhonm == 5) {
-                    percentXDame = 175;
+                    percentXDame = 135;
                 }
                 // Jiren
                 if (this.player.setClothes.setJirenNM == 5) {
-                    percentXDame = 200;
+                    percentXDame = 150;
                 }
                 // Goku UI
                 if (this.player.setClothes.setGokuUINM == 5) {
-                    percentXDame = 250;
+                    percentXDame = 160;
                 }
                 break;
             case Skill.DICH_CHUYEN_TUC_THOI:
@@ -1677,8 +1675,7 @@ public class NPoint {
                 return dameAttack;
             case Skill.MAKANKOSAPPO:
                 percentDameSkill = skillSelect.damage;
-                double dameSkill = this.mpMax * percentDameSkill / 100;
-                return dameSkill;
+                return this.mpMax * percentDameSkill / 100;
             case Skill.QUA_CAU_KENH_KHI:
                 double dame = this.dame * 40;
                 if (this.player.setClothes.kirin == 5) {
@@ -1736,7 +1733,6 @@ public class NPoint {
                     break;
             }
         }
-        //check activation set
         return dameAttack;
     }
 
@@ -1882,11 +1878,6 @@ public class NPoint {
         return dame;
     }
 
-    /*------------------------------------------------------------------------*/
-    public boolean canOpenPower() {
-        return this.power >= getPowerLimit();
-    }
-
     public long getPowerLimit() {
         switch (limitPower) {
             case 0:
@@ -1996,20 +1987,20 @@ public class NPoint {
             return 700_000;
         }
         if (limitPower == 12) {
-            return 750_000;
+            return 725_000;
         }
         if (limitPower == 13) {
-            return 800_000;
+            return 750_000;
         }
         return 0;
     }
 
     public int getDameLimit() {
         if (limitPower == 0) {
-            return 9999;
+            return 11000;
         }
         if (limitPower == 1) {
-            return 11111;
+            return 12000;
         }
         if (limitPower == 2) {
             return 15555;
@@ -2018,7 +2009,7 @@ public class NPoint {
             return 18888;
         }
         if (limitPower == 4) {
-            return 22222;
+            return 20000;
         }
         if (limitPower == 5) {
             return 23333;
@@ -2027,25 +2018,25 @@ public class NPoint {
             return 24555;
         }
         if (limitPower == 7) {
-            return 28888;
+            return 26888;
         }
         if (limitPower == 8) {
-            return 31111;
+            return 28111;
         }
         if (limitPower == 9) {
-            return 36666;
+            return 31666;
         }
         if (limitPower == 10) {
-            return 40000;
+            return 33000;
         }
         if (limitPower == 11) {
-            return 56666;
+            return 36666;
         }
         if (limitPower == 12) {
-            return 78888;
+            return 40888;
         }
         if (limitPower == 13) {
-            return 99999;
+            return 48888;
         }
         return 0;
     }

@@ -112,7 +112,6 @@ public class SkillService {
                 }
                 break;
             case 4:
-//                System.out.println("người chơi xài skill  mới       " + player.id);
                 userSkillSpecial(player, st, skillId, dx, dy, dir, x, y);
                 break;
             default:
@@ -557,9 +556,6 @@ public class SkillService {
         }
     }
 
-    private void _____________Code_Skill_Mới____________() {
-    }
-
     private void useSkillNew(Player player, Player plTarget, Mob mobTarget) {
         try {
             switch (player.playerSkill.skillSelect.template.id) {
@@ -588,90 +584,12 @@ public class SkillService {
         }
     }
 
-    private void _____________Code_Skill_Cơ_Bản____________() {
-    }
 
     private void useSkillAttack(Player player, Player plTarget, Mob mobTarget) {
         if (!player.isBoss) {
-            if (player.isPl() && player.haveTuTien == true) {
-                player.KinhNghiemTT += Util.nextInt(100000000, 800000000);
-
-                if (player.CapTuTien == 19) {
-                    if (Util.isTrue(10f, 100)) {
-                        int tnhan = (player.CapTuTien + 1) * 75;
-                        player.inventory.ruby += tnhan;
-                        Service.gI().sendThongBao(player,
-                                "Bạn vừa nhận " + tnhan + " Hồng ngọc bằng Kỹ năng Tu tiên");
-                        Service.gI().sendMoney(player);
-                    }
-                } else if (player.CapTuTien == 18) {
-                    if (Util.isTrue(5f, 100)) {
-                        int tnhan = (player.CapTuTien + 1) * 30;
-                        player.inventory.ruby += tnhan;
-                        Service.gI().sendThongBao(player,
-                                "Bạn vừa nhận " + tnhan + " Hồng ngọc bằng Kỹ năng Tu tiên");
-                        Service.gI().sendMoney(player);
-                    }
-                }
-            }
-
             if (player.isTrieuhoipet && ((Thu_TrieuHoi) player).masterr.TrieuHoiCapBac != -1
                     && ((Thu_TrieuHoi) player).masterr.TrieuHoipet != null) {
-                if (((Thu_TrieuHoi) player).masterr.TrieuHoiLevel < 100) {
-                    if (((Thu_TrieuHoi) player).masterr.itemTimesieucap != null && ((Thu_TrieuHoi) player).masterr.itemTimesieucap.isUseXiMuoi) { //x3 kinh ngiệm Chiến Thần khi xài Xí Muội
-                        ((Thu_TrieuHoi) player).masterr.TrieuHoiExpThanThu += (Util.nextInt(10000, 50000) * 50);//x10 kinh nghien khi sai xi muoi
-                    } else {
-                        ((Thu_TrieuHoi) player).masterr.TrieuHoiExpThanThu += Util.nextInt(10000, 50000);
-                    }
-                    if ((((Thu_TrieuHoi) player).masterr.TrieuHoiExpThanThu >= 3000000L + ((Thu_TrieuHoi) player).masterr.TrieuHoiLevel * 1500000L)
-                            && ((Thu_TrieuHoi) player).masterr.TrieuHoiLevel < 100) {
-                        ((Thu_TrieuHoi) player).masterr.TrieuHoiLevel++;
-                        ((Thu_TrieuHoi) player).masterr.TrieuHoiExpThanThu = 0;
-                        ((Thu_TrieuHoi) player).masterr.TrieuHoiDame += Util.GioiHannext(10000,
-                                10000L + ((((Thu_TrieuHoi) player).masterr.TrieuHoiCapBac + 1) * 1000L));
-                        ((Thu_TrieuHoi) player).masterr.TrieuHoiHP += Util.GioiHannext(50000,
-                                50000L + ((((Thu_TrieuHoi) player).masterr.TrieuHoiCapBac + 1) * 5000L));
-                    }
-                }
-                if (((Thu_TrieuHoi) player).masterr.TrieuHoiCapBac >= 8 && ((Thu_TrieuHoi) player).masterr.TrieuHoiCapBac <= 10) {
-                    if (Util.isTrue(5f, 100)) {
-                        int tnhan;
-                        switch (((Thu_TrieuHoi) player).masterr.TrieuHoiCapBac) {
-                            case 8:
-                                tnhan = (((Thu_TrieuHoi) player).masterr.TrieuHoiLevel + 1) * 5;
-                                break;
-                            case 9:
-                                tnhan = (((Thu_TrieuHoi) player).masterr.TrieuHoiLevel + 1) * 10;
-                                break;
-                            default:
-                                tnhan = (((Thu_TrieuHoi) player).masterr.TrieuHoiLevel + 1) * 15;
-                                break;
-                        }
-                        ((Thu_TrieuHoi) player).masterr.inventory.ruby += tnhan;
-                        Service.gI().sendThongBao(((Thu_TrieuHoi) player).masterr,
-                                "Bạn vừa nhận " + tnhan + " Hồng ngọc, Do Chiến Thần tìm được");
-                        Service.gI().sendMoney(((Thu_TrieuHoi) player).masterr);
-                    }
-                }
-//                if (((Thu_TrieuHoi) player).masterr.TrieuHoiCapBac == 7
-//                        || ((Thu_TrieuHoi) player).masterr.TrieuHoiCapBac == 10) {
-//                    if (Util.isTrue(0.01f, 100)) {
-//                        int tnnhan = Util.nextInt(1, 4);
-//                        if (tnnhan == 1) {
-//                            ((Thu_TrieuHoi) player).masterr.nPoint.hpg += (((Thu_TrieuHoi) player).masterr.TrieuHoiLevel
-//                                    + 1) * 20;
-//                        } else if (tnnhan == 2) {
-//                            ((Thu_TrieuHoi) player).masterr.nPoint.mpg += (((Thu_TrieuHoi) player).masterr.TrieuHoiLevel
-//                                    + 1) * 20;
-//                        } else if (tnnhan == 3) {
-//                            ((Thu_TrieuHoi) player).masterr.nPoint.defg += (((Thu_TrieuHoi) player).masterr.TrieuHoiLevel
-//                                    + 1) * 20;
-//                        } else if (tnnhan == 4) {
-//                            ((Thu_TrieuHoi) player).masterr.nPoint.dameg += (((Thu_TrieuHoi) player).masterr.TrieuHoiLevel
-//                                    + 1) * 5;
-//                        }
-//                    }
-//                }
+                // handle exp for chien than
             } else if (player.isPet) {
                 if (player.nPoint.stamina > 0) {
                     player.nPoint.numAttack++;
@@ -685,6 +603,7 @@ public class SkillService {
                     return;
                 }
             } else if (player.isDaoLu) {
+                // handle exp for dao lu
             } else if (player.nPoint.stamina > 0) {
                 if (player.charms.tdDeoDai < System.currentTimeMillis()) {
                     player.nPoint.numAttack++;

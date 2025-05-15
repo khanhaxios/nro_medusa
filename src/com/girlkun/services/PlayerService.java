@@ -23,6 +23,19 @@ public class PlayerService {
         return i;
     }
 
+    public void sendOtherOrigan(Player player, byte type, double param) {
+        Message msg;
+        try {
+            msg = new Message(-123);
+            msg.writer().writeByte(type);// 0 là cộng sm, 1 cộng tn, 2 là cộng cả 2
+            msg.writer().writeLong(Util.DoubleGioihan(param));// số tn cần cộng
+            player.sendMessage(msg);
+            msg.cleanup();
+        } catch (Exception e) {
+
+        }
+    }
+
     public void sendTNSM(Player player, byte type, double param) {
         if (param > 0) {
             Message msg;
@@ -33,6 +46,7 @@ public class PlayerService {
                 player.sendMessage(msg);
                 msg.cleanup();
             } catch (Exception e) {
+
             }
         }
     }

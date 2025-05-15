@@ -3762,10 +3762,9 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 5 || this.mapId == 13) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Ép sao\ntrang bị", "Pha lê\nhóa\ntrang bị", "Tinh ấn\ntrang bị", "Pháp sư hoá\ntrang bị", "Bóng Tối hoá\ntrang bị", "Ánh Sáng hoá\ntrang bị", "Tẩy\npháp sư", "Tẩy\nBóng Tối", "Tẩy\nÁnh Sáng", "Tẩy ấn\nTrang Bị", "Tẩy Sao\nTrang Bị", "Chân mệnh", "Chuyển hóa\nđồ Hủy diệt", "Chuyển hóa\nSKH", "Gia Hạn\nvật phẩm", "Mở khóa\nvật phẩm", "Dung Hợp\nSet Đồ\nVIP");
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Ép sao\ntrang bị", "Pha lê\nhóa\ntrang bị", "Tinh ấn\ntrang bị", "Pháp sư hoá\ntrang bị", "Bóng Tối hoá\ntrang bị", "Ánh Sáng hoá\ntrang bị", "Tẩy\npháp sư", "Tẩy\nBóng Tối", "Tẩy\nÁnh Sáng", "Tẩy ấn\nTrang Bị", "Tẩy Sao\nTrang Bị", "Chân mệnh");
                     } else if (this.mapId == 121) {
                         this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Về đảo\nrùa");
-
                     } else {
                         this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Cửa hàng\nBùa", "Nâng cấp\nVật phẩm", "Nhập\nNgọc Rồng", "Nâng cấp\nBông tai\nPorata", "Mở chỉ số\n bông tai 2", "Mở chỉ số\n bông tai 3", "Mở chỉ số\n bông tai 4", "Mở chỉ số\n bông tai 5", "Mở chỉ số\n bông tai 6");
                     }
@@ -3813,21 +3812,6 @@ public class NpcFactory {
                                     break;
                                 case 11: //nâng cấp Chân mệnh
                                     this.createOtherMenu(player, 5701, "|7|CHÂN MỆNH" + "\n\n|1|Bạn đang có: " + Util.format(player.inventory.event) + " Điểm Săn Boss" + "\n\n|5|Cần 200 Điểm để nhận Chân Mệnh cấp 1" + "\n|3| Lưu ý: Chỉ được nhận Chân mệnh 1 lần (Hành trang chỉ tồn tại 1 Chân mệnh)" + "\nNếu đã có Chân mệnh. Ta sẽ giúp ngươi nâng cấp bậc lên với các dòng chỉ số cao hơn", "Nhận Chân mệnh", "Nâng cấp Chân mệnh", "Shop\nChân mệnh");
-                                    break;
-                                case 12:
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.CHUYEN_HOA_DO_HUY_DIET);
-                                    break;
-                                case 13:
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.RANDOM_SKH);
-                                    break;
-                                case 14:
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.GIA_HAN_VAT_PHAM);
-                                    break;
-                                case 15:
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.MO_KHOA_GIAO_DICH);
-                                    break;
-                                case 16:
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.DUNG_HOP_DO_VIP);
                                     break;
                             }
                         } else if (player.iDMark.getIndexMenu() == 5701) {
