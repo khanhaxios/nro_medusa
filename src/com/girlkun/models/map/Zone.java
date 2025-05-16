@@ -291,7 +291,7 @@ public class Zone {
                     if (item.template.id == 934 && player.taixiu.bongtai >= 99900) {
                         Service.getInstance().sendThongBao(player, "Mỗi ngày chỉ nhặt được 99900 mảnh hồn");
                         return;
-                    } else if (item.template.id == 934 && player.taixiu.bongtai < 99900) {
+                    } else if (item.template.id == 934) {
                         player.taixiu.bongtai++;
                         InventoryServiceNew.gI().sendItemBags(player);
                         Service.getInstance().sendToAntherMePickItem(player, itemMapId);

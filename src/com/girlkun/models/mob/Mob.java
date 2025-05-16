@@ -518,10 +518,10 @@ public class Mob {
             if (player.session != null) {
                 // add point reward
                 int totalMoney = 10;
-                if (Util.isTrue(50, 100)) {
+                if (Util.isTrue(10, 100)) {
                     totalMoney += Util.nextInt(10, 100);
                 }
-                if (Util.isTrue(5, 100)) {
+                if (Util.isTrue(2, 100)) {
                     totalMoney += Util.nextInt(100, 200);
                     Service.gI().sendThongBao(player, "Nổ hũ" + Util.format(totalMoney) + " Điểm");
                 }

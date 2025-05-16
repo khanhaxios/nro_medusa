@@ -78,7 +78,7 @@ public class Manager {
     public static byte SECOND_WAIT_LOGIN = 10;
     public static int MAX_PER_IP = 3;
     public static int MAX_PLAYER = 2000000;
-    public static byte RATE_EXP_SERVER = 5;
+    public static byte RATE_EXP_SERVER = 2;
     public static boolean LOCAL = false;
     public static byte SUKIEN = 0;// sau khi chinh
     public static final String[] CONTENT_SUKIEN
