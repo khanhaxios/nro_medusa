@@ -36,6 +36,7 @@ public class Mob {
     public int id;
     public Zone zone;
     public int tempId;
+    public byte buffTuTienLevel;
     public String name;
     public byte level;
 
@@ -67,12 +68,14 @@ public class Mob {
         this.pDame = mob.pDame;
         this.pTiemNang = mob.pTiemNang;
         this.setTiemNang();
+        buffTuTienLevel = (byte) Util.nextInt(1, 120);
     }
 
     public Mob() {
         this.point = new MobPoint(this);
         this.effectSkill = new MobEffectSkill(this);
         this.location = new Location();
+        buffTuTienLevel = (byte) Util.nextInt(1, 120);
     }
 
     public static void initMopbKhiGas(Mob mob, byte level) {

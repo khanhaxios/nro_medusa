@@ -199,14 +199,7 @@ public class Zone {
                 kovao = false;
                 break;
             }
-            if ((pl.zone.map.mapId >= 21 && pl.zone.map.mapId <= 23) || pl.zone.map.mapId == 170 || pl.zone.map.mapId == 153
-                    || pl.zone.map.mapId == 52 || pl.zone.map.mapId == 113 || pl.zone.map.mapId == 129
-                    || MapService.gI().isMapDoanhTrai(pl.zone.map.mapId)
-                    || MapService.gI().isMapBlackBallWar(pl.zone.map.mapId)
-                    || MapService.gI().isMapBanDoKhoBau(pl.zone.map.mapId)
-                    || MapService.gI().isMapKhiGas(pl.zone.map.mapId)
-                    || MapService.gI().isMapMaBu(pl.zone.map.mapId)
-                    || MapService.gI().isMapOffline(pl.zone.map.mapId)) {
+            if ((pl.zone.map.mapId >= 21 && pl.zone.map.mapId <= 23) || pl.zone.map.mapId == 170 || pl.zone.map.mapId == 153 || pl.zone.map.mapId == 52 || pl.zone.map.mapId == 113 || pl.zone.map.mapId == 129 || MapService.gI().isMapDoanhTrai(pl.zone.map.mapId) || MapService.gI().isMapBlackBallWar(pl.zone.map.mapId) || MapService.gI().isMapBanDoKhoBau(pl.zone.map.mapId) || MapService.gI().isMapKhiGas(pl.zone.map.mapId) || MapService.gI().isMapMaBu(pl.zone.map.mapId) || MapService.gI().isMapOffline(pl.zone.map.mapId)) {
                 kovao = false;
             }
         }
@@ -389,10 +382,7 @@ public class Zone {
                             player.sendMessage(msg);
                             msg.cleanup();
                             Service.getInstance().sendToAntherMePickItem(player, itemMapId);
-                            if (!(this.map.mapId >= 21 && this.map.mapId <= 23
-                                    && itemMap.itemTemplate.id == 74
-                                    || this.map.mapId >= 42 && this.map.mapId <= 44
-                                    && itemMap.itemTemplate.id == 78)) {
+                            if (!(this.map.mapId >= 21 && this.map.mapId <= 23 && itemMap.itemTemplate.id == 74 || this.map.mapId >= 42 && this.map.mapId <= 44 && itemMap.itemTemplate.id == 78)) {
                                 removeItemMap(itemMap);
                             }
 
@@ -471,8 +461,7 @@ public class Zone {
         try {
             if (player.zone != null) {
                 if (MapService.gI().isMapOffline(this.map.mapId)) {
-                    if ((player.isPet || player.isDaoLu || player.isTrieuhoipet || player.isNewPet)
-                            && this.equals(player.getMaster().zone)) {
+                    if ((player.isPet || player.isDaoLu || player.isTrieuhoipet || player.isNewPet) && this.equals(player.getMaster().zone)) {
                         infoPlayer(player.getMaster(), player);
                     }
                 } else {
@@ -589,19 +578,13 @@ public class Zone {
         }
         Service.getInstance().sendFlagPlayerToMe(plReceive, plInfo);
 //        Service.gI().sendFlagPlayerToMe(plInfo, plReceive);
-        if (!plInfo.isBoss && !plInfo.isPet && !plInfo.isNewPet && !plInfo.isTrieuhoipet && !plInfo.isDaoLu
-                && !(plInfo instanceof BossDHVT) && !(plInfo instanceof Referee)
-                & !(plInfo instanceof Referee1)
-                & !(plInfo instanceof TestDame)
-                & !(plInfo instanceof MedusaNPC)) {
+        if (!plInfo.isBoss && !plInfo.isPet && !plInfo.isNewPet && !plInfo.isTrieuhoipet && !plInfo.isDaoLu && !(plInfo instanceof BossDHVT) && !(plInfo instanceof Referee) & !(plInfo instanceof Referee1) & !(plInfo instanceof TestDame) & !(plInfo instanceof MedusaNPC)) {
             Service.getInstance().sendPetFollowToMe(plReceive, plInfo);
             if (plInfo.inventory.itemsBody.get(11).isNotNullItem()) {
                 Service.getInstance().sendFootRv(plInfo, plReceive, (short) plInfo.inventory.itemsBody.get(11).template.id);
             }
         }
-        if (plInfo.isPl() && plInfo.name.compareTo("MEDUSA") != 0
-                && plInfo.name.compareTo("Medusa Linh Xinh Gái") != 0
-                && plInfo.name.compareTo("TEST DAME") != 0) {
+        if (plInfo.isPl() && plInfo.name.compareTo("MEDUSA") != 0 && plInfo.name.compareTo("Medusa Linh Xinh Gái") != 0 && plInfo.name.compareTo("TEST DAME") != 0) {
             if (plInfo.inventory.itemsBody.get(5).isNotNullItem()) {
                 Service.getInstance().sendTitleRv(plInfo, plReceive, (short) plInfo.inventory.itemsBody.get(5).template.id);
             }
@@ -732,8 +715,7 @@ public class Zone {
 
     public TrapMap isInTrap(Player player) {
         for (TrapMap trap : this.trapMaps) {
-            if (player.location.x >= trap.x && player.location.x <= trap.x + trap.w
-                    && player.location.y >= trap.y && player.location.y <= trap.y + trap.h) {
+            if (player.location.x >= trap.x && player.location.x <= trap.x + trap.w && player.location.y >= trap.y && player.location.y <= trap.y + trap.h) {
                 return trap;
             }
         }

@@ -3,6 +3,9 @@ package com.girlkun.models.player;
 import com.girlkun.models.player.Pet.Pet;
 import BoMong.BoMong;
 import com.girlkun.models.map.MapMaBu.MapMaBu;
+import com.girlkun.models.player.tutien.luyenkhi.TuTien;
+import com.girlkun.models.player.tutien.luyenkhisu.LuyenKhiSu;
+import com.girlkun.models.player.tutien.luyenthe.LuyenThe;
 import com.girlkun.models.skill.PlayerSkill;
 
 import java.util.List;
@@ -18,7 +21,6 @@ import com.girlkun.models.npc.specialnpc.MabuEgg;
 import com.girlkun.models.npc.specialnpc.Timedua;
 import com.girlkun.models.mob.MobMe;
 import com.girlkun.data.DataGame;
-import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.card.Card;
 import com.girlkun.models.clan.ClanMember;
 import com.girlkun.models.item.ItemTimeSieuCap;
@@ -61,6 +63,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Player {
+    public TuTien tuTien;
     public boolean tusat = false;
     public int pointPvpthuong;
     public int pointPvpVip;
@@ -254,6 +257,7 @@ public class Player {
     public static final int TIME_AUTO_SAVE = 1800000;
     public boolean dungCoSk2T9;
 
+    public LuyenThe luyenThe;
     public Player() {
         lastTimeSavePlayer = System.currentTimeMillis();
         lastTimeUseOption = System.currentTimeMillis();
@@ -284,6 +288,8 @@ public class Player {
         achievement = new BoMong(this);
         chienthan = new NhiemvuChienthan();
         luyenKhiSu = new LuyenKhiSu(this);
+        tuTien = new TuTien(this);
+        luyenThe = new LuyenThe(this);
     }
 
     //--------------------------------------------------------------------------
