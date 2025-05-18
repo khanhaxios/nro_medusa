@@ -258,6 +258,7 @@ public class Player {
     public boolean dungCoSk2T9;
 
     public LuyenThe luyenThe;
+
     public Player() {
         lastTimeSavePlayer = System.currentTimeMillis();
         lastTimeUseOption = System.currentTimeMillis();
@@ -374,6 +375,9 @@ public class Player {
         if (!this.beforeDispose) {
             try {
                 if (!iDMark.isBan()) {
+                    if (tuTien != null) {
+                        tuTien.update();
+                    }
                     if (nPoint != null) {
                         nPoint.update();
                     }
@@ -652,13 +656,14 @@ public class Player {
             if (headd != -1) {
                 return (short) headd;
             }
-        } else if (this.gender == 0 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-            return 1231;
-        } else if (this.gender == 1 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-            return 913;
-        } else if (this.gender == 2 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-            return 1430;
         }
+//        } else if (this.gender == 0 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
+//            return 1231;
+//        } else if (this.gender == 1 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
+//            return 913;
+//        } else if (this.gender == 2 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
+//            return 1430;
+//        }
         if (inventory != null && inventory.itemsBody.get(4).isNotNullItem()) {
             int headd = inventory.itemsBody.get(4).template.part;
             if (headd != -1) {
@@ -703,13 +708,14 @@ public class Player {
             if (body != -1) {
                 return (short) body;
             }
-        } else if (this.gender == 0 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-            return 1232;
-        } else if (this.gender == 1 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-            return 914;
-        } else if (this.gender == 2 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-            return 1431;
         }
+//        else if (this.gender == 0 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
+//            return 1232;
+//        } else if (this.gender == 1 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
+//            return 914;
+//        } else if (this.gender == 2 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
+//            return 1431;
+//        }
         if (inventory != null && inventory.itemsBody.get(0).isNotNullItem()) {
             return inventory.itemsBody.get(0).template.part;
         }
@@ -752,13 +758,14 @@ public class Player {
             if (leg != -1) {
                 return (short) leg;
             }
-        } else if (this.gender == 0 && this.CapTuTien >= 19 && this.haveTuTien && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-            return 1233;
-        } else if (this.gender == 1 && this.CapTuTien >= 19 && this.haveTuTien && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-            return 915;
-        } else if (this.gender == 2 && this.CapTuTien >= 19 && this.haveTuTien && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-            return 1432;
         }
+//        else if (this.gender == 0 && this.CapTuTien >= 19 && this.haveTuTien && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
+//            return 1233;
+//        } else if (this.gender == 1 && this.CapTuTien >= 19 && this.haveTuTien && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
+//            return 915;
+//        } else if (this.gender == 2 && this.CapTuTien >= 19 && this.haveTuTien && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
+//            return 1432;
+//        }
         if (inventory != null && inventory.itemsBody.get(1).isNotNullItem()) {
             return inventory.itemsBody.get(1).template.part;
         }
@@ -964,83 +971,83 @@ public class Player {
     }
 
     //-------------------------------------------------
-    public String CapTuTien(int CapBac) {
-        switch (CapBac) {
-            case 19:
-                return "Thiên Đạo";
-            case 18:
-                return "Đế Tiên";
-            case 17:
-                return "Chuẩn Đế Tiên";
-            case 16:
-                return "Vực Chủ Cảnh";
-            case 15:
-                return "Độ Kiếp Kì";
-            case 14:
-                return "Đại Thừa Kỳ Đỉnh phong";
-            case 13:
-                return "Đại Thừa Kỳ";
-            case 12:
-                return "Hợp Thể Kỳ";
-            case 11:
-                return "Luyện Hư";
-            case 10:
-                return "Hóa Thần";
-            case 9:
-                return "Bán Thần";
-            case 8:
-                return "Nguyên Anh";
-            case 7:
-                return "Kim Đan";
-            case 6:
-                return "Kết Đan";
-            case 5:
-                return "Trúc Cơ Kỳ Đỉnh phong";
-            case 4:
-                return "Trúc Cơ Kỳ";
-            case 3:
-                return "Luyện Khí Kỳ Đỉnh phong";
-            case 2:
-                return "Luyện Khí Kỳ";
-            case 1:
-                return "Phàm nhân";
-            case 0:
-                return "Phế Vật";
-            default:
-                return "";
-        }
-    }
+//    public String CapTuTien(int CapBac) {
+//        switch (CapBac) {
+//            case 19:
+//                return "Thiên Đạo";
+//            case 18:
+//                return "Đế Tiên";
+//            case 17:
+//                return "Chuẩn Đế Tiên";
+//            case 16:
+//                return "Vực Chủ Cảnh";
+//            case 15:
+//                return "Độ Kiếp Kì";
+//            case 14:
+//                return "Đại Thừa Kỳ Đỉnh phong";
+//            case 13:
+//                return "Đại Thừa Kỳ";
+//            case 12:
+//                return "Hợp Thể Kỳ";
+//            case 11:
+//                return "Luyện Hư";
+//            case 10:
+//                return "Hóa Thần";
+//            case 9:
+//                return "Bán Thần";
+//            case 8:
+//                return "Nguyên Anh";
+//            case 7:
+//                return "Kim Đan";
+//            case 6:
+//                return "Kết Đan";
+//            case 5:
+//                return "Trúc Cơ Kỳ Đỉnh phong";
+//            case 4:
+//                return "Trúc Cơ Kỳ";
+//            case 3:
+//                return "Luyện Khí Kỳ Đỉnh phong";
+//            case 2:
+//                return "Luyện Khí Kỳ";
+//            case 1:
+//                return "Phàm nhân";
+//            case 0:
+//                return "Phế Vật";
+//            default:
+//                return "";
+//        }
+//    }
 
-    public String ChisoTuTien() {
-        int CapBac = CapTuTien;
-        switch (CapBac) {
-            case 19:
-                return "Tìm " + ((CapBac + 1) * 75) + " Hồng ngọc cho Bản thân và Đệ tử\n"
-                        + "Tăng " + ((CapBac + 1) * 2) + "%HP, KI, SD cho Bản thân và Đệ tử\n";
-            case 18:
-            case 17:
-            case 16:
-            case 15:
-            case 14:
-            case 13:
-            case 12:
-            case 11:
-            case 10:
-            case 9:
-            case 8:
-            case 7:
-            case 6:
-            case 5:
-            case 4:
-            case 3:
-            case 2:
-            case 1:
-            case 0:
-                return "Tăng " + ((CapBac + 1) * 2) + "%HP, Ki, SD cho Bản thân và Đệ tử";
-            default:
-                return "Phế vật mà làm được gì !!!";
-        }
-    }
+//    public String ChisoTuTien() {
+//        int CapBac = CapTuTien;
+//        switch (CapBac) {
+//            case 19:
+//                return "Tìm " + ((CapBac + 1) * 75) + " Hồng ngọc cho Bản thân và Đệ tử\n"
+//                        + "Tăng " + ((CapBac + 1) * 2) + "%HP, KI, SD cho Bản thân và Đệ tử\n";
+//            case 18:
+//            case 17:
+//            case 16:
+//            case 15:
+//            case 14:
+//            case 13:
+//            case 12:
+//            case 11:
+//            case 10:
+//            case 9:
+//            case 8:
+//            case 7:
+//            case 6:
+//            case 5:
+//            case 4:
+//            case 3:
+//            case 2:
+//            case 1:
+//            case 0:
+//                return "Tăng " + ((CapBac + 1) * 2) + "%HP, Ki, SD cho Bản thân và Đệ tử";
+//            default:
+//                return "Phế vật mà làm được gì !!!";
+//        }
+//    }
 
     public int tileDotPha(int CapBac) {
         switch (CapBac) {

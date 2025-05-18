@@ -1,9 +1,6 @@
 package com.girlkun.models.player.tutien.base_tutien;
 
-import com.girlkun.models.player.tutien.luyenkhi.CongPhap;
-import com.girlkun.models.player.tutien.luyenkhi.LinhCan;
-import com.girlkun.models.player.tutien.luyenkhi.ThuocTinhLinhCan;
-import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
+import com.girlkun.models.player.tutien.luyenkhi.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 public class TuTienTemplate {
+    private static TuTienTemplate I;
+
+    public static TuTienTemplate getI() {
+        if (I == null) {
+            I = new TuTienTemplate();
+        }
+        return I;
+    }
 
     boolean isLoaded = false;
     public static List<ThuocTinhLinhCan> THUOC_TINH_BUFF_LINH_CAN = new ArrayList<>();
@@ -60,22 +65,22 @@ public class TuTienTemplate {
 
 
     public void initTienPhap() {
-        TIEN_PHAP.add(new TienPhap("Kim Linh Kiếm Quyết", "Tăng sát thương thuộc tính Kim+#%", 0L, (byte) 0, LINH_CAN.get("K")));
-        TIEN_PHAP.add(new TienPhap("Thất Tinh Hồi Nguyên", "Hồi phục #% HP trong 5s", 5000L, (byte) 3, LINH_CAN.get("M")));
-        TIEN_PHAP.add(new TienPhap("Thái Cổ Cuồng Bạo", "Sau khi dùng chiêu, tăng sát thương thêm #%", 0L, (byte) 2, LINH_CAN.get("H")));
-        TIEN_PHAP.add(new TienPhap("Kim Cương Bất Hoại", "Giảm Sát Thương +#% Trong 5s", 0L, (byte) 4, LINH_CAN.get("TH")));
-        TIEN_PHAP.add(new TienPhap("Băng Hàn Chưởng", "Tăng sát thương Thủy +#%", 0L, (byte) 0, LINH_CAN.get("T")));
-        TIEN_PHAP.add(new TienPhap("Viêm Dương Hỏa Ấn", "Tăng sát thương Hỏa +#%", 0L, (byte) 0, LINH_CAN.get("H")));
-        TIEN_PHAP.add(new TienPhap("Lôi Đình Trảm", "Tăng sát thương Lôi +#%", 0L, (byte) 0, LINH_CAN.get("L")));
+        TIEN_PHAP.add(new TienPhap((byte) 0, "Kim Linh Kiếm Quyết", "Tăng sát thương thuộc tính Kim+#%", 0L, (byte) 0, LINH_CAN.get("K")));
+        TIEN_PHAP.add(new TienPhap((byte) 1, "Thất Tinh Hồi Nguyên", "Hồi phục #% HP trong 5s", 5000L, (byte) 3, LINH_CAN.get("M")));
+        TIEN_PHAP.add(new TienPhap((byte) 2, "Thái Cổ Cuồng Bạo", "Sau khi dùng chiêu, tăng sát thương thêm #%", 0L, (byte) 2, LINH_CAN.get("H")));
+        TIEN_PHAP.add(new TienPhap((byte) 3, "Kim Cương Bất Hoại", "Giảm Sát Thương +#% Trong 5s", 0L, (byte) 4, LINH_CAN.get("TH")));
+        TIEN_PHAP.add(new TienPhap((byte) 4, "Băng Hàn Chưởng", "Tăng sát thương Thủy +#%", 0L, (byte) 0, LINH_CAN.get("T")));
+        TIEN_PHAP.add(new TienPhap((byte) 5, "Viêm Dương Hỏa Ấn", "Tăng sát thương Hỏa +#%", 0L, (byte) 0, LINH_CAN.get("H")));
+        TIEN_PHAP.add(new TienPhap((byte) 6, "Lôi Đình Trảm", "Tăng sát thương Lôi +#%", 0L, (byte) 0, LINH_CAN.get("L")));
 
-        TIEN_PHAP.add(new TienPhap("Thiên Địa Dưỡng Sinh", "Hồi phục #% HP trong 5s", 5000L, (byte) 3, LINH_CAN.get("Q")));
-        TIEN_PHAP.add(new TienPhap("Tụ Linh Quy Nguyên", "Hồi #% HP lập tức", 5000L, (byte) 1, LINH_CAN.get("Q")));
+        TIEN_PHAP.add(new TienPhap((byte) 7, "Thiên Địa Dưỡng Sinh", "Hồi phục #% HP trong 5s", 5000L, (byte) 3, LINH_CAN.get("Q")));
+        TIEN_PHAP.add(new TienPhap((byte) 9, "Tụ Linh Quy Nguyên", "Hồi #% HP lập tức", 5000L, (byte) 1, LINH_CAN.get("Q")));
 
-        TIEN_PHAP.add(new TienPhap("Huyễn Ảnh Tăng Pháp", "Tăng sát thương thêm #% sau khi dùng kỹ năng", 0L, (byte) 2, LINH_CAN.get("A")));
-        TIEN_PHAP.add(new TienPhap("Ma Thần Kích Hoạt", "Sau khi dùng chiêu, tăng sát thương lên #%", 0L, (byte) 2, LINH_CAN.get("P")));
+        TIEN_PHAP.add(new TienPhap((byte) 8, "Huyễn Ảnh Tăng Pháp", "Tăng sát thương thêm #% sau khi dùng kỹ năng", 0L, (byte) 2, LINH_CAN.get("A")));
+        TIEN_PHAP.add(new TienPhap((byte) 10, "Ma Thần Kích Hoạt", "Sau khi dùng chiêu, tăng sát thương lên #%", 0L, (byte) 2, LINH_CAN.get("P")));
 
         for (TienPhap tp : TIEN_PHAP) {
-            tp.randomParam((byte) 20); // random xParam trong khoảng 0 - 19
+            tp.randomParam((byte) 20);
             tp.setCoolDown(0);
             tp.setLastTimeUsed(0);
         }

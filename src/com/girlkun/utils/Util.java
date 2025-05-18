@@ -411,10 +411,7 @@ public class Util {
             typeRatio *= 10;
         }
         int num = Util.nextInt(typeRatio);
-        if (num < ratio) {
-            return true;
-        }
-        return false;
+        return num < ratio;
     }
 
     public static boolean haveSpecialCharacter(String text) {

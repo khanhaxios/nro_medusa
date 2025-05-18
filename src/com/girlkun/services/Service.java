@@ -1140,7 +1140,7 @@ public class Service {
             } else if (text.equals("buffvip")) {
                 Input.gI().createFormBuffItemVip(player);
             } else if (text.equals("tutien")) {
-                player.KinhNghiemTT += 10000000000L;
+//                player.KinhNghiemTT += 10000000000L;
             } else if (text.equals("xuong")) {
                 for (int i = 702; i <= 708; i++) {
                     Item item = ItemService.gI().createNewItem((short) i);
@@ -1574,7 +1574,7 @@ public class Service {
 
     public void TuTienInfo(Player player) {
         if (player.haveTuTien == true) {
-            NpcService.gI().createMenuConMeo(player, 23154, 12679, "|7|TU TIÊN\n" + "|5|Cấp bậc: " + player.CapTuTien(player.CapTuTien) + "\nKinh nghiệm: " + Util.format(player.KinhNghiemTT) + "\nKỹ năng: " + player.ChisoTuTien(), "OK");
+//            NpcService.gI().createMenuConMeo(player, 23154, 12679, "|7|TU TIÊN\n" + "|5|Cấp bậc: " + player.CapTuTien(player.CapTuTien) + "\nKinh nghiệm: " + Util.format(player.KinhNghiemTT) + "\nKỹ năng: " + player.ChisoTuTien(), "OK");
         } else {
             Service.gI().sendThongBaoOK(player, "Bạn chưa mở chức năng Tu tiên");
         }
@@ -1711,9 +1711,9 @@ public class Service {
             Message msg;
             try {
                 msg = new Message(-42);
-                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpg + player.taixiu.calcHpChuyenSinh()));
-                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpg + player.taixiu.calcMpChuyenSinh()));
-                msg.writer().writeLong(Util.DoubleGioihan(player.nPoint.dameg + player.taixiu.calcDameChuyenSinh()));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpg));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpg));
+                msg.writer().writeLong(Util.DoubleGioihan(player.nPoint.dameg));
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpMax));// hp full
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpMax));// mp full
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hp));// hp

@@ -24,6 +24,7 @@ import com.girlkun.models.player.Player;
 import com.girlkun.models.player.Referee;
 import com.girlkun.models.player.Referee1;
 import com.girlkun.models.player.TestDame;
+import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
 import com.girlkun.models.reward.ItemMobReward;
 import com.girlkun.models.reward.ItemOptionMobReward;
 import com.girlkun.models.reward.MobReward;
@@ -251,6 +252,7 @@ public class Manager {
         NpcFactory.createNpcRongXuong();
         NpcFactory.createNpcRongSieuCap();
         this.initMap();
+        TuTienTemplate.getI().initTemplate();
     }
 
     public static List<TOP> realTopSieuHang(Player pl) {

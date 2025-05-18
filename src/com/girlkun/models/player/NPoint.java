@@ -75,6 +75,7 @@ public class NPoint {
      * Chỉ số cộng thêm
      */
     public double hpAdd, mpAdd, defAdd, critAdd, hpHoiAdd, mpHoiAdd, dameAdd;
+    public long hpGAdd, dameGAdd, mpGAdd, defGAdd, critGAdd;
     /**
      * //+#% sức đánh chí mạng
      */
@@ -544,6 +545,9 @@ public class NPoint {
                     calcFusionPoint(item);
                 }
             }
+        }
+        if (player.tuTien != null) {
+            player.tuTien.calcPoint();
         }
         setDameTrainArmor();
         setBasePoint();
@@ -2282,8 +2286,6 @@ public class NPoint {
                 }
             }
         }
-        //hồi phục 30s
-        //hồi phục thể lực
     }
 
     public void dispose() {

@@ -145,6 +145,7 @@ public class ConstNpc {
     ///
     public static final byte NOI_BANH = 66;
     public static final byte MR_POPO = 67;
+    public static final byte NPC_TU_TIEN = 112;
     public static final byte PANCHY = 68;
     public static final byte THO_DAI_CA = 69;
     public static final byte FIDE = 73;
@@ -389,6 +390,10 @@ public class ConstNpc {
     public static final int CF_TRUYEN_CONG_LK = 12313123;
     public static final int CF_TRUYEN_CONG_LH = 76435454;
     public static final int MENU_CHE_DO = 12312222;
+    public static final int MENU_NPC_TU_TIEN = 3212331;
+    public static final int HOC_TIEN_PHAP = 232313123;
+    public static final int HOC_CONG_PHAP = -23131;
+    public static final int TRUYEN_CONG_TU_TIEN = 123123;
 }
 
 /**

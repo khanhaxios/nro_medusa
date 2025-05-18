@@ -1,17 +1,21 @@
 package com.girlkun.models.player.tutien.luyenkhi;
 
+import com.girlkun.models.player.Player;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 import lombok.Data;
 
 @Data
 public class CongPhap {
-    private static final int MAX_BUFF = 10;
+    private static int MAX_BUFF;
     private static final int[] MAX_HUT_DAME = {100, 1000, 10000, 20000, 30000, 50000, 70000, 100000};
     private static final int[] MAX_HUT_HP_MP = {
             20000, 30000, 50000, 60000, 70000, 120000, 150000, 200000
     };
 
+    private static final long[] DO_TT = new long[]{
+            100000, 500_000, 1_000_000, 10_000_00, 50_000_000, 100_000_000, 500_000_000, 1_000_000_000
+    };
     TuTien tuTien;
     public byte id;
     public int tlHpBuff = 0;
@@ -43,6 +47,7 @@ public class CongPhap {
         this.tuTien = tuTien;
         this.maxThuocTinh = getMaxThuocTinhByPhamChat();
         this.slThuocTinh = getSlThuocTinhHienTai();
+        MAX_BUFF = (int) tuTien.getXDiemThienPhu() + 5;
     }
 
     public CongPhap(String name, byte thuoctinh) {
@@ -144,13 +149,26 @@ public class CongPhap {
         float successPercent = getTyLeLinhNgo();
         if (Util.isTrue(successPercent, 100)) {
             // success linh ngo
-
             int nextId = this.phamchat.id + 1;
             this.phamchat = PhamChat.fromId(nextId);
             this.maxThuocTinh = getMaxThuocTinhByPhamChat();
             randomNewBuff();
             upOldBuff();
         }
+    }
+
+    public void ratioNewCongPhap() {
+        // ratio buff for new cong phap
+        calcSlThuocTinh();
+        randomNewBuff();
+        phamchat = PhamChat.HOANG;
+        thuoctinh = tuTien.linhCan.getLinhCanType();
+        restDoTT();
+    }
+
+    public void restDoTT() {
+        doThuanThuc = 0;
+        maxDoThuanThuc = getDoThuanThucByPhamChat(phamchat);
     }
 
     public void calcSlThuocTinh() {
@@ -261,7 +279,7 @@ public class CongPhap {
         }
 
         // Sau khi add xong thì cập nhật lại số lượgn thuộc tính hiện tại
-        this.slThuocTinh = getSlThuocTinhHienTai();
+        calcSlThuocTinh();
     }
 
     public float getTyLeLinhNgo() {
@@ -310,7 +328,7 @@ public class CongPhap {
         return 1f;
     }
 
-    public float getBaseTyLeLinhNgo() {
+    public int getBaseTyLeLinhNgo() {
         return tuTien.getXDiemNgoTinh() + 1;
     }
 
@@ -342,7 +360,33 @@ public class CongPhap {
         }
     }
 
+    public long getDoThuanThucByPhamChat(PhamChat phamchat) {
+        return DO_TT[phamchat.id];
+    }
+
+    public String getCurrentExpStr() {
+        return String.format("%s/%s", Util.powerToString(doThuanThuc), Util.powerToString(maxDoThuanThuc));
+    }
+
     public String getFullNameWithPercent() {
         return String.format("[%s]%s", getNameByPhamChat(), tenCongPhap);
+    }
+
+    public void calcPoint(Player player) {
+        // calc buff cong phap here
+        player.nPoint.dameAdd += (long) (player.nPoint.dameg * tlDameBuff / 100f);
+        player.nPoint.hpAdd += (long) (player.nPoint.hpg * tlHpBuff / 100f);
+        player.nPoint.mpAdd += (long) (player.nPoint.mpg * tlMpBuff / 100f);
+        player.nPoint.tlDameCrit.add(xDameThuocTinh * 5);
+        player.nPoint.tlHutHp += tlHutHPBuff;
+        player.nPoint.tlHutMp += tlHutMPBuff;
+        player.nPoint.dameg += totalHutDame;
+        player.nPoint.hpg += totalHutHp;
+        player.nPoint.mpg += totalHutMp;
+    }
+
+    public void autoAddDoTT() {
+        long dttAutoAdd = (long) (tuTien.getXDiemThienPhu() * (DO_TT[phamchat.id] / DO_TT[0]));
+        addDoThuanThuc(dttAutoAdd);
     }
 }

@@ -4,6 +4,7 @@ import com.girlkun.models.player.Player;
 
 public abstract class BasePoint {
     public Player player;
+    public boolean isOpenSystem;
     public byte level;
     public long linhKhiPoint;
     public long maxLinhKhiPoint;
@@ -20,6 +21,7 @@ public abstract class BasePoint {
         this.subLevel = 0;
         this.exp = 0;
         this.maxExp = 0;
+        this.player = player;
     }
 
     public BasePoint(byte level, byte subLevel, long exp, long maxExp) {
@@ -34,15 +36,23 @@ public abstract class BasePoint {
         checkLevelUp();
     }
 
-    public float getXDiemNgoTinh() {
-        return ngoTinh / 100f;
+    public boolean isOpenSystem() {
+        return isOpenSystem;
     }
 
-    public float getXDiemCanCot() {
-        return canCot / 200f;
+    public void setOpenSystem(boolean openSystem) {
+        isOpenSystem = openSystem;
     }
 
-    public float getXDiemThienPhu() {
+    public int getXDiemNgoTinh() {
+        return ngoTinh / 100;
+    }
+
+    public int getXDiemCanCot() {
+        return canCot / 200;
+    }
+
+    public int getXDiemThienPhu() {
         return getXDiemCanCot() + getXDiemNgoTinh();
     }
 

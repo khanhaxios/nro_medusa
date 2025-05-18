@@ -959,7 +959,7 @@ public class NpcFactory {
                         bonghong = InventoryServiceNew.gI().findItemBag(player, 723);
                     } catch (Exception e) {
                     }
-                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "|7|KẾT HÔN" + "\n|5|Bạn cần Nhẫn cầu hôn để thực hiện Kết hôn với người khác" + "\nĐiều kiện nhận Nhẫn kết hôn:" + " \n|6|Trứng đệ: Broly: " + (broly == null ? 0 : broly.quantity) + " / 50" + " ; " + "Zeno: " + (zeno == null ? 0 : zeno.quantity) + " / 50" + "\nTrứng đệ Berus: " + (berus == null ? 0 : berus.quantity) + " / 10" + "\nChiến thần đạt cấp Đế tiên: Cấp hiện tại: " + player.NameThanthu(player.TrieuHoiCapBac) + "\nTu tiên đạt Thiên đạo: Cấp hiện tại: " + player.CapTuTien(player.CapTuTien) + "\nChuyển sinh đạt 30: " + player.taixiu.chuyensinh + " / 30" + "\nTham gia Bản đồ kho báu: " + player.dk_bdkb + " / 10" + "\nGắp thú VIP: " + player.dk_gapvip + " / 50" + "\nThỏi vàng: " + (thoivang == null ? 0 : thoivang.quantity) + " / 99.999" + "\nHồng ngọc: " + Util.format(player.inventory.ruby) + " / 9.999.999" + "\nBông hồng: " + (bonghong == null ? 0 : bonghong.quantity) + " / 99", "Nhận nhẫn", "Thông tin\nKết hôn");
+//                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "|7|KẾT HÔN" + "\n|5|Bạn cần Nhẫn cầu hôn để thực hiện Kết hôn với người khác" + "\nĐiều kiện nhận Nhẫn kết hôn:" + " \n|6|Trứng đệ: Broly: " + (broly == null ? 0 : broly.quantity) + " / 50" + " ; " + "Zeno: " + (zeno == null ? 0 : zeno.quantity) + " / 50" + "\nTrứng đệ Berus: " + (berus == null ? 0 : berus.quantity) + " / 10" + "\nChiến thần đạt cấp Đế tiên: Cấp hiện tại: " + player.NameThanthu(player.TrieuHoiCapBac) + "\nTu tiên đạt Thiên đạo: Cấp hiện tại: " + player.CapTuTien(player.CapTuTien) + "\nChuyển sinh đạt 30: " + player.taixiu.chuyensinh + " / 30" + "\nTham gia Bản đồ kho báu: " + player.dk_bdkb + " / 10" + "\nGắp thú VIP: " + player.dk_gapvip + " / 50" + "\nThỏi vàng: " + (thoivang == null ? 0 : thoivang.quantity) + " / 99.999" + "\nHồng ngọc: " + Util.format(player.inventory.ruby) + " / 9.999.999" + "\nBông hồng: " + (bonghong == null ? 0 : bonghong.quantity) + " / 99", "Nhận nhẫn", "Thông tin\nKết hôn");
                 }
             }
 
@@ -986,7 +986,7 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Bạn chưa đủ Trứng Broly");
                                     return;
                                 }
-                                if (zeno == null || broly.quantity < 50) {
+                                if (zeno == null || zeno.quantity < 50) {
                                     Service.gI().sendThongBao(player, "Bạn chưa đủ Trứng Zeno");
                                     return;
                                 }
@@ -994,11 +994,11 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Bạn chưa đủ Trứng Berus");
                                     return;
                                 }
-                                if (thoivang == null || thoivang.quantity < 99999) {
+                                if (thoivang == null || thoivang.quantity < 999) {
                                     Service.gI().sendThongBao(player, "Bạn chưa đủ 99999 Thỏi vàng");
                                     return;
                                 }
-                                if (player.inventory.ruby < 9_999_999) {
+                                if (player.inventory.ruby < 999_999) {
                                     Service.gI().sendThongBao(player, "Bạn chưa đủ Hồng ngọc");
                                     return;
                                 }
@@ -1077,11 +1077,11 @@ public class NpcFactory {
 
                     } catch (Exception e) {
                     }
-                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "|7|SỰ KIỆN TẾT THIẾU NHI 1/6/2024" + "\n|5|Bạn cần tìm đủ nguyên liệu để đổi capsu 1/6" + "\nĐiều kiện nhận capsu 1/6:" + "\nTrứng đệ: Broly: " + (broly == null ? 0 : broly.quantity) + " / 50" + " ; " + "Zeno: " + (zeno == null ? 0 : zeno.quantity) + " / 50" + "\nTrứng đệ Berus: " + (berus == null ? 0 : berus.quantity) + " / 50" + "\nChiến thần đạt cấp 5: " + player.NameThanthu(player.TrieuHoiCapBac) + "\nTu tiên đạt cấp 5: Cấp hiện tại: " + player.CapTuTien(player.CapTuTien) + "\nChuyển sinh đạt 30: " + player.taixiu.chuyensinh + " / 30" + "\nTham gia Bản đồ kho báu: " + player.dk_bdkb + " / 10" + "\nGắp thú VIP: " + player.dk_gapvip + " / 50" + "\nVõ sò: " + (so == null ? 0 : so.quantity) + " / 99" + "\nVõ ốc: " + (oc == null ? 0 : oc.quantity) + " / 99" + "\nSao biển: " + (sao == null ? 0 : sao.quantity) + " / 99" + "\nCon cua: " + (cua == null ? 0 : cua.quantity) + " / 99"
-                                    // + "\nThỏi vàng: " + (thoivang == null ? 0 : thoivang.quantity) + " / 99.999"
-                                    + "\nHồng ngọc: " + Util.format(player.inventory.ruby) + " / 9.999.999",
-                            //                            + "\nBông hồng: " + (bonghong == null ? 0 : bonghong.quantity) + " / 99",
-                            "Nhận hộp thánh tôn", "Thông tin\nsự kiện");
+//                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "|7|SỰ KIỆN TẾT THIẾU NHI 1/6/2024" + "\n|5|Bạn cần tìm đủ nguyên liệu để đổi capsu 1/6" + "\nĐiều kiện nhận capsu 1/6:" + "\nTrứng đệ: Broly: " + (broly == null ? 0 : broly.quantity) + " / 50" + " ; " + "Zeno: " + (zeno == null ? 0 : zeno.quantity) + " / 50" + "\nTrứng đệ Berus: " + (berus == null ? 0 : berus.quantity) + " / 50" + "\nChiến thần đạt cấp 5: " + player.NameThanthu(player.TrieuHoiCapBac) + "\nTu tiên đạt cấp 5: Cấp hiện tại: " + player.CapTuTien(player.CapTuTien) + "\nChuyển sinh đạt 30: " + player.taixiu.chuyensinh + " / 30" + "\nTham gia Bản đồ kho báu: " + player.dk_bdkb + " / 10" + "\nGắp thú VIP: " + player.dk_gapvip + " / 50" + "\nVõ sò: " + (so == null ? 0 : so.quantity) + " / 99" + "\nVõ ốc: " + (oc == null ? 0 : oc.quantity) + " / 99" + "\nSao biển: " + (sao == null ? 0 : sao.quantity) + " / 99" + "\nCon cua: " + (cua == null ? 0 : cua.quantity) + " / 99"
+//                                    // + "\nThỏi vàng: " + (thoivang == null ? 0 : thoivang.quantity) + " / 99.999"
+//                                    + "\nHồng ngọc: " + Util.format(player.inventory.ruby) + " / 9.999.999",
+//                            //                            + "\nBông hồng: " + (bonghong == null ? 0 : bonghong.quantity) + " / 99",
+//                            "Nhận hộp thánh tôn", "Thông tin\nsự kiện");
                 }
             }
 
@@ -2286,6 +2286,90 @@ public class NpcFactory {
         };
     }
 
+    public static Npc tutien(int mapId, int status, int cx, int cy, int tempId, int avartar) {
+        return new Npc(mapId, status, cx, cy, tempId, avartar) {
+            @Override
+            public void openBaseMenu(Player player) {
+                //npc se o vach nui aru
+                if (canOpenNpc(player) && mapId == 39) {
+                    createOtherMenu(player, ConstNpc.MENU_NPC_TU_TIEN, "Tu tiên a , nghèo thì tu cái gì tiên", "Giới Thiệu", "Học Tu \nTiên", "Học Tiên\nPháp", "Học Công Pháp", "Truyền Công", "Bí Kíp\nTu Tiên");
+                }
+            }
+
+            @Override
+            public void confirmMenu(Player player, int select) {
+                if (canOpenNpc(player)) {
+                    if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NPC_TU_TIEN) {
+                        switch (select) {
+                            case 0:
+                                // gioi thieu tinh nang tu tien
+                                NpcService.gI().createTutorial(player, -1, "Tu tiên là một tính năng quan trọng trong việc giúp sức mạnh của " + "bạn lên tầm cao mới.\n" + "Cảnh giới tu tiên bao gồm : luyện khí , trúc cơ , nguyên anh , hóa thần , phong thánh\n" + "Thần Chiếu , Tầm Du ..  Tinh Không Chí Tôn là tận cùng của Tiên Lộ\nKhi bắt đầu tu tiên bạn sẽ được rút ngẫu nhiên căn cốt và ngộ tính \n , điều này sẽ ảnh hưởng đến tốc độ tu luyện cũng như là uy lực của Tiên Pháp" + "\nTiên Pháp sẽ giúp bạn có nhưng buff đặc biệt hoặc tăng cường sát thương đòn đánh\n.Tất nhiên là Linh Căn ko thể thiếu , bao gồm : \n" + "Kim,Mộc,Thủy,Hỏa,Thổ,Phong,Lôi,Quang,Ám vì tránh để game mất cân bằng nên tất cả các thuộc tính Linh Căn buff đều như nhau,Công Pháp :\n" + "Mỗi hệ linh căn sẽ có một công pháp khác nhau,công pháp sẽ tăng cường các chỉ số cơ bản và các chỉ số đặc biệt.\n" + "Chúc bạn tu tiên vui vẻ");
+                                break;
+                            case 1:
+                                if (!player.isAdmin()) {
+                                    long vnd = player.session.vnd - 1_000_000;
+                                    if (vnd < 0) {
+                                        Service.gI().sendThongBao(player, "Bạn không đủ điểm nạp để mở tu tiên");
+                                        return;
+                                    }
+                                }
+                                // mo tu tien
+                                PlayerDAO.subvnd(player, 1_000_000);
+                                player.tuTien.openSystem();
+                                break;
+                            case 2:
+                                createOtherMenu(player, ConstNpc.HOC_TIEN_PHAP, "Tiên Pháp giúp bạn bộc phát sát thương khổng lồ", "Học Tiên\nPháp", "Từ Chối");
+                                // hoc tien phap
+                                break;
+                            case 3:
+                                createOtherMenu(player, ConstNpc.HOC_CONG_PHAP, "Công Pháp giúp tăng các chỉ số buff,HP,KI,SD.\nHãy chọn thuộc tính phù hợp với linh căn của bạn", "Kim", "Mộc", "Thủy", "Hỏa", "Thổ", "Phong", "Lôi", "Quang", "Ám");
+                                break;
+                            case 4:
+                                createOtherMenu(player, ConstNpc.TRUYEN_CONG_TU_TIEN, "Truyền công là biện pháp nhanh nhất để lên cấp tu tiên", "Truyền Công", "Từ Chối");
+//                                Truyen Công
+                                break;
+                        }
+                    } else if (player.iDMark.getIndexMenu() == ConstNpc.HOC_TIEN_PHAP) {
+                        switch (select) {
+                            case 0:
+                                // hoc tien phap yeu cau canh gioi hoa than tro len
+                                if (player.tuTien.level < 4) {
+                                    Service.gI().sendThongBao(player, "Cần đạt Hóa Thần để học Tiên Pháp");
+                                    return;
+                                }
+                                player.tuTien.ratioNewTienPhap();
+                                break;
+                        }
+                    } else if (player.iDMark.getIndexMenu() == ConstNpc.HOC_CONG_PHAP) {
+                        player.tuTien.hocCongPhap(select);
+                    } else if (player.iDMark.getIndexMenu() == ConstNpc.TRUYEN_CONG_TU_TIEN) {
+                        switch (select) {
+                            case 0:
+                                //  hoc tien phap ngau nhien theo thuoc tinh linh can
+                                break;
+                        }
+                    }
+                }
+            }
+
+        };
+    }
+
+    public static Npc luyenthe(int mapId, int status, int cx, int cy, int tempId, int avartar) {
+        return new Npc(mapId, status, cx, cy, tempId, avartar) {
+            @Override
+            public void openBaseMenu(Player player) {
+                super.openBaseMenu(player);
+            }
+
+            @Override
+            public void confirmMenu(Player player, int select) {
+
+            }
+        };
+    }
+
+
     public static Npc chuyensinh(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
 
@@ -2347,7 +2431,7 @@ public class NpcFactory {
                                         devuongthach = InventoryServiceNew.gI().findItemBag(player, 1260);
                                     } catch (Exception e) {
                                     }
-                                    this.createOtherMenu(player, 4800, "|7|TU TIÊN" + "\n|1|Đột phá Tu Tiên cần" + "\n|5|Cấp bậc hiện tại: " + player.CapTuTien(player.CapTuTien) + "\nKinh Ngiệm: " + Util.format(player.KinhNghiemTT) + " / 10 Tỷ" + "\nĐế Vương Thạch: " + (devuongthach == null ? 0 : devuongthach.quantity) + " / " + player.DaTuTien(player.CapTuTien) + "\nTỉ lệ Thành công: " + player.tileDotPha(player.CapTuTien) + "%" + "\n|3|Lưu ý: Khi đột phá thất bại sẽ giảm 5 Tỷ Kinh nghiệm. Thành công Cấp bậc sẽ tăng lên " + player.CapTuTien(player.CapTuTien + 1), "Đột phá", "Từ chối");
+//                                    this.createOtherMenu(player, 4800, "|7|TU TIÊN" + "\n|1|Đột phá Tu Tiên cần" + "\n|5|Cấp bậc hiện tại: " + player.CapTuTien(player.CapTuTien) + "\nKinh Ngiệm: " + Util.format(player.KinhNghiemTT) + " / 10 Tỷ" + "\nĐế Vương Thạch: " + (devuongthach == null ? 0 : devuongthach.quantity) + " / " + player.DaTuTien(player.CapTuTien) + "\nTỉ lệ Thành công: " + player.tileDotPha(player.CapTuTien) + "%" + "\n|3|Lưu ý: Khi đột phá thất bại sẽ giảm 5 Tỷ Kinh nghiệm. Thành công Cấp bậc sẽ tăng lên " + player.CapTuTien(player.CapTuTien + 1), "Đột phá", "Từ chối");
                                 }
                                 break;
                         }
@@ -6708,22 +6792,7 @@ public class NpcFactory {
                                 createOtherMenu(player, ConstNpc.TRUYEN_CONG_LUYEN_KHI, "Ta sẽ truyền cho người kiến thức và tu vi về luyện khí", "Truyền công\n Luyện Khí", "Truyền công\nLinh Hỏa", "Từ chối");
                                 break;
                             case 4:
-                                createOtherMenu(player, 1231231,
-                                        String.format("Tỷ lệ tăng phúc của Luyện Khí Sư như sau\n" +
-                                                        "Sơ cấp luyện khí sư (1) : " + player.luyenKhiSu.getPercentBounce(1) + "%\n" +
-                                                        "Sơ cấp luyện khí sư (2) : " + player.luyenKhiSu.getPercentBounce(2) + "%\n" +
-                                                        "Sơ cấp luyện khí sư (3) : " + player.luyenKhiSu.getPercentBounce(3) + "%\n" +
-                                                        "Trung cấp luyện khí sư (4) : " + player.luyenKhiSu.getPercentBounce(4) + "%\n" +
-                                                        "Trung cấp luyện khí sư (5) : " + player.luyenKhiSu.getPercentBounce(5) + "%\n" +
-                                                        "Trung cấp luyện khí sư (6) : " + player.luyenKhiSu.getPercentBounce(6) + "%\n" +
-                                                        "Cao cấp luyện khí sư (7) : " + player.luyenKhiSu.getPercentBounce(7) + "%\n" +
-                                                        "Cao cấp luyện khí sư (8) : " + player.luyenKhiSu.getPercentBounce(8) + "%\n" +
-                                                        "Cao cấp luyện khí sư (9) : " + player.luyenKhiSu.getPercentBounce(9) + "%\n" +
-                                                        "Tiên cấp luyện khí sư (10) : " + player.luyenKhiSu.getPercentBounce(10) + "%\n" +
-                                                        "Thánh cấp luyện khí sư (11) : " + player.luyenKhiSu.getPercentBounce(11) + "%\n" +
-                                                        "Thần cấp luyện khí sư (12) : " + player.luyenKhiSu.getPercentBounce(12) + "%\n" +
-                                                        "|7|Tỷ lệ tăng phúc của Linh Hỏa tương tự, Cả 2 sẽ được cộng dồn khi nâng cấp đồ"
-                                                , "Đóng"));
+                                createOtherMenu(player, 1231231, String.format("Tỷ lệ tăng phúc của Luyện Khí Sư như sau\n" + "Sơ cấp luyện khí sư (1) : " + player.luyenKhiSu.getPercentBounce(1) + "%\n" + "Sơ cấp luyện khí sư (2) : " + player.luyenKhiSu.getPercentBounce(2) + "%\n" + "Sơ cấp luyện khí sư (3) : " + player.luyenKhiSu.getPercentBounce(3) + "%\n" + "Trung cấp luyện khí sư (4) : " + player.luyenKhiSu.getPercentBounce(4) + "%\n" + "Trung cấp luyện khí sư (5) : " + player.luyenKhiSu.getPercentBounce(5) + "%\n" + "Trung cấp luyện khí sư (6) : " + player.luyenKhiSu.getPercentBounce(6) + "%\n" + "Cao cấp luyện khí sư (7) : " + player.luyenKhiSu.getPercentBounce(7) + "%\n" + "Cao cấp luyện khí sư (8) : " + player.luyenKhiSu.getPercentBounce(8) + "%\n" + "Cao cấp luyện khí sư (9) : " + player.luyenKhiSu.getPercentBounce(9) + "%\n" + "Tiên cấp luyện khí sư (10) : " + player.luyenKhiSu.getPercentBounce(10) + "%\n" + "Thánh cấp luyện khí sư (11) : " + player.luyenKhiSu.getPercentBounce(11) + "%\n" + "Thần cấp luyện khí sư (12) : " + player.luyenKhiSu.getPercentBounce(12) + "%\n" + "|7|Tỷ lệ tăng phúc của Linh Hỏa tương tự, Cả 2 sẽ được cộng dồn khi nâng cấp đồ", "Đóng"));
                         }
                     } else if (mapId == 0 && player.iDMark.getIndexMenu() == ConstNpc.MO_LK) {
                         switch (select) {
@@ -6872,6 +6941,8 @@ public class NpcFactory {
         int avatar = Manager.NPC_TEMPLATES.get(tempId).avatar;
         try {
             switch (tempId) {
+                case ConstNpc.NPC_TU_TIEN:
+                    return tutien(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.NOI_BANH:
                     return Skien_trungthu(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.MR_POPO:
@@ -6972,12 +7043,12 @@ public class NpcFactory {
                     return CauCa(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.ZAMASU:
                     return zamasu(mapId, status, cx, cy, tempId, avatar);
-                case ConstNpc.NPC_CHUYENSINH:
-                    return chuyensinh(mapId, status, cx, cy, tempId, avatar);
+//                case ConstNpc.NPC_CHUYENSINH:
+//                    return chuyensinh(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.NPC_KETHON:
                     return NPC_KetHon(mapId, status, cx, cy, tempId, avatar);
-                case ConstNpc.NPC_KICHDUC:
-                    return NPC_KICHDUC(mapId, status, cx, cy, tempId, avatar);
+//                case ConstNpc.NPC_KICHDUC:
+//                    return NPC_KICHDUC(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.RONG_OMEGA:
                     return rongOmega(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.RONG_1S:

@@ -239,8 +239,8 @@ public class GodGK {
 
                             dataArray = (JSONArray) jv.parse(rs.getString("Tu_tien"));
                             player.haveTuTien = Integer.parseInt(String.valueOf(dataArray.get(0))) == 1 ? true : false;
-                            player.CapTuTien = Integer.parseInt(String.valueOf(dataArray.get(1)));
-                            player.KinhNghiemTT = Long.parseLong(String.valueOf(dataArray.get(2)));
+//                            player.CapTuTien = Integer.parseInt(String.valueOf(dataArray.get(1)));
+//                            player.KinhNghiemTT = Long.parseLong(String.valueOf(dataArray.get(2)));
                             dataArray.clear();
 
                             dataArray = (JSONArray) jv.parse(rs.getString("dk_kethon"));

@@ -1,5 +1,7 @@
 package com.girlkun.models.player.tutien.luyenkhi;
 
+import com.girlkun.models.mob.Mob;
+import com.girlkun.models.player.Player;
 import com.girlkun.utils.Util;
 import lombok.Data;
 
@@ -22,6 +24,8 @@ public class TienPhap {
     private long timeDuration;
     private long coolDown;
     private long percentLinhKhiUse;
+
+    private byte id;
 
     public String getName() {
         return String.format("[%s] : %s", ten, getMota());
@@ -53,11 +57,15 @@ public class TienPhap {
         this.setXParam(xP);
     }
 
-    public TienPhap(String ten, String mota, long timeDuration, byte param, byte thuoctinh) {
+    public TienPhap(byte id, String ten, String mota, long timeDuration, byte param, byte thuoctinh) {
         this.ten = ten;
         this.param = param;
         this.timeDuration = timeDuration;
         this.mota = mota;
         this.thuoctinh = thuoctinh;
+    }
+
+    public void useTienPhap(Player plAtt, Player plInjure, Mob mob) {
+        // handle attack by tien phap here
     }
 }

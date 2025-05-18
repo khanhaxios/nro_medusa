@@ -684,8 +684,8 @@ public class PlayerDAO {
                 dataArray.clear();
 
                 dataArray.add(player.haveTuTien == true ? 1 : 0);
-                dataArray.add(player.CapTuTien);
-                dataArray.add(player.KinhNghiemTT);
+//                dataArray.add(player.CapTuTien);
+//                dataArray.add(player.KinhNghiemTT);
                 String TuTien = dataArray.toJSONString();
                 dataArray.clear();
 
