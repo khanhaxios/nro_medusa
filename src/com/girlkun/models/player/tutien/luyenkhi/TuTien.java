@@ -105,12 +105,12 @@ public class TuTien extends BasePoint implements IBaseAction {
     public void calcPoint() {
         // add buff vo day sau do se call lai point
         // buff dame goc o day
-        player.nPoint.dameAdd += player.nPoint.dameg * getDameBuff();
-        player.nPoint.hpAdd += player.nPoint.hpg * getHPMPBuff();
-        player.nPoint.mpAdd += player.nPoint.mpg * getMaxExp();
-        player.nPoint.defAdd += player.nPoint.defg * getDefBuff();
-        player.nPoint.tlchinhxac += player.nPoint.tlchinhxac * getChinhXacBuff();
-        player.nPoint.tlNeDon += player.nPoint.tlNeDon * getNeBuff();
+        player.nPoint.dameAdd += player.nPoint.dameg * getDameBuff() / 100;
+        player.nPoint.hpAdd += player.nPoint.hpg * getHPMPBuff() / 100;
+        player.nPoint.mpAdd += player.nPoint.mpg * getMaxExp() / 100;
+        player.nPoint.defAdd += player.nPoint.defg * getDefBuff() / 100;
+        player.nPoint.tlchinhxac += player.nPoint.tlchinhxac * getChinhXacBuff() / 100;
+        player.nPoint.tlNeDon += player.nPoint.tlNeDon * getNeBuff() / 100;
         player.nPoint.tlHutHp += getHutHPBuff();
         player.nPoint.tlHutMp += getHutMPBuff();
         if (linhCan != null) {
@@ -174,11 +174,15 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     private float getSubLevelOtherBuff() {
-        return Math.max(.6f, this.subLevel * .6f);
+        return Math.max(1f, this.subLevel * 1f);
+    }
+
+    private float getSubLevelOtherBuff(float pt) {
+        return Math.max(pt, this.subLevel * pt);
     }
 
     private float getSubLevelHpMpBuff() {
-        return Math.max(.8f, this.subLevel * .8f);
+        return Math.max(1.5f, this.subLevel * 1.5f);
     }
 
     @Override
@@ -291,22 +295,22 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     @Override
     public float getPSTBuff() {
-        return getBaseBuffByLevel(2) + (getSubLevelOtherBuff() * level);
+        return getBaseBuffByLevel(2) + (getSubLevelOtherBuff(0.1f) * level);
     }
 
     @Override
     public float getHutHPBuff() {
-        return getBaseBuffByLevel(5) + (getSubLevelOtherBuff() * level);
+        return getBaseBuffByLevel(1) + (getSubLevelOtherBuff(0.1f) * level);
     }
 
     @Override
     public float getHutMPBuff() {
-        return getBaseBuffByLevel(5) + (getSubLevelOtherBuff() * level);
+        return getBaseBuffByLevel(1) + (getSubLevelOtherBuff(0.1f) * level);
     }
 
     @Override
     public float getNeBuff() {
-        return getBaseBuffByLevel(2) + (getSubLevelOtherBuff() * level);
+        return getBaseBuffByLevel(1) + (getSubLevelOtherBuff(0.1f) * level);
     }
 
     @Override

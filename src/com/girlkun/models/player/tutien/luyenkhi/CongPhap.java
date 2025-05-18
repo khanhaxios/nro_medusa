@@ -374,9 +374,9 @@ public class CongPhap {
 
     public void calcPoint(Player player) {
         // calc buff cong phap here
-        player.nPoint.dameAdd += (long) (player.nPoint.dameg * tlDameBuff / 100f);
-        player.nPoint.hpAdd += (long) (player.nPoint.hpg * tlHpBuff / 100f);
-        player.nPoint.mpAdd += (long) (player.nPoint.mpg * tlMpBuff / 100f);
+        player.nPoint.dameAdd += (long) ((player.nPoint.dameg + player.nPoint.dameAdd) * tlDameBuff / 100f);
+        player.nPoint.hpAdd += (long) ((player.nPoint.hpg + player.nPoint.hpAdd) * tlHpBuff / 100f);
+        player.nPoint.mpAdd += (long) ((player.nPoint.mpg + player.nPoint.mpAdd) * tlMpBuff / 100f);
         player.nPoint.tlDameCrit.add(xDameThuocTinh * 5);
         player.nPoint.tlHutHp += tlHutHPBuff;
         player.nPoint.tlHutMp += tlHutMPBuff;
