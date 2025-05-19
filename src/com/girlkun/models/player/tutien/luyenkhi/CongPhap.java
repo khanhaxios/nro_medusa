@@ -1,21 +1,21 @@
 package com.girlkun.models.player.tutien.luyenkhi;
 
+import com.girlkun.consts.ConstNpc;
 import com.girlkun.models.player.Player;
+import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 import lombok.Data;
+
+import static com.girlkun.models.player.tutien.luyenkhi.LinhCan.getLinhCanName;
 
 @Data
 public class CongPhap {
     private static int MAX_BUFF;
     private static final int[] MAX_HUT_DAME = {100, 1000, 10000, 20000, 30000, 50000, 70000, 100000};
-    private static final int[] MAX_HUT_HP_MP = {
-            20000, 30000, 50000, 60000, 70000, 120000, 150000, 200000
-    };
+    private static final int[] MAX_HUT_HP_MP = {20000, 30000, 50000, 60000, 70000, 120000, 150000, 200000};
 
-    private static final long[] DO_TT = new long[]{
-            100000, 500_000, 1_000_000, 10_000_00, 50_000_000, 100_000_000, 500_000_000, 1_000_000_000
-    };
+    private static final long[] DO_TT = new long[]{100000, 500_000, 1_000_000, 10_000_00, 50_000_000, 100_000_000, 500_000_000, 1_000_000_000};
     TuTien tuTien;
     public byte id;
     public int tlHpBuff = 0;
@@ -135,6 +135,20 @@ public class CongPhap {
         return phamchat.name;
     }
 
+    public void tangPham(long percent) {
+        if (Util.isTrue(percent, 100)) {
+            // success linh ngo
+            this.phamchat = phamchat.getNext();
+            this.maxThuocTinh = getMaxThuocTinhByPhamChat();
+//            randomNewBuff();
+            upOldBuff();
+            restDoTT();
+        } else {
+            restDoTT();
+            Service.gI().sendThongBao(tuTien.player, "Lĩnh ngộ thất bại bạn mất hết độ thuần thục");
+        }
+    }
+
     public void tangPham() {
         if (this.phamchat.isMaxLevel()) {
             Service.gI().sendThongBao(tuTien.player, "Công pháp đã đạt phẩm chất tối đa");
@@ -154,6 +168,10 @@ public class CongPhap {
             this.maxThuocTinh = getMaxThuocTinhByPhamChat();
             randomNewBuff();
             upOldBuff();
+            restDoTT();
+        } else {
+            restDoTT();
+            Service.gI().sendThongBao(tuTien.player, "Lĩnh ngộ thất bại bạn mất hết độ thuần thục");
         }
     }
 
@@ -177,41 +195,29 @@ public class CongPhap {
     }
 
     public void upOldBuff() {
-        if (tlHpBuff > 0)
-            tlHpBuff += Math.min(tlHpBuff + Util.nextInt(1, 5), MAX_BUFF);
+        if (tlHpBuff > 0) tlHpBuff += Math.min(tlHpBuff + Util.nextInt(1, 5), MAX_BUFF);
 
-        if (tlMpBuff > 0)
-            tlMpBuff += Math.min(tlMpBuff + Util.nextInt(1, 5), MAX_BUFF);
+        if (tlMpBuff > 0) tlMpBuff += Math.min(tlMpBuff + Util.nextInt(1, 5), MAX_BUFF);
 
-        if (tlAnCapVang > 0)
-            tlAnCapVang += Math.min(tlAnCapVang + Util.nextInt(1, 3), MAX_BUFF);
+        if (tlAnCapVang > 0) tlAnCapVang += Math.min(tlAnCapVang + Util.nextInt(1, 3), MAX_BUFF);
 
-        if (tlDameBuff > 0)
-            tlDameBuff += Math.min(tlDameBuff + Util.nextInt(1, 2), MAX_BUFF);
+        if (tlDameBuff > 0) tlDameBuff += Math.min(tlDameBuff + Util.nextInt(1, 2), MAX_BUFF);
 
-        if (tlHutHPBuff > 0)
-            tlHutHPBuff += Math.min(tlHutHPBuff + Util.nextInt(3, 6), MAX_BUFF);
+        if (tlHutHPBuff > 0) tlHutHPBuff += Math.min(tlHutHPBuff + Util.nextInt(3, 6), MAX_BUFF);
 
-        if (tlHutMPBuff > 0)
-            tlHutMPBuff += Math.min(tlHutMPBuff + Util.nextInt(3, 6), MAX_BUFF);
+        if (tlHutMPBuff > 0) tlHutMPBuff += Math.min(tlHutMPBuff + Util.nextInt(3, 6), MAX_BUFF);
 
-        if (tlLinhKhiBuff > 0)
-            tlLinhKhiBuff += Math.min(tlLinhKhiBuff + Util.nextInt(1, 2), MAX_BUFF);
+        if (tlLinhKhiBuff > 0) tlLinhKhiBuff += Math.min(tlLinhKhiBuff + Util.nextInt(1, 2), MAX_BUFF);
 
-        if (hutDame > 0)
-            hutDame += Math.min(hutDame + Util.nextInt(1, 3), MAX_BUFF);
+        if (hutDame > 0) hutDame += Math.min(hutDame + Util.nextInt(1, 3), MAX_BUFF);
 
-        if (hutHp > 0)
-            hutHp += Math.min(hutHp + Util.nextInt(1, 3), MAX_BUFF);
+        if (hutHp > 0) hutHp += Math.min(hutHp + Util.nextInt(1, 3), MAX_BUFF);
 
-        if (hutMp > 0)
-            hutMp += Math.min(hutMp + Util.nextInt(1, 3), MAX_BUFF);
+        if (hutMp > 0) hutMp += Math.min(hutMp + Util.nextInt(1, 3), MAX_BUFF);
 
-        if (xDameThuocTinh > 0)
-            xDameThuocTinh += (byte) Math.min(xDameThuocTinh + Util.nextInt(1, 2), 100);
+        if (xDameThuocTinh > 0) xDameThuocTinh += (byte) Math.min(xDameThuocTinh + Util.nextInt(1, 2), 100);
 
-        if (xLinhKhiBuff > 0)
-            xLinhKhiBuff += (byte) Math.min(xLinhKhiBuff + Util.nextInt(1, 2), 100);
+        if (xLinhKhiBuff > 0) xLinhKhiBuff += (byte) Math.min(xLinhKhiBuff + Util.nextInt(1, 2), 100);
 
         if (xTocDoKhoiPhucLinhKhi > 0)
             xTocDoKhoiPhucLinhKhi += (byte) Math.min(xTocDoKhoiPhucLinhKhi + Util.nextInt(1, 2), 100);
@@ -220,7 +226,7 @@ public class CongPhap {
     public void randomNewBuff() {
         if (this.slThuocTinh >= maxThuocTinh) return;
 
-        boolean isAdd = Util.isTrue(getBaseTyLeLinhNgo(), 100);
+        boolean isAdd = Util.isTrue(getBaseTyLeLinhNgo() + 10, 100);
         if (!isAdd) return;
 
         byte countNew = 0;
@@ -388,5 +394,18 @@ public class CongPhap {
     public void autoAddDoTT() {
         long dttAutoAdd = (long) (tuTien.getXDiemThienPhu() * (DO_TT[phamchat.id] / DO_TT[0]));
         addDoThuanThuc(dttAutoAdd);
+    }
+
+    public String getThuocTinhName() {
+        return getLinhCanName(thuoctinh);
+    }
+
+    public void showMenuCongPhap() {
+        String npcSay = "|7|Công Pháp+\n" + "|5|" + getFullName() + "\n" + "|5|Độ thuần thục : " + getCurrentExpStr() + "\n" + "|2|Số lượng thuộc tính : " + slThuocTinh + " thuộc tính\n" + "|1|Phẩm chất : " + phamchat.name + "\n" + "|5|Thuộc tính công pháp : " + getThuocTinhName() + "\n" + "|7|Bạn muốn ? ";
+        NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_CONG_PHAP, -1, npcSay, "Tăng Phẩm", "Xem Thuộc\nTính", "Đóng");
+    }
+
+    public boolean canLevelUp() {
+        return doThuanThuc == maxDoThuanThuc;
     }
 }

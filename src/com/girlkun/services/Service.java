@@ -1415,7 +1415,7 @@ public class Service {
             infoKethon(player);
             return;
         } else if (text.equals("tu")) {
-            TuTienInfo(player);
+            player.tuTien.getInfoStr();
             return;
         } else if (text.equals("chiso")) {
             if (player.autocso) {
@@ -1572,13 +1572,6 @@ public class Service {
         }
     }
 
-    public void TuTienInfo(Player player) {
-        if (player.haveTuTien == true) {
-//            NpcService.gI().createMenuConMeo(player, 23154, 12679, "|7|TU TIÊN\n" + "|5|Cấp bậc: " + player.CapTuTien(player.CapTuTien) + "\nKinh nghiệm: " + Util.format(player.KinhNghiemTT) + "\nKỹ năng: " + player.ChisoTuTien(), "OK");
-        } else {
-            Service.gI().sendThongBaoOK(player, "Bạn chưa mở chức năng Tu tiên");
-        }
-    }
 
     public void ChuyenSinhInfo(Player player) {
         MenuController.getInstance().openMenuNPC(player.getSession(), ConstNpc.NPC_CHUYENSINH, player);

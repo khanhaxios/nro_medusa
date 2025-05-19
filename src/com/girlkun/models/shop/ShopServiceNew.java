@@ -329,7 +329,7 @@ public class ShopServiceNew {
         Service.getInstance().sendMoney(player);
     }
 
-//    private boolean subMoneyByItemShop(Player player, ItemShop is) {
+    //    private boolean subMoneyByItemShop(Player player, ItemShop is) {
 //        int gold = 0;
 //        int gem = 0;
 //        int ruby = 0;
@@ -452,7 +452,7 @@ public class ShopServiceNew {
     /**
      * Mua bùa
      *
-     * @param player người chơi
+     * @param player     người chơi
      * @param itemTempId id template vật phẩm
      */
     private void buyItemBua(Player player, int itemTempId) {
@@ -473,7 +473,7 @@ public class ShopServiceNew {
     /**
      * Mua vật phẩm trong cửa hàng
      *
-     * @param player người chơi
+     * @param player     người chơi
      * @param itemTempId id template vật phẩm
      */
     public void buyItem(Player player, int itemTempId) {
@@ -636,9 +636,9 @@ public class ShopServiceNew {
         if (item != null && item.isNotNullItem() && item.template.id == 457) {
             NpcService.gI().createMenuConMeo(pl, ConstNpc.BAN_NHIEU_THOI_VANG, 7710,
                     "|7|BÁN NHIỀU THỎI VÀNG\n"
-                    + "|-1|Theo nguyện vọng góp ý từ các chiến binh, ta được Admin Ngọc Rồng MEDUSA\n"
-                    + "giao cho trọng trách hỗ trợ Bán thỏi vàng số lượng nhiều\n"
-                    + "|0|Ngươi muốn bán số lượng bao nhiêu Thỏi vàng?",
+                            + "|-1|Theo nguyện vọng góp ý từ các chiến binh, ta được Admin Ngọc Rồng MEDUSA\n"
+                            + "giao cho trọng trách hỗ trợ Bán thỏi vàng số lượng nhiều\n"
+                            + "|0|Ngươi muốn bán số lượng bao nhiêu Thỏi vàng?",
                     "Bán X1\nThỏi vàng\n(500 Triệu)", "Bán X5\nThỏi vàng\n(2 Tỷ 5)", "Bán X10\nThỏi vàng\n(5 Tỷ)",
                     "Bán X100\nThỏi vàng\n(50 Tỷ)");
             return;

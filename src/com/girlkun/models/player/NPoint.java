@@ -41,6 +41,7 @@ public class NPoint {
         this.tlDameCrit = new ArrayList<>();
     }
 
+    public byte tyLeGiamDame = 0;
     public boolean isCrit;
     public boolean isCrit100;
 
@@ -1714,15 +1715,15 @@ public class NPoint {
         }
         dameAttack += dameAttack * percentXDame / 100;
         dameAttack = Util.GioiHannextdame(dameAttack - (dameAttack * 5 / 100), dameAttack + (dameAttack * 5 / 100));
-        if (player.isPl()) {
-            if (player.inventory.haveOption(player.inventory.itemsBody, 5, 159)) {
-                if (Util.canDoWithTime(player.lastTimeUseOption, 60000) && SkillUtil.isSkillXDame(player.playerSkill.skillSelect.template.id)) {
-                    dameAttack *= player.inventory.getParam(player.inventory.itemsBody.get(5), 159);
-                    player.lastTimeUseOption = System.currentTimeMillis();
-                    Service.getInstance().sendThongBao(player, "|1|Bạn vừa gây ra x" + player.inventory.getParam(player.inventory.itemsBody.get(5), 159) + " Sát thương chiêu thức cơ bản");
-                }
-            }
-        }
+//        if (player.isPl()) {
+//            if (player.inventory.haveOption(player.inventory.itemsBody, 5, 159)) {
+//                if (Util.canDoWithTime(player.lastTimeUseOption, 60000) && SkillUtil.isSkillXDame(player.playerSkill.skillSelect.template.id)) {
+//                    dameAttack *= player.inventory.getParam(player.inventory.itemsBody.get(5), 159);
+//                    player.lastTimeUseOption = System.currentTimeMillis();
+//                    Service.getInstance().sendThongBao(player, "|1|Bạn vừa gây ra x" + player.inventory.getParam(player.inventory.itemsBody.get(5), 159) + " Sát thương chiêu thức cơ bản");
+//                }
+//            }
+//        }
         if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 6 || this.player.TrieuHoiCapBac == 9 || this.player.TrieuHoiCapBac == 10)) {
             switch (this.player.TrieuHoiCapBac) {
                 case 6:

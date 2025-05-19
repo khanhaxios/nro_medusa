@@ -1,6 +1,9 @@
 package com.girlkun.jdbc.daos;
 
 import com.girlkun.database.GirlkunDB;
+import com.girlkun.models.player.tutien.luyenkhi.PhamChat;
+import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
+import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.data.DataGame;
@@ -84,7 +87,7 @@ public class GodGK {
                 session.actived = rs.getBoolean("active");
                 session.goldBar = rs.getInt("account.thoi_vang");
                 session.bdPlayer = rs.getDouble("account.bd_player");
-                session.vnd = rs.getLong("vnd");
+                session.vnd = rs.getDouble("vnd");
                 long lastTimeLogin = rs.getTimestamp("last_time_login").getTime();
                 int secondsPass1 = (int) ((System.currentTimeMillis() - lastTimeLogin) / 1000);
                 long lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
@@ -941,7 +944,7 @@ public class GodGK {
                             player.chienthan.maxtask = Integer.parseInt(String.valueOf(dataArray.get(3)));
                             player.chienthan.donechienthan = Integer.parseInt(String.valueOf(dataArray.get(4)));
                             dataArray.clear();
-
+                            // handle data tu tien
                             player.bdkb_isJoinBdkb = false;
                             if ((new java.sql.Date(player.bdkb_lastTimeJoin)).getDay() != (new java.sql.Date(System.currentTimeMillis())).getDay()) {
                                 player.bdkb_countPerDay = 0;
@@ -949,10 +952,10 @@ public class GodGK {
                             if ((new java.sql.Date(player.diemdanh)).getDay() != (new java.sql.Date(System.currentTimeMillis())).getDay()) {
                                 player.diemdanh = 0;
                             }
-
                             player.nPoint.hp = plHp;
                             player.nPoint.mp = plMp;
                             player.iDMark.setLoadedAllDataPlayer(true);
+                            handleDataTutTien(player);
                             GirlkunDB.executeUpdate("update account set last_time_login = '" + new Timestamp(System.currentTimeMillis()) + "', ip_address = '" + session.ipAddress + "' where id = " + session.userId);
                         }
                     }
@@ -963,9 +966,10 @@ public class GodGK {
                 al.wrong();
             }
         } catch (Exception e) {
-            System.out.println("qqq");
             Logger.error(session.uu);
-            player.dispose();
+            if (player != null) {
+                player.dispose();
+            }
             player = null;
             Logger.logException(GodGK.class, e);
         } finally {
@@ -974,6 +978,96 @@ public class GodGK {
             }
         }
         return player;
+    }
+
+    public static void handleDataTutTien(Player player) {
+        try {
+            GirlkunResultSet rs = GirlkunDB.executeQuery("select * from tu_tien where player_id = ?", player.id);
+            if (rs.first()) {
+                String dataTuTien = rs.getString("data_tu_tien");
+                if (dataTuTien != null && !dataTuTien.isEmpty()) {
+                    JSONArray jsonArray = (JSONArray) JSONValue.parse(dataTuTien);
+
+                    // index 0: base point tu tien
+                    JSONArray basePointArray = (JSONArray) jsonArray.get(0);
+                    if (basePointArray.size() > 0) {
+                        player.tuTien.level = Byte.parseByte(basePointArray.get(0).toString());
+                        player.tuTien.subLevel = Byte.parseByte(basePointArray.get(1).toString());
+                        player.tuTien.exp = Long.parseLong(basePointArray.get(2).toString());
+                        player.tuTien.maxExp = Long.parseLong(basePointArray.get(3).toString());
+                        player.tuTien.linhKhiPoint = Long.parseLong(basePointArray.get(4).toString());
+                        player.tuTien.maxLinhKhiPoint = Long.parseLong(basePointArray.get(5).toString());
+                        player.tuTien.canCot = Integer.parseInt(basePointArray.get(6).toString());
+                        player.tuTien.ngoTinh = Integer.parseInt(basePointArray.get(7).toString());
+                        player.tuTien.thienPhu = Integer.parseInt(basePointArray.get(8).toString());
+                        player.tuTien.timeTuTien = Long.parseLong(basePointArray.get(9).toString());
+                    }
+
+                    // index 1: linh can
+                    JSONArray linhCanArray = (JSONArray) jsonArray.get(1);
+                    if (linhCanArray.size() > 0) {
+                        player.tuTien.linhCan.setLinhCanType(Byte.parseByte(linhCanArray.get(0).toString()));
+                        player.tuTien.linhCan.getThuocTinhLinhCan().setParam(Byte.parseByte(linhCanArray.get(1).toString()));
+                        player.tuTien.linhCan.getThuocTinhLinhCan().setTenThuocTinh(linhCanArray.get(2).toString());
+                        player.tuTien.linhCan.getThuocTinhLinhCan().setId(Byte.parseByte(linhCanArray.get(3).toString()));
+                        player.tuTien.linhCan.getThuocTinhLinhCan().setLinhCanBatBuoc(Byte.parseByte(linhCanArray.get(4).toString()));
+                    }
+
+                    // index 2: cong phap
+                    JSONArray congPhapArray = (JSONArray) jsonArray.get(2);
+                    if (congPhapArray.size() > 0) {
+                        player.tuTien.congPhap.tlDameBuff = Byte.parseByte(congPhapArray.get(0).toString());
+                        player.tuTien.congPhap.tlHpBuff = Byte.parseByte(congPhapArray.get(1).toString());
+                        player.tuTien.congPhap.tlMpBuff = Byte.parseByte(congPhapArray.get(2).toString());
+                        player.tuTien.congPhap.tlHutHPBuff = Byte.parseByte(congPhapArray.get(3).toString());
+                        player.tuTien.congPhap.tlHutMPBuff = Byte.parseByte(congPhapArray.get(4).toString());
+                        player.tuTien.congPhap.tlAnCapVang = Byte.parseByte(congPhapArray.get(5).toString());
+                        player.tuTien.congPhap.tlLinhKhiBuff = Byte.parseByte(congPhapArray.get(6).toString());
+                        player.tuTien.congPhap.hutDame = Integer.parseInt(congPhapArray.get(7).toString());
+                        player.tuTien.congPhap.hutHp = Integer.parseInt(congPhapArray.get(8).toString());
+                        player.tuTien.congPhap.hutMp = Integer.parseInt(congPhapArray.get(9).toString());
+                        player.tuTien.congPhap.xDameThuocTinh = Byte.parseByte(congPhapArray.get(10).toString());
+                        player.tuTien.congPhap.totalHutDame = Integer.parseInt(congPhapArray.get(11).toString());
+                        player.tuTien.congPhap.totalHutHp = Integer.parseInt(congPhapArray.get(12).toString());
+                        player.tuTien.congPhap.totalHutMp = Integer.parseInt(congPhapArray.get(13).toString());
+                        player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi = Byte.parseByte(congPhapArray.get(14).toString());
+                        player.tuTien.congPhap.xLinhKhiBuff = Byte.parseByte(congPhapArray.get(15).toString());
+
+                        player.tuTien.congPhap.tenCongPhap = congPhapArray.get(16).toString();
+                        player.tuTien.congPhap.thuoctinh = Byte.parseByte(congPhapArray.get(17).toString());
+                        player.tuTien.congPhap.phamchat = PhamChat.fromId(Byte.parseByte(congPhapArray.get(18).toString()));
+                        player.tuTien.congPhap.doThuanThuc = Integer.parseInt(congPhapArray.get(19).toString());
+                        player.tuTien.congPhap.maxDoThuanThuc = Integer.parseInt(congPhapArray.get(20).toString());
+
+                    }
+
+                    // index 3: list tien phap
+                    JSONArray tienPhapArrayList = (JSONArray) jsonArray.get(3);
+                    player.tuTien.tienPhaps.clear(); // reset list tiên pháp
+
+                    if (tienPhapArrayList.size() > 0) {
+                        for (Object obj : tienPhapArrayList) {
+                            JSONArray tpData = (JSONArray) obj;
+                            TienPhap tp = new TienPhap();
+                            tp.setId(Byte.parseByte(tpData.get(0).toString()));
+                            tp.setTen(tpData.get(1).toString());
+                            tp.setParam(Byte.parseByte(tpData.get(2).toString()));
+                            tp.setMota(tpData.get(3).toString());
+                            tp.setThuoctinh(Byte.parseByte(tpData.get(4).toString()));
+                            tp.setLastTimeUsed(Long.parseLong(tpData.get(5).toString()));
+                            tp.setXParam(Byte.parseByte(tpData.get(6).toString()));
+                            tp.setCoolDown(Integer.parseInt(tpData.get(7).toString()));
+                            tp.setPercentLinhKhiUse(Integer.parseInt(tpData.get(8).toString()));
+                            tp.setTimeDuration(Integer.parseInt(tpData.get(9).toString()));
+                            player.tuTien.tienPhaps.add(tp);
+                        }
+                    }
+
+                }
+            }
+        } catch (Exception e) {
+            Logger.error("Lỗi load data tu tiên: " + e.getMessage());
+        }
     }
 
     public static void checkDo() {

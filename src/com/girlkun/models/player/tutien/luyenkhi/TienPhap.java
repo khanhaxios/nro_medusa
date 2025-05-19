@@ -1,12 +1,14 @@
 package com.girlkun.models.player.tutien.luyenkhi;
 
-import com.girlkun.models.mob.Mob;
-import com.girlkun.models.player.Player;
+import com.girlkun.services.PlayerService;
+import com.girlkun.services.Service;
+import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 import lombok.Data;
 
 @Data
-public class TienPhap {
+public class TienPhap implements Cloneable, Runnable {
+    TuTien tuTien;
     // 0 la buff dame thuoc tinh
     // 1 la hoi mau
     // 2 la buff dame sau khi dung chieu
@@ -14,6 +16,7 @@ public class TienPhap {
     // 4 la giam sat thuong
     public static byte[] PARAM_TO_BUFF = new byte[]{0, 1, 2, 3, 4};
     // dung de buff sat thuong
+    private boolean hasEffect = false;
 
     private String ten;
     private byte thuoctinh;
@@ -24,6 +27,7 @@ public class TienPhap {
     private long timeDuration;
     private long coolDown;
     private long percentLinhKhiUse;
+    private long COOL_DOWN_TIME = 30 * 1000;
 
     private byte id;
 
@@ -41,12 +45,70 @@ public class TienPhap {
     }
 
     public void update() {
-        if (this.coolDown <= 0) {
-            this.coolDown = 0;
-            return;
+        try {
+            if (System.currentTimeMillis() - (lastTimeUsed + timeDuration) > 0) {
+                switch (param) {
+                    case 0:
+                        if (!hasEffect) {
+                            tuTien.player.nPoint.tlDameCrit.add((int) xParam);
+                            hasEffect = true;
+                        }
+                        break;
+                    case 1:
+                        if (!hasEffect) {
+                            tuTien.player.nPoint.addHp(tuTien.player.nPoint.hpMax * xParam / 100);
+                            hasEffect = true;
+                            PlayerService.gI().sendInfoHp(tuTien.player);
+                        }
+                        break;
+                    case 2:
+                        if (!hasEffect) {
+                            tuTien.player.nPoint.dameAfter += xParam;
+                            hasEffect = true;
+                        }
+                        break;
+                    case 3:
+                        tuTien.player.nPoint.addHp(tuTien.player.nPoint.hpMax * xParam / 100);
+                        PlayerService.gI().sendInfoHp(tuTien.player);
+                        break;
+                    case 4:
+                        if (!hasEffect) {
+                            tuTien.player.nPoint.tyLeGiamDame += xParam;
+                            hasEffect = true;
+                        }
+                        break;
+                }
+            } else {
+                // clear
+                switch (param) {
+                    case 0:
+                        if (hasEffect) {
+                            tuTien.player.nPoint.tlDameCrit.remove((Integer) Integer.parseInt(String.valueOf(xParam)));
+                        }
+                        break;
+                    case 2:
+                        if (hasEffect) {
+                            tuTien.player.nPoint.dameAfter -= xParam;
+                        }
+                        break;
+                    case 4:
+                        if (hasEffect) {
+                            tuTien.player.nPoint.tyLeGiamDame -= xParam;
+                        }
+                        break;
+                }
+            }
+            if (this.coolDown <= 0) {
+                this.coolDown = 0;
+                return;
+            }
+            short time = 1000;
+            this.setCoolDown(coolDown - time);
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
         }
-        short time = 1000;
-        this.setCoolDown(coolDown - time);
+
     }
 
     public void randomParam(byte baseXParam) {
@@ -58,6 +120,7 @@ public class TienPhap {
     }
 
     public TienPhap(byte id, String ten, String mota, long timeDuration, byte param, byte thuoctinh) {
+        this.id = id;
         this.ten = ten;
         this.param = param;
         this.timeDuration = timeDuration;
@@ -65,7 +128,31 @@ public class TienPhap {
         this.thuoctinh = thuoctinh;
     }
 
-    public void useTienPhap(Player plAtt, Player plInjure, Mob mob) {
-        // handle attack by tien phap here
+    public TienPhap() {
+
+    }
+
+    public void useTienPhap() {
+        if (tuTien.tienPhapsUsed.stream().noneMatch(tp -> tp.id == id)) {
+            tuTien.tienPhapsUsed.add(clone());
+            Service.gI().chat(tuTien.player, ten);
+        }
+    }
+
+    @Override
+    public TienPhap clone() {
+        try {
+            return (TienPhap) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
+    @Override
+    public void run() {
+        restTienCoolDown();
+        while (coolDown > 0) {
+            update();
+        }
     }
 }

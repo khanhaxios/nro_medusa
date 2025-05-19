@@ -394,6 +394,15 @@ public class ConstNpc {
     public static final int HOC_TIEN_PHAP = 232313123;
     public static final int HOC_CONG_PHAP = -23131;
     public static final int TRUYEN_CONG_TU_TIEN = 123123;
+    public static final int MENU_PLAYER_TU_TIEN = 213123;
+    public static final int MENU_PLAYER_TU_TIEN_F = 231313123;
+    public static final int TU_TIEN_DOT_PHA = -13133123;
+    public static final int TU_TIEN_TAN_CONG = -11111223;
+    public static final int MENU_CONG_PHAP = 123131322;
+    public static final int CONG_PHAP_LINH_NGO = 11112344;
+    public static final int MENU_INFO_CONG_PHAP_BUFF = 1111123123;
+    public static final int MENU_TT_TIEN_PHAP = -11231;
+    public static final int MENU_TT_LINH_CAN = -1231323;
 }
 
 /**

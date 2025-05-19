@@ -3,6 +3,7 @@ package com.girlkun.models.player;
 import com.girlkun.models.player.Pet.Pet;
 import BoMong.BoMong;
 import com.girlkun.models.map.MapMaBu.MapMaBu;
+import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.models.player.tutien.luyenkhisu.LuyenKhiSu;
 import com.girlkun.models.player.tutien.luyenthe.LuyenThe;
@@ -1186,7 +1187,18 @@ public class Player {
             if (isMobAttack && this.charms.tdBatTu > System.currentTimeMillis() && damage >= this.nPoint.hp) {
                 damage = Util.DoubleGioihang(this.nPoint.hp - 1);
             }
+            if (plAtt != null && !isMobAttack) {
+                float tyle = (plAtt.tienLuc - this.tienLuc) / 100f;
 
+                if (tyle < 0) {
+                    damage -= (Math.abs(tyle) * 10) * damage;
+                } else {
+                    damage += damage * tyle;
+                }
+            }
+            if (this.nPoint.tyLeGiamDame > 0) {
+                damage -= damage * nPoint.tyLeGiamDame / 100;
+            }
             this.nPoint.subHP(damage);
             if (isDie()) {
                 if (this.isPl()) {
@@ -1221,16 +1233,7 @@ public class Player {
             }
             // handle tien luc
             // check map nua
-            if (plAtt != null && !isMobAttack) {
-                // subdame
-                float tyle = (plAtt.tienLuc - this.tienLuc) / 100f;
 
-                if (tyle < 0) {
-                    damage -= (Math.abs(tyle) * 10) * damage;
-                } else {
-                    damage += damage * tyle;
-                }
-            }
             return damage;
         } else {
             return 0;
