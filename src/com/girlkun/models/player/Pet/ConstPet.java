@@ -3,11 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.girlkun.models.player.Pet;
-
-/**
- *
- * @author Administrator
- */
 public class ConstPet {
     private ConstPet() {
         

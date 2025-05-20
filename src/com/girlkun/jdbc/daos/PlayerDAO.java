@@ -1172,7 +1172,12 @@ public class PlayerDAO {
                 jsonArray.clear();
             }
             // load other data
-
+            if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
+                jsonArray.add(player.luyenThe.level);
+                jsonArray.add(player.luyenThe.exp);
+                jsonArray.add(player.luyenThe.maxExp);
+                dataLT = jsonArray.toJSONString();
+            }
             // save sql
             GirlkunDB.executeUpdate("update tu_tien set data_tu_tien =  ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?  where player_id=?",
                     dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, player.id);

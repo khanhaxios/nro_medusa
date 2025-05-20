@@ -92,7 +92,6 @@ public class GodGK {
                 int secondsPass1 = (int) ((System.currentTimeMillis() - lastTimeLogin) / 1000);
                 long lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
                 int secondsPass = (int) ((System.currentTimeMillis() - lastTimeLogout) / 1000);
-
 //                if (!session.isAdmin) {
 //                    Service.getInstance().sendThongBaoOK(session, "Chi danh cho admin");
 //                }else
@@ -1063,6 +1062,13 @@ public class GodGK {
                         }
                     }
 
+                }
+                String dataLuyenThe = rs.getString("data_luyen_the");
+                if (dataLuyenThe != null && !dataLuyenThe.isEmpty()) {
+                    JSONArray jsonArray = (JSONArray) JSONValue.parse(dataLuyenThe);
+                    player.luyenThe.level = Byte.parseByte(jsonArray.get(0).toString());
+                    player.luyenThe.exp = Byte.parseByte(jsonArray.get(1).toString());
+                    player.luyenThe.maxExp = Byte.parseByte(jsonArray.get(2).toString());
                 }
             }
         } catch (Exception e) {

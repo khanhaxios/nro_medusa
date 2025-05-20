@@ -403,6 +403,8 @@ public class ConstNpc {
     public static final int MENU_INFO_CONG_PHAP_BUFF = 1111123123;
     public static final int MENU_TT_TIEN_PHAP = -11231;
     public static final int MENU_TT_LINH_CAN = -1231323;
+    public static final int MENU_LUYEN_THE = -43333;
+    public static final int CONFIRM_DOT_PHA_LUYEN_THE = -11112322;
 }
 
 /**

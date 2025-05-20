@@ -538,4 +538,13 @@ public class TuTien extends BasePoint implements IBaseAction {
         resetLevel();
         Service.gI().sendThongBao(player, "Đã Tán Công");
     }
+
+    public void dispose() {
+        tienPhapsUsed.clear();
+        tienPhaps.clear();
+        congPhap = null;
+        linhCan = null;
+        tienPhaps = null;
+        tienPhapsUsed = null;
+    }
 }

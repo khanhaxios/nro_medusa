@@ -19,6 +19,8 @@ public class ItemService {
 
     int[] optionsRandom = new int[]{3, 4, 8, 24, 25, 26, 29, 82, 83, 88, 95, 96, 97, 101};
     int[] optionRandomVip = new int[]{5, 14, 22, 23, 50};
+    int[] idsKichHoat = new int[]{127, 128, 129, 130, 131, 132, 133, 134, 135, 189, 190, 191, 213, 214, 215, 224, 225, 226, 235, 236, 237, 241, 242, 243};
+
     private static ItemService i;
 
     public static ItemService gI() {
@@ -180,7 +182,8 @@ public class ItemService {
     }
 
     public boolean isItemActivation(Item item) {
-        return false;
+        return item.itemOptions.stream()
+                .anyMatch(opt -> Arrays.stream(idsKichHoat).anyMatch(id -> id == opt.optionTemplate.id));
     }
 
     public int getPercentTrainArmor(Item item) {
@@ -1038,6 +1041,24 @@ public class ItemService {
                 return 137;
             case 135: //Set Viet HP
                 return 138;
+            case 213:
+                return 216;
+            case 214:
+                return 217;
+            case 215:
+                return 218;
+            case 224:
+                return 227;
+            case 225:
+                return 228;
+            case 226:
+                return 229;
+            case 189:
+                return 199;
+            case 190:
+                return 200;
+            case 191:
+                return 201;
             case 235: //Set Jiren TD
                 return 238;
             case 236: //Set Jiren NM

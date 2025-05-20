@@ -1318,6 +1318,13 @@ public class Player {
             pet.dispose();
             pet = null;
         }
+        if (luyenKhiSu != null) {
+            luyenKhiSu = null;
+        }
+        if (tuTien != null) {
+            tuTien.dispose();
+            tuTien = null;
+        }
         if (petDaoLu != null) {
             petDaoLu.dispose();
             pet = null;

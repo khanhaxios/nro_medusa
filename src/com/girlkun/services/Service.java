@@ -1408,8 +1408,8 @@ public class Service {
         } else if (text.equals("tt")) {
             infoall(player);
             return;
-        } else if (text.equals("cs")) {
-            ChuyenSinhInfo(player);
+        } else if (text.equals("lt")) {
+            player.luyenThe.showInfo();
             return;
         } else if (text.equals("kh")) {
             infoKethon(player);

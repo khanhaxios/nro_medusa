@@ -134,8 +134,11 @@ public class TienPhap implements Cloneable, Runnable {
 
     public void useTienPhap() {
         if (tuTien.tienPhapsUsed.stream().noneMatch(tp -> tp.id == id)) {
-            tuTien.tienPhapsUsed.add(clone());
-            Service.gI().chat(tuTien.player, ten);
+            int percent = (int) (tuTien.linhKhiPoint / tuTien.maxLinhKhiPoint * 100);
+            if (percent - percentLinhKhiUse >= 0) {
+                tuTien.tienPhapsUsed.add(clone());
+                Service.gI().chat(tuTien.player, ten);
+            }
         }
     }
 

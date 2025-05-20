@@ -1,6 +1,7 @@
 package com.girlkun.models.npc;
 
 import com.girlkun.consts.ConstMap;
+import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.challenge.MartialCongressService;
 import com.girlkun.services.*;
 import com.girlkun.consts.ConstNpc;
@@ -3703,7 +3704,7 @@ public class NpcFactory {
                                     }
                                 case 1: //doi map moi
                                     if (player.haveTuTien == true) {
-                                        if (player.setClothes.nguyenthuytd == 5 || player.setClothes.nguyenthuyxd == 5 || player.setClothes.nguyenthuynm == 5 || player.setClothes.isSetThongKho() || player.setClothes.isSetJiren() || player.setClothes.isSetGokuUI()) {
+                                        if (player.setClothes.nguyenthuytd == 5 || player.setClothes.nguyenthuyxd == 5 || player.setClothes.nguyenthuynm == 5 || player.setClothes.isSetThongKho() || player.setClothes.isSetJiren() || player.setClothes.isSetGokuUI() || player.isAdmin()) {
                                             //ShopServiceNew.gI().opendShop(player, "BILL", true);
                                             ChangeMapService.gI().changeMap(player, 178, -1, 604, 167);
                                         } else {
@@ -3714,7 +3715,7 @@ public class NpcFactory {
                                     }
                                 case 2: //doi moii
                                     if (player.haveTuTien == true) {
-                                        if (player.setClothes.NhanHoang == 5 || player.setClothes.MaThan == 5 || player.setClothes.ThienTu == 5) {
+                                        if (player.setClothes.NhanHoang == 5 || player.setClothes.MaThan == 5 || player.setClothes.ThienTu == 5 || player.isAdmin()) {
                                             //ShopServiceNew.gI().opendShop(player, "BILL", true);
                                             ChangeMapService.gI().changeMap(player, 210, -1, 1676, 744);
                                         } else {
@@ -3725,7 +3726,7 @@ public class NpcFactory {
                                     }
                                 case 3: //doi map moi
                                     if (player.haveTuTien == true) {
-                                        if (player.setClothes.nguyenthuytd == 5 || player.setClothes.nguyenthuyxd == 5 || player.setClothes.nguyenthuynm == 5) {
+                                        if (player.setClothes.nguyenthuytd == 5 || player.setClothes.nguyenthuyxd == 5 || player.setClothes.nguyenthuynm == 5 || player.isAdmin()) {
                                             //ShopServiceNew.gI().opendShop(player, "BILL", true);
                                             ChangeMapService.gI().changeMap(player, 211, -1, 698, 312);
                                         } else {
@@ -3736,7 +3737,7 @@ public class NpcFactory {
                                     }
                                 case 4: //doi moii
                                     if (player.haveTuTien == true) {
-                                        if (player.setClothes.NhanHoang == 5 || player.setClothes.MaThan == 5 || player.setClothes.ThienTu == 5) {
+                                        if (player.setClothes.NhanHoang == 5 || player.setClothes.MaThan == 5 || player.setClothes.ThienTu == 5 || player.isAdmin()) {
                                             //ShopServiceNew.gI().opendShop(player, "BILL", true);
                                             ChangeMapService.gI().changeMap(player, 212, -1, 636, 384);
                                         } else {
@@ -3747,7 +3748,7 @@ public class NpcFactory {
                                     }
                                 case 5: //doi map moi
                                     if (player.haveTuTien == true) {
-                                        if (player.setClothes.nguyenthuytd == 5 || player.setClothes.nguyenthuyxd == 5 || player.setClothes.nguyenthuynm == 5) {
+                                        if (player.setClothes.nguyenthuytd == 5 || player.setClothes.nguyenthuyxd == 5 || player.setClothes.nguyenthuynm == 5 || player.isAdmin()) {
                                             //ShopServiceNew.gI().opendShop(player, "BILL", true);
                                             ChangeMapService.gI().changeMap(player, 213, -1, 328, 384);
                                         } else {
@@ -3758,7 +3759,7 @@ public class NpcFactory {
                                     }
                                 case 6: //doi moii
                                     if (player.haveTuTien == true) {
-                                        if (player.setClothes.NhanHoang == 5 || player.setClothes.MaThan == 5 || player.setClothes.ThienTu == 5) {
+                                        if (player.setClothes.NhanHoang == 5 || player.setClothes.MaThan == 5 || player.setClothes.ThienTu == 5 || player.isAdmin()) {
                                             //ShopServiceNew.gI().opendShop(player, "BILL", true);
                                             ChangeMapService.gI().changeMap(player, 214, -1, 765, 144);
                                         } else {
@@ -3770,7 +3771,7 @@ public class NpcFactory {
                                 case 7: //doi map moi
                                     if (player.haveTuTien == true) {
                                         //  if (player.TrieuHoiCapBac == 10) 
-                                        if (player.setClothes.nguyenthuytd == 5 || player.setClothes.nguyenthuyxd == 5 || player.setClothes.nguyenthuynm == 5) {
+                                        if (player.setClothes.nguyenthuytd == 5 || player.setClothes.nguyenthuyxd == 5 || player.setClothes.nguyenthuynm == 5 || player.isAdmin()) {
                                             //ShopServiceNew.gI().opendShop(player, "BILL", true);
                                             ChangeMapService.gI().changeMap(player, 215, -1, 750, 408);
                                         } else {
@@ -3781,7 +3782,7 @@ public class NpcFactory {
                                     }
                                 case 8: //doi moii
                                     if (player.haveTuTien == true) {
-                                        if (player.setClothes.NhanHoang == 5 || player.setClothes.MaThan == 5 || player.setClothes.ThienTu == 5) {
+                                        if (player.setClothes.NhanHoang == 5 || player.setClothes.MaThan == 5 || player.setClothes.ThienTu == 5 || player.isAdmin()) {
                                             //ShopServiceNew.gI().opendShop(player, "BILL", true);
                                             ChangeMapService.gI().changeMap(player, 216, -1, 517, 480);
                                         } else {
@@ -3792,7 +3793,7 @@ public class NpcFactory {
                                     }
                                 case 9: //doi map moi
                                     if (player.haveTuTien == true) {
-                                        if (player.setClothes.nguyenthuytd == 5 || player.setClothes.nguyenthuyxd == 5 || player.setClothes.nguyenthuynm == 5) {
+                                        if (player.setClothes.nguyenthuytd == 5 || player.setClothes.nguyenthuyxd == 5 || player.setClothes.nguyenthuynm == 5 || player.isAdmin()) {
                                             //ShopServiceNew.gI().opendShop(player, "BILL", true);
                                             ChangeMapService.gI().changeMap(player, 217, -1, 308, 360);
                                         } else {
@@ -3803,7 +3804,7 @@ public class NpcFactory {
                                     }
                                 case 10: //doi moii
                                     if (player.haveTuTien == true) {
-                                        if (player.setClothes.NhanHoang == 5 || player.setClothes.MaThan == 5 || player.setClothes.ThienTu == 5) {
+                                        if (player.setClothes.NhanHoang == 5 || player.setClothes.MaThan == 5 || player.setClothes.ThienTu == 5 || player.isAdmin()) {
                                             //ShopServiceNew.gI().opendShop(player, "BILL", true);
                                             ChangeMapService.gI().changeMap(player, 218, -1, 720, 504);
                                         } else {
@@ -3933,6 +3934,7 @@ public class NpcFactory {
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_START_COMBINE) {
                             switch (player.combineNew.typeCombine) {
+                                case CombineServiceNew.KICH_HOAT_TRANG_BI:
                                 case CombineServiceNew.EP_SAO_TRANG_BI:
                                 case CombineServiceNew.AN_TRANG_BI:
                                 case CombineServiceNew.PHA_LE_HOA_TRANG_BI:
@@ -7217,6 +7219,45 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 switch (player.iDMark.getIndexMenu()) {
+                    case ConstNpc.MENU_LUYEN_THE:
+                        if (select == 0) {
+                            short[] idsItemNeed = new short[]{1264, 1265, 1266};
+                            if (player.luyenThe.level + 1 > player.luyenThe.MAX_LEVEL) {
+                                Service.gI().sendThongBao(player, "Bạn đã đạt cấp tối đa");
+                                return;
+                            }
+                            String text = "|7|Đột phá luyện thể\n" +
+                                    "|5|Cấp hiện tại : " + player.luyenThe.getName() + "\n" +
+                                    "|2|Cấp tiếp theo : " + "Luyện thể tầng " + player.luyenThe.level + 1 + "\n" +
+                                    "|7|Tỷ lệ đột phá : " + player.luyenThe.getLevelUpPercent() + "%\n" +
+                                    "|1|Đột phá cần : " + player.luyenThe.getItemNeed(idsItemNeed);
+                            NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_DOT_PHA_LUYEN_THE, -1, text, "Đột phá", "Đóng");
+                        }
+                        break;
+                    case ConstNpc.CONFIRM_DOT_PHA_LUYEN_THE:
+                        if (select == 0) {
+                            short[] idsItemNeed = new short[]{1264, 1265, 1266};
+                            Item item1 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[0]);
+                            Item item2 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[1]);
+                            Item item3 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[2]);
+                            if (item1 == null || item2 == null || item3 == null) {
+                                Service.gI().sendThongBao(player, "Bạn thiếu tài liệu rồi");
+                                return;
+                            }
+                            float ratioUp = player.luyenThe.getLevelUpPercent();
+                            if (Util.isTrue(ratioUp, 120)) {
+                                player.luyenThe.levelUp();
+                                Service.gI().sendThongBao(player, "Đột phá thành công");
+                            } else {
+                                player.luyenThe.restExp();
+                                Service.gI().sendThongBao(player, "Đột phá thất bại");
+                            }
+                            InventoryServiceNew.gI().subQuantityItemsBag(player, item1, player.luyenThe.level * 10);
+                            InventoryServiceNew.gI().subQuantityItemsBag(player, item2, player.luyenThe.level * 10);
+                            InventoryServiceNew.gI().subQuantityItemsBag(player, item3, player.luyenThe.level * 10);
+                            InventoryServiceNew.gI().sendItemBags(player);
+                        }
+                        break;
                     case ConstNpc.MENU_PLAYER_TU_TIEN:
                         switch (select) {
                             case 0:
@@ -7630,6 +7671,10 @@ public class NpcFactory {
                             case 0:
                                 // che do
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHE_DO, -1, "Bạn muốn luyện chế đồ gì nào?", "Set\nThần Linh", "Set\nHủy Diệt", "Set\nThiên Sứ", "Set Xên", "Set\nNguyên Thủy", "Set\nThánh Tôn", "Set\nThống Khổ", "Set\nJiren", "Set\nGoku UI");
+                                break;
+                            case 1:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.KICH_HOAT_TRANG_BI);
+                                // kich hoat trang bi
                                 break;
                         }
                         break;
