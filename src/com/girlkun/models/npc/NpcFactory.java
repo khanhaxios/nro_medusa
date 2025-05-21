@@ -2887,7 +2887,7 @@ public class NpcFactory {
                         mtv = "Tài khoản của bạn chưa được Mở thành viên nên còn bị khóa mõm với không giao dịch được!!!";
                     }
                     if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cố Gắng Có Làm Mới Có Ăn Con, đừng lo lắng cho ta.\n".replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê" : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru" : "Vua Vegeta") + "Ta đang giữ tiền tiết kiệm của con\n|1| Hiện tại con đang có: " + player.getSession().goldBar + " Thỏi vàng" + "\n\n|7| Cấp VIP được tính như sau:" + "\n|2| Quy đổi tiền <500.000đ = Tân Thủ (Nhận 30 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >2000.000đ và <5.000.000đ = VIP (Nhận 100 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >5.000.000đ = SVIP (Nhận 300 Thỏi vàng/Ngày)" + "\n|3|TỔNG QUY ĐỔI : " + Util.format(player.vnd) + "đ" + "\n\n|7|Cấp VIP hiện tại của bạn là : " + checkvnd + "\n|1| Điểm danh hằng ngày sẽ nhận được " + thoivang + " Thỏi vàng" + "\n|1| ***" + mtv + "***", "Đổi Mật Khẩu", "Nhận 200tr Ngọc xanh", "Nhận đệ tử", "Nhận\nVàng", "Giftcode", "Điểm danh\nngày", "Next nhiệm vụ", "Đến\n Khu Test Dame", "Mở thành viên");
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cố Gắng Có Làm Mới Có Ăn Con, đừng lo lắng cho ta.\n".replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê" : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru" : "Vua Vegeta") + "Ta đang giữ tiền tiết kiệm của con\n|1| Hiện tại con đang có: " + player.getSession().goldBar + " Thỏi vàng" + "\n\n|7| Cấp VIP được tính như sau:" + "\n|2| Quy đổi tiền <500.000đ = Tân Thủ (Nhận 30 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >2000.000đ và <5.000.000đ = VIP (Nhận 100 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >5.000.000đ = SVIP (Nhận 300 Thỏi vàng/Ngày)" + "\n|3|TỔNG QUY ĐỔI : " + Util.format(player.vnd) + "đ" + "\n\n|7|Cấp VIP hiện tại của bạn là : " + checkvnd + "\n|1| Điểm danh hằng ngày sẽ nhận được " + thoivang + " Thỏi vàng" + "\n|1| ***" + mtv + "***", "Đổi Mật Khẩu", "Nhận 200tr Ngọc xanh", "Nhận\nVàng", "Giftcode", "Điểm danh\nngày", "Next nhiệm vụ", "Đến\n Khu Test Dame", "Mở thành viên");
 
                     }
                 }
@@ -2911,14 +2911,6 @@ public class NpcFactory {
                                 Service.getInstance().sendThongBao(player, "|1|Bạn vừa nhận được 200tr Ngọc xanh");
                                 break;
                             case 2:
-                                if (player.pet == null) {
-                                    PetService.gI().createPet(player, ConstPet.NORMAL);
-                                    Service.getInstance().sendThongBao(player, "Bạn vừa nhận được Đệ cùi");
-                                } else {
-                                    this.npcChat(player, "Muốn đệ vip thì hỏi MEDUSA.");
-                                }
-                                break;
-                            case 3:
                                 if (Maintenance.isRuning) {
                                     break;
                                 }
@@ -2941,10 +2933,10 @@ public class NpcFactory {
                                 }
                                 break;
 
-                            case 4:
+                            case 3:
                                 Input.gI().createFormGiftCode(player);
                                 break;
-                            case 5:
+                            case 4:
                                 if (player.diemdanh == 0) {
                                     int thoivang1;
                                     if (player.vnd >= 0 && player.vnd < 2000000) {
@@ -2963,7 +2955,7 @@ public class NpcFactory {
                                     this.npcChat(player, "Hôm nay đã nhận rồi mà !!!");
                                 }
                                 break;
-                            case 6:
+                            case 5:
                                 if (TaskService.gI().getIdTask(player) > ConstTask.TASK_17_0) {
                                     Service.gI().sendThongBao(player, "Ta hết sức rồi con cày đi");
                                     return;
@@ -2978,15 +2970,15 @@ public class NpcFactory {
                                     TaskService.gI().sendNextTaskMain(player);
                                     break;
                                 }
-                            case 7:
+                            case 6:
                                 ChangeMapService.gI().changeMapBySpaceShip(player, 170, -1, -1);
                                 break;
-                            case 8:
+                            case 7:
                                 if (player.getSession().actived) {
                                     this.createOtherMenu(player, 53747, "|7|MỞ THÀNH VIÊN" + "\n\n|5|Bạn đã là thành viên chính thức của Ngọc Rồng MEDUSA" + "\nĐã mở khóa chức năng Giao dịch và Chat thế giới" + "\n\n|4|Hãy tiếp tục nâng cao sức mạnh của mình lên nào", "Ố kê");
                                     break;
                                 } else {
-                                    this.createOtherMenu(player, 1456, "|7|MỞ THÀNH VIÊN" + "\n\n|5|Khi bạn trờ thành thành viên chính thức của Ngọc Rồng MEDUSA sẽ được mở khóa chức năng Giao dịch và Chat thế giới" + "\n|3|Giá tiền mở thành viên là : 10.000coin " + "\nSau khi mở thành viên thành công sẽ nhận được 1 triệu Hồng ngọc" + "\n\n|1|Tiền hiện còn : " + " " + Util.format(player.getSession().vnd) + "\n\n|7|Bạn muốn dùng 10.000coin để Kích hoạt thành viên ? Đang x50 Nạp coin ( Ví dụ 10k ATM = 1triệu coin )  ?", "Đồng ý", "Từ chối");
+                                    this.createOtherMenu(player, 1456, "|7|MỞ THÀNH VIÊN" + "\n\n|5|Khi bạn trờ thành thành viên chính thức của Ngọc Rồng MEDUSA sẽ được mở khóa chức năng Giao dịch và Chat thế giới" + "\n|3|Mở thành viên cần đạt tu tiên cảnh giới Nguyên Anh và luyện thể tầng 10 " + "\nSau khi mở thành viên thành công sẽ nhận được 500k hồng ngọc" + "\n\n|1|Tiền hiện còn : " + " " + Util.format(player.getSession().vnd) + "Bạn muốn ở thành viên?", "Đồng ý", "Từ chối");
                                     break;
                                 }
                         }
@@ -2997,23 +2989,19 @@ public class NpcFactory {
                                     Service.getInstance().sendThongBao(player, "|4|Bạn đã mở thành viên rồi mà. Tiếp tục chơi game thui nào!!!!");
                                     return;
                                 }
-                                if (player.getSession().vnd < 10000 && player.getSession().actived == false) {
-                                    Service.getInstance().sendThongBao(player, "|3|Tài khoản của bạn không đủ 10.000coin. Vui lòng liên hệ ADMIN hoặc lên Website để nạp!!");
+                                if (player.tuTien.level < 4 && player.luyenThe.level < 10) {
+                                    Service.getInstance().sendThongBao(player, "Cần Tu Tiên Đạt Nguyên Anh Kỳ và Luyện Thể Đạt Tầng 10");
                                     return;
                                 }
-                                if (player.getSession().vnd >= 10000 && player.getSession().actived == false) {
-                                    player.inventory.ruby += 1_000_000;
-                                    Service.getInstance().sendMoney(player);
-                                    try {
-                                        player.getSession().actived = true;
-                                        PlayerDAO.subvnd(player, 10000);
-                                        GirlkunDB.executeUpdate("update player set vndd = (vndd + " + 10000 //* coinGold
-                                                + ") where id = " + player.id);
-                                        GirlkunDB.executeUpdate("update account set active = 1 where id = " + player.getSession().userId);
-                                        Service.getInstance().sendThongBao(player, "|2|Bạn đã mở thành viên và nhận được 1.000.000 Hồng ngọc. Đã mở khóa chức năng Giao dịch và Chat thế giới !!");
-                                    } catch (Exception e) {
-                                        System.out.println("Loi chuc nang mo thanh vien");
-                                    }
+                                player.inventory.ruby += 500_000;
+                                Service.getInstance().sendMoney(player);
+                                try {
+                                    player.getSession().actived = true;
+                                    PlayerDAO.subvnd(player, 10000);
+                                    GirlkunDB.executeUpdate("update account set active = 1 where id = " + player.getSession().userId);
+                                    Service.getInstance().sendThongBao(player, "|2|Bạn đã mở thành viên và nhận được 1.000.000 Hồng ngọc. Đã mở khóa chức năng Giao dịch và Chat thế giới !!");
+                                } catch (Exception e) {
+                                    System.out.println("Loi chuc nang mo thanh vien");
                                 }
                                 break;
                         }
@@ -3693,7 +3681,7 @@ public class NpcFactory {
                             switch (select) {
                                 case 0: //doi moii
                                     if (player.haveTuTien == true) {
-                                        if (player.setClothes.NhanHoang == 5 || player.setClothes.MaThan == 5 || player.setClothes.ThienTu == 5 || player.setClothes.isSetThongKho() || player.setClothes.isSetJiren() || player.setClothes.isSetGokuUI()) {
+                                        if (player.setClothes.NhanHoang == 5 || player.setClothes.MaThan == 5 || player.setClothes.ThienTu == 5 || player.setClothes.isSetThongKho() || player.setClothes.isSetJiren() || player.setClothes.isSetGokuUI() || player.isAdmin()) {
                                             //ShopServiceNew.gI().opendShop(player, "BILL", true);
                                             ChangeMapService.gI().changeMap(player, 177, -1, 605, 168);
                                         } else {
@@ -3851,7 +3839,7 @@ public class NpcFactory {
                     } else if (this.mapId == 121) {
                         this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Về đảo\nrùa");
                     } else {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Cửa hàng\nBùa", "Nâng cấp\nVật phẩm", "Nhập\nNgọc Rồng", "Nâng cấp\nBông tai\nPorata", "Mở chỉ số\n bông tai 2", "Mở chỉ số\n bông tai 3", "Mở chỉ số\n bông tai 4", "Mở chỉ số\n bông tai 5", "Mở chỉ số\n bông tai 6");
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Nâng cấp\nVật phẩm", "Nhập\nNgọc Rồng", "Nâng cấp\nBông tai\nPorata", "Mở chỉ số\n bông tai 2", "Mở chỉ số\n bông tai 3", "Mở chỉ số\n bông tai 4", "Mở chỉ số\n bông tai 5", "Mở chỉ số\n bông tai 6");
                     }
                 }
             }
@@ -3896,7 +3884,7 @@ public class NpcFactory {
                                     CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.TAY_PHALE);
                                     break;
                                 case 11: //nâng cấp Chân mệnh
-                                    this.createOtherMenu(player, 5701, "|7|CHÂN MỆNH" + "\n\n|1|Bạn đang có: " + Util.format(player.inventory.event) + " Điểm Săn Boss" + "\n\n|5|Cần 200 Điểm để nhận Chân Mệnh cấp 1" + "\n|3| Lưu ý: Chỉ được nhận Chân mệnh 1 lần (Hành trang chỉ tồn tại 1 Chân mệnh)" + "\nNếu đã có Chân mệnh. Ta sẽ giúp ngươi nâng cấp bậc lên với các dòng chỉ số cao hơn", "Nhận Chân mệnh", "Nâng cấp Chân mệnh", "Shop\nChân mệnh");
+                                    this.createOtherMenu(player, 5701, "|7|CHÂN MỆNH" + "\n\n|1|Bạn đang có: " + Util.format(player.inventory.event) + " Điểm Săn Boss" + "\n\n|5|Cần 200 Điểm để nhận Chân Mệnh cấp 1" + "\n|3| Lưu ý: Chỉ được nhận Chân mệnh 1 lần (Hành trang chỉ tồn tại 1 Chân mệnh)" + "\nNếu đã có Chân mệnh. Ta sẽ giúp ngươi nâng cấp bậc lên với các dòng chỉ số cao hơn", "Nhận Chân mệnh", "Nâng cấp Chân mệnh");
                                     break;
                             }
                         } else if (player.iDMark.getIndexMenu() == 5701) {
@@ -3928,9 +3916,9 @@ public class NpcFactory {
                                 case 1:
                                     CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_CHAN_MENH);
                                     break;
-                                case 2:
-                                    ShopServiceNew.gI().opendShop(player, "CHAN MENH", true);
-                                    break;
+//                                case 2:
+//                                    ShopServiceNew.gI().opendShop(player, "CHAN MENH", true);
+//                                    break;
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_START_COMBINE) {
                             switch (player.combineNew.typeCombine) {
@@ -3994,31 +3982,32 @@ public class NpcFactory {
                         if (player.iDMark.isBaseMenu()) {
                             switch (select) {
                                 case 0: //shop bùa
-                                    createOtherMenu(player, ConstNpc.MENU_OPTION_SHOP_BUA, "Bùa của ta rất lợi hại, nhìn ngươi yếu đuối thế này, chắc muốn mua bùa để " + "mạnh mẽ à, mua không ta bán cho, xài rồi lại thích cho mà xem.", "Bùa\n1 giờ", "Bùa\n8 giờ", "Bùa\n1 tháng", "Đóng");
+                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_VAT_PHAM);
+//                                    createOtherMenu(player, ConstNpc.MENU_OPTION_SHOP_BUA, "Bùa của ta rất lợi hại, nhìn ngươi yếu đuối thế này, chắc muốn mua bùa để " + "mạnh mẽ à, mua không ta bán cho, xài rồi lại thích cho mà xem.", "Bùa\n1 giờ", "Bùa\n8 giờ", "Bùa\n1 tháng", "Đóng");
                                     break;
                                 case 1:
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_VAT_PHAM);
-                                    break;
-                                case 2:
                                     CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NHAP_NGOC_RONG);
                                     break;
-                                case 3: //nâng cấp bông tai
+                                case 2:
                                     CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_BONG_TAI);
                                     break;
-                                case 4: //làm phép nhập đá
+                                case 3:
                                     CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.MO_CHI_SO_BONG_TAI_2);
+                                    //nâng cấp bông tai
                                     break;
-                                case 5: //làm phép nhập đá
+                                case 4: //làm phép nhập đá
                                     CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.MO_CHI_SO_BONG_TAI_3);
                                     break;
-                                case 6: //làm phép nhập đá
+                                case 5: //làm phép nhập đá
                                     CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.MO_CHI_SO_BONG_TAI_4);
                                     break;
-                                case 7: //làm phép nhập đá
+                                case 6: //làm phép nhập đá
                                     CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.MO_CHI_SO_BONG_TAI_5);
                                     break;
-                                case 8: //làm phép nhập đá
+                                case 7: //làm phép nhập đá
                                     CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.MO_CHI_SO_BONG_TAI_6);
+                                    break;
+                                case 8: //làm phép nhập đá
                                     break;
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_OPTION_SHOP_BUA) {
@@ -6322,7 +6311,8 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
-                    createOtherMenu(player, ConstNpc.BASE_MENU, "|7|SHOP ĐỒ HỦY DIỆT\n|6| Mang đủ 5 món đồ Thần linh và đem 99 Thức ăn đến cho ta. Ta sẽ bán đồ Hủy diệt cho ngươi", "SHOP HỦY DIỆT", "Đổi Phiếu\nHủy diệt", "Đóng");
+                    //  ban do khác loai
+//                    createOtherMenu(player, ConstNpc.BASE_MENU, "|7|SHOP ĐỒ HỦY DIỆT\n|6| Mang đủ 5 món đồ Thần linh và đem 99 Thức ăn đến cho ta. Ta sẽ bán đồ Hủy diệt cho ngươi", "SHOP HỦY DIỆT", "Đổi Phiếu\nHủy diệt", "Đóng");
                 }
             }
 
@@ -6504,10 +6494,10 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 102) {
                         if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cậu bé muốn mua gì nào?", "Linh Thú và Đồ Vip", "Đóng");
+                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cậu bé muốn mua gì nào?", "Linh Thú", "Đóng");
                         }
                     } else if (this.mapId == 46 || this.mapId == 5) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Kính chào VIP!", "Linh Thú và Đồ Vip", "Đóng");
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Kính chào VIP!", "Linh Thú", "Đóng");
                     }
                 }
             }

@@ -2,7 +2,6 @@ package com.girlkun.models.player;
 
 
 public class Charms {
-    
     public long tdTriTue;
     public long tdManhMe;
     public long tdDaTrau;

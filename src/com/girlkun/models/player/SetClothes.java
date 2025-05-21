@@ -253,6 +253,9 @@ public class SetClothes {
                             isActSet = true;
                             setGokuUIXD++;
                             break;
+                        case 192:
+                            isActSet = true;
+                            solomon++;
                     }
                     if (isActSet) {
                         break;

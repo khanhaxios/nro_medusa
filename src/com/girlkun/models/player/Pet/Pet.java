@@ -363,7 +363,6 @@ public class Pet extends Player {
                     } else {
                         idle = true;
                     }
-
                     break;
                 case ATTACK:
                     bossAttack = findPlayerAttack();
@@ -744,7 +743,7 @@ public class Pet extends Player {
         }
     }
 
-//========================BETA SKILL5=====================
+    //========================BETA SKILL5=====================
 //    private boolean useSkill5() {
 //        try {
 //            this.playerSkill.skillSelect = getSkill(5);
@@ -782,12 +781,12 @@ public class Pet extends Player {
     private long lastTimePeaPet;
 
     private void increasePoint() {
-        if (this.nPoint != null && Util.canDoWithTime(lastTimeIncreasePoint, 10)) {
+        if (this.nPoint != null && Util.canDoWithTime(lastTimeIncreasePoint, 1000)) {
             if (Util.isTrue(1, 100)) {
                 this.nPoint.increasePoint((byte) 3, (short) 1);
             } else {
                 byte type = (byte) Util.nextInt(0, 2);
-                short point = (short) Util.nextInt(Manager.RATE_EXP_SERVER);
+                short point = (short) Util.nextInt(1, 100);
                 this.nPoint.increasePoint(type, point);
             }
             lastTimeIncreasePoint = System.currentTimeMillis();

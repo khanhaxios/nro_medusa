@@ -13,7 +13,7 @@ public class ItemOptionMobReward {
     private int[] ratio;
 
     public ItemOptionMobReward(int tempId, int[] param, int[] ratio) {
-        this.temp = Manager.ITEM_OPTION_TEMPLATES.get(tempId);
+        this.temp = Manager.ITEM_OPTION_TEMPLATES.stream().filter(t -> t.id == tempId).findFirst().orElse(null);
         this.param = param;
         if (this.param[0] < 0) {
             this.param[0] = -this.param[0];
@@ -32,7 +32,7 @@ public class ItemOptionMobReward {
         }
         this.ratio = ratio;
     }
-    
+
 }
 
 

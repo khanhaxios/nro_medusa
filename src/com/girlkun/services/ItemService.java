@@ -174,7 +174,7 @@ public class ItemService {
     }
 
     public ItemOptionTemplate getItemOptionTemplate(int id) {
-        return Manager.ITEM_OPTION_TEMPLATES.get(id);
+        return Manager.ITEM_OPTION_TEMPLATES.stream().filter(t->t.id == id).findFirst().orElse(null);
     }
 
     public Template.ItemTemplate getTemplate(int id) {

@@ -520,13 +520,13 @@ public class Mob {
         try {
             if (player.session != null) {
                 // add point reward
-                int totalMoney = 10;
+                int totalMoney = 1;
                 if (Util.isTrue(10, 100)) {
-                    totalMoney += Util.nextInt(10, 100);
+                    totalMoney += Util.nextInt(10, 50);
                 }
                 if (Util.isTrue(2, 100)) {
                     totalMoney += Util.nextInt(100, 200);
-                    Service.gI().sendThongBao(player, "Nổ hũ" + Util.format(totalMoney) + " Điểm");
+                    Service.gI().sendThongBao(player, "Nổ hũ " + Util.format(totalMoney) + " Điểm");
                 }
                 if (player.session.vnd + totalMoney > 100_000_000_000L) {
                     player.session.vnd = 100_000_000_000L;

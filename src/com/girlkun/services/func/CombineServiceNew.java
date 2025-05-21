@@ -1419,6 +1419,7 @@ public class CombineServiceNew {
         InventoryServiceNew.gI().sendItemBags(player);
         InventoryServiceNew.gI().subQuantityItemsBag(player, da, 1);
         InventoryServiceNew.gI().subQuantityItemsBag(player, devuongthach, 10);
+        reOpenItemCombine(player);
     }
 
     int[] idsSkh = new int[]{189, 190, 191};
@@ -2995,7 +2996,7 @@ public class CombineServiceNew {
                 int star = 0;
                 short[] chiso = {219, 220, 221, 222};
                 byte randomDo = (byte) new Random().nextInt(chiso.length);
-                int lvchiso = Util.nextInt(300, 500);
+                int lvchiso = Util.nextInt(5, 10);
                 int cap = 1;
                 Item.ItemOption optionStar = null;
                 int check = chiso[randomDo];
@@ -3127,7 +3128,7 @@ public class CombineServiceNew {
                 int star = 0;
                 short[] chiso = {251, 252, 232, 233};
                 byte randomDo = (byte) new Random().nextInt(chiso.length);
-                int lvchiso = Util.nextInt(300, 500);
+                int lvchiso = Util.nextInt(5, 10);
                 int cap = 1;
                 Item.ItemOption optionStar = null;
                 int check = chiso[randomDo];
@@ -3153,11 +3154,7 @@ public class CombineServiceNew {
                     if (lvcheck < 10) {
                         if (optionStar == null) {
                             item.itemOptions.add(new Item.ItemOption(253, cap));
-                            if (check == 252252) {
-                                item.itemOptions.add(new Item.ItemOption(check, lvchiso));
-                            } else {
-                                item.itemOptions.add(new Item.ItemOption(check, lvchiso * 2));
-                            }
+                            item.itemOptions.add(new ItemOption(check, lvchiso));
                             sendEffectSuccessCombine(player);
                             InventoryServiceNew.gI().subQuantityItemsBag(player, dangusac, 1);
                             InventoryServiceNew.gI().sendItemBags(player);
@@ -4321,14 +4318,14 @@ public class CombineServiceNew {
             case 1191:
                 return 7; // +5%ki
             case 1461:
-                return 500; // +500%sđ
+                return 6; // +500%sđ
             case 1462:
-                return 1000; // +100% HP
+                return 10; // +100% HP
             case 1463:
-                return 1000; // +100% KI
+                return 10; // +100% KI
             // nro sss vip
             case 1470:
-                return 7; // +5%ki
+                return 8; // +5%ki
             case 1471:
                 return 10; // +50%sđ
             case 1472:

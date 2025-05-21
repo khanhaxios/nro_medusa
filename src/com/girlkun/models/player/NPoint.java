@@ -736,10 +736,6 @@ public class NPoint {
         if (this.player.setClothes.solomon >= 2) {
             this.hpMax += (this.hpMax * 5 / 100);
         }
-        //ngọc rồng đen 2 sao
-//        if (this.player.rewardBlackBall.timeOutOfDateReward[1] > System.currentTimeMillis()) {
-//            this.hpMax += (this.hpMax * RewardBlackBall.R2S_1 / 100);
-//        }
         //khỉ
         if (this.player.effectSkill.isMonkey) {
             if (!this.player.isPet || ((Pet) this.player).status != Pet.FUSION) {

@@ -804,9 +804,9 @@ public class InventoryServiceNew {
         if (ItemMapService.gI().isBlackBall(item.template.id)) {
             return BlackBallWar.gI().pickBlackBall(player, item);
         }
-        if (addItemSpecial(player, item)) {
-            return true;
-        }
+//        if (addItemSpecial(player, item)) {
+//            return true;
+//        }
 
         //gold, gem, ruby
         switch (item.template.type) {

@@ -291,9 +291,9 @@ public class Input {
                     }
                     byte typeDaoLu;
                     int nhanpham = Util.nextInt(1, 100);
-                    if (nhanpham > 95) {
+                    if (nhanpham > 98) {
                         typeDaoLu = 3;
-                    } else if (nhanpham > 65) {
+                    } else if (nhanpham > 75) {
                         typeDaoLu = 2;
                     } else {
                         typeDaoLu = 1;
@@ -306,7 +306,7 @@ public class Input {
                     if (player.petDaoLu != null) {
                         String nameOld = player.petDaoLu.nameDaoLu;
                         if (PetService.gI().changeDaoLu(player, NameDaoLu, typeDaoLu, player.gender)) {
-                            Service.gI().sendThongBao(player, "Đạo nữ " + nameOld + " đã lẵng lặng rời đi...");
+                            Service.gI().sendThongBao(player, "Đạo lữ " + nameOld + " đã lẵng lặng rời đi...");
                             Service.gI().sendThongBao(player, DaoLu.getTextTypeDaoLu(typeDaoLu));
                             InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
                             InventoryServiceNew.gI().sendItemBags(player);
