@@ -989,13 +989,7 @@ public class TaskService {
 
     //Thưởng nhiệm vụ
     private void rewardDoneTask(Player player) {
-        Item item = ItemService.gI().createNewItem((short) 55);
-        item.itemOptions.add(new Item.ItemOption(17, 1235));
-        InventoryServiceNew.gI().addItemBag(player, item);
-        InventoryServiceNew.gI().sendItemBags(player);
 
-        player.inventory.gold += 50;
-        Service.getInstance().sendMoney(player);
         switch (player.playerTask.taskMain.id) {
             case 0:
                 Service.getInstance().addSMTN(player, (byte) 0, 500, false);
