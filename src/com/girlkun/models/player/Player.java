@@ -428,14 +428,6 @@ public class Player {
                         lastTimeTitle3 = 0;
                         isTitleUse3 = false;
                     }
-                    if (zone.players.contains(this) && charms.tdThuHut > System.currentTimeMillis()) {
-                        for (ItemMap itemMap : zone.items) {
-                            if (itemMap.playerId == id) {
-                                ItemMapService.gI().pickItem(this, itemMap.itemMapId, true);
-                            }
-                        }
-                    }
-
                     GasService.gI().update(this);
                     BanDoKhoBauService.gI().update(this);
                     DoanhTraiService.gI().update(this);
