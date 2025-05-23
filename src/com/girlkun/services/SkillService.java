@@ -121,7 +121,7 @@ public class SkillService {
             int idSkill = player.playerSkill.skillSelect.template.id;
             if (player.petDaoLu != null) {
                 if (player.petDaoLu.status == 3) {
-                    player.petDaoLu.changeStatus((byte) 0);
+//                    player.petDaoLu.changeStatus((byte) 0);
                 }
                 if (player.petDaoLu.status == 0) {
                     if (player.petDaoLu.zone == player.zone) {
@@ -1073,6 +1073,7 @@ public class SkillService {
     }
 
     private void playerAttackPlayer(Player plAtt, Player plInjure, boolean miss) {
+        if (plAtt.isBoss) return;
         if (plInjure.effectSkill.anTroi) {
             plAtt.nPoint.isCrit100 = true;
         }

@@ -316,10 +316,7 @@ public class Util {
     }
 
     public static double DoubleGioihang(double a) {
-        if (a > Double.MAX_VALUE) {
-            a = Double.MAX_VALUE;
-        }
-        return (double) a;
+        return Math.min(a, Double.MAX_VALUE);
     }
 
     public static int DoubleGioihana(double a) {

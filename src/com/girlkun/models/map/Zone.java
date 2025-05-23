@@ -36,6 +36,7 @@ import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import lombok.Getter;
@@ -275,7 +276,6 @@ public class Zone {
 
     public void pickItem(Player player, int itemMapId) {
         ItemMap itemMap = getItemMapByItemMapId(itemMapId);
-//        if(itemMap.itemTemplate.type != 22){
         if (itemMap != null) {
             if (itemMap.itemTemplate.type != 22) {
                 if (itemMap.playerId == player.id * 100000 || itemMap.playerId == player.id || itemMap.playerId == -1) {

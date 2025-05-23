@@ -1,5 +1,6 @@
 package com.girlkun.models.player;
 
+import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Pet.Pet;
 import BoMong.BoMong;
 import com.girlkun.models.map.MapMaBu.MapMaBu;
@@ -7,6 +8,7 @@ import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.models.player.tutien.luyenkhisu.LuyenKhiSu;
 import com.girlkun.models.player.tutien.luyenthe.LuyenThe;
+import com.girlkun.models.player.tutien.phuchusu.PhuChuSu;
 import com.girlkun.models.skill.PlayerSkill;
 
 import java.util.List;
@@ -40,18 +42,11 @@ import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.skill.Skill;
 //import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
 //import com.girlkun.server.Manager;
-import com.girlkun.services.Service;
+import com.girlkun.services.*;
 import com.girlkun.server.io.MySession;
 import com.girlkun.models.task.TaskPlayer;
 import com.girlkun.network.io.Message;
 import com.girlkun.server.Client;
-import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.FriendAndEnemyService;
-import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.ItemService;
-import com.girlkun.services.PetService;
-import com.girlkun.services.PlayerService;
-import com.girlkun.services.TaskService;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.services.func.ChonAiDay;
 import com.girlkun.services.func.CombineNew;
@@ -170,6 +165,7 @@ public class Player {
     public IntrinsicPlayer playerIntrinsic;
     public Inventory inventory;
     public Taixiu taixiu;
+    public PhuChuSu phuChuSu;
     public PlayerSkill playerSkill;
     public CombineNew combineNew;
     public IDMark iDMark;
@@ -292,6 +288,7 @@ public class Player {
         luyenKhiSu = new LuyenKhiSu(this);
         tuTien = new TuTien(this);
         luyenThe = new LuyenThe(this);
+        phuChuSu = new PhuChuSu(this);
     }
 
     //--------------------------------------------------------------------------
@@ -431,6 +428,14 @@ public class Player {
                         lastTimeTitle3 = 0;
                         isTitleUse3 = false;
                     }
+                    if (zone.players.contains(this) && charms.tdThuHut > System.currentTimeMillis()) {
+                        for (ItemMap itemMap : zone.items) {
+                            if (itemMap.playerId == id) {
+                                ItemMapService.gI().pickItem(this, itemMap.itemMapId, true);
+                            }
+                        }
+                    }
+
                     GasService.gI().update(this);
                     BanDoKhoBauService.gI().update(this);
                     DoanhTraiService.gI().update(this);

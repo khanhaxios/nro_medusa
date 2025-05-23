@@ -531,7 +531,6 @@ public class NPoint {
                 }
             }
         }
-        /////bt5
         if (this.player.isPl() && this.player.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5) {
             for (Item item : this.player.inventory.itemsBag) {
                 if (item.isNotNullItem() && item.template.id == 1416) {
@@ -539,7 +538,6 @@ public class NPoint {
                 }
             }
         }
-        ///bt6
         if (this.player.isPl() && this.player.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA6) {
             for (Item item : this.player.inventory.itemsBag) {
                 if (item.isNotNullItem() && item.template.id == 1417) {
@@ -552,6 +550,9 @@ public class NPoint {
         }
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
             player.luyenThe.calcPoint();
+        }
+        if (player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
+            player.phuChuSu.calcPoint();
         }
         setDameTrainArmor();
         setBasePoint();
@@ -705,10 +706,6 @@ public class NPoint {
     private void setHpMax() {
         this.hpMax = this.hpg;
         this.hpMax += this.hpAdd;
-        // TODO : handle when update "luyen the" tree
-//        if (player.taixiu.chuyensinh > 0) {
-//            hpMax += player.taixiu.addNPointChuyenSinh(this.hpg);
-//        }
         //item body
         for (Integer tl : this.tlHp) {
             this.hpMax += (this.hpMax * tl / 100);
@@ -834,13 +831,6 @@ public class NPoint {
         if (this.player.effectFlagBag.useMeoMun) {
             this.hpMax += (this.hpMax * 5 / 100);
         }
-        //Tu tiên
-        // noice : tu tien is developing
-//        if (this.player.isPl()) {
-//            if (!this.player.isPet && this.player.haveTuTien || this.player.isPet && ((Pet) this.player).master.haveTuTien) {
-//                this.hpMax += this.hpMax * ((this.player.CapTuTien + 1) * 3) / 100;
-//            }
-//        }
 
         //Kết hôn
         if (this.player.duockethon != 0) {
@@ -931,10 +921,6 @@ public class NPoint {
     private void setMpMax() {
         this.mpMax = this.mpg;
         this.mpMax += this.mpAdd;
-//        if (player.taixiu.chuyensinh > 0) {
-//            mpMax += player.taixiu.addNPointChuyenSinh(this.mpg);
-//        }
-//        //đồ
         for (Integer tl : this.tlMp) {
             this.mpMax += (this.mpMax * tl / 100);
         }
@@ -980,14 +966,6 @@ public class NPoint {
 //        }
 //        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
 //            this.mpMax += ((double) this.mpMax * 12 / 100);
-//        }
-        //hợp thể
-
-        //Tu tiên
-//        if (this.player.isPl()) {
-//            if (!this.player.isPet && this.player.haveTuTien || this.player.isPet && ((Pet) this.player).master.haveTuTien) {
-//                this.mpMax += (double) this.mpMax * ((this.player.CapTuTien + 1) * 5) / 100;
-//            }
 //        }
         //Kết hôn mp
         if (this.player.duockethon != 0) {
@@ -1124,9 +1102,6 @@ public class NPoint {
     private void setDame() {
         this.dame = this.dameg;
         this.dame += this.dameAdd;
-//        if (player.taixiu.chuyensinh > 0) {
-//            dame += player.taixiu.addNPointChuyenSinh(this.dameg);
-//        }
         //đồ
         for (Integer tl : this.tlDame) {
             this.dame += ((double) this.dame * tl / 100);
@@ -1252,15 +1227,11 @@ public class NPoint {
             this.dame += ((double) this.dame * 5 / 100);
             this.tlDameCrit.add(75);
         }
-
-
 //        end thong kho
         if (this.player.setClothes.nguyenthuytd == 5) {
             this.dame += ((double) this.dame * 15 / 100);
             this.tlDameCrit.add(100);
         }
-
-        ///set NGUYEN THUY  xd
         if (this.player.setClothes.nguyenthuyxd == 5) {
             this.dame += ((double) this.dame * 10 / 100);
             this.tlDameCrit.add(100);
@@ -1275,8 +1246,6 @@ public class NPoint {
             this.tlDameCrit.add(150);
             this.dame += ((double) this.dame * 15 / 100);
         }
-
-        ////set thống khổ td
         if (this.player.setClothes.thongkhotd == 5) {
             this.tlDameCrit.add(150);
             this.dame += ((double) this.dame * 20 / 100);
@@ -1951,6 +1920,10 @@ public class NPoint {
         }
     }
 
+    public int getHpMpLimit(boolean isDaoLu) {
+        return isDaoLu ? getHpMpLimit() / 10 : getHpMpLimit();
+    }
+
     public int getHpMpLimit() {
         if (limitPower == 0) {
             return 220_000;
@@ -1997,6 +1970,10 @@ public class NPoint {
         return 0;
     }
 
+    public int getDameLimit(boolean isDaoLu) {
+        return isDaoLu ? getDameLimit() / 10 : getDameLimit();
+    }
+
     public int getDameLimit() {
         if (limitPower == 0) {
             return 11000;
@@ -2041,6 +2018,10 @@ public class NPoint {
             return 48888;
         }
         return 0;
+    }
+
+    public short getDefLimit(boolean isDaoLu) {
+        return isDaoLu ? (short) (getDefLimit() / 10) : getDefLimit();
     }
 
     public short getDefLimit() {
@@ -2154,7 +2135,7 @@ public class NPoint {
         if (type == 0) {
             int pointHp = point * 20;
             tiemNangUse = point * (2 * (this.hpg + 1000) + pointHp - 20) / 2;
-            if ((this.hpg + pointHp) <= getHpMpLimit()) {
+            if ((this.hpg + pointHp) <= getHpMpLimit(player.isDaoLu)) {
                 if (doUseTiemNang(tiemNangUse)) {
                     hpg += pointHp;
                 }
@@ -2165,7 +2146,7 @@ public class NPoint {
         if (type == 1) {
             int pointMp = point * 20;
             tiemNangUse = point * (2 * (this.mpg + 1000) + pointMp - 20) / 2;
-            if ((this.mpg + pointMp) <= getHpMpLimit()) {
+            if ((this.mpg + pointMp) <= getHpMpLimit(player.isDaoLu)) {
                 if (doUseTiemNang(tiemNangUse)) {
                     mpg += pointMp;
                 }
@@ -2175,7 +2156,7 @@ public class NPoint {
         }
         if (type == 2) {
             tiemNangUse = point * (2 * this.dameg + point - 1) / 2f * 100;
-            if ((this.dameg + point) <= getDameLimit()) {
+            if ((this.dameg + point) <= getDameLimit(player.isDaoLu)) {
                 if (doUseTiemNang(tiemNangUse)) {
                     dameg += point;
                 }
@@ -2185,7 +2166,7 @@ public class NPoint {
         }
         if (type == 3) {
             tiemNangUse = point * 2 * (this.defg + 5) / 2f * 100000;
-            if ((this.defg + point) <= getDefLimit()) {
+            if ((this.defg + point) <= getDefLimit(player.isDaoLu)) {
                 if (doUseTiemNang(tiemNangUse)) {
                     defg += point;
                 }

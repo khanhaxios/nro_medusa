@@ -26,7 +26,7 @@ public class TienPhap implements Cloneable, Runnable {
     private long lastTimeUsed;
     private long timeDuration;
     private long coolDown;
-    private long percentLinhKhiUse;
+    private int percentLinhKhiUse;
     private long COOL_DOWN_TIME = 30 * 1000;
 
     private byte id;
@@ -111,6 +111,7 @@ public class TienPhap implements Cloneable, Runnable {
 
     }
 
+
     public void randomParam(byte baseXParam) {
         byte randomParam = TienPhap.PARAM_TO_BUFF[Util.nextInt(TienPhap.PARAM_TO_BUFF.length)];
         this.setParam(randomParam);
@@ -137,7 +138,6 @@ public class TienPhap implements Cloneable, Runnable {
             int percent = (int) (tuTien.linhKhiPoint / tuTien.maxLinhKhiPoint * 100);
             if (percent - percentLinhKhiUse >= 0) {
                 tuTien.tienPhapsUsed.add(clone());
-                Service.gI().chat(tuTien.player, ten);
             }
         }
     }
@@ -154,6 +154,8 @@ public class TienPhap implements Cloneable, Runnable {
     @Override
     public void run() {
         restTienCoolDown();
+        tuTien.subLinhKhiPercent(percentLinhKhiUse);
+        Service.gI().chat(tuTien.player, ten);
         while (coolDown > 0) {
             update();
         }

@@ -156,4 +156,11 @@ public abstract class BasePoint {
     public void setMaxLinhKhiPoint(long maxLinhKhiPoint) {
         this.maxLinhKhiPoint = maxLinhKhiPoint;
     }
+
+    public void subLinhKhiPercent(int i) {
+        linhKhiPoint -= maxLinhKhiPoint * i / 100;
+        if (linhKhiPoint < 0) {
+            linhKhiPoint = 0;
+        }
+    }
 }

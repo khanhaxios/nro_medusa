@@ -253,6 +253,22 @@ public class UseItem {
                     Service.getInstance().sendPetFollow(pl, (short) (item.template.iconID - 1));
                     break;
                 }
+                case 13: {
+                    // random thời gian có tác dụng của bùa
+                    int nhanPham = Util.nextInt(0, 100);
+                    int min = 10;
+                    if (nhanPham > 98) {
+                        min += (24 * 60 * 30);
+                        // bua 1 thang
+                    } else if (nhanPham > 90) {
+                        min += (8 * 60);
+                    } else if (nhanPham > 50) {
+                        min += 50;
+                    }
+                    pl.charms.addTimeCharms(item.template.id, min);
+                    Service.gI().sendThongBao(pl, "Bạn dùng " + item.template.name + "+ " + min + " phút");
+                    break;
+                }
                 default:
                     switch (item.template.id) {
                         case 1542:

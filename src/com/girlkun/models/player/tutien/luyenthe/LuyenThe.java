@@ -45,6 +45,13 @@ public class LuyenThe extends BasePoint implements IBaseAction {
         }
     }
 
+    public void addExp(long pp) {
+        exp += pp;
+        if (exp > maxExp) {
+            exp = maxExp;
+        }
+    }
+
     @Override
     public void restExp() {
         exp = 0;

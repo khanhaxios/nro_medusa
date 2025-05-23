@@ -51,7 +51,7 @@ public class ItemMapService {
     public boolean isBlackBall(int tempId) {
         return tempId >= 372 && tempId <= 378;
     }
-    
+
     public boolean isVetinh(int tempId) {
         return tempId >= 342 && tempId <= 345;
     }

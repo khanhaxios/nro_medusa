@@ -760,22 +760,22 @@ public class InventoryServiceNew {
 
     private boolean addItemSpecial(Player player, Item item) {
         //bùa
-        if (item.template.type == 13) {
-            int min = 0;
-            try {
-                String tagShopBua = player.iDMark.getShopOpen().tagName;
-                if (tagShopBua.equals("BUA_1H")) {
-                    min = 60;
-                } else if (tagShopBua.equals("BUA_8H")) {
-                    min = 60 * 8;
-                } else if (tagShopBua.equals("BUA_1M")) {
-                    min = 60 * 24 * 30;
-                }
-            } catch (Exception e) {
-            }
-            player.charms.addTimeCharms(item.template.id, min);
-            return true;
-        }
+//        if (item.template.type == 13) {
+//            int min = 0;
+//            try {
+//                String tagShopBua = player.iDMark.getShopOpen().tagName;
+//                if (tagShopBua.equals("BUA_1H")) {
+//                    min = 60;
+//                } else if (tagShopBua.equals("BUA_8H")) {
+//                    min = 60 * 8;
+//                } else if (tagShopBua.equals("BUA_1M")) {
+//                    min = 60 * 24 * 30;
+//                }
+//            } catch (Exception e) {
+//            }
+//            player.charms.addTimeCharms(item.template.id, min);
+//            return true;
+//        }
 
         switch (item.template.id) {
             case 568: //quả trứng
@@ -804,9 +804,9 @@ public class InventoryServiceNew {
         if (ItemMapService.gI().isBlackBall(item.template.id)) {
             return BlackBallWar.gI().pickBlackBall(player, item);
         }
-//        if (addItemSpecial(player, item)) {
-//            return true;
-//        }
+        if (addItemSpecial(player, item)) {
+            return true;
+        }
 
         //gold, gem, ruby
         switch (item.template.type) {

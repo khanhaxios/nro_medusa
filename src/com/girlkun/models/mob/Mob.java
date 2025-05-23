@@ -663,7 +663,7 @@ public class Mob {
         if (Util.isTrue(3, 100) && this.zone.map.mapId > 159 && this.zone.map.mapId < 164) {
             list.add(new ItemMap(zone, 2031, 1, this.location.x, this.location.y, player.id));
         }
-        if (Util.isTrue(5, 100)) {
+        if (Util.isTrue(10, 100)) {
             byte randomVp4 = (byte) new Random().nextInt(Manager.danangcap.length);
             list.add(Util.ratiDa(zone, Manager.danangcap[randomVp4], 1, this.location.x, this.location.y, player.id));
         }

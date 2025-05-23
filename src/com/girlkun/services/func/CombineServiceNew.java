@@ -3505,7 +3505,7 @@ public class CombineServiceNew {
      *
      * @param player
      */
-    private void sendEffectSuccessCombine(Player player) {
+    public void sendEffectSuccessCombine(Player player) {
         Message msg;
         try {
             msg = new Message(-81);
@@ -3521,7 +3521,7 @@ public class CombineServiceNew {
      *
      * @param player
      */
-    private void sendEffectFailCombine(Player player) {
+    public void sendEffectFailCombine(Player player) {
         Message msg;
         try {
             msg = new Message(-81);
@@ -4187,6 +4187,7 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
+            player.tuTien.subLinhKhiPercent(1);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4224,6 +4225,7 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
+            player.tuTien.subLinhKhiPercent(1);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4261,6 +4263,7 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
+            player.tuTien.subLinhKhiPercent(1);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4650,6 +4653,7 @@ public class CombineServiceNew {
             InventoryServiceNew.gI().sendItemBags(player);
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
+            player.tuTien.subLinhKhiPercent(1);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4687,6 +4691,8 @@ public class CombineServiceNew {
             InventoryServiceNew.gI().sendItemBags(player);
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
+            player.tuTien.subLinhKhiPercent(1);
+
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4724,6 +4730,8 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
+            player.tuTien.subLinhKhiPercent(1);
+
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4761,6 +4769,8 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
+            player.tuTien.subLinhKhiPercent(1);
+
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4798,6 +4808,7 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
+            player.tuTien.subLinhKhiPercent(1);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4835,6 +4846,7 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
+            player.tuTien.subLinhKhiPercent(1);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }

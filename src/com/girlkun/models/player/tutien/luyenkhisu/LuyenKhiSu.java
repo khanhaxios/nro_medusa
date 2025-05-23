@@ -88,25 +88,25 @@ public class LuyenKhiSu {
             case 2:
                 return 50f;
             case 3:
-                return 30f;
-            case 4:
-                return 25f;
-            case 5:
                 return 20f;
-            case 6:
-                return 12f;
-            case 7:
+            case 4:
+                return 15f;
+            case 5:
                 return 10f;
-            case 8:
+            case 6:
                 return 5f;
-            case 9:
+            case 7:
                 return 3f;
-            case 10:
+            case 8:
+                return 2f;
+            case 9:
                 return 1f;
-            case 11:
+            case 10:
                 return .5f;
-            case 12:
+            case 11:
                 return .3f;
+            case 12:
+                return .1f;
             default:
                 return 0f;
 

@@ -172,6 +172,7 @@ public class ConstNpc {
     public static final byte CAYNEU = 93;
     public static final byte GOKUTET = 94;
     public static final byte NPC_KICHDUC = 96;
+    public static final byte NPC_LUYEN_THE = 124;
 
     //----------------------index menu------------------------------------------
     //menu o len tang map mabu
@@ -405,6 +406,12 @@ public class ConstNpc {
     public static final int MENU_TT_LINH_CAN = -1231323;
     public static final int MENU_LUYEN_THE = -43333;
     public static final int CONFIRM_DOT_PHA_LUYEN_THE = -11112322;
+    public static final int MENU_PHU_CHU_SU = -1231241;
+    public static final int MENU_PHU_CHU_SU_CHE_BUA = -1413123;
+    public static final int MENU_NPC_LUYEN_THE = 123213121;
+    public static final int MENU_MO_LUYEN_THE = -312312;
+    public static final int MENU_TRUYEN_CONG_LUYEN_THE = 13123123;
+    public static final int MENU_PHU_SU = -12313134;
 }
 
 /**

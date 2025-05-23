@@ -171,7 +171,7 @@ public class Manager {
     public static final byte[] itemIds_NR_SB = {15, 16};
     public static final byte[] itemIds_NR = {20, 19, 18, 17};
     public static final short[] SuKien_TrungThu = {1338, 1339, 1340};
-    public static final short[] spl = {441, 442, 443, 444, 445, 446, 447};
+    public static final short[] spl = {441, 442, 443, 444, 445, 446};
     public static final short[] manhradaVIP = {859, 956, 1257, 1258, 1259};
     public static final short[] manhradaThuong = {828, 829, 830, 831, 832, 833, 834, 835, 836, 837, 838, 839, 840, 841, 842};
     public static final short[] danangcap = {220, 221, 222, 223, 224};

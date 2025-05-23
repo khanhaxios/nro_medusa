@@ -2,6 +2,7 @@ package com.girlkun.models.reward;
 
 import com.girlkun.models.Template;
 import com.girlkun.server.Manager;
+import com.girlkun.utils.Logger;
 import lombok.Data;
 
 
@@ -13,7 +14,11 @@ public class ItemOptionMobReward {
     private int[] ratio;
 
     public ItemOptionMobReward(int tempId, int[] param, int[] ratio) {
-        this.temp = Manager.ITEM_OPTION_TEMPLATES.stream().filter(t -> t.id == tempId).findFirst().orElse(null);
+
+        this.temp = Manager.ITEM_OPTION_TEMPLATES.get(tempId);
+        if (tempId == 232 && temp != null) {
+            Logger.log(temp.toString());
+        }
         this.param = param;
         if (this.param[0] < 0) {
             this.param[0] = -this.param[0];
