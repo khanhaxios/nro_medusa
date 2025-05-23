@@ -2931,7 +2931,7 @@ public class NpcFactory {
                         mtv = "Tài khoản của bạn chưa được Mở thành viên nên còn bị khóa mõm với không giao dịch được!!!";
                     }
                     if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cố Gắng Có Làm Mới Có Ăn Con, đừng lo lắng cho ta.\n".replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê" : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru" : "Vua Vegeta") + "Ta đang giữ tiền tiết kiệm của con\n|1| Hiện tại con đang có: " + player.getSession().goldBar + " Thỏi vàng" + "\n\n|7| Cấp VIP được tính như sau:" + "\n|2| Quy đổi tiền <500.000đ = Tân Thủ (Nhận 30 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >2000.000đ và <5.000.000đ = VIP (Nhận 100 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >5.000.000đ = SVIP (Nhận 300 Thỏi vàng/Ngày)" + "\n|3|TỔNG QUY ĐỔI : " + Util.format(player.vnd) + "đ" + "\n\n|7|Cấp VIP hiện tại của bạn là : " + checkvnd + "\n|1| Điểm danh hằng ngày sẽ nhận được " + thoivang + " Thỏi vàng" + "\n|1| ***" + mtv + "***", "Đổi Mật Khẩu", "Nhận 200tr Ngọc xanh", "Nhận\nVàng", "Giftcode", "Điểm danh\nngày", "Next nhiệm vụ", "Đến\n Khu Test Dame", "Mở thành viên");
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cố Gắng Có Làm Mới Có Ăn Con, đừng lo lắng cho ta.\n".replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê" : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru" : "Vua Vegeta") + "Ta đang giữ tiền tiết kiệm của con\n|1| Hiện tại con đang có: " + player.getSession().goldBar + " Thỏi vàng" + "\n\n|7| Cấp VIP được tính như sau:" + "\n|2| Quy đổi tiền <500.000đ = Tân Thủ (Nhận 30 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >2000.000đ và <5.000.000đ = VIP (Nhận 100 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >5.000.000đ = SVIP (Nhận 300 Thỏi vàng/Ngày)" + "\n|3|TỔNG QUY ĐỔI : " + Util.format(player.vnd) + "đ" + "\n\n|7|Cấp VIP hiện tại của bạn là : " + checkvnd + "\n|1| Điểm danh hằng ngày sẽ nhận được " + thoivang + " Thỏi vàng" + "\n|1| ***" + mtv + "***", "Đổi Mật Khẩu", "Nhận 200tr Ngọc xanh", "Nhận\nVàng", "Giftcode", "Điểm danh\nngày", "Đến\n Khu Test Dame", "Mở thành viên");
 
                     }
                 }
@@ -2999,25 +2999,25 @@ public class NpcFactory {
                                     this.npcChat(player, "Hôm nay đã nhận rồi mà !!!");
                                 }
                                 break;
+//                            case 5:
+//                                if (TaskService.gI().getIdTask(player) > ConstTask.TASK_17_0) {
+//                                    Service.gI().sendThongBao(player, "Ta hết sức rồi con cày đi");
+//                                    return;
+//                                } else {
+//                                    //     // pass task 500 trieu diem
+//                                    //     int diemCan = 20_000_000;
+//                                    //     if (player.session.vnd - diemCan < 0) {
+//                                    //         Service.gI().sendThongBao(player, "Cần 20tr điểm để next nghiệm vụ");
+//                                    //         return;
+//                                    //     }
+//                                    //     PlayerDAO.subvnd(player, diemCan);
+//                                    TaskService.gI().sendNextTaskMain(player);
+//                                    break;
+//                                }
                             case 5:
-                                if (TaskService.gI().getIdTask(player) > ConstTask.TASK_17_0) {
-                                    Service.gI().sendThongBao(player, "Ta hết sức rồi con cày đi");
-                                    return;
-                                } else {
-                                    //     // pass task 500 trieu diem
-                                    //     int diemCan = 20_000_000;
-                                    //     if (player.session.vnd - diemCan < 0) {
-                                    //         Service.gI().sendThongBao(player, "Cần 20tr điểm để next nghiệm vụ");
-                                    //         return;
-                                    //     }
-                                    //     PlayerDAO.subvnd(player, diemCan);
-                                    TaskService.gI().sendNextTaskMain(player);
-                                    break;
-                                }
-                            case 6:
                                 ChangeMapService.gI().changeMapBySpaceShip(player, 170, -1, -1);
                                 break;
-                            case 7:
+                            case 6:
                                 if (player.getSession().actived) {
                                     this.createOtherMenu(player, 53747, "|7|MỞ THÀNH VIÊN" + "\n\n|5|Bạn đã là thành viên chính thức của Ngọc Rồng MEDUSA" + "\nĐã mở khóa chức năng Giao dịch và Chat thế giới" + "\n\n|4|Hãy tiếp tục nâng cao sức mạnh của mình lên nào", "Ố kê");
                                     break;
