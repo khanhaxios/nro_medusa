@@ -9,21 +9,17 @@ import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
-import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
-import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.ItemService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
 /**
  * @@Stole By NDQ
  */
-public class ThoTrang extends Boss {
+public class ThoTrang2 extends Boss {
 
-    public ThoTrang() throws Exception {
+    public ThoTrang2() throws Exception {
         super(BossID.BOSS_THOTRANG, BossesData.BOSS_THOTRANG);
     }
 
@@ -76,7 +72,6 @@ public class ThoTrang extends Boss {
                     damageLimit += 3;
                 }
                 damageLimit += plAtt.setClothes.pkkhMedusa * 2;
-    
             }
             this.nPoint.subHP(damageLimit);
             if (isDie()) {

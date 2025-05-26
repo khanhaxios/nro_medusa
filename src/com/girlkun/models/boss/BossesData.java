@@ -949,7 +949,7 @@ public class BossesData {
             ConstPlayer.XAYDA,
             new short[]{790, 791, 792, -1, -1, -1},
             50000,
-            new double[]{15000000009D},
+            new double[]{15000000000D},
             new int[]{13},
             //            new int[]{14},
             new int[][]{
@@ -974,8 +974,8 @@ public class BossesData {
             new int[][]{
                 {Skill.LIEN_HOAN, 7, 1000},
                 {Skill.ANTOMIC, 7, 1000},
-                {Skill.TAI_TAO_NANG_LUONG, 2, 50000},
-                {Skill.TAI_TAO_NANG_LUONG, 1, 100000},
+                // {Skill.TAI_TAO_NANG_LUONG, 2, 50000},
+                // {Skill.TAI_TAO_NANG_LUONG, 1, 100000},
                 {Skill.BIEN_KHI, 5, 100000}
             }, //skill
             new String[]{"|-1|Ta là Sôn Gô Ku",
@@ -1005,8 +1005,8 @@ public class BossesData {
             new int[][]{
                 {Skill.LIEN_HOAN, 7, 1000},
                 {Skill.ANTOMIC, 7, 1000},
-                {Skill.TAI_TAO_NANG_LUONG, 2, 50000},
-                {Skill.TAI_TAO_NANG_LUONG, 1, 100000},
+                // {Skill.TAI_TAO_NANG_LUONG, 2, 50000},
+                // {Skill.TAI_TAO_NANG_LUONG, 1, 100000},
                 {Skill.BIEN_KHI, 5, 100000}
             }, //skill
             new String[]{"|-1|Ta là Sôn Gô Ku",
@@ -1031,7 +1031,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{553, 880, 881, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             1580000, //dame
-            new double[]{250000000000D}, //hp
+            new double[]{25000000000D}, //hp
             new int[]{108, 106, 107}, //map join
             new int[][]{
                 {Skill.TAI_TAO_NANG_LUONG, 1, 7000},
@@ -2542,6 +2542,28 @@ public class BossesData {
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_5_M
     );
+        public static final BossData BOSS_LAN = new BossData(
+            "Con Lân Hư Hỏng", //name
+            ConstPlayer.TRAI_DAT, //gender
+            new short[]{1517, 1518, 1519, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+            1000000, //dame
+            new double[]{1000}, //hp
+            new int[]{1,7,14}, //map join
+            new int[][]{
+                {Skill.KAMEJOKO, 7, 100000},
+                {Skill.DICH_CHUYEN_TUC_THOI, 1, 30000},
+                //      {Skill.TAI_TAO_NANG_LUONG, 7, 5000},
+                //      {Skill.KHIEN_NANG_LUONG, 7, 5000},
+                {Skill.LIEN_HOAN, 7, 300000},},//skill//skill
+            new String[]{}, //text chat 1
+            new String[]{"|-1|Tuổi loz đòi ăn ma đan của ta",
+                "|-1|Ta là trùm cuối của game...",
+                "|-1|Không có ai đủ mạnh để đấu với ta sao?",
+                "|-1|Nạp thêm đi rồi quay lại đấu với ta",
+                "|-1|Mấy con gà, tuổi loz sánh vai !!!!!",}, //text chat 2
+            new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
+            REST_5_M
+    );
     public static final BossData BOSS_TET6 = new BossData(
             "GEL-Thủ Chinh Vương", //name
             ConstPlayer.TRAI_DAT, //gender
@@ -3048,8 +3070,8 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{885, 886, 887, 127, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             15_08_2024, //dame
-            new double[]{15_08_2024}, //hp
-            new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}, //map join
+            new double[]{100}, //hp
+            new int[]{1,7,14}, //map join
             new int[][]{
                 {Skill.LIEN_HOAN, 7, 300},},//skill//skill
             new String[]{}, //text chat 1

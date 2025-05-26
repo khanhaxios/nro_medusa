@@ -4647,12 +4647,12 @@ public class NpcFactory {
                                                 new String[]{}, //text chat 3
                                                 60);
                                         try {
-                                            PetLan dt = new PetLan(Util.createIdDuongTank((int) player.id), bossDataClone, player.zone, player.location.x - 20, player.location.y);
-                                            dt.playerTarger = player;
-                                            int[] mapcuoi = {6, 29, 30, 4, 5, 27, 28};
-                                            dt.mapHoTong = mapcuoi[Util.nextInt(mapcuoi.length)];
-                                            player.haveBeQuynh = true;
-                                            player.lastTimeHoTong = System.currentTimeMillis();
+                                            // PetLan dt = new PetLan(Util.createIdDuongTank((int) player.id), bossDataClone, player.zone, player.location.x - 20, player.location.y);
+                                            // dt.playerTarger = player;
+                                            // int[] mapcuoi = {6, 29, 30, 4, 5, 27, 28};
+                                            // dt.mapHoTong = mapcuoi[Util.nextInt(mapcuoi.length)];
+                                            // player.haveBeQuynh = true;
+                                            // player.lastTimeHoTong = System.currentTimeMillis();
                                         } catch (Exception e) {
                                         }
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, dauLan, 15);

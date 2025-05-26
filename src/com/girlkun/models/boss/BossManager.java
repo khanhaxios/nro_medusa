@@ -172,7 +172,7 @@ public class BossManager implements Runnable {
         try {
 //            Thread.sleep(10000);
             this.createBoss(BossID.BOSS_THOTRANG);
-            this.createBoss(BossID.BOSS_THOTRANG);
+            this.createBoss(BossID.BOSS_THOTRANG2);
             this.createBoss(BossID.BOSS_CAPYBARA);
             this.createBoss(BossID.BOSS_JIREN);
             this.createBoss(BossID.BOSS_JIREN2);
@@ -274,6 +274,7 @@ public class BossManager implements Runnable {
             this.createBoss(BossID.BOSS_NGOC1);
             this.createBoss(BossID.BOSS_NGOC2);
             ////
+            this.createBoss(BossID.BOSS_THOTRANG);
             this.createBoss(BossID.BOSS_DETU_BL);
             this.createBoss(BossID.BOSS_ZENO);
             this.createBoss(BossID.BOSS_ZENO2);
@@ -498,6 +499,8 @@ public class BossManager implements Runnable {
                     return new BossZeno3();
                 case BossID.BOSS_THOTRANG:
                     return new ThoTrang();
+                case BossID.BOSS_LAN:
+                    return new PetLan();
                 case BossID.PIC:
                     return new Pic();
                 case BossID.POC:

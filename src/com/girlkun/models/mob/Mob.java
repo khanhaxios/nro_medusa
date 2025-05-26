@@ -691,6 +691,11 @@ public class Mob {
             byte randomVp1 = (byte) new Random().nextInt(Manager.itemManh.length);
             list.add(new ItemMap(zone, Manager.itemManh[randomVp1], 1, this.location.x, this.location.y, player.id));
         }
+
+        if (Util.isTrue(50, 100) && this.zone.map.mapId == 44 ) {
+            list.add(new ItemMap(zone, 1318, 1, this.location.x, this.location.y, player.id));
+        }
+
         if (Util.isTrue(0.5f, 100) && this.tempId == 58) {
             list.add(new ItemMap(zone, 720, 1, this.location.x, this.location.y, player.id));
         }

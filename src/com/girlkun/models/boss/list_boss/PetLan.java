@@ -21,11 +21,8 @@ import com.girlkun.models.player.Inventory;
  */
 public class PetLan extends Boss {
 
-    public PetLan(int bossID, BossData bossData, Zone zone, int x, int y) throws Exception {
-        super(bossID, bossData);
-        this.zone = zone;
-        this.location.x = x;
-        this.location.y = y;
+    public PetLan() throws Exception {
+        super(BossID.BOSS_LAN, BossesData.BOSS_THOTRANG);
     }
 
 //    @Override
@@ -65,59 +62,12 @@ public class PetLan extends Boss {
 
     @Override
     public void active() {
-        if (playerTarger.haveBeQuynh == true && playerTarger.batco == false) {
-            int co = Util.nextInt(1, 7);
-            Service.getInstance().changeFlag(playerTarger, co);
-            Service.getInstance().changeFlag(this, co);
-            playerTarger.batco = true;
-        }
-//        if (this.typePk == ConstPlayer.NON_PK) {
-//            this.typePk = ConstPlayer.NON_PK;
-//        }
-        if (this.playerTarger != null && Client.gI().getPlayer(this.playerTarger.id) == null) {
-            playerTarger.haveBeQuynh = false;
-            playerTarger.batco = true;
-            this.leaveMap();
-        }
-        if (Util.getDistance(playerTarger, this) > 500 && this.zone == this.playerTarger.zone) {
-            Service.gI().sendThongBao(this.playerTarger, "|7|Đi quá xa , Lân đã lạc mất bạn!");
-            Service.getInstance().changeFlag(playerTarger, 0);
-            playerTarger.haveBeQuynh = false;
-            playerTarger.batco = false;
-            this.leaveMap();
-        }
-        if (Util.getDistance(playerTarger, this) > 300 && this.zone == this.playerTarger.zone) {
-            Service.gI().sendThongBao(this.playerTarger, "|7|Khoảng cách quá xa, Lân SẮP lạc mất bạn!! ");
-        }
-        if (this.playerTarger != null && Util.getDistance(playerTarger, this) <= 300) {
-            int dir = this.location.x - this.playerTarger.location.x <= 0 ? -1 : 1;
-            if (Util.canDoWithTime(lasttimemove, 1000)) {
-                lasttimemove = System.currentTimeMillis();
-                this.moveTo(this.playerTarger.location.x + Util.nextInt(dir == -1 ? 0 : -30, dir == -1 ? 10 : 0), this.playerTarger.location.y);
-            }
-        }
-        if (this.playerTarger != null && playerTarger.haveBeQuynh && this.zone.map.mapId == this.mapHoTong) { // xử lý khi đến map muốn đến
-            playerTarger.haveBeQuynh = false;
-            playerTarger.batco = false;
-            Item longDen = ItemService.gI().createNewItem((short) 1547);
-            longDen.quantity = 1;
-            longDen.itemOptions.add(new Item.ItemOption(230, 1));
-            longDen.itemOptions.add(new Item.ItemOption(30, 1));
-            InventoryServiceNew.gI().addItemBag(playerTarger, longDen);
-            InventoryServiceNew.gI().sendItemBags(playerTarger);
-            Service.getInstance().changeFlag(playerTarger, 0);
-            Service.getInstance().sendThongBao(playerTarger, "|1|Bạn nhận được lồng đèn!");
-            this.leaveMap();
-        }
-        if (this.playerTarger != null && this.zone != null && this.zone.map.mapId != this.playerTarger.zone.map.mapId) {
-            ChangeMapService.gI().changeMap(this, this.playerTarger.zone, this.playerTarger.location.x, this.playerTarger.location.y);
-        }
-        if (Util.canDoWithTime(this.lastTimeAttack, 4000)) {
-            Service.gI().chat(this, playerTarger.name + "\n|3|Hộ tống ta đến " + MapService.gI().getMapById(this.mapHoTong).mapName);
-            this.lastTimeAttack = System.currentTimeMillis();
+        super.active(); //To change body of generated methods, choose Tools | Templates.
+        if (Util.canDoWithTime(st, 1800000)) {
+            this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
-
+    private long st;
     @Override
     public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
@@ -125,17 +75,17 @@ public class PetLan extends Boss {
                 this.chat("Xí hụt");
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
                 damage = 1;
             }
-            if (plAtt != this.playerTarger) {
-                damage = this.nPoint.hpMax / 120;
-            } else {
-                damage = 0;
+            if (plAtt != null) {
+                if (plAtt.setClothes.setDTS == 5) {
+                damage = 5;
+                }
+    
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
@@ -151,34 +101,8 @@ public class PetLan extends Boss {
 
     @Override
     public void joinMap() {
-        if (zoneFinal != null) {
-            joinMapByZone(zoneFinal);
-            this.notifyJoinMap();
-            return;
-        }
-        if (this.zone == null) {
-            if (this.parentBoss != null) {
-                this.zone = parentBoss.zone;
-            } else if (this.lastZone == null) {
-                this.zone = getMapJoin();
-            } else {
-                this.zone = this.lastZone;
-            }
-        }
-        if (this.zone != null) {
-            if (this.currentLevel == 0) {
-                if (this.parentBoss == null) {
-                    ChangeMapService.gI().changeMap(this, this.zone, this.location.x, this.location.y);
-                } else {
-                    ChangeMapService.gI().changeMap(this, this.zone, this.location.x, this.location.y);;
-                }
-//                this.wakeupAnotherBossWhenAppear();
-            } else {
-                ChangeMapService.gI().changeMap(this, this.zone, this.location.x, this.location.y);
-            }
-            Service.getInstance().sendFlagBag(this);
-            this.notifyJoinMap();
-        }
+        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
+        st = System.currentTimeMillis();
     }
 
     @Override

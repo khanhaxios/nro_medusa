@@ -58,7 +58,7 @@ public class MabuEgg {
     }
 
     public void openEgg(int gender) {
-        if (this.player.pet != null) {
+        // if (this.player.pet != null) {
             if (InventoryServiceNew.gI().getCountEmptyBody(this.player.pet) == 8) {
                 try {
                     destroyEgg();
@@ -75,9 +75,9 @@ public class MabuEgg {
             } else {
                 Service.getInstance().sendThongBao(player, "Vui lòng tháo hết đồ đệ tử");
             }
-        } else {
-            Service.getInstance().sendThongBao(player, "Yêu cầu phải có đệ tử");
-        }
+        // } else {
+        //     Service.getInstance().sendThongBao(player, "Yêu cầu phải có đệ tử");
+        // }
     }
 
     public void destroyEgg() {

@@ -140,7 +140,10 @@ public class BossID {
     
     ////
     public static final int BOSS_ZENO = -251;
+    public static final int BOSS_LAN = -2511;
+    
     public static final int BOSS_THOTRANG = -252;
+    public static final int BOSS_THOTRANG2 = -2521;
      public static final int BOSS_CHIENTHAN = -253;
     public static final int BOSS_DETU_BL = -254;
     public static final int BOSS_NRO1S1 = -255;
