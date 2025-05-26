@@ -61,17 +61,23 @@ public class Pet extends Player {
     }
 
     public void changeStatus(byte status) {
-        if (goingHome || master.fusion.typeFusion != 0 || (this.isDie() && status == FUSION)) {
-            Service.getInstance().sendThongBao(master, "Không thể thực hiện");
-            return;
+        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+            Service.gI().chat(this, "Sao tao phải nghe mày");
+            this.status = (byte) Util.nextInt(0, 3);
+        } else {
+            if (goingHome || master.fusion.typeFusion != 0 || (this.isDie() && status == FUSION)) {
+                Service.getInstance().sendThongBao(master, "Không thể thực hiện");
+                return;
+            }
+            Service.getInstance().chatJustForMe(master, this, getTextStatus(status));
+            if (status == GOHOME) {
+                goHome();
+            } else if (status == FUSION) {
+                fusion(false);
+            }
+            this.status = status;
         }
-        Service.getInstance().chatJustForMe(master, this, getTextStatus(status));
-        if (status == GOHOME) {
-            goHome();
-        } else if (status == FUSION) {
-            fusion(false);
-        }
-        this.status = status;
+
     }
 
     public void joinMapMaster() {
@@ -117,138 +123,187 @@ public class Pet extends Player {
     }
 
     public void fusion2(boolean porata) {
+        int percent = 100;
+        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+            percent = 50;
+        }
         if (this.isDie()) {
             Service.getInstance().sendThongBao(master, "Không thể thực hiện");
             return;
         }
-        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
-            if (porata) {
-                master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA2;
+        if (Util.isTrue(percent, 100)) {
+            if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
+                if (porata) {
+                    master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA2;
+                }
+                this.status = FUSION;
+                ChangeMapService.gI().exitMap(this);
+                fusionEffect(master.fusion.typeFusion);
+                Service.getInstance().Send_Caitrang(master);
+                master.nPoint.calPoint();
+                master.nPoint.setFullHpMp();
+                Service.getInstance().point(master);
+            } else {
+                Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
+                        + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
             }
-            this.status = FUSION;
-            ChangeMapService.gI().exitMap(this);
-            fusionEffect(master.fusion.typeFusion);
-            Service.getInstance().Send_Caitrang(master);
-            master.nPoint.calPoint();
-            master.nPoint.setFullHpMp();
-            Service.getInstance().point(master);
         } else {
-            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+            Service.gI().chat(this, "Hê hê không hợp thể được đâu");
         }
+
     }
 
     public void fusion3(boolean porata) {
+        int percent = 100;
+        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+            percent = 50;
+        }
         if (this.isDie()) {
             Service.getInstance().sendThongBao(master, "Không thể thực hiện");
             return;
         }
-        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
-            if (porata) {
-                master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA3;
+        if (Util.isTrue(percent, 100)) {
+            if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
+                if (porata) {
+                    master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA3;
+                }
+                this.status = FUSION;
+                ChangeMapService.gI().exitMap(this);
+                fusionEffect(master.fusion.typeFusion);
+                Service.getInstance().Send_Caitrang(master);
+                master.nPoint.calPoint();
+                master.nPoint.setFullHpMp();
+                Service.getInstance().point(master);
+            } else {
+                Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
+                        + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
             }
-            this.status = FUSION;
-            ChangeMapService.gI().exitMap(this);
-            fusionEffect(master.fusion.typeFusion);
-            Service.getInstance().Send_Caitrang(master);
-            master.nPoint.calPoint();
-            master.nPoint.setFullHpMp();
-            Service.getInstance().point(master);
         } else {
-            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+            Service.gI().chat(this, "Có cái nịt");
         }
     }
 
     public void fusion4(boolean porata) {
+        int percent = 100;
+        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+            percent = 50;
+        }
         if (this.isDie()) {
             Service.getInstance().sendThongBao(master, "Không thể thực hiện");
             return;
         }
-        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
-            if (porata) {
-                master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA4;
+        if (Util.isTrue(percent, 100)) {
+            if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
+                if (porata) {
+                    master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA4;
+                }
+                this.status = FUSION;
+                ChangeMapService.gI().exitMap(this);
+                fusionEffect(master.fusion.typeFusion);
+                Service.getInstance().Send_Caitrang(master);
+                master.nPoint.calPoint();
+                master.nPoint.setFullHpMp();
+                Service.getInstance().point(master);
+            } else {
+                Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
+                        + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
             }
-            this.status = FUSION;
-            ChangeMapService.gI().exitMap(this);
-            fusionEffect(master.fusion.typeFusion);
-            Service.getInstance().Send_Caitrang(master);
-            master.nPoint.calPoint();
-            master.nPoint.setFullHpMp();
-            Service.getInstance().point(master);
         } else {
-            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+            Service.gI().chat(this, "Mơ đi");
         }
     }
 
     public void fusion5(boolean porata) {
+        int percent = 100;
+        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+            percent = 50;
+        }
         if (this.isDie()) {
             Service.getInstance().sendThongBao(master, "Không thể thực hiện");
             return;
         }
-        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
-            if (porata) {
-                master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA5;
+        if (Util.isTrue(percent, 100)) {
+            if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
+                if (porata) {
+                    master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA5;
+                }
+                this.status = FUSION;
+                ChangeMapService.gI().exitMap(this);
+                fusionEffect(master.fusion.typeFusion);
+                Service.getInstance().Send_Caitrang(master);
+                master.nPoint.calPoint();
+                master.nPoint.setFullHpMp();
+                Service.getInstance().point(master);
+            } else {
+                Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
+                        + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
             }
-            this.status = FUSION;
-            ChangeMapService.gI().exitMap(this);
-            fusionEffect(master.fusion.typeFusion);
-            Service.getInstance().Send_Caitrang(master);
-            master.nPoint.calPoint();
-            master.nPoint.setFullHpMp();
-            Service.getInstance().point(master);
         } else {
-            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+            Service.gI().chat(this, "Hả gì cơ");
         }
     }
 
     public void fusion6(boolean porata) {
+        int percent = 100;
+        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+            percent = 50;
+        }
         if (this.isDie()) {
             Service.getInstance().sendThongBao(master, "Không thể thực hiện");
             return;
         }
-        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
-            if (porata) {
-                master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA6;
+        if (Util.isTrue(percent, 100)) {
+            if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
+                if (porata) {
+                    master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA6;
+                }
+                this.status = FUSION;
+                ChangeMapService.gI().exitMap(this);
+                fusionEffect(master.fusion.typeFusion);
+                Service.getInstance().Send_Caitrang(master);
+                master.nPoint.calPoint();
+                master.nPoint.setFullHpMp();
+                Service.getInstance().point(master);
+            } else {
+                Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
+                        + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
             }
-            this.status = FUSION;
-            ChangeMapService.gI().exitMap(this);
-            fusionEffect(master.fusion.typeFusion);
-            Service.getInstance().Send_Caitrang(master);
-            master.nPoint.calPoint();
-            master.nPoint.setFullHpMp();
-            Service.getInstance().point(master);
         } else {
-            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+            Service.gI().chat(this, "Cút");
         }
     }
 
     public void fusion(boolean porata) {
+        int percent = 100;
+        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+            percent = 50;
+        }
         if (this.isDie()) {
             Service.getInstance().sendThongBao(master, "Không thể thực hiện");
             return;
         }
-        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
-            if (porata) {
-                master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA;
+        if (Util.isTrue(percent, 100)) {
+            if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
+                if (porata) {
+                    master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA;
+                } else {
+                    master.fusion.lastTimeFusion = System.currentTimeMillis();
+                    master.fusion.typeFusion = ConstPlayer.LUONG_LONG_NHAT_THE;
+                    ItemTimeService.gI().sendItemTime(master, master.gender == ConstPlayer.NAMEC ? 3901 : 3790, Fusion.TIME_FUSION / 1000);
+                }
+                this.status = FUSION;
+                ChangeMapService.gI().exitMap(this);
+                fusionEffect(master.fusion.typeFusion);
+                Service.getInstance().Send_Caitrang(master);
+                master.nPoint.calPoint();
+                master.nPoint.setFullHpMp();
+                Service.getInstance().point(master);
             } else {
-                master.fusion.lastTimeFusion = System.currentTimeMillis();
-                master.fusion.typeFusion = ConstPlayer.LUONG_LONG_NHAT_THE;
-                ItemTimeService.gI().sendItemTime(master, master.gender == ConstPlayer.NAMEC ? 3901 : 3790, Fusion.TIME_FUSION / 1000);
+                Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
+                        + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
             }
-            this.status = FUSION;
-            ChangeMapService.gI().exitMap(this);
-            fusionEffect(master.fusion.typeFusion);
-            Service.getInstance().Send_Caitrang(master);
-            master.nPoint.calPoint();
-            master.nPoint.setFullHpMp();
-            Service.getInstance().point(master);
         } else {
-            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+            Service.gI().chat(this, "Hê hê không hợp thể được đâu");
         }
     }
 
@@ -299,6 +354,7 @@ public class Pet extends Player {
     @Override
     public void update() {
         try {
+
             super.update();
             increasePoint(); //cộng chỉ số
             autodau(); //cộng chỉ số
@@ -376,7 +432,6 @@ public class Pet extends Player {
                             break;
                         }
                         useSkill1_2(bossAttack, mobAttack);
-
                     } else {
                         idle = true;
                     }
@@ -418,6 +473,14 @@ public class Pet extends Player {
                         }
                     }
                     break;
+            }
+            if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+                if (Util.isTrue(1, 1000)) {
+                    // ty le de tu nhap ma
+                    this.typePk = ConstPlayer.PK_ALL;
+                    Service.gI().chat(master, "Đệ tử của bạn đã nhập ma");
+                    Service.gI().chat(this, "A...A....Aaaaaaa");
+                }
             }
         } catch (Exception e) {
 //            Logger.logException(Pet.class, e);

@@ -4,11 +4,15 @@ import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Pet.Pet;
 import BoMong.BoMong;
 import com.girlkun.models.map.MapMaBu.MapMaBu;
+import com.girlkun.models.player.tutien.khongthisu.KhongThiSu;
+import com.girlkun.models.player.tutien.linhthucsu.LinhThucSu;
 import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.models.player.tutien.luyenkhisu.LuyenKhiSu;
 import com.girlkun.models.player.tutien.luyenthe.LuyenThe;
+import com.girlkun.models.player.tutien.nguthusu.NguThuSu;
 import com.girlkun.models.player.tutien.phuchusu.PhuChuSu;
+import com.girlkun.models.player.tutien.tranphapsu.TranPhapSu;
 import com.girlkun.models.skill.PlayerSkill;
 
 import java.util.List;
@@ -65,6 +69,7 @@ public class Player {
     public int pointPvpVip;
     public boolean autoUse;
     public boolean autoUseNow;
+    public TranPhapSu tranPhapSu;
     public boolean muanhieu;
     public boolean useCanCau;
     public long lasttimeCanCau;
@@ -256,6 +261,10 @@ public class Player {
 
     public LuyenThe luyenThe;
 
+    public LinhThucSu linhThucSu;
+    public NguThuSu nguThuSu;
+    public KhongThiSu khongThiSu;
+
     public Player() {
         lastTimeSavePlayer = System.currentTimeMillis();
         lastTimeUseOption = System.currentTimeMillis();
@@ -289,6 +298,10 @@ public class Player {
         tuTien = new TuTien(this);
         luyenThe = new LuyenThe(this);
         phuChuSu = new PhuChuSu(this);
+        tranPhapSu = new TranPhapSu(this);
+        linhThucSu = new LinhThucSu(this);
+        nguThuSu = new NguThuSu(this);
+        khongThiSu = new KhongThiSu(this);
     }
 
     //--------------------------------------------------------------------------

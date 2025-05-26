@@ -2723,6 +2723,7 @@ public class CombineServiceNew {
                     InventoryServiceNew.gI().sendItemBags(player);
                     Service.gI().sendMoney(player);
                     reOpenItemCombine(player);
+                    player.tranPhapSu.addExp(player.tranPhapSu.getExpCanGain(null));
                 }
             } else {
                 Service.gI().sendThongBao(player, "Không đủ Đá Hoàng Kim để thực hiện");
@@ -3683,23 +3684,23 @@ public class CombineServiceNew {
             case 6:
                 return 60f;
             case 7:
-                return 60f;
+                return 20f;
             case 8:
-                return 60f;
+                return 10f;
             case 9:
-                return 60f;
+                return 5f;
             case 10:
-                return 60f;
+                return 2f;
             case 11:
-                return 60f;
+                return 1f;
             case 12:
-                return 60f;
+                return .5f;
             case 13:
-                return 60f;
+                return .2f;
             case 14:
-                return 60f;
+                return .1f;
             case 15:
-                return 60f;
+                return .05f;
         }
         return 0;
     }

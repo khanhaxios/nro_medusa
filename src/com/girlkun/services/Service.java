@@ -712,13 +712,6 @@ public class Service {
 
     public void regisAccount(Session session, Message _msg) {
         try {
-            _msg.readUTF();
-            _msg.readUTF();
-            _msg.readUTF();
-            _msg.readUTF();
-            _msg.readUTF();
-            _msg.readUTF();
-            _msg.readUTF();
             String user = _msg.readUTF();
             String pass = _msg.readUTF();
             if (!(user.length() >= 4 && user.length() <= 18)) {
@@ -1296,6 +1289,30 @@ public class Service {
             NpcService.gI().createMenuConMeo(player, 123123, -1, String.format("|7|Thông tin luyện khí\n|5|%s(%s)\nKinh Nghiệm: %s\nTỷ lệ đột phá thành công %s\nCấp Càng cao tỷ lệ đột phá càng thấp", player.luyenKhiSu.getName(), player.luyenKhiSu.getLevel(), player.luyenKhiSu.getCurrentExpStr(), player.luyenKhiSu.getTyLeDotPha()), "Chế Đồ", "Kích Hoạt\nTrang Bị", "Đóng");
             return;
         }
+        if (text.equals("ttpc")) {
+            if (player.phuChuSu.isPhuChu() && !player.isAdmin()) {
+                Service.gI().sendThongBaoOK(player, "Bạn chưa mở phù chú\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
+                return;
+            }
+            player.phuChuSu.showMenu();
+            return;
+        }
+        if (text.equals("tttp")) {
+            if (player.tranPhapSu.isTranPhap() && !player.isAdmin()) {
+                Service.gI().sendThongBaoOK(player, "Bạn chưa mở trận pháp\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
+                return;
+            }
+            player.tranPhapSu.showMenu();
+            return;
+        }
+        if (text.equals("ttlt")) {
+            if (player.linhThucSu.isLinhThuc() && !player.isAdmin()) {
+                Service.gI().sendThongBaoOK(player, "Bạn chưa mở linh thực\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
+                return;
+            }
+            player.linhThucSu.showMenu();
+            return;
+        }
         if (text.startsWith("phanra ")) {
             if (player.luyenKhiSu.getLevel() == 0 && !player.isAdmin()) {
                 Service.gI().sendThongBao(player, "Bạn phải học luyện khí để phân rã trang bị");
@@ -1704,9 +1721,9 @@ public class Service {
             Message msg;
             try {
                 msg = new Message(-42);
-                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpg));
-                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpg));
-                msg.writer().writeLong(Util.DoubleGioihan(player.nPoint.dameg));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpg + player.luyenThe.calcPoint((byte) 0)));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpg + player.luyenThe.calcPoint((byte) 1)));
+                msg.writer().writeLong(Util.DoubleGioihan(player.nPoint.dameg + player.luyenThe.calcPoint((byte) 3)));
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpMax));// hp full
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpMax));// mp full
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hp));// hp
@@ -1720,7 +1737,7 @@ public class Service {
                 msg.writer().writeByte(Util.byteGioiHan(player.nPoint.crit));// crit full
                 msg.writer().writeLong(player.nPoint.tiemNang);
                 msg.writer().writeShort(100);
-                msg.writer().writeInt(Util.DoubleGioihana(player.nPoint.defg));
+                msg.writer().writeInt(Util.DoubleGioihana(player.nPoint.defg + player.luyenThe.calcPoint((byte) 2)));
                 msg.writer().writeByte(Util.byteGioiHan(player.nPoint.critg));
                 player.sendMessage(msg);
                 msg.cleanup();

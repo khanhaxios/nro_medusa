@@ -234,6 +234,10 @@ public class UseItem {
                     break;
                 case 23: //thú cưỡi mới
                 case 24: //thú cưỡi cũ
+                    if (pl.nguThuSu == null || !pl.nguThuSu.isNguThu()) {
+                        Service.gI().sendThongBaoOK(pl, "Bạn cần học ngự thú sư để trang bị thú cưỡi");
+                        return;
+                    }
                     InventoryServiceNew.gI().itemBagToBody(pl, indexBag);
                     break;
                 case 11: //item bag
@@ -597,10 +601,12 @@ public class UseItem {
                             }
                             break;
                         case 1524:
-                            UseItem.gI().hopSetJiren(pl, item);
+                            Service.gI().sendThongBao(pl, "Có cái nịt");
+//                            UseItem.gI().hopSetJiren(pl, item);
                             break;
                         case 1532:
-                            UseItem.gI().hopSetGokuUI(pl, item);
+                            Service.gI().sendThongBao(pl, "Có cái nịt");
+//                            UseItem.gI().hopSetGokuUI(pl, item);
                             break;
                     }
                     break;
@@ -898,8 +904,8 @@ public class UseItem {
 
     private void openCSKB(Player pl, Item item) {
         if (InventoryServiceNew.gI().getCountEmptyBag(pl) > 0) {
-            short[] temp = {76, 188, 189, 190, 381, 382, 383, 384, 385};
-            int[][] gold = {{5000, 20000}};
+            short[] temp = {76, 188, 189, 190, 2048, 2050};
+            int[][] gold = {{500000, 2000000}};
             byte index = (byte) Util.nextInt(0, temp.length - 1);
             short[] icon = new short[2];
             icon[0] = item.template.iconID;

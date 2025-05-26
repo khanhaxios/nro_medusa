@@ -1,24 +1,16 @@
-package com.girlkun.models.player.tutien.phuchusu;
+package com.girlkun.models.player.tutien.nguthusu;
 
 import com.girlkun.consts.ConstNpc;
-import com.girlkun.models.item.Item;
-import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.tutien.base_tutien.BasePoint;
 import com.girlkun.models.player.tutien.base_tutien.IBaseAction;
-import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.ItemService;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
-import com.girlkun.services.func.CombineServiceNew;
 import com.girlkun.utils.Util;
 
-public class PhuChuSu extends BasePoint implements IBaseAction {
-    public static short[] idsBua = new short[]{213, 214, 215, 216, 217, 218, 219, 797, 798, 799};
-    public static short[] idsBuaVIP = new short[]{671, 672, 522};
-
-    public PhuChuSu(Player player) {
+public class NguThuSu extends BasePoint implements IBaseAction {
+    public NguThuSu(Player player) {
         super(player);
     }
 
@@ -100,116 +92,11 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
         return level * baseTyLe;
     }
 
-    public void cheBua() {
-        if (!canCheBua()) {
-            Service.gI().sendThongBao(player, "Bạn không đủ linh lực để chế bùa");
-            return;
-        }
-        player.tuTien.subLinhKhiPercent(1);
-        float baseTl = getTyLeCheBuaThanhCong();
-        Item item = null;
-        Item it1 = InventoryServiceNew.gI().findItemBag(player, (short) 2046);
-        Item it2 = InventoryServiceNew.gI().findItemBag(player, (short) 2047);
-        Item.ItemOption itemOption = null;
-        int exxxxp = 0;
-        if (it1 == null) {
-            Service.gI().sendThongBao(player, "Không tìm thấy Giấy Thếp");
-            return;
-        }
-        if (it2 == null) {
-            Service.gI().sendThongBao(player, "Không tìm thấy Bút Chì");
-            return;
-        }
-        for (Item.ItemOption option : it2.itemOptions) {
-            if (option.optionTemplate.id == 12) {
-                itemOption = option;
-            }
-        }
-        if (itemOption == null || itemOption.param <= 0) {
-            Service.gI().sendThongBao(player, "Bút chì của bạn đã hết số lần sử dụng");
-            return;
-        }
-
-        if (Util.isTrue(baseTl, 100)) {
-            CombineServiceNew.gI().sendEffectSuccessCombine(player);
-            // rand nhan pham
-            short tempId;
-            tempId = idsBua[Util.nextInt(0, idsBua.length - 1)];
-            // find item option cua but chi
-            itemOption.param -= 1;
-            item = ItemService.gI().createNewItem(tempId);
-            Service.gI().sendThongBao(player, "Bạn nhận được " + item.template.name);
-            InventoryServiceNew.gI().subQuantityItemsBag(player, it1, 1);
-            InventoryServiceNew.gI().addItemBag(player, item);
-            InventoryServiceNew.gI().sendItemBags(player);
-            exxxxp += getExpCanGain(null) * Util.nextInt(1, 5);
-        } else {
-            CombineServiceNew.gI().sendEffectFailCombine(player);
-            Service.gI().sendThongBao(player, "Chế bùa thất bại");
-            exxxxp += getExpCanGain(null);
-        }
-        addExp(exxxxp);
-    }
-
     public void addExp(long exp) {
         this.exp += exp;
         if (this.exp > maxExp) {
             this.exp = maxExp;
         }
-    }
-
-    public boolean canCheBua() {
-        return player.tuTien.linhKhiPoint - (player.tuTien.maxLinhKhiPoint / 100) > 0;
-    }
-
-    public void cheBuaVIP() {
-        if (!canCheBua()) {
-            Service.gI().sendThongBao(player, "Bạn không đủ linh lực để chế bùa");
-            return;
-        }
-        player.tuTien.subLinhKhiPercent(1);
-        float baseTl = getTyLeCheBuaThanhCong();
-        Item item = null;
-        Item it1 = InventoryServiceNew.gI().findItemBag(player, (short) 2046);
-        Item it2 = InventoryServiceNew.gI().findItemBag(player, (short) 2047);
-        Item.ItemOption itemOption = null;
-        int exxxxp = 0;
-        if (it1 == null) {
-            Service.gI().sendThongBao(player, "Không tìm thấy Giấy Thếp");
-            return;
-        }
-        if (it2 == null) {
-            Service.gI().sendThongBao(player, "Không tìm thấy Bút Chì");
-            return;
-        }
-        for (Item.ItemOption option : it2.itemOptions) {
-            if (option.optionTemplate.id == 12) {
-                itemOption = option;
-            }
-        }
-        if (itemOption == null || itemOption.param <= 0) {
-            Service.gI().sendThongBao(player, "Bút chì của bạn đã hết số lần sử dụng");
-            return;
-        }
-
-        if (Util.isTrue(baseTl / 2, 100)) {
-            CombineServiceNew.gI().sendEffectSuccessCombine(player);
-            // rand nhan pham
-            short tempId = idsBuaVIP[Util.nextInt(0, idsBuaVIP.length - 1)];
-            // find item option cua but chi
-            itemOption.param -= 1;
-            item = ItemService.gI().createNewItem(tempId);
-            Service.gI().sendThongBao(player, "Chế bùa thành công,bạn nhận được " + item.template.name);
-            InventoryServiceNew.gI().subQuantityItemsBag(player, it1, 1);
-            InventoryServiceNew.gI().addItemBag(player, item);
-            exxxxp += getExpCanGain(null) * Util.nextInt(1, 10);
-            InventoryServiceNew.gI().sendItemBags(player);
-        } else {
-            CombineServiceNew.gI().sendEffectFailCombine(player);
-            Service.gI().sendThongBao(player, "Chế bùa thất bại");
-            exxxxp += getExpCanGain(null) * Util.nextInt(1, 5);
-        }
-        addExp(exxxxp);
     }
 
     @Override
@@ -218,12 +105,6 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
             Service.gI().sendThongBao(player, "Bạn cần đạt trúc cơ để học phù chú");
             return;
         }
-        // add but chi
-        Item item = ItemService.gI().createNewItem((short) 2047, 1);
-        item.itemOptions.add(new Item.ItemOption(12, 99999));
-        InventoryServiceNew.gI().addItemBag(player, item);
-        InventoryServiceNew.gI().sendItemBags(player);
-        Service.gI().sendThongBao(player, "Bạn nhận được x" + item.template.name);
         this.levelUp();
     }
 
@@ -338,7 +219,7 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
         return level;
     }
 
-    public boolean isPhuChu() {
+    public boolean isNguThu() {
         return level > 0;
     }
 }

@@ -160,7 +160,7 @@ public class EffectSkin {
                                     subHp = mob.point.gethp() - 1;
                                 }
                                 hpHut += subHp;
-                                mob.injured(null, subHp, false);
+                                mob.injured(null, subHp, false, (byte)0);
                             }
                         }
                     }

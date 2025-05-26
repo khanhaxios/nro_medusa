@@ -13,32 +13,39 @@ import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
 public class LuyenThe extends BasePoint implements IBaseAction {
+    int[] buffs = new int[]{
+            (int) (player.nPoint.hpg * getHPMPBuff() / 100f),
+            (int) (player.nPoint.mpg * getHPMPBuff() / 100f),
+            (int) (player.nPoint.defg * getDefBuff() / 100f),
+            (int) (player.nPoint.dameg * getDameBuff() / 100f),
+    };
     public final byte MAX_LEVEL = 99;
 
     public LuyenThe(Player player) {
         super(player);
     }
 
-    public void calcPoint() {
-        player.nPoint.hpg += (int) (player.nPoint.hpg * getHPMPBuff() / 100f);
-        player.nPoint.mpg += (int) (player.nPoint.mpg * getHPMPBuff() / 100f);
-        player.nPoint.defg += (int) (player.nPoint.defg * getDefBuff() / 100f);
-        player.nPoint.dameg += (int) (player.nPoint.dameg * getDameBuff() / 100f);
-        player.nPoint.tlchinhxac += getChinhXacBuff();
-        player.nPoint.tlNeDon += getNeBuff();
-        player.nPoint.tlHutMp += getHutMPBuff();
-        player.nPoint.tlHutHp += getHutHPBuff();
+    public int calcPoint(byte type) {
+        return buffs[type];
+//        player.nPoint.hpg += (int) (player.nPoint.hpg * getHPMPBuff() / 100f);
+//        player.nPoint.mpg += (int) (player.nPoint.mpg * getHPMPBuff() / 100f);
+//        player.nPoint.defg += (int) (player.nPoint.defg * getDefBuff() / 100f);
+//        player.nPoint.dameg += (int) (player.nPoint.dameg * getDameBuff() / 100f);
+//        player.nPoint.tlchinhxac += getChinhXacBuff();
+//        player.nPoint.tlNeDon += getNeBuff();
+//        player.nPoint.tlHutMp += getHutMPBuff();
+//        player.nPoint.tlHutHp += getHutHPBuff();
     }
 
     @Override
     public long getExpCanGain(Mob targetMob) {
-        return (long) level * Util.nextInt(1, 3);
+        return ((long) level * Util.nextInt(1, 3)) * targetMob.level;
     }
 
     @Override
     public void levelUp() {
         if (canLevelUp()) {
-            level++;
+            level += 1;
             exp = 0;
             maxExp = getNextLevelExp();
             Service.gI().point(player);
@@ -83,10 +90,8 @@ public class LuyenThe extends BasePoint implements IBaseAction {
 
     @Override
     public float getLevelUpPercent() {
-        if (maxExp == 0) return 0;
-        float scalingFactor = 100f / maxExp;
-        float levelPenalty = 1f / (1f + level * 0.1f);
-        return scalingFactor * levelPenalty;
+        if (exp == 0) return 0;
+        return (exp / (maxExp * 1f) * 100) / (level * 2);
     }
 
     @Override
@@ -155,12 +160,15 @@ public class LuyenThe extends BasePoint implements IBaseAction {
     }
 
     public void showInfo() {
-        String text = "|7|Luyện Thể\n|5|Cấp bậc : " + getName() + "\n" + "Tu Vi : " + getCurrentExpAsString() + "\n" + "Tổng Thuộc tính buff : " + totalBuff() + "\n" + "Tỷ lệ đột phá : " + getLevelUpPercent() + "\n" + "|7|Cấp càng cao tỷ lệ đột phá càng thấp";
+        if (!isLuyenThe()) {
+            Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện thể");
+        }
+        String text = "|7|Luyện Thể\n|5|Cấp bậc : " + getName() + "\n" + "Tu Vi : " + getCurrentExpAsString() + "\n" + "Tổng Thuộc tính buff : " + totalBuff() + "\n" + "Tỷ lệ đột phá : " + String.format("%.2f%%", getLevelUpPercent()) + "\n" + "|7|Cấp càng cao tỷ lệ đột phá càng thấp";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text, "Đột phá", "Đóng");
     }
 
     private String totalBuff() {
-        return getHPMPBuff() + getDameBuff() + getNeBuff() + getChinhXacBuff() + getDefBuff() + "%";
+        return String.format("%.2f%%",getHPMPBuff() + getDameBuff() + getNeBuff() + getChinhXacBuff() + getDefBuff());
     }
 
     public String getItemNeed(short[] idsItemNeed) {

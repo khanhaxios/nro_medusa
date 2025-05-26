@@ -334,7 +334,7 @@ public class CongPhap {
         return 1f;
     }
 
-    public int getBaseTyLeLinhNgo() {
+    public float getBaseTyLeLinhNgo() {
         return tuTien.getXDiemNgoTinh() + 1;
     }
 
@@ -401,6 +401,10 @@ public class CongPhap {
     }
 
     public void showMenuCongPhap() {
+        if (tenCongPhap == null) {
+            Service.gI().sendThongBao(tuTien.player, "Bạn chưa học công pháp");
+            return;
+        }
         String npcSay = "|7|Công Pháp+\n" + "|5|" + getFullName() + "\n" + "|5|Độ thuần thục : " + getCurrentExpStr() + "\n" + "|2|Số lượng thuộc tính : " + slThuocTinh + " thuộc tính\n" + "|1|Phẩm chất : " + phamchat.name + "\n" + "|5|Thuộc tính công pháp : " + getThuocTinhName() + "\n" + "|7|Bạn muốn ? ";
         NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_CONG_PHAP, -1, npcSay, "Tăng Phẩm", "Xem Thuộc\nTính", "Đóng");
     }

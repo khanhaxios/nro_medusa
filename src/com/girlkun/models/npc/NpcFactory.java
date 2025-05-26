@@ -2292,7 +2292,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 //npc se o vach nui aru
-                if (canOpenNpc(player) && mapId == 39) {
+                if (canOpenNpc(player) && mapId == 44) {
                     createOtherMenu(player, ConstNpc.MENU_NPC_TU_TIEN, "Tu tiên a , nghèo thì tu cái gì tiên", "Giới Thiệu", "Học Tu \nTiên", "Học Tiên\nPháp", "Học Công Pháp", "Truyền Công", "Bí Kíp\nTu Tiên");
                 }
             }
@@ -2308,14 +2308,18 @@ public class NpcFactory {
                                 break;
                             case 1:
                                 if (!player.isAdmin()) {
-                                    double vnd = player.session.vnd - 1_000_000;
+                                    double vnd = player.session.vnd - 100_000;
                                     if (vnd < 0) {
-                                        Service.gI().sendThongBao(player, "Bạn không đủ điểm nạp để mở tu tiên");
+                                        Service.gI().sendThongBao(player, "Bạn không đủ điểm nạp để mở tu tiên,cần 100k điểm nạp");
                                         return;
                                     }
                                 }
                                 // mo tu tien
-                                PlayerDAO.subvnd(player, 1_000_000);
+                                PlayerDAO.subvnd(player, 100_000);
+                                if (player.tuTien.isTuTien()) {
+                                    Service.gI().sendThongBao(player, "Bạn đã mở tu tiên rồi mà");
+                                    return;
+                                }
                                 player.tuTien.openSystem();
                                 break;
                             case 2:
@@ -2338,10 +2342,20 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Cần đạt Hóa Thần để học Tiên Pháp");
                                     return;
                                 }
+                                if (player.session.vnd - 100_000 < 0) {
+                                    Service.gI().sendThongBao(player, "Học tiên pháp cần 100k điểm");
+                                    return;
+                                }
+                                PlayerDAO.subvnd(player, 100000);
                                 player.tuTien.ratioNewTienPhap();
                                 break;
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.HOC_CONG_PHAP) {
+                        if (player.session.vnd - 100_000 < 0) {
+                            Service.gI().sendThongBao(player, "Học công pháp cần 100k điểm");
+                            return;
+                        }
+                        PlayerDAO.subvnd(player, 100000);
                         player.tuTien.hocCongPhap(select);
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.TRUYEN_CONG_TU_TIEN) {
                         switch (select) {
@@ -3879,7 +3893,7 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 5 || this.mapId == 13) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Ép sao\ntrang bị", "Pha lê\nhóa\ntrang bị", "Tinh ấn\ntrang bị", "Pháp sư hoá\ntrang bị", "Bóng Tối hoá\ntrang bị", "Ánh Sáng hoá\ntrang bị", "Tẩy\npháp sư", "Tẩy\nBóng Tối", "Tẩy\nÁnh Sáng", "Tẩy ấn\nTrang Bị", "Tẩy Sao\nTrang Bị", "Chân mệnh");
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Ép sao\ntrang bị", "Pha lê\nhóa\ntrang bị", "Tinh ấn\ntrang bị", "Pháp sư hoá\ntrang bị", "Bóng Tối hoá\ntrang bị", "Ánh Sáng hoá\ntrang bị", "Tẩy\npháp sư", "Tẩy\nBóng Tối", "Tẩy\nÁnh Sáng", "Tẩy ấn\nTrang Bị", "Tẩy Sao\nTrang Bị");
                     } else if (this.mapId == 121) {
                         this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi tìm ta có việc gì?", "Về đảo\nrùa");
                     } else {
@@ -3926,9 +3940,6 @@ public class NpcFactory {
                                     break;
                                 case 10:
                                     CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.TAY_PHALE);
-                                    break;
-                                case 11: //nâng cấp Chân mệnh
-                                    this.createOtherMenu(player, 5701, "|7|CHÂN MỆNH" + "\n\n|1|Bạn đang có: " + Util.format(player.inventory.event) + " Điểm Săn Boss" + "\n\n|5|Cần 200 Điểm để nhận Chân Mệnh cấp 1" + "\n|3| Lưu ý: Chỉ được nhận Chân mệnh 1 lần (Hành trang chỉ tồn tại 1 Chân mệnh)" + "\nNếu đã có Chân mệnh. Ta sẽ giúp ngươi nâng cấp bậc lên với các dòng chỉ số cao hơn", "Nhận Chân mệnh", "Nâng cấp Chân mệnh");
                                     break;
                             }
                         } else if (player.iDMark.getIndexMenu() == 5701) {
@@ -3984,7 +3995,7 @@ public class NpcFactory {
                                 case CombineServiceNew.RANDOM_SKH:
                                 case CombineServiceNew.GIA_HAN_VAT_PHAM:
                                 case CombineServiceNew.MO_KHOA_GIAO_DICH:
-                                case CombineServiceNew.DUNG_HOP_DO_VIP:
+//                                case CombineServiceNew.DUNG_HOP_DO_VIP:
                                     switch (select) {
                                         case 0:
                                             if (player.combineNew.typeCombine == CombineServiceNew.PHA_LE_HOA_TRANG_BI) {
@@ -4663,11 +4674,12 @@ public class NpcFactory {
 //                            + "\n\n|1|Bé Quỳnh đang đi lạc ngươi hãy giúp ta đưa nàng đến Đảo Kame \n Ta trao thưởng quà Hậu hĩnh !!"
 //                            + "\n\n|2|Hôm nay đã hộ tống: " + player.taixiu.hotong + " lần",
 //                            "Hướng dẫn\n Hộ Tống Bé Quỳnh", "Hộ Tống\nBé Quỳnh", "Shop Đổi Xu", "Mua Xu");//, " Shop Xu" ,"Đóng")
-                    Item moiLua = InventoryServiceNew.gI().findItemBag(player, 1545);
-                    Item dauLan = InventoryServiceNew.gI().findItemBag(player, 1546);
-                    Item longDen = InventoryServiceNew.gI().findItemBag(player, 1547);
-
-                    createOtherMenu(player, ConstNpc.BASE_MENU, "|7|SỰ KIỆN TRUNG THU" + "\n\n|1|Ta nghe tin thỏ ngọc đi trộm mồi lửa vô tình nhặt được những đầu lân bí ẩn" + "\n|1|Ngươi hãy tìm đánh thỏ ngọc để rơi các vật phẩm cần thiết" + "\n|1|Và đến đây triệu hồi kỳ lân đi tìm lồng đèn" + "\n|1|Thu thập đủ mòi lửa và lồng đèn đến đây để đổi quà trung thu từ Medusa nhé" + "\n|2|Phục Sinh Lân Cần: " + (dauLan != null ? dauLan.quantity : 0) + "/15 đầu lân" + "\n|2|Nguyên Liệu Thắp Lồng Đèn: " + (moiLua != null ? moiLua.quantity : 0) + "/6000 mồi lửa" + "\n|2|Nguyên Liệu Thắp Lồng Đèn: " + (longDen != null ? longDen.quantity : 0) + "/1 lồng đèn" + "\n|2|Ngươi đang có: " + player.inventory.eventTrungThu + " điểm top Trung Thu", "Hộ Tống\n Lân", "Đổi\n Lồng Đèn", "Hướng dẫn\n Hộ Tống Bé Quỳnh", "Hộ Tống\nBé Quỳnh", "Shop Đổi Xu", "Mua Xu");//, " Shop Xu" ,"Đóng")
+//                    Item moiLua = InventoryServiceNew.gI().findItemBag(player, 1545);
+//                    Item dauLan = InventoryServiceNew.gI().findItemBag(player, 1546);
+//                    Item longDen = InventoryServiceNew.gI().findItemBag(player, 1547);
+//
+//                    createOtherMenu(player, ConstNpc.BASE_MENU, "|7|SỰ KIỆN TRUNG THU" + "\n\n|1|Ta nghe tin thỏ ngọc đi trộm mồi lửa vô tình nhặt được những đầu lân bí ẩn" + "\n|1|Ngươi hãy tìm đánh thỏ ngọc để rơi các vật phẩm cần thiết" + "\n|1|Và đến đây triệu hồi kỳ lân đi tìm lồng đèn" + "\n|1|Thu thập đủ mòi lửa và lồng đèn đến đây để đổi quà trung thu từ Medusa nhé" + "\n|2|Phục Sinh Lân Cần: " + (dauLan != null ? dauLan.quantity : 0) + "/15 đầu lân" + "\n|2|Nguyên Liệu Thắp Lồng Đèn: " + (moiLua != null ? moiLua.quantity : 0) + "/6000 mồi lửa" + "\n|2|Nguyên Liệu Thắp Lồng Đèn: " + (longDen != null ? longDen.quantity : 0) + "/1 lồng đèn" + "\n|2|Ngươi đang có: " + player.inventory.eventTrungThu + " điểm top Trung Thu", "Hộ Tống\n Lân", "Đổi\n Lồng Đèn", "Hướng dẫn\n Hộ Tống Bé Quỳnh", "Hộ Tống\nBé Quỳnh", "Shop Đổi Xu", "Mua Xu");//, " Shop Xu" ,"Đóng")
+                    super.openBaseMenu(player);
                 }
             }
 
@@ -6613,7 +6625,7 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 21 || mapId == 22 || mapId == 23 || mapId == 5) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Học phù chú?Tìm đúng người rồi đấy", "Học\nLuyện Phù", "Đóng");
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Muốn tu tiên?Tìm đúng người rồi đấy", "Học\nLuyện Phù", "Học\nTrận Pháp", "Học\nLinh Thực", "Học\nNgự Thú", "Học\nKhống Thi", "Đóng");
                     }
                 }
             }
@@ -6627,6 +6639,18 @@ public class NpcFactory {
                                 case 0:
                                     createOtherMenu(player,
                                             ConstNpc.MENU_PHU_SU, "Học chế bùa cần đạt tu tiên cấp 4 và luyện thể cấp 10 thêm 100k điểm nữa nhé", "Học", "Từ chối");
+                                    break;
+                                case 1:
+                                    Service.gI().sendThongBao(player, "Tính năng đang phát triển");
+                                    break;
+                                case 2:
+                                    Service.gI().sendThongBao(player, "Tính năng đang phát triển");
+                                    break;
+                                case 3:
+                                    Service.gI().sendThongBao(player, "Tính năng đang phát triển");
+                                    break;
+                                case 4:
+                                    Service.gI().sendThongBao(player, "Tính năng đang phát triển");
                                     break;
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_PHU_SU) {
@@ -6989,7 +7013,7 @@ public class NpcFactory {
             switch (tempId) {
                 case ConstNpc.NPC_LUYEN_THE:
                     return luyenthe(mapId, status, cx, cy, tempId, avatar);
-                case ConstNpc.NPC_TU_TIEN:
+                case ConstNpc.MEDUSA_TU_TIEN:
                     return tutien(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.NOI_BANH:
                     return Skien_trungthu(mapId, status, cx, cy, tempId, avatar);
@@ -7265,6 +7289,28 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 switch (player.iDMark.getIndexMenu()) {
+                    case ConstNpc.MENU_LINH_THUC:
+                        if (select == 0) {
+                            player.linhThucSu.showMenuCheBua();
+                        }
+                        break;
+                    case ConstNpc.MENU_CHE_LINH_THUC:
+                        if (select == 0) {
+                            player.linhThucSu.nauAn();
+                        }
+                        break;
+                    case ConstNpc.MENU_TRAN_PHAP_SU:
+                        if (select == 0) {
+                            player.tranPhapSu.showMenuCheBua();
+                        } else if (select == 1) {
+                            player.tranPhapSu.showMenuNangCapChanMenh();
+                        }
+                        break;
+                    case ConstNpc.MENU_VE_CHAN_MENH:
+                        if (select == 0) {
+                            player.tranPhapSu.veChanMenh();
+                        }
+                        break;
                     case ConstNpc.MENU_PHU_CHU_SU:
                         switch (select) {
                             case 0:
@@ -7304,7 +7350,7 @@ public class NpcFactory {
                             }
                             String text = "|7|Đột phá luyện thể\n" +
                                     "|5|Cấp hiện tại : " + player.luyenThe.getName() + "\n" +
-                                    "|2|Cấp tiếp theo : " + "Luyện thể tầng " + player.luyenThe.level + 1 + "\n" +
+                                    "|2|Cấp tiếp theo : " + "Luyện thể tầng " + (player.luyenThe.level + 1) + "\n" +
                                     "|7|Tỷ lệ đột phá : " + player.luyenThe.getLevelUpPercent() + "%\n" +
                                     "|1|Đột phá cần : " + player.luyenThe.getItemNeed(idsItemNeed);
                             NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_DOT_PHA_LUYEN_THE, -1, text, "Đột phá", "Đóng");
@@ -7355,7 +7401,7 @@ public class NpcFactory {
                         switch (select) {
                             case 0:
                                 // dot pha
-                                String text = "|7|Đột phá\n" + "|5|Cảnh Giới hiện tại : " + player.tuTien.getNameByLevel(player.tuTien.level) + "\n" + "|2|Cảnh Giới tiếp theo : " + player.tuTien.getNameByLevel((byte) (player.tuTien.level + 1)) + "\n" + "|2|Tu vi : " + player.tuTien.getCurrentExpAsString() + "\n" + "|7|Tỷ lệ thành công : " + player.tuTien.getLevelUpPercent() + "%" + "\n" + "|5|Bạn có thể ăn dan dược để tăng tỷ lệ thành công -.-";
+                                String text = "|7|Đột phá\n" + "|5|Cảnh Giới hiện tại : " + player.tuTien.getFormatName() + "\n" + "|2|Cảnh Giới tiếp theo : " + player.tuTien.getNextLevelStr() + "\n" + "|2|Tu vi : " + player.tuTien.getCurrentExpAsString() + "\n" + "|7|Tỷ lệ thành công : " + player.tuTien.getLevelUpPercent() + "%" + "\n" + "|5|Bạn có thể ăn dan dược để tăng tỷ lệ thành công -.-";
                                 ;
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_DOT_PHA, -1, text, "Đột phá", "Từ Chối");
                                 break;

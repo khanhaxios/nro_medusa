@@ -166,6 +166,7 @@ public class ConstNpc {
     public static final byte NPC_GAP_THU = 87;
     public static final byte CHIEN_TRUONG = 88;
     public static final byte MEDUSA = 89;
+    public static final byte MEDUSA_TU_TIEN = 125;
     public static final byte NPC_KETHON = 90;
     public static final byte RONG_SIEU_CAP = 91;
     public static final byte GOKU = 92;
@@ -412,6 +413,11 @@ public class ConstNpc {
     public static final int MENU_MO_LUYEN_THE = -312312;
     public static final int MENU_TRUYEN_CONG_LUYEN_THE = 13123123;
     public static final int MENU_PHU_SU = -12313134;
+    public static final int MENU_OPEN_TU_TIEN = -12312412;
+    public static final int MENU_TRAN_PHAP_SU = -1319873;
+    public static final int MENU_VE_CHAN_MENH = -89712393;
+    public static final int MENU_LINH_THUC = -91237189;
+    public static final int MENU_CHE_LINH_THUC = -237183109;
 }
 
 /**

@@ -44,15 +44,15 @@ public abstract class BasePoint {
         isOpenSystem = openSystem;
     }
 
-    public int getXDiemNgoTinh() {
-        return ngoTinh / 100;
+    public float getXDiemNgoTinh() {
+        return ngoTinh / 100f;
     }
 
-    public int getXDiemCanCot() {
-        return canCot / 200;
+    public float getXDiemCanCot() {
+        return canCot / 200f;
     }
 
-    public int getXDiemThienPhu() {
+    public float getXDiemThienPhu() {
         return getXDiemCanCot() + getXDiemNgoTinh();
     }
 
@@ -69,11 +69,7 @@ public abstract class BasePoint {
     }
 
     protected long getNextLevelExp() {
-        switch (level + 1) {
-            case 1:
-                return 1111;
-        }
-        return 0;
+        return (level + 1) * 100;
     }
 
     public byte getLevel() {
@@ -84,8 +80,8 @@ public abstract class BasePoint {
         this.level = level;
     }
 
-    public boolean canHandleWithLinhKhiPoint(long point) {
-        return this.linhKhiPoint - point >= 0;
+    public boolean canHandleWithLinhKhiPoint(int percent) {
+        return linhKhiPoint - (maxLinhKhiPoint * percent / 100) > 0;
     }
 
     public void addLinhKhi(long point) {

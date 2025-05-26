@@ -548,11 +548,14 @@ public class NPoint {
         if (player.tuTien != null && player.tuTien.isTuTien()) {
             player.tuTien.calcPoint();
         }
-        if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
-            player.luyenThe.calcPoint();
-        }
         if (player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
             player.phuChuSu.calcPoint();
+        }
+        if (player.tranPhapSu != null && player.tranPhapSu.isTranPhap()) {
+            player.tranPhapSu.calcPoint();
+        }
+        if (player.linhThucSu != null && player.linhThucSu.isLinhThuc()) {
+            player.linhThucSu.calcPoint();
         }
         setDameTrainArmor();
         setBasePoint();
@@ -763,12 +766,12 @@ public class NPoint {
 
         //đuôi khỉ
         // TODO : handle when create item buff system
-//        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
-//            this.hpMax += (this.hpMax * 10 / 100);
-//        }
-//        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
-//            this.hpMax += (this.hpMax * 12 / 100);
-//        }
+        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
+            this.hpMax += (this.hpMax * 10 / 100);
+        }
+        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
+            this.hpMax += (this.hpMax * 12 / 100);
+        }
         //phù
         if (this.player.zone != null && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
             this.hpMax *= this.player.effectSkin.xHPKI;
@@ -783,47 +786,47 @@ public class NPoint {
         }
         // notice : all items time is developing
         //bổ huyết
-//        if (this.player.itemTime != null && this.player.itemTime.isUseBoHuyet) {
-//            this.hpMax *= 2;
-//        }
-//        if (this.player.isPl() && this.player.isTitleUse3 && this.player.lastTimeTitle3 > 0) {
-//            this.hpMax += (this.hpMax * 10 / 100);
-//        }
-//        if (this.player.isPl() && this.player.isTitleUse2 && this.player.lastTimeTitle2 > 0) {
-//            this.hpMax += (this.hpMax * 10 / 100);
-//        }
-//        if (this.player.isPl() && this.player.isTitleUse1 && this.player.lastTimeTitle1 > 0) {
-//            this.hpMax += (this.hpMax * 10 / 100);
-//        }
+        if (this.player.itemTime != null && this.player.itemTime.isUseBoHuyet) {
+            this.hpMax *= 2;
+        }
+        if (this.player.isPl() && this.player.isTitleUse3 && this.player.lastTimeTitle3 > 0) {
+            this.hpMax += (this.hpMax * 10 / 100);
+        }
+        if (this.player.isPl() && this.player.isTitleUse2 && this.player.lastTimeTitle2 > 0) {
+            this.hpMax += (this.hpMax * 10 / 100);
+        }
+        if (this.player.isPl() && this.player.isTitleUse1 && this.player.lastTimeTitle1 > 0) {
+            this.hpMax += (this.hpMax * 10 / 100);
+        }
         //bí ngô
-//        if (this.player.itemTime != null && this.player.itemTime.isBiNgo) {
-//            this.hpMax += (this.hpMax * 20 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh) {
-//            this.hpMax += (this.hpMax * 90 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh1) {
-//            this.hpMax += this.hpMax;
-//        }
+        if (this.player.itemTime != null && this.player.itemTime.isBiNgo) {
+            this.hpMax += (this.hpMax * 20 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh) {
+            this.hpMax += (this.hpMax * 90 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh1) {
+            this.hpMax += this.hpMax;
+        }
         // item sieu cawsp
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseBoHuyet3) {
-//            this.hpMax += (this.hpMax * 20 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseXiMuoi) {
-//            this.hpMax += (this.hpMax * 20 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4042) {
-//            this.hpMax += (this.hpMax * 10 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4043) {
-//            this.hpMax += (this.hpMax * 20 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4125) {
-//            this.hpMax += (this.hpMax * 30 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4126) {
-//            this.hpMax += (this.hpMax * 50 / 100);
-//        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseBoHuyet3) {
+            this.hpMax += (this.hpMax * 20 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseXiMuoi) {
+            this.hpMax += (this.hpMax * 20 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4042) {
+            this.hpMax += (this.hpMax * 10 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4043) {
+            this.hpMax += (this.hpMax * 20 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4125) {
+            this.hpMax += (this.hpMax * 30 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4126) {
+            this.hpMax += (this.hpMax * 50 / 100);
+        }
         if (this.player.zone != null && MapService.gI().isMapCold(this.player.zone.map) && !this.isKhongLanh) {
             this.hpMax /= 2;
         }
@@ -961,12 +964,12 @@ public class NPoint {
         }
 
         //đuôi khỉ
-//        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
-//            this.mpMax += ((double) this.mpMax * 10 / 100);
-//        }
-//        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
-//            this.mpMax += ((double) this.mpMax * 12 / 100);
-//        }
+        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
+            this.mpMax += ((double) this.mpMax * 10 / 100);
+        }
+        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
+            this.mpMax += ((double) this.mpMax * 12 / 100);
+        }
         //Kết hôn mp
         if (this.player.duockethon != 0) {
             this.mpMax += ((double) this.mpMax * (this.player.duockethon * 5) / 100);
@@ -979,46 +982,46 @@ public class NPoint {
             this.mpMax += ((double) this.mpMax * 50 / 100);
         }
         //bổ khí
-//        if (this.player.itemTime != null && this.player.itemTime.isUseBoKhi) {
-//            this.mpMax *= 2;
-//        }
-//        if (this.player.isPl() && this.player.isTitleUse3 && this.player.lastTimeTitle3 > 0) {
-//            this.mpMax += ((double) this.mpMax * 10 / 100);
-//        }
-//        if (this.player.isPl() && this.player.isTitleUse2 && this.player.lastTimeTitle2 > 0) {
-//            this.mpMax += ((double) this.mpMax * 10 / 100);
-//        }
-//        if (this.player.isPl() && this.player.isTitleUse1 && this.player.lastTimeTitle1 > 0) {
-//            this.mpMax += ((double) this.mpMax * 10 / 100);
-//        }
-//        //bí ngô
-//        if (this.player.itemTime != null && this.player.itemTime.isBiNgo) {
-//            this.mpMax += ((double) this.mpMax * 12 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseBoKhi3) {
-//            this.mpMax += ((double) this.mpMax * 20 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh) {
-//            this.mpMax += ((double) this.mpMax * 90 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh1) {
-//            this.mpMax += ((double) this.mpMax);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseXiMuoi) {
-//            this.mpMax += ((double) this.mpMax * 20 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4042) {
-//            this.mpMax += ((double) this.mpMax * 10 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4043) {
-//            this.mpMax += ((double) this.mpMax * 20 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4125) {
-//            this.mpMax += ((double) this.mpMax * 30 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4126) {
-//            this.mpMax += ((double) this.mpMax * 50 / 100);
-//        }
+        if (this.player.itemTime != null && this.player.itemTime.isUseBoKhi) {
+            this.mpMax *= 2;
+        }
+        if (this.player.isPl() && this.player.isTitleUse3 && this.player.lastTimeTitle3 > 0) {
+            this.mpMax += ((double) this.mpMax * 10 / 100);
+        }
+        if (this.player.isPl() && this.player.isTitleUse2 && this.player.lastTimeTitle2 > 0) {
+            this.mpMax += ((double) this.mpMax * 10 / 100);
+        }
+        if (this.player.isPl() && this.player.isTitleUse1 && this.player.lastTimeTitle1 > 0) {
+            this.mpMax += ((double) this.mpMax * 10 / 100);
+        }
+        //bí ngô
+        if (this.player.itemTime != null && this.player.itemTime.isBiNgo) {
+            this.mpMax += ((double) this.mpMax * 12 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseBoKhi3) {
+            this.mpMax += ((double) this.mpMax * 20 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh) {
+            this.mpMax += ((double) this.mpMax * 90 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh1) {
+            this.mpMax += ((double) this.mpMax);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseXiMuoi) {
+            this.mpMax += ((double) this.mpMax * 20 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4042) {
+            this.mpMax += ((double) this.mpMax * 10 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4043) {
+            this.mpMax += ((double) this.mpMax * 20 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4125) {
+            this.mpMax += ((double) this.mpMax * 30 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4126) {
+            this.mpMax += ((double) this.mpMax * 50 / 100);
+        }
         //phù
         if (this.player.zone != null && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
             this.mpMax *= this.player.effectSkin.xHPKI;
@@ -1128,16 +1131,9 @@ public class NPoint {
         }
 
         //đuôi khỉ
-//        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
-//            this.dame += ((double) this.dame * 15 / 100);
-//        }
-
-//        //Tu tiên
-//        if (this.player.isPl()) {
-//            if (!this.player.isPet && this.player.haveTuTien || this.player.isPet && ((Pet) this.player).master.haveTuTien) {
-//                this.dame += (double) this.dame * ((this.player.CapTuTien + 1) * 2) / 100;
-//            }
-//        }
+        if (!this.player.isPet && this.player.itemTime.isDuoikhi || this.player.isPet && ((Pet) this.player).master.itemTime.isDuoikhi) {
+            this.dame += ((double) this.dame * 15 / 100);
+        }
 
         //rồng siêu cấp
         if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isRongSieuCap) {
@@ -1151,57 +1147,56 @@ public class NPoint {
             this.dame += ((double) this.dame * this.player.dakethon * 10 / 100);
         }
 
-//        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
-//            this.dame += ((double) this.dame * 12 / 100);
-//        }
+        if (!this.player.isPet && this.player.itemTime.isUseMayDo2 || this.player.isPet && ((Pet) this.player).master.itemTime.isUseMayDo2) {
+            this.dame += ((double) this.dame * 12 / 100);
+        }
         //hợp thể
 
         //cuồng nộ
-//        if (this.player.itemTime != null && this.player.itemTime.isUseCuongNo) {
-//            this.dame *= 2;
-//        }
-        //bí ngô
-//        if (this.player.itemTime != null && this.player.itemTime.isBiNgo) {
-//            this.dame += ((double) this.dame * 20 / 100);
-//        }
-//        if (this.player.isPl() && this.player.isTitleUse3 && this.player.lastTimeTitle3 > 0) {
-//            this.dame += ((double) this.dame * 10 / 100);
-//        }
-//        if (this.player.isPl() && this.player.isTitleUse2 && this.player.lastTimeTitle2 > 0) {
-//            this.dame += ((double) this.dame * 10 / 100);
-//        }
-//        if (this.player.isPl() && this.player.isTitleUse1 && this.player.lastTimeTitle1 > 0) {
-//            this.dame += ((double) this.dame * 10 / 100);
-//        }
+        if (this.player.itemTime != null && this.player.itemTime.isUseCuongNo) {
+            this.dame *= 2;
+        }
+        if (this.player.itemTime != null && this.player.itemTime.isBiNgo) {
+            this.dame += ((double) this.dame * 20 / 100);
+        }
+        if (this.player.isPl() && this.player.isTitleUse3 && this.player.lastTimeTitle3 > 0) {
+            this.dame += ((double) this.dame * 10 / 100);
+        }
+        if (this.player.isPl() && this.player.isTitleUse2 && this.player.lastTimeTitle2 > 0) {
+            this.dame += ((double) this.dame * 10 / 100);
+        }
+        if (this.player.isPl() && this.player.isTitleUse1 && this.player.lastTimeTitle1 > 0) {
+            this.dame += ((double) this.dame * 10 / 100);
+        }
 
         //thức ăn
-//        if (!this.player.isPet && this.player.itemTimesieucap.isEatMeal || this.player.isPet && ((Pet) this.player).master.itemTimesieucap.isEatMeal) {
-//            this.dame += ((double) this.dame * 10 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseCuongNo3) {
-//            this.dame += ((double) this.dame * 20 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh) {
-//            this.dame += ((double) this.dame * 90 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh1) {
-//            this.dame += ((double) this.dame);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseXiMuoi) {
-//            this.dame += ((double) this.dame * 20 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4042) {
-//            this.dame += ((double) this.dame * 10 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4043) {
-//            this.dame += ((double) this.dame * 20 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4125) {
-//            this.dame += ((double) this.dame * 30 / 100);
-//        }
-//        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4126) {
-//            this.dame += ((double) this.dame * 50 / 100);
-//        }
+        if (!this.player.isPet && this.player.itemTimesieucap.isEatMeal || this.player.isPet && ((Pet) this.player).master.itemTimesieucap.isEatMeal) {
+            this.dame += ((double) this.dame * 10 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseCuongNo3) {
+            this.dame += ((double) this.dame * 20 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh) {
+            this.dame += ((double) this.dame * 90 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isBienhinh1) {
+            this.dame += ((double) this.dame);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseXiMuoi) {
+            this.dame += ((double) this.dame * 20 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4042) {
+            this.dame += ((double) this.dame * 10 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4043) {
+            this.dame += ((double) this.dame * 20 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4125) {
+            this.dame += ((double) this.dame * 30 / 100);
+        }
+        if (this.player.itemTimesieucap != null && this.player.itemTimesieucap.isUseTrungThu && this.player.itemTimesieucap.iconBanh == 4126) {
+            this.dame += ((double) this.dame * 50 / 100);
+        }
         //giảm dame
         this.dame -= ((double) this.dame * tlSubSD / 100);
         //map cold
