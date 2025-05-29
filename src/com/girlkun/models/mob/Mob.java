@@ -605,7 +605,7 @@ public class Mob {
             }
         }
         // roi hong ngoc khi danh quai
-        list.add(new ItemMap(zone, 861, Util.nextInt(1, 5), this.location.x, yEnd, player.id));
+        // list.add(new ItemMap(zone, 861, Util.nextInt(1, 5), this.location.x, yEnd, player.id));
 
         if (MapService.gI().isMapYardat(this.zone.map.mapId) && this.tempId == 0) {
             if (Util.isTrue(40, 100)) {
@@ -648,15 +648,15 @@ public class Mob {
         if (player.itemTime.isUseMayDo2) {
             list.add(new ItemMap(zone, 570, 1, x, yEnd, player.id));// cai nay sua sau nha
         }
-        if (Util.isTrue(10, 100)) {
-            byte nroquai = (byte) new Random().nextInt(Manager.itemIds_NR.length);
-            list.add(new ItemMap(zone, Manager.itemIds_NR[nroquai], 1, this.location.x, yEnd, player.id));
-        }
-        tileVang = player.nPoint.tlGold / 100;
-        if (Util.isTrue(5, 100)) {
-            int vang = (Util.nextInt(30000, 50000) + Util.nextInt(30000, 50000) * tileVang);
-            list.add(new ItemMap(zone, 190, vang, this.location.x, yEnd, player.id));
-        }
+        // if (Util.isTrue(10, 100)) {
+        //     byte nroquai = (byte) new Random().nextInt(Manager.itemIds_NR.length);
+        //     list.add(new ItemMap(zone, Manager.itemIds_NR[nroquai], 1, this.location.x, yEnd, player.id));
+        // }
+        // tileVang = player.nPoint.tlGold / 100;
+        // if (Util.isTrue(5, 100)) {
+        //     int vang = (Util.nextInt(30000, 50000) + Util.nextInt(30000, 50000) * tileVang);
+        //     list.add(new ItemMap(zone, 190, vang, this.location.x, yEnd, player.id));
+        // }
         if (Util.isTrue(1, 100) && (this.zone.map.mapId == 1 || this.zone.map.mapId == 2
                 || this.zone.map.mapId == 15 || this.zone.map.mapId == 16
                 || this.zone.map.mapId == 8 || this.zone.map.mapId == 9)) {
@@ -671,6 +671,9 @@ public class Mob {
                     list.add(Util.kogd(zone, 2002, 1, this.location.x, yEnd, player.id));
                     break;
             }
+        }
+        if (Util.isTrue(10, 100) && this.zone.map.mapId > 159 && this.zone.map.mapId < 160 ) {
+            list.add(new ItemMap(zone, 225, 1, this.location.x, yEnd, player.id));
         }
         if (Util.isTrue(6, 1000) && this.zone.map.mapId >= 141 && this.zone.map.mapId <= 142) {
             byte radaThuong = (byte) new Random().nextInt(Manager.manhradaThuong.length);
@@ -687,10 +690,10 @@ public class Mob {
         if (Util.isTrue(3, 100) && this.zone.map.mapId > 159 && this.zone.map.mapId < 164) {
             list.add(new ItemMap(zone, 2031, 1, this.location.x, this.location.y, player.id));
         }
-        if (Util.isTrue(10, 100)) {
-            byte randomVp4 = (byte) new Random().nextInt(Manager.danangcap.length);
-            list.add(Util.ratiDa(zone, Manager.danangcap[randomVp4], 1, this.location.x, yEnd, player.id));
-        }
+        // if (Util.isTrue(10, 100)) {
+        //     byte randomVp4 = (byte) new Random().nextInt(Manager.danangcap.length);
+        //     list.add(Util.ratiDa(zone, Manager.danangcap[randomVp4], 1, this.location.x, yEnd, player.id));
+        // }
         if (player.isPl()) {
             if (Util.isTrue(.5f, 100) && player.inventory.itemsBody.get(5).isNotNullItem() && player.inventory.haveOption(player.inventory.itemsBody, 5, 110)) {
                 byte randomVp2 = (byte) new Random().nextInt(Manager.spl.length);
@@ -701,28 +704,22 @@ public class Mob {
 //            byte randomVp3 = (byte) new Random().nextInt(Manager.thucan.length);
 //            list.add(new ItemMap(zone, Manager.thucan[randomVp3], 1, this.location.x, this.location.y, player.id));
 //        }
+
+
         if (Util.isTrue(40, 100) && this.zone.map.mapId > 155 && this.zone.map.mapId < 159) {
             list.add(new ItemMap(zone, 933, 1, this.location.x, yEnd, player.id));
         }
         if (Util.isTrue(5, 100) && this.zone.map.mapId == 159) {
             list.add(new ItemMap(zone, 934, 1, this.location.x, yEnd, player.id));
         }
-<<<<<<< HEAD
 
         if (Util.isTrue(50, 100) && this.zone.map.mapId == 44 ) {
             list.add(new ItemMap(zone, 1318, 1, this.location.x, this.location.y, player.id));
         }
-
-=======
-//        if (Util.isTrue(2, 100) && this.tempId == 65) {
-//            byte randomVp = (byte) new Random().nextInt(Manager.itemSkien.length);
-//            list.add(new ItemMap(zone, Manager.itemSkien[randomVp], 1, this.location.x, this.location.y, player.id));
-//        }
-//        if (Util.isTrue(5, 100) && this.zone.map.mapId == 155 && player.setClothes.setDHD == 5) {
-//            byte randomVp1 = (byte) new Random().nextInt(Manager.itemManh.length);
-//            list.add(new ItemMap(zone, Manager.itemManh[randomVp1], 1, this.location.x, this.location.y, player.id));
-//        }
->>>>>>> 0a6252a1756f5f030b4c03d99af7df9a1a70fd5d
+        
+        if (Util.isTrue(0.5f, 100) && this.tempId == 58) {
+            list.add(new ItemMap(zone, 720, 1, this.location.x, yEnd, player.id));
+        }
         if (Util.isTrue(0.5f, 100) && this.tempId == 58) {
             list.add(new ItemMap(zone, 720, 1, this.location.x, yEnd, player.id));
         }
@@ -750,16 +747,9 @@ public class Mob {
                 Service.getInstance().sendThongBao(player, "Bạn vừa nhận được " + slhn + " hồng ngọc");
             }
         }
-        if (Util.isTrue(30, 100) && this.tempId == 77) {
-            byte random = 1;
-            if (Util.isTrue(2, 100)) {
-                random = 2;
-            }
-            Item i = Manager.RUBY_REWARDS.get(Util.nextInt(0, Manager.RUBY_REWARDS.size() - 1));
-            i.quantity = random;
-            InventoryServiceNew.gI().addItemBag(player, i);
-            InventoryServiceNew.gI().sendItemBags(player);
-            Service.getInstance().sendThongBao(player, "Bạn vừa nhận được " + random + " hồng ngọc");
+        if (Util.isTrue(99, 100) && player.setClothes.tinhan == 5 || player.setClothes.nguyetan == 5 || player.setClothes.nhatan == 5) {
+            byte nroquai = (byte) new Random().nextInt(Manager.itemIds_NR.length);
+            list.add(new ItemMap(zone, Manager.itemIds_NR[nroquai], 1, this.location.x, yEnd, player.id));
         }
 //        if (Manager.SUKIEN == 1 && Util.isTrue(5, 100)) {
 //            if (this.isQuaiBay()) {

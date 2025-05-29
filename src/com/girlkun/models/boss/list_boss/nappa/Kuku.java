@@ -14,6 +14,7 @@ import com.girlkun.models.skill.Skill;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.PetService;
 import com.girlkun.services.Service;
+import com.girlkun.services.TaskService;
 import com.girlkun.utils.Util;
 import java.util.Random;
 import com.girlkun.models.boss.BossStatus;
@@ -28,6 +29,15 @@ public class Kuku extends Boss {
         super(BossID.KUKU, BossesData.KUKU);
     }
 
+    @Override
+    public void reward(Player plKill) {
+        if (Util.isTrue(50, 100)) {
+            ItemMap it = new ItemMap(this.zone, 1234, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
+            Service.getInstance().dropItemMap(this.zone, it);
+        }
+        TaskService.gI().checkDoneTaskKillBoss(plKill, this);
+    }
     
     @Override
     public void active() {
