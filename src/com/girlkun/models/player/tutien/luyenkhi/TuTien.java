@@ -7,7 +7,9 @@ import com.girlkun.models.player.tutien.base_tutien.BasePoint;
 import com.girlkun.models.player.tutien.base_tutien.IBaseAction;
 import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
 import com.girlkun.services.NpcService;
+import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
+import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
@@ -15,11 +17,12 @@ import java.util.Iterator;
 import java.util.List;
 
 public class TuTien extends BasePoint implements IBaseAction {
-    private List<Byte> typeHas = new ArrayList<>();
+    long lastTimeHoiPhuc;
     private static final String[] CANH_GIOI = new String[]{"Luyện Khí", "Trúc Cơ", "Kim Đan", "Nguyên Anh", "Hóa Thần", "Phong Thánh", "Thần Chiếu", "Huyền Linh", "Quy Nguyên", "Du Tầm", "Không Luân", "Tam Thiên", "Tứ Trụ", "Dạ Ma Thiên Cảnh", "Tu Di Sơn Chủ", "Tinh Hà Thánh Nhân", "Thần Quỷ Mạt Trắc", "Đạo Lộ Chi Cảnh", "Thánh Tôn Chi Cảnh"};
     private static final long[] LEVEL_EXP = new long[]{100, 200, 500, 1000, 5000, 60000, 200000, 3000000, 5000000, 10000000, 12_000_000, 15_000_000, 18_000_000, 20_000_000, 25_000_000, 30_000_000, 40_000_000, 60_000_000, 80_000_000}; // 19
     private static final long[] SUB_LEVEL_EXP = new long[]{100, 150, 200, 250, 300, 320, 350, 360, 370, 399};
     private static final long[] BASE_LINH_KHI = new long[]{1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000, 20000000, 50000000, 100000000, 200000000, 500000000, 1000000000};
+    private static final long[] BASE_SUB_LINH_KHI = new long[]{100, 200, 300, 400, 500, 600, 700, 800, 900};
     private static final long[] BASE_EXP_BUFF = new long[]{1, 2, 5, 10, 15, 20, 25, 50, 100, 120, 140, 200, 210, 230, 300, 350, 360, 400, 500};
 
     private static final long[] BASE_LINH_KHI_HOI_PHUC = new long[]{
@@ -52,7 +55,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     public TuTien(Player player) {
         super(player);
-        linhCan = new LinhCan();
+        linhCan = new LinhCan(this);
         congPhap = new CongPhap(this);
         tienPhaps = new ArrayList<>();
     }
@@ -108,7 +111,7 @@ public class TuTien extends BasePoint implements IBaseAction {
         // buff dame goc o day
         player.nPoint.dameAdd += player.nPoint.dameg * getDameBuff() / 100;
         player.nPoint.hpAdd += player.nPoint.hpg * getHPMPBuff() / 100;
-        player.nPoint.mpAdd += player.nPoint.mpg * getMaxExp() / 100;
+        player.nPoint.mpAdd += player.nPoint.mpg * getHPMPBuff() / 100;
         player.nPoint.defAdd += player.nPoint.defg * getDefBuff() / 100;
         player.nPoint.tlchinhxac += player.nPoint.tlchinhxac * getChinhXacBuff() / 100;
         player.nPoint.tlNeDon += player.nPoint.tlNeDon * getNeBuff() / 100;
@@ -120,6 +123,8 @@ public class TuTien extends BasePoint implements IBaseAction {
         if (congPhap != null) {
             congPhap.calcPoint(player);
         }
+        // send linh khi effect
+        PlayerService.gI().sendTuTienPoint(player);
     }
 
     @Override
@@ -136,14 +141,19 @@ public class TuTien extends BasePoint implements IBaseAction {
     public void hoiPhucLinhKhi() {
         if (linhKhiPoint < maxLinhKhiPoint) {
             int lv = Math.min(level, BASE_LINH_KHI_HOI_PHUC.length - 1);
-            long linhKhiCanHoiPhuc = (BASE_LINH_KHI_HOI_PHUC[lv] * congPhap.xTocDoKhoiPhucLinhKhi);
+            long linhKhiCanHoiPhuc = (BASE_LINH_KHI_HOI_PHUC[lv] * Math.max(1, congPhap.xTocDoKhoiPhucLinhKhi));
+            linhKhiCanHoiPhuc *= Util.nextInt(1, 3);
             addLinhKhi(linhKhiCanHoiPhuc);
+            lastTimeHoiPhuc = System.currentTimeMillis();
+            // send effect to server
+            PlayerService.gI().sendHoiPhucLinhKhi(player, linhKhiCanHoiPhuc);
+            PlayerService.gI().sendLinhKhiPoint(player);
         }
     }
 
     public long calcMaxLinhKhiPoint() {
-        long la = BASE_LINH_KHI[level] + (BASE_LINH_KHI[level] * congPhap.xLinhKhiBuff);
-        return (la + la * congPhap.tlLinhKhiBuff / 100) * congPhap.xLinhKhiBuff;
+        long la = BASE_LINH_KHI[level] + (BASE_LINH_KHI[level] * (Math.max(1, congPhap.xLinhKhiBuff))) + BASE_SUB_LINH_KHI[subLevel - 1];
+        return (la + (la * congPhap.tlLinhKhiBuff / 100)) * Math.max(1, congPhap.xLinhKhiBuff);
     }
 
     @Override
@@ -196,7 +206,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     @Override
     public void openSystem() {
-        if (player.luyenThe.level < 10) {
+        if (player.luyenThe.level < 10 && !player.isAdmin()) {
             Service.gI().sendThongBao(player, "Bạn cần đạt luyện thể cấp 10 để bắt đầu tu tiên");
             return;
         }
@@ -286,37 +296,37 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     @Override
     public float getDameBuff() {
-        return getBaseBuffByLevel(10) + (getSubLevelOtherBuff() * level);
+        return getBaseBuffByLevel(10) + (getSubLevelOtherBuff() * Math.max(1, level));
     }
 
     @Override
     public float getHPMPBuff() {
-        return getBaseBuffByLevel(12) + (getSubLevelHpMpBuff() * level);
+        return getBaseBuffByLevel(12) + (getSubLevelHpMpBuff() * Math.max(1, level));
     }
 
     @Override
     public float getDefBuff() {
-        return getBaseBuffByLevel(5) + (getSubLevelOtherBuff() * level);
+        return getBaseBuffByLevel(5) + (getSubLevelOtherBuff() * Math.max(1, level));
     }
 
     @Override
     public float getPSTBuff() {
-        return getBaseBuffByLevel(2) + (getSubLevelOtherBuff(0.1f) * level);
+        return getBaseBuffByLevel(2) + (getSubLevelOtherBuff(0.1f) * Math.max(1, level));
     }
 
     @Override
     public float getHutHPBuff() {
-        return getBaseBuffByLevel(1) + (getSubLevelOtherBuff(0.1f) * level);
+        return getBaseBuffByLevel(1) + (getSubLevelOtherBuff(0.1f) * Math.max(1, level));
     }
 
     @Override
     public float getHutMPBuff() {
-        return getBaseBuffByLevel(1) + (getSubLevelOtherBuff(0.1f) * level);
+        return getBaseBuffByLevel(1) + (getSubLevelOtherBuff(0.1f) * Math.max(1, level));
     }
 
     @Override
     public float getNeBuff() {
-        return getBaseBuffByLevel(1) + (getSubLevelOtherBuff(0.1f) * level);
+        return getBaseBuffByLevel(1) + (getSubLevelOtherBuff(0.1f) * Math.max(1, level));
     }
 
     @Override
@@ -328,20 +338,23 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     @Override
     public float getChinhXacBuff() {
-        return getBaseBuffByLevel(1) + (getSubLevelOtherBuff() * level);
+        return getBaseBuffByLevel(1) + (getSubLevelOtherBuff() * Math.max(1, level));
     }
 
     public void update() {
-        if (isTuTien()) {
+        if (isTuTien() && player.isPl()) {
             // dau tien la cong exp //
-            if (exp < maxExp) {
-                long expAdd = getXDiemThienPhu() * (BASE_EXP_BUFF[level] + (SUB_LEVEL_EXP[subLevel] / 10));
+            if (exp < maxExp && !player.isDie()) {
+                long expAdd = (long) (getXDiemThienPhu() * (BASE_EXP_BUFF[level] + (SUB_LEVEL_EXP[subLevel - 1] / 10)));
                 addExp(expAdd);
             }
-            if (linhKhiPoint < maxLinhKhiPoint) {
+            if (maxLinhKhiPoint == 0) {
+                maxLinhKhiPoint = calcMaxLinhKhiPoint();
+            }
+            if (congPhap.tenCongPhap != null && linhKhiPoint < maxLinhKhiPoint && !player.isDie() && Util.canDoWithTime(lastTimeHoiPhuc, 1000)) {
                 hoiPhucLinhKhi();
             }
-            if (congPhap.doThuanThuc < congPhap.maxDoThuanThuc) {
+            if (congPhap.tenCongPhap != null && congPhap.doThuanThuc < congPhap.maxDoThuanThuc) {
                 congPhap.autoAddDoTT();
             }
             // tu dong use linh ky
@@ -353,6 +366,7 @@ public class TuTien extends BasePoint implements IBaseAction {
                 iterator.remove();
                 break;
             }
+
         }
     }
 
@@ -386,6 +400,10 @@ public class TuTien extends BasePoint implements IBaseAction {
         return CANH_GIOI[level];
     }
 
+    public String getCurrentLevelStr() {
+        return CANH_GIOI[level] + " " + getSubLevelName(subLevel);
+    }
+
     public String getFormatName() {
         return String.format("%s", getNameByLevel(level) + " " + getSubLevelName(subLevel));
     }
@@ -407,7 +425,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public void hocCongPhap(int select) {
-        if (congPhap != null) {
+        if (congPhap.tenCongPhap != null) {
             Service.gI().sendThongBao(player, "Bạn đã học công pháp rồi mà.");
             return;
         }
@@ -491,11 +509,14 @@ public class TuTien extends BasePoint implements IBaseAction {
         return danhGia[0];
     }
 
-    private String getNextLevelStr() {
-        if (level + 1 < CANH_GIOI.length) {
-            return CANH_GIOI[level + 1];
+    public String getNextLevelStr() {
+        if (this.subLevel + 1 > 9) {
+            if (level + 1 < CANH_GIOI.length) {
+                return CANH_GIOI[level + 1] + getSubLevelName((byte) 0);
+            }
+            return CANH_GIOI[CANH_GIOI.length - 1] + getSubLevelName((byte) 9);
         }
-        return CANH_GIOI[CANH_GIOI.length - 1];
+        return CANH_GIOI[level] + getSubLevelName((byte) (subLevel + 1));
     }
 
     private String getYearOpened() {

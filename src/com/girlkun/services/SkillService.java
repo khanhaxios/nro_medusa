@@ -121,7 +121,7 @@ public class SkillService {
             int idSkill = player.playerSkill.skillSelect.template.id;
             if (player.petDaoLu != null) {
                 if (player.petDaoLu.status == 3) {
-                    player.petDaoLu.changeStatus((byte) 0);
+//                    player.petDaoLu.changeStatus((byte) 0);
                 }
                 if (player.petDaoLu.status == 0) {
                     if (player.petDaoLu.zone == player.zone) {
@@ -598,6 +598,9 @@ public class SkillService {
                         player.nPoint.numAttack = 0;
                         player.nPoint.stamina--;
                     }
+                    if (player.getMaster().khongThiSu != null && player.getMaster().khongThiSu.isKhongThi()) {
+                        player.getMaster().khongThiSu.addExp(player.getMaster().khongThiSu.getExpCanGain(mobTarget));
+                    }
                 } else {
                     ((Pet) player).askPea();
                     return;
@@ -704,7 +707,7 @@ public class SkillService {
                         }
                     }
                     for (Mob mob : mobs) {
-                        mob.injured(player, player.nPoint.getDameAttack(true), true); //mở thử
+                        mob.injured(player, player.nPoint.getDameAttack(true), true, (byte) 0); //mở thử
                     }
                     mobs.clear();
                     PlayerService.gI().sendInfoHpMpMoney(player);
@@ -949,7 +952,7 @@ public class SkillService {
                     double dame = player.nPoint.hpMax;
                     player.tusat = true;
                     for (Mob mob : player.zone.mobs) {
-                        mob.injured(player, dame, true);
+                        mob.injured(player, dame, true, (byte) 0);
                     }
                     List<Player> playersMap = null;
                     if (player.isBoss) {
@@ -1073,16 +1076,32 @@ public class SkillService {
     }
 
     private void playerAttackPlayer(Player plAtt, Player plInjure, boolean miss) {
+        if (plAtt.isBoss) return;
         if (plInjure.effectSkill.anTroi) {
             plAtt.nPoint.isCrit100 = true;
         }
         double dameHit = plInjure.injured(plAtt, miss ? 0 : plAtt.nPoint.getDameAttack(false), false, false);
         phanSatThuong(plAtt, plInjure, Util.DoubleGioihan(dameHit));
         hutHPMP(plAtt, dameHit, false);
+        sendMessagePlayerAttackPlayer(plAtt, plInjure, dameHit, (byte) 0);
+        // dame for linh can
+        if (plAtt.tuTien.isTuTien() && plAtt.tuTien.canHandleWithLinhKhiPoint(2)) {
+            double dame = dameHit * plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 100;
+            plInjure.injured(plAtt, dame, false, false);
+            sendMessagePlayerAttackPlayer(plAtt, plInjure, dame, (byte) 1);
+            plAtt.tuTien.subLinhKhiPercent(5);
+        }
+    }
+
+    private void sendMessagePlayerAttackPlayer(Player plAtt, Player plInjure, double dameHit, byte type) {
         Message msg;
         try {
             msg = new Message(-60);
             msg.writer().writeInt((int) plAtt.id); //id pem
+            msg.writer().writeByte(type); // type attack
+            if (type == 1) {
+                msg.writer().writeByte(plAtt.tuTien.linhCan.getLinhCanType());
+            }
             msg.writer().writeByte(plAtt.playerSkill.skillSelect.skillId); //skill pem
             msg.writer().writeByte(1); //số người pem
             msg.writer().writeInt((int) plInjure.id); //id ăn pem
@@ -1156,7 +1175,12 @@ public class SkillService {
             }
             hutHPMP(plAtt, dameHit, true);
             sendPlayerAttackMob(plAtt, mob);
-            mob.injured(plAtt, dameHit, dieWhenHpFull);
+            mob.injured(plAtt, dameHit, dieWhenHpFull, (byte) 0);
+            if (plAtt.tuTien.isTuTien() && plAtt.tuTien.canHandleWithLinhKhiPoint(1)) {
+                double dameH = dameHit * plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 100;
+                mob.injured(plAtt, dameH, dieWhenHpFull, (byte) 1);
+                plAtt.tuTien.subLinhKhiPercent(1);
+            }
         }
     }
 

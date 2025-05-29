@@ -69,6 +69,7 @@ import org.json.simple.JSONValue;
 
 public class Manager {
 
+    public static byte LEVEL_HARD = 20;
     public static final int GIA_QUY_DOI_BUA_ZENO = 2222;
     public static short[] setNguyenThuy = new short[]{1450, 1451, 1452};
     public static short[] setThanhTon = new short[]{1431, 1432, 1433, 1434, 1435};
@@ -79,7 +80,7 @@ public class Manager {
     public static byte SECOND_WAIT_LOGIN = 10;
     public static int MAX_PER_IP = 3;
     public static int MAX_PLAYER = 2000000;
-    public static byte RATE_EXP_SERVER = 2;
+    public static byte RATE_EXP_SERVER = 1;
     public static boolean LOCAL = false;
     public static byte SUKIEN = 0;// sau khi chinh
     public static final String[] CONTENT_SUKIEN
@@ -171,7 +172,7 @@ public class Manager {
     public static final byte[] itemIds_NR_SB = {15, 16};
     public static final byte[] itemIds_NR = {20, 19, 18, 17};
     public static final short[] SuKien_TrungThu = {1338, 1339, 1340};
-    public static final short[] spl = {441, 442, 443, 444, 445, 446, 447};
+    public static final short[] spl = {441, 442, 443, 444, 445, 446};
     public static final short[] manhradaVIP = {859, 956, 1257, 1258, 1259};
     public static final short[] manhradaThuong = {828, 829, 830, 831, 832, 833, 834, 835, 836, 837, 838, 839, 840, 841, 842};
     public static final short[] danangcap = {220, 221, 222, 223, 224};
@@ -895,16 +896,21 @@ public class Manager {
             ps = con.prepareStatement("select * from mob_template");
             rs = ps.executeQuery();
             while (rs.next()) {
+                // check hard
+                int hp = Math.min(rs.getInt("hp") * LEVEL_HARD, 2_000_000_000);
+                byte percentDame = (byte) Math.min(rs.getByte("percent_dame"), 124);
+                byte percentTN = (byte) Math.min(rs.getByte("percent_tiem_nang") / 2, 124);
+
                 MobTemplate mobTemp = new MobTemplate();
                 mobTemp.id = rs.getByte("id");
                 mobTemp.type = rs.getByte("type");
-                mobTemp.name = rs.getString("name");
-                mobTemp.hp = rs.getInt("hp");
+                mobTemp.name = rs.getString("name") + "[" + LEVEL_HARD + "]";
+                mobTemp.hp = hp;
                 mobTemp.rangeMove = rs.getByte("range_move");
                 mobTemp.speed = rs.getByte("speed");
                 mobTemp.dartType = rs.getByte("dart_type");
-                mobTemp.percentDame = rs.getByte("percent_dame");
-                mobTemp.percentTiemNang = rs.getByte("percent_tiem_nang");
+                mobTemp.percentDame = percentDame;
+                mobTemp.percentTiemNang = percentTN;
                 MOB_TEMPLATES.add(mobTemp);
             }
             Logger.success("Load mob template thành công (" + MOB_TEMPLATES.size() + ")\n");
@@ -1014,7 +1020,11 @@ public class Manager {
                         JSONArray dtm = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
                         mapTemplate.mobTemp[j] = Byte.parseByte(String.valueOf(dtm.get(0)));
                         mapTemplate.mobLevel[j] = Byte.parseByte(String.valueOf(dtm.get(1)));
-                        mapTemplate.mobHp[j] = Double.parseDouble(String.valueOf(dtm.get(2)));
+                        if (mapTemplate.mobTemp[j] == 0) {
+                            mapTemplate.mobHp[j] = Math.min(Double.parseDouble(String.valueOf(dtm.get(2))), 2_000_000_000);
+                        }else {
+                            mapTemplate.mobHp[j] = Math.min(Double.parseDouble(String.valueOf(dtm.get(2))) * LEVEL_HARD, 2_000_000_000);
+                        }
                         mapTemplate.mobX[j] = Short.parseShort(String.valueOf(dtm.get(3)));
                         mapTemplate.mobY[j] = Short.parseShort(String.valueOf(dtm.get(4)));
                         dtm.clear();

@@ -13,8 +13,9 @@ public class LinhCan {
     private ThuocTinhLinhCan thuocTinhLinhCan;
 
 
-    public LinhCan() {
+    public LinhCan(TuTien tuTien) {
         thuocTinhLinhCan = new ThuocTinhLinhCan();
+        this.tuTien = tuTien;
     }
 
     public String getThuocTinhName() {
@@ -46,7 +47,7 @@ public class LinhCan {
     }
 
     public void showMenuLinhCan() {
-        String npc = String.format("|7|Thông Tin Linh Căn\n|5|Linh Căn  : %s\n|5|Hiệu Quả : %s", getThuocTinhLinhCan(), thuocTinhLinhCan.getTenThuocTinhReplace());
+        String npc = String.format("|7|Thông Tin Linh Căn\n|5|Linh Căn  : %s\n|5|Hiệu Quả : %s", getLinhCanName(getThuocTinhLinhCan().getLinhCanBatBuoc()), thuocTinhLinhCan.getTenThuocTinhReplace());
         NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_TT_LINH_CAN, -1, npc, "Đóng");
     }
 }

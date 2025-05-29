@@ -92,6 +92,14 @@ public class InventoryServiceNew {
         return this.findItem(player.inventory.itemsBody, tempId);
     }
 
+    public Item findItemBody(Player player, short[] temids) {
+        Item item = null;
+        for (short id : temids) {
+            item = findItemBody(player, id);
+        }
+        return item;
+    }
+
     public Item findItemBag(Player player, int tempId) {
         return this.findItem(player.inventory.itemsBag, tempId);
     }
@@ -760,22 +768,22 @@ public class InventoryServiceNew {
 
     private boolean addItemSpecial(Player player, Item item) {
         //bùa
-        if (item.template.type == 13) {
-            int min = 0;
-            try {
-                String tagShopBua = player.iDMark.getShopOpen().tagName;
-                if (tagShopBua.equals("BUA_1H")) {
-                    min = 60;
-                } else if (tagShopBua.equals("BUA_8H")) {
-                    min = 60 * 8;
-                } else if (tagShopBua.equals("BUA_1M")) {
-                    min = 60 * 24 * 30;
-                }
-            } catch (Exception e) {
-            }
-            player.charms.addTimeCharms(item.template.id, min);
-            return true;
-        }
+//        if (item.template.type == 13) {
+//            int min = 0;
+//            try {
+//                String tagShopBua = player.iDMark.getShopOpen().tagName;
+//                if (tagShopBua.equals("BUA_1H")) {
+//                    min = 60;
+//                } else if (tagShopBua.equals("BUA_8H")) {
+//                    min = 60 * 8;
+//                } else if (tagShopBua.equals("BUA_1M")) {
+//                    min = 60 * 24 * 30;
+//                }
+//            } catch (Exception e) {
+//            }
+//            player.charms.addTimeCharms(item.template.id, min);
+//            return true;
+//        }
 
         switch (item.template.id) {
             case 568: //quả trứng
@@ -804,9 +812,9 @@ public class InventoryServiceNew {
         if (ItemMapService.gI().isBlackBall(item.template.id)) {
             return BlackBallWar.gI().pickBlackBall(player, item);
         }
-//        if (addItemSpecial(player, item)) {
-//            return true;
-//        }
+        if (addItemSpecial(player, item)) {
+            return true;
+        }
 
         //gold, gem, ruby
         switch (item.template.type) {
@@ -1011,5 +1019,25 @@ public class InventoryServiceNew {
         player.inventory.ruby += totalHn;
         InventoryServiceNew.gI().sendItemBags(player);
         Service.gI().sendMoney(player);
+    }
+
+    public Item findThuCuoiBody(Player player) {
+        Item item = null;
+        for (Item it : player.inventory.itemsBody) {
+            if (it.template.type == 24 || it.template.type == 23) {
+                item = it;
+            }
+        }
+        return item;
+    }
+
+    public Item findLinhThuBody(Player player) {
+        Item item = null;
+        for (Item it : player.inventory.itemsBody) {
+            if (it.template.type == 72) {
+                item = it;
+            }
+        }
+        return item;
     }
 }

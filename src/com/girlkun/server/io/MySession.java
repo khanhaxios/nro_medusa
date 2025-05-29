@@ -157,10 +157,10 @@ public class MySession extends Session {
                 //                        + "Vui lòng chờ thông báo trên box Zalo và đăng nhập lại sau!");
                 return;
             }
-            if (!Util.canDoWithTime(ServerManager.delaylogin, 10000)) {
-                Service.getInstance().sendThongBaoOK(this, "Vui lòng chờ 10 giây để vào Game khi vừa Bảo trì xong");
-                return;
-            }
+//            if (!Util.canDoWithTime(ServerManager.delaylogin, 10000)) {
+//                Service.getInstance().sendThongBaoOK(this, "Vui lòng chờ 10 giây để vào Game khi vừa Bảo trì xong");
+//                return;
+//            }
             if (Maintenance.isRuning) {
                 Service.getInstance().sendThongBaoOK(this, "Server đang trong thời gian bảo trì, vui lòng quay lại sau");
                 return;

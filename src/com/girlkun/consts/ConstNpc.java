@@ -166,12 +166,14 @@ public class ConstNpc {
     public static final byte NPC_GAP_THU = 87;
     public static final byte CHIEN_TRUONG = 88;
     public static final byte MEDUSA = 89;
+    public static final byte MEDUSA_TU_TIEN = 125;
     public static final byte NPC_KETHON = 90;
     public static final byte RONG_SIEU_CAP = 91;
     public static final byte GOKU = 92;
     public static final byte CAYNEU = 93;
     public static final byte GOKUTET = 94;
     public static final byte NPC_KICHDUC = 96;
+    public static final byte NPC_LUYEN_THE = 124;
 
     //----------------------index menu------------------------------------------
     //menu o len tang map mabu
@@ -405,6 +407,23 @@ public class ConstNpc {
     public static final int MENU_TT_LINH_CAN = -1231323;
     public static final int MENU_LUYEN_THE = -43333;
     public static final int CONFIRM_DOT_PHA_LUYEN_THE = -11112322;
+    public static final int MENU_PHU_CHU_SU = -1231241;
+    public static final int MENU_PHU_CHU_SU_CHE_BUA = -1413123;
+    public static final int MENU_NPC_LUYEN_THE = 123213121;
+    public static final int MENU_MO_LUYEN_THE = -312312;
+    public static final int MENU_TRUYEN_CONG_LUYEN_THE = 13123123;
+    public static final int MENU_PHU_SU = -12313134;
+    public static final int MENU_OPEN_TU_TIEN = -12312412;
+    public static final int MENU_TRAN_PHAP_SU = -1319873;
+    public static final int MENU_VE_CHAN_MENH = -89712393;
+    public static final int MENU_LINH_THUC = -91237189;
+    public static final int MENU_CHE_LINH_THUC = -237183109;
+    public static final int MENU_NGU_THU = -1231232;
+    public static final int MENU_KHONG_THI = -89731323;
+    public static final int MENU_MO_LINH_THUC = -6193871;
+    public static final int MENU_MO_TRAN_PHAP_SU = -67419323;
+    public static final int MENU_MO_NGU_THU = -5167312;
+    public static final int MENU_MO_KHONG_THI = -81237012;
 }
 
 /**

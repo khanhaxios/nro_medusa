@@ -23,6 +23,44 @@ public class PlayerService {
         return i;
     }
 
+    public void sendTuTienPoint(Player player) {
+        Message msg;
+        try {
+            msg = new Message(-124);
+            player.sendMessage(msg);
+            msg.cleanup();
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void sendHoiPhucLinhKhi(Player player, long exp) {
+        Message msg;
+        try {
+            msg = new Message(-124);
+            msg.writer().writeByte(1); // 1 là đọc hồi phục linh khí
+            msg.writer().writeLong(exp);
+            player.sendMessage(msg);
+            msg.cleanup();
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void sendLinhKhiPoint(Player player) {
+        Message msg;
+        try {
+            msg = new Message(-124);
+            msg.writer().writeByte(0);// 0 là send linh khi
+            msg.writer().writeLong(Util.DoubleGioihan(player.tuTien.linhKhiPoint));
+            msg.writer().writeLong(Util.DoubleGioihan(player.tuTien.maxLinhKhiPoint));
+            player.sendMessage(msg);
+            msg.cleanup();
+        } catch (Exception e) {
+
+        }
+    }
+
     public void sendOtherOrigan(Player player, byte type, double param) {
         Message msg;
         try {

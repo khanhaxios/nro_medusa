@@ -65,6 +65,10 @@ public class SetClothes {
     public boolean isDaoYeuLinhPhucMa;
     public boolean isThuongLinhDietMa;
 
+    public byte setTienTD;
+    public byte setTienNM;
+
+    public byte setTienXayda;
     // SET KiCH HOAT PHU KIEN
     public byte pkkhMedusa;
 
@@ -256,6 +260,22 @@ public class SetClothes {
                         case 192:
                             isActSet = true;
                             solomon++;
+                            break;
+                        case 254:
+                        case 257:
+                            isActSet = true;
+                            setTienTD++;
+                            break;
+                        case 255:
+                        case 258:
+                            isActSet = true;
+                            setTienNM++;
+                            break;
+                        case 256:
+                        case 259:
+                            isActSet = true;
+                            setTienXayda++;
+                            break;
                     }
                     if (isActSet) {
                         break;
@@ -529,6 +549,18 @@ public class SetClothes {
 
     public boolean isSetJiren() {
         return setJirenTD == 5 || setJirenNM == 5 || setJirenXD == 5;
+    }
+
+    public boolean isSetJirenTD() {
+        return setJirenTD == 5;
+    }
+
+    public boolean isSetJirenNM() {
+        return setJirenNM == 5;
+    }
+
+    public boolean isSetJirenXD() {
+        return setJirenXD == 5;
     }
 
     public boolean isSetGokuUI() {

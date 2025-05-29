@@ -1,12 +1,18 @@
 package com.girlkun.models.player;
 
+import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Pet.Pet;
 import BoMong.BoMong;
 import com.girlkun.models.map.MapMaBu.MapMaBu;
+import com.girlkun.models.player.tutien.khongthisu.KhongThiSu;
+import com.girlkun.models.player.tutien.linhthucsu.LinhThucSu;
 import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.models.player.tutien.luyenkhisu.LuyenKhiSu;
 import com.girlkun.models.player.tutien.luyenthe.LuyenThe;
+import com.girlkun.models.player.tutien.nguthusu.NguThuSu;
+import com.girlkun.models.player.tutien.phuchusu.PhuChuSu;
+import com.girlkun.models.player.tutien.tranphapsu.TranPhapSu;
 import com.girlkun.models.skill.PlayerSkill;
 
 import java.util.List;
@@ -40,18 +46,11 @@ import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.skill.Skill;
 //import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
 //import com.girlkun.server.Manager;
-import com.girlkun.services.Service;
+import com.girlkun.services.*;
 import com.girlkun.server.io.MySession;
 import com.girlkun.models.task.TaskPlayer;
 import com.girlkun.network.io.Message;
 import com.girlkun.server.Client;
-import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.FriendAndEnemyService;
-import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.ItemService;
-import com.girlkun.services.PetService;
-import com.girlkun.services.PlayerService;
-import com.girlkun.services.TaskService;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.services.func.ChonAiDay;
 import com.girlkun.services.func.CombineNew;
@@ -70,6 +69,7 @@ public class Player {
     public int pointPvpVip;
     public boolean autoUse;
     public boolean autoUseNow;
+    public TranPhapSu tranPhapSu;
     public boolean muanhieu;
     public boolean useCanCau;
     public long lasttimeCanCau;
@@ -170,6 +170,7 @@ public class Player {
     public IntrinsicPlayer playerIntrinsic;
     public Inventory inventory;
     public Taixiu taixiu;
+    public PhuChuSu phuChuSu;
     public PlayerSkill playerSkill;
     public CombineNew combineNew;
     public IDMark iDMark;
@@ -260,6 +261,10 @@ public class Player {
 
     public LuyenThe luyenThe;
 
+    public LinhThucSu linhThucSu;
+    public NguThuSu nguThuSu;
+    public KhongThiSu khongThiSu;
+
     public Player() {
         lastTimeSavePlayer = System.currentTimeMillis();
         lastTimeUseOption = System.currentTimeMillis();
@@ -292,6 +297,11 @@ public class Player {
         luyenKhiSu = new LuyenKhiSu(this);
         tuTien = new TuTien(this);
         luyenThe = new LuyenThe(this);
+        phuChuSu = new PhuChuSu(this);
+        tranPhapSu = new TranPhapSu(this);
+        linhThucSu = new LinhThucSu(this);
+        nguThuSu = new NguThuSu(this);
+        khongThiSu = new KhongThiSu(this);
     }
 
     //--------------------------------------------------------------------------
@@ -378,6 +388,9 @@ public class Player {
                 if (!iDMark.isBan()) {
                     if (tuTien != null) {
                         tuTien.update();
+                    }
+                    if (tranPhapSu != null) {
+                        tranPhapSu.update();
                     }
                     if (nPoint != null) {
                         nPoint.update();
@@ -857,8 +870,8 @@ public class Player {
     public String nhiemvuchienthan(int nhiemvu) {
         switch (nhiemvu) {
             case 10:
-                this.chienthan.maxcount = 100;
-                return "Giết 100 Boss Thần Zeno";
+                this.chienthan.maxcount = 10;
+                return "Giết 10 Boss Thần Zeno";
             case 9:
                 this.chienthan.maxcount = 10;
                 return "Giết 10 Boss Đôremon";
@@ -872,14 +885,14 @@ public class Player {
                 this.chienthan.maxcount = 5000;
                 return "Chưởng Chí mạng 5000 lần";
             case 5:
-                this.chienthan.maxcount = 5000;
-                return "Hạ 5.000 Quái bay";
+                this.chienthan.maxcount = 500;
+                return "Hạ 5.00 Quái bay";
             case 4:
-                this.chienthan.maxcount = 2000;
-                return "Nhặt 2000 Capsule Kì bí";
+                this.chienthan.maxcount = 1000;
+                return "Nhặt 1000 Capsule Kì bí";
             case 3:
-                this.chienthan.maxcount = 10;
-                return "Hộ tống Thành công Bé Quỳnh 10 lần";
+                this.chienthan.maxcount = 100;
+                return "Chế thành công 100 cái bùa";
             case 2:
                 this.chienthan.maxcount = 10;
                 return "Tìm được 10 Món đồ Thần linh bên Cold";

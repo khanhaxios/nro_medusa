@@ -315,16 +315,12 @@ public class ShopServiceNew {
             Service.getInstance().sendThongBao(player, "Không thể thực hiện");
             return;
         }
-        if (tagName.equals("BUA_1H") || tagName.equals("BUA_8H") || tagName.equals("BUA_1M")) {
-            buyItemBua(player, tempId);
-        } else {
-            if (VatphamKoMuanhieu(player, tempId) && player.muanhieu == true) {
-                if (player.soluongmuanhieu == 0 && player.idmuanhieu != -1) {
-                    Input.gI().muanhieu(player);
-                }
-            } else {
-                buyItem(player, tempId);
+        if (VatphamKoMuanhieu(player, tempId) && player.muanhieu == true) {
+            if (player.soluongmuanhieu == 0 && player.idmuanhieu != -1) {
+                Input.gI().muanhieu(player);
             }
+        } else {
+            buyItem(player, tempId);
         }
         Service.getInstance().sendMoney(player);
     }

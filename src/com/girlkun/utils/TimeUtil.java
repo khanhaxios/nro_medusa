@@ -1,5 +1,7 @@
 package com.girlkun.utils;
+
 import com.girlkun.utils.Logger;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,9 +18,8 @@ public class TimeUtil {
     public static final byte YEAR = 7;
 
     /**
-     *
-     * @param d1 thời gian bắt đầu
-     * @param d2 thời gian kết thúc
+     * @param d1   thời gian bắt đầu
+     * @param d2   thời gian kết thúc
      * @param type loại
      * @return khoảng cách thời gian theo loại
      */
@@ -55,8 +56,8 @@ public class TimeUtil {
             throw new Exception("Thời gian không hợp lệ");
         }
     }
-    
-    public static int getCurrDay(){
+
+    public static int getCurrDay() {
         Date date = new Date();
         return date.getDay();
     }
@@ -123,15 +124,19 @@ public class TimeUtil {
         Date date = new Date(System.currentTimeMillis() - subTime);
         return fm.format(date);
     }
-    
-    public static String formatTime(Date time, String format){
+
+    public static String formatTime(Date time, String format) {
         SimpleDateFormat fm = new SimpleDateFormat(format);
         return fm.format(time);
     }
-    
-    
-    public static String formatTime(long time, String format){
+
+
+    public static String formatTime(long time, String format) {
         SimpleDateFormat fm = new SimpleDateFormat(format);
         return fm.format(new Date(time));
+    }
+
+    public static String formatMinutes(long tdTriTue) {
+        return tdTriTue / 1000 / 60 + " Phút";
     }
 }
