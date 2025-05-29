@@ -557,6 +557,12 @@ public class NPoint {
         if (player.linhThucSu != null && player.linhThucSu.isLinhThuc()) {
             player.linhThucSu.calcPoint();
         }
+        if (player.nguThuSu != null && player.nguThuSu.isNguThu()) {
+            player.nguThuSu.calcPoint();
+        }
+        if (player.khongThiSu != null && player.khongThiSu.isKhongThi()) {
+            player.khongThiSu.calcPoint();
+        }
         setDameTrainArmor();
         setBasePoint();
     }
@@ -735,6 +741,12 @@ public class NPoint {
         //set solomon
         if (this.player.setClothes.solomon >= 2) {
             this.hpMax += (this.hpMax * 5 / 100);
+        }
+        if (this.player.setClothes.nguyenthuyxd == 5) {
+            this.hpMax += this.hpMax * 40 / 100;
+        }
+        if (this.player.setClothes.setTienXayda == 5) {
+            this.hpMax += this.hpMax * 250 / 100;
         }
         //khỉ
         if (this.player.effectSkill.isMonkey) {
@@ -1210,7 +1222,7 @@ public class NPoint {
         //set nhan hoang
         if (this.player.setClothes.NhanHoang == 5) {
             this.dame += ((double) this.dame * 10 / 100);
-            this.tlDameCrit.add(75);
+            this.tlDameCrit.add(35);
         }
         //set ma than namec (thanh ton )
         if (this.player.setClothes.MaThan == 5) {
@@ -1222,10 +1234,10 @@ public class NPoint {
             this.dame += ((double) this.dame * 5 / 100);
             this.tlDameCrit.add(75);
         }
-//        end thong kho
+//      nguyen thuy
         if (this.player.setClothes.nguyenthuytd == 5) {
             this.dame += ((double) this.dame * 15 / 100);
-            this.tlDameCrit.add(100);
+            this.tlDameCrit.add(75);
         }
         if (this.player.setClothes.nguyenthuyxd == 5) {
             this.dame += ((double) this.dame * 10 / 100);
@@ -1234,20 +1246,20 @@ public class NPoint {
         ///set NGUYEN THUY  nm
         if (this.player.setClothes.nguyenthuynm == 5) {
             this.dame += ((double) this.dame * 10 / 100);
-            this.tlDameCrit.add(100);
+            this.tlDameCrit.add(120);
         }
 
         if (this.player.setClothes.thongkhonm == 5) {
-            this.tlDameCrit.add(150);
+            this.tlDameCrit.add(175);
             this.dame += ((double) this.dame * 15 / 100);
         }
         if (this.player.setClothes.thongkhotd == 5) {
-            this.tlDameCrit.add(150);
-            this.dame += ((double) this.dame * 20 / 100);
+            this.tlDameCrit.add(120);
+            this.dame += ((double) this.dame * 25 / 100);
         }
 
         if (this.player.setClothes.thongkhoxd == 5) {
-            this.tlDameCrit.add(150);
+            this.tlDameCrit.add(200);
             this.dame += ((double) this.dame * 15 / 100);
         }
         //set solomon
@@ -1255,6 +1267,20 @@ public class NPoint {
             this.dame += ((double) this.dame * 3 / 100);
             this.tlDameCrit.add(10);
         }
+        // set tien
+        if (this.player.setClothes.setTienTD == 5) {
+            this.tlDameCrit.add(300);
+            this.dame += this.dame * 50 / 100;
+        }
+        if (this.player.setClothes.setTienNM == 5) {
+            this.tlDameCrit.add(350);
+            this.dame += this.dame * 40 / 100;
+        }
+        if (this.player.setClothes.setTienXayda == 5) {
+            this.tlDameCrit.add(400);
+            this.dame += this.dame * 40 / 100;
+        }
+
         //set nguyệt ấn
         if (this.player.setClothes.nguyetan == 5) {
             this.dame += ((double) this.dame * 3 / 100);
@@ -1287,9 +1313,17 @@ public class NPoint {
             this.tlDameCrit.add(200);
         }
         // Set KH Goku UI
-        if (this.player.setClothes.isSetGokuUI()) {
+        if (this.player.setClothes.isSetJirenTD()) {
             this.dame += this.dame * 30 / 100;
+            this.tlDameCrit.add(200);
+        }
+        if (this.player.setClothes.isSetJirenNM()) {
+            this.dame += this.dame * 25 / 100;
             this.tlDameCrit.add(250);
+        }
+        if (this.player.setClothes.isSetJirenXD()) {
+            this.dame += this.dame * 25 / 100;
+            this.tlDameCrit.add(300);
         }
         //khỉ
         if (this.player.effectSkill.isMonkey) {
@@ -1517,19 +1551,23 @@ public class NPoint {
                     percentXDame = 150;
                 }
                 if (this.player.setClothes.nguyenthuytd == 5) {
-                    percentXDame = 175;
+                    percentXDame = 220;
                 }
                 // thong kho
                 if (this.player.setClothes.thongkhotd == 5) {
-                    percentXDame = 200;
+                    percentXDame = 275;
                 }
                 // Jiren
                 if (this.player.setClothes.setJirenTD == 5) {
-                    percentXDame = 250;
+                    percentXDame = 350;
                 }
                 // Goku UI
                 if (this.player.setClothes.setGokuUITD == 5) {
-                    percentXDame = 300;
+                    percentXDame = 450;
+                }
+                // set tien
+                if (this.player.setClothes.setTienTD == 5) {
+                    percentXDame = 500;
                 }
                 break;
             case Skill.GALICK:
@@ -1544,30 +1582,26 @@ public class NPoint {
                     percentXDame = 120;
                 }
                 if (this.player.setClothes.nguyenthuyxd == 5) {
-                    percentXDame = 150;
+                    percentXDame = 130;
                 }
                 if (this.player.setClothes.thongkhoxd == 5) {
-                    percentXDame = 175;
+                    percentXDame = 160;
                 }
                 // Jiren
                 if (this.player.setClothes.setJirenXD == 5) {
-                    percentXDame = 200;
+                    percentXDame = 230;
                 }
                 // Goku UI
                 if (this.player.setClothes.setGokuUIXD == 5) {
                     percentXDame = 250;
                 }
+                if (this.player.setClothes.setTienXayda == 5) {
+                    percentXDame = 300;
+                }
                 break;
             case Skill.ANTOMIC:
                 if (intrinsic.id == 17) {
                     percentDameIntrinsic = intrinsic.param1;
-                }
-                percentDameSkill = skillSelect.damage;
-                if (this.player.setClothes.ThienTu == 5) {
-                    percentXDame = 120;
-                }
-                if (this.player.setClothes.nguyenthuyxd == 5) {
-                    percentXDame = 150;
                 }
                 break;
             case Skill.DEMON:
@@ -1582,10 +1616,10 @@ public class NPoint {
                 }
                 percentDameSkill = skillSelect.damage;
                 if (this.player.setClothes.MaThan == 5) {
-                    percentXDame = 120;
+                    percentXDame = 110;
                 }
                 if (this.player.setClothes.nguyenthuynm == 5) {
-                    percentXDame = 150;
+                    percentXDame = 140;
                 }
                 break;
             case Skill.KAIOKEN:
@@ -1602,11 +1636,11 @@ public class NPoint {
                 if (this.player.setClothes.nguyenthuytd == 5) {
                     percentXDame = 175;
                 }
+                if (this.player.setClothes.setTienTD == 5) {
+                    percentXDame = 250;
+                }
                 break;
-            case Skill.SUPER_KAME:
-                percentDameSkill = skillSelect.damage;
-                break;
-            case Skill.LIEN_HOAN_CHUONG:
+            case Skill.SUPER_KAME, Skill.LIEN_HOAN_CHUONG:
                 percentDameSkill = skillSelect.damage;
                 break;
             case Skill.LIEN_HOAN:
@@ -1618,21 +1652,24 @@ public class NPoint {
                     percentXDame = 100;
                 }
                 if (this.player.setClothes.MaThan == 5) {
-                    percentXDame = 110;
+                    percentXDame = 120;
                 }
                 if (this.player.setClothes.nguyenthuynm == 5) {
-                    percentXDame = 150;
+                    percentXDame = 140;
                 }
                 if (this.player.setClothes.thongkhonm == 5) {
                     percentXDame = 175;
                 }
                 // Jiren
                 if (this.player.setClothes.setJirenNM == 5) {
-                    percentXDame = 200;
+                    percentXDame = 250;
                 }
                 // Goku UI
                 if (this.player.setClothes.setGokuUINM == 5) {
-                    percentXDame = 250;
+                    percentXDame = 300;
+                }
+                if (this.player.setClothes.setTienNM == 5) {
+                    percentXDame = 350;
                 }
                 break;
             case Skill.DICH_CHUYEN_TUC_THOI:
@@ -1679,15 +1716,15 @@ public class NPoint {
         }
         dameAttack += dameAttack * percentXDame / 100;
         dameAttack = Util.GioiHannextdame(dameAttack - (dameAttack * 5 / 100), dameAttack + (dameAttack * 5 / 100));
-//        if (player.isPl()) {
-//            if (player.inventory.haveOption(player.inventory.itemsBody, 5, 159)) {
-//                if (Util.canDoWithTime(player.lastTimeUseOption, 60000) && SkillUtil.isSkillXDame(player.playerSkill.skillSelect.template.id)) {
-//                    dameAttack *= player.inventory.getParam(player.inventory.itemsBody.get(5), 159);
-//                    player.lastTimeUseOption = System.currentTimeMillis();
-//                    Service.getInstance().sendThongBao(player, "|1|Bạn vừa gây ra x" + player.inventory.getParam(player.inventory.itemsBody.get(5), 159) + " Sát thương chiêu thức cơ bản");
-//                }
-//            }
-//        }
+        if (player.isPl()) {
+            if (player.inventory.haveOption(player.inventory.itemsBody, 5, 159)) {
+                if (Util.canDoWithTime(player.lastTimeUseOption, 60000) && SkillUtil.isSkillXDame(player.playerSkill.skillSelect.template.id)) {
+                    dameAttack *= player.inventory.getParam(player.inventory.itemsBody.get(5), 159);
+                    player.lastTimeUseOption = System.currentTimeMillis();
+                    Service.getInstance().sendThongBao(player, "|1|Bạn vừa gây ra x" + player.inventory.getParam(player.inventory.itemsBody.get(5), 159) + " Sát thương chiêu thức cơ bản");
+                }
+            }
+        }
         if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 6 || this.player.TrieuHoiCapBac == 9 || this.player.TrieuHoiCapBac == 10)) {
             switch (this.player.TrieuHoiCapBac) {
                 case 6:

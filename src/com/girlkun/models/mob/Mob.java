@@ -409,7 +409,7 @@ public class Mob {
             msg = new Message(-10);
             msg.writer().writeByte(this.id);
             msg.writer().writeInt((int) player.id);
-            msg.writer().writeInt(Util.DoubleGioihana(player.nPoint.hp));
+            msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hp));
             Service.getInstance().sendMessAnotherNotMeInMap(player, msg);
             msg.cleanup();
         } catch (IOException e) {

@@ -26,12 +26,11 @@ public class KhongThiSu extends BasePoint implements IBaseAction {
     }
 
     public void update() {
-
     }
 
     @Override
     public long getExpCanGain(Mob targetMob) {
-        return level * 10;
+        return ((level + targetMob.level) * 10);
     }
 
     @Override
@@ -72,15 +71,15 @@ public class KhongThiSu extends BasePoint implements IBaseAction {
             case 1:
                 return 100f;
             case 2:
-                return 50f;
+                return 20;
             case 3:
-                return 25f;
+                return 15f;
             case 4:
-                return 10f;
-            case 5:
                 return 5f;
-            case 6:
+            case 5:
                 return 3f;
+            case 6:
+                return 2f;
             case 7:
                 return 1f;
         }

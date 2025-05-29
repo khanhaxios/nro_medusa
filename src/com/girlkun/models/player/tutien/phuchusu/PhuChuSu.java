@@ -80,15 +80,15 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
             case 1:
                 return 100f;
             case 2:
-                return 50f;
+                return 20;
             case 3:
-                return 25f;
+                return 15f;
             case 4:
-                return 10f;
-            case 5:
                 return 5f;
-            case 6:
+            case 5:
                 return 3f;
+            case 6:
+                return 2f;
             case 7:
                 return 1f;
         }
@@ -143,6 +143,9 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
             InventoryServiceNew.gI().addItemBag(player, item);
             InventoryServiceNew.gI().sendItemBags(player);
             exxxxp += getExpCanGain(null) * Util.nextInt(1, 5);
+            if (player.chienthan.tasknow == 3) {
+                player.chienthan.dalamduoc++;
+            }
         } else {
             CombineServiceNew.gI().sendEffectFailCombine(player);
             Service.gI().sendThongBao(player, "Chế bùa thất bại");
@@ -163,6 +166,10 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
     }
 
     public void cheBuaVIP() {
+        if (this.level < 4) {
+            Service.gI().sendThongBao(player, "Bạn cần đạt phù sư cấp tông sư để chế bùa vip");
+            return;
+        }
         if (!canCheBua()) {
             Service.gI().sendThongBao(player, "Bạn không đủ linh lực để chế bùa");
             return;
@@ -204,6 +211,9 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
             InventoryServiceNew.gI().addItemBag(player, item);
             exxxxp += getExpCanGain(null) * Util.nextInt(1, 10);
             InventoryServiceNew.gI().sendItemBags(player);
+            if (player.chienthan.tasknow == 3) {
+                player.chienthan.dalamduoc++;
+            }
         } else {
             CombineServiceNew.gI().sendEffectFailCombine(player);
             Service.gI().sendThongBao(player, "Chế bùa thất bại");
@@ -214,16 +224,20 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
 
     @Override
     public void openSystem() {
-        if (player.tuTien.level < 2) {
-            Service.gI().sendThongBao(player, "Bạn cần đạt trúc cơ để học phù chú");
+        if (player.tuTien.level < 4 && !player.isAdmin()) {
+            Service.gI().sendThongBao(player, "Bạn cần đạt Nguyên Anh để học phù chú");
             return;
         }
         // add but chi
         Item item = ItemService.gI().createNewItem((short) 2047, 1);
         item.itemOptions.add(new Item.ItemOption(12, 99999));
         InventoryServiceNew.gI().addItemBag(player, item);
+        // add thay thep
+        Item item1 = ItemService.gI().createNewItem((short) 2046, 99);
+        item1.itemOptions.add(new Item.ItemOption(30, 1));
+        InventoryServiceNew.gI().addItemBag(player, item1);
         InventoryServiceNew.gI().sendItemBags(player);
-        Service.gI().sendThongBao(player, "Bạn nhận được x" + item.template.name);
+        Service.gI().sendThongBao(player, "Bạn nhận được x" + item.template.name + ",x99" + item1.template.name);
         this.levelUp();
     }
 

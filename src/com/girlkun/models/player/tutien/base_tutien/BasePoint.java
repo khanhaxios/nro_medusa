@@ -1,6 +1,7 @@
 package com.girlkun.models.player.tutien.base_tutien;
 
 import com.girlkun.models.player.Player;
+import com.girlkun.services.PlayerService;
 
 public abstract class BasePoint {
     public Player player;
@@ -158,5 +159,6 @@ public abstract class BasePoint {
         if (linhKhiPoint < 0) {
             linhKhiPoint = 0;
         }
+        PlayerService.gI().sendLinhKhiPoint(player);
     }
 }

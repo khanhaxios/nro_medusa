@@ -598,6 +598,9 @@ public class SkillService {
                         player.nPoint.numAttack = 0;
                         player.nPoint.stamina--;
                     }
+                    if (player.getMaster().khongThiSu != null && player.getMaster().khongThiSu.isKhongThi()) {
+                        player.getMaster().khongThiSu.addExp(player.getMaster().khongThiSu.getExpCanGain(mobTarget));
+                    }
                 } else {
                     ((Pet) player).askPea();
                     return;
@@ -1082,7 +1085,7 @@ public class SkillService {
         hutHPMP(plAtt, dameHit, false);
         sendMessagePlayerAttackPlayer(plAtt, plInjure, dameHit, (byte) 0);
         // dame for linh can
-        if (plAtt.tuTien.isTuTien() && plAtt.tuTien.canHandleWithLinhKhiPoint(5)) {
+        if (plAtt.tuTien.isTuTien() && plAtt.tuTien.canHandleWithLinhKhiPoint(2)) {
             double dame = dameHit * plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 100;
             plInjure.injured(plAtt, dame, false, false);
             sendMessagePlayerAttackPlayer(plAtt, plInjure, dame, (byte) 1);

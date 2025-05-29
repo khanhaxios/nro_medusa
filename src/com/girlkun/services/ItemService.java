@@ -1511,7 +1511,7 @@ public class ItemService {
                 param = Util.nextInt(4000, 9000);
                 break;
             case 14:
-                Util.nextInt(5, 15);
+                Util.nextInt(5, 14);
                 break;
         }
         return randommOptionForCheDo(item, param, paramID);
@@ -1542,7 +1542,7 @@ public class ItemService {
                 param = Util.nextInt(10000, 12000);
                 break;
             case 14:
-                Util.nextInt(6, 20);
+                Util.nextInt(6, 18);
                 break;
         }
         return randommOptionForCheDo(item, param, paramID);
@@ -1613,7 +1613,7 @@ public class ItemService {
                 param = Util.nextInt(16200, 21000);
                 break;
             case 14:
-                Util.nextInt(12, 30);
+                Util.nextInt(12, 20);
                 break;
         }
         return randommOptionForCheDo(item, param, paramID);
@@ -1665,7 +1665,7 @@ public class ItemService {
                 param = Util.nextInt(28555, 32000);
                 break;
             case 14:
-                Util.nextInt(25, 50);
+                Util.nextInt(15,18 );
                 break;
         }
         return randommOptionForCheDo(item, param, paramID);

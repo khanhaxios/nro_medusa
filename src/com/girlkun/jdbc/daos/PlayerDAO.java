@@ -41,7 +41,7 @@ public class PlayerDAO {
 
             dataArray.add(100000); //vàng
             dataArray.add(1000000000); //ngọc xanh
-            dataArray.add(1000000); //hồng ngọc
+            dataArray.add(100_000); //hồng ngọc
             dataArray.add(0); //point
             dataArray.add(0); //event
 
@@ -126,7 +126,7 @@ public class PlayerDAO {
                     opt.add(30); //id option
                     opt.add(1); //param option
                     item.add(457); //id item
-                    item.add(1000); //số lượng
+                    item.add(100); //số lượng
                     options.add(opt.toJSONString());
                     opt.clear();
                 } //                else if (i == 1) { //quần
@@ -1125,7 +1125,7 @@ public class PlayerDAO {
                 dataBasePoint.add(player.tuTien.linhCan.getThuocTinhLinhCan().getLinhCanBatBuoc());
                 jsonArray.add(dataBasePoint);
                 dataBasePoint = new JSONArray();
-                if (player.tuTien.congPhap.tenCongPhap!=null){
+                if (player.tuTien.congPhap.tenCongPhap != null) {
                     dataBasePoint.add(player.tuTien.congPhap.tlDameBuff);
                     dataBasePoint.add(player.tuTien.congPhap.tlHpBuff);
                     dataBasePoint.add(player.tuTien.congPhap.tlMpBuff);
@@ -1200,10 +1200,24 @@ public class PlayerDAO {
                 dataTranPhap = jsonArray.toJSONString();
                 jsonArray.clear();
             }
+            if (player.nguThuSu != null && player.nguThuSu.isNguThu()) {
+                jsonArray.add(player.nguThuSu.level);
+                jsonArray.add(player.nguThuSu.exp);
+                jsonArray.add(player.nguThuSu.maxExp);
+                dataNguThu = jsonArray.toJSONString();
+                jsonArray.clear();
+            }
+            if (player.khongThiSu != null && player.khongThiSu.isKhongThi()) {
+                jsonArray.add(player.khongThiSu.level);
+                jsonArray.add(player.khongThiSu.exp);
+                jsonArray.add(player.khongThiSu.maxExp);
+                dataKT = jsonArray.toJSONString();
+                jsonArray.clear();
+            }
             // save sql
-       int rowEffect =      GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?  where player_id=?",
+            int rowEffect = GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?  where player_id=?",
                     dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, player.id);
-        Logger.log(String.valueOf(rowEffect));
+            Logger.log(String.valueOf(rowEffect));
         } catch (Exception e) {
             Logger.error("Loi save data tu tien" + e.getMessage());
         }

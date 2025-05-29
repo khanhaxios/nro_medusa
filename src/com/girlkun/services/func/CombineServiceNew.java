@@ -398,11 +398,13 @@ public class CombineServiceNew {
                     Item bongTai = null;
                     Item manhVo = null;
                     int star = 0;
+                    int nextLevel = 0;
                     for (Item item : player.combineNew.itemsCombine) {
                         if (item.template.id == 1318) {
                             manhVo = item;
                         } else if (item.template.id >= 1300 && item.template.id <= 1308) {
                             bongTai = item;
+                            nextLevel = bongTai.template.id + 1;
                             star = item.template.id - 1300;
                         }
                     }
@@ -410,6 +412,32 @@ public class CombineServiceNew {
                         this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Chân Mệnh đã đạt cấp tối đa", "Đóng");
                         return;
                     }
+                    if (nextLevel > 1300 && nextLevel <= 1302) {
+                        if (player.tranPhapSu.level < 2) {
+                            Service.gI().sendThongBao(player, "Cần đạt trận pháp sư cấp 2 để chế tạo");
+                            return;
+                        }
+                    }
+
+                    if (nextLevel > 1302 && nextLevel <= 1304) {
+                        if (player.tranPhapSu.level < 4) {
+                            Service.gI().sendThongBao(player, "Cần đạt trận pháp sư cấp 4 để chế tạo");
+                            return;
+                        }
+                    }
+                    if (nextLevel > 1304 && nextLevel <= 1306) {
+                        if (player.tranPhapSu.level < 6) {
+                            Service.gI().sendThongBao(player, "Cần đạt trận pháp sư cấp 6 để chế tạo");
+                            return;
+                        }
+                    }
+                    if (nextLevel > 1306 && nextLevel <= 1308) {
+                        if (player.tranPhapSu.level < 7) {
+                            Service.gI().sendThongBao(player, "Cần đạt trận pháp sư cấp 7 để chế tạo");
+                            return;
+                        }
+                    }
+
                     player.combineNew.DiemNangcap = getDiemNangcapChanmenh(star);
                     player.combineNew.DaNangcap = getDaNangcapChanmenh(star);
                     player.combineNew.TileNangcap = getTiLeNangcapChanmenh(star);
@@ -1419,6 +1447,7 @@ public class CombineServiceNew {
         InventoryServiceNew.gI().sendItemBags(player);
         InventoryServiceNew.gI().subQuantityItemsBag(player, da, 1);
         InventoryServiceNew.gI().subQuantityItemsBag(player, devuongthach, 10);
+        InventoryServiceNew.gI().sendItemBags(player);
         reOpenItemCombine(player);
     }
 
@@ -1430,28 +1459,28 @@ public class CombineServiceNew {
 
     private void kichHoatThuong(Player player, Item trangbi) {
         // get skh option
-        trangbi.itemOptions.add(new ItemOption(ItemService.gI().optionIdSKH(idsSkh[player.gender]), 0));
-        trangbi.itemOptions.add(new ItemOption(idsSkh[player.gender], 0));
+        trangbi.itemOptions.add(new ItemOption(ItemService.gI().optionIdSKH(idsSkh[trangbi.template.gender]), 0));
+        trangbi.itemOptions.add(new ItemOption(idsSkh[trangbi.template.gender], 0));
     }
 
     private void kichHoatNguyenThuy(Player player, Item trangbi) {
-        trangbi.itemOptions.add(new ItemOption(ItemService.gI().optionIdSKH(idsSKHNT[player.gender]), 0));
-        trangbi.itemOptions.add(new ItemOption(idsSKHNT[player.gender], 0));
+        trangbi.itemOptions.add(new ItemOption(ItemService.gI().optionIdSKH(idsSKHNT[trangbi.template.gender]), 0));
+        trangbi.itemOptions.add(new ItemOption(idsSKHNT[trangbi.template.gender], 0));
     }
 
     private void kichHoatThongKho(Player player, Item trangbi) {
-        trangbi.itemOptions.add(new ItemOption(ItemService.gI().optionIdSKH(idSKHTK[player.gender]), 0));
-        trangbi.itemOptions.add(new ItemOption(idSKHTK[player.gender], 0));
+        trangbi.itemOptions.add(new ItemOption(ItemService.gI().optionIdSKH(idSKHTK[trangbi.template.gender]), 0));
+        trangbi.itemOptions.add(new ItemOption(idSKHTK[trangbi.template.gender], 0));
     }
 
     private void kichHoatJiren(Player player, Item trangbi) {
-        trangbi.itemOptions.add(new ItemOption(ItemService.gI().optionIdSKH(idSKHJIREN[player.gender]), 0));
-        trangbi.itemOptions.add(new ItemOption(idSKHJIREN[player.gender], 0));
+        trangbi.itemOptions.add(new ItemOption(ItemService.gI().optionIdSKH(idSKHJIREN[trangbi.template.gender]), 0));
+        trangbi.itemOptions.add(new ItemOption(idSKHJIREN[trangbi.template.gender], 0));
     }
 
     private void kichHoatGoku(Player player, Item trangbi) {
-        trangbi.itemOptions.add(new ItemOption(ItemService.gI().optionIdSKH(idSKHGOKU[player.gender]), 0));
-        trangbi.itemOptions.add(new ItemOption(idSKHGOKU[player.gender], 0));
+        trangbi.itemOptions.add(new ItemOption(ItemService.gI().optionIdSKH(idSKHGOKU[trangbi.template.gender]), 0));
+        trangbi.itemOptions.add(new ItemOption(idSKHGOKU[trangbi.template.gender], 0));
     }
 
     public void GetTrangBiKichHoathuydiet(Player player, int id) {
@@ -3672,23 +3701,23 @@ public class CombineServiceNew {
             case 0:
                 return 100f;
             case 1:
-                return 95f;
+                return 50f;
             case 2:
-                return 90f;
-            case 3:
-                return 80f;
-            case 4:
-                return 70f;
-            case 5:
-                return 65f;
-            case 6:
-                return 60f;
-            case 7:
                 return 20f;
-            case 8:
+            case 3:
                 return 10f;
-            case 9:
+            case 4:
+                return 8f;
+            case 5:
+                return 6f;
+            case 6:
                 return 5f;
+            case 7:
+                return 3f;
+            case 8:
+                return 2f;
+            case 9:
+                return 1f;
             case 10:
                 return 2f;
             case 11:

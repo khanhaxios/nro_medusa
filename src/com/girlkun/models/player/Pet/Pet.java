@@ -64,20 +64,29 @@ public class Pet extends Player {
         if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
             Service.gI().chat(this, "Sao tao phải nghe mày");
             this.status = (byte) Util.nextInt(0, 3);
+            handleWithStatus(status);
+        } else if (master.khongThiSu != null) {
+            if (master.khongThiSu.level + 2 < this.typePet) {
+                Service.gI().chat(this, "Sao tao phải nghe mày");
+                this.status = (byte) Util.nextInt(0, 3);
+                handleWithStatus(status);
+            }
         } else {
             if (goingHome || master.fusion.typeFusion != 0 || (this.isDie() && status == FUSION)) {
                 Service.getInstance().sendThongBao(master, "Không thể thực hiện");
                 return;
             }
-            Service.getInstance().chatJustForMe(master, this, getTextStatus(status));
-            if (status == GOHOME) {
-                goHome();
-            } else if (status == FUSION) {
-                fusion(false);
-            }
+            handleWithStatus(status);
             this.status = status;
         }
+    }
 
+    private void handleWithStatus(byte status) {
+        Service.getInstance().chatJustForMe(master, this, getTextStatus(status));
+        switch (status) {
+            case GOHOME -> goHome();
+            case FUSION -> fusion(false);
+        }
     }
 
     public void joinMapMaster() {
@@ -124,7 +133,7 @@ public class Pet extends Player {
 
     public void fusion2(boolean porata) {
         int percent = 100;
-        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi() || master.khongThiSu.level + 2 < typePet) {
             percent = 50;
         }
         if (this.isDie()) {
@@ -155,7 +164,7 @@ public class Pet extends Player {
 
     public void fusion3(boolean porata) {
         int percent = 100;
-        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi() || master.khongThiSu.level + 2 < typePet) {
             percent = 50;
         }
         if (this.isDie()) {
@@ -185,7 +194,7 @@ public class Pet extends Player {
 
     public void fusion4(boolean porata) {
         int percent = 100;
-        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi() || master.khongThiSu.level + 2 < typePet) {
             percent = 50;
         }
         if (this.isDie()) {
@@ -215,7 +224,7 @@ public class Pet extends Player {
 
     public void fusion5(boolean porata) {
         int percent = 100;
-        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi() || master.khongThiSu.level + 2 < typePet) {
             percent = 50;
         }
         if (this.isDie()) {
@@ -245,7 +254,7 @@ public class Pet extends Player {
 
     public void fusion6(boolean porata) {
         int percent = 100;
-        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi() || master.khongThiSu.level + 2 < typePet) {
             percent = 50;
         }
         if (this.isDie()) {
@@ -275,7 +284,7 @@ public class Pet extends Player {
 
     public void fusion(boolean porata) {
         int percent = 100;
-        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi() || master.khongThiSu.level + 2 < typePet) {
             percent = 50;
         }
         if (this.isDie()) {

@@ -92,6 +92,14 @@ public class InventoryServiceNew {
         return this.findItem(player.inventory.itemsBody, tempId);
     }
 
+    public Item findItemBody(Player player, short[] temids) {
+        Item item = null;
+        for (short id : temids) {
+            item = findItemBody(player, id);
+        }
+        return item;
+    }
+
     public Item findItemBag(Player player, int tempId) {
         return this.findItem(player.inventory.itemsBag, tempId);
     }
@@ -1011,5 +1019,25 @@ public class InventoryServiceNew {
         player.inventory.ruby += totalHn;
         InventoryServiceNew.gI().sendItemBags(player);
         Service.gI().sendMoney(player);
+    }
+
+    public Item findThuCuoiBody(Player player) {
+        Item item = null;
+        for (Item it : player.inventory.itemsBody) {
+            if (it.template.type == 24 || it.template.type == 23) {
+                item = it;
+            }
+        }
+        return item;
+    }
+
+    public Item findLinhThuBody(Player player) {
+        Item item = null;
+        for (Item it : player.inventory.itemsBody) {
+            if (it.template.type == 72) {
+                item = it;
+            }
+        }
+        return item;
     }
 }

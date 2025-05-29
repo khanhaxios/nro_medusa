@@ -2749,7 +2749,8 @@ public class NpcFactory {
                     if (player.iDMark.isBaseMenu()) {
                         switch (select) {
                             case 0:
-                                this.createOtherMenu(player, ConstNpc.QUY_DOI_BUA_ZENO, "|7|QUY ĐỔI BÙA ZENO\n|6|Quy đổi Bùa Zeno\n\n|1|Tiền hiện còn : " + " " + Util.format(player.getSession().vnd) + "\n\n" + String.format("|5|Giá %s Điểm 1 Bùa Zeno\n\n Con muốn đổi bao nhiêu?", Util.format(Manager.GIA_QUY_DOI_BUA_ZENO)), "1 bùa", "10 bùa", "100 bùa", "1000 bùa", "Đổi tất\ncả", "Từ chối");
+                                Service.gI().sendThongBaoOK(player, "Có cái nịt");
+//                                this.createOtherMenu(player, ConstNpc.QUY_DOI_BUA_ZENO, "|7|QUY ĐỔI BÙA ZENO\n|6|Quy đổi Bùa Zeno\n\n|1|Tiền hiện còn : " + " " + Util.format(player.getSession().vnd) + "\n\n" + String.format("|5|Giá %s Điểm 1 Bùa Zeno\n\n Con muốn đổi bao nhiêu?", Util.format(Manager.GIA_QUY_DOI_BUA_ZENO)), "1 bùa", "10 bùa", "100 bùa", "1000 bùa", "Đổi tất\ncả", "Từ chối");
                                 break;
                             case 1:
                                 if (Manager.KHUYEN_MAI_NAP != 1) {
@@ -6637,24 +6638,44 @@ public class NpcFactory {
                         if (player.iDMark.isBaseMenu()) {
                             switch (select) {
                                 case 0:
-                                    createOtherMenu(player,
-                                            ConstNpc.MENU_PHU_SU, "Học chế bùa cần đạt tu tiên cấp 4 và luyện thể cấp 10 thêm 100k điểm nữa nhé", "Học", "Từ chối");
+                                    createOtherMenu(player, ConstNpc.MENU_PHU_SU, "Học chế bùa cần đạt tu tiên cấp 4 và luyện thể cấp 10 thêm 100k điểm nữa nhé", "Học", "Từ chối");
                                     break;
                                 case 1:
-                                    Service.gI().sendThongBao(player, "Tính năng đang phát triển");
+                                    createOtherMenu(player, ConstNpc.MENU_MO_TRAN_PHAP_SU, "Học trận pháp cần đạt tu tiên cấp Nguyên Anh và  luyện thể tầng 10 thêm 100k điểm nữa nhé", "Học", "Từ chối");
                                     break;
                                 case 2:
-                                    Service.gI().sendThongBao(player, "Tính năng đang phát triển");
+                                    createOtherMenu(player, ConstNpc.MENU_MO_LINH_THUC, "Học linh thực cần đạt tu tiên cấp Nguyên Anh và  luyện thể tầng 10 thêm 100k điểm nữa nhé", "Học", "Từ chối");
                                     break;
                                 case 3:
-                                    Service.gI().sendThongBao(player, "Tính năng đang phát triển");
+                                    createOtherMenu(player, ConstNpc.MENU_MO_NGU_THU, "Học ngự thú cần đạt tu tiên cấp Nguyên Anh và  luyện thể tầng 10 thêm 100k điểm nữa nhé", "Học", "Từ chối");
                                     break;
                                 case 4:
-                                    Service.gI().sendThongBao(player, "Tính năng đang phát triển");
+                                    createOtherMenu(player, ConstNpc.MENU_MO_KHONG_THI, "Học khống thi cần đạt tu tiên cấp Nguyên Anh và  luyện thể tầng 10 thêm 100k điểm nữa nhé", "Học", "Từ chối");
                                     break;
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_PHU_SU) {
-                            if (select == 0) {
+                            if (!player.isAdmin()) {
+                                if (select == 0) {
+                                    if (!player.tuTien.isTuTien() || player.tuTien.level < 4) {
+                                        Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
+                                        return;
+                                    }
+                                    if (player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                        Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
+                                        return;
+                                    }
+                                    double sodu = player.session.vnd - 100_000;
+                                    if (sodu < 0) {
+                                        Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
+                                        return;
+                                    }
+                                    PlayerDAO.subvnd(player, 100000);
+
+                                }
+                                player.phuChuSu.openSystem();
+                            }
+                        } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_TRAN_PHAP_SU) {
+                            if (!player.isAdmin()) {
                                 if (!player.tuTien.isTuTien() || player.tuTien.level < 4) {
                                     Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
                                     return;
@@ -6668,8 +6689,66 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
                                     return;
                                 }
-                                player.phuChuSu.openSystem();
+                                PlayerDAO.subvnd(player, 100000);
+
                             }
+                            player.tranPhapSu.openSystem();
+                        } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_LINH_THUC) {
+                            if (!player.isAdmin()) {
+                                if (!player.tuTien.isTuTien() || player.tuTien.level < 4) {
+                                    Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
+                                    return;
+                                }
+                                if (player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                    Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
+                                    return;
+                                }
+                                double sodu = player.session.vnd - 100_000;
+                                if (sodu < 0) {
+                                    Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
+                                    return;
+                                }
+                                PlayerDAO.subvnd(player, 100000);
+
+                            }
+                            player.linhThucSu.openSystem();
+                        } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_NGU_THU) {
+                            if (!player.isAdmin()) {
+                                if (!player.tuTien.isTuTien() || player.tuTien.level < 4) {
+                                    Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
+                                    return;
+                                }
+                                if (player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                    Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
+                                    return;
+                                }
+                                double sodu = player.session.vnd - 100_000;
+                                if (sodu < 0) {
+                                    Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
+                                    return;
+                                }
+                                PlayerDAO.subvnd(player, 100000);
+
+                            }
+                            player.nguThuSu.openSystem();
+                        } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_KHONG_THI) {
+                            if (!player.isAdmin()) {
+                                if (!player.tuTien.isTuTien() || player.tuTien.level < 4) {
+                                    Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
+                                    return;
+                                }
+                                if (player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                    Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
+                                    return;
+                                }
+                                double sodu = player.session.vnd - 100_000;
+                                if (sodu < 0) {
+                                    Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
+                                    return;
+                                }
+                                PlayerDAO.subvnd(player, 100000);
+                            }
+                            player.khongThiSu.openSystem();
                         }
                     }
                 }
@@ -7317,16 +7396,7 @@ public class NpcFactory {
                                 player.phuChuSu.showMenuCheBua();
                                 break;
                             case 1:
-                                String textBuff = "|7|Thôn tin bùa\n" +
-                                        "|5|Bùa trí tuệ : " + TimeUtil.formatMinutes(player.charms.tdTriTue) + "\n" +
-                                        "|5|Bùa trí tuệ x3: " + TimeUtil.formatMinutes(player.charms.tdTriTue3) + "\n" +
-                                        "|5|Bùa trí tuệ x4: " + TimeUtil.formatMinutes(player.charms.tdTriTue4) + "\n" +
-                                        "|5|Bùa đệ tử : " + TimeUtil.formatMinutes(player.charms.tdDeTu) + "\n" +
-                                        "|5|Bùa da trâu : " + TimeUtil.formatMinutes(player.charms.tdDaTrau) + "\n" +
-                                        "|5|Bùa dẻo dai : " + TimeUtil.formatMinutes(player.charms.tdDeoDai) + "\n" +
-                                        "|5|Bùa thu hút : " + TimeUtil.formatMinutes(player.charms.tdThuHut) + "\n" +
-                                        "|5|Bùa bất tử : " + TimeUtil.formatMinutes(player.charms.tdBatTu) + "\n" +
-                                        "|5|Bùa oai hùng : " + TimeUtil.formatMinutes(player.charms.tdOaiHung) + "\n";
+                                String textBuff = "|7|Thôn tin bùa\n" + "|5|Bùa trí tuệ : " + TimeUtil.formatMinutes(player.charms.tdTriTue) + "\n" + "|5|Bùa trí tuệ x3: " + TimeUtil.formatMinutes(player.charms.tdTriTue3) + "\n" + "|5|Bùa trí tuệ x4: " + TimeUtil.formatMinutes(player.charms.tdTriTue4) + "\n" + "|5|Bùa đệ tử : " + TimeUtil.formatMinutes(player.charms.tdDeTu) + "\n" + "|5|Bùa da trâu : " + TimeUtil.formatMinutes(player.charms.tdDaTrau) + "\n" + "|5|Bùa dẻo dai : " + TimeUtil.formatMinutes(player.charms.tdDeoDai) + "\n" + "|5|Bùa thu hút : " + TimeUtil.formatMinutes(player.charms.tdThuHut) + "\n" + "|5|Bùa bất tử : " + TimeUtil.formatMinutes(player.charms.tdBatTu) + "\n" + "|5|Bùa oai hùng : " + TimeUtil.formatMinutes(player.charms.tdOaiHung) + "\n";
                                 NpcService.gI().createMenuConMeo(player, -231231312, -1, textBuff, "Đóng");
                                 break;
                         }
@@ -7348,11 +7418,7 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Bạn đã đạt cấp tối đa");
                                 return;
                             }
-                            String text = "|7|Đột phá luyện thể\n" +
-                                    "|5|Cấp hiện tại : " + player.luyenThe.getName() + "\n" +
-                                    "|2|Cấp tiếp theo : " + "Luyện thể tầng " + (player.luyenThe.level + 1) + "\n" +
-                                    "|7|Tỷ lệ đột phá : " + player.luyenThe.getLevelUpPercent() + "%\n" +
-                                    "|1|Đột phá cần : " + player.luyenThe.getItemNeed(idsItemNeed);
+                            String text = "|7|Đột phá luyện thể\n" + "|5|Cấp hiện tại : " + player.luyenThe.getName() + "\n" + "|2|Cấp tiếp theo : " + "Luyện thể tầng " + (player.luyenThe.level + 1) + "\n" + "|7|Tỷ lệ đột phá : " + player.luyenThe.getLevelUpPercent() + "%\n" + "|1|Đột phá cần : " + player.luyenThe.getItemNeed(idsItemNeed);
                             NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_DOT_PHA_LUYEN_THE, -1, text, "Đột phá", "Đóng");
                         }
                         break;
@@ -7406,10 +7472,7 @@ public class NpcFactory {
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_DOT_PHA, -1, text, "Đột phá", "Từ Chối");
                                 break;
                             case 1:
-                                String texta = "|7|Tán công + \n" +
-                                        "|2|Tán công sẽ giúp bạn tu lại từ đầu tất cả thiên phú căn cốt,buff công pháp đều được giữ lại\n" +
-                                        "|2|cảnh giới sẽ bị đưa về ban đầu\n" +
-                                        "|7|Bạn có muốn tán công không?";
+                                String texta = "|7|Tán công + \n" + "|2|Tán công sẽ giúp bạn tu lại từ đầu tất cả thiên phú căn cốt,buff công pháp đều được giữ lại\n" + "|2|cảnh giới sẽ bị đưa về ban đầu\n" + "|7|Bạn có muốn tán công không?";
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_TAN_CONG, -1, texta, "Tán công", "Từ Chối");
                                 break;
                         }
@@ -7443,32 +7506,12 @@ public class NpcFactory {
                         switch (select) {
                             case 0:
                                 // tang pham
-                                String npcSay = "|7|Tăng phẩm công pháp\n" +
-                                        "|5|Phẩm giai hiện tại : " + player.tuTien.congPhap.phamchat.name + " Phẩm\n" +
-                                        "|2|Phẩm giai tiếp theo  : " + player.tuTien.congPhap.phamchat.getNext().name + " Phẩm\n" +
-                                        "|1|Tỷ lệ lĩnh ngộ :" + player.tuTien.congPhap.getTyLeLinhNgo() + "%\n" +
-                                        "|7|Bạn muốn?";
+                                String npcSay = "|7|Tăng phẩm công pháp\n" + "|5|Phẩm giai hiện tại : " + player.tuTien.congPhap.phamchat.name + " Phẩm\n" + "|2|Phẩm giai tiếp theo  : " + player.tuTien.congPhap.phamchat.getNext().name + " Phẩm\n" + "|1|Tỷ lệ lĩnh ngộ :" + player.tuTien.congPhap.getTyLeLinhNgo() + "%\n" + "|7|Bạn muốn?";
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.CONG_PHAP_LINH_NGO, -1, npcSay, "Tự Thân\nLĩnh ngộ", "Sư phụ\nChỉ Dẫn", "Đóng");
                                 break;
                             case 1:
                                 // thong tin buff ne
-                                String npcSayHi = String.format("|5|TlHP: %s , TlMp: %s , TlDame: %s\n|5|Tl Linh Khí: %s , Tl Hút HP: %s , Tl Hút MP: %s\n|5|Tl Ăn Cắp Vàng: %s , Hút Dame: %s , Hút HP: %s , Hút Mp: %s\n|5|Tổng Dame hút:%s , Tổng HP hút: %s , Tổng MP hút: %s\nx Linh Khí: %s , Tốc Độ Khôi Phục LK: %s , x Dame Thuộc Tính: %s",
-                                        player.tuTien.congPhap.tlHpBuff + "%",
-                                        player.tuTien.congPhap.tlMpBuff + "%",
-                                        player.tuTien.congPhap.tlDameBuff + "%",
-                                        player.tuTien.congPhap.tlLinhKhiBuff + "%",
-                                        player.tuTien.congPhap.tlHutHPBuff + "%",
-                                        player.tuTien.congPhap.tlHutMPBuff + "%",
-                                        player.tuTien.congPhap.tlAnCapVang + "%",
-                                        player.tuTien.congPhap.hutDame + " Điểm",
-                                        player.tuTien.congPhap.hutHp + " Điểm",
-                                        player.tuTien.congPhap.hutMp + " Điểm",
-                                        player.tuTien.congPhap.totalHutDame + " Điểm",
-                                        player.tuTien.congPhap.totalHutHp + " Điểm",
-                                        player.tuTien.congPhap.totalHutMp + " Điểm",
-                                        player.tuTien.congPhap.xLinhKhiBuff + "x Lần",
-                                        player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi + "x Lần",
-                                        player.tuTien.congPhap.xDameThuocTinh + "x Lần");
+                                String npcSayHi = String.format("|5|TlHP: %s , TlMp: %s , TlDame: %s\n|5|Tl Linh Khí: %s , Tl Hút HP: %s , Tl Hút MP: %s\n|5|Tl Ăn Cắp Vàng: %s , Hút Dame: %s , Hút HP: %s , Hút Mp: %s\n|5|Tổng Dame hút:%s , Tổng HP hút: %s , Tổng MP hút: %s\nx Linh Khí: %s , Tốc Độ Khôi Phục LK: %s , x Dame Thuộc Tính: %s", player.tuTien.congPhap.tlHpBuff + "%", player.tuTien.congPhap.tlMpBuff + "%", player.tuTien.congPhap.tlDameBuff + "%", player.tuTien.congPhap.tlLinhKhiBuff + "%", player.tuTien.congPhap.tlHutHPBuff + "%", player.tuTien.congPhap.tlHutMPBuff + "%", player.tuTien.congPhap.tlAnCapVang + "%", player.tuTien.congPhap.hutDame + " Điểm", player.tuTien.congPhap.hutHp + " Điểm", player.tuTien.congPhap.hutMp + " Điểm", player.tuTien.congPhap.totalHutDame + " Điểm", player.tuTien.congPhap.totalHutHp + " Điểm", player.tuTien.congPhap.totalHutMp + " Điểm", player.tuTien.congPhap.xLinhKhiBuff + "x Lần", player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi + "x Lần", player.tuTien.congPhap.xDameThuocTinh + "x Lần");
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_INFO_CONG_PHAP_BUFF, -1, npcSayHi, "Đóng");
                                 break;
                         }

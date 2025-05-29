@@ -1723,7 +1723,7 @@ public class Service {
                 msg = new Message(-42);
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpg + player.luyenThe.calcPoint((byte) 0)));
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpg + player.luyenThe.calcPoint((byte) 1)));
-                msg.writer().writeLong(Util.DoubleGioihan(player.nPoint.dameg + player.luyenThe.calcPoint((byte) 3)));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.dameg + player.luyenThe.calcPoint((byte) 3)));
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpMax));// hp full
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpMax));// mp full
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hp));// hp

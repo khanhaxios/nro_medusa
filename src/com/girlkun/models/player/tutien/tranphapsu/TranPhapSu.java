@@ -14,6 +14,7 @@ import com.girlkun.services.func.CombineServiceNew;
 import com.girlkun.utils.Util;
 
 public class TranPhapSu extends BasePoint implements IBaseAction {
+    private final short[] idsChanMenh = new short[]{1300, 1301, 1302, 1303, 1304, 1305, 1306, 1307, 1308};
     private final byte MAX_LEVEL = 7;
 
     public TranPhapSu(Player player) {
@@ -30,7 +31,13 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
     }
 
     public void update() {
-
+        if (isTranPhap()) {
+            // find item chan menh
+            Item chanMenh = InventoryServiceNew.gI().findItemBody(player, idsChanMenh);
+            if (chanMenh != null) {
+                addExp(getExpCanGain(null));
+            }
+        }
     }
 
     @Override
@@ -76,15 +83,15 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
             case 1:
                 return 100f;
             case 2:
-                return 50f;
+                return 20;
             case 3:
-                return 25f;
+                return 15f;
             case 4:
-                return 10f;
-            case 5:
                 return 5f;
-            case 6:
+            case 5:
                 return 3f;
+            case 6:
+                return 2f;
             case 7:
                 return 1f;
         }
@@ -105,10 +112,15 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
 
     @Override
     public void openSystem() {
-        if (player.tuTien.level < 2) {
-            Service.gI().sendThongBao(player, "Bạn cần đạt trúc cơ để học phù chú");
+        if (player.tuTien.level < 4 && !player.isAdmin()) {
+            Service.gI().sendThongBao(player, "Bạn cần đạt Nguyên Anh để học Trận Pháp");
             return;
         }
+        Item item = ItemService.gI().createNewItem((short) 1318, 99);
+        item.itemOptions.add(new Item.ItemOption(30, 1));
+        InventoryServiceNew.gI().addItemBag(player, item);
+        InventoryServiceNew.gI().sendItemBags(player);
+        Service.gI().sendThongBao(player, "Bạn nhận được x99" + item.template.name);
         this.levelUp();
     }
 
@@ -144,21 +156,12 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
     }
 
     public void showMenu() {
-        String menuText = "|7|Thông tin trận pháp sư\n" +
-                "|5|Cấp bậc :" + getName() + "\n" +
-                "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" +
-                "|7|Tỷ lệ đột phá : " + getNextLevelExp() + "%\n" +
-                "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" +
-                "|2|Tổng buff : " + getHPMPBuff() + "% HP,MP |" + getDameBuff() + "% DAME\n" +
-                "|7|Cấp càng cao buff cành mạnh,mỗi cấp tăng 5%";
+        String menuText = "|7|Thông tin trận pháp sư\n" + "|5|Cấp bậc :" + getName() + "\n" + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" + "|7|Tỷ lệ đột phá : " + getNextLevelExp() + "%\n" + "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" + "|2|Tổng buff : " + getHPMPBuff() + "% HP,MP |" + getDameBuff() + "% DAME\n" + "|7|Cấp càng cao buff cành mạnh,mỗi cấp tăng 5%";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TRAN_PHAP_SU, -1, menuText, "Vẽ\nchân mệnh", "Nâng\ncấp CM", "Đóng");
     }
 
     public void showMenuCheBua() {
-        String menuText = "|7|Vẽ chân mệnh\n" +
-                "|5|Cần 1 đá ngũ sắc và một đá cầu vồng\n" +
-                "|2|Đặt chúng ở trong hành trang và chọn vẽ chân mệnh\n" +
-                "|1|Tỷ lệ thành công phụ thuộc vào vận khí của bạn";
+        String menuText = "|7|Vẽ chân mệnh\n" + "|5|Cần 1 đá ngũ sắc và một đá cầu vồng\n" + "|2|Đặt chúng ở trong hành trang và chọn vẽ chân mệnh\n" + "|1|Tỷ lệ thành công phụ thuộc vào vận khí của bạn";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_VE_CHAN_MENH, -1, menuText, "Vẽ\nChân Mệnh", "Đóng");
     }
 

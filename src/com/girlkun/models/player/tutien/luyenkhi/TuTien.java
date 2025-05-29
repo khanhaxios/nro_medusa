@@ -9,6 +9,7 @@ import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
+import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
@@ -16,11 +17,12 @@ import java.util.Iterator;
 import java.util.List;
 
 public class TuTien extends BasePoint implements IBaseAction {
-    private List<Byte> typeHas = new ArrayList<>();
+    long lastTimeHoiPhuc;
     private static final String[] CANH_GIOI = new String[]{"Luyện Khí", "Trúc Cơ", "Kim Đan", "Nguyên Anh", "Hóa Thần", "Phong Thánh", "Thần Chiếu", "Huyền Linh", "Quy Nguyên", "Du Tầm", "Không Luân", "Tam Thiên", "Tứ Trụ", "Dạ Ma Thiên Cảnh", "Tu Di Sơn Chủ", "Tinh Hà Thánh Nhân", "Thần Quỷ Mạt Trắc", "Đạo Lộ Chi Cảnh", "Thánh Tôn Chi Cảnh"};
     private static final long[] LEVEL_EXP = new long[]{100, 200, 500, 1000, 5000, 60000, 200000, 3000000, 5000000, 10000000, 12_000_000, 15_000_000, 18_000_000, 20_000_000, 25_000_000, 30_000_000, 40_000_000, 60_000_000, 80_000_000}; // 19
     private static final long[] SUB_LEVEL_EXP = new long[]{100, 150, 200, 250, 300, 320, 350, 360, 370, 399};
     private static final long[] BASE_LINH_KHI = new long[]{1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000, 20000000, 50000000, 100000000, 200000000, 500000000, 1000000000};
+    private static final long[] BASE_SUB_LINH_KHI = new long[]{100, 200, 300, 400, 500, 600, 700, 800, 900};
     private static final long[] BASE_EXP_BUFF = new long[]{1, 2, 5, 10, 15, 20, 25, 50, 100, 120, 140, 200, 210, 230, 300, 350, 360, 400, 500};
 
     private static final long[] BASE_LINH_KHI_HOI_PHUC = new long[]{
@@ -109,7 +111,7 @@ public class TuTien extends BasePoint implements IBaseAction {
         // buff dame goc o day
         player.nPoint.dameAdd += player.nPoint.dameg * getDameBuff() / 100;
         player.nPoint.hpAdd += player.nPoint.hpg * getHPMPBuff() / 100;
-        player.nPoint.mpAdd += player.nPoint.mpg * getMaxExp() / 100;
+        player.nPoint.mpAdd += player.nPoint.mpg * getHPMPBuff() / 100;
         player.nPoint.defAdd += player.nPoint.defg * getDefBuff() / 100;
         player.nPoint.tlchinhxac += player.nPoint.tlchinhxac * getChinhXacBuff() / 100;
         player.nPoint.tlNeDon += player.nPoint.tlNeDon * getNeBuff() / 100;
@@ -140,14 +142,17 @@ public class TuTien extends BasePoint implements IBaseAction {
         if (linhKhiPoint < maxLinhKhiPoint) {
             int lv = Math.min(level, BASE_LINH_KHI_HOI_PHUC.length - 1);
             long linhKhiCanHoiPhuc = (BASE_LINH_KHI_HOI_PHUC[lv] * Math.max(1, congPhap.xTocDoKhoiPhucLinhKhi));
+            linhKhiCanHoiPhuc *= Util.nextInt(1, 3);
             addLinhKhi(linhKhiCanHoiPhuc);
+            lastTimeHoiPhuc = System.currentTimeMillis();
             // send effect to server
             PlayerService.gI().sendHoiPhucLinhKhi(player, linhKhiCanHoiPhuc);
+            PlayerService.gI().sendLinhKhiPoint(player);
         }
     }
 
     public long calcMaxLinhKhiPoint() {
-        long la = BASE_LINH_KHI[level] + (BASE_LINH_KHI[level] * (Math.max(1, congPhap.xLinhKhiBuff)));
+        long la = BASE_LINH_KHI[level] + (BASE_LINH_KHI[level] * (Math.max(1, congPhap.xLinhKhiBuff))) + BASE_SUB_LINH_KHI[subLevel - 1];
         return (la + (la * congPhap.tlLinhKhiBuff / 100)) * Math.max(1, congPhap.xLinhKhiBuff);
     }
 
@@ -346,7 +351,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             if (maxLinhKhiPoint == 0) {
                 maxLinhKhiPoint = calcMaxLinhKhiPoint();
             }
-            if (congPhap.tenCongPhap != null && linhKhiPoint < maxLinhKhiPoint && !player.isDie()) {
+            if (congPhap.tenCongPhap != null && linhKhiPoint < maxLinhKhiPoint && !player.isDie() && Util.canDoWithTime(lastTimeHoiPhuc, 1000)) {
                 hoiPhucLinhKhi();
             }
             if (congPhap.tenCongPhap != null && congPhap.doThuanThuc < congPhap.maxDoThuanThuc) {
@@ -361,7 +366,7 @@ public class TuTien extends BasePoint implements IBaseAction {
                 iterator.remove();
                 break;
             }
-            PlayerService.gI().sendLinhKhiPoint(player);
+
         }
     }
 

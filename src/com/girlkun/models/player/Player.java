@@ -389,6 +389,9 @@ public class Player {
                     if (tuTien != null) {
                         tuTien.update();
                     }
+                    if (tranPhapSu != null) {
+                        tranPhapSu.update();
+                    }
                     if (nPoint != null) {
                         nPoint.update();
                     }
@@ -867,8 +870,8 @@ public class Player {
     public String nhiemvuchienthan(int nhiemvu) {
         switch (nhiemvu) {
             case 10:
-                this.chienthan.maxcount = 100;
-                return "Giết 100 Boss Thần Zeno";
+                this.chienthan.maxcount = 10;
+                return "Giết 10 Boss Thần Zeno";
             case 9:
                 this.chienthan.maxcount = 10;
                 return "Giết 10 Boss Đôremon";
@@ -882,14 +885,14 @@ public class Player {
                 this.chienthan.maxcount = 5000;
                 return "Chưởng Chí mạng 5000 lần";
             case 5:
-                this.chienthan.maxcount = 5000;
-                return "Hạ 5.000 Quái bay";
+                this.chienthan.maxcount = 500;
+                return "Hạ 5.00 Quái bay";
             case 4:
-                this.chienthan.maxcount = 2000;
-                return "Nhặt 2000 Capsule Kì bí";
+                this.chienthan.maxcount = 1000;
+                return "Nhặt 1000 Capsule Kì bí";
             case 3:
-                this.chienthan.maxcount = 10;
-                return "Hộ tống Thành công Bé Quỳnh 10 lần";
+                this.chienthan.maxcount = 100;
+                return "Chế thành công 100 cái bùa";
             case 2:
                 this.chienthan.maxcount = 10;
                 return "Tìm được 10 Món đồ Thần linh bên Cold";

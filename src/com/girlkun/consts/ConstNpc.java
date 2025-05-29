@@ -418,6 +418,12 @@ public class ConstNpc {
     public static final int MENU_VE_CHAN_MENH = -89712393;
     public static final int MENU_LINH_THUC = -91237189;
     public static final int MENU_CHE_LINH_THUC = -237183109;
+    public static final int MENU_NGU_THU = -1231232;
+    public static final int MENU_KHONG_THI = -89731323;
+    public static final int MENU_MO_LINH_THUC = -6193871;
+    public static final int MENU_MO_TRAN_PHAP_SU = -67419323;
+    public static final int MENU_MO_NGU_THU = -5167312;
+    public static final int MENU_MO_KHONG_THI = -81237012;
 }
 
 /**

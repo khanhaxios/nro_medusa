@@ -238,6 +238,10 @@ public class UseItem {
                         Service.gI().sendThongBaoOK(pl, "Bạn cần học ngự thú sư để trang bị thú cưỡi");
                         return;
                     }
+                    if (!pl.nguThuSu.canUseItem(indexBag)) {
+                        Service.gI().sendThongBaoOK(pl, "Bạn cần nâng cấp ngự thú sư để trang bị thú cưỡi này");
+                        return;
+                    }
                     InventoryServiceNew.gI().itemBagToBody(pl, indexBag);
                     break;
                 case 11: //item bag
@@ -253,6 +257,14 @@ public class UseItem {
                     Service.getInstance().sendchienlinh(pl, (short) (item.template.iconID - 1));
                     break;
                 case 72: {
+                    if (pl.nguThuSu == null || !pl.nguThuSu.isNguThu()) {
+                        Service.gI().sendThongBaoOK(pl, "Bạn cần học ngự thú sư để trang bị linh thú");
+                        return;
+                    }
+                    if (!pl.nguThuSu.canUseItem(indexBag)) {
+                        Service.gI().sendThongBaoOK(pl, "Bạn cần nâng cấp ngự thú sư để trang bị Linh thú này");
+                        return;
+                    }
                     InventoryServiceNew.gI().itemBagToBody(pl, indexBag);
                     Service.getInstance().sendPetFollow(pl, (short) (item.template.iconID - 1));
                     break;

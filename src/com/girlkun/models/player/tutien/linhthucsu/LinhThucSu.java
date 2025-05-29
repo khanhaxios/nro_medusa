@@ -110,10 +110,18 @@ public class LinhThucSu extends BasePoint implements IBaseAction {
 
     @Override
     public void openSystem() {
-        if (player.tuTien.level < 2) {
-            Service.gI().sendThongBao(player, "Bạn cần đạt trúc cơ để học phù chú");
+        if (player.tuTien.level < 4 && !player.isAdmin()) {
+            Service.gI().sendThongBao(player, "Bạn cần đạt Nguyên Anh để học linh thực");
             return;
         }
+        Item item = ItemService.gI().createNewItem((short) 2048, 99);
+        Item item1 = ItemService.gI().createNewItem((short) 2050, 9);
+        item1.itemOptions.add(new Item.ItemOption(30, 0));
+        item.itemOptions.add(new Item.ItemOption(30, 0));
+        InventoryServiceNew.gI().addItemBag(player, item);
+        InventoryServiceNew.gI().addItemBag(player, item1);
+        InventoryServiceNew.gI().sendItemBags(player);
+        Service.gI().sendThongBao(player, "Bạn nhận được  x99 Đùi gà và x9 Siêu Thần Thủy");
         this.levelUp();
     }
 
@@ -252,6 +260,8 @@ public class LinhThucSu extends BasePoint implements IBaseAction {
         } else {
             idTemp = idsItem5[Util.nextInt(0, idsItem5.length - 1)];
         }
+        InventoryServiceNew.gI().subQuantityItemsBag(player, it2, 10);
+        InventoryServiceNew.gI().subQuantityItemsBag(player, it1, 1);
         if (Util.isTrue(getTyLeCheBuaThanhCong(), 100)) {
             Item item = ItemService.gI().createNewItem(idTemp);
             InventoryServiceNew.gI().addItemBag(player, item);

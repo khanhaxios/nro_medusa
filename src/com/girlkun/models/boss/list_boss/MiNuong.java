@@ -105,9 +105,9 @@ public class MiNuong extends Boss {
             InventoryServiceNew.gI().sendItemBags(playerTarger);
             Service.getInstance().changeFlag(playerTarger, 0);
             Service.getInstance().sendThongBao(playerTarger, "|1|Bạn nhận được 30 Thỏi vàng, " + random + " Xu Hộ tống !");
-            if (playerTarger.chienthan.tasknow == 3) {
-                playerTarger.chienthan.dalamduoc++;
-            }
+//            if (playerTarger.chienthan.tasknow == 3) {
+//                playerTarger.chienthan.dalamduoc++;
+//            }
             this.leaveMap();
         }
         if (this.playerTarger != null && this.zone != null && this.zone.map.mapId != this.playerTarger.zone.map.mapId) {

@@ -26,7 +26,8 @@ public class LuyenThe extends BasePoint implements IBaseAction {
     }
 
     public int calcPoint(byte type) {
-        return buffs[type];
+        int  buggX = buffs[type];
+        return buggX;
 //        player.nPoint.hpg += (int) (player.nPoint.hpg * getHPMPBuff() / 100f);
 //        player.nPoint.mpg += (int) (player.nPoint.mpg * getHPMPBuff() / 100f);
 //        player.nPoint.defg += (int) (player.nPoint.defg * getDefBuff() / 100f);
@@ -117,42 +118,42 @@ public class LuyenThe extends BasePoint implements IBaseAction {
 
     @Override
     public float getDameBuff() {
-        return level * 1f;
+        return Math.max(1,level) * 1f;
     }
 
     @Override
     public float getHPMPBuff() {
-        return level * 1.5f;
+        return Math.max(1,level) * 1.5f;
     }
 
     @Override
     public float getDefBuff() {
-        return level * 1f;
+        return Math.max(1,level) * 1f;
     }
 
     @Override
     public float getPSTBuff() {
-        return level * .1f;
+        return Math.max(1,level) * .1f;
     }
 
     @Override
     public float getHutHPBuff() {
-        return level * .1f;
+        return Math.max(1,level) * .1f;
     }
 
     @Override
     public float getHutMPBuff() {
-        return level * .1f;
+        return Math.max(1,level) * .1f;
     }
 
     @Override
     public float getNeBuff() {
-        return level * .1f;
+        return Math.max(1,level) * .1f;
     }
 
     @Override
     public float getChinhXacBuff() {
-        return level * .1f;
+        return Math.max(1,level) * .1f;
     }
 
     public boolean isLuyenThe() {

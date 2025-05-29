@@ -1,10 +1,13 @@
 package com.girlkun.models.player.tutien.nguthusu;
 
 import com.girlkun.consts.ConstNpc;
+import com.girlkun.models.item.Item;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.tutien.base_tutien.BasePoint;
 import com.girlkun.models.player.tutien.base_tutien.IBaseAction;
+import com.girlkun.services.InventoryServiceNew;
+import com.girlkun.services.ItemService;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
@@ -26,7 +29,13 @@ public class NguThuSu extends BasePoint implements IBaseAction {
     }
 
     public void update() {
-
+        if (isNguThu()) {
+            Item item = InventoryServiceNew.gI().findLinhThuBody(player);
+            Item it1 = InventoryServiceNew.gI().findThuCuoiBody(player);
+            if (item != null || it1 != null) {
+                addExp(getExpCanGain(null));
+            }
+        }
     }
 
     @Override
@@ -72,15 +81,15 @@ public class NguThuSu extends BasePoint implements IBaseAction {
             case 1:
                 return 100f;
             case 2:
-                return 50f;
+                return 20;
             case 3:
-                return 25f;
+                return 15f;
             case 4:
-                return 10f;
-            case 5:
                 return 5f;
-            case 6:
+            case 5:
                 return 3f;
+            case 6:
+                return 2f;
             case 7:
                 return 1f;
         }
@@ -101,10 +110,24 @@ public class NguThuSu extends BasePoint implements IBaseAction {
 
     @Override
     public void openSystem() {
-        if (player.tuTien.level < 2) {
-            Service.gI().sendThongBao(player, "Bạn cần đạt trúc cơ để học phù chú");
+        if (player.tuTien.level < 4 && !player.isAdmin()) {
+            Service.gI().sendThongBao(player, "Bạn cần đạt Nguyên Anh để học ngự thú");
             return;
         }
+        Item item = ItemService.gI().createNewItem((short) 2042, 1);
+        item.itemOptions.add(new Item.ItemOption(0, 6000));
+        item.itemOptions.add(new Item.ItemOption(50, 10));
+        item.itemOptions.add(new Item.ItemOption(77, 10));
+        item.itemOptions.add(new Item.ItemOption(103, 10));
+        Item item1 = ItemService.gI().createNewItem((short) 1514, 1);
+        item1.itemOptions.add(new Item.ItemOption(0, 6000));
+        item1.itemOptions.add(new Item.ItemOption(50, 10));
+        item1.itemOptions.add(new Item.ItemOption(77, 10));
+        item1.itemOptions.add(new Item.ItemOption(103, 10));
+        InventoryServiceNew.gI().addItemBag(player, item1);
+        InventoryServiceNew.gI().addItemBag(player, item);
+        InventoryServiceNew.gI().sendItemBags(player);
+        Service.gI().sendThongBao(player, "Bạn nhận được " + item.template.name + " và " + item1.template.name);
         this.levelUp();
     }
 
@@ -140,23 +163,14 @@ public class NguThuSu extends BasePoint implements IBaseAction {
     }
 
     public void showMenu() {
-        String menuText = "|7|Thông tin phù chú sư\n" +
-                "|5|Cấp bậc :" + getName() + "\n" +
-                "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" +
-                "|7|Tỷ lệ đột phá : " + getNextLevelExp() + "%\n" +
-                "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" +
-                "|2|Tổng buff : " + getHPMPBuff() + "% HP,MP |" + getDameBuff() + "% DAME\n" +
-                "|7|Cấp càng cao buff cành mạnh,mỗi cấp tăng 5%";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PHU_CHU_SU, -1, menuText, "Chế bùa", "Xem thông\ntin bùa", "Đóng");
+        String menuText = "|7|Thông tin ngự thú sư\n" + "|5|Cấp bậc :" + getName() + "\n" + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" + "|7|Tỷ lệ đột phá : " + getNextLevelExp() + "%\n" + "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" + "|2|Tổng buff : " + getHPMPBuff() + "% HP,MP |" + getDameBuff() + "% DAME\n" + "|7|Cấp càng cao buff cành mạnh,mỗi cấp tăng 5%";
+        NpcService.gI().createMenuConMeo(player, -31231233, -1, menuText, "Đóng");
     }
 
-    public void showMenuCheBua() {
-        String menuText = "|7|Chế bùa\n" +
-                "|5|Cần 1 giấy thếp và đạo cụ vẽ là bút chì\n" +
-                "|2|Đặt chúng ở trong hành trang và chọn chế bùa\n" +
-                "|1|Tỷ lệ thành công phụ thuộc vào vận khí của bạn";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PHU_CHU_SU_CHE_BUA, -1, menuText, "Bùa\nThường", "Bùa\nVIP", "Đóng");
-    }
+//    public void showMenuCheBua() {
+//        String menuText = "|7|Chế bùa\n" + "|5|Cần 1 giấy thếp và đạo cụ vẽ là bút chì\n" + "|2|Đặt chúng ở trong hành trang và chọn chế bùa\n" + "|1|Tỷ lệ thành công phụ thuộc vào vận khí của bạn";
+//        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PHU_CHU_SU_CHE_BUA, -1, menuText, "Bùa\nThường", "Bùa\nVIP", "Đóng");
+//    }
 
     @Override
     protected long getNextLevelExp() {
@@ -221,5 +235,34 @@ public class NguThuSu extends BasePoint implements IBaseAction {
 
     public boolean isNguThu() {
         return level > 0;
+    }
+
+    public boolean canUseItem(int indexBag) {
+        boolean canUse = false;
+        int point = 0;
+        Item item = InventoryServiceNew.gI().findItemBag(player, indexBag);
+        if (item != null) {
+            // calc point
+            for (Item.ItemOption itemOption : item.itemOptions) {
+                if (itemOption.optionTemplate.id == 0 || itemOption.optionTemplate.id == 2 || itemOption.optionTemplate.id == 6 || itemOption.optionTemplate.id == 7 || itemOption.optionTemplate.id == 5 || itemOption.optionTemplate.id == 22) {
+                    point += itemOption.param / 1000;
+                } else if (itemOption.optionTemplate.id == 14 || itemOption.optionTemplate.id == 23 || itemOption.optionTemplate.id == 50 || itemOption.optionTemplate.id == 103 || itemOption.optionTemplate.id == 77) {
+                    point += itemOption.param;
+                }
+            }
+        }
+        if (point > 50 && level >= 2) {
+            canUse = true;
+        }
+        if (point > 100 && level >= 4) {
+            canUse = true;
+        }
+        if (point > 200 && level >= 6) {
+            canUse = true;
+        }
+        if (level == 7) {
+            canUse = true;
+        }
+        return canUse;
     }
 }

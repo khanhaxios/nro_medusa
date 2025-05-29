@@ -35,6 +35,8 @@ import org.apache.commons.lang.ArrayUtils;
 public class Util {
 
     private static final Random rand;
+    public static short[] idsSKHTien = new short[]{254, 255, 256};
+    public static short[][] idDoThanTien = new short[][]{{2051, 2052, 2053, 2054, 2055}, {2056, 2057, 2058, 2059, 2060}, {2061, 2062, 2063, 2064, 2065}};
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static final Locale locale = new Locale("vi", "VN");
     private static final NumberFormat num = NumberFormat.getInstance(locale);
@@ -563,6 +565,43 @@ public class Util {
         return it;
     }
 
+    public int getOptionSKHTien(short idOption) {
+        return idOption + 3;
+    }
+
+    public int getSKHTien(byte gender) {
+        return idsSKHTien[gender];
+    }
+
+    public static Item ratioItemTien(int temId, byte gender) {
+        Item it = ItemService.gI().createItemSetKichHoat(temId, 1);
+        short[] ids = idDoThanTien[gender];
+        switch (ids[it.template.type]) {
+            case 0:
+                it.itemOptions.add(new Item.ItemOption(47, Util.nextInt(100, 200) + 20000));
+                break;
+            case 1:
+                it.itemOptions.add(new Item.ItemOption(22, Util.nextInt(100, 200) + 700));
+                break;
+            case 2:
+                it.itemOptions.add(new Item.ItemOption(0, Util.nextInt(10000) + 70000));
+                it.itemOptions.add(new Item.ItemOption(50, Util.nextInt(12) + 30));
+                break;
+            case 3:
+                it.itemOptions.add(new Item.ItemOption(23, Util.nextInt(100, 200) + 700));
+                it.itemOptions.add(new Item.ItemOption(17, Util.nextInt(100, 200) + 1200));
+                break;
+            case 4:
+                it.itemOptions.add(new Item.ItemOption(14, new Random().nextInt(15) + 45));
+                it.itemOptions.add(new Item.ItemOption(5, Util.nextInt(10) + 100));
+                break;
+        }
+        it.itemOptions.add(new Item.ItemOption(41, 0));
+        it.itemOptions.add(new Item.ItemOption(21, 500));
+        it.itemOptions.add(new Item.ItemOption(44, Util.nextInt(1, 10)));
+        return it;
+    }
+
     //thongkho
     public static Item ratiItemThongKho(int tempId) {
         Item it = ItemService.gI().createItemSetKichHoat(tempId, 1);
@@ -584,9 +623,9 @@ public class Util {
             it.itemOptions.add(new Item.ItemOption(23, Util.nextInt(50, 100) + 300));
         }
         if (nhan == tempId) {
-            it.itemOptions.add(new Item.ItemOption(14, new Random().nextInt(15) + 40));
+            it.itemOptions.add(new Item.ItemOption(14, new Random().nextInt(15) + 25));
         }
-        it.itemOptions.add(new Item.ItemOption(21, 500));
+        it.itemOptions.add(new Item.ItemOption(21, 200));
         return it;
     }
     //
@@ -889,9 +928,9 @@ public class Util {
             it.itemOptions.add(new Item.ItemOption(23, Util.nextInt(100) + 320));
         }
         if (nhan == tempId) {
-            it.itemOptions.add(new Item.ItemOption(14, new Random().nextInt(15) + 50));
+            it.itemOptions.add(new Item.ItemOption(14, new Random().nextInt(15) + 25));
         }
-        it.itemOptions.add(new Item.ItemOption(21, 1000));
+        it.itemOptions.add(new Item.ItemOption(21, 300));
         return it;
     }
 
@@ -942,9 +981,9 @@ public class Util {
             it.itemOptions.add(new Item.ItemOption(23, Util.nextInt(200) + 420));
         }
         if (nhan == tempId) {
-            it.itemOptions.add(new Item.ItemOption(14, new Random().nextInt(20) + 60));
+            it.itemOptions.add(new Item.ItemOption(14, new Random().nextInt(20) + 40));
         }
-        it.itemOptions.add(new Item.ItemOption(21, 2000));
+        it.itemOptions.add(new Item.ItemOption(21, 500));
         return it;
     }
 

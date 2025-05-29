@@ -95,10 +95,10 @@ public class GodGK {
 //                if (!session.isAdmin) {
 //                    Service.getInstance().sendThongBaoOK(session, "Chi danh cho admin");
 //                }else
-                if (session.version < 200) {
-                    Service.getInstance().sendThongBaoOK(session, "Vui lòng vào Game bằng Bản Version 225 Trở lên");
-                    return null;
-                }
+//                if (session.version < 200) {
+//                    Service.getInstance().sendThongBaoOK(session, "Vui lòng vào Game bằng Bản Version 225 Trở lên");
+//                    return null;
+//                }
                 if (rs.getBoolean("ban")) {
                     Service.getInstance().sendThongBaoOK(session, "Tài khoản của bạn đã bị khóa. Lý do : Clone trên 5 acc !!!");
                 } else if (baotri && !session.isAdmin) {
@@ -1098,6 +1098,24 @@ public class GodGK {
                         player.linhThucSu.level = Byte.parseByte(jsonArray.get(0).toString());
                         player.linhThucSu.exp = Long.parseLong(jsonArray.get(1).toString());
                         player.linhThucSu.maxExp = Long.parseLong(jsonArray.get(2).toString());
+                    }
+                }
+                String dataKT = rs.getString("data_khong_thi");
+                if (dataKT != null && !dataKT.isEmpty()) {
+                    JSONArray jsonArray = (JSONArray) JSONValue.parse(dataKT);
+                    if (jsonArray.size() > 0) {
+                        player.khongThiSu.level = Byte.parseByte(jsonArray.get(0).toString());
+                        player.khongThiSu.exp = Long.parseLong(jsonArray.get(1).toString());
+                        player.khongThiSu.maxExp = Long.parseLong(jsonArray.get(2).toString());
+                    }
+                }
+                String dataNguThu = rs.getString("data_ngu_thu");
+                if (dataNguThu != null && !dataNguThu.isEmpty()) {
+                    JSONArray jsonArray = (JSONArray) JSONValue.parse(dataNguThu);
+                    if (jsonArray.size() > 0) {
+                        player.nguThuSu.level = Byte.parseByte(jsonArray.get(0).toString());
+                        player.nguThuSu.exp = Long.parseLong(jsonArray.get(1).toString());
+                        player.nguThuSu.maxExp = Long.parseLong(jsonArray.get(2).toString());
                     }
                 }
             }
