@@ -284,6 +284,7 @@ public class UseItem {
                     pl.charms.addTimeCharms(item.template.id, min);
                     Service.gI().sendThongBao(pl, "Bạn dùng " + item.template.name + "+ " + min + " phút");
                     InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                    InventoryServiceNew.gI().sendItemBags(pl);
                     break;
                 }
                 default:
