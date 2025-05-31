@@ -112,10 +112,6 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
 
     @Override
     public void openSystem() {
-        if (player.tuTien.level < 4 && !player.isAdmin()) {
-            Service.gI().sendThongBao(player, "Bạn cần đạt Nguyên Anh để học Trận Pháp");
-            return;
-        }
         Item item = ItemService.gI().createNewItem((short) 1318, 99);
         item.itemOptions.add(new Item.ItemOption(30, 1));
         InventoryServiceNew.gI().addItemBag(player, item);
@@ -156,7 +152,7 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
     }
 
     public void showMenu() {
-        String menuText = "|7|Thông tin trận pháp sư\n" + "|5|Cấp bậc :" + getName() + "\n" + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" + "|7|Tỷ lệ đột phá : " + getNextLevelExp() + "%\n" + "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" + "|2|Tổng buff : " + getHPMPBuff() + "% HP,MP |" + getDameBuff() + "% DAME\n" + "|7|Cấp càng cao buff cành mạnh,mỗi cấp tăng 5%";
+        String menuText = "|7|Thông tin trận pháp sư\n" + "|5|Cấp bậc :" + getName() + "\n" + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" + "|7|Tỷ lệ đột phá : " + getLevelUpPercent() + "%\n" + "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" + "|2|Tổng buff : " + getHPMPBuff() + "% HP,MP |" + getDameBuff() + "% DAME\n" + "|7|Cấp càng cao buff cành mạnh,mỗi cấp tăng 5%";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TRAN_PHAP_SU, -1, menuText, "Vẽ\nchân mệnh", "Nâng\ncấp CM", "Đóng");
     }
 

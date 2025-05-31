@@ -24,6 +24,7 @@ import com.girlkun.server.Manager;
 import com.girlkun.services.*;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
+import com.sun.source.tree.IfTree;
 
 import java.io.IOException;
 
@@ -209,7 +210,6 @@ public class Mob {
         }
         tiemNang = Util.DoubleGioihan(pl.nPoint.calSucManhTiemNang(tiemNang));
         if (pl.zone.map.mapId == 122 || pl.zone.map.mapId == 123 || pl.zone.map.mapId == 124 || pl.zone.map.mapId == 141 || pl.zone.map.mapId == 142 || pl.zone.map.mapId == 146) {
-
             tiemNang *= 2;
         }
         if (pl.zone.items.stream().anyMatch(it -> it != null && (it.playerId == pl.id || isMemInMap(pl)) && it.itemTemplate.id == 343 && Util.getDistance(it.x, it.y, pl.location.x, pl.location.y) <= 200)) {
@@ -569,6 +569,32 @@ public class Mob {
 
     public List<ItemMap> getItemMobReward(Player player, int x, int yEnd) { //quái rơi vật phẩm
         List<ItemMap> list = new ArrayList<>();
+
+        if (player.linhThucSu != null && player.linhThucSu.isLinhThuc()) {
+            if (Util.isTrue(5, 100)) {
+                list.add(new ItemMap(zone, 2050, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+            }
+        }
+        // rơi các loại đá thạch ( chỉ có ở ngũ hành sơn )
+        if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
+            if (zone.map.mapId == 123 && Util.isTrue(player.tuTien.getTyLeRoiDa(), 100)) {
+                short temIds = (short) Util.nextInt(1263, 1266);
+                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+            }
+
+            if (zone.map.mapId == 123 && Util.isTrue(.5f, 100)){
+                short temIds = (short) Util.nextInt(1260, 1262);
+                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+            }
+        }
+        // roi hong ngoc khi danh quai
+        list.add(new ItemMap(zone, 861, Util.nextInt(1, 5), this.location.x, yEnd, player.id));
+        // rơi giấy thếp để chế bùa
+        if (Manager.idsMapCold.contains(zone.map.mapId) && player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
+            if (Util.isTrue(3, 100)) {
+                list.add(new ItemMap(zone, 2046, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+            }
+        }
         MobReward mobReward = Manager.MOB_REWARDS.get(this.tempId);
         if (mobReward == null) {
             return list;
@@ -586,6 +612,7 @@ public class Mob {
                 list.add(itemMap);
             }
         }
+
         if (!golds.isEmpty()) {//dât roi vàng
             ItemMobReward gold = golds.get(Util.nextInt(0, golds.size() - 1));
             ItemMap itemMap = gold.getItemMap(zone, player, x, yEnd);
@@ -593,19 +620,6 @@ public class Mob {
                 list.add(itemMap);
             }
         }
-
-        if (player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
-            if (Util.isTrue(5, 100)) {
-                list.add(new ItemMap(zone, 2046, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
-            }
-        }
-        if (player.linhThucSu != null && player.linhThucSu.isLinhThuc()) {
-            if (Util.isTrue(5, 100)) {
-                list.add(new ItemMap(zone, 2050, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
-            }
-        }
-        // roi hong ngoc khi danh quai
-        // list.add(new ItemMap(zone, 861, Util.nextInt(1, 5), this.location.x, yEnd, player.id));
 
         if (MapService.gI().isMapYardat(this.zone.map.mapId) && this.tempId == 0) {
             if (Util.isTrue(40, 100)) {
@@ -648,15 +662,15 @@ public class Mob {
         if (player.itemTime.isUseMayDo2) {
             list.add(new ItemMap(zone, 570, 1, x, yEnd, player.id));// cai nay sua sau nha
         }
-        // if (Util.isTrue(10, 100)) {
-        //     byte nroquai = (byte) new Random().nextInt(Manager.itemIds_NR.length);
-        //     list.add(new ItemMap(zone, Manager.itemIds_NR[nroquai], 1, this.location.x, yEnd, player.id));
-        // }
-        // tileVang = player.nPoint.tlGold / 100;
-        // if (Util.isTrue(5, 100)) {
-        //     int vang = (Util.nextInt(30000, 50000) + Util.nextInt(30000, 50000) * tileVang);
-        //     list.add(new ItemMap(zone, 190, vang, this.location.x, yEnd, player.id));
-        // }
+        if (Util.isTrue(5, 100)) {
+            byte nroquai = (byte) new Random().nextInt(Manager.itemIds_NR.length);
+            list.add(new ItemMap(zone, Manager.itemIds_NR[nroquai], 1, this.location.x, yEnd, player.id));
+        }
+        tileVang = player.nPoint.tlGold / 100;
+        if (Util.isTrue(5, 100)) {
+            int vang = (Util.nextInt(30000, 50000) + Util.nextInt(30000, 50000) * tileVang);
+            list.add(new ItemMap(zone, 190, vang, this.location.x, yEnd, player.id));
+        }
         if (Util.isTrue(1, 100) && (this.zone.map.mapId == 1 || this.zone.map.mapId == 2
                 || this.zone.map.mapId == 15 || this.zone.map.mapId == 16
                 || this.zone.map.mapId == 8 || this.zone.map.mapId == 9)) {
@@ -671,9 +685,6 @@ public class Mob {
                     list.add(Util.kogd(zone, 2002, 1, this.location.x, yEnd, player.id));
                     break;
             }
-        }
-        if (Util.isTrue(10, 100) && this.zone.map.mapId > 159 && this.zone.map.mapId < 160 ) {
-            list.add(new ItemMap(zone, 225, 1, this.location.x, yEnd, player.id));
         }
         if (Util.isTrue(6, 1000) && this.zone.map.mapId >= 141 && this.zone.map.mapId <= 142) {
             byte radaThuong = (byte) new Random().nextInt(Manager.manhradaThuong.length);
@@ -690,10 +701,10 @@ public class Mob {
         if (Util.isTrue(3, 100) && this.zone.map.mapId > 159 && this.zone.map.mapId < 164) {
             list.add(new ItemMap(zone, 2031, 1, this.location.x, this.location.y, player.id));
         }
-        // if (Util.isTrue(10, 100)) {
-        //     byte randomVp4 = (byte) new Random().nextInt(Manager.danangcap.length);
-        //     list.add(Util.ratiDa(zone, Manager.danangcap[randomVp4], 1, this.location.x, yEnd, player.id));
-        // }
+        if (Util.isTrue(3, 100)) {
+            byte randomVp4 = (byte) new Random().nextInt(Manager.danangcap.length);
+            list.add(Util.ratiDa(zone, Manager.danangcap[randomVp4], 1, this.location.x, yEnd, player.id));
+        }
         if (player.isPl()) {
             if (Util.isTrue(.5f, 100) && player.inventory.itemsBody.get(5).isNotNullItem() && player.inventory.haveOption(player.inventory.itemsBody, 5, 110)) {
                 byte randomVp2 = (byte) new Random().nextInt(Manager.spl.length);
@@ -704,8 +715,6 @@ public class Mob {
 //            byte randomVp3 = (byte) new Random().nextInt(Manager.thucan.length);
 //            list.add(new ItemMap(zone, Manager.thucan[randomVp3], 1, this.location.x, this.location.y, player.id));
 //        }
-
-
         if (Util.isTrue(40, 100) && this.zone.map.mapId > 155 && this.zone.map.mapId < 159) {
             list.add(new ItemMap(zone, 933, 1, this.location.x, yEnd, player.id));
         }
@@ -713,10 +722,10 @@ public class Mob {
             list.add(new ItemMap(zone, 934, 1, this.location.x, yEnd, player.id));
         }
 
-        if (Util.isTrue(50, 100) && this.zone.map.mapId == 44 ) {
+        if (Util.isTrue(5, 100) && this.zone.map.mapId == 44) {
             list.add(new ItemMap(zone, 1318, 1, this.location.x, this.location.y, player.id));
         }
-        
+
         if (Util.isTrue(0.5f, 100) && this.tempId == 58) {
             list.add(new ItemMap(zone, 720, 1, this.location.x, yEnd, player.id));
         }
@@ -769,15 +778,9 @@ public class Mob {
                 int randomDo = new Random().nextInt(itemDos.length);
                 ItemMap item = new ItemMap(zone, itemDos[randomDo], 1, this.location.x, yEnd, player.id);
                 switch (itemDos[randomDo]) {
-                    case 1474:
-                        item.options.add(new Item.ItemOption(50, 10));
-                        break;
-                    case 1475:
-                        item.options.add(new Item.ItemOption(77, 20));
-                        break;
-                    case 1476:
-                        item.options.add(new Item.ItemOption(103, 20));
-                        break;
+                    case 1474 -> item.options.add(new Item.ItemOption(50, Util.nextInt(10, 50)));
+                    case 1475 -> item.options.add(new Item.ItemOption(77, Util.nextInt(20, 50)));
+                    case 1476 -> item.options.add(new Item.ItemOption(103, Util.nextInt(20, 50)));
                 }
                 item.options.add(new Item.ItemOption(30, 1));
                 list.add(item);

@@ -178,7 +178,7 @@ public class ItemService {
     }
 
     public Template.ItemTemplate getTemplate(int id) {
-        return Manager.ITEM_TEMPLATES.get(id);
+        return Manager.ITEM_TEMPLATES.stream().filter(t -> t.id == id).findFirst().orElse(null);
     }
 
     public boolean isItemActivation(Item item) {
@@ -1665,7 +1665,7 @@ public class ItemService {
                 param = Util.nextInt(28555, 32000);
                 break;
             case 14:
-                Util.nextInt(15,18 );
+                Util.nextInt(15, 18);
                 break;
         }
         return randommOptionForCheDo(item, param, paramID);

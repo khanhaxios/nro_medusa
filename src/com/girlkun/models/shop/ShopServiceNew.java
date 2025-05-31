@@ -261,7 +261,7 @@ public class ShopServiceNew {
             msg.writer().writeByte(items.size());
             for (Item item : items) {
                 msg.writer().writeShort(item.template.id);
-                msg.writer().writeUTF("\n|7|Chào mừng đến với Ngọc Rồng MEDUSA");
+                msg.writer().writeUTF("\n|7|Chào mừng đến với Ngọc Rồng RISE (MEDUSA MỚI)");
                 msg.writer().writeByte(item.itemOptions.size() + 1);
                 for (Item.ItemOption io : item.itemOptions) {
                     msg.writer().writeByte(io.optionTemplate.id);

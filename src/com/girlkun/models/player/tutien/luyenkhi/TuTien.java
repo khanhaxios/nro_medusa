@@ -26,9 +26,9 @@ public class TuTien extends BasePoint implements IBaseAction {
     private static final long[] BASE_EXP_BUFF = new long[]{1, 2, 5, 10, 15, 20, 25, 50, 100, 120, 140, 200, 210, 230, 300, 350, 360, 400, 500};
 
     private static final long[] BASE_LINH_KHI_HOI_PHUC = new long[]{
-            /* 0  */     10L,
-            /* 1  */     20L,
-            /* 2  */     50L,
+            /* 0  */     20L,
+            /* 1  */     40L,
+            /* 2  */     70L,
             /* 3  */    100L,
             /* 4  */    200L,
             /* 5  */    500L,
@@ -52,6 +52,9 @@ public class TuTien extends BasePoint implements IBaseAction {
     public byte MAX_SL_TIEN_PHAP = 1;
     public CongPhap congPhap;
     public List<TienPhap> tienPhapsUsed = new ArrayList<>();
+
+    public boolean isAttackWithLinhCan = true;
+    public boolean isKhongThi = true;
 
     public TuTien(Player player) {
         super(player);
@@ -142,7 +145,7 @@ public class TuTien extends BasePoint implements IBaseAction {
         if (linhKhiPoint < maxLinhKhiPoint) {
             int lv = Math.min(level, BASE_LINH_KHI_HOI_PHUC.length - 1);
             long linhKhiCanHoiPhuc = (BASE_LINH_KHI_HOI_PHUC[lv] * Math.max(1, congPhap.xTocDoKhoiPhucLinhKhi));
-            linhKhiCanHoiPhuc *= Util.nextInt(1, 3);
+            linhKhiCanHoiPhuc *= Util.nextInt(1, 5);
             addLinhKhi(linhKhiCanHoiPhuc);
             lastTimeHoiPhuc = System.currentTimeMillis();
             // send effect to server
@@ -479,7 +482,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             Service.gI().sendThongBaoOK(player, "Bạn cần mở tu tiên");
             return;
         }
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN, -1, "|7|Thông Tin Tu Tiên\n" + "|5|Cảnh Giới : " + getFormatName() + "\n" + "|5|Tu Vi : " + getCurrentExpAsString() + "\n" + "Linh Khí : " + Util.powerToString(linhKhiPoint) + "/" + Util.powerToString(maxLinhKhiPoint) + "\nĐã tu luyện : " + getYearOpened() + "\n" + "|2|Cảnh giới tiếp theo : " + getNextLevelStr() + "\n" + "|1|Tỷ lệ đột phá : " + getLevelUpPercent() + "\n" + "|7|Cảnh giới càng cao tỷ lệ đột phá càng thấp" + "\n" + "|5|Đánh giá : " + pointForMe(), "Chức Năng\nTu Tiên", "Thông Tin\nCông Pháp", "Thông Tin\nTiên Pháp", "Thông Tin\nLinh Căn");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN, -1, "|7|Thông Tin Tu Tiên\n" + "|5|Cảnh Giới : " + getFormatName() + "\n" + "|5|Tu Vi : " + getCurrentExpAsString() + "\n" + "Linh Khí : " + Util.powerToString(linhKhiPoint) + "/" + Util.powerToString(maxLinhKhiPoint) + "\nĐã tu luyện : " + getYearOpened() + "\n" + "|2|Cảnh giới tiếp theo : " + getNextLevelStr() + "\n" + "|1|Tỷ lệ đột phá : " + getLevelUpPercent() + "\n" + "|7|Cảnh giới càng cao tỷ lệ đột phá càng thấp" + "\n" + "|5|Đánh giá : " + pointForMe(), "Chức Năng\nTu Tiên", "Thông Tin\nCông Pháp", "Thông Tin\nTiên Pháp", "Thông Tin\nLinh Căn", "Cài đặt\nLinh Khí");
         // handle process string
     }
 
@@ -567,5 +570,32 @@ public class TuTien extends BasePoint implements IBaseAction {
         linhCan = null;
         tienPhaps = null;
         tienPhapsUsed = null;
+    }
+
+    public void showCaiDatLinhKhi() {
+        String text = "|7|Cài đặt linh khí\n" +
+                "|5|Giúp mình điểu khiển cách dùng linh khí vào đâu";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.LINH_KHI_SETTING, -1, text, "STLC\n" + (isAttackWithLinhCan ? "Mở" : "Đóng"), "Khống Thi\n" + (isKhongThi ? "Mở" : "Đóng"), "Đóng");
+    }
+
+    public int getTyLeRoiDa() {
+        // check luyen the level
+        int percent = 0;
+        if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
+            percent += player.luyenThe.level / 4;
+        }
+        if (player.nguThuSu != null && player.nguThuSu.isNguThu()) {
+            percent += player.nguThuSu.getLevel() * 2;
+        }
+        if (player.luyenKhiSu != null && player.luyenKhiSu.isLuyenKhiSu()) {
+            percent += player.luyenKhiSu.getLevel() * 2;
+        }
+        if (player.tuTien != null && player.tuTien.isTuTien()) {
+            percent += player.tuTien.level;
+        }
+        if (percent <= 5) {
+            return 5;
+        }
+        return percent;
     }
 }

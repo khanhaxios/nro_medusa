@@ -224,10 +224,6 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
 
     @Override
     public void openSystem() {
-        if (player.tuTien.level < 4 && !player.isAdmin()) {
-            Service.gI().sendThongBao(player, "Bạn cần đạt Nguyên Anh để học phù chú");
-            return;
-        }
         // add but chi
         Item item = ItemService.gI().createNewItem((short) 2047, 1);
         item.itemOptions.add(new Item.ItemOption(12, 99999));
@@ -276,7 +272,7 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
         String menuText = "|7|Thông tin phù chú sư\n" +
                 "|5|Cấp bậc :" + getName() + "\n" +
                 "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" +
-                "|7|Tỷ lệ đột phá : " + getNextLevelExp() + "%\n" +
+                "|7|Tỷ lệ đột phá : " + getLevelUpPercent() + "%\n" +
                 "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" +
                 "|2|Tổng buff : " + getHPMPBuff() + "% HP,MP |" + getDameBuff() + "% DAME\n" +
                 "|7|Cấp càng cao buff cành mạnh,mỗi cấp tăng 5%";

@@ -26,6 +26,17 @@ public class KhongThiSu extends BasePoint implements IBaseAction {
     }
 
     public void update() {
+        if (isKhongThi()) {
+            // auto try level up
+            if (exp == maxExp) {
+                if (Util.isTrue(getLevelUpPercent(), 100)) {
+                    this.levelUp();
+                    Service.gI().sendThongBao(player, "Tự động đột phá khống thi sư thành công");
+                } else {
+                    Service.gI().sendThongBao(player, "Tự động đột phá khống thi sư thất bại");
+                }
+            }
+        }
     }
 
     @Override
@@ -69,19 +80,19 @@ public class KhongThiSu extends BasePoint implements IBaseAction {
     public float getLevelUpPercent() {
         switch (level) {
             case 1:
-                return 100f;
+                return 20f;
             case 2:
-                return 20;
+                return 10f;
             case 3:
-                return 15f;
-            case 4:
                 return 5f;
-            case 5:
-                return 3f;
-            case 6:
-                return 2f;
-            case 7:
+            case 4:
                 return 1f;
+            case 5:
+                return .5f;
+            case 6:
+                return .3f;
+            case 7:
+                return .1f;
         }
         return 1f;
     }
@@ -100,10 +111,6 @@ public class KhongThiSu extends BasePoint implements IBaseAction {
 
     @Override
     public void openSystem() {
-        if (player.tuTien.level < 2) {
-            Service.gI().sendThongBao(player, "Bạn cần đạt trúc cơ để học phù chú");
-            return;
-        }
         this.levelUp();
     }
 
@@ -139,23 +146,23 @@ public class KhongThiSu extends BasePoint implements IBaseAction {
     }
 
     public void showMenu() {
-        String menuText = "|7|Thông tin phù chú sư\n" +
+        String menuText = "|7|Thông tin khống thi sư\n" +
                 "|5|Cấp bậc :" + getName() + "\n" +
                 "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" +
-                "|7|Tỷ lệ đột phá : " + getNextLevelExp() + "%\n" +
+                "|7|Tỷ lệ đột phá : " + getLevelUpPercent() + "%\n" +
                 "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" +
                 "|2|Tổng buff : " + getHPMPBuff() + "% HP,MP |" + getDameBuff() + "% DAME\n" +
                 "|7|Cấp càng cao buff cành mạnh,mỗi cấp tăng 5%";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PHU_CHU_SU, -1, menuText, "Chế bùa", "Xem thông\ntin bùa", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_KHONG_THI, -1, menuText, "Đóng");
     }
 
-    public void showMenuCheBua() {
-        String menuText = "|7|Chế bùa\n" +
-                "|5|Cần 1 giấy thếp và đạo cụ vẽ là bút chì\n" +
-                "|2|Đặt chúng ở trong hành trang và chọn chế bùa\n" +
-                "|1|Tỷ lệ thành công phụ thuộc vào vận khí của bạn";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PHU_CHU_SU_CHE_BUA, -1, menuText, "Bùa\nThường", "Bùa\nVIP", "Đóng");
-    }
+//    public void showMenuCheBua() {
+//        String menuText = "|7|Chế bùa\n" +
+//                "|5|Cần 1 giấy thếp và đạo cụ vẽ là bút chì\n" +
+//                "|2|Đặt chúng ở trong hành trang và chọn chế bùa\n" +
+//                "|1|Tỷ lệ thành công phụ thuộc vào vận khí của bạn";
+//        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PHU_CHU_SU_CHE_BUA, -1, menuText, "Bùa\nThường", "Bùa\nVIP", "Đóng");
+//    }
 
     @Override
     protected long getNextLevelExp() {

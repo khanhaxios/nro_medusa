@@ -1,5 +1,6 @@
 package com.girlkun.models.player;
 
+import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Pet.Pet;
 import BoMong.BoMong;
@@ -256,7 +257,7 @@ public class Player {
     public byte typeTabPet = 0;
 
     public long lastTimeSavePlayer;
-    public static final int TIME_AUTO_SAVE = 1800000;
+    public static final int TIME_AUTO_SAVE = 3_600_000;
     public boolean dungCoSk2T9;
 
     public LuyenThe luyenThe;
@@ -391,6 +392,12 @@ public class Player {
                     }
                     if (tranPhapSu != null) {
                         tranPhapSu.update();
+                    }
+                    if (nguThuSu != null) {
+                        nguThuSu.update();
+                    }
+                    if (khongThiSu!=null){
+                        khongThiSu.update();
                     }
                     if (nPoint != null) {
                         nPoint.update();
@@ -571,15 +578,14 @@ public class Player {
                     }
                 }
                 //////////////////////////////////////////////////////////////////////////////////////////
-
-//                if (this.isPl() && !this.beforeDispose && Util.canDoWithTime(lastTimeSavePlayer, TIME_AUTO_SAVE)) {
-//                    lastTimeSavePlayer = System.currentTimeMillis();
-//                    if (this.iDMark == null) {
-//                    } else {
-//                        System.out.println("Tiến Hành Update Định Kỳ 30P 1 Lần Tại Người Chơi: " + this.name);
-//                        PlayerDAO.updatePlayer(this);
-//                    }
-//                }
+                if (this.isPl() && !this.beforeDispose && Util.canDoWithTime(lastTimeSavePlayer, TIME_AUTO_SAVE)) {
+                    lastTimeSavePlayer = System.currentTimeMillis();
+                    if (this.iDMark == null) {
+                    } else {
+                        System.out.println("Tiến Hành Update Định Kỳ 30P 1 Lần Tại Người Chơi: " + this.name);
+                        PlayerDAO.updatePlayer(this);
+                    }
+                }
             } catch (Exception e) {
                 e.getStackTrace();
                 Logger.logException(Player.class, e, "Lỗi tại player: " + this.name);
@@ -603,7 +609,7 @@ public class Player {
             {1375, 1376, 1377}, {1372, 1373, 1374}, {1369, 1370, 1371}, //btc3
             {1255, 1256, 1257}, {1249, 1250, 1251}, {1246, 1247, 1248}, //btc4
             {1252, 1253, 1254}, {793, 794, 795}, {390, 295, 296}, //btc5
-            {2038, 2039, 2040}, {2033, 2034, 2035}, {1451, 1452, 1453} //btc6
+            {2038, 2039, 2040}, {2033, 2034, 2035}, {2043, 2044, 2045} //btc6
     };
 
     public byte getAura() {

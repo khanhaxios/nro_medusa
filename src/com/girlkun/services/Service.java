@@ -3,8 +3,8 @@ package com.girlkun.services;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
-import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.boss.Boss;
+import com.girlkun.models.devices.DeviceInfo;
 import com.girlkun.utils.FileIO;
 import com.girlkun.data.DataGame;
 import com.girlkun.models.boss.BossManager;
@@ -714,6 +714,22 @@ public class Service {
         try {
             String user = _msg.readUTF();
             String pass = _msg.readUTF();
+            // read data device_info , platform , ipAddress
+
+            String deviceId = _msg.readUTF();
+            String platform = _msg.readUTF();
+            String ipAddress = session.getIP();
+
+            if (deviceId == null) {
+                Service.gI().sendThongBaoOK((MySession) session, "Không nhận được dữ liệu phiên bản,hãy dùng đúng phiên bản mod của server để chạy ổn định nhất");
+                return;
+            }
+            // check in database
+            boolean canCreate = DeviceInfo.checkCanCreateAccount(deviceId);
+            if (!canCreate) {
+                Service.gI().sendThongBaoOK((MySession) session, "Tối đa tạo 3 tài khoản trên 1 thiết bị");
+                return;
+            }
             if (!(user.length() >= 4 && user.length() <= 18)) {
                 sendThongBaoOK((MySession) session, "Tài khoản phải có độ dài 4-18 ký tự");
                 return;
@@ -726,12 +742,14 @@ public class Service {
             if (rs.first()) {
                 sendThongBaoOK((MySession) session, "Tài khoản đã tồn tại");
             } else {
-                GirlkunDB.executeUpdate("insert into account (username, password,vnd) values()", user, pass, 100000);
+                DeviceInfo.insertDevice(deviceId, ipAddress, platform);
+                GirlkunDB.executeUpdate("insert into account (username, password,vnd,device_id) values()", user, pass, 100000, deviceId);
                 sendThongBaoOK((MySession) session, "Đăng ký tài khoản thành công!");
             }
             rs.dispose();
         } catch (Exception e) {
-
+            e.printStackTrace();
+            Service.gI().sendThongBaoOK((MySession) session, "Không nhận được dữ liệu phiên bản,hãy dùng đúng phiên bản mod của server để chạy ổn định nhất");
         }
     }
 
@@ -1195,13 +1213,9 @@ public class Service {
 
                 Input.log_Follow_Admin(player.getSession().uu, player.getSession().uu, "Buff Đồ lệnh isl", item.template.name, "", (int) quantity);
                 return;
-            } else if (text.startsWith("i")) {
-                int itemId = Integer.parseInt(text.replace("i", "").trim());
+            } else if (text.startsWith("item ")) {
+                int itemId = Integer.parseInt(text.replace("item ", "").trim());
                 Item item = ItemService.gI().createNewItem(((short) itemId));
-                ItemShop it = new Shop().getItemShop(itemId);
-                if (it != null && !it.options.isEmpty()) {
-                    item.itemOptions.addAll(it.options);
-                }
                 InventoryServiceNew.gI().addItemBag(player, item);
                 InventoryServiceNew.gI().sendItemBags(player);
                 Service.gI().sendThongBao(player, "Đã lấy " + item.template.name + " [" + item.template.id + "]  ra từ kho đồ vũ trụ!");
@@ -1286,7 +1300,7 @@ public class Service {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện khí\nHãy đến gặp npc Thần Cấp luyện khí sư ở làng aru để học hỏi");
                 return;
             }
-            NpcService.gI().createMenuConMeo(player, 123123, -1, String.format("|7|Thông tin luyện khí\n|5|%s(%s)\nKinh Nghiệm: %s\nTỷ lệ đột phá thành công %s\nCấp Càng cao tỷ lệ đột phá càng thấp", player.luyenKhiSu.getName(), player.luyenKhiSu.getLevel(), player.luyenKhiSu.getCurrentExpStr(), player.luyenKhiSu.getTyLeDotPha()), "Chế Đồ", "Kích Hoạt\nTrang Bị", "Đóng");
+            NpcService.gI().createMenuConMeo(player, 123123, -1, String.format("|7|Thông tin luyện khí\n|5|%s(%s)\nKinh Nghiệm: %s\nTỷ lệ đột phá thành công %s\nCấp Càng cao tỷ lệ đột phá càng thấp", player.luyenKhiSu.getName(), player.luyenKhiSu.getLevel(), player.luyenKhiSu.getCurrentExpStr(), player.luyenKhiSu.getTyLeDotPha()), "Chế Đồ", "Kích Hoạt\nTrang Bị", "Chế tạo\nbông tai", "Đóng");
             return;
         }
         if (text.equals("ttpc")) {
@@ -1303,6 +1317,22 @@ public class Service {
                 return;
             }
             player.tranPhapSu.showMenu();
+            return;
+        }
+        if (text.equals("ttnt")) {
+            if (player.nguThuSu.isNguThu() && !player.isAdmin()) {
+                Service.gI().sendThongBaoOK(player, "Bạn chưa mở ngự thú\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
+                return;
+            }
+            player.nguThuSu.showMenu();
+            return;
+        }
+        if (text.equals("ttkt")) {
+            if (player.khongThiSu.isKhongThi() && !player.isAdmin()) {
+                Service.gI().sendThongBaoOK(player, "Bạn chưa mở ngự thú\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
+                return;
+            }
+            player.khongThiSu.showMenu();
             return;
         }
         if (text.equals("ttlt")) {

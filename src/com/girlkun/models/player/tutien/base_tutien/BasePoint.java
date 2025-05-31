@@ -85,6 +85,17 @@ public abstract class BasePoint {
         return linhKhiPoint - (maxLinhKhiPoint * percent / 100) > 0;
     }
 
+    public boolean canHandleWithLinhKhiPoint(long linhkhi) {
+        return linhKhiPoint - linhkhi >= 0;
+    }
+
+    public void subLinhKhi(long linhKhiPoint) {
+        this.linhKhiPoint -= linhKhiPoint;
+        if (this.linhKhiPoint < 0) {
+            this.linhKhiPoint = 0;
+        }
+    }
+
     public void addLinhKhi(long point) {
         this.linhKhiPoint += point;
         if (this.linhKhiPoint > maxLinhKhiPoint) this.linhKhiPoint = maxLinhKhiPoint;

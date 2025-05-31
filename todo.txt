@@ -13,3 +13,10 @@
 - nguyên liệu luyện khí sẽ bao gồm các loại đá  : thiên mệnh thạch , đế vương thạch vv, nhắm cho rơi ở map nào đó
 - điểm nạp h chỉ đổi được thỏi vàng và dùng cho việc tu tiên
 - rảnh thì thêm 1 cái item( icon kiếm trong res ) đặt tên là tiên thạch, sau này sẽ dùng đến
+
+
+- todo :  30/5/2025
+- can update them item roi cho tinh nang tu tien
+
+-todo : 31 / 5/ 2025
+- cho roi da ngu sac va da medusa de kich hoat trang bi ( roi tu boss )

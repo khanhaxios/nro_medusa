@@ -598,7 +598,7 @@ public class SkillService {
                         player.nPoint.numAttack = 0;
                         player.nPoint.stamina--;
                     }
-                    if (player.getMaster().khongThiSu != null && player.getMaster().khongThiSu.isKhongThi()) {
+                    if (player.getMaster().khongThiSu != null && player.getMaster().khongThiSu.isKhongThi() && player.getMaster().tuTien.isKhongThi) {
                         player.getMaster().khongThiSu.addExp(player.getMaster().khongThiSu.getExpCanGain(mobTarget));
                     }
                 } else {
@@ -827,9 +827,9 @@ public class SkillService {
         switch (player.playerSkill.skillSelect.template.id) {
             case Skill.THAI_DUONG_HA_SAN:
                 int timeStun = SkillUtil.getTimeStun(player.playerSkill.skillSelect.point);
-//                if (player.setClothes.thienXinHang == 5) {
-//                    timeStun *= 2;
-//                }
+                if (player.setClothes.thienXinHang == 5) {
+                    timeStun *= 2;
+                }
                 mobs = new ArrayList<>();
                 players = new ArrayList<>();
                 if (!MapService.gI().isMapOffline(player.zone.map.mapId)) {
@@ -1076,7 +1076,6 @@ public class SkillService {
     }
 
     private void playerAttackPlayer(Player plAtt, Player plInjure, boolean miss) {
-        if (plAtt.isBoss) return;
         if (plInjure.effectSkill.anTroi) {
             plAtt.nPoint.isCrit100 = true;
         }
@@ -1085,11 +1084,11 @@ public class SkillService {
         hutHPMP(plAtt, dameHit, false);
         sendMessagePlayerAttackPlayer(plAtt, plInjure, dameHit, (byte) 0);
         // dame for linh can
-        if (plAtt.tuTien.isTuTien() && plAtt.tuTien.canHandleWithLinhKhiPoint(2)) {
+        if (plAtt.isPl() && plAtt.tuTien.isTuTien() && plAtt.tuTien.canHandleWithLinhKhiPoint(2) && plAtt.tuTien.isAttackWithLinhCan) {
             double dame = dameHit * plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 100;
             plInjure.injured(plAtt, dame, false, false);
             sendMessagePlayerAttackPlayer(plAtt, plInjure, dame, (byte) 1);
-            plAtt.tuTien.subLinhKhiPercent(5);
+            plAtt.tuTien.subLinhKhiPercent(2);
         }
     }
 
@@ -1176,7 +1175,7 @@ public class SkillService {
             hutHPMP(plAtt, dameHit, true);
             sendPlayerAttackMob(plAtt, mob);
             mob.injured(plAtt, dameHit, dieWhenHpFull, (byte) 0);
-            if (plAtt.tuTien.isTuTien() && plAtt.tuTien.canHandleWithLinhKhiPoint(1)) {
+            if (plAtt.tuTien.isTuTien() && plAtt.tuTien.canHandleWithLinhKhiPoint(1) && plAtt.tuTien.isAttackWithLinhCan) {
                 double dameH = dameHit * plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 100;
                 mob.injured(plAtt, dameH, dieWhenHpFull, (byte) 1);
                 plAtt.tuTien.subLinhKhiPercent(1);

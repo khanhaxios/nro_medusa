@@ -388,4 +388,8 @@ public class LuyenKhiSu {
     public boolean canLevelUp() {
         return (this.exp >= this.maxExp && this.level + 1 <= MAX_LEVEL);
     }
+
+    public boolean isLuyenKhiSu() {
+        return level > 0;
+    }
 }

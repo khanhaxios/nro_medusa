@@ -618,7 +618,7 @@ public class UseItem {
                             break;
                         case 1532:
                             Service.gI().sendThongBao(pl, "Có cái nịt");
-//                            UseItem.gI().hopSetGokuUI(pl, item);
+                            UseItem.gI().hopSetGokuUI(pl, item);
                             break;
                     }
                     break;
@@ -2060,9 +2060,9 @@ public class UseItem {
         int randomDo = new Random().nextInt(danhhieuRandom.length);
         Item danhHieu = ItemService.gI().createNewItem(danhhieuRandom[randomDo]);
         danhHieu.itemOptions.add(new Item.ItemOption(230, 1));
-        danhHieu.itemOptions.add(new Item.ItemOption(50, Util.nextInt(300, 800)));
-        danhHieu.itemOptions.add(new Item.ItemOption(77, Util.nextInt(300, 800)));
-        danhHieu.itemOptions.add(new Item.ItemOption(103, Util.nextInt(300, 800)));
+        danhHieu.itemOptions.add(new Item.ItemOption(50, Util.nextInt(100, 150)));
+        danhHieu.itemOptions.add(new Item.ItemOption(77, Util.nextInt(100, 200)));
+        danhHieu.itemOptions.add(new Item.ItemOption(103, Util.nextInt(100, 200)));
         danhHieu.itemOptions.add(new Item.ItemOption(93, Util.nextInt(1, 3)));
         danhHieu.itemOptions.add(new Item.ItemOption(30, 1));
         InventoryServiceNew.gI().addItemBag(pl, danhHieu);

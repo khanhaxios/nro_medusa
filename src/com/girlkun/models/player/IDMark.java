@@ -13,6 +13,7 @@ public class IDMark {
     private int typeChangeMap; //capsule, ngọc rồng đen...
     private int indexMenu; //menu npc
     private int typeInput; //input
+    public byte capCheBongTai;
     private byte typeLuckyRound; //type lucky round
 
     private long idPlayThachDau; //id người chơi được mời thách đấu

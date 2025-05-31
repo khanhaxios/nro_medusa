@@ -7,10 +7,13 @@ import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.npc.NpcManager;
 import com.girlkun.models.player.Player;
+import com.girlkun.network.io.Message;
 import com.girlkun.server.Manager;
 import com.girlkun.server.ServerNotify;
-import com.girlkun.network.io.Message;
-import com.girlkun.services.*;
+import com.girlkun.services.InventoryServiceNew;
+import com.girlkun.services.ItemService;
+import com.girlkun.services.RewardService;
+import com.girlkun.services.Service;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 
 public class CombineServiceNew {
 
+    public static final int CHE_TAO_BT = -12312;
     private static final int[] TIEN_KHI_OPTIONS_ID = new int[]{254, 255, 256};
     private static final int COST_DOI_VE_DOI_DO_HUY_DIET = 500000000;
     private static final int COST_DAP_DO_KICH_HOAT = 500000000;
@@ -80,6 +84,7 @@ public class CombineServiceNew {
     public static final int RANDOM_SKH = 525;
     public static final int GIA_HAN_VAT_PHAM = 526;
     public static final int MO_KHOA_GIAO_DICH = 530;
+    private static final byte[][] QUAN_BY_LEVEL_BT = new byte[][]{{9, 19, 29, 1}, {19, 29, 39, 2}, {29, 39, 45, 3}, {39, 45, 59, 4}, {45, 59, 69, 5}, {59, 99, 99, 6}};
 
     private final Npc baHatMit;
     private final Npc npcwhists;
@@ -136,6 +141,67 @@ public class CombineServiceNew {
             }
         }
         switch (player.combineNew.typeCombine) {
+            case CHE_TAO_BT:
+                if (player.combineNew.itemsCombine.size() == 4) {
+                    Item dvt = null;
+                    Item tmt = null;
+                    Item tnt = null;
+                    Item daMedusaVip = null;
+                    for (Item item : player.combineNew.itemsCombine) {
+                        if (item.template.id == 1260) {
+                            dvt = item;
+                        } else if (item.template.id == 1262) {
+                            tmt = item;
+                        } else if (item.template.id == 1266) {
+                            tnt = item;
+                        } else if (item.template.id == 1081) {
+                            daMedusaVip = item;
+                        }
+                    }
+                    if (dvt == null) {
+                        Service.gI().sendThongBao(player, "Thiếu Đế Vương Thạch");
+                        return;
+                    }
+                    if (tmt == null) {
+                        Service.gI().sendThongBao(player, "Thiếu Thiên Mệnh Thạch");
+                        return;
+                    }
+                    if (tnt == null) {
+                        Service.gI().sendThongBao(player, "Thiếu Thiên Nguyệt Thạch");
+                        return;
+                    }
+                    if (daMedusaVip == null) {
+                        Service.gI().sendThongBao(player, "Thiếu Đá Medusa VIP");
+                        return;
+                    }
+                    // get quan by level bong tai
+                    byte[] quanByLevel = QUAN_BY_LEVEL_BT[player.iDMark.capCheBongTai];
+                    if (dvt.quantity < quanByLevel[0]) {
+                        Service.gI().sendThongBao(player, "Cần x" + quanByLevel[0] + "Đế vương thạch");
+                        return;
+                    }
+                    if (tmt.quantity < quanByLevel[1]) {
+                        Service.gI().sendThongBao(player, "Cần x" + quanByLevel[1] + "Thiên Mệnh thạch");
+                        return;
+                    }
+                    if (tnt.quantity < quanByLevel[2]) {
+                        Service.gI().sendThongBao(player, "Cần x" + quanByLevel[2] + " Thiên Mệnh thạch");
+                        return;
+                    }
+                    if (daMedusaVip.quantity < quanByLevel[3]) {
+                        Service.gI().sendThongBao(player, "Cần x" + quanByLevel[2] + "Đá medusa VIP");
+                        return;
+                    }
+                    // get item quan
+                    if (!player.tuTien.canHandleWithLinhKhiPoint(5)) {
+                        Service.gI().sendThongBao(player, "Không đủ linh khí cần 5% tổng linh khí để chế tạo");
+                        return;
+                    }
+                    this.baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, "Cấp luyện khí càng cao tỷ lệ thành công càng cao", "Chế tạo", "Đóng");
+                } else {
+                    Service.gI().sendThongBaoOK(player, "Hãy đặt vào trang bị , ĐÁ MEDUSA và Đế Vương Thạch,Thiên Mệnh Thạch ,Thiên Nguyệt Thạch");
+                }
+                break;
             case KICH_HOAT_TRANG_BI:
                 if (player.combineNew.itemsCombine.size() == 3) {
                     Item trangBi = null;
@@ -1292,8 +1358,12 @@ public class CombineServiceNew {
      */
     public void startCombine(Player player) {
         switch (player.combineNew.typeCombine) {
+            case CHE_TAO_BT:
+                chetaoBongTai(player);
+                break;
             case KICH_HOAT_TRANG_BI:
                 kichHoatTrangBi(player);
+                break;
             case EP_SAO_TRANG_BI:
                 epSaoTrangBi(player);
                 break;
@@ -1397,6 +1467,57 @@ public class CombineServiceNew {
         player.combineNew.clearParamCombine();
         player.combineNew.lastTimeCombine = System.currentTimeMillis();
 
+    }
+
+    private void chetaoBongTai(Player player) {
+        Item dvt = player.combineNew.itemsCombine.stream().filter(t -> t.template.id == 1260).findFirst().orElse(null);
+        Item tnt = player.combineNew.itemsCombine.stream().filter(t -> t.template.id == 1266).findFirst().orElse(null);
+        Item tmt = player.combineNew.itemsCombine.stream().filter(t -> t.template.id == 1262).findFirst().orElse(null);
+        Item daMedusaVip = player.combineNew.itemsCombine.stream().filter(t -> t.template.id == 1081).findFirst().orElse(null);
+        float baseRatio = 3 + player.luyenKhiSu.getPercentBounce() / 3 + player.tuTien.level;
+        boolean isSuccess = false;
+        int kinhnghiem = 0;
+        if (Util.isTrue(baseRatio, 100)) {
+            isSuccess = true;
+            sendEffectSuccessCombine(player);
+            Item bongTai = ItemService.gI().createNewItem(getIdBongTaiByLevel(player.iDMark.capCheBongTai + 1));
+            // ratio bong tai
+            bongTai.itemOptions.add(new ItemOption(30, 0));
+            InventoryServiceNew.gI().addItemBag(player, bongTai);
+            Service.gI().sendThongBao(player, "Chế tạo thành công bạn nhận được x1 " + bongTai.template.name);
+        } else {
+            sendEffectFailCombine(player);
+            Service.gI().sendThongBao(player, "Chế tạo thất bại huhuh");
+        }
+        byte[] quan = QUAN_BY_LEVEL_BT[player.iDMark.capCheBongTai];
+        InventoryServiceNew.gI().subQuantityItemsBag(player, dvt, quan[0]);
+        InventoryServiceNew.gI().subQuantityItemsBag(player, tmt, quan[1]);
+        InventoryServiceNew.gI().subQuantityItemsBag(player, tnt, quan[2]);
+        InventoryServiceNew.gI().subQuantityItemsBag(player, daMedusaVip, quan[3]);
+        InventoryServiceNew.gI().sendItemBags(player);
+        kinhnghiem += 1000 + Util.nextInt(200, 1000);
+        player.luyenKhiSu.addExp(kinhnghiem);
+        player.luyenKhiSu.getLinhHoa().addExp(kinhnghiem);
+        player.iDMark.capCheBongTai = -1;
+        player.tuTien.subLinhKhiPercent(10);
+    }
+
+    private short getIdBongTaiByLevel(int i) {
+        switch (i) {
+            case 1:
+                return 454;
+            case 2:
+                return 921;
+            case 3:
+                return 1165;
+            case 4:
+                return 1129;
+            case 5:
+                return 1416;
+            case 6:
+                return 1417;
+        }
+        return 454;
     }
 
     private void kichHoatTrangBi(Player player) {
@@ -1511,7 +1632,7 @@ public class CombineServiceNew {
                 item.itemOptions.add(new ItemOption(optionVIP[player.gender][0], 0));
                 item.itemOptions.add(new ItemOption(paramVIP[player.gender][0], 0));
                 item.itemOptions.add(new ItemOption(30, 0));
-            } else {// 
+            } else {//
                 item.itemOptions.add(new ItemOption(optionNormal[player.gender][random], 0));
                 item.itemOptions.add(new ItemOption(paramNormal[player.gender][random], 0));
                 item.itemOptions.add(new ItemOption(30, 0));
@@ -1550,7 +1671,7 @@ public class CombineServiceNew {
                 item.itemOptions.add(new ItemOption(optionVIP[player.gender][0], 0));
                 item.itemOptions.add(new ItemOption(paramVIP[player.gender][0], 0));
                 item.itemOptions.add(new ItemOption(30, 0));
-            } else {// 
+            } else {//
                 item.itemOptions.add(new ItemOption(optionNormal[player.gender][random], 0));
                 item.itemOptions.add(new ItemOption(paramNormal[player.gender][random], 0));
                 item.itemOptions.add(new ItemOption(30, 0));
@@ -3134,7 +3255,7 @@ public class CombineServiceNew {
                             }
 
                         }
-                        //item.itemOptions.add(new Item.ItemOption(73 , 1));  
+                        //item.itemOptions.add(new Item.ItemOption(73 , 1));
                         sendEffectSuccessCombine(player);
                         InventoryServiceNew.gI().subQuantityItemsBag(player, dangusac, 99);
                         InventoryServiceNew.gI().sendItemBags(player);
@@ -3263,7 +3384,7 @@ public class CombineServiceNew {
                             }
 
                         }
-                        //item.itemOptions.add(new Item.ItemOption(73 , 1));  
+                        //item.itemOptions.add(new Item.ItemOption(73 , 1));
                         sendEffectSuccessCombine(player);
                         InventoryServiceNew.gI().subQuantityItemsBag(player, dangusac, 99);
                         InventoryServiceNew.gI().sendItemBags(player);
@@ -3307,7 +3428,7 @@ public class CombineServiceNew {
                             }
 
                         }
-                        //item.itemOptions.add(new Item.ItemOption(73 , 1));  
+                        //item.itemOptions.add(new Item.ItemOption(73 , 1));
                         sendEffectSuccessCombine(player);
                         InventoryServiceNew.gI().subQuantityItemsBag(player, dangusac, 1);
                         InventoryServiceNew.gI().sendItemBags(player);
@@ -3355,7 +3476,7 @@ public class CombineServiceNew {
                             }
 
                         }
-                        //item.itemOptions.add(new Item.ItemOption(73 , 1));  
+                        //item.itemOptions.add(new Item.ItemOption(73 , 1));
                         sendEffectSuccessCombine(player);
                         InventoryServiceNew.gI().subQuantityItemsBag(player, dangusac, 99);
                         InventoryServiceNew.gI().sendItemBags(player);
@@ -3402,7 +3523,7 @@ public class CombineServiceNew {
                                 }
                             }
                         }
-                        //item.itemOptions.add(new Item.ItemOption(73 , 1));  
+                        //item.itemOptions.add(new Item.ItemOption(73 , 1));
                         sendEffectSuccessCombine(player);
                         InventoryServiceNew.gI().subQuantityItemsBag(player, dangusac, 99);
                         InventoryServiceNew.gI().sendItemBags(player);
@@ -3826,11 +3947,11 @@ public class CombineServiceNew {
             case 5:
                 return 4f;
             case 6:
-                return 2f;
-            case 7:
                 return 1f;
-            case 8:
+            case 7:
                 return .3f;
+            case 8:
+                return .1f;
             case 9:
                 return 100f;
             case 10:
@@ -4517,6 +4638,8 @@ public class CombineServiceNew {
     //--------------------------------------------------------------------------Text tab combine
     private String getTextTopTabCombine(int type) {
         switch (type) {
+            case CHE_TAO_BT:
+                return "Bông tai giúp m hợp thể với đệ tử";
             case KICH_HOAT_TRANG_BI:
                 return "Ta sẽ biến trang\nbị của ngươi thành\ntrang bị kích hoạt bất kỳ";
             case EP_SAO_TRANG_BI:
@@ -4582,6 +4705,8 @@ public class CombineServiceNew {
 
     private String getTextInfoTabCombine(int type) {
         switch (type) {
+            case CHE_TAO_BT:
+                return "Cho vào đây số lượng Đế Vương thạch , Thiên mệnh thạch,\n Thiên nguyệt thạch đầy đủ";
             case KICH_HOAT_TRANG_BI:
                 return "Chọn trang bị\n và đặt vào 2 loại nguyên liệu\n(Đá MEDUSA,Đế Vương Thạch).\n";
             case EP_SAO_TRANG_BI:

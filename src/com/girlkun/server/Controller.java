@@ -114,7 +114,6 @@ public class Controller implements IMessageHandler {
                             break;
                     }
                     break;
-
                 case -105:
                     if (player.type == 0 && player.maxTime == 30) {
                         ChangeMapService.gI().changeMap(player, 102, 0, 100, 336);
@@ -870,13 +869,13 @@ public class Controller implements IMessageHandler {
 
         if (TaskService.gI().getIdTask(player) == ConstTask.TASK_0_0) {
             NpcService.gI().createTutorial(player, -1,
-                    "Chào mừng " + player.name + " đến với Ngọc rồng online server MEDUSA\n"
+                    "Chào mừng " + player.name + " đến với Ngọc rồng online server RISE(MEDUSA MỚI)\n"
                             + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
                             + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
         } else {
             NpcService.gI().createTutorial(player, -1,
-                    "Chào mừng " + player.name + " đến với Ngọc rồng online server MEDUSA\n"
-                            + " Để hiểu rõ về cơ chế cũng như xem Giftcode Máy chủ Server MEDUSA vui lòng bấm vào mục Chức năng -> Thông báo\n"
+                    "Chào mừng " + player.name + " đến với Ngọc rồng online server RISE(MEDUSA MỚI)\n"
+                            + " Để hiểu rõ về cơ chế cũng như xem Giftcode Máy chủ Server RISE(MEDUSA MỚI) vui lòng bấm vào mục Chức năng -> Thông báo\n"
                             + "Chúc anh em chơi game vui vẻ");
         }
         if (GoiRongXuong.gI().playerRongXuong != null

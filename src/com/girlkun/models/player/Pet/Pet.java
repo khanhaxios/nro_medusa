@@ -60,26 +60,69 @@ public class Pet extends Player {
         this.isPet = true;
     }
 
-    public void changeStatus(byte status) {
-        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
-            Service.gI().chat(this, "Sao tao phải nghe mày");
-            this.status = (byte) Util.nextInt(0, 3);
-            handleWithStatus(status);
-        } else if (master.khongThiSu != null) {
-            if (master.khongThiSu.level + 2 < this.typePet) {
-                Service.gI().chat(this, "Sao tao phải nghe mày");
-                this.status = (byte) Util.nextInt(0, 3);
-                handleWithStatus(status);
-            }
-        } else {
-            if (goingHome || master.fusion.typeFusion != 0 || (this.isDie() && status == FUSION)) {
-                Service.getInstance().sendThongBao(master, "Không thể thực hiện");
-                return;
-            }
-            handleWithStatus(status);
-            this.status = status;
+    public void changeStatus(byte requestedStatus) {
+        if (shouldDisobeyMaster()) {
+            sayDisobedientLine();
+            setRandomStatus();
+            handleWithStatus(this.status); // xử lý theo status đã random
+            return;
         }
+
+        if (isBusyOrInvalidFusion(requestedStatus)) {
+            Service.getInstance().sendThongBao(master, "Không thể thực hiện");
+            return;
+        }
+
+        handleWithStatus(requestedStatus);
+        this.status = requestedStatus;
     }
+
+    private boolean shouldDisobeyMaster() {
+        boolean khongThiSuNullOrNotInState = master.khongThiSu == null || !master.khongThiSu.isKhongThi();
+
+        boolean khongThiSuLowLevel = master.khongThiSu != null &&
+                master.tuTien.isKhongThi &&
+                master.tuTien.canHandleWithLinhKhiPoint(
+                        10L * Math.max(this.nPoint.limitPower, 1) * typePet) &&
+                master.khongThiSu.level + 2 < this.typePet;
+
+        return khongThiSuNullOrNotInState || khongThiSuLowLevel;
+    }
+
+    private void sayDisobedientLine() {
+        Service.gI().chat(this, "Sao tao phải nghe mày");
+    }
+
+    private void setRandomStatus() {
+        this.status = (byte) Util.nextInt(0, 3);
+    }
+
+    private boolean isBusyOrInvalidFusion(byte requestedStatus) {
+        return goingHome ||
+                master.fusion.typeFusion != 0 ||
+                (this.isDie() && requestedStatus == FUSION);
+    }
+
+//    public void changeStatus(byte status) {
+//        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
+//            Service.gI().chat(this, "Sao tao phải nghe mày");
+//            this.status = (byte) Util.nextInt(0, 3);
+//            handleWithStatus(status);
+//        } else if (master.khongThiSu != null && master.tuTien.isKhongThi && master.tuTien.canHandleWithLinhKhiPoint((long) 10 * Math.max(this.nPoint.limitPower, 1) * typePet)) {
+//            if (master.khongThiSu.level + 2 < this.typePet) {
+//                Service.gI().chat(this, "Sao tao phải nghe mày");
+//                this.status = (byte) Util.nextInt(0, 3);
+//                handleWithStatus(status);
+//            }
+//        } else {
+//            if (goingHome || master.fusion.typeFusion != 0 || (this.isDie() && status == FUSION)) {
+//                Service.getInstance().sendThongBao(master, "Không thể thực hiện");
+//                return;
+//            }
+//            handleWithStatus(status);
+//            this.status = status;
+//        }
+//    }
 
     private void handleWithStatus(byte status) {
         Service.getInstance().chatJustForMe(master, this, getTextStatus(status));
@@ -387,7 +430,9 @@ public class Pet extends Player {
             if (master.isDie() || this.isDie() || effectSkill.isHaveEffectSkill()) {
                 return;
             }
-
+            if (master.tuTien.isKhongThi) {
+                master.tuTien.subLinhKhi((long) 10 * Math.max(nPoint.limitPower, 1) * typePet);
+            }
             moveIdle();
             switch (status) {
                 case FOLLOW:
