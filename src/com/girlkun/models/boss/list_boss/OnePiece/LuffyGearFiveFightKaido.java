@@ -12,7 +12,9 @@ import com.girlkun.server.Manager;
 import com.girlkun.services.ItemService;
 import com.girlkun.services.Service;
 import com.girlkun.services.SkillService;
+
 import java.util.Random;
+
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
 
@@ -20,7 +22,6 @@ import com.girlkun.utils.Util;
  * @@@@Code rewritten by ndqitVN (Zalo - 0372475179)
  */
 public class LuffyGearFiveFightKaido extends Boss {
-
     public LuffyGearFiveFightKaido() throws Exception {
         super(BossID.LUFFY_GEAR_FIVE_FIGHT_KAIDO, BossesData.LUFFY_GEAR_FIVE_WITH_KAIDO);
     }
@@ -132,6 +133,7 @@ public class LuffyGearFiveFightKaido extends Boss {
         this.location.y = 312;
         this.isWin = false;
     }
+
     private long st;
 
     private boolean canAttackBoss(Player pl) {

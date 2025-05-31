@@ -28,29 +28,22 @@ public class BossNGOC1 extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.inventory.event++;
-        // Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 10 CỦ Hồng Ngọc");
-        // ItemMap it = new ItemMap(this.zone, 861, 50000000, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-        //         this.location.y - 24), plKill.id);
-        // it.options.add(new Item.ItemOption(30, 0));
-        // Service.getInstance().dropItemMap(this.zone, it);
-        int randHN = Util.nextInt(1_000_000, 100_000_000);
-        
+        int randHN = Util.nextInt(10000, 50000);
         // Rơi HN
-       ItemMap it = new ItemMap(this.zone, 861, randHN, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-               this.location.y - 24), plKill.id);
-       it.options.add(new Item.ItemOption(30, 0));
-       Service.getInstance().dropItemMap(this.zone, it);
-         int a=0;
-                for (int i=0; i<8; i++)
-                {
-                      ItemMap it1 = new ItemMap(this.zone, 1464, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
+        ItemMap it = new ItemMap(this.zone, 861, randHN, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        it.options.add(new Item.ItemOption(30, 0));
+        Service.getInstance().dropItemMap(this.zone, it);
+        int a = 0;
+        for (int i = 0; i < 8; i++) {
+            ItemMap it1 = new ItemMap(this.zone, 1464, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
-            a+=10;
-                }
-                ItemMap it1 = new ItemMap(this.zone, 1457, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
+            a += 10;
+        }
+        ItemMap it1 = new ItemMap(this.zone, 1457, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        Service.getInstance().dropItemMap(this.zone, it1);
     }
 
     @Override
@@ -66,6 +59,7 @@ public class BossNGOC1 extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override

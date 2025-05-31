@@ -16,6 +16,7 @@ import com.girlkun.models.player.Player;
 import com.girlkun.network.io.Message;
 import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
+import com.girlkun.services.ItemMapService;
 import com.girlkun.services.ItemService;
 
 import java.awt.image.BufferedImage;
@@ -30,7 +31,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.imageio.ImageIO;
 
+import com.girlkun.services.Service;
+import com.girlkun.services.func.CombineServiceNew;
 import org.apache.commons.lang.ArrayUtils;
+
+import static com.girlkun.server.Manager.LIST_CAI_TRANG_ID;
 
 public class Util {
 
@@ -565,6 +570,7 @@ public class Util {
         return it;
     }
 
+
     public int getOptionSKHTien(short idOption) {
         return idOption + 3;
     }
@@ -777,6 +783,144 @@ public class Util {
         }
         it.itemOptions.add(new Item.ItemOption(21, 15));
         return it;
+    }
+
+    public static short[] idItemHaoQuang = new short[]{1193, 1194, 1209, 1217, 1269, 1412, 1413, 1414};
+
+    public static short[] idParamDongChiSo = new short[]{0, 50, 77, 103, 5, 95, 96};
+
+    public static void ratioDropCaiTrang(Zone zone, int quantity, int x, int y, long playerId, float ratio, int min, int max) {
+        if (Util.isTrue(ratio, 100)) {
+            // Random 1 cải trang từ danh sách
+            short itemId = LIST_CAI_TRANG_ID[Util.nextInt(0, LIST_CAI_TRANG_ID.length - 1)];
+            ItemMap itemMap = new ItemMap(zone, itemId, quantity, x, y, playerId);
+
+            // Xác định số lượng dòng chỉ số
+            int numberOfChiSo = 3;
+            if (Util.isTrue(15, 100)) numberOfChiSo = 4;
+            if (Util.isTrue(20, 100)) numberOfChiSo = 5;
+
+            List<Item.ItemOption> options = new ArrayList<>();
+            List<Short> usedIds = new ArrayList<>();
+
+            while (options.size() < numberOfChiSo) {
+                short optionId = idParamDongChiSo[Util.nextInt(0, idParamDongChiSo.length - 1)];
+                if (!usedIds.contains(optionId)) {
+                    usedIds.add(optionId);
+                    double rand = Math.random();
+                    double skewed = Math.pow(rand, 2);
+                    int chiso = min + (int) ((max - min) * skewed);
+                    options.add(new Item.ItemOption(optionId, chiso));
+                }
+            }
+            itemMap.options = options;
+            Service.gI().dropItemMap(zone, itemMap);
+        }
+    }
+
+
+    public static void ratioTrangBi(Zone zone, int quantity, int x, int y, long playerId, float ratio, int setType) {
+        if (Util.isTrue(ratio, 100)) {
+            Item item = null;
+            switch (setType) {
+                case 0:
+                    item = ItemService.gI().createRandomDoXen();
+                    // set xen
+                    break;
+                case 1:
+                    item = ItemService.gI().createRandomDoThongKho();
+                    // set thong kho
+                    break;
+                case 2:
+                    item = ItemService.gI().createRandomDoThanhTon();
+                    // set jiren
+                    break;
+                case 3:
+                    item = ItemService.gI().createRandomDoNguyenThuy();
+                    // set goku
+                    break;
+                case 4:
+                    item = ItemService.gI().createRandomDoJiren();
+                    // set goku
+                    break;
+                case 5:
+                    item = ItemService.gI().createRandomDoGoku();
+                    // set goku
+                    break;
+            }
+            ItemMap itemMap = ItemMapService.gI().createItemMapFromItem(zone, quantity, x, y, playerId, item);
+            Service.gI().dropItemMap(zone, itemMap);
+        }
+    }
+
+    public static void ratioDropLinhThu(Zone zone, int quantity, int x, int y, long id, float ratio, int min, int max) {
+        if (Util.isTrue(ratio, 100)) {
+            // Random item hào quang
+            short itemId = Manager.LIST_LINH_THU_ID[Util.nextInt(0, Manager.LIST_LINH_THU_ID.length - 1)];
+            ItemMap itemMap = new ItemMap(zone, itemId, quantity, x, y, id);
+            // ratio chi so
+            int numberOfChiSo = 1;
+            if (Util.isTrue(15, 100)) numberOfChiSo = 2;
+            if (Util.isTrue(20, 100)) numberOfChiSo = 3;
+            List<Item.ItemOption> options = new ArrayList<>();
+            List<Short> usedIds = new ArrayList<>();
+
+            while (options.size() < numberOfChiSo) {
+                short optionId = idParamDongChiSo[Util.nextInt(0, idParamDongChiSo.length - 1)];
+                if (!usedIds.contains(optionId)) {
+                    usedIds.add(optionId);
+                    double rand = Math.random();
+                    double skewed = Math.pow(rand, 2);
+                    int chiso = min + (int) ((max - min) * skewed);
+                    options.add(new Item.ItemOption(optionId, chiso));
+                }
+            }
+            itemMap.options = options;
+            Service.gI().dropItemMap(zone, itemMap);
+        }
+    }
+
+    public static void ratioDropHaoQuang(Zone zone, int quantity, int x, int y, long playerId, float ratio, int min, int max) {
+        if (Util.isTrue(ratio, 100)) {
+            // Random item hào quang
+            short itemId = idItemHaoQuang[Util.nextInt(0, idItemHaoQuang.length - 1)];
+            ItemMap itemMap = new ItemMap(zone, itemId, quantity, x, y, playerId);
+            // ratio chi so
+            int numberOfChiSo = 3;
+            if (Util.isTrue(15, 100)) numberOfChiSo = 4;
+            if (Util.isTrue(20, 100)) numberOfChiSo = 5;
+            List<Item.ItemOption> options = new ArrayList<>();
+            List<Short> usedIds = new ArrayList<>();
+
+            while (options.size() < numberOfChiSo) {
+                short optionId = idParamDongChiSo[Util.nextInt(0, idParamDongChiSo.length - 1)];
+                if (!usedIds.contains(optionId)) {
+                    usedIds.add(optionId);
+                    double rand = Math.random();
+                    double skewed = Math.pow(rand, 2);
+                    int chiso = min + (int) ((max - min) * skewed);
+                    options.add(new Item.ItemOption(optionId, chiso));
+                }
+            }
+            itemMap.options = options;
+            Service.gI().dropItemMap(zone, itemMap);
+        }
+    }
+
+    public static void ratioRoiBuaZeno(Zone zone, int quantity, int x, int y, long playerId) {
+        if (Util.isTrue(10, 100)) {
+            ItemMap itemMap = new ItemMap(zone, 1378, quantity, x, y, playerId);
+            Service.gI().dropItemMap(zone, itemMap);
+        }
+    }
+
+    public static ItemMap ratiItemVip(Zone zone, int tempId, short[] idsParams, short[] paramMax, short[] paramMin, int quantity, int x, int y, long playerId) {
+        ItemMap itemMap = new ItemMap(zone, tempId, quantity, x, y, playerId);
+        for (short i = 0; i < idsParams.length; i++) {
+            Item.ItemOption itemOption = new Item.ItemOption(idsParams[i], Util.nextInt(paramMin[i], paramMax[i]));
+            itemMap.options.add(itemOption);
+        }
+        return itemMap;
     }
 
     public static ItemMap ratiItem(Zone zone, int tempId, int quantity, int x, int y, long playerId) {

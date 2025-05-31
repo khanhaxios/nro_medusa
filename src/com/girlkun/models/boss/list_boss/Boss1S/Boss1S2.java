@@ -30,20 +30,21 @@ public class Boss1S2 extends Boss {
         plKill.inventory.event++;
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         ItemMap it = new ItemMap(this.zone, 1236, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                this.location.y - 24),  plKill.id);
+                this.location.y - 24), plKill.id);
         it.options.add(new Item.ItemOption(30, 1));
         Service.getInstance().dropItemMap(this.zone, it);
-         int a=20;
-                for (int i=0; i<5; i++)
-                {
-                      ItemMap it1 = new ItemMap(this.zone, 1235, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
+        int a = 20;
+        for (int i = 0; i < 5; i++) {
+            ItemMap it1 = new ItemMap(this.zone, 1235, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
                     this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
-            a+=10;
-                }
-                ItemMap it1 = new ItemMap(this.zone, 2030, 5, this.location.x - a, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
+            a += 10;
+        }
+        if (Util.isTrue(5, 100)) {
+            ItemMap it1 = new ItemMap(this.zone, 1471, 5, this.location.x - a, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
+        }
     }
 
     @Override
@@ -59,6 +60,7 @@ public class Boss1S2 extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override

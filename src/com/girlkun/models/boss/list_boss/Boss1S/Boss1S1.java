@@ -45,9 +45,12 @@ public class Boss1S1 extends Boss {
                 Service.getInstance().dropItemMap(this.zone, it1);
                 a += 10;
             }
-            ItemMap it1 = new ItemMap(this.zone, 2030, 5, this.location.x - a, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
+            if (Util.isTrue(5,100)){
+                ItemMap it1 = new ItemMap(this.zone, 1470, 5, this.location.x - a, this.zone.map.yPhysicInTop(this.location.x,
+                        this.location.y - 24), plKill.id);
+                Service.getInstance().dropItemMap(this.zone, it1);
+            }
+
         } else {
             ItemMap it1 = new ItemMap(this.zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                     this.location.y - 24), plKill.id);
@@ -56,7 +59,6 @@ public class Boss1S1 extends Boss {
                 Service.getInstance().sendThongBao(plKill, "|1|Bạn đã nhận " + it1.itemTemplate.name + " Ký gửi ngọc");
             }
             Service.getInstance().dropItemMap(this.zone, it1);
-
         }
     }
 

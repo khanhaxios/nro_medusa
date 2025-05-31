@@ -26,21 +26,25 @@ public class BlackGokuBase extends Boss {
         byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
         if (Util.isTrue(BossManager.ratioReward, 100)) {
             if (Util.isTrue(1, 20)) {
-                 Service.getInstance().dropItemMap(this.zone, new ItemMap (zone, 865, 1, this.location.x, this.location.y, plKill.id));
-            }
-            else if (Util.isTrue(10, 20)) {
-                 Service.getInstance().dropItemMap(this.zone, new ItemMap (zone, 14, 1, this.location.x, this.location.y, plKill.id));
-            }
-            else {
+                Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, 865, 1, this.location.x, this.location.y, plKill.id));
+            } else if (Util.isTrue(10, 20)) {
+                Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, 14, 1, this.location.x, this.location.y, plKill.id));
+            } else {
                 Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
             }
         } else {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, 14, 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
-                ItemMap it1 = new ItemMap(this.zone, 2030, 2, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
+        ItemMap it1 = new ItemMap(this.zone, 2030, 2, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        Service.getInstance().dropItemMap(this.zone, it1);
+        Util.ratioRoiBuaZeno(zone, 1, this.location.x, this.location.y, plKill.id);
+        // ratio
+        Util.ratioDropCaiTrang(zone, 1, this.location.x, this.location.y, plKill.id, 2f, 100, 150);
+
+        Util.ratioDropHaoQuang(zone, 1, this.location.x, this.location.y, plKill.id, .5f, 100, 150);
     }
+
     @Override
     public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
@@ -65,6 +69,7 @@ public class BlackGokuBase extends Boss {
             return 0;
         }
     }
+
     @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.

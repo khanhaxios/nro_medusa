@@ -39,6 +39,8 @@ public class BossADMIN3 extends Boss {
                 this.location.y - 24), plKill.id);
         it.options.add(new Item.ItemOption(30, 1));
         Service.getInstance().dropItemMap(this.zone, it);
+        Util.ratioRoiBuaZeno(zone, 1, this.location.x, this.location.y, plKill.id);
+        Util.ratioDropLinhThu(zone, 1, this.location.x, this.location.y, plKill.id, 2f, 120, 175);
     }
 
     @Override

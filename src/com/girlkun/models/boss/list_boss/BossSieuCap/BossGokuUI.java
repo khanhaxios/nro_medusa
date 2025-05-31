@@ -28,14 +28,7 @@ public class BossGokuUI extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.inventory.event++;
-        ItemMap item;
-        short itemId;
-        itemId = Manager.setGokuUI[Util.nextInt(0, 4)];
-        item = new ItemMap(zone, itemId, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                this.location.y - 24), plKill.id);
-        Util.ratiItemMapSKHGokuUI(item, itemId);
-        item.options.remove(item.options.stream().filter(itemOption -> itemOption.optionTemplate.id == 30).findFirst().get());
-        Service.getInstance().dropItemMap(this.zone, item);
+        Util.ratioTrangBi(zone, 1, this.location.x, this.location.y, plKill.id, 5, 5);
         ItemMap dns = new ItemMap(zone, 674, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);
         Service.getInstance().dropItemMap(this.zone, dns);
@@ -55,6 +48,7 @@ public class BossGokuUI extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override

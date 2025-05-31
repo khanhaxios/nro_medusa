@@ -16,6 +16,7 @@ import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.PetService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
+
 import java.util.Random;
 
 /**
@@ -32,29 +33,12 @@ public class CoolerGold extends Boss {
         plKill.achievement.plusCount(3);
         plKill.inventory.event++;
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
-        int[] itemDos = new int[]{561, 1048, 1049, 1050};
-        int[] NRs = new int[]{17, 16};
-        int randomDo = new Random().nextInt(itemDos.length);
-        int randomNR = new Random().nextInt(NRs.length);
-        if (Util.isTrue(15, 100)) {
-            if (Util.isTrue(1, 5)) {
-                Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, 561, 1, this.location.x, this.location.y, plKill.id));
-                return;
-            }
-            Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
-        } 
-        else if (Util.isTrue(4, 20)) {
-                Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, 722, 2, this.location.x, this.location.y, plKill.id));
-                return;
-            }
-        else {
-            Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, NRs[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
-        }
-                ItemMap it1 = new ItemMap(this.zone, 2030, 2, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
+        Util.ratioTrangBi(zone, 1, this.location.x, this.location.y, plKill.id, 20, 1);
+        Util.ratioRoiBuaZeno(zone, 1, this.location.x, this.location.y, plKill.id);
+        Util.ratioDropCaiTrang(zone, 1, this.location.x, this.location.y, plKill.id, 10, 50, 100);
     }
-//
+
+    //
     @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
@@ -62,13 +46,15 @@ public class CoolerGold extends Boss {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
-     
+
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
+
     @Override
     public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {

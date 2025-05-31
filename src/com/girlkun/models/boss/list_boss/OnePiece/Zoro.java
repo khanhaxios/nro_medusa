@@ -36,15 +36,15 @@ public class Zoro extends Boss {
                 this.location.y - 24), plKill.id);
         if (rand < 95) {
             itemReward.options.add(new Item.ItemOption(230, 1));
-            itemReward.options.add(new Item.ItemOption(50, 200));
-            itemReward.options.add(new Item.ItemOption(77, 300));
-            itemReward.options.add(new Item.ItemOption(103, 300));
+            itemReward.options.add(new Item.ItemOption(50, 150));
+            itemReward.options.add(new Item.ItemOption(77, 200));
+            itemReward.options.add(new Item.ItemOption(103, 200));
             itemReward.options.add(new Item.ItemOption(93, Util.nextInt(1, 3)));
         } else {
             itemReward.options.add(new Item.ItemOption(230, 1));
-            itemReward.options.add(new Item.ItemOption(50, 500));
-            itemReward.options.add(new Item.ItemOption(77, 1000));
-            itemReward.options.add(new Item.ItemOption(103, 1000));
+            itemReward.options.add(new Item.ItemOption(50, 200));
+            itemReward.options.add(new Item.ItemOption(77, 250));
+            itemReward.options.add(new Item.ItemOption(103, 250));
 
         }
         Service.getInstance().dropItemMap(this.zone, itemReward);

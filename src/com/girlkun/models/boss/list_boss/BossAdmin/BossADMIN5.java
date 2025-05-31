@@ -33,17 +33,18 @@ public class BossADMIN5 extends Boss {
                 this.location.y - 24), plKill.id);
         it.options.add(new Item.ItemOption(30, 0));
         Service.getInstance().dropItemMap(this.zone, it);
-         int a=0;
-                for (int i=0; i<8; i++)
-                {
-                      ItemMap it1 = new ItemMap(this.zone, 1340, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
+        int a = 0;
+        for (int i = 0; i < 8; i++) {
+            ItemMap it1 = new ItemMap(this.zone, 1340, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
-            a+=10;
-                }
-                ItemMap it1 = new ItemMap(this.zone, 2030, 5, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
+            a += 10;
+        }
+        ItemMap it1 = new ItemMap(this.zone, 2030, 5, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        Service.getInstance().dropItemMap(this.zone, it1);
+        Util.ratioRoiBuaZeno(zone, 1, this.location.x, this.location.y, plKill.id);
+        Util.ratioDropLinhThu(zone, 1, this.location.x, this.location.y, plKill.id, 2f, 120, 175);
     }
 
     @Override
@@ -59,6 +60,7 @@ public class BossADMIN5 extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override

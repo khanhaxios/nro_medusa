@@ -36,11 +36,10 @@ public class BossMOI1 extends Boss {
         it.options.add(new Item.ItemOption(30, 0));
         Service.getInstance().dropItemMap(this.zone, it);
 
-        
         int a = 0;
         for (int i = 0; i < 8; i++) {
             // thỏi vàng
-            ItemMap it1 = new ItemMap(this.zone, 457, 100, this.location.x + a,
+            ItemMap it1 = new ItemMap(this.zone, 457, 12, this.location.x + a,
                     this.zone.map.yPhysicInTop(this.location.x,
                             this.location.y - 24),
                     plKill.id);
@@ -48,14 +47,11 @@ public class BossMOI1 extends Boss {
             Service.getInstance().dropItemMap(this.zone, it1);
             a += 10;
         }
-        // ItemMap it1 = new ItemMap(this.zone, 1338, 5, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-        //         this.location.y - 24), plKill.id);
-        // Service.getInstance().dropItemMap(this.zone, it1);
     }
 
     @Override
     public void active() {
-        super.active(); // To change body of generated methods, choose Tools | Templates.
+        super.active();
         if (Util.canDoWithTime(st, 2500000)) {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }

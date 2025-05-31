@@ -28,19 +28,11 @@ public class BossNGOC2 extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.inventory.event++;
-        int randHN = Util.nextInt(1_000_000, 100_000_000);
-        
-        // Rơi HN
-    //    ItemMap it = new ItemMap(this.zone, 861, randHN, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-    //            this.location.y - 24), plKill.id);
-    //    it.options.add(new Item.ItemOption(30, 0));
-    //    Service.getInstance().dropItemMap(this.zone, it);
-        
-        // Cộng Thẳng Vào Túi
+        int randHN = Util.nextInt(10000, 50000);
         plKill.getMaster().inventory.ruby += randHN;
         Service.gI().sendMoney(plKill);
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được " + Util.powerToStringnew(randHN) + " Hồng Ngọc");
-        
+
         int a = 0;
         for (int i = 0; i < 8; i++) {
             ItemMap it1 = new ItemMap(this.zone, 1464, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
@@ -66,6 +58,7 @@ public class BossNGOC2 extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override

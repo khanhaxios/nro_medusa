@@ -30,11 +30,10 @@ public class Broly extends Boss {
 
     @Override
     public void active() {
-        super.active(); //To change body of generated methods, choose Tools | Templates.
+        super.active();
         try {
             this.HoiPhuc();
         } catch (Exception ex) {
-            System.out.println("        loi broly");
             Logger.getLogger(SieuBoHung.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -95,7 +94,7 @@ public class Broly extends Boss {
             this.nPoint.subHP(damage);
             if (isDie()) {
                 try {
-                    if (this.nPoint.hpMax >= 2000000) {
+                    if (this.nPoint.hpMax >= 4000000) {
                         new SuperBroly(this.zone, (int) 1, (int) 1, BossID.SP_BROLY);
                     }
                 } catch (Exception ex) {

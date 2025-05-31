@@ -3,11 +3,14 @@ package com.girlkun.models.boss.list_boss.HuyDiet;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
+import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
+import com.girlkun.server.Manager;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
+
 import java.util.Random;
 
 public class Vados extends Boss {
@@ -21,14 +24,19 @@ public class Vados extends Boss {
         plKill.achievement.plusCount(3);
         plKill.inventory.event++;
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
+        byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
+        ItemMap itemMap = null;
         if (Util.isTrue(5, 100)) {
-            Service.getInstance().dropItemMap(this.zone, Util.manhTS(zone, 1083, 1, this.location.x, this.location.y, plKill.id));
+            if (Util.isTrue(50, 20)) {
+                itemMap = Util.ratiItem(zone, 561, 1, this.location.x, this.location.y, plKill.id);
+                itemMap.options.add(new Item.ItemOption(30, 1));
+                Service.getInstance().dropItemMap(this.zone, itemMap);
+            } else {
+                Util.ratioTrangBi(zone, 1, this.location.x, this.location.y, plKill.id, 100, 2);
+            }
         } else {
-            Service.getInstance().dropItemMap(this.zone, Util.manhTS(zone, 16, 1, this.location.x, this.location.y, plKill.id));
+            Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id));
         }
-                ItemMap it1 = new ItemMap(this.zone, 2030, 5, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
     }
 
     @Override

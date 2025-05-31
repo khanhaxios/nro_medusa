@@ -63,6 +63,7 @@ import com.girlkun.utils.Util;
 import java.io.InputStreamReader;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -72,6 +73,8 @@ public class Manager {
 
     public static byte LEVEL_HARD = 8;
     public static final int GIA_QUY_DOI_BUA_ZENO = 2222;
+    public static short[] LIST_CAI_TRANG_ID = new short[]{};
+    public static short[] LIST_LINH_THU_ID = new short[]{};
     public static short[] setNguyenThuy = new short[]{1450, 1451, 1452};
     public static short[] setThanhTon = new short[]{1431, 1432, 1433, 1434, 1435};
     public static List<Integer> idsMapCold = Arrays.asList(110, 109, 108, 107, 106, 105);
@@ -250,6 +253,7 @@ public class Manager {
             System.exit(0);
         }
         this.loadDatabase();
+        loadCaiTrang();
         NpcFactory.createNpcConMeo();
         NpcFactory.createNpcRongThieng();
         NpcFactory.createNpcRongXuong();
@@ -258,6 +262,38 @@ public class Manager {
         TuTienTemplate.getI().initTemplate();
         // extract
         MobRewardExporter.exportMobRewardsToTxt("exported_mob_rewards.txt");
+    }
+
+    public void loadCaiTrang() {
+        LIST_CAI_TRANG_ID = ITEM_TEMPLATES.stream()
+                .filter(t -> t.type == 5 && t.part == -1)
+                .mapToInt(t -> t.id)
+                .mapToObj(i -> (short) i)
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toList(),
+                        list -> {
+                            short[] arr = new short[list.size()];
+                            for (int i = 0; i < list.size(); i++) {
+                                arr[i] = list.get(i);
+                            }
+                            return arr;
+                        }
+                ));
+        LIST_LINH_THU_ID = ITEM_TEMPLATES.stream()
+                .filter(t -> t.type == 72 && t.part == -1)
+                .mapToInt(t -> t.id)
+                .mapToObj(i -> (short) i)
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toList(),
+                        list -> {
+                            short[] arr = new short[list.size()];
+                            for (int i = 0; i < list.size(); i++) {
+                                arr[i] = list.get(i);
+                            }
+                            return arr;
+                        }
+                ));
+
     }
 
     public static List<TOP> realTopSieuHang(Player pl) {

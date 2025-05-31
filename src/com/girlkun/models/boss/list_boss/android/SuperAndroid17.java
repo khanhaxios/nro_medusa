@@ -14,6 +14,7 @@ import com.girlkun.services.PetService;
 import com.girlkun.services.Service;
 import com.girlkun.services.TaskService;
 import com.girlkun.utils.Util;
+
 import java.util.Random;
 
 public class SuperAndroid17 extends Boss {
@@ -21,13 +22,15 @@ public class SuperAndroid17 extends Boss {
     public SuperAndroid17() throws Exception {
         super(BossID.SUPER_ANDROID_17, BossesData.SUPER_ANDROID_17);
     }
-  @Override
+
+    @Override
     public void reward(Player plKill) {
         plKill.achievement.plusCount(3);
         plKill.inventory.event++;
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
-         int[] itemDos = new int[]{579};
-        int[] NRs = new int[]{17, 16, 579};
+        int[] itemDos = new int[]{579, 457};
+        int[] NRs = new int[]{17, 16, 15};
+        int[] nrsVip = new int[]{1187, 1185, 1190, 1191};
         int randomDo = new Random().nextInt(itemDos.length);
         int randomNR = new Random().nextInt(NRs.length);
         if (Util.isTrue(15, 100)) {
@@ -36,13 +39,18 @@ public class SuperAndroid17 extends Boss {
                 return;
             }
             Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, itemDos[randomDo], 5, this.location.x, this.location.y, plKill.id));
-        }
-        else {
+        } else {
+            if (Util.isTrue(10, 100)) {
+                // roi nro vip
+                int ranNroVip = Util.nextInt(0, nrsVip.length - 1);
+                Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, nrsVip[ranNroVip], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+                return;
+            }
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, NRs[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
-                ItemMap it1 = new ItemMap(this.zone, 2030, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
+        ItemMap it1 = new ItemMap(this.zone, 2030, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        Service.getInstance().dropItemMap(this.zone, it1);
     }
 
     @Override
@@ -52,13 +60,15 @@ public class SuperAndroid17 extends Boss {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
-     
+
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
+
     @Override
     public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {

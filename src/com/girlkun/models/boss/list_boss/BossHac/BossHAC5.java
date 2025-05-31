@@ -42,9 +42,11 @@ public class BossHAC5 extends Boss {
             Service.getInstance().dropItemMap(this.zone, it1);
             a+=10;
                 }
-                ItemMap it1 = new ItemMap(this.zone, 2030, 5, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
+        if (Util.isTrue(20, 100)) {
+            ItemMap it1 = new ItemMap(this.zone, 459, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
+        }
     }
 
     @Override

@@ -33,18 +33,19 @@ public class BossHAC3 extends Boss {
                 this.location.y - 24), plKill.id);
         it.options.add(new Item.ItemOption(30, 0));
         Service.getInstance().dropItemMap(this.zone, it);
-         int a=0;
-                for (int i=0; i<8; i++)
-                {
-                      ItemMap it1 = new ItemMap(this.zone, 457, 20, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-                       it.options.add(new Item.ItemOption(30, 0));
+        int a = 0;
+        for (int i = 0; i < 8; i++) {
+            ItemMap it1 = new ItemMap(this.zone, 457, 20, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
+            it.options.add(new Item.ItemOption(30, 0));
             Service.getInstance().dropItemMap(this.zone, it1);
-            a+=10;
-                }
-                ItemMap it1 = new ItemMap(this.zone, 459, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
+            a += 10;
+        }
+        if (Util.isTrue(20, 100)) {
+            ItemMap it1 = new ItemMap(this.zone, 459, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
+        }
     }
 
     @Override
@@ -60,6 +61,7 @@ public class BossHAC3 extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override
@@ -79,7 +81,7 @@ public class BossHAC3 extends Boss {
             if (damage > this.nPoint.hpMax * 2 / 100) {
                 damage = this.nPoint.hpMax * 1 / 100;
             }
-             this.nPoint.subHP(damage);
+            this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);
                 die(plAtt);

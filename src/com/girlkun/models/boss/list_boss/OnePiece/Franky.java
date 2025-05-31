@@ -15,6 +15,7 @@ import com.girlkun.models.player.Player;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
+
 import java.util.Random;
 
 /**
@@ -36,16 +37,15 @@ public class Franky extends Boss {
                 this.location.y - 24), plKill.id);
         if (rand < 95) {
             itemReward.options.add(new Item.ItemOption(230, 1));
-            itemReward.options.add(new Item.ItemOption(50, 200));
-            itemReward.options.add(new Item.ItemOption(77, 300));
-            itemReward.options.add(new Item.ItemOption(103, 300));
+            itemReward.options.add(new Item.ItemOption(50, 150));
+            itemReward.options.add(new Item.ItemOption(77, 200));
+            itemReward.options.add(new Item.ItemOption(103, 200));
             itemReward.options.add(new Item.ItemOption(93, Util.nextInt(1, 3)));
         } else {
             itemReward.options.add(new Item.ItemOption(230, 1));
-            itemReward.options.add(new Item.ItemOption(50, 500));
-            itemReward.options.add(new Item.ItemOption(77, 1000));
-            itemReward.options.add(new Item.ItemOption(103, 1000));
-
+            itemReward.options.add(new Item.ItemOption(50, 200));
+            itemReward.options.add(new Item.ItemOption(77, 250));
+            itemReward.options.add(new Item.ItemOption(103, 250));
         }
         Service.getInstance().dropItemMap(this.zone, itemReward);
     }
@@ -66,6 +66,7 @@ public class Franky extends Boss {
         st = System.currentTimeMillis();
         this.actFight = false;
     }
+
     private long st;
 
     @Override
@@ -92,7 +93,7 @@ public class Franky extends Boss {
             return 0;
         }
     }
-    
+
     @Override
     public void wakeupAnotherBossWhenDisappear() {
         if (this.parentBoss == null) {
@@ -104,11 +105,11 @@ public class Franky extends Boss {
         for (Boss boss : this.parentBoss.bossAppearTogether[this.parentBoss.currentLevel]) {
             if (boss.id == BossID.RORONOA_ZORO && boss.isDie()) {
                 zoroDie = true;
-                idx ++;
+                idx++;
             }
             if (boss.id == BossID.VINSMOKE_SANJI && boss.isDie()) {
                 sanjiDie = true;
-                idx ++;
+                idx++;
             }
             if (idx == 2) {
                 break;

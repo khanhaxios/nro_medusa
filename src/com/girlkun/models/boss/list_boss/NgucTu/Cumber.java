@@ -33,27 +33,9 @@ public class Cumber extends Boss {
         plKill.achievement.plusCount(3);
         plKill.inventory.event++;
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
-        int[] itemDos = new int[]{555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567};
-        int[] NRs = new int[]{17, 16};
-        int randomDo = new Random().nextInt(itemDos.length);
-        int randomNR = new Random().nextInt(NRs.length);
-        if (Util.isTrue(20, 100)) {
-            if (Util.isTrue(1, 5)) {
-                Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, 561, 1, this.location.x, this.location.y, plKill.id));
-                return;
-            }
-            Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
-        }
-        else if (Util.isTrue(2, 10)) {
-                Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, 722, 2, this.location.x, this.location.y, plKill.id));
-                return;
-            }
-        else {
-            Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, NRs[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
-        }
-                ItemMap it1 = new ItemMap(this.zone, 2030, 2, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
+        Util.ratioTrangBi(zone, 1, this.location.x, this.location.y, plKill.id, 20, 1);
+        Util.ratioRoiBuaZeno(zone, 1, this.location.x, this.location.y, plKill.id);
+        Util.ratioDropCaiTrang(zone, 1, this.location.x, this.location.y, plKill.id, 10, 50, 100);
     }
     @Override
     public void active() {

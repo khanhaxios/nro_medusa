@@ -10,6 +10,7 @@ import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
 import com.girlkun.services.TaskService;
 import com.girlkun.utils.Util;
+
 import java.util.Random;
 
 
@@ -18,6 +19,7 @@ public class Chaien extends Boss {
     public Chaien() throws Exception {
         super(BossID.CHAIEN, BossesData.CHAIEN);
     }
+
     @Override
     public void reward(Player plKill) {
         plKill.achievement.plusCount(3);
@@ -33,33 +35,32 @@ public class Chaien extends Boss {
                 return;
             }
             Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
-        } 
-        else if (Util.isTrue(4, 10)) {
-               int a = 20;
+        } else if (Util.isTrue(4, 10)) {
+            int a = 20;
             for (int i = 0; i < 10; i++) {
                 ItemMap it1 = new ItemMap(this.zone, 722, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
                         this.location.y - 24), plKill.id);
                 Service.getInstance().dropItemMap(this.zone, it1);
                 a += 10;
             }
-                return;
-            }
-        else {
+            return;
+        } else {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, NRs[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
-                ItemMap it1 = new ItemMap(this.zone, 2030, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
+        ItemMap it1 = new ItemMap(this.zone, 2030, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        Service.getInstance().dropItemMap(this.zone, it1);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
 
-   @Override
+    @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
-        if(Util.canDoWithTime(st,1500000)){
+        if (Util.canDoWithTime(st, 1500000)) {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
+
     @Override
     public void moveToPlayer(Player player) {
         this.moveTo(player.location.x, player.location.y);
@@ -68,8 +69,9 @@ public class Chaien extends Boss {
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-        st= System.currentTimeMillis();
+        st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override
@@ -83,9 +85,10 @@ public class Chaien extends Boss {
                 return;
             }
         }
-        
+
     }
-       @Override
+
+    @Override
     public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {

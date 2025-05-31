@@ -33,9 +33,11 @@ public class BossHAC extends Boss {
                 this.location.y - 24), plKill.id);
         it.options.add(new Item.ItemOption(30, 0));
         Service.getInstance().dropItemMap(this.zone, it);
-         ItemMap it1 = new ItemMap(this.zone, 459, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-         this.location.y - 24),  plKill.id);
+        if (Util.isTrue(20, 100)) {
+            ItemMap it1 = new ItemMap(this.zone, 459, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
+        }
     }
 
     @Override
@@ -51,6 +53,7 @@ public class BossHAC extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override
@@ -67,7 +70,7 @@ public class BossHAC extends Boss {
                 }
                 damage = 1;
             }
-            if(damage > 1){
+            if (damage > 1) {
                 damage = 1;
             }
             this.nPoint.subHP(damage);

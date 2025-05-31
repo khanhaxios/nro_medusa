@@ -15,6 +15,7 @@ import com.girlkun.models.player.Player;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
+
 import java.util.Random;
 
 /**
@@ -28,7 +29,7 @@ public class LuffyNormal extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        int[] itemDos = new int[]{2033,1166,1198};
+        int[] itemDos = new int[]{2033, 1166, 1198};
         int rand = Util.nextInt(1, 100);
         ItemMap itemReward;
         int randomDo = new Random().nextInt(itemDos.length);
@@ -36,16 +37,16 @@ public class LuffyNormal extends Boss {
                 this.location.y - 24), plKill.id);
         if (rand < 95) {
             itemReward.options.add(new Item.ItemOption(230, 1));
-            itemReward.options.add(new Item.ItemOption(50, 200));
-            itemReward.options.add(new Item.ItemOption(77, 300));
-            itemReward.options.add(new Item.ItemOption(103, 300));
+            itemReward.options.add(new Item.ItemOption(50, 150));
+            itemReward.options.add(new Item.ItemOption(77, 200));
+            itemReward.options.add(new Item.ItemOption(103, 200));
             itemReward.options.add(new Item.ItemOption(93, Util.nextInt(1, 3)));
             itemReward.options.add(new Item.ItemOption(30, 1));
         } else {
             itemReward.options.add(new Item.ItemOption(230, 1));
-            itemReward.options.add(new Item.ItemOption(50, 500));
-            itemReward.options.add(new Item.ItemOption(77, 1000));
-            itemReward.options.add(new Item.ItemOption(103, 1000));
+            itemReward.options.add(new Item.ItemOption(50, 200));
+            itemReward.options.add(new Item.ItemOption(77, 250));
+            itemReward.options.add(new Item.ItemOption(103, 250));
 
         }
         Service.getInstance().dropItemMap(this.zone, itemReward);
@@ -76,6 +77,7 @@ public class LuffyNormal extends Boss {
             this.actFight = true;
         }
     }
+
     private long st;
 
     @Override

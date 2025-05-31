@@ -2749,17 +2749,11 @@ public class NpcFactory {
                     if (player.iDMark.isBaseMenu()) {
                         switch (select) {
                             case 0:
-                                Service.gI().sendThongBaoOK(player, "Có cái nịt");
+                                Service.gI().sendThongBaoOK(player, "Chức năng đang phát triển");
 //                                this.createOtherMenu(player, ConstNpc.QUY_DOI_BUA_ZENO, "|7|QUY ĐỔI BÙA ZENO\n|6|Quy đổi Bùa Zeno\n\n|1|Tiền hiện còn : " + " " + Util.format(player.getSession().vnd) + "\n\n" + String.format("|5|Giá %s Điểm 1 Bùa Zeno\n\n Con muốn đổi bao nhiêu?", Util.format(Manager.GIA_QUY_DOI_BUA_ZENO)), "1 bùa", "10 bùa", "100 bùa", "1000 bùa", "Đổi tất\ncả", "Từ chối");
                                 break;
                             case 1:
-                                if (Manager.KHUYEN_MAI_NAP != 1) {
-                                    this.createOtherMenu(player, ConstNpc.QUY_DOI_TV, "|7|QUY ĐỔI THỎI VÀNG\n|6|Quy đổi Thỏi vàng, giới hạn đổi không quá 10.000.000đ\n\n|1|Tiền hiện còn : " + " " + Util.format(player.getSession().vnd) + "\n\n|5|Nhập 10.000Đ được 100 Thỏi vàng" + "\n\n|3| Server đang x" + Manager.KHUYEN_MAI_NAP + " Quy đổi " + "(10.000Đ = " + Util.format(Manager.KHUYEN_MAI_NAP * 100) + " Thỏi vàng)" + "\n\n|7|(>= 500.000đ Được tặng Vé chuyển Hồng ngọc)", "Đồng ý", "Từ chối");
-                                } else if (Manager.SUKIEN == 1) {
-                                    this.createOtherMenu(player, ConstNpc.QUY_DOI_TV, "|7|QUY ĐỔI THỎI VÀNG\n|6|Quy đổi Thỏi vàng, giới hạn đổi không quá 10.000.000đ\n\n|1|Tiền hiện còn : " + " " + Util.format(player.getSession().vnd) + "\n\n|5|Nhập 10.000Đ được 100 Thỏi vàng và được 10 Điểm Sự kiện" + "\n\n|7|(>= 500.000đ Được tặng Vé chuyển Hồng ngọc)", "Đồng ý", "Từ chối");
-                                } else {
-                                    this.createOtherMenu(player, ConstNpc.QUY_DOI_TV, "|7|QUY ĐỔI THỎI VÀNG\n|6|Quy đổi Thỏi vàng, giới hạn đổi không quá 10.000.000đ\n\n|1|Tiền hiện còn : " + " " + Util.format(player.getSession().vnd) + "\n\n|5|Nhập 10.000Đ được 100 Thỏi vàng" + "\n\n|7|(>= 500.000đ được tặng Vé chuyển Hồng ngọc)", "Đồng ý", "Từ chối");
-                                }
+                                Service.gI().sendThongBaoOK(player, "Chức năng đang đợi cân bằng");
                                 break;
                             case 2:
                                 Clan clan = player.clan;

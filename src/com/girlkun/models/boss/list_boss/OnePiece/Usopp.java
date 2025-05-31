@@ -14,6 +14,7 @@ import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
+
 import java.util.Random;
 
 /**
@@ -70,6 +71,7 @@ public class Usopp extends Boss {
         st = System.currentTimeMillis();
         this.actFight = true;
     }
+
     private long st;
 
     @Override
@@ -91,7 +93,7 @@ public class Usopp extends Boss {
             return 0;
         }
     }
-    
+
     @Override
     public void wakeupAnotherBossWhenDisappear() {
         if (this.parentBoss == null) {
@@ -110,15 +112,15 @@ public class Usopp extends Boss {
                 if (boss.id == BossID.BROOK && !boss.isDie()) {
                     boss.actFight = true;
                     boss.chat("Mũi dài, ta đến giúp cậu đây");
-                    idx ++;
+                    idx++;
                 } else if (boss.id == BossID.NAMI && !boss.isDie()) {
                     boss.actFight = true;
                     boss.chat("Usooppp... cậu không sao chứ");
-                    idx ++;
+                    idx++;
                 } else if (boss.id == BossID.NICO_ROBIN && !boss.isDie()) {
                     boss.actFight = true;
                     boss.chat("Sao ngươi dám động vào đồng đội của ta!");
-                    idx ++;
+                    idx++;
                 }
                 if (idx == 3) {
                     break;

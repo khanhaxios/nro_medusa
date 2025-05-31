@@ -28,22 +28,19 @@ public class ThanHuyDiet extends Boss {
         plKill.achievement.plusCount(3);
         plKill.inventory.event++;
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
-        byte randomDo = (byte) new Random().nextInt(Manager.itemIds_TL.length - 1);
         byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
-        ItemMap itemMap;
+        ItemMap itemMap = null;
         if (Util.isTrue(5, 100)) {
-            if (Util.isTrue(1, 20)) {
+            if (Util.isTrue(50, 20)) {
                 itemMap = Util.ratiItem(zone, 561, 1, this.location.x, this.location.y, plKill.id);
-            } else if (Util.isTrue(5, 20)) {
-                itemMap = Util.ratiItem(zone, 722, 2, this.location.x, this.location.y, plKill.id);
+                itemMap.options.add(new Item.ItemOption(30, 1));
+                Service.getInstance().dropItemMap(this.zone, itemMap);
             } else {
-                itemMap = Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id);
+                Util.ratioTrangBi(zone, 1, this.location.x, this.location.y, plKill.id, 100, 0);
             }
         } else {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id));
         }
-//        itemMap.options.add(new Item.ItemOption(30, 1));
-//        Service.getInstance().dropItemMap(this.zone, itemMap);
     }
 
     @Override

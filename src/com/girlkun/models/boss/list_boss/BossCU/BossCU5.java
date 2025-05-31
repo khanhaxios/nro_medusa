@@ -44,6 +44,12 @@ public class BossCU5 extends Boss {
                 ItemMap it1 = new ItemMap(this.zone, 1457, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
                     this.location.y - 24),  plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
+        if (Util.isTrue(5, 100)) {
+            ItemMap daMedusa = new ItemMap(this.zone, 1081, Util.nextInt(1, 3), this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
+            it.options.add(new Item.ItemOption(30, 0));
+            Service.getInstance().dropItemMap(this.zone, daMedusa);
+        }
     }
 
     @Override

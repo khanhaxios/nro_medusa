@@ -17,6 +17,7 @@ import com.girlkun.services.Service;
 import com.girlkun.services.SkillService;
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
+
 import java.util.Random;
 
 /**
@@ -44,19 +45,19 @@ public class MaTroiHong extends Boss {
                     this.location.y - 24), plKill.id);
             switch (itemDos[randomDo]) {
                 case 1474:
-                    itemReward.options.add(new Item.ItemOption(103, 1000));
+                    itemReward.options.add(new Item.ItemOption(103, 9));
                     break;
                 case 1475:
-                    itemReward.options.add(new Item.ItemOption(77, 1000));
+                    itemReward.options.add(new Item.ItemOption(77, 9));
                     break;
                 case 1476:
-                    itemReward.options.add(new Item.ItemOption(50, 500));
+                    itemReward.options.add(new Item.ItemOption(50, 6));
                     break;
                 case 1477:
-                    itemReward.options.add(new Item.ItemOption(5, 500));
+                    itemReward.options.add(new Item.ItemOption(5, 12));
                     break;
             }
-//            itemReward.options.add(new Item.ItemOption(30, 1));
+            itemReward.options.add(new Item.ItemOption(30, 0));
         } else {
             int[] itemDos = new int[]{14, 15, 16, 17, 18, 19, 20};
             int randomDo = new Random().nextInt(itemDos.length);
@@ -81,6 +82,7 @@ public class MaTroiHong extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override

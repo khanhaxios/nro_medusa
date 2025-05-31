@@ -180,14 +180,14 @@ public class BossManager implements Runnable {
             this.createBoss(BossID.BOSS_GOKU_UI_2);
             this.createBoss(BossID.TDST);
             this.createBoss(BossID.BROLY);
-//            this.createBoss(BossID.BROLY);
-//            this.createBoss(BossID.BROLY);
+            this.createBoss(BossID.BROLY);
+            this.createBoss(BossID.BROLY);
             this.createBoss(BossID.PIC);
             this.createBoss(BossID.POC);
             this.createBoss(BossID.KING_KONG);
-//            this.createBoss(BossID.SONGOKU_TA_AC);
-//            this.createBoss(BossID.CUMBER);
-//            this.createBoss(BossID.COOLER_GOLD);
+            this.createBoss(BossID.SONGOKU_TA_AC);
+            this.createBoss(BossID.CUMBER);
+            this.createBoss(BossID.COOLER_GOLD);
             this.createBoss(BossID.XEN_BO_HUNG);
             this.createBoss(BossID.SIEU_BO_HUNG);
             this.createBoss(BossID.XEN_CON_1);
@@ -214,7 +214,7 @@ public class BossManager implements Runnable {
             this.createBoss(BossID.DR_KORE);
             this.createBoss(BossID.ANDROID_14);
             this.createBoss(BossID.SUPER_ANDROID_17);
-//            this.createBoss(BossID.MABU);
+            this.createBoss(BossID.MABU);
             this.createBoss(BossID.BOSS_VIET);
             this.createBoss(BossID.LUFFY);
             this.createBoss(BossID.LUFFY_GEAR_FIVE_FIGHT_KAIDO);
@@ -225,7 +225,7 @@ public class BossManager implements Runnable {
             this.createBoss(BossID.BOSS_ADMIN2);
             this.createBoss(BossID.BOSS_ADMIN3);
             this.createBoss(BossID.BOSS_ADMIN4);
-//            this.createBoss(BossID.BOSS_ADMIN5);
+            this.createBoss(BossID.BOSS_ADMIN5);
 //            this.createBoss(BossID.BOSS_NOEL);
             this.createBoss(BossID.BOSS_TG);
             this.createBoss(BossID.BOSS_MOI1);
@@ -480,7 +480,6 @@ public class BossManager implements Runnable {
                     return new BossNGOC1();
                 case BossID.BOSS_NGOC2:
                     return new BossNGOC2();
-
                 case BossID.BOSS_NRO1S1:
                     return new Boss1S1();
                 case BossID.BOSS_NRO1S2:
@@ -525,8 +524,8 @@ public class BossManager implements Runnable {
                     return new Kingcold();
                 case BossID.FIDE_ROBOT:
                     return new FideRobot();
-                //  case BossID.COOLER:
-                //  return new Cooler();
+                case BossID.COOLER:
+                    return new Cooler();
                 case BossID.ZAMASMAX:
                     return new ZamasMax();
                 case BossID.ZAMASZIN:
@@ -543,8 +542,8 @@ public class BossManager implements Runnable {
                     return new BlackGokuBase();
                 case BossID.XEN_CON_1:
                     return new Xencon();
-//                case BossID.MABU:
-//                    return new Mabu();
+                case BossID.MABU:
+                    return new Mabu();
                 case BossID.TDST:
                     return new TDST();
                 case BossID.COOLER_GOLD:

@@ -1,6 +1,8 @@
 package com.girlkun.services;
 
+import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
+import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
 import com.girlkun.network.io.Message;
 import com.girlkun.utils.Logger;
@@ -58,5 +60,11 @@ public class ItemMapService {
 
     public boolean isNamecBall(int tempId) {
         return tempId >= 353 && tempId <= 360;
+    }
+
+    public ItemMap createItemMapFromItem(Zone zone, int quantity, int x, int y, long playerId, Item item) {
+        ItemMap itemMap = new ItemMap(zone, item.template.id, quantity, x, zone.map.yPhysicInTop(x, y - 24), playerId);
+        itemMap.options = item.itemOptions;
+        return itemMap;
     }
 }

@@ -9,7 +9,9 @@ import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
+
 import java.util.Random;
+
 import com.girlkun.utils.Util;
 
 /**
@@ -29,7 +31,7 @@ public class BossCapybara extends Boss {
             ItemMap capybara = new ItemMap(zone, 1481, 1, this.location.x, this.location.y, plKill.id);
             capybara.options.add(new Item.ItemOption(230, 1));
             capybara.options.add(new Item.ItemOption(247, 1));
-            capybara.options.add(new Item.ItemOption(50, Util.nextInt(10000, 20000)));
+            capybara.options.add(new Item.ItemOption(50, Util.nextInt(300, 500)));
             capybara.options.add(new Item.ItemOption(30, 1));
             Service.getInstance().dropItemMap(this.zone, capybara);
         } else {
@@ -52,6 +54,7 @@ public class BossCapybara extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override

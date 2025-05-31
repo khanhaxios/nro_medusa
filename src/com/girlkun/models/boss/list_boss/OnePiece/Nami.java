@@ -14,6 +14,7 @@ import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
+
 import java.util.Random;
 
 /**
@@ -70,6 +71,7 @@ public class Nami extends Boss {
         st = System.currentTimeMillis();
         this.actFight = false;
     }
+
     private long st;
 
     @Override
@@ -91,7 +93,7 @@ public class Nami extends Boss {
             return 0;
         }
     }
-    
+
     @Override
     public void wakeupAnotherBossWhenDisappear() {
         if (this.parentBoss == null) {
