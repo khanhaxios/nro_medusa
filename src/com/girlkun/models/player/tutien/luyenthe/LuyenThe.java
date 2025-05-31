@@ -26,16 +26,22 @@ public class LuyenThe extends BasePoint implements IBaseAction {
     }
 
     public int calcPoint(byte type) {
-        int  buggX = buffs[type];
-        return buggX;
-//        player.nPoint.hpg += (int) (player.nPoint.hpg * getHPMPBuff() / 100f);
-//        player.nPoint.mpg += (int) (player.nPoint.mpg * getHPMPBuff() / 100f);
-//        player.nPoint.defg += (int) (player.nPoint.defg * getDefBuff() / 100f);
-//        player.nPoint.dameg += (int) (player.nPoint.dameg * getDameBuff() / 100f);
-//        player.nPoint.tlchinhxac += getChinhXacBuff();
-//        player.nPoint.tlNeDon += getNeBuff();
-//        player.nPoint.tlHutMp += getHutMPBuff();
-//        player.nPoint.tlHutHp += getHutHPBuff();
+        int buffValue = 0;
+        switch (type) {
+            case 0: // HP
+                buffValue = (int) (player.nPoint.hpg * getHPMPBuff() / 100f);
+                break;
+            case 1: // MP
+                buffValue = (int) (player.nPoint.mpg * getHPMPBuff() / 100f);
+                break;
+            case 2: // DEF
+                buffValue = (int) (player.nPoint.defg * getDefBuff() / 100f);
+                break;
+            case 3: // DAME
+                buffValue = (int) (player.nPoint.dameg * getDameBuff() / 100f);
+                break;
+        }
+        return buffValue;
     }
 
     @Override
@@ -118,42 +124,42 @@ public class LuyenThe extends BasePoint implements IBaseAction {
 
     @Override
     public float getDameBuff() {
-        return Math.max(1,level) * 1f;
+        return Math.max(1, level) * 3f;
     }
 
     @Override
     public float getHPMPBuff() {
-        return Math.max(1,level) * 1.5f;
+        return Math.max(1, level) * 5f;
     }
 
     @Override
     public float getDefBuff() {
-        return Math.max(1,level) * 1f;
+        return Math.max(1, level) * 1f;
     }
 
     @Override
     public float getPSTBuff() {
-        return Math.max(1,level) * .1f;
+        return Math.max(1, level) * .1f;
     }
 
     @Override
     public float getHutHPBuff() {
-        return Math.max(1,level) * .1f;
+        return Math.max(1, level) * .1f;
     }
 
     @Override
     public float getHutMPBuff() {
-        return Math.max(1,level) * .1f;
+        return Math.max(1, level) * .1f;
     }
 
     @Override
     public float getNeBuff() {
-        return Math.max(1,level) * .1f;
+        return Math.max(1, level) * .1f;
     }
 
     @Override
     public float getChinhXacBuff() {
-        return Math.max(1,level) * .1f;
+        return Math.max(1, level) * .1f;
     }
 
     public boolean isLuyenThe() {
@@ -169,7 +175,7 @@ public class LuyenThe extends BasePoint implements IBaseAction {
     }
 
     private String totalBuff() {
-        return String.format("%.2f%%",getHPMPBuff() + getDameBuff() + getNeBuff() + getChinhXacBuff() + getDefBuff());
+        return String.format("%.2f%%", getHPMPBuff() + getDameBuff() + getNeBuff() + getChinhXacBuff() + getDefBuff());
     }
 
     public String getItemNeed(short[] idsItemNeed) {

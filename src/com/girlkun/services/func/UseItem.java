@@ -273,16 +273,17 @@ public class UseItem {
                     // random thời gian có tác dụng của bùa
                     int nhanPham = Util.nextInt(0, 100);
                     int min = 10;
-                    if (nhanPham > 98) {
-                        min += (24 * 60 * 30);
-                        // bua 1 thang
-                    } else if (nhanPham > 90) {
-                        min += (8 * 60);
-                    } else if (nhanPham > 50) {
-                        min += 50;
+
+                    if (nhanPham < 50) {
+                        min += 50; // dễ trúng nhất
+                    } else if (nhanPham < 90) {
+                        min += (8 * 60); // xác suất trung bình
+                    } else {
+                        min += (24 * 60 * 30); // cực hiếm: 2%
                     }
                     pl.charms.addTimeCharms(item.template.id, min);
                     Service.gI().sendThongBao(pl, "Bạn dùng " + item.template.name + "+ " + min + " phút");
+                    InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
                     break;
                 }
                 default:

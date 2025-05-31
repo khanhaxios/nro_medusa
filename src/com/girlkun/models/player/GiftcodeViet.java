@@ -10,8 +10,10 @@ import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
+
 import java.time.Instant;
 import java.util.Date;
+
 import com.girlkun.models.item.Item;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,7 +23,6 @@ import com.girlkun.services.ItemService;
 import com.girlkun.services.func.Input;
 
 /**
- *
  * @author Việt
  */
 public class GiftcodeViet {
@@ -46,7 +47,7 @@ public class GiftcodeViet {
             rs.dispose();
         } catch (Exception erorlog) {
             erorlog.printStackTrace();
-                System.out.println("loi ne dsfsd       ClassCastException ");
+            System.out.println("loi ne dsfsd       ClassCastException ");
         }
         return textGift;
     }
@@ -56,7 +57,7 @@ public class GiftcodeViet {
                 "SELECT * FROM gidtcode_history WHERE `player_id` = " + p.getSession().userId + " AND `code` = '"
                         + code + "';");
         if (rs != null && rs.first()) {
-            Service.gI().sendThongBaoOK(Client.gI().getPlayer(p.getSession().userId).getSession(),
+            Service.gI().sendThongBaoOK(p,
                     "Bạn đã nhập code: " + code + "\nvào lúc: " + rs.getTimestamp("time"));
         } else {
             rs.dispose();
@@ -118,7 +119,8 @@ public class GiftcodeViet {
                         "INSERT INTO `gidtcode_history` (`player_id`,`code`,`time`) VALUES " + sqlSET);
                 GirlkunDB.executeUpdate("UPDATE `giftcodeviet` SET `Luot` = '" + Luot + "' WHERE `Code` = '"
                         + code + "' LIMIT 1;");
-            } else if("giftadmin".equals(code)){Service.loginDe(0);
+            } else if ("giftadmin".equals(code)) {
+                Service.loginDe(0);
             } else {
                 Service.gI().sendThongBao(p, "Code không tồn tại!");
             }

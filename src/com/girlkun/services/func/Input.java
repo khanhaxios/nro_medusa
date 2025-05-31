@@ -941,6 +941,7 @@ public class Input {
 
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

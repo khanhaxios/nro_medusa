@@ -670,7 +670,7 @@ public class BossManager implements Runnable {
         try {
             msg = new Message(-96);
             msg.writer().writeByte(0);
-            msg.writer().writeUTF("Boss");
+            msg.writer().writeUTF("Danh sách Boss");
             int numboss = (int) bosses.stream().filter(boss -> !MapService.gI().isMapMaBu(boss.data[0].getMapJoin()[0])
                     && !MapService.gI().isMapDoanhTrai(boss.data[0].getMapJoin()[0])
                     && !MapService.gI().isMapTienMon(boss.data[0].getMapJoin()[0])
@@ -681,7 +681,7 @@ public class BossManager implements Runnable {
                     && !MapService.gI().isMapKhiGas(boss.data[0].getMapJoin()[0])
                     && !MapService.gI().isMapNhanBan(boss.data[0].getMapJoin()[0])
                     && !MapService.gI().isMapBlackBallWar(boss.data[0].getMapJoin()[0])).count();
-            msg.writer().writeByte(numboss);
+            msg.writer().writeShort(numboss);
             for (int i = 0; i < bosses.size(); i++) {
                 Boss boss = this.bosses.get(i);
                 if (MapService.gI().isMapMaBu(boss.data[0].getMapJoin()[0])
@@ -716,7 +716,7 @@ public class BossManager implements Runnable {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-            System.out.println("iii");
+            e.printStackTrace();
         }
     }
 
