@@ -60,19 +60,19 @@ public class Pet extends Player {
         this.isPet = true;
     }
 
-    public void changeStatus(byte requestedStatus) {
+    public boolean handleCanChangeStatus() {
         if (shouldDisobeyMaster()) {
             sayDisobedientLine();
-            setRandomStatus();
-            handleWithStatus(this.status); // xử lý theo status đã random
-            return;
+            return false;
         }
+        return true;
+    }
 
+    public void changeStatus(byte requestedStatus) {
         if (isBusyOrInvalidFusion(requestedStatus)) {
             Service.getInstance().sendThongBao(master, "Không thể thực hiện");
             return;
         }
-
         handleWithStatus(requestedStatus);
         this.status = requestedStatus;
     }
@@ -85,7 +85,6 @@ public class Pet extends Player {
                 master.tuTien.canHandleWithLinhKhiPoint(
                         10L * Math.max(this.nPoint.limitPower, 1) * typePet) &&
                 master.khongThiSu.level + 2 < this.typePet;
-
         return khongThiSuNullOrNotInState || khongThiSuLowLevel;
     }
 
@@ -431,7 +430,7 @@ public class Pet extends Player {
                 return;
             }
             if (master.tuTien.isKhongThi) {
-                master.tuTien.subLinhKhi((long) 10 * Math.max(nPoint.limitPower, 1) * typePet);
+                master.tuTien.subLinhKhi((long) 10 * Math.max(nPoint.limitPower, 1) * Math.max(1, typePet));
             }
             moveIdle();
             switch (status) {
@@ -555,14 +554,15 @@ public class Pet extends Player {
     private Player findPlayerAttack() {
         int dis = ARANGE_CAN_ATTACK;
         Player plTarget = null;
-
         for (Player player : zone.getHumanoids()) {
-            if (player.isDie()
-                    || !canAttackPlayer((Player) this, player)
-                    || player == this
-                    || player == this.master
-                    || player == this.master.newpet) {
-                continue;
+            if (typePk != ConstPlayer.PK_ALL) {
+                if (player.isDie()
+                        || !canAttackPlayer((Player) this, player)
+                        || player == this
+                        || (player == this.master)
+                        || player == this.master.newpet) {
+                    continue;
+                }
             }
             int d = Util.getDistance(this, player);
             if (d <= dis) {

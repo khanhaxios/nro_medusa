@@ -422,6 +422,10 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public void hocCongPhap(int select) {
+        if (!isTuTien()) {
+            Service.gI().sendThongBao(player, "Bạn cần mở tu tiên trước");
+            return;
+        }
         if (congPhap.tenCongPhap != null) {
             Service.gI().sendThongBao(player, "Bạn đã học công pháp rồi mà.");
             return;
@@ -579,10 +583,10 @@ public class TuTien extends BasePoint implements IBaseAction {
             percent += player.luyenThe.level / 4;
         }
         if (player.nguThuSu != null && player.nguThuSu.isNguThu()) {
-            percent += player.nguThuSu.getLevel() * 2;
+            percent += player.nguThuSu.getLevel();
         }
         if (player.luyenKhiSu != null && player.luyenKhiSu.isLuyenKhiSu()) {
-            percent += player.luyenKhiSu.getLevel() * 2;
+            percent += player.luyenKhiSu.getLevel();
         }
         if (player.tuTien != null && player.tuTien.isTuTien()) {
             percent += player.tuTien.level;

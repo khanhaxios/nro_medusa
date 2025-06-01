@@ -1559,13 +1559,21 @@ public class Service {
 
         if (player.pet != null) {
             if (text.equals("di theo") || text.equals("follow")) {
-                player.pet.changeStatus(Pet.FOLLOW);
+                if (player.pet.handleCanChangeStatus()) {
+                    player.pet.changeStatus(Pet.FOLLOW);
+                }
             } else if (text.equals("bao ve") || text.equals("protect")) {
-                player.pet.changeStatus(Pet.PROTECT);
+                if (player.pet.handleCanChangeStatus()) {
+                    player.pet.changeStatus(Pet.PROTECT);
+                }
             } else if (text.equals("tan cong") || text.equals("attack")) {
-                player.pet.changeStatus(Pet.ATTACK);
+                if (player.pet.handleCanChangeStatus()) {
+                    player.pet.changeStatus(Pet.ATTACK);
+                }
             } else if (text.equals("ve nha") || text.equals("go home")) {
-                player.pet.changeStatus(Pet.GOHOME);
+                if (player.pet.handleCanChangeStatus()) {
+                    player.pet.changeStatus(Pet.GOHOME);
+                }
             }
 //            else if (text.equals("bien hinh")) {
 //                player.pet.transform();

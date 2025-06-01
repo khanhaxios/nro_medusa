@@ -2315,12 +2315,12 @@ public class NpcFactory {
                                     }
                                 }
                                 // mo tu tien
-                                PlayerDAO.subvnd(player, 100_000);
                                 if (player.tuTien.isTuTien()) {
                                     Service.gI().sendThongBao(player, "Bạn đã mở tu tiên rồi mà");
                                     return;
                                 }
                                 player.tuTien.openSystem();
+                                PlayerDAO.subvnd(player, 100_000);
                                 break;
                             case 2:
                                 createOtherMenu(player, ConstNpc.HOC_TIEN_PHAP, "Tiên Pháp giúp bạn bộc phát sát thương khổng lồ", "Học Tiên\nPháp", "Từ Chối");
@@ -4279,7 +4279,7 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     if (mapId == 0 || mapId == 5) {
-                        this.createOtherMenu(player, 0, "Ngũ Hàng Sơn x2 Tnsm\nHỗ trợ cho Ae Từ\b|1|Dưới 1tr5 SM dến 160 Tỷ SM?", "OK", "Oéo");
+                        this.createOtherMenu(player, 0, "Ngũ Hàng Sơn x5 Tnsm\nHỗ trợ cho Ae Từ\b|1|Dưới 1tr5 SM dến 160 Tỷ SM?", "OK", "Oéo");
                     }
                     if (mapId == 123) {
                         this.createOtherMenu(player, 0, "Bạn Muốn Quay Trở Lại Làng Ảru?", "OK", "Từ chối");
@@ -4297,7 +4297,7 @@ public class NpcFactory {
                     switch (select) {
                         case 0:
                             if (mapId == 48 || mapId == 5 || mapId == 0) {
-                                if (player.nPoint.power < 1500000 || player.nPoint.power >= 160000000000L) {
+                                if (player.nPoint.power < 1500000) {
                                     Service.getInstance().sendThongBao(player, "Sức mạnh bạn không phù hợp để qua map!");
                                     return;
                                 }

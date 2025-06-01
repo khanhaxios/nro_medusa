@@ -235,7 +235,9 @@ public class Controller implements IMessageHandler {
                     break;
                 case -108:
                     if (player != null && player.pet != null && player.typeTabPet == 0) {
-                        player.pet.changeStatus(_msg.reader().readByte());
+                        if (player.pet.handleCanChangeStatus()) {
+                            player.pet.changeStatus(_msg.reader().readByte());
+                        }
                     } else if (player != null && player.petDaoLu != null && player.typeTabPet == 1) {
                         player.petDaoLu.changeStatus(_msg.reader().readByte());
                     }
