@@ -11,6 +11,8 @@ import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.SkillSpecial;
 import com.girlkun.models.player.TestDame;
+import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
+import com.girlkun.models.player.tutien.luyenkhi.LinhCan;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
 import com.girlkun.services.func.ChangeMapService;
@@ -53,13 +55,7 @@ public class SkillService {
             useSkillBuffToPlayer(player, plTarget);
             return true;
         }
-        if ((player.effectSkill.isHaveEffectSkill()
-                && (player.playerSkill.skillSelect.template.id != Skill.TU_SAT
-                && player.playerSkill.skillSelect.template.id != Skill.QUA_CAU_KENH_KHI
-                && player.playerSkill.skillSelect.template.id != Skill.MAKANKOSAPPO))
-                || (plTarget != null && !canAttackPlayer(player, plTarget))
-                || (mobTarget != null && mobTarget.isDie())
-                || !canUseSkillWithMana(player) || !canUseSkillWithCooldown(player)) {
+        if ((player.effectSkill.isHaveEffectSkill() && (player.playerSkill.skillSelect.template.id != Skill.TU_SAT && player.playerSkill.skillSelect.template.id != Skill.QUA_CAU_KENH_KHI && player.playerSkill.skillSelect.template.id != Skill.MAKANKOSAPPO)) || (plTarget != null && !canAttackPlayer(player, plTarget)) || (mobTarget != null && mobTarget.isDie()) || !canUseSkillWithMana(player) || !canUseSkillWithCooldown(player)) {
             return false;
         }
         if (player.effectSkill.useTroi) {
@@ -289,9 +285,9 @@ public class SkillService {
                                 executorService.schedule(() -> {
                                     playerMap.injured(playerMap, dameHit, false, false);
                                     PlayerService.gI().sendInfoHpMpMoney(playerMap); //gửi in4 hp cho player bị nhốt
-                                    this.playerAttackPlayer(player, playerMap, true);
+                                    this.playerAttackPlayer(player, playerMap, true, false);
                                     if (index == 0) {
-                                        this.playerAttackPlayer(player, playerMap, true);
+                                        this.playerAttackPlayer(player, playerMap, true, false);
                                     }
                                 }, index, TimeUnit.SECONDS);
                             }
@@ -312,20 +308,12 @@ public class SkillService {
                 }
             } else if (player.skillSpecial.stepSkillSpecial == 1 && !Util.canDoWithTime(player.skillSpecial.lastTimeSkillSpecial, SkillSpecial.TIME_END_24_25)) {
                 for (Player playerMap : player.zone.getHumanoids()) {
-                    if (player.skillSpecial.dir == -1 && !playerMap.isDie()
-                            && playerMap.location.x <= player.location.x - 15
-                            && Math.abs(playerMap.location.x - player.skillSpecial._xPlayer) <= player.skillSpecial._xObjTaget
-                            && Math.abs(playerMap.location.y - player.skillSpecial._yPlayer) <= player.skillSpecial._yObjTaget
-                            && this.canAttackPlayer(player, playerMap)) {
-                        this.playerAttackPlayer(player, playerMap, false);
+                    if (player.skillSpecial.dir == -1 && !playerMap.isDie() && playerMap.location.x <= player.location.x - 15 && Math.abs(playerMap.location.x - player.skillSpecial._xPlayer) <= player.skillSpecial._xObjTaget && Math.abs(playerMap.location.y - player.skillSpecial._yPlayer) <= player.skillSpecial._yObjTaget && this.canAttackPlayer(player, playerMap)) {
+                        this.playerAttackPlayer(player, playerMap, false, true);
                         PlayerService.gI().sendInfoHpMpMoney(playerMap);
                     }
-                    if (player.skillSpecial.dir == 1 && !playerMap.isDie()
-                            && playerMap.location.x >= player.location.x + 15
-                            && Math.abs(playerMap.location.x - player.skillSpecial._xPlayer) <= player.skillSpecial._xObjTaget
-                            && Math.abs(playerMap.location.y - player.skillSpecial._yPlayer) <= player.skillSpecial._yObjTaget
-                            && this.canAttackPlayer(player, playerMap)) {
-                        this.playerAttackPlayer(player, playerMap, false);
+                    if (player.skillSpecial.dir == 1 && !playerMap.isDie() && playerMap.location.x >= player.location.x + 15 && Math.abs(playerMap.location.x - player.skillSpecial._xPlayer) <= player.skillSpecial._xObjTaget && Math.abs(playerMap.location.y - player.skillSpecial._yPlayer) <= player.skillSpecial._yObjTaget && this.canAttackPlayer(player, playerMap)) {
+                        this.playerAttackPlayer(player, playerMap, false, true);
                         PlayerService.gI().sendInfoHpMpMoney(playerMap);
                     }
                     if (playerMap == null) {
@@ -333,16 +321,10 @@ public class SkillService {
                     }
                 }
                 for (Mob mobMap : player.zone.mobs) {
-                    if (player.skillSpecial.dir == -1 && !mobMap.isDie()
-                            && mobMap.location.x <= player.skillSpecial._xPlayer - 15
-                            && Math.abs(mobMap.location.x - player.skillSpecial._xPlayer) <= player.skillSpecial._xObjTaget
-                            && Math.abs(mobMap.location.y - player.skillSpecial._yPlayer) <= player.skillSpecial._yObjTaget) {
+                    if (player.skillSpecial.dir == -1 && !mobMap.isDie() && mobMap.location.x <= player.skillSpecial._xPlayer - 15 && Math.abs(mobMap.location.x - player.skillSpecial._xPlayer) <= player.skillSpecial._xObjTaget && Math.abs(mobMap.location.y - player.skillSpecial._yPlayer) <= player.skillSpecial._yObjTaget) {
                         this.playerAttackMob(player, mobMap, false, false);
                     }
-                    if (player.skillSpecial.dir == 1 && !mobMap.isDie()
-                            && mobMap.location.x >= player.skillSpecial._xPlayer + 15
-                            && Math.abs(mobMap.location.x - player.skillSpecial._xPlayer) <= player.skillSpecial._xObjTaget
-                            && Math.abs(mobMap.location.y - player.skillSpecial._yPlayer) <= player.skillSpecial._yObjTaget) {
+                    if (player.skillSpecial.dir == 1 && !mobMap.isDie() && mobMap.location.x >= player.skillSpecial._xPlayer + 15 && Math.abs(mobMap.location.x - player.skillSpecial._xPlayer) <= player.skillSpecial._xObjTaget && Math.abs(mobMap.location.y - player.skillSpecial._yPlayer) <= player.skillSpecial._yObjTaget) {
                         this.playerAttackMob(player, mobMap, false, false);
                     }
                     if (mobMap == null) {
@@ -587,8 +569,7 @@ public class SkillService {
 
     private void useSkillAttack(Player player, Player plTarget, Mob mobTarget) {
         if (!player.isBoss) {
-            if (player.isTrieuhoipet && ((Thu_TrieuHoi) player).masterr.TrieuHoiCapBac != -1
-                    && ((Thu_TrieuHoi) player).masterr.TrieuHoipet != null) {
+            if (player.isTrieuhoipet && ((Thu_TrieuHoi) player).masterr.TrieuHoiCapBac != -1 && ((Thu_TrieuHoi) player).masterr.TrieuHoipet != null) {
                 // handle exp for chien than
             } else if (player.isPet) {
                 if (player.nPoint.stamina > 0) {
@@ -647,7 +628,7 @@ public class SkillService {
             case Skill.MASENKO:
             case Skill.ANTOMIC:
                 if (plTarget != null) {
-                    playerAttackPlayer(player, plTarget, miss);
+                    playerAttackPlayer(player, plTarget, miss, true);
                 }
                 if (mobTarget != null) {
                     playerAttackMob(player, mobTarget, miss, false);
@@ -680,19 +661,16 @@ public class SkillService {
                     player.playerSkill.prepareQCKK = !player.playerSkill.prepareQCKK;
                     mobs = new ArrayList<>();
                     if (plTarget != null) {
-                        playerAttackPlayer(player, plTarget, false);
+                        playerAttackPlayer(player, plTarget, false, false);
                         if (player.isBoss) {
                             for (Player pl : player.zone.notBosses) {
-                                if (!pl.isDie()
-                                        && Util.getDistance(plTarget, pl) <= SkillUtil
-                                        .getRangeQCKK(player.playerSkill.skillSelect.point)) {
-                                    playerAttackPlayer(player, pl, false);
+                                if (!pl.isDie() && Util.getDistance(plTarget, pl) <= SkillUtil.getRangeQCKK(player.playerSkill.skillSelect.point)) {
+                                    playerAttackPlayer(player, pl, false, true);
                                 }
                             }
                         }
                         for (Mob mob : player.zone.mobs) {
-                            if (!mob.isDie()
-                                    && Util.getDistance(plTarget, mob) <= SkillUtil.getRangeQCKK(player.playerSkill.skillSelect.point)) {
+                            if (!mob.isDie() && Util.getDistance(plTarget, mob) <= SkillUtil.getRangeQCKK(player.playerSkill.skillSelect.point)) {
                                 mobs.add(mob);
                             }
                         }
@@ -700,8 +678,7 @@ public class SkillService {
                     if (mobTarget != null) {
                         playerAttackMob(player, mobTarget, false, true);
                         for (Mob mob : player.zone.mobs) {
-                            if (!mob.equals(mobTarget) && !mob.isDie()
-                                    && Util.getDistance(mob, mobTarget) <= SkillUtil.getRangeQCKK(player.playerSkill.skillSelect.point)) {
+                            if (!mob.equals(mobTarget) && !mob.isDie() && Util.getDistance(mob, mobTarget) <= SkillUtil.getRangeQCKK(player.playerSkill.skillSelect.point)) {
                                 mobs.add(mob);
                             }
                         }
@@ -724,7 +701,7 @@ public class SkillService {
                     //bắn laze
                     player.playerSkill.prepareLaze = !player.playerSkill.prepareLaze;
                     if (plTarget != null) {
-                        playerAttackPlayer(player, plTarget, false);
+                        playerAttackPlayer(player, plTarget, false, true);
                     }
                     if (mobTarget != null) {
                         playerAttackMob(player, mobTarget, false, true);
@@ -751,7 +728,7 @@ public class SkillService {
                 int timeChoangDCTT = SkillUtil.getTimeDCTT(player.playerSkill.skillSelect.point);
                 if (plTarget != null) {
                     Service.getInstance().setPos(player, plTarget.location.x, plTarget.location.y);
-                    playerAttackPlayer(player, plTarget, miss);
+                    playerAttackPlayer(player, plTarget, miss, true);
                     if (plTarget.dakethon < 3) {
                         EffectSkillService.gI().setBlindDCTT(plTarget, System.currentTimeMillis(), timeChoangDCTT);
                         EffectSkillService.gI().sendEffectPlayer(player, plTarget, EffectSkillService.TURN_ON_EFFECT, EffectSkillService.BLIND_EFFECT);
@@ -798,18 +775,12 @@ public class SkillService {
                     mobTarget.effectSkill.setTroi(System.currentTimeMillis(), timeHold);
                 }
                 affterUseSkill(player, player.playerSkill.skillSelect.template.id);
-                if (plTarget != null
-                        && plTarget.isBoss
-                        && MapService.gI().isMapHuyDiet(player.zone.map.mapId)
-                        && Util.isTrue(40, 100)) {
+                if (plTarget != null && plTarget.isBoss && MapService.gI().isMapHuyDiet(player.zone.map.mapId) && Util.isTrue(40, 100)) {
                     EffectSkillService.gI().removeUseTroi(player);
                     EffectSkillService.gI().removeAnTroi(plTarget);
                     Service.getInstance().chat(plTarget, "Chiêu đó không có tác dụng đâu kaka");
                 }
-                if (plTarget != null
-                        && plTarget.isBoss
-                        && MapService.gI().isMap1sao(player.zone.map.mapId)
-                        && Util.isTrue(99, 100)) {
+                if (plTarget != null && plTarget.isBoss && MapService.gI().isMap1sao(player.zone.map.mapId) && Util.isTrue(99, 100)) {
                     EffectSkillService.gI().removeUseTroi(player);
                     EffectSkillService.gI().removeAnTroi(plTarget);
                     Service.getInstance().chat(plTarget, "Chiêu đó không có tác dụng đâu kaka");
@@ -836,8 +807,7 @@ public class SkillService {
                     List<Player> playersMap = player.zone.getHumanoids();
                     for (Player pl : playersMap) {
                         if (pl != null && !player.equals(pl) && !pl.nPoint.khangTDHS && pl.dakethon < 3) {
-                            if (Util.getDistance(player, pl) <= SkillUtil.getRangeStun(player.playerSkill.skillSelect.point)
-                                    && canAttackPlayer(player, pl) //                                        && (!pl.playerSkill.prepareQCKK && !pl.playerSkill.prepareLaze && !pl.playerSkill.prepareTuSat)
+                            if (Util.getDistance(player, pl) <= SkillUtil.getRangeStun(player.playerSkill.skillSelect.point) && canAttackPlayer(player, pl) //                                        && (!pl.playerSkill.prepareQCKK && !pl.playerSkill.prepareLaze && !pl.playerSkill.prepareTuSat)
                             ) {
                                 if (player.isPet && ((Pet) player).master.equals(pl)) {
                                     continue;
@@ -902,8 +872,7 @@ public class SkillService {
                             if (pl.effectSkill.useTroi) {
                                 EffectSkillService.gI().removeUseTroi(pl);
                             }
-                            if (!pl.isBoss && pl.gender != ConstPlayer.NAMEC
-                                    && player.cFlag == pl.cFlag) {
+                            if (!pl.isBoss && pl.gender != ConstPlayer.NAMEC && player.cFlag == pl.cFlag) {
                                 EffectSkillService.gI().setStartHuytSao(pl, tileHP);
                                 EffectSkillService.gI().sendEffectPlayer(pl, pl, EffectSkillService.TURN_ON_EFFECT, EffectSkillService.HUYT_SAO_EFFECT);
                                 pl.nPoint.calPoint();
@@ -1070,26 +1039,79 @@ public class SkillService {
         int tiLeHutMp = player.nPoint.getTiLeHutMp();
         long hpHoi = Util.DoubleGioihan(dame * tiLeHutHp / 100);
         long mpHoi = Util.DoubleGioihan(dame * tiLeHutMp / 100);
+        short xParam = player.tuTien.linhCan.getThuocTinhLinhCan().getParam();
+        if (player.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("M") || player.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("T") || player.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("TH")) {
+            xParam *= 3;
+        }
+        hpHoi += hpHoi * xParam / 100;
+        mpHoi += mpHoi * xParam / 100;
         if (hpHoi > 0 || mpHoi > 0) {
             PlayerService.gI().hoiPhuc(player, hpHoi, mpHoi);
         }
     }
 
-    private void playerAttackPlayer(Player plAtt, Player plInjure, boolean miss) {
+    private void playerAttackPlayer(Player plAtt, Player plInjure, boolean miss, boolean isLinhCan) {
         if (plInjure.effectSkill.anTroi) {
             plAtt.nPoint.isCrit100 = true;
         }
+        miss = neDon(plAtt, miss);
         double dameHit = plInjure.injured(plAtt, miss ? 0 : plAtt.nPoint.getDameAttack(false), false, false);
         phanSatThuong(plAtt, plInjure, Util.DoubleGioihan(dameHit));
         hutHPMP(plAtt, dameHit, false);
+        hutLinhKhi(plAtt, dameHit);
         sendMessagePlayerAttackPlayer(plAtt, plInjure, dameHit, (byte) 0);
         // dame for linh can
-        if (plAtt.isPl() && plAtt.tuTien.isTuTien() && plAtt.tuTien.canHandleWithLinhKhiPoint(2) && plAtt.tuTien.isAttackWithLinhCan) {
-            double dame = dameHit * plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 100;
+        int percentLinhKhiUse = 2;
+        if (isLinhCan && plAtt.isPl() && plAtt.tuTien.isTuTien() && plAtt.tuTien.canHandleWithLinhKhiPoint(2) && plAtt.tuTien.isAttackWithLinhCan) {
+            switch (plAtt.playerSkill.skillSelect.template.id) {
+                case Skill.QUA_CAU_KENH_KHI:
+                case Skill.MAKANKOSAPPO:
+                case Skill.TU_SAT:
+                    if (!plAtt.tuTien.canHandleWithLinhKhiPoint(50)) return;
+                    percentLinhKhiUse = 50;
+                    break;
+                case Skill.SUPER_KAME:
+                case Skill.MA_PHONG_BA:
+                case Skill.LIEN_HOAN_CHUONG:
+                    if (!plAtt.tuTien.canHandleWithLinhKhiPoint(100)) return;
+                    percentLinhKhiUse = 100;
+                    break;
+            }
+            short xParam = plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam();
+            if (plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("K") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("H") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("L")) {
+                xParam *= 2;
+            }
+            double dame = dameHit * xParam / 100;
             plInjure.injured(plAtt, dame, false, false);
             sendMessagePlayerAttackPlayer(plAtt, plInjure, dame, (byte) 1);
-            plAtt.tuTien.subLinhKhiPercent(2);
+            plAtt.tuTien.subLinhKhiPercent(percentLinhKhiUse);
         }
+    }
+
+    private boolean neDon(Player plAtt, boolean miss) {
+        if (plAtt.tuTien.isTuTien() && plAtt.tuTien.canHandleWithLinhKhiPoint(2)) {
+            short xParam = (short) (plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 2);
+            if (plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("A") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("P")) {
+                if (xParam > 80) {
+                    xParam = 80;
+                }
+                boolean isMisss = Util.isTrue(xParam, 120);
+                if (isMisss) {
+                    plAtt.tuTien.subLinhKhiPercent(2);
+                }
+                return isMisss;
+            }
+        }
+        return miss;
+    }
+
+    private void hutLinhKhi(Player plAtt, double dameHit) {
+        short xParam = (short) (plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 10);
+        long baseHutLinhKhi = 2;
+        if (plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("M") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("T") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("TH") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("Q")) {
+            baseHutLinhKhi *= xParam;
+        }
+        plAtt.tuTien.hoiPhucLinhKhi(baseHutLinhKhi);
     }
 
     private void sendMessagePlayerAttackPlayer(Player plAtt, Player plInjure, double dameHit, byte type) {
@@ -1255,8 +1277,7 @@ public class SkillService {
         if (player.isDaoLu) {
             return true;
         }
-        return Util.canDoWithTime(player.playerSkill.skillSelect.lastTimeUseThisSkill,
-                player.playerSkill.skillSelect.coolDown - 50);
+        return Util.canDoWithTime(player.playerSkill.skillSelect.lastTimeUseThisSkill, player.playerSkill.skillSelect.coolDown - 50);
     }
 
     private void affterUseSkill(Player player, int skillId) {
@@ -1413,8 +1434,7 @@ public class SkillService {
         if (p1.typePk == ConstPlayer.PK_PVP || p2.typePk == ConstPlayer.PK_PVP) {
             return true;
         }
-        if ((p1.cFlag != 0 && p2.cFlag != 0)
-                && (p1.cFlag == 8 || p2.cFlag == 8 || p1.cFlag != p2.cFlag)) {
+        if ((p1.cFlag != 0 && p2.cFlag != 0) && (p1.cFlag == 8 || p2.cFlag == 8 || p1.cFlag != p2.cFlag)) {
             return true;
         }
         if (p1.pvp == null || p2.pvp == null) {

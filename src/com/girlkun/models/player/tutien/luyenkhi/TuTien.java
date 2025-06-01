@@ -135,6 +135,13 @@ public class TuTien extends BasePoint implements IBaseAction {
         linhKhiPoint = maxLinhKhiPoint;
     }
 
+    public void hoiPhucLinhKhi(long linhKhi) {
+        if (linhKhiPoint < maxLinhKhiPoint) {
+            addLinhKhi(linhKhi);
+            PlayerService.gI().sendHoiPhucLinhKhi(player, linhKhi);
+            PlayerService.gI().sendLinhKhiPoint(player);
+        }
+    }
     public void hoiPhucLinhKhi() {
         if (linhKhiPoint < maxLinhKhiPoint) {
             int lv = Math.min(level, BASE_LINH_KHI_HOI_PHUC.length - 1);
