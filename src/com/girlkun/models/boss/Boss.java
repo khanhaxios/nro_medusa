@@ -260,7 +260,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                 break;
             case ACTIVE:
                 this.chatM();
-                if (this.effectSkill.isCharging && !Util.isTrue(1, 20) || this.effectSkill.useTroi) {
+                if (this.effectSkill.isCharging || this.effectSkill.useTroi) {
                     return;
                 }
                 this.active();
@@ -431,36 +431,34 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     @Override
     public void attack() {
-        if (this.id == BossID.BOSS_ADMIN3) {
-            if (Util.canDoWithTime(this.lastTimeAttack, 100) && this.typePk == ConstPlayer.PK_ALL) {
-                this.lastTimeAttack = System.currentTimeMillis();
-                try {
-                    Player pl = getPlayerAttack();
-                    if (pl == null || pl.isDie()) {
-                        return;
-                    }
-
-                    this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
-                    if (Util.getDistance(this, pl) <= this.getRangeCanAttackWithSkillSelect()) {
-                        if (Util.isTrue(5, 20)) {
-                            if (SkillUtil.isUseSkillChuong(this)) {
-                                this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 200)),
-                                        Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 70));
-                            } else {
-                                this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(10, 40)),
-                                        Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 50));
-                            }
-                        }
-                        SkillService.gI().useSkill(this, pl, null, null);
-                        checkPlayerDie(pl);
-                    } else {
-                        if (Util.isTrue(1, 2)) {
-                            this.moveToPlayer(pl);
-                        }
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+        if (Util.canDoWithTime(this.lastTimeAttack, 100) && this.typePk == ConstPlayer.PK_ALL) {
+            this.lastTimeAttack = System.currentTimeMillis();
+            try {
+                Player pl = getPlayerAttack();
+                if (pl == null || pl.isDie()) {
+                    return;
                 }
+
+                this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
+                if (Util.getDistance(this, pl) <= this.getRangeCanAttackWithSkillSelect()) {
+                    if (Util.isTrue(5, 20)) {
+                        if (SkillUtil.isUseSkillChuong(this)) {
+                            this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 200)),
+                                    Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 70));
+                        } else {
+                            this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(10, 40)),
+                                    Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 50));
+                        }
+                    }
+                    SkillService.gI().useSkill(this, pl, null, null);
+                    checkPlayerDie(pl);
+                } else {
+                    if (Util.isTrue(1, 2)) {
+                        this.moveToPlayer(pl);
+                    }
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }

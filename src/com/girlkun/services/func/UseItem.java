@@ -271,15 +271,13 @@ public class UseItem {
                 }
                 case 13: {
                     // random thời gian có tác dụng của bùa
-                    int nhanPham = Util.nextInt(0, 100);
                     int min = 10;
-
-                    if (nhanPham < 50) {
-                        min += 50; // dễ trúng nhất
-                    } else if (nhanPham < 90) {
+                    if (Util.isTrue(1, 500)) {
+                        min += (24 * 60 * 30); // cực hiếm: 2%
+                    } else if (Util.isTrue(2, 100)) {
                         min += (8 * 60); // xác suất trung bình
                     } else {
-                        min += (24 * 60 * 30); // cực hiếm: 2%
+                        min += 50; // dễ trúng nhất
                     }
                     pl.charms.addTimeCharms(item.template.id, min);
                     Service.gI().sendThongBao(pl, "Bạn dùng " + item.template.name + "+ " + min + " phút");

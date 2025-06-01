@@ -25,23 +25,12 @@ public class LuyenThe extends BasePoint implements IBaseAction {
         super(player);
     }
 
-    public int calcPoint(byte type) {
-        int buffValue = 0;
-        switch (type) {
-            case 0: // HP
-                buffValue = (int) (player.nPoint.hpg * getHPMPBuff() / 100f);
-                break;
-            case 1: // MP
-                buffValue = (int) (player.nPoint.mpg * getHPMPBuff() / 100f);
-                break;
-            case 2: // DEF
-                buffValue = (int) (player.nPoint.defg * getDefBuff() / 100f);
-                break;
-            case 3: // DAME
-                buffValue = (int) (player.nPoint.dameg * getDameBuff() / 100f);
-                break;
-        }
-        return buffValue;
+    public void calcPoint() {
+        player.nPoint.mpAdd += (player.nPoint.mpg * getHPMPBuff() / 100f);
+        player.nPoint.hpAdd += (player.nPoint.defg * getDefBuff() / 100f);
+        player.nPoint.dameAdd += (player.nPoint.dameg * getDameBuff() / 100f);
+        player.nPoint.tlHutHp += getHutHPBuff();
+        player.nPoint.tlHutMp += getHPMPBuff();
     }
 
     @Override
@@ -124,12 +113,12 @@ public class LuyenThe extends BasePoint implements IBaseAction {
 
     @Override
     public float getDameBuff() {
-        return Math.max(1, level) * 3f;
+        return Math.max(1, level) * 2f;
     }
 
     @Override
     public float getHPMPBuff() {
-        return Math.max(1, level) * 5f;
+        return Math.max(1, level) * 3f;
     }
 
     @Override

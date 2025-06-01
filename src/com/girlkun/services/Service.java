@@ -1751,9 +1751,9 @@ public class Service {
             Message msg;
             try {
                 msg = new Message(-42);
-                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpg + player.luyenThe.calcPoint((byte) 0)));
-                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpg + player.luyenThe.calcPoint((byte) 1)));
-                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.dameg + player.luyenThe.calcPoint((byte) 3)));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpg + player.tuTien.congPhap.hutHp));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpg + player.tuTien.congPhap.hutMp));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.dameg + player.tuTien.congPhap.hutDame));
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpMax));// hp full
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpMax));// mp full
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hp));// hp
@@ -1767,7 +1767,7 @@ public class Service {
                 msg.writer().writeByte(Util.byteGioiHan(player.nPoint.crit));// crit full
                 msg.writer().writeLong(player.nPoint.tiemNang);
                 msg.writer().writeShort(100);
-                msg.writer().writeInt(Util.DoubleGioihana(player.nPoint.defg + player.luyenThe.calcPoint((byte) 2)));
+                msg.writer().writeInt(Util.DoubleGioihana(player.nPoint.defg));
                 msg.writer().writeByte(Util.byteGioiHan(player.nPoint.critg));
                 player.sendMessage(msg);
                 msg.cleanup();

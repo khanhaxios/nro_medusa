@@ -545,24 +545,27 @@ public class NPoint {
                 }
             }
         }
+//        if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
+//            player.luyenThe.calcPoint();
+//        }
         if (player.tuTien != null && player.tuTien.isTuTien()) {
             player.tuTien.calcPoint();
         }
-        if (player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
-            player.phuChuSu.calcPoint();
-        }
-        if (player.tranPhapSu != null && player.tranPhapSu.isTranPhap()) {
-            player.tranPhapSu.calcPoint();
-        }
-        if (player.linhThucSu != null && player.linhThucSu.isLinhThuc()) {
-            player.linhThucSu.calcPoint();
-        }
-        if (player.nguThuSu != null && player.nguThuSu.isNguThu()) {
-            player.nguThuSu.calcPoint();
-        }
-        if (player.khongThiSu != null && player.khongThiSu.isKhongThi()) {
-            player.khongThiSu.calcPoint();
-        }
+//        if (player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
+//            player.phuChuSu.calcPoint();
+//        }
+//        if (player.tranPhapSu != null && player.tranPhapSu.isTranPhap()) {
+//            player.tranPhapSu.calcPoint();
+//        }
+//        if (player.linhThucSu != null && player.linhThucSu.isLinhThuc()) {
+//            player.linhThucSu.calcPoint();
+//        }
+//        if (player.nguThuSu != null && player.nguThuSu.isNguThu()) {
+//            player.nguThuSu.calcPoint();
+//        }
+//        if (player.khongThiSu != null && player.khongThiSu.isKhongThi()) {
+//            player.khongThiSu.calcPoint();
+//        }
         setDameTrainArmor();
         setBasePoint();
     }
@@ -925,6 +928,31 @@ public class NPoint {
             case 3 -> this.hpMax += this.hpMax * 30 / 100;
             case 5 -> this.hpMax += this.hpMax * 50 / 100;
         }
+        // calc point tu tien o day
+        double pointBase = this.hpMax;
+        double pointAdd = 0;
+        if (player.tuTien != null && player.tuTien.isTuTien()) {
+            pointAdd += pointBase * player.tuTien.getHPMPBuff() / 100;
+        }
+        if (player.tranPhapSu != null && player.tranPhapSu.isTranPhap()) {
+            pointAdd += pointBase * player.tranPhapSu.getHPMPBuff() / 100;
+        }
+        if (player.nguThuSu != null && player.nguThuSu.isNguThu()) {
+            pointAdd += pointBase * player.nguThuSu.getHPMPBuff() / 100;
+        }
+        if (player.linhThucSu != null && player.linhThucSu.isLinhThuc()) {
+            pointAdd += pointBase * player.linhThucSu.getHPMPBuff() / 100;
+        }
+        if (player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
+            pointAdd += pointBase * player.phuChuSu.getHPMPBuff() / 100;
+        }
+        if (player.khongThiSu != null && player.khongThiSu.isKhongThi()) {
+            pointAdd += pointBase * player.phuChuSu.getHPMPBuff() / 100;
+        }
+        if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
+            pointAdd += pointBase * player.luyenThe.getHPMPBuff() / 100;
+        }
+        this.hpMax += pointAdd;
     }
 
     private void setHp() {
@@ -1106,6 +1134,30 @@ public class NPoint {
             case 3 -> this.mpMax += this.mpMax * 30 / 100;
             case 5 -> this.mpMax += this.mpMax * 50 / 100;
         }
+        double pointBase = this.mpMax;
+        double pointAdd = 0;
+        if (player.tuTien != null && player.tuTien.isTuTien()) {
+            pointAdd += pointBase * player.tuTien.getHPMPBuff() / 100;
+        }
+        if (player.tranPhapSu != null && player.tranPhapSu.isTranPhap()) {
+            pointAdd += pointBase * player.tranPhapSu.getHPMPBuff() / 100;
+        }
+        if (player.nguThuSu != null && player.nguThuSu.isNguThu()) {
+            pointAdd += pointBase * player.nguThuSu.getHPMPBuff() / 100;
+        }
+        if (player.linhThucSu != null && player.linhThucSu.isLinhThuc()) {
+            pointAdd += pointBase * player.linhThucSu.getHPMPBuff() / 100;
+        }
+        if (player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
+            pointAdd += pointBase * player.phuChuSu.getHPMPBuff() / 100;
+        }
+        if (player.khongThiSu != null && player.khongThiSu.isKhongThi()) {
+            pointAdd += pointBase * player.phuChuSu.getHPMPBuff() / 100;
+        }
+        if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
+            pointAdd += pointBase * player.luyenThe.getHPMPBuff() / 100;
+        }
+        this.mpMax += pointAdd;
     }
 
     private void setMp() {
@@ -1117,6 +1169,7 @@ public class NPoint {
     private void setDame() {
         this.dame = this.dameg;
         this.dame += this.dameAdd;
+        // + point luyen the
         //đồ
         for (Integer tl : this.tlDame) {
             this.dame += ((double) this.dame * tl / 100);
@@ -1385,6 +1438,30 @@ public class NPoint {
             case 3 -> this.dame += this.dame * 20 / 100;
             case 5 -> this.dame += this.dame * 30 / 100;
         }
+        double pointBase = this.dame;
+        double pointAdd = 0;
+        if (player.tuTien != null && player.tuTien.isTuTien()) {
+            pointAdd += pointBase * player.tuTien.getDameBuff() / 100;
+        }
+        if (player.tranPhapSu != null && player.tranPhapSu.isTranPhap()) {
+            pointAdd += pointBase * player.tranPhapSu.getDameBuff() / 100;
+        }
+        if (player.nguThuSu != null && player.nguThuSu.isNguThu()) {
+            pointAdd += pointBase * player.nguThuSu.getDameBuff() / 100;
+        }
+        if (player.linhThucSu != null && player.linhThucSu.isLinhThuc()) {
+            pointAdd += pointBase * player.linhThucSu.getDameBuff() / 100;
+        }
+        if (player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
+            pointAdd += pointBase * player.phuChuSu.getDameBuff() / 100;
+        }
+        if (player.khongThiSu != null && player.khongThiSu.isKhongThi()) {
+            pointAdd += pointBase * player.phuChuSu.getDameBuff() / 100;
+        }
+        if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
+            pointAdd += pointBase * player.luyenThe.getDameBuff() / 100;
+        }
+        this.dame += pointAdd;
     }
 
     private void setDef() {
@@ -1425,6 +1502,30 @@ public class NPoint {
             case 3 -> this.def += calPercent(this.def, 30);
             case 5 -> this.def += calPercent(this.def, 50);
         }
+        double pointBase = this.def;
+        double pointAdd = 0;
+        if (player.tuTien != null && player.tuTien.isTuTien()) {
+            pointAdd += pointBase * player.tuTien.getDefBuff() / 100;
+        }
+        if (player.tranPhapSu != null && player.tranPhapSu.isTranPhap()) {
+            pointAdd += pointBase * player.tranPhapSu.getDefBuff() / 100;
+        }
+        if (player.nguThuSu != null && player.nguThuSu.isNguThu()) {
+            pointAdd += pointBase * player.nguThuSu.getDefBuff() / 100;
+        }
+        if (player.linhThucSu != null && player.linhThucSu.isLinhThuc()) {
+            pointAdd += pointBase * player.linhThucSu.getDefBuff() / 100;
+        }
+        if (player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
+            pointAdd += pointBase * player.phuChuSu.getDefBuff() / 100;
+        }
+        if (player.khongThiSu != null && player.khongThiSu.isKhongThi()) {
+            pointAdd += pointBase * player.phuChuSu.getDefBuff() / 100;
+        }
+        if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
+            pointAdd += pointBase * player.luyenThe.getDefBuff() / 100;
+        }
+        this.def += pointAdd;
     }
 
     private void setCrit() {

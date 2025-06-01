@@ -2399,6 +2399,10 @@ public class NpcFactory {
                             npcChat(player, "Nghèo còn đòi luyện thể");
                             return;
                         }
+                        if (player.nPoint.power < 5_000_000_000l) {
+                            Service.gI().sendThongBaoOK(player, "Cần 5 tỏi sức mạnh hãy vào nhs train đi");
+                            return;
+                        }
                         PlayerDAO.subvnd(player, 100_000);
                         player.luyenThe.openSystem();
                         // add mot vai vat lieu
@@ -5663,7 +5667,7 @@ public class NpcFactory {
                                 } else if (player.nPoint.limitPower == 11) {
                                     this.createOtherMenu(player, ConstNpc.OPEN_POWER_MYSEFT, "Ta sẽ truền năng lượng giúp con mở giới hạn sức mạnh của bản thân lên " + "100.000 tỷ Sức mạnh", "Nâng ngay\n" + "1.000.000" + " hồng ngọc", "Đóng");
                                 } else if (player.nPoint.limitPower == 12) {
-                                    this.createOtherMenu(player, ConstNpc.OPEN_POWER_MYSEFT, "Ta sẽ truền năng lượng giúp con mở giới hạn sức mạnh của bản thân lên " + "500.000 tỷ Sức mạnh", "Nâng ngay\n" + "100.000.000" + " hồng ngọc", "Đóng");
+                                    this.createOtherMenu(player, ConstNpc.OPEN_POWER_MYSEFT, "Ta sẽ truền năng lượng giúp con mở giới hạn sức mạnh của bản thân lên " + "500.000 tỷ Sức mạnh", "Nâng ngay\n" + "10.000.000" + " hồng ngọc", "Đóng");
                                 } else {
                                     this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Sức mạnh của con đã đạt tới giới hạn", "Đóng");
                                 }
@@ -5679,7 +5683,7 @@ public class NpcFactory {
                                     } else if (player.pet.nPoint.limitPower == 11) {
                                         this.createOtherMenu(player, ConstNpc.OPEN_POWER_PET, "Ta sẽ truền năng lượng giúp con mở giới hạn sức mạnh của Đệ tử lên " + "100.000 tỷ Sức mạnh", "Nâng ngay\n" + "1.000.000" + " hồng ngọc", "Đóng");
                                     } else if (player.pet.nPoint.limitPower == 12) {
-                                        this.createOtherMenu(player, ConstNpc.OPEN_POWER_PET, "Ta sẽ truền năng lượng giúp con mở giới hạn sức mạnh của Đệ tử lên " + "500.000 tỷ Sức mạnh", "Nâng ngay\n" + "100.000.000" + " hồng ngọc", "Đóng");
+                                        this.createOtherMenu(player, ConstNpc.OPEN_POWER_PET, "Ta sẽ truền năng lượng giúp con mở giới hạn sức mạnh của Đệ tử lên " + "500.000 tỷ Sức mạnh", "Nâng ngay\n" + "10.000.000" + " hồng ngọc", "Đóng");
                                     } else {
                                         this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Sức mạnh của đệ con đã đạt tới giới hạn", "Đóng");
                                     }
@@ -5718,7 +5722,7 @@ public class NpcFactory {
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.OPEN_POWER_MYSEFT && player.nPoint.limitPower == 10) {
                         switch (select) {
                             case 0:
-                                if (player.inventory.ruby >= 500000) {
+                                if (player.inventory.ruby >= 120000) {
                                     if (OpenPowerService.gI().openPowerSpeed(player)) {
                                         player.inventory.ruby -= 500000;
                                         Service.getInstance().sendMoney(player);
@@ -5744,9 +5748,9 @@ public class NpcFactory {
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.OPEN_POWER_MYSEFT && player.nPoint.limitPower == 12) {
                         switch (select) {
                             case 0:
-                                if (player.inventory.ruby >= 100000000) {
+                                if (player.inventory.ruby >= 10000000) {
                                     if (OpenPowerService.gI().openPowerSpeed(player)) {
-                                        player.inventory.ruby -= 100000000;
+                                        player.inventory.ruby -= 10000000;
                                         Service.getInstance().sendMoney(player);
                                     }
                                 } else {
@@ -5810,9 +5814,9 @@ public class NpcFactory {
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.OPEN_POWER_PET && player.pet.nPoint.limitPower == 12) {
                         switch (select) {
                             case 0:
-                                if (player.inventory.ruby >= 100000000) {
+                                if (player.inventory.ruby >= 10000000) {
                                     if (OpenPowerService.gI().openPowerSpeed(player.pet)) {
-                                        player.inventory.ruby -= 100000000;
+                                        player.inventory.ruby -= 10000000;
                                         Service.getInstance().sendMoney(player);
 
                                     }
@@ -6580,35 +6584,36 @@ public class NpcFactory {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
             public void openBaseMenu(Player player) {
-                if (canOpenNpc(player)) {
-                    if (this.mapId == 102) {
-                        if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "MERY chịch mệt", "SHOP NOEL", "SHOP GOLD", "Đóng");
-                        }
-                    } else if (this.mapId == 46 || this.mapId == 5 || this.mapId == 20) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "MERY chịch mệt!", "SHOP NOEL", "Đóng");
-                    }
-                }
+                super.openBaseMenu(player);
+//                if (canOpenNpc(player)) {
+//                    if (this.mapId == 102) {
+//                        if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
+//                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "MERY chịch mệt", "SHOP NOEL", "SHOP GOLD", "Đóng");
+//                        }
+//                    } else if (this.mapId == 46 || this.mapId == 5 || this.mapId == 20) {
+//                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "MERY chịch mệt!", "SHOP NOEL", "Đóng");
+//                    }
+//                }
             }
 
             @Override
             public void confirmMenu(Player player, int select) {
-                if (canOpenNpc(player)) {
-                    if (this.mapId == 102) {
-                        if (player.iDMark.isBaseMenu()) {
-                            if (select == 0) {
-                                ShopServiceNew.gI().opendShop(player, "ONG_GIA_NOEL", true);
-                            }
-                        }
-                    } else if (this.mapId == 46 || this.mapId == 5 || this.mapId == 20) {
-                        if (player.iDMark.isBaseMenu()) {
-                            if (select == 0) {
-                                ShopServiceNew.gI().opendShop(player, "ONG_GIA_NOEL", true);
-
-                            }
-                        }
-                    }
-                }
+//                if (canOpenNpc(player)) {
+//                    if (this.mapId == 102) {
+//                        if (player.iDMark.isBaseMenu()) {
+//                            if (select == 0) {
+//                                ShopServiceNew.gI().opendShop(player, "ONG_GIA_NOEL", true);
+//                            }
+//                        }
+//                    } else if (this.mapId == 46 || this.mapId == 5 || this.mapId == 20) {
+//                        if (player.iDMark.isBaseMenu()) {
+//                            if (select == 0) {
+//                                ShopServiceNew.gI().opendShop(player, "ONG_GIA_NOEL", true);
+//
+//                            }
+//                        }
+//                    }
+//                }
             }
         };
     }
@@ -6664,7 +6669,6 @@ public class NpcFactory {
                                         return;
                                     }
                                     PlayerDAO.subvnd(player, 100000);
-
                                 }
                                 player.phuChuSu.openSystem();
                             }

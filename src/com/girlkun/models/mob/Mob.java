@@ -143,6 +143,8 @@ public class Mob {
                 this.sendMobDieAffterAttacked(plAtt, damage, type);
                 TaskService.gI().checkDoneTaskKillMob(plAtt, this);
                 TaskService.gI().checkDoneSideTaskKillMob(plAtt, this);
+                // hut dame
+                plAtt.tuTien.handleHutChiSo();
                 this.lastTimeDie = System.currentTimeMillis();
                 if (this.id == 13) {
                     this.zone.isbulon13Alive = false;
@@ -582,7 +584,7 @@ public class Mob {
                 list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }
 
-            if (zone.map.mapId == 123 && Util.isTrue(.5f, 100)){
+            if (zone.map.mapId == 123 && Util.isTrue(.5f, 100)) {
                 short temIds = (short) Util.nextInt(1260, 1262);
                 list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }

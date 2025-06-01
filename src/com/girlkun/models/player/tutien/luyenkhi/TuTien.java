@@ -112,10 +112,6 @@ public class TuTien extends BasePoint implements IBaseAction {
     public void calcPoint() {
         // add buff vo day sau do se call lai point
         // buff dame goc o day
-        player.nPoint.dameAdd += player.nPoint.dameg * getDameBuff() / 100;
-        player.nPoint.hpAdd += player.nPoint.hpg * getHPMPBuff() / 100;
-        player.nPoint.mpAdd += player.nPoint.mpg * getHPMPBuff() / 100;
-        player.nPoint.defAdd += player.nPoint.defg * getDefBuff() / 100;
         player.nPoint.tlchinhxac += player.nPoint.tlchinhxac * getChinhXacBuff() / 100;
         player.nPoint.tlNeDon += player.nPoint.tlNeDon * getNeBuff() / 100;
         player.nPoint.tlHutHp += getHutHPBuff();
@@ -126,8 +122,6 @@ public class TuTien extends BasePoint implements IBaseAction {
         if (congPhap != null) {
             congPhap.calcPoint(player);
         }
-        // send linh khi effect
-        PlayerService.gI().sendTuTienPoint(player);
     }
 
     @Override
@@ -597,5 +591,30 @@ public class TuTien extends BasePoint implements IBaseAction {
             return 5;
         }
         return percent;
+    }
+
+    public void handleHutChiSo() {
+        if (congPhap != null) {
+            if (congPhap.hutDame > 0) {
+                congPhap.totalHutDame += congPhap.hutDame;
+                if (congPhap.totalHutDame > congPhap.phamchat.maxHutDame) {
+                    congPhap.totalHutDame = congPhap.phamchat.maxHutDame;
+                } else {
+                    Service.gI().sendThongBao(player, "Bạn được tăng cường " + congPhap.hutDame + " sức đánh từ việc tiêu diệt quái");
+                }
+            }
+            if (congPhap.hutHp > 0) {
+                congPhap.totalHutHp += congPhap.totalHutHp;
+                if (congPhap.totalHutHp > congPhap.phamchat.maxHutHpMp) {
+                    congPhap.totalHutHp = congPhap.phamchat.maxHutHpMp;
+                }
+            }
+            if (congPhap.hutMp > 0) {
+                congPhap.totalHutMp += congPhap.hutMp;
+                if (congPhap.totalHutMp > congPhap.phamchat.maxHutHpMp) {
+                    congPhap.totalHutMp = congPhap.phamchat.maxHutHpMp;
+                }
+            }
+        }
     }
 }
