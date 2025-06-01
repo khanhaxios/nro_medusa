@@ -1039,12 +1039,14 @@ public class SkillService {
         int tiLeHutMp = player.nPoint.getTiLeHutMp();
         long hpHoi = Util.DoubleGioihan(dame * tiLeHutHp / 100);
         long mpHoi = Util.DoubleGioihan(dame * tiLeHutMp / 100);
-        short xParam = player.tuTien.linhCan.getThuocTinhLinhCan().getParam();
-        if (player.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("M") || player.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("T") || player.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("TH")) {
-            xParam *= 3;
+        if (player.tuTien.isTuTien()) {
+            short xParam = player.tuTien.linhCan.getThuocTinhLinhCan().getParam();
+            if (player.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("M") || player.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("T") || player.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("TH")) {
+                xParam *= 3;
+            }
+            hpHoi += hpHoi * xParam / 100;
+            mpHoi += mpHoi * xParam / 100;
         }
-        hpHoi += hpHoi * xParam / 100;
-        mpHoi += mpHoi * xParam / 100;
         if (hpHoi > 0 || mpHoi > 0) {
             PlayerService.gI().hoiPhuc(player, hpHoi, mpHoi);
         }
@@ -1106,12 +1108,14 @@ public class SkillService {
     }
 
     private void hutLinhKhi(Player plAtt, double dameHit) {
-        short xParam = (short) (plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 10);
-        long baseHutLinhKhi = 2;
-        if (plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("M") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("T") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("TH") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("Q")) {
-            baseHutLinhKhi *= xParam;
+        if (plAtt.tuTien.isTuTien()) {
+            short xParam = (short) (plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 10);
+            long baseHutLinhKhi = 2;
+            if (plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("M") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("T") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("TH") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("Q")) {
+                baseHutLinhKhi *= xParam;
+            }
+            plAtt.tuTien.hoiPhucLinhKhi(baseHutLinhKhi);
         }
-        plAtt.tuTien.hoiPhucLinhKhi(baseHutLinhKhi);
     }
 
     private void sendMessagePlayerAttackPlayer(Player plAtt, Player plInjure, double dameHit, byte type) {
