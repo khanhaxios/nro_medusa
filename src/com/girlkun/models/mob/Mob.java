@@ -164,7 +164,7 @@ public class Mob {
             } else {
                 this.sendMobStillAliveAffterAttacked(plAtt, damage, plAtt != null && plAtt.nPoint.isCrit, type);
             }
-            if (plAtt != null) {
+            if (plAtt != null && type == 0) {
                 Service.getInstance().addSMTN(plAtt, (byte) 2, getTiemNangForPlayer(plAtt, damage), true);
             }
         }
@@ -584,7 +584,7 @@ public class Mob {
                 list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }
 
-            if (zone.map.mapId == 123 && Util.isTrue(.5f, 100)) {
+            if (zone.map.mapId == 123 && Util.isTrue(2f, 100)) {
                 short temIds = (short) Util.nextInt(1260, 1262);
                 list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }
@@ -597,32 +597,33 @@ public class Mob {
                 list.add(new ItemMap(zone, 2046, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }
         }
-        MobReward mobReward = Manager.MOB_REWARDS.get(this.tempId);
-        if (mobReward == null) {
-            return list;
+        if (Util.isTrue(1, 100)) {
+            list.add(new ItemMap(zone, 2031, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
         }
-        List<ItemMobReward> items = mobReward.getItemReward();
-        List<ItemMobReward> golds = mobReward.getGoldReward();
+        int tileVang = 0;
+        MobReward mobReward = Manager.MOB_REWARDS.get(this.tempId);
+        if (mobReward != null) {
+            List<ItemMobReward> items = mobReward.getItemReward();
+            List<ItemMobReward> golds = mobReward.getGoldReward();
+            if (!items.isEmpty()) {// chay nfile dât thi mo code nay ra crtl+/
+                ItemMobReward item = items.get(Util.nextInt(0, items.size() - 1));
+                ItemMap itemMap = item.getItemMap(zone, player, x, yEnd);
+                if (itemMap != null) {
+                    list.add(itemMap);
+                }
+            }
+
+            if (!golds.isEmpty()) {//dât roi vàng
+                ItemMobReward gold = golds.get(Util.nextInt(0, golds.size() - 1));
+                ItemMap itemMap = gold.getItemMap(zone, player, x, yEnd);
+                if (itemMap != null) {
+                    list.add(itemMap);
+                }
+            }
+        }
+
         final Calendar rightNow = Calendar.getInstance();
         int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-
-        int tileVang = 0;
-        if (!items.isEmpty()) {// chay nfile dât thi mo code nay ra crtl+/
-            ItemMobReward item = items.get(Util.nextInt(0, items.size() - 1));
-            ItemMap itemMap = item.getItemMap(zone, player, x, yEnd);
-            if (itemMap != null) {
-                list.add(itemMap);
-            }
-        }
-
-        if (!golds.isEmpty()) {//dât roi vàng
-            ItemMobReward gold = golds.get(Util.nextInt(0, golds.size() - 1));
-            ItemMap itemMap = gold.getItemMap(zone, player, x, yEnd);
-            if (itemMap != null) {
-                list.add(itemMap);
-            }
-        }
-
         if (MapService.gI().isMapYardat(this.zone.map.mapId) && this.tempId == 0) {
             if (Util.isTrue(40, 100)) {
                 list.add(new ItemMap(zone, 590, Util.nextInt(15, 30), this.location.x, yEnd, player.id));
@@ -670,7 +671,7 @@ public class Mob {
         }
         tileVang = player.nPoint.tlGold / 100;
         if (Util.isTrue(5, 100)) {
-            int vang = (Util.nextInt(30000, 50000) + Util.nextInt(30000, 50000) * tileVang);
+            int vang = (Util.nextInt(30000, 50000) + Util.nextInt(30000, 50000) * Math.max(1, tileVang));
             list.add(new ItemMap(zone, 190, vang, this.location.x, yEnd, player.id));
         }
         if (Util.isTrue(1, 100) && (this.zone.map.mapId == 1 || this.zone.map.mapId == 2
@@ -713,10 +714,6 @@ public class Mob {
                 list.add(Util.ratiSpl(zone, Manager.spl[randomVp2], 1, this.location.x, yEnd, player.id));
             }
         }
-//        if (Util.isTrue(1, 100) && player.setClothes.setDTL == 5 && this.tempId > 57 && this.tempId < 66 && player.isPl()) {
-//            byte randomVp3 = (byte) new Random().nextInt(Manager.thucan.length);
-//            list.add(new ItemMap(zone, Manager.thucan[randomVp3], 1, this.location.x, this.location.y, player.id));
-//        }
         if (Util.isTrue(40, 100) && this.zone.map.mapId > 155 && this.zone.map.mapId < 159) {
             list.add(new ItemMap(zone, 933, 1, this.location.x, yEnd, player.id));
         }
@@ -762,18 +759,6 @@ public class Mob {
             byte nroquai = (byte) new Random().nextInt(Manager.itemIds_NR.length);
             list.add(new ItemMap(zone, Manager.itemIds_NR[nroquai], 1, this.location.x, yEnd, player.id));
         }
-//        if (Manager.SUKIEN == 1 && Util.isTrue(5, 100)) {
-//            if (this.isQuaiBay()) {
-//                list.add(new ItemMap(zone, Manager.SuKien_TrungThu[2], 1, this.location.x, this.location.y, player.id));
-//            }
-//            if (!this.isQuaiBay() && !this.isQuaiSen()) {
-//                list.add(new ItemMap(zone, Manager.SuKien_TrungThu[1], 1, this.location.x, this.location.y, player.id));
-//            }
-//            if (this.isQuaiSen()) {
-//                list.add(new ItemMap(zone, Manager.SuKien_TrungThu[0], 1, this.location.x, this.location.y, player.id));
-//            }
-//        }
-        //Roi Do Map VIP 1
         if (this.zone.map.mapId == 177) {
             if (Util.isTrue(50, 500)) {
                 int[] itemDos = new int[]{1474, 1475, 1476};

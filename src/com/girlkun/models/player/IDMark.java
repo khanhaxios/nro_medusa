@@ -10,6 +10,7 @@ import lombok.Data;
 public class IDMark {
 
     public int idItemUpTop;
+    public boolean dotPhaThienDao;
     private int typeChangeMap; //capsule, ngọc rồng đen...
     private int indexMenu; //menu npc
     private int typeInput; //input

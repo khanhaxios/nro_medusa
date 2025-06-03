@@ -7444,7 +7444,8 @@ public class NpcFactory {
                             Item item1 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[0]);
                             Item item2 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[1]);
                             Item item3 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[2]);
-                            if (item1 == null || item2 == null || item3 == null) {
+                            byte nextLevel = (byte) (player.luyenThe.level + 1);
+                            if (item1 == null || item2 == null || item3 == null || item1.quantity < (nextLevel * 10) || item2.quantity < (nextLevel * 10) || item3.quantity < (nextLevel * 10)) {
                                 Service.gI().sendThongBao(player, "Bạn thiếu tài liệu rồi");
                                 return;
                             }
@@ -7485,10 +7486,15 @@ public class NpcFactory {
                     case ConstNpc.MENU_PLAYER_TU_TIEN_F:
                         switch (select) {
                             case 0:
+                                boolean isDotPhaCao = player.tuTien.subLevel == 9 && player.tuTien.level > 2;
                                 // dot pha
                                 String text = "|7|Đột phá\n" + "|5|Cảnh Giới hiện tại : " + player.tuTien.getFormatName() + "\n" + "|2|Cảnh Giới tiếp theo : " + player.tuTien.getNextLevelStr() + "\n" + "|2|Tu vi : " + player.tuTien.getCurrentExpAsString() + "\n" + "|7|Tỷ lệ thành công : " + player.tuTien.getLevelUpPercent() + "%" + "\n" + "|5|Bạn có thể ăn dan dược để tăng tỷ lệ thành công -.-";
-                                ;
-                                NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_DOT_PHA, -1, text, "Đột phá", "Từ Chối");
+                                if (isDotPhaCao) {
+                                    player.iDMark.dotPhaThienDao = true;
+                                    NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_DOT_PHA, -1, text, "Đột phá\nThiên đạo", "Từ Chối");
+                                } else {
+                                    NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_DOT_PHA, -1, text, "Đột phá", "Từ Chối");
+                                }
                                 break;
                             case 1:
                                 String texta = "|7|Tán công + \n" + "|2|Tán công sẽ giúp bạn tu lại từ đầu tất cả thiên phú căn cốt,buff công pháp đều được giữ lại\n" + "|2|cảnh giới sẽ bị đưa về ban đầu\n" + "|7|Bạn có muốn tán công không?";
@@ -7504,6 +7510,24 @@ public class NpcFactory {
                             }
                             if (!player.tuTien.hasLinhKhi()) {
                                 Service.gI().sendThongBao(player, "Đột phá cần đầy đủ lượng linh khí hãy bổ sung");
+                                return;
+                            }
+                            if (player.iDMark.dotPhaThienDao) {
+                                Item item = InventoryServiceNew.gI().findItemBag(player, 2031);
+                                if (item == null || item.quantity < player.tuTien.level * 10) {
+                                    Service.gI().sendThongBao(player, "Cần x" + player.tuTien.level * 10 + " thăng tinh thạch để dột phá");
+                                    return;
+                                }
+                                float ratio = player.tuTien.getLevelUpPercent() / 5;
+                                if (Util.isTrue(ratio, 110)) {
+                                    player.tuTien.levelUp();
+                                    return;
+                                }
+                                player.tuTien.restExp();
+                                player.tuTien.restLinhKhi();
+                                Service.gI().sendThongBao(player, "Bạn đã đột phá thất bại , mất hết tu vi và linh khí hiện tại");
+                                InventoryServiceNew.gI().subQuantityItemsBag(player, item, 10 * player.tuTien.level);
+                                InventoryServiceNew.gI().sendItemBags(player);
                                 return;
                             }
                             float ratio = player.tuTien.getLevelUpPercent();

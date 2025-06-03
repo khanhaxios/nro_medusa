@@ -1000,6 +1000,7 @@ public class GodGK {
                             player.tuTien.ngoTinh = Integer.parseInt(basePointArray.get(7).toString());
                             player.tuTien.thienPhu = Integer.parseInt(basePointArray.get(8).toString());
                             player.tuTien.timeTuTien = Long.parseLong(basePointArray.get(9).toString());
+                            player.tuTien.xParam = Byte.parseByte(basePointArray.get(10).toString());
                         }
 
                         // index 1: linh can

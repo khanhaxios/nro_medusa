@@ -47,6 +47,32 @@ public class PlayerService {
         }
     }
 
+    public void sendTuTienTuVi(Player player) {
+        Message msg;
+        try {
+            msg = new Message(-124);
+            msg.writer().writeByte(2);
+            msg.writer().writeLong(player.tuTien.exp);
+            msg.writer().writeLong(player.tuTien.maxExp);
+            player.sendMessage(msg);
+            msg.cleanup();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void sendTuTienAddTuVi(Player player,long addExp) {
+        Message msg;
+        try {
+            msg = new Message(-124);
+            msg.writer().writeByte(3);
+            msg.writer().writeLong(addExp);
+            player.sendMessage(msg);
+            msg.cleanup();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void sendLinhKhiPoint(Player player) {
         Message msg;
         try {
@@ -269,12 +295,10 @@ public class PlayerService {
 
     public void banPlayer(Player playerBaned) {
         try {
-            GirlkunDB.executeUpdate("update account set ban = 1 where id = ? and username = ?",
-                    playerBaned.getSession().userId, playerBaned.getSession().uu);
+            GirlkunDB.executeUpdate("update account set ban = 1 where id = ? and username = ?", playerBaned.getSession().userId, playerBaned.getSession().uu);
         } catch (Exception e) {
         }
-        Service.getInstance().sendThongBao(playerBaned,
-                "Tài khoản của bạn đã bị khóa\nGame sẽ mất kết nối sau 5 giây...");
+        Service.getInstance().sendThongBao(playerBaned, "Tài khoản của bạn đã bị khóa\nGame sẽ mất kết nối sau 5 giây...");
         playerBaned.iDMark.setLastTimeBan(System.currentTimeMillis());
         playerBaned.iDMark.setBan(true);
     }
@@ -291,8 +315,7 @@ public class PlayerService {
                     player.inventory.gold -= COST_GOLD_HOI_SINH_NRSD;
                     canHs = true;
                 } else {
-                    Service.getInstance().sendThongBao(player, "Không đủ vàng để thực hiện, còn thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH_NRSD
-                            - player.inventory.gold) + " vàng");
+                    Service.getInstance().sendThongBao(player, "Không đủ vàng để thực hiện, còn thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH_NRSD - player.inventory.gold) + " vàng");
                     return;
                 }
             } else {
@@ -300,8 +323,7 @@ public class PlayerService {
                     player.inventory.gem -= COST_GEM_HOI_SINH;
                     canHs = true;
                 } else {
-                    Service.getInstance().sendThongBao(player, "Không đủ vàng để thực hiện, còn thiếu " + Util.numberToMoney(COST_GEM_HOI_SINH
-                            - player.inventory.gem) + " vàng");
+                    Service.getInstance().sendThongBao(player, "Không đủ vàng để thực hiện, còn thiếu " + Util.numberToMoney(COST_GEM_HOI_SINH - player.inventory.gem) + " vàng");
                     return;
                 }
             }
@@ -321,8 +343,7 @@ public class PlayerService {
                     player.inventory.gold -= COST_GOLD_HOI_SINH_NRSD;
                     canHs = true;
                 } else {
-                    Service.getInstance().sendThongBao(player, "Không đủ vàng để thực hiện, còn thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH_NRSD
-                            - player.inventory.gold) + " vàng");
+                    Service.getInstance().sendThongBao(player, "Không đủ vàng để thực hiện, còn thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH_NRSD - player.inventory.gold) + " vàng");
                     return;
                 }
             } else {
@@ -330,8 +351,7 @@ public class PlayerService {
                     player.inventory.gold -= COST_GOLD_HOI_SINH;
                     canHs = true;
                 } else {
-                    Service.getInstance().sendThongBao(player, "Không đủ vàng để thực hiện, còn thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH
-                            - player.inventory.gold) + " vàng");
+                    Service.getInstance().sendThongBao(player, "Không đủ vàng để thực hiện, còn thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH - player.inventory.gold) + " vàng");
                     return;
                 }
             }

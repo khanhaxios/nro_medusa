@@ -758,12 +758,10 @@ public class NPoint {
                 this.hpMax += (this.hpMax * percent / 100);
             }
         }
-
         //+hp đệ
         if (this.player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             this.hpMax += this.player.pet.nPoint.hpMax;
         }
-
         // chi so  hop the
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             switch (((Pet) this.player).typePet) {

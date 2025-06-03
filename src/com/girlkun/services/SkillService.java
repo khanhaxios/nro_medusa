@@ -1083,7 +1083,7 @@ public class SkillService {
             if (plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("K") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("H") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("L")) {
                 xParam *= 2;
             }
-            double dame = dameHit * xParam / 100;
+            double dame = dameHit * (xParam * Math.max(1, plAtt.tuTien.xParam)) / 100;
             plInjure.injured(plAtt, dame, false, false);
             sendMessagePlayerAttackPlayer(plAtt, plInjure, dame, (byte) 1);
             plAtt.tuTien.subLinhKhiPercent(percentLinhKhiUse);
@@ -1179,6 +1179,8 @@ public class SkillService {
     private void playerAttackMob(Player plAtt, Mob mob, boolean miss, boolean dieWhenHpFull) {
         if (!mob.isDie()) {
             double dameHit = plAtt.nPoint.getDameAttack(true);
+            neDon(plAtt, miss);
+            hutLinhKhi(plAtt, dameHit);
             if (plAtt.charms.tdBatTu > System.currentTimeMillis() && plAtt.nPoint.hp == 1) {
                 dameHit = 0;
             }
@@ -1202,7 +1204,11 @@ public class SkillService {
             sendPlayerAttackMob(plAtt, mob);
             mob.injured(plAtt, dameHit, dieWhenHpFull, (byte) 0);
             if (plAtt.tuTien.isTuTien() && plAtt.tuTien.canHandleWithLinhKhiPoint(1) && plAtt.tuTien.isAttackWithLinhCan) {
-                double dameH = dameHit * plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 100;
+                byte x = 1;
+                if (plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("K") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("H") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("L")) {
+                    x = 2;
+                }
+                double dameH = dameHit * ((plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam() * x) * Math.max(1, plAtt.tuTien.xParam)) / 100;
                 mob.injured(plAtt, dameH, dieWhenHpFull, (byte) 1);
                 plAtt.tuTien.subLinhKhiPercent(1);
             }

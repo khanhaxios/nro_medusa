@@ -54,7 +54,7 @@ public abstract class BasePoint {
     }
 
     public float getXDiemThienPhu() {
-        return getXDiemCanCot() + getXDiemNgoTinh();
+        return Math.max(1, getXDiemCanCot() + getXDiemNgoTinh());
     }
 
     public void checkLevelUp() {

@@ -1115,6 +1115,7 @@ public class PlayerDAO {
                 dataBasePoint.add(player.tuTien.ngoTinh);
                 dataBasePoint.add(player.tuTien.thienPhu);
                 dataBasePoint.add(player.tuTien.timeTuTien);
+                dataBasePoint.add(player.tuTien.xParam);
                 jsonArray.add(dataBasePoint);
                 dataBasePoint = new JSONArray();
                 // write linh can

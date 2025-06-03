@@ -1273,28 +1273,6 @@ public class Service {
                 return;
             }
         }
-
-//        if (text.startsWith("dhn ")) {
-//            int boisoHn = Integer.parseInt(text.replace("dhn ", ""));
-//            int totalHn = boisoHn * 1000000;
-//            if (totalHn > 2_000_000_000) {
-//                Service.gI().sendThongBao(player, "Đổi ít thôi không lỗi bây giờ");
-//                return;
-//            }
-//            // tinh diem
-//            int diemCan = totalHn / Manager.KHUYEN_MAI_NAP;
-//
-//            if (player.session.vnd - diemCan < 0) {
-//                Service.gI().sendThongBao(player, "Bạn éo đủ điểm để đổi");
-//                return;
-//            }
-//            PlayerDAO.subvnd(player, diemCan);
-//            player.inventory.ruby += totalHn;
-//            Service.gI().sendMoney(player);
-//            Service.gI().sendThongBao(player, "Bạn đã nhận được" + totalHn + " Hồng ngọc");
-//            // + hong ngoc
-//            return;
-//        }
         if (text.equals("ttlk")) {
             if (player.luyenKhiSu.getLevel() == 0 && !player.isAdmin()) {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện khí\nHãy đến gặp npc Thần Cấp luyện khí sư ở làng aru để học hỏi");
@@ -1777,6 +1755,10 @@ public class Service {
                 msg.writer().writeShort(100);
                 msg.writer().writeInt(Util.DoubleGioihana(player.nPoint.defg));
                 msg.writer().writeByte(Util.byteGioiHan(player.nPoint.critg));
+                msg.writer().writeLong(player.tuTien.linhKhiPoint);
+                msg.writer().writeLong(player.tuTien.maxLinhKhiPoint);
+                msg.writer().writeLong(player.tuTien.exp);
+                msg.writer().writeLong(player.tuTien.maxExp);
                 player.sendMessage(msg);
                 msg.cleanup();
             } catch (Exception e) {
