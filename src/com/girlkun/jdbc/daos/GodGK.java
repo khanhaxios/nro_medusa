@@ -1077,6 +1077,7 @@ public class GodGK {
                             player.luyenThe.level = Byte.parseByte(jsonArray.get(0).toString());
                             player.luyenThe.exp = Long.parseLong(jsonArray.get(1).toString());
                             player.luyenThe.maxExp = Long.parseLong(jsonArray.get(2).toString());
+                            player.luyenThe.timeThatBai = Byte.parseByte(jsonArray.get(3).toString());
                         }
                     }
                 } catch (Exception e) {

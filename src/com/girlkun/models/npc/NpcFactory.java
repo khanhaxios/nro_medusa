@@ -7476,6 +7476,9 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Đột phá thành công");
                             } else {
                                 player.luyenThe.restExp();
+                                if (player.luyenThe.timeThatBai + 1 <= 5) {
+                                    player.luyenThe.timeThatBai++;
+                                }
                                 Service.gI().sendThongBao(player, "Đột phá thất bại");
                             }
                             InventoryServiceNew.gI().subQuantityItemsBag(player, item1, player.luyenThe.level * 10);

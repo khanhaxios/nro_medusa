@@ -13,13 +13,10 @@ import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
 public class LuyenThe extends BasePoint implements IBaseAction {
-    int[] buffs = new int[]{
-            (int) (player.nPoint.hpg * getHPMPBuff() / 100f),
-            (int) (player.nPoint.mpg * getHPMPBuff() / 100f),
-            (int) (player.nPoint.defg * getDefBuff() / 100f),
-            (int) (player.nPoint.dameg * getDameBuff() / 100f),
-    };
+
     public final byte MAX_LEVEL = 99;
+
+    public byte timeThatBai = 0;
 
     public LuyenThe(Player player) {
         super(player);
@@ -44,6 +41,7 @@ public class LuyenThe extends BasePoint implements IBaseAction {
             level += 1;
             exp = 0;
             maxExp = getNextLevelExp();
+            timeThatBai = 0;
             Service.gI().point(player);
         }
     }
@@ -87,7 +85,7 @@ public class LuyenThe extends BasePoint implements IBaseAction {
     @Override
     public float getLevelUpPercent() {
         if (exp == 0) return 0;
-        return (exp / (maxExp * 1f) * 100) / (level * 2);
+        return ((exp / (maxExp * 1f) * 100) / (level * 3)) + (timeThatBai * 3);
     }
 
     @Override
@@ -170,7 +168,7 @@ public class LuyenThe extends BasePoint implements IBaseAction {
     public String getItemNeed(short[] idsItemNeed) {
         StringBuilder needStr = new StringBuilder();
         for (short i : idsItemNeed) {
-            needStr.append("x").append(level * 10).append(Manager.ITEM_TEMPLATES.get(i).name);
+            needStr.append("x").append((level + 1) * 10).append(Manager.ITEM_TEMPLATES.get(i).name);
             if (i != idsItemNeed[idsItemNeed.length - 1]) {
                 needStr.append(",");
             }

@@ -1117,6 +1117,7 @@ public class PlayerDAO {
                     jsonArray.add(player.luyenThe.level);
                     jsonArray.add(player.luyenThe.exp);
                     jsonArray.add(player.luyenThe.maxExp);
+                    jsonArray.add(player.luyenThe.timeThatBai);
                     dataLT = jsonArray.toJSONString();
                     jsonArray.clear();
                 }
