@@ -453,6 +453,16 @@ public class InventoryServiceNew {
             Item item = player.inventory.itemsBag.get(index);
             Item pettt = player.inventory.itemsBody.get(7);
             if (item.isNotNullItem()) {
+                if (item.template.type == 23 || item.template.type == 24 || item.template.type == 72 || item.template.type == 21) {
+                    if (player.nguThuSu == null || !player.nguThuSu.isNguThu()) {
+                        Service.gI().sendThongBaoOK(player, "Bạn cần học ngự thú sư để trang bị thú cưỡi,pet,linh thú");
+                        return;
+                    }
+                    if (!player.nguThuSu.canUseItem(index)) {
+                        Service.gI().sendThongBaoOK(player, "Bạn cần nâng cấp ngự thú sư để trang bị thú cưỡi này");
+                        return;
+                    }
+                }
                 player.inventory.itemsBag.set(index, putItemBody(player, item));
                 if (item.template.id > 1299 && item.template.id < 1309) {
                     Service.gI().removeTitle(player);

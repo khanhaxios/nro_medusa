@@ -448,6 +448,7 @@ public class Mob {
     private void sendMobDieAffterAttacked(Player plKill, double dameHit, byte type) {
         Message msg;
         try {
+            if (dameHit <=0 ){ return;}
             msg = new Message(-12);
             msg.writer().writeByte(this.id);
             msg.writer().writeByte(type);
@@ -576,10 +577,6 @@ public class Mob {
             if (Util.isTrue(5, 100)) {
                 list.add(new ItemMap(zone, 2050, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }
-        }
-        if (Util.isTrue(5, 100)) {
-            short temIds = (short) Util.nextInt(1263, 1266);
-            list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
         }
         // rơi các loại đá thạch ( chỉ có ở ngũ hành sơn )
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {

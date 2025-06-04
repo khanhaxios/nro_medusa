@@ -429,7 +429,7 @@ public class Pet extends Player {
             if (master.isDie() || this.isDie() || effectSkill.isHaveEffectSkill()) {
                 return;
             }
-            if (master.tuTien.isKhongThi) {
+            if (master.tuTien.isKhongThi && master.khongThiSu.isKhongThi()) {
                 master.tuTien.subLinhKhi((long) 10 * Math.max(nPoint.limitPower, 1) * Math.max(1, typePet));
             }
             moveIdle();

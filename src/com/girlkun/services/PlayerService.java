@@ -60,7 +60,8 @@ public class PlayerService {
             e.printStackTrace();
         }
     }
-    public void sendTuTienAddTuVi(Player player,long addExp) {
+
+    public void sendTuTienAddTuVi(Player player, long addExp) {
         Message msg;
         try {
             msg = new Message(-124);
@@ -101,7 +102,7 @@ public class PlayerService {
     }
 
     public void sendTNSM(Player player, byte type, double param) {
-        if (param > 0) {
+        if (param > 1 && !player.isBoss) {
             Message msg;
             try {
                 msg = new Message(-3);

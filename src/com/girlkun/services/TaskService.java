@@ -747,6 +747,7 @@ public class TaskService {
                     break;
                 //--------------------------------------------------------------
                 case ConstTask.TASK_12_0:
+                    Service.gI().sendThongBao(player, "Đã hoàn thành nhiệm vụ");
                     break;
                 case ConstTask.TASK_12_1:
                     npcSay(player, ConstTask.NPC_NHA, "Con muốn tham gia vào bang hội á? Haizz, cái lão già này lại dạy hư cháu ông rồi\n" + "Con muốn thì cũng được thôi, nhưng con phải biết lựa chọn được bang hội nào tốt đấy nhé..\n" + "..xã hội này có nhiều thành phần lắm, cũng chỉ vì an nguy của con nên ông chỉ biết dặn dò vậy\n" + "Chúc con may mắn trên con đường con chọn, mà luôn nhớ rằng con phải là 1 công dân tốt đấy nhé..");
@@ -1023,15 +1024,6 @@ public class TaskService {
                 player.inventory.gold = LIMIT_GOLD;
             }
             Service.getInstance().sendMoney(player);
-        }
-        if (player.playerTask.taskMain.id >= 26 && player.playerTask.taskMain.id <= 29) {
-            int totalBuaZeno = 55555;
-            Item item1 = ItemService.gI().createNewItem((short) 1378, totalBuaZeno);
-            item1.itemOptions.add(new Item.ItemOption(30, 0));
-            InventoryServiceNew.gI().addItemBag(player, item1);
-            InventoryServiceNew.gI().sendItemBags(player);
-            Service.gI().sendThongBaoOK(player, "Bạn nhận được " + Util.format(totalBuaZeno) + " Bùa Zeno");
-            PlayerDAO.subvnd(player, 0);
         }
     }
 

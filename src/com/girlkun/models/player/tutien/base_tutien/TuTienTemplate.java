@@ -20,6 +20,7 @@ public class TuTienTemplate {
     boolean isLoaded = false;
     public static List<ThuocTinhLinhCan> THUOC_TINH_BUFF_LINH_CAN = new ArrayList<>();
     public static Map<String, Byte> LINH_CAN = new HashMap<>();
+    public static List<CoDuyen> CO_DUYEN = new ArrayList<>();
 
     public static List<CongPhap> CONG_PHAP = new ArrayList<>();
 
@@ -36,6 +37,168 @@ public class TuTienTemplate {
         THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 6, "Sát thương lôi  +#%", (short) 0, LINH_CAN.get("L")));
         THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 7, "Sát thương Quang  +#%", (short) 0, LINH_CAN.get("Q")));
         THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 8, "Sát thương Ám  +#%", (short) 0, LINH_CAN.get("A")));
+    }
+
+    public void initCoDuyen() {
+        // add cơ duyen template
+        List<CoDuyen> dsCoDuyen = new ArrayList<>();
+
+        dsCoDuyen.add(new CoDuyen(1, (byte) 1,
+                "Linh Khí Dâng Trào",
+                "Ngẫu nhiên khiến linh khí xung quanh cuồn cuộn, tăng tổng lượng linh khí của người chơi.",
+                1,
+                new long[]{},
+                60000L)); // 1 phút tồn tại
+
+        dsCoDuyen.add(new CoDuyen(2, (byte) 2,
+                "Đạo Tâm Bất Ổn",
+                "Một luồng tạp niệm khiến người chơi tụt 1 cảnh giới.",
+                5,
+                new long[]{},
+                0L)); // hiệu ứng tức thời
+
+        dsCoDuyen.add(new CoDuyen(3, (byte) 3,
+                "Khai Thiên Nhãn",
+                "Linh quang lóe lên, người chơi tăng 1 cảnh giới!",
+                5,
+                new long[]{},
+                0L));
+
+        dsCoDuyen.add(new CoDuyen(4, (byte) 4,
+                "Tâm Như Tịnh Thủy",
+                "Tâm linh thanh tịnh, độ thuần thục công pháp tăng lên nhanh chóng.",
+                1,
+                new long[]{},
+                120000L)); // buff 2 phút
+
+        dsCoDuyen.add(new CoDuyen(5, (byte) 5,
+                "Thiên Ý Truyền Thừa",
+                "Một tia linh ngộ đến từ trời xanh, giúp tăng phẩm công pháp.",
+                0,
+                new long[]{},
+                0L)); // hiệu ứng hiếm cực
+
+        dsCoDuyen.add(new CoDuyen(6, (byte) 6,
+                "Tài Nguyên Trời Ban",
+                "Rơi xuống đống linh thảo quý hiếm, tăng tài nguyên đáng kể.",
+                2,
+                new long[]{},
+                0L));
+
+        dsCoDuyen.add(new CoDuyen(7, (byte) 7,
+                "Bá Thể Kim Cương",
+                "Thể chất người chơi được cường hóa, tăng cấp luyện thể.",
+                3,
+                new long[]{},
+                0L));
+
+        dsCoDuyen.add(new CoDuyen(1, (byte) 1,
+                "Linh Khí Ngưng Tụ",
+                "Trời đất cộng hưởng, linh khí xung quanh ngưng tụ, giúp người chơi hấp thu được lượng linh khí vượt trội.",
+                1,
+                new long[]{},
+                60000L));
+
+        dsCoDuyen.add(new CoDuyen(2, (byte) 2,
+                "Tâm Ma Xâm Nhập",
+                "Tâm trí dao động, bị tâm ma quấy nhiễu, dẫn đến tụt 1 cảnh giới.",
+                5,
+                new long[]{},
+                0L));
+
+        dsCoDuyen.add(new CoDuyen(3, (byte) 3,
+                "Thiên Đạo Thưởng Phạt",
+                "Thiên đạo mở lòng, ban cho cơ duyên bất ngờ giúp người chơi đột phá 1 cảnh giới.",
+                5,
+                new long[]{},
+                0L));
+
+        dsCoDuyen.add(new CoDuyen(4, (byte) 4,
+                "Linh Ngộ Đại Đạo",
+                "Trong lúc tu luyện, lĩnh ngộ sâu sắc đạo lý thiên địa, tăng mạnh độ thuần thục công pháp.",
+                1,
+                new long[]{},
+                120000L));
+
+        dsCoDuyen.add(new CoDuyen(5, (byte) 5,
+                "Cơ Duyên Truyền Thừa",
+                "Kế thừa lại tinh hoa của một vị tiền bối, phẩm chất công pháp được nâng cao rõ rệt.",
+                1,
+                new long[]{},
+                0L));
+
+        dsCoDuyen.add(new CoDuyen(6, (byte) 6,
+                "Thiên Tài Địa Bảo",
+                "Vô tình thu thập được thiên tài địa bảo, giúp tăng lượng tài nguyên thu hoạch.",
+                2,
+                new long[]{},
+                0L));
+
+        dsCoDuyen.add(new CoDuyen(7, (byte) 7,
+                "Cốt Cách Kim Cang",
+                "Thân thể được rèn luyện không ngừng, thể chất đạt ngưỡng đột phá, tăng cấp luyện thể.",
+                3,
+                new long[]{},
+                0L));
+
+        dsCoDuyen.add(new CoDuyen(0, (byte) 0,
+                "Thiên Mệnh Chỉ Dẫn",
+                "Một cảm giác khó hiểu dẫn lối bạn vào một vùng đất chưa từng biết đến – nơi định mệnh bắt đầu thay đổi.",
+                1,
+                new long[]{},
+                60000L));
+
+        dsCoDuyen.add(new CoDuyen(1, (byte) 1,
+                "Linh Khí Triều Dâng",
+                "Linh khí nơi bạn đứng như có ý chí riêng, tuôn trào cuồn cuộn. Tốc độ hấp thu tăng vọt trong khoảnh khắc.",
+                1,
+                new long[]{},
+                60000L));
+
+        dsCoDuyen.add(new CoDuyen(2, (byte) 2,
+                "Tâm Ma Bộc Phát",
+                "Trong lúc tham ngộ, nội tâm dao động dữ dội, bị tâm ma dẫn lối, khiến cảnh giới tụt một tầng.",
+                5,
+                new long[]{},
+                0L));
+
+        dsCoDuyen.add(new CoDuyen(3, (byte) 3,
+                "Thiên Cơ Biến Động",
+                "Một luồng khí tức huyền bí quét qua, bạn mơ hồ cảm nhận cảnh giới bản thân... đang âm thầm thăng hoa.",
+                5,
+                new long[]{},
+                0L));
+
+        dsCoDuyen.add(new CoDuyen(4, (byte) 4,
+                "Ngộ Đạo Dưới Sao",
+                "Khi đêm phủ xuống, ngồi thiền dưới trời sao, bạn chạm đến một tầng đạo lý mới – công pháp tiến bộ thần tốc.",
+                1,
+                new long[]{},
+                120000L));
+
+        dsCoDuyen.add(new CoDuyen(5, (byte) 5,
+                "Truyền Thừa Huyền Môn",
+                "Linh hồn cổ nhân truyền dạy một bí kíp thất truyền – phẩm chất công pháp từ đó được nâng lên một tầng mới.",
+                1,
+                new long[]{},
+                0L));
+
+        dsCoDuyen.add(new CoDuyen(6, (byte) 6,
+                "Thiên Tài Địa Bảo",
+                "Khi bước chân vào vùng đất hoang vu, bạn vô tình thu nhặt được tài nguyên trời ban.",
+                2,
+                new long[]{},
+                0L));
+
+        dsCoDuyen.add(new CoDuyen(7, (byte) 7,
+                "Cốt Cách Kim Cang",
+                "Thân thể ngưng luyện từng chút một, đến nay rốt cuộc đã đạt cảnh giới mới trong Luyện Thể Thuật.",
+                3,
+                new long[]{},
+                0L));
+
+
+        CO_DUYEN = dsCoDuyen;
     }
 
     public void initLinhCanGoc() {
@@ -93,6 +256,7 @@ public class TuTienTemplate {
             initBuffThuocTinhLinhCan();
             initCongPhap();
             initTienPhap();
+            initCoDuyen();
         }
     }
 }

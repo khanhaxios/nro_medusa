@@ -718,9 +718,15 @@ public class Service {
 
             String deviceId = _msg.readUTF();
             String platform = _msg.readUTF();
+            String readMore = null;
+            try {
+                readMore = _msg.readUTF();
+            } catch (Exception e) {
+
+            }
             String ipAddress = session.getIP();
 
-            if (deviceId == null) {
+            if (deviceId == null || readMore != null) {
                 Service.gI().sendThongBaoOK((MySession) session, "Không nhận được dữ liệu phiên bản,hãy dùng đúng phiên bản mod của server để chạy ổn định nhất");
                 return;
             }

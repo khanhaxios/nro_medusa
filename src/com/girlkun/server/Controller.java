@@ -67,9 +67,9 @@ public class Controller implements IMessageHandler {
         try {
             player = _session.player;
             byte cmd = _msg.command;
-//            if (cmd != -29 && cmd != -107 && cmd != 29 && cmd != -30 && cmd != 74 && cmd != -16 && cmd != -101 && cmd != 126 && cmd != -74 && cmd != 21 && cmd != -15 && cmd != -103) {
-//                System.out.println(cmd);
-//            }
+            if (cmd != -29 && cmd != -107 && cmd != 29 && cmd != -30 && cmd != 74 && cmd != -16 && cmd != -101 && cmd != 126 && cmd != -74 && cmd != 21 && cmd != -15 && cmd != -103) {
+                System.out.println(cmd);
+            }
 //            System.out.println("***************************CMD receive: " + cmd);
             switch (cmd) {
                 case -100:

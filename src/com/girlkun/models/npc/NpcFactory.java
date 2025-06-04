@@ -2399,8 +2399,12 @@ public class NpcFactory {
                             npcChat(player, "Nghèo còn đòi luyện thể");
                             return;
                         }
-                        if (player.nPoint.power < 5_000_000_000l) {
+                        if (player.nPoint.power < 5_000_000_000L) {
                             Service.gI().sendThongBaoOK(player, "Cần 5 tỏi sức mạnh hãy vào nhs train đi");
+                            return;
+                        }
+                        if (player.luyenThe.isLuyenThe()) {
+                            Service.gI().sendThongBao(player, "Mày mở luyện thể rồi mà");
                             return;
                         }
                         PlayerDAO.subvnd(player, 100_000);
@@ -6663,13 +6667,17 @@ public class NpcFactory {
                                         Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
                                         return;
                                     }
+                                    if (player.phuChuSu.isPhuChu()) {
+                                        Service.gI().sendThongBao(player, "Bạn đã học phù chú rồi");
+                                        return;
+                                    }
                                     double sodu = player.session.vnd - 100_000;
                                     if (sodu < 0) {
                                         Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
                                         return;
                                     }
-                                    PlayerDAO.subvnd(player, 100000);
                                 }
+                                PlayerDAO.subvnd(player, 100000);
                                 player.phuChuSu.openSystem();
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_TRAN_PHAP_SU) {
@@ -6682,14 +6690,17 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
                                     return;
                                 }
+                                if (player.tranPhapSu.isTranPhap()) {
+                                    Service.gI().sendThongBao(player, "Bạn đã học trận pháp rồi");
+                                    return;
+                                }
                                 double sodu = player.session.vnd - 100_000;
                                 if (sodu < 0) {
                                     Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
                                     return;
                                 }
-                                PlayerDAO.subvnd(player, 100000);
-
                             }
+                            PlayerDAO.subvnd(player, 100000);
                             player.tranPhapSu.openSystem();
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_LINH_THUC) {
                             if (!player.isAdmin()) {
@@ -6701,14 +6712,17 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
                                     return;
                                 }
+                                if (player.linhThucSu.isLinhThuc()) {
+                                    Service.gI().sendThongBao(player, "Bạn đã học linh thực rồi");
+                                    return;
+                                }
                                 double sodu = player.session.vnd - 100_000;
                                 if (sodu < 0) {
                                     Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
                                     return;
                                 }
-                                PlayerDAO.subvnd(player, 100000);
-
                             }
+                            PlayerDAO.subvnd(player, 100000);
                             player.linhThucSu.openSystem();
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_NGU_THU) {
                             if (!player.isAdmin()) {
@@ -6720,14 +6734,17 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
                                     return;
                                 }
+                                if (player.nguThuSu.isNguThu()) {
+                                    Service.gI().sendThongBao(player, "Bạn đã học ngự thú rồi");
+                                    return;
+                                }
                                 double sodu = player.session.vnd - 100_000;
                                 if (sodu < 0) {
                                     Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
                                     return;
                                 }
-                                PlayerDAO.subvnd(player, 100000);
-
                             }
+                            PlayerDAO.subvnd(player, 100000);
                             player.nguThuSu.openSystem();
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_KHONG_THI) {
                             if (!player.isAdmin()) {
@@ -6739,13 +6756,17 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
                                     return;
                                 }
+                                if (player.khongThiSu.isKhongThi()) {
+                                    Service.gI().sendThongBao(player, "Bạn đã học khống thi rồi");
+                                    return;
+                                }
                                 double sodu = player.session.vnd - 100_000;
                                 if (sodu < 0) {
                                     Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
                                     return;
                                 }
-                                PlayerDAO.subvnd(player, 100000);
                             }
+                            PlayerDAO.subvnd(player, 100000);
                             player.khongThiSu.openSystem();
                         }
                     }
@@ -7376,7 +7397,7 @@ public class NpcFactory {
                                 break;
                             case 1:
                                 player.tuTien.isKhongThi = !player.tuTien.isKhongThi;
-                                Service.gI().sendThongBao(player, "Đã" + (player.tuTien.isKhongThi ? "Mở" : "Đóng") + " Sát thương linh căn");
+                                Service.gI().sendThongBao(player, "Đã" + (player.tuTien.isKhongThi ? "Mở" : "Đóng") + " Khống thi");
                                 // reopen
                                 player.tuTien.showCaiDatLinhKhi();
                                 break;

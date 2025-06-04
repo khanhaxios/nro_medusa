@@ -153,8 +153,30 @@ public abstract class BasePoint {
         this.ngoTinh = ngoTinh;
     }
 
-    public int getThienPhu() {
-        return thienPhu;
+    public String getThienPhu() {
+        int xDiem = canCot + ngoTinh;
+        if (xDiem == 1998) {
+            return "Vạn cổ yêu nghiệt";
+        }
+        if (xDiem > 1700) {
+            return "Yêu nghiệt";
+        }
+        if (xDiem > 1200) {
+            return "Siêu cấp thiên kiêu";
+        }
+        if (xDiem > 800) {
+            return "Thiên kiêu";
+        }
+        if (xDiem > 600) {
+            return "Thiên tài";
+        }
+        if (xDiem > 400) {
+            return "Tiểu thiên tài";
+        }
+        if (xDiem > 200) {
+            return "Có chút thiên phú";
+        }
+        return "Phế vật";
     }
 
     public void setThienPhu(int thienPhu) {

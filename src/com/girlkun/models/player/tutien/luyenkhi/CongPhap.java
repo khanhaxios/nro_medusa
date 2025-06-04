@@ -367,7 +367,7 @@ public class CongPhap {
 
     public void autoAddDoTT() {
         long dttAutoAdd = (long) (tuTien.getXDiemThienPhu() * (DO_TT[phamchat.id] / DO_TT[0]));
-        if (dttAutoAdd == 0) {
+        if (dttAutoAdd <= 0) {
             dttAutoAdd = Util.nextInt(1, 20);
         }
         addDoThuanThuc(dttAutoAdd);
