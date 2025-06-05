@@ -420,9 +420,9 @@ public class TuTien extends BasePoint implements IBaseAction {
             if (congPhap.tenCongPhap != null && linhKhiPoint < maxLinhKhiPoint && !player.isDie() && Util.canDoWithTime(lastTimeHoiPhuc, 1000)) {
                 hoiPhucLinhKhi();
             }
-            if (!player.isDie()) {
-                randomizedCoDuyen();
-            }
+//            if (!player.isDie()) {
+//                randomizedCoDuyen();
+//            }
             // tu dong use linh ky
             tienPhaps.forEach(TienPhap::useTienPhap);
             Iterator<TienPhap> iterator = tienPhaps.iterator();
