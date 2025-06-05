@@ -31,15 +31,15 @@ public class TuTienTemplate {
 
     public void initBuffThuocTinhLinhCan() {
         // init thuoc tinh linh can
-        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 0, "Sát thương Kim +#%", (short) 0, LINH_CAN.get("K")));
-        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 1, "Sát thương Mộc +#%", (short) 0, LINH_CAN.get("M")));
-        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 2, "Sát thương Thủy +#%", (short) 0, LINH_CAN.get("T")));
-        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 3, "Sát thương Hỏa +#%", (short) 0, LINH_CAN.get("H")));
-        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 4, "Sát thương Thổ  +#%", (short) 0, LINH_CAN.get("TH")));
-        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 5, "Sát thương Phong  +#%", (short) 0, LINH_CAN.get("P")));
-        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 6, "Sát thương lôi  +#%", (short) 0, LINH_CAN.get("L")));
-        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 7, "Sát thương Quang  +#%", (short) 0, LINH_CAN.get("Q")));
-        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 8, "Sát thương Ám  +#%", (short) 0, LINH_CAN.get("A")));
+        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 0, "Sát thương Kim +#%", (short) 0, (byte) 0));
+        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 1, "Sát thương Mộc +#%", (short) 0, (byte) 1));
+        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 2, "Sát thương Thủy +#%", (short) 0, (byte) 2));
+        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 3, "Sát thương Hỏa +#%", (short) 0, (byte) 3));
+        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 4, "Sát thương Thổ  +#%", (short) 0, (byte) 4));
+        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 5, "Sát thương Phong  +#%", (short) 0,(byte) 5));
+        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 6, "Sát thương lôi  +#%", (short) 0, (byte) 6));
+        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 7, "Sát thương Quang  +#%", (short) 0,(byte) 7));
+        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 8, "Sát thương Ám  +#%", (short) 0, (byte) 8));
     }
 
     public void initCoDuyen() {
@@ -242,10 +242,10 @@ public class TuTienTemplate {
         LINH_CAN.put("T", (byte) 2);
         LINH_CAN.put("H", (byte) 3);
         LINH_CAN.put("TH", (byte) 4);
-        LINH_CAN.put("L", (byte) 5);
-        LINH_CAN.put("Q", (byte) 6);
-        LINH_CAN.put("A", (byte) 7);
-        LINH_CAN.put("P", (byte) 8);
+        LINH_CAN.put("P", (byte) 5);
+        LINH_CAN.put("L", (byte) 6);
+        LINH_CAN.put("Q", (byte) 7);
+        LINH_CAN.put("A", (byte) 8);
         LINH_CAN.put("HV", (byte) -1);
     }
 

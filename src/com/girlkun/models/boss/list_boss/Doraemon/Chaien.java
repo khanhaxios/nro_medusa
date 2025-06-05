@@ -47,10 +47,14 @@ public class Chaien extends Boss {
         } else {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, NRs[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
-        ItemMap it1 = new ItemMap(this.zone, 2030, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                this.location.y - 24), plKill.id);
-        Service.getInstance().dropItemMap(this.zone, it1);
+        if (Util.isTrue(10, 100)) {
+            ItemMap it1 = new ItemMap(this.zone, 2068, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
+            Service.getInstance().dropItemMap(this.zone, it1);
+        }
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
+
+
     }
 
     @Override

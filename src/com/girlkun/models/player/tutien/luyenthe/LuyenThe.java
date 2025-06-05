@@ -116,7 +116,7 @@ public class LuyenThe extends BasePoint implements IBaseAction {
 
     @Override
     public float getHPMPBuff() {
-        return Math.max(1, level) * 3f;
+        return Math.max(1, level) * 2f;
     }
 
     @Override

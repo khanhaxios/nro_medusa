@@ -154,7 +154,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public void randomizedCoDuyen() {
-        if (Util.isTrue(.5f, 100)) {
+        if (Util.isTrue(0.005f, 100)) {
             if (currentCoDuyen == null) {
                 currentCoDuyen = TuTienTemplate.CO_DUYEN.get(Util.nextInt(0, TuTienTemplate.CO_DUYEN.size() - 1));
                 // tao bang co duyen
@@ -164,7 +164,7 @@ public class TuTien extends BasePoint implements IBaseAction {
                     luaChonName[i] = luaChon.getTenLuaChon();
                 }
                 lastimeCoDuyen = System.currentTimeMillis();
-                Service.gI().sendThongBaoOK(player, "Khí vận đột xuất bạn gặp được cơ duyên");
+                Service.gI().sendThongBao(player, "Khí vận đột xuất bạn gặp được cơ duyên");
                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CO_DUYEN, -1, "|7|" + currentCoDuyen.getTenCoDuyen() + "\n" + "|5|" + currentCoDuyen.getMoTaCoDuyen(), luaChonName);
             }
         }
@@ -354,7 +354,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     @Override
     public float getDameBuff() {
-        return (getBaseBuffByLevel(10) + (getSubLevelOtherBuff() * Math.max(1, level))) * Math.max(1, xParam);
+        return (getBaseBuffByLevel(5) + (getSubLevelOtherBuff() * Math.max(1, level))) * Math.max(1, xParam);
     }
 
     @Override
@@ -420,7 +420,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             if (congPhap.tenCongPhap != null && linhKhiPoint < maxLinhKhiPoint && !player.isDie() && Util.canDoWithTime(lastTimeHoiPhuc, 1000)) {
                 hoiPhucLinhKhi();
             }
-            if (!player.isDie() && level > 2) {
+            if (!player.isDie()) {
                 randomizedCoDuyen();
             }
             // tu dong use linh ky
@@ -703,7 +703,7 @@ public class TuTien extends BasePoint implements IBaseAction {
                     congPhap = new CongPhap(player.tuTien);
                 }
             } else {
-                linhCan.getThuocTinhLinhCan().ratioThuocTinhLinhCan();
+                linhCan.getThuocTinhLinhCan().setParam(linhCan.getThuocTinhLinhCan().ratioThuocTinhLinhCan());
             }
         }
     }
