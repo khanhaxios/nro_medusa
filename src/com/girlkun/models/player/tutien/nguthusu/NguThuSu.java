@@ -121,10 +121,6 @@ public class NguThuSu extends BasePoint implements IBaseAction {
 
     @Override
     public void openSystem() {
-        if (player.tuTien.level < 4 && !player.isAdmin()) {
-            Service.gI().sendThongBao(player, "Bạn cần đạt Nguyên Anh để học ngự thú");
-            return;
-        }
         Item item = ItemService.gI().createNewItem((short) 2042, 1);
         item.itemOptions.add(new Item.ItemOption(0, 6000));
         item.itemOptions.add(new Item.ItemOption(50, 10));

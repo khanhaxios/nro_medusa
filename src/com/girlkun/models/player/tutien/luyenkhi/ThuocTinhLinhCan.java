@@ -18,11 +18,11 @@ public class ThuocTinhLinhCan {
     }
 
     public short ratioThuocTinhLinhCan() {
-        if (Util.isTrue(5, 100)) {
+        if (Util.isTrue(2, 100)) {
             return (short) Util.nextInt(100, 250);
-        } else if (Util.isTrue(20, 100)) {
+        } else if (Util.isTrue(10, 100)) {
             return (short) Util.nextInt(50, 100);
-        } else if (Util.isTrue(50, 100)) {
+        } else if (Util.isTrue(20, 100)) {
             return (short) Util.nextInt(10, 50);
         } else {
             return (short) Util.nextInt(5, 25);

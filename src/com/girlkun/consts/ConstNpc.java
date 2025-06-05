@@ -426,6 +426,7 @@ public class ConstNpc {
     public static final int MENU_MO_KHONG_THI = -81237012;
     public static final int LINH_KHI_SETTING = -91278933;
     public static final int MENU_CHON_CAP_BT = -108739281;
+    public static final int MENU_CO_DUYEN = -1239691387;
 }
 
 /**

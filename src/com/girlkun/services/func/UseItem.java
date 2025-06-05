@@ -301,6 +301,12 @@ public class UseItem {
                             InventoryServiceNew.gI().sendItemBags(pl);
                             pl.achievement.plusCount(13);
                             break;
+                        case 2068:
+                            pl.tuTien.rewnewLinhCanEffect();
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                            InventoryServiceNew.gI().sendItemBags(pl);
+                            Service.gI().sendThongBao(pl, "Tẩy thuộc tính linh căn thành công");
+                            break;
                         case 1132:
                             if (TaskService.gI().getIdTask(pl) < ConstTask.TASK_29_0) {
                                 Service.getInstance().sendThongBao(pl, "Yêu cầu đến nhiệm vụ 29");

@@ -1053,6 +1053,7 @@ public class PlayerDAO {
                     dataBasePoint.add(player.tuTien.thienPhu);
                     dataBasePoint.add(player.tuTien.timeTuTien);
                     dataBasePoint.add(player.tuTien.xParam);
+                    dataBasePoint.add(player.tuTien.lastimeCoDuyen);
                     jsonArray.add(dataBasePoint);
                     dataBasePoint = new JSONArray();
                     // write linh can

@@ -3,6 +3,7 @@ package com.girlkun.models.npc;
 import com.girlkun.consts.ConstMap;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.challenge.MartialCongressService;
+import com.girlkun.models.player.tutien.base_tutien.CoDuyen;
 import com.girlkun.services.*;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
@@ -7438,6 +7439,13 @@ public class NpcFactory {
                                 break;
                         }
                         break;
+                    case ConstNpc.MENU_CO_DUYEN:
+                        if (player.tuTien.currentCoDuyen != null) {
+                            CoDuyen.LuaChon luaChon = player.tuTien.currentCoDuyen.getLuaChons().get(select);
+                            luaChon.getHandle().onSelect(player, player.tuTien.currentCoDuyen, luaChon);
+                            player.tuTien.currentCoDuyen = null;
+                        }
+                        break;
                     case ConstNpc.MENU_PHU_CHU_SU_CHE_BUA:
                         switch (select) {
                             case 0:
@@ -7455,7 +7463,7 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Bạn đã đạt cấp tối đa");
                                 return;
                             }
-                            String text = "|7|Đột phá luyện thể\n" + "|5|Cấp hiện tại : " + player.luyenThe.getName() + "\n" + "|2|Cấp tiếp theo : " + "Luyện thể tầng " + (player.luyenThe.level + 1) + "\n" + "|7|Tỷ lệ đột phá : " + player.luyenThe.getLevelUpPercent() + "%\n" + "|1|Đột phá cần : " + player.luyenThe.getItemNeed(idsItemNeed);
+                            String text = "|7|Đột phá luyện thể\n" + "|5|Cấp hiện tại : " + player.luyenThe.getName() + "\n" + "|2|Cấp tiếp theo : " + "Luyện thể tầng " + (player.luyenThe.level + 1) + "\n" + "|7|Tỷ lệ đột phá : " + player.luyenThe.getLevelUpPercent() + "%" + "(Thất bại " + player.luyenThe.timeThatBai + " lần)\n" + "|1|Đột phá cần : " + player.luyenThe.getItemNeed(idsItemNeed);
                             NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_DOT_PHA_LUYEN_THE, -1, text, "Đột phá", "Đóng");
                         }
                         break;
@@ -7476,7 +7484,7 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Đột phá thành công");
                             } else {
                                 player.luyenThe.restExp();
-                                if (player.luyenThe.timeThatBai + 1 <= 5) {
+                                if (player.luyenThe.timeThatBai + 1 <= 10) {
                                     player.luyenThe.timeThatBai++;
                                 }
                                 Service.gI().sendThongBao(player, "Đột phá thất bại");
@@ -7512,10 +7520,10 @@ public class NpcFactory {
                             case 0:
                                 boolean isDotPhaCao = player.tuTien.subLevel == 9 && player.tuTien.level > 2;
                                 // dot pha
-                                String text = "|7|Đột phá\n" + "|5|Cảnh Giới hiện tại : " + player.tuTien.getFormatName() + "\n" + "|2|Cảnh Giới tiếp theo : " + player.tuTien.getNextLevelStr() + "\n" + "|2|Tu vi : " + player.tuTien.getCurrentExpAsString() + "\n" + "|7|Tỷ lệ thành công : " + player.tuTien.getLevelUpPercent() + "%" + "\n" + "|5|Bạn có thể ăn dan dược để tăng tỷ lệ thành công -.-";
+                                String text = "|7|Đột phá\n" + "|5|Cảnh Giới hiện tại : " + player.tuTien.getFormatName() + "\n" + "|2|Cảnh Giới tiếp theo : " + player.tuTien.getNextLevelStr() + "\n" + "|2|Tu vi : " + player.tuTien.getCurrentExpAsString() + "\n" + "|7|Tỷ lệ thành công : " + player.tuTien.getLevelUpPercent() + "%" + "\n" + "|7|Tỷ lệ thành công thiên đạo: " + player.tuTien.getLevelUpPercent() / 5 + "%" + "\n" + "|5|Bạn có thể ăn dan dược để tăng tỷ lệ thành công -.-";
                                 if (isDotPhaCao) {
                                     player.iDMark.dotPhaThienDao = true;
-                                    NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_DOT_PHA, -1, text, "Đột phá\nThiên đạo", "Từ Chối");
+                                    NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_DOT_PHA, -1, text, "Đột phá\nThiên đạo", "Đột phá thường", "Từ Chối");
                                 } else {
                                     NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_DOT_PHA, -1, text, "Đột phá", "Từ Chối");
                                 }
@@ -7562,6 +7570,23 @@ public class NpcFactory {
                                 player.tuTien.restLinhKhi();
                                 Service.gI().sendThongBao(player, "Bạn đã đột phá thất bại , mất hết tu vi và linh khí hiện tại");
                             }
+                        } else if (select == 1) {
+                            if (!player.tuTien.canLevelUp()) {
+                                Service.gI().sendThongBao(player, "Tu Vi Của Bạn Chưa Đủ Hãy Đợi Thêm");
+                                return;
+                            }
+                            if (!player.tuTien.hasLinhKhi()) {
+                                Service.gI().sendThongBao(player, "Đột phá cần đầy đủ lượng linh khí hãy bổ sung");
+                                return;
+                            }
+                            float ratio = player.tuTien.getLevelUpPercent();
+                            if (Util.isTrue(ratio, 110)) {
+                                player.tuTien.levelUp();
+                            } else {
+                                player.tuTien.restExp();
+                                player.tuTien.restLinhKhi();
+                                Service.gI().sendThongBao(player, "Bạn đã đột phá thất bại , mất hết tu vi và linh khí hiện tại");
+                            }
                         }
                         break;
                     case ConstNpc.TU_TIEN_TAN_CONG:
@@ -7586,6 +7611,11 @@ public class NpcFactory {
                     case ConstNpc.CONG_PHAP_LINH_NGO:
                         switch (select) {
                             case 0:
+                                if (player.session.vnd - (100_000 * Math.max(1, player.tuTien.congPhap.phamchat.id)) < 0) {
+                                    Service.gI().sendThongBao(player, "Cần " + (100_000 * Math.max(1, player.tuTien.congPhap.phamchat.id)) + " Điểm nạp để lĩnh ngộ");
+                                    return;
+                                }
+                                PlayerDAO.subvnd(player, (100_000 * Math.max(1, player.tuTien.congPhap.phamchat.id)));
                                 player.tuTien.congPhap.tangPham();
                                 break;
                             case 1:

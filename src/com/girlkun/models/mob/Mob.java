@@ -583,7 +583,7 @@ public class Mob {
 
         // rơi các loại đá thạch ( chỉ có ở ngũ hành sơn )
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
-            if (zone.map.mapId == 123 && Util.isTrue(player.tuTien.getTyLeRoiDa(), 100)) {
+            if (zone.map.mapId == 123 && Util.isTrue(12, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
                 list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }
@@ -593,8 +593,12 @@ public class Mob {
                 list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }
 
-            if (Util.isTrue(2, 100)) {
+            if (Util.isTrue(3, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
+                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+            }
+            if (zone.map.mapId == 123 && Util.isTrue(.5f, 100)) {
+                short temIds = (short) Util.nextInt(1260, 1262);
                 list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }
         }

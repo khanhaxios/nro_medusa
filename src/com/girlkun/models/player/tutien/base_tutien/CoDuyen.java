@@ -1,13 +1,30 @@
 package com.girlkun.models.player.tutien.base_tutien;
 
+import com.girlkun.models.player.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CoDuyen {
+    @AllArgsConstructor
+    @Data
+    public static class LuaChon {
+        private String tenLuaChon;
+        private String[] moTaLuaChon;
+        private int id;
+        private ICoDuyenHandle handle;
+
+        public interface ICoDuyenHandle {
+            void onSelect(Player player, CoDuyen coDuyen, LuaChon luaChon);
+        }
+    }
+
     private int id;
     private byte coDuyenType;
     // type 1 co duyen ngau nhien buff tong luong linh khi(1%)
@@ -24,4 +41,7 @@ public class CoDuyen {
 
     private long[] idsPlayerNhan = new long[]{};
     private long thoiGianTonTai;
+    private List<LuaChon> luaChons = new ArrayList<>();
+
+
 }

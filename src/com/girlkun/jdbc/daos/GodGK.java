@@ -1002,6 +1002,7 @@ public class GodGK {
                                 player.tuTien.thienPhu = Integer.parseInt(basePointArray.get(8).toString());
                                 player.tuTien.timeTuTien = Long.parseLong(basePointArray.get(9).toString());
                                 player.tuTien.xParam = Byte.parseByte(basePointArray.get(10).toString());
+                                player.tuTien.lastimeCoDuyen = Long.parseLong(basePointArray.get(11).toString());
                             }
 
                             // index 1: linh can
@@ -1067,6 +1068,8 @@ public class GodGK {
 
                     }
                 } catch (Exception e) {
+                    player.tuTien.lastimeCoDuyen = System.currentTimeMillis();
+                    player.tuTien.xParam = 1;
                     e.printStackTrace();
                 }
                 try {
@@ -1081,6 +1084,7 @@ public class GodGK {
                         }
                     }
                 } catch (Exception e) {
+                    player.luyenThe.timeThatBai = 0;
                     e.printStackTrace();
                 }
                 try {
