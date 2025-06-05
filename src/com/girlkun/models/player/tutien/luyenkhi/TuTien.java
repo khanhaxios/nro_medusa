@@ -695,6 +695,12 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     public void rewnewLinhCanEffect() {
         if (linhCan != null) {
+            if (linhCan.getThuocTinhLinhCan().getTenThuocTinh() == null) {
+                linhCan = ratioLinhCan();
+                player.session.vnd += 100_000; // them tien de hoc cong phap
+                Service.gI().sendThongBao(player, "Đã tẩy linh căn thành công");
+                return;
+            }
             if (Util.isTrue(1, 100)) {
                 LinhCan oldLinhCan = linhCan;
                 linhCan = ratioLinhCan();
