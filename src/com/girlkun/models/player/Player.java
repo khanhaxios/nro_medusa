@@ -1,40 +1,20 @@
 package com.girlkun.models.player;
 
-import com.girlkun.jdbc.daos.PlayerDAO;
-import com.girlkun.models.map.ItemMap;
-import com.girlkun.models.player.Pet.Pet;
 import BoMong.BoMong;
-import com.girlkun.models.map.MapMaBu.MapMaBu;
-import com.girlkun.models.player.tutien.khongthisu.KhongThiSu;
-import com.girlkun.models.player.tutien.linhthucsu.LinhThucSu;
-import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
-import com.girlkun.models.player.tutien.luyenkhi.TuTien;
-import com.girlkun.models.player.tutien.luyenkhisu.LuyenKhiSu;
-import com.girlkun.models.player.tutien.luyenthe.LuyenThe;
-import com.girlkun.models.player.tutien.nguthusu.NguThuSu;
-import com.girlkun.models.player.tutien.phuchusu.PhuChuSu;
-import com.girlkun.models.player.tutien.tranphapsu.TranPhapSu;
-import com.girlkun.models.skill.PlayerSkill;
-
-import java.util.List;
-
+import com.girlkun.consts.ConstPlayer;
+import com.girlkun.consts.ConstTask;
+import com.girlkun.data.DataGame;
+import com.girlkun.jdbc.daos.PlayerDAO;
+import com.girlkun.models.card.Card;
 import com.girlkun.models.clan.Clan;
+import com.girlkun.models.clan.ClanMember;
 import com.girlkun.models.intrinsic.IntrinsicPlayer;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.item.ItemTime;
-import com.girlkun.models.npc.specialnpc.MagicTree;
-import com.girlkun.consts.ConstPlayer;
-import com.girlkun.consts.ConstTask;
-import com.girlkun.models.npc.specialnpc.MabuEgg;
-import com.girlkun.models.npc.specialnpc.Timedua;
-import com.girlkun.models.mob.MobMe;
-import com.girlkun.data.DataGame;
-import com.girlkun.models.card.Card;
-import com.girlkun.models.clan.ClanMember;
 import com.girlkun.models.item.ItemTimeSieuCap;
 import com.girlkun.models.kygui.ItemKyGui;
 import com.girlkun.models.kygui.ShopKyGuiManager;
-//import com.girlkun.models.kygui.ShopKyGuiService;
+import com.girlkun.models.map.MapMaBu.MapMaBu;
 import com.girlkun.models.map.TrapMap;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.map.bdkb.BanDoKhoBauService;
@@ -43,25 +23,36 @@ import com.girlkun.models.map.doanhtrai.DoanhTraiService;
 import com.girlkun.models.map.gas.GasService;
 import com.girlkun.models.matches.IPVP;
 import com.girlkun.models.matches.TYPE_LOSE_PVP;
+import com.girlkun.models.mob.MobMe;
+import com.girlkun.models.npc.specialnpc.MabuEgg;
+import com.girlkun.models.npc.specialnpc.MagicTree;
+import com.girlkun.models.npc.specialnpc.Timedua;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
+import com.girlkun.models.player.Pet.Pet;
+import com.girlkun.models.player.tutien.khongthisu.KhongThiSu;
+import com.girlkun.models.player.tutien.linhthucsu.LinhThucSu;
+import com.girlkun.models.player.tutien.luyenkhi.TuTien;
+import com.girlkun.models.player.tutien.luyenkhisu.LuyenKhiSu;
+import com.girlkun.models.player.tutien.luyenthe.LuyenThe;
+import com.girlkun.models.player.tutien.nguthusu.NguThuSu;
+import com.girlkun.models.player.tutien.phuchusu.PhuChuSu;
+import com.girlkun.models.player.tutien.tranphapsu.TranPhapSu;
+import com.girlkun.models.skill.PlayerSkill;
 import com.girlkun.models.skill.Skill;
-//import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
-//import com.girlkun.server.Manager;
-import com.girlkun.services.*;
-import com.girlkun.server.io.MySession;
 import com.girlkun.models.task.TaskPlayer;
 import com.girlkun.network.io.Message;
 import com.girlkun.server.Client;
+import com.girlkun.server.io.MySession;
+import com.girlkun.services.*;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.services.func.ChonAiDay;
 import com.girlkun.services.func.CombineNew;
-//import com.girlkun.services.func.TaiXiu;
-//import com.girlkun.services.func.TopService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Player {
     public TuTien tuTien;
@@ -396,8 +387,14 @@ public class Player {
                     if (nguThuSu != null) {
                         nguThuSu.update();
                     }
-                    if (khongThiSu!=null){
+                    if (khongThiSu != null) {
                         khongThiSu.update();
+                    }
+                    if (phuChuSu != null) {
+                        phuChuSu.update();
+                    }
+                    if (linhThucSu != null) {
+                        linhThucSu.update();
                     }
                     if (nPoint != null) {
                         nPoint.update();
@@ -1219,6 +1216,10 @@ public class Player {
                 damage -= damage * nPoint.tyLeGiamDame / 100;
             }
             this.nPoint.subHP(damage);
+            // healing hp after get dame
+            if (tuTien != null && tuTien.isAutoUseTienPhap && (nPoint.hp / nPoint.hpMax * 100) < 20) {
+                tuTien.useBestHealingTienPhap();
+            }
             if (isDie()) {
                 if (this.isPl()) {
                     if (plAtt != null && this.zone.map.mapId == 175) {
@@ -1250,9 +1251,6 @@ public class Player {
                     setDie(plAtt);
                 }
             }
-            // handle tien luc
-            // check map nua
-
             return damage;
         } else {
             return 0;

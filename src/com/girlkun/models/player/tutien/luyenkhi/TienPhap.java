@@ -1,13 +1,12 @@
 package com.girlkun.models.player.tutien.luyenkhi;
 
-import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 import lombok.Data;
 
 @Data
-public class TienPhap implements Cloneable, Runnable {
+public class TienPhap {
     TuTien tuTien;
     // 0 la buff dame thuoc tinh
     // 1 la hoi mau
@@ -21,7 +20,7 @@ public class TienPhap implements Cloneable, Runnable {
     private String ten;
     private byte thuoctinh;
     private String mota;
-    private byte xParam;
+    private short xParam;
     private byte param;
     private long lastTimeUsed;
     private long timeDuration;
@@ -44,76 +43,6 @@ public class TienPhap implements Cloneable, Runnable {
         this.setLastTimeUsed(System.currentTimeMillis());
     }
 
-    public void update() {
-        try {
-            if (tuTien == null) {
-                dispose();
-            }
-            if (System.currentTimeMillis() - (lastTimeUsed + timeDuration) > 0) {
-                switch (param) {
-                    case 0:
-                        if (!hasEffect) {
-                            tuTien.player.nPoint.tlDameCrit.add((int) xParam);
-                            hasEffect = true;
-                        }
-                        break;
-                    case 1:
-                        if (!hasEffect) {
-                            tuTien.player.nPoint.addHp(tuTien.player.nPoint.hpMax * xParam / 100);
-                            hasEffect = true;
-                            PlayerService.gI().sendInfoHp(tuTien.player);
-                        }
-                        break;
-                    case 2:
-                        if (!hasEffect) {
-                            tuTien.player.nPoint.dameAfter += xParam;
-                            hasEffect = true;
-                        }
-                        break;
-                    case 3:
-                        tuTien.player.nPoint.addHp(tuTien.player.nPoint.hpMax * xParam / 100);
-                        PlayerService.gI().sendInfoHp(tuTien.player);
-                        break;
-                    case 4:
-                        if (!hasEffect) {
-                            tuTien.player.nPoint.tyLeGiamDame += xParam;
-                            hasEffect = true;
-                        }
-                        break;
-                }
-            } else {
-                // clear
-                switch (param) {
-                    case 0:
-                        if (hasEffect) {
-                            tuTien.player.nPoint.tlDameCrit.remove((Integer) Integer.parseInt(String.valueOf(xParam)));
-                        }
-                        break;
-                    case 2:
-                        if (hasEffect) {
-                            tuTien.player.nPoint.dameAfter -= xParam;
-                        }
-                        break;
-                    case 4:
-                        if (hasEffect) {
-                            tuTien.player.nPoint.tyLeGiamDame -= xParam;
-                        }
-                        break;
-                }
-            }
-            if (this.coolDown <= 0) {
-                this.coolDown = 0;
-                return;
-            }
-            short time = 1000;
-            this.setCoolDown(coolDown - time);
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            Logger.error(e.getMessage());
-        }
-
-    }
-
     private void dispose() {
         lastTimeUsed = System.currentTimeMillis();
         timeDuration = 0;
@@ -124,7 +53,7 @@ public class TienPhap implements Cloneable, Runnable {
         byte randomParam = TienPhap.PARAM_TO_BUFF[Util.nextInt(TienPhap.PARAM_TO_BUFF.length)];
         this.setParam(randomParam);
         byte xP = (byte) Util.nextInt(baseXParam);
-        this.setPercentLinhKhiUse(20);
+        this.setPercentLinhKhiUse(baseXParam * 100);
         this.setXParam(xP);
     }
 
@@ -146,31 +75,51 @@ public class TienPhap implements Cloneable, Runnable {
     }
 
     public void useTienPhap() {
-//        if (tuTien.tienPhapsUsed.stream().noneMatch(tp -> tp.id == id)) {
         int percent = (int) ((100.0 * tuTien.linhKhiPoint) / tuTien.maxLinhKhiPoint);
         if (percent - percentLinhKhiUse >= 0) {
-            tuTien.tienPhapsUsed.add(clone());
+            restTienCoolDown();
+            tuTien.subLinhKhiPercent(percentLinhKhiUse);
             Service.gI().chat(tuTien.player, ten);
         }
-//        }
     }
 
-    @Override
-    public TienPhap clone() {
+    public void update() {
         try {
-            return (TienPhap) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
+            if (tuTien == null) {
+                dispose();
+            }
+            switch (param) {
+                case 1:
+                    if (!hasEffect && isActive()) {
+                        tuTien.player.nPoint.addHp(tuTien.player.nPoint.hpMax);
+                        hasEffect = true;
+                    }
+                    break;
+                case 3:
+                    if (isActive()) {
+                        tuTien.player.nPoint.addHp(tuTien.player.nPoint.hpMax / 100 * xParam);
+                    }
+                    break;
+                case 4:
+                    if (!hasEffect && isActive()) {
+                        tuTien.player.nPoint.tyLeGiamDame += xParam;
+                        hasEffect = true;
+                    }
+                    break;
+            }
+            if (coolDown - 1000 >= 0) {
+                coolDown -= 1000;
+            }
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
         }
     }
 
-    @Override
-    public void run() {
-        restTienCoolDown();
-        tuTien.subLinhKhiPercent(percentLinhKhiUse);
-        while (coolDown > 0) {
-            update();
-        }
-        tuTien.tienPhapsUsed.removeIf(tp -> tp.id == this.id);
+    public boolean isActive() {
+        return (System.currentTimeMillis() - this.lastTimeUsed + timeDuration) > 0;
+    }
+
+    public boolean isCoolDown() {
+        return coolDown > 0;
     }
 }

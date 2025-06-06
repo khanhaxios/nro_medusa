@@ -1288,7 +1288,7 @@ public class Service {
             return;
         }
         if (text.equals("ttpc")) {
-            if (player.phuChuSu.isPhuChu() && !player.isAdmin()) {
+            if (!player.phuChuSu.isPhuChu() && !player.isAdmin()) {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở phù chú\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
                 return;
             }
@@ -1296,7 +1296,7 @@ public class Service {
             return;
         }
         if (text.equals("tttp")) {
-            if (player.tranPhapSu.isTranPhap() && !player.isAdmin()) {
+            if (!player.tranPhapSu.isTranPhap() && !player.isAdmin()) {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở trận pháp\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
                 return;
             }
@@ -1304,7 +1304,7 @@ public class Service {
             return;
         }
         if (text.equals("ttnt")) {
-            if (player.nguThuSu.isNguThu() && !player.isAdmin()) {
+            if (!player.nguThuSu.isNguThu() && !player.isAdmin()) {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở ngự thú\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
                 return;
             }
@@ -1312,7 +1312,7 @@ public class Service {
             return;
         }
         if (text.equals("ttkt")) {
-            if (player.khongThiSu.isKhongThi() && !player.isAdmin()) {
+            if (!player.khongThiSu.isKhongThi() && !player.isAdmin()) {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở ngự thú\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
                 return;
             }
@@ -1320,7 +1320,7 @@ public class Service {
             return;
         }
         if (text.equals("ttlt")) {
-            if (player.linhThucSu.isLinhThuc() && !player.isAdmin()) {
+            if (!player.linhThucSu.isLinhThuc() && !player.isAdmin()) {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở linh thực\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
                 return;
             }

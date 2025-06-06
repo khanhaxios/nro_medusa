@@ -1047,7 +1047,7 @@ public class GodGK {
                                     tp.setMota(tpData.get(3).toString());
                                     tp.setThuoctinh(Byte.parseByte(tpData.get(4).toString()));
                                     tp.setLastTimeUsed(Long.parseLong(tpData.get(5).toString()));
-                                    tp.setXParam(Byte.parseByte(tpData.get(6).toString()));
+                                    tp.setXParam(Short.parseShort(tpData.get(6).toString()));
                                     tp.setCoolDown(Integer.parseInt(tpData.get(7).toString()));
                                     tp.setPercentLinhKhiUse(Integer.parseInt(tpData.get(8).toString()));
                                     tp.setTimeDuration(Integer.parseInt(tpData.get(9).toString()));

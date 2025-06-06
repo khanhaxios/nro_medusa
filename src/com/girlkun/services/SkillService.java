@@ -10,6 +10,7 @@ import com.girlkun.models.player.Player;
 import com.girlkun.models.player.SkillSpecial;
 import com.girlkun.models.player.Thu_TrieuHoi;
 import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
+import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
 import com.girlkun.services.func.RadaService;
@@ -784,7 +785,7 @@ public class SkillService {
         }
         // handle auto use linh ky tan cong
         // chose better tan cong linh ky
-        if (player.tuTien.isAutoUseTienPhap && player.isPl()){
+        if (player.tuTien.isAutoUseTienPhap && player.isPl()) {
             player.tuTien.useBestAttackTienPhap();
         }
         if (!player.isBoss) {
@@ -1058,6 +1059,8 @@ public class SkillService {
         }
         miss = neDon(plAtt, miss);
         double dameHit = plInjure.injured(plAtt, miss ? 0 : plAtt.nPoint.getDameAttack(false), false, false);
+
+
         phanSatThuong(plAtt, plInjure, Util.DoubleGioihan(dameHit));
         hutHPMP(plAtt, dameHit, false);
         hutLinhKhi(plAtt, dameHit);
@@ -1084,10 +1087,21 @@ public class SkillService {
                 xParam *= 2;
             }
             double dame = dameHit * (xParam * Math.max(1, plAtt.tuTien.xParam)) / 100;
+            double xDamePercent = 0;
+            for (TienPhap tienPhap : plAtt.tuTien.tienPhaps) {
+                if (tienPhap.isActive() && (tienPhap.getParam() == 0 || tienPhap.getParam() == 2)) {
+                    xDamePercent += tienPhap.getXParam();
+                }
+            }
+            if (xDamePercent > 0) {
+                double damTienPhap = dameHit * xDamePercent / 100;
+                dame += damTienPhap;
+            }
             plInjure.injured(plAtt, dame, false, false);
             sendMessagePlayerAttackPlayer(plAtt, plInjure, dame, (byte) 1);
             plAtt.tuTien.subLinhKhiPercent(percentLinhKhiUse);
         }
+        // dame for tien phap
     }
 
     private boolean neDon(Player plAtt, boolean miss) {

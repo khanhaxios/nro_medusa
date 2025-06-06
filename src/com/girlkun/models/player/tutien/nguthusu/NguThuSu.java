@@ -38,7 +38,7 @@ public class NguThuSu extends BasePoint implements IBaseAction {
                 addExp(getExpCanGain(null));
             }
             if (exp == maxExp) {
-                if (Util.isTrue(getLevelUpPercent(), 100)) {
+                if (Util.isTrue(getLevelUpPercent(), 300)) {
                     this.levelUp();
                     Service.gI().sendThongBao(player, "Tự động đột phá ngự thú sư thành công");
                 } else {
@@ -59,7 +59,6 @@ public class NguThuSu extends BasePoint implements IBaseAction {
         if (canLevelUp()) {
             level += 1;
             restExp();
-            Service.gI().sendThongBao(player, "Đột phá phù chú sư thành công");
         }
     }
 

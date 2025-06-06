@@ -37,6 +37,17 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
             if (chanMenh != null) {
                 addExp(getExpCanGain(null));
             }
+            // auto dot pha
+            if (exp == maxExp) {
+                float tyle = getLevelUpPercent();
+                if (Util.isTrue(tyle, 300)) {
+                    levelUp();
+                    Service.gI().sendThongBaoOK(player, "Bạn đã đột phá trận pháp sư");
+                } else {
+                    Service.gI().sendThongBao(player, "Tự động đột phá trận pháp sư thất bại");
+                }
+                restExp();
+            }
         }
     }
 
@@ -50,7 +61,6 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
         if (canLevelUp()) {
             level += 1;
             restExp();
-            Service.gI().sendThongBao(player, "Đột phá phù chú sư thành công");
         }
     }
 

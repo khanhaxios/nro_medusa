@@ -29,12 +29,13 @@ public class KhongThiSu extends BasePoint implements IBaseAction {
         if (isKhongThi()) {
             // auto try level up
             if (exp == maxExp) {
-                if (Util.isTrue(getLevelUpPercent(), 100)) {
+                if (Util.isTrue(getLevelUpPercent(), 300)) {
                     this.levelUp();
                     Service.gI().sendThongBao(player, "Tự động đột phá khống thi sư thành công");
                 } else {
                     Service.gI().sendThongBao(player, "Tự động đột phá khống thi sư thất bại");
                 }
+                restExp();
             }
         }
     }

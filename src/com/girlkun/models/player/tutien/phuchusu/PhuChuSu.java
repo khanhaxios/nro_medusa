@@ -2,7 +2,6 @@ package com.girlkun.models.player.tutien.phuchusu;
 
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.models.item.Item;
-import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.tutien.base_tutien.BasePoint;
@@ -34,7 +33,15 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
     }
 
     public void update() {
-
+        if (exp == maxExp) {
+            if (Util.isTrue(getLevelUpPercent(), 100)) {
+                this.levelUp();
+                Service.gI().sendThongBao(player, "Tự động đột phá phù chú sư thành công");
+            } else {
+                Service.gI().sendThongBao(player, "Tự động đột phá phù chứ sư thất bại");
+            }
+            restExp();
+        }
     }
 
     @Override
@@ -47,7 +54,6 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
         if (canLevelUp()) {
             level += 1;
             restExp();
-            Service.gI().sendThongBao(player, "Đột phá phù chú sư thành công");
         }
     }
 
@@ -96,7 +102,7 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
     }
 
     public float getTyLeCheBuaThanhCong() {
-        float baseTyLe = 5;
+        float baseTyLe = 20;
         return level * baseTyLe;
     }
 

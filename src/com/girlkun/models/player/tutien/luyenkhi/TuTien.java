@@ -13,7 +13,6 @@ import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class TuTien extends BasePoint implements IBaseAction {
@@ -426,19 +425,12 @@ public class TuTien extends BasePoint implements IBaseAction {
 //            if (!player.isDie()) {
 //                randomizedCoDuyen();
 //            }
-            useBestHealingTienPhap();
-            // tu dong use linh ky
-            Iterator<TienPhap> iterator = tienPhapsUsed.iterator();
-            while (iterator.hasNext()) {
-                Runnable r = iterator.next();
-                new Thread(r).start();
-                iterator.remove();
-                break;
-            }
+            tienPhaps.forEach(TienPhap::update);
         }
     }
 
-    private void useBestHealingTienPhap() {
+    public void useBestHealingTienPhap() {
+        if (tienPhaps.size() == 0) return;
         if (tienPhapsUsed.size() + 1 > MAX_USE_TP) return;
         TienPhap best = null;
         for (TienPhap tienPhap : tienPhaps) {
@@ -565,6 +557,35 @@ public class TuTien extends BasePoint implements IBaseAction {
             return;
         }
         tienPhap.tuTien = this;
+        // ratio tien phap param by gender
+        switch (tienPhap.getParam()) {
+            case 0:
+            case 2:
+                switch (player.gender) {
+                    case 0:
+                        tienPhap.setXParam((short) Util.nextInt(100, 300));
+                        break;
+                    case 1:
+                        tienPhap.setXParam((short) Util.nextInt(50, 70));
+                        break;
+                    case 2:
+                        tienPhap.setXParam((short) Util.nextInt(75, 150));
+                        break;
+                }
+                break;
+            case 1:
+            case 3:
+            case 4:
+                switch (player.gender) {
+                    case 0:
+                        tienPhap.setXParam((short) Util.nextInt(10, 20));
+                        break;
+                    case 1, 2:
+                        tienPhap.setXParam((short) Util.nextInt(50, 100));
+                        break;
+                }
+                break;
+        }
         tienPhaps.add(tienPhap);
         Service.gI().sendThongBao(player, "Bạn đã học " + tienPhap.getName());
     }
@@ -737,20 +758,22 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public void useBestAttackTienPhap() {
+        if (this.tienPhaps.size() == 0) return;
         if (tienPhapsUsed.size() + 1 > MAX_USE_TP) return;
         TienPhap best = null;
         for (TienPhap tienPhap : tienPhaps) {
-            boolean isUsed = tienPhapsUsed.stream().anyMatch(tp -> tp.getId() == tienPhap.getId());
-            boolean isAttackType = tienPhap.getParam() == 0 || tienPhap.getParam() == 2;
-            boolean isCooldownReady = tienPhap.getCoolDown() <= 0;
+            if (!tienPhap.isActive()) {
+                boolean isAttackType = tienPhap.getParam() == 0 || tienPhap.getParam() == 2;
+                boolean isCooldownReady = !tienPhap.isCoolDown();
 
-            if (!isUsed && isAttackType && isCooldownReady) {
-                if (best == null || tienPhap.getXParam() > best.getXParam()) {
-                    best = tienPhap;
+                if (isAttackType && isCooldownReady) {
+                    if (best == null || tienPhap.getXParam() > best.getXParam()) {
+                        best = tienPhap;
+                    }
                 }
-            }
-            if (best != null) {
-                best.useTienPhap();
+                if (best != null) {
+                    best.useTienPhap();
+                }
             }
         }
     }

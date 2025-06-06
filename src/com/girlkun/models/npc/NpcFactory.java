@@ -2326,6 +2326,10 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Học tiên pháp cần 100k điểm");
                                     return;
                                 }
+                                if (player.tuTien.tienPhaps.size() + 1 > player.tuTien.getMaxSLTPByLV()) {
+                                    Service.gI().sendThongBao(player, "Nâng cao cảnh giới để được học nhiều tiên pháp hơn");
+                                    return;
+                                }
                                 PlayerDAO.subvnd(player, 100000);
                                 player.tuTien.ratioNewTienPhap();
                                 break;
@@ -7465,9 +7469,20 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Đột phá thành công");
                             } else {
                                 player.luyenThe.restExp();
-                                if (player.luyenThe.timeThatBai + 1 <= 10) {
-                                    player.luyenThe.timeThatBai++;
+                                if (player.luyenThe.level < 30) {
+                                    if (player.luyenThe.timeThatBai + 1 <= 10) {
+                                        player.luyenThe.timeThatBai++;
+                                    }
+                                } else if (player.luyenThe.level < 50) {
+                                    if (player.luyenThe.timeThatBai + 1 <= 5) {
+                                        player.luyenThe.timeThatBai++;
+                                    }
+                                } else if (player.luyenThe.level < 90) {
+                                    if (player.luyenThe.timeThatBai + 1 <= 3) {
+                                        player.luyenThe.timeThatBai++;
+                                    }
                                 }
+
                                 Service.gI().sendThongBao(player, "Đột phá thất bại");
                             }
                             InventoryServiceNew.gI().subQuantityItemsBag(player, item1, player.luyenThe.level * 10);

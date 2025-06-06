@@ -35,7 +35,15 @@ public class LinhThucSu extends BasePoint implements IBaseAction {
     }
 
     public void update() {
-
+        if (exp == maxExp) {
+            if (Util.isTrue(getLevelUpPercent(), 100)) {
+                this.levelUp();
+                Service.gI().sendThongBao(player, "Tự động đột phá linh thực sư thành công");
+            } else {
+                Service.gI().sendThongBao(player, "Tự động đột phá linh thực sư thất bại");
+            }
+            restExp();
+        }
     }
 
     @Override
@@ -97,7 +105,7 @@ public class LinhThucSu extends BasePoint implements IBaseAction {
     }
 
     public float getTyLeCheBuaThanhCong() {
-        float baseTyLe = 5;
+        float baseTyLe = 10;
         return level * baseTyLe;
     }
 

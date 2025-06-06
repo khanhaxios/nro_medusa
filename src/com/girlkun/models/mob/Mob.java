@@ -221,6 +221,11 @@ public class Mob {
     }
 
     public void update() {
+        try {
+
+        }catch (Exception e){
+
+        }
         if (this.isDie() && !Maintenance.isRuning) {
             switch (zone.map.type) {
                 case ConstMap.MAP_DOANH_TRAI:
