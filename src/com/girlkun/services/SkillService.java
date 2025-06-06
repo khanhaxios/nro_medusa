@@ -1,8 +1,6 @@
 package com.girlkun.services;
 
 import com.girlkun.consts.ConstPlayer;
-import com.girlkun.models.boss.Boss;
-import com.girlkun.models.boss.BossID;
 import com.girlkun.models.intrinsic.Intrinsic;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.mob.MobMe;
@@ -10,13 +8,10 @@ import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.SkillSpecial;
-import com.girlkun.models.player.TestDame;
+import com.girlkun.models.player.Thu_TrieuHoi;
 import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
-import com.girlkun.models.player.tutien.luyenkhi.LinhCan;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
-import com.girlkun.services.func.ChangeMapService;
-import com.girlkun.models.player.Thu_TrieuHoi;
 import com.girlkun.services.func.RadaService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.SkillUtil;
@@ -786,6 +781,11 @@ public class SkillService {
                     Service.getInstance().chat(plTarget, "Chiêu đó không có tác dụng đâu kaka");
                 }
                 break;
+        }
+        // handle auto use linh ky tan cong
+        // chose better tan cong linh ky
+        if (player.tuTien.isAutoUseTienPhap && player.isPl()){
+            player.tuTien.useBestAttackTienPhap();
         }
         if (!player.isBoss) {
             player.effectSkin.lastTimeAttack = System.currentTimeMillis();

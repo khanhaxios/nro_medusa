@@ -167,7 +167,7 @@ public class LinhThucSu extends BasePoint implements IBaseAction {
         String menuText = "|7|Nấu ăn\n" +
                 "|5|Hãy chuẩn bị nguyên liệu như sau\n" +
                 "|5|x1 Siêu thần thuỷ,x10 đùi gà\n" +
-                "|2|Đặt chúng ở trong hành trang và chọn chế bùa\n" +
+                "|2|Đặt chúng ở trong hành trang và chọn nấu ăn\n" +
                 "|1|Tỷ lệ thành công phụ thuộc vào vận khí của bạn";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHE_LINH_THUC, -1, menuText, "Chế tạo", "Đóng");
     }

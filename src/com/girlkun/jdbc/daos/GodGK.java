@@ -1,12 +1,8 @@
 package com.girlkun.jdbc.daos;
 
-import com.girlkun.database.GirlkunDB;
-import com.girlkun.models.player.tutien.luyenkhi.PhamChat;
-import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
-import com.girlkun.models.player.tutien.luyenkhi.TuTien;
-import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.data.DataGame;
+import com.girlkun.database.GirlkunDB;
 import com.girlkun.models.card.Card;
 import com.girlkun.models.card.OptionCard;
 import com.girlkun.models.clan.Clan;
@@ -15,29 +11,31 @@ import com.girlkun.models.item.Item;
 import com.girlkun.models.item.ItemTime;
 import com.girlkun.models.item.ItemTimeSieuCap;
 import com.girlkun.models.npc.specialnpc.MabuEgg;
-import com.girlkun.models.npc.specialnpc.Timedua;
 import com.girlkun.models.npc.specialnpc.MagicTree;
+import com.girlkun.models.npc.specialnpc.Timedua;
 import com.girlkun.models.player.Enemy;
 import com.girlkun.models.player.Friend;
 import com.girlkun.models.player.Fusion;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tutien.luyenkhi.PhamChat;
+import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.models.task.TaskMain;
+import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
 import com.girlkun.server.io.MySession;
 import com.girlkun.server.model.AntiLogin;
-import com.girlkun.services.ClanService;
-import com.girlkun.services.IntrinsicService;
-import com.girlkun.services.ItemService;
-import com.girlkun.services.MapService;
-import com.girlkun.services.Service;
-import com.girlkun.services.TaskService;
+import com.girlkun.services.*;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.TimeUtil;
+import com.girlkun.utils.Util;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,14 +44,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.girlkun.utils.Util;
-
-import java.time.LocalTime;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 public class GodGK {
 
@@ -1050,7 +1040,7 @@ public class GodGK {
                             if (tienPhapArrayList.size() > 0) {
                                 for (Object obj : tienPhapArrayList) {
                                     JSONArray tpData = (JSONArray) obj;
-                                    TienPhap tp = new TienPhap();
+                                    TienPhap tp = new TienPhap(player.tuTien);
                                     tp.setId(Byte.parseByte(tpData.get(0).toString()));
                                     tp.setTen(tpData.get(1).toString());
                                     tp.setParam(Byte.parseByte(tpData.get(2).toString()));

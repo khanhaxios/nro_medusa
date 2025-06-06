@@ -1104,7 +1104,6 @@ public class PlayerDAO {
                         dataTienPhap.add(tienPhap.getPercentLinhKhiUse());
                         dataTienPhap.add(tienPhap.getTimeDuration());
                         dataBasePoint.add(dataTienPhap);
-                        dataTienPhap.clear();
                     }
                     jsonArray.add(dataBasePoint);
                     dataTuTien = jsonArray.toJSONString();

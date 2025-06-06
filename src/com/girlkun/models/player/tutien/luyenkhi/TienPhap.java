@@ -46,6 +46,9 @@ public class TienPhap implements Cloneable, Runnable {
 
     public void update() {
         try {
+            if (tuTien == null) {
+                dispose();
+            }
             if (System.currentTimeMillis() - (lastTimeUsed + timeDuration) > 0) {
                 switch (param) {
                     case 0:
@@ -111,12 +114,17 @@ public class TienPhap implements Cloneable, Runnable {
 
     }
 
+    private void dispose() {
+        lastTimeUsed = System.currentTimeMillis();
+        timeDuration = 0;
+    }
+
 
     public void randomParam(byte baseXParam) {
         byte randomParam = TienPhap.PARAM_TO_BUFF[Util.nextInt(TienPhap.PARAM_TO_BUFF.length)];
         this.setParam(randomParam);
         byte xP = (byte) Util.nextInt(baseXParam);
-        this.setPercentLinhKhiUse(xP + 5);
+        this.setPercentLinhKhiUse(20);
         this.setXParam(xP);
     }
 
@@ -133,13 +141,18 @@ public class TienPhap implements Cloneable, Runnable {
 
     }
 
+    public TienPhap(TuTien tuTien) {
+        this.tuTien = tuTien;
+    }
+
     public void useTienPhap() {
-        if (tuTien.tienPhapsUsed.stream().noneMatch(tp -> tp.id == id)) {
-            int percent = (int) (tuTien.linhKhiPoint / tuTien.maxLinhKhiPoint * 100);
-            if (percent - percentLinhKhiUse >= 0) {
-                tuTien.tienPhapsUsed.add(clone());
-            }
+//        if (tuTien.tienPhapsUsed.stream().noneMatch(tp -> tp.id == id)) {
+        int percent = (int) ((100.0 * tuTien.linhKhiPoint) / tuTien.maxLinhKhiPoint);
+        if (percent - percentLinhKhiUse >= 0) {
+            tuTien.tienPhapsUsed.add(clone());
+            Service.gI().chat(tuTien.player, ten);
         }
+//        }
     }
 
     @Override
@@ -155,9 +168,9 @@ public class TienPhap implements Cloneable, Runnable {
     public void run() {
         restTienCoolDown();
         tuTien.subLinhKhiPercent(percentLinhKhiUse);
-        Service.gI().chat(tuTien.player, ten);
         while (coolDown > 0) {
             update();
         }
+        tuTien.tienPhapsUsed.removeIf(tp -> tp.id == this.id);
     }
 }

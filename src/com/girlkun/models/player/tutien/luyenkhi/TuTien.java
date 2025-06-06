@@ -21,8 +21,10 @@ public class TuTien extends BasePoint implements IBaseAction {
     public long lastimeCoDuyen = System.currentTimeMillis();
     public CoDuyen currentCoDuyen;
     long lastTimeHoiPhuc = System.currentTimeMillis();
+    public byte MAX_USE_TP = 2;
     long lastTimeAddExp = System.currentTimeMillis();
     long lastTimeAddDoTT = System.currentTimeMillis();
+
     private static final String[] CANH_GIOI = new String[]{"Luyện Khí", "Trúc Cơ", "Kim Đan", "Nguyên Anh", "Hóa Thần", "Phong Thánh", "Thần Chiếu", "Huyền Linh", "Quy Nguyên", "Du Tầm", "Không Luân", "Tam Thiên", "Tứ Trụ", "Dạ Ma Thiên Cảnh", "Tu Di Sơn Chủ", "Tinh Hà Thánh Nhân", "Thần Quỷ Mạt Trắc", "Đạo Lộ Chi Cảnh", "Thánh Tôn Chi Cảnh"};
     private static final long[] LEVEL_EXP = new long[]{100, 200, 500, 1000, 5000, 60000, 200000, 3000000, 5000000, 10000000, 12_000_000, 15_000_000, 18_000_000, 20_000_000, 25_000_000, 30_000_000, 40_000_000, 60_000_000, 80_000_000}; // 19
     private static final long[] SUB_LEVEL_EXP = new long[]{100, 150, 200, 250, 300, 320, 350, 360, 370, 399};
@@ -60,6 +62,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     public boolean isAttackWithLinhCan = true;
     public boolean isKhongThi = true;
+    public boolean isAutoUseTienPhap = true;
 
     public TuTien(Player player) {
         super(player);
@@ -423,16 +426,34 @@ public class TuTien extends BasePoint implements IBaseAction {
 //            if (!player.isDie()) {
 //                randomizedCoDuyen();
 //            }
+            useBestHealingTienPhap();
             // tu dong use linh ky
-            tienPhaps.forEach(TienPhap::useTienPhap);
-            Iterator<TienPhap> iterator = tienPhaps.iterator();
+            Iterator<TienPhap> iterator = tienPhapsUsed.iterator();
             while (iterator.hasNext()) {
                 Runnable r = iterator.next();
                 new Thread(r).start();
                 iterator.remove();
                 break;
             }
+        }
+    }
 
+    private void useBestHealingTienPhap() {
+        if (tienPhapsUsed.size() + 1 > MAX_USE_TP) return;
+        TienPhap best = null;
+        for (TienPhap tienPhap : tienPhaps) {
+            boolean isUsed = tienPhapsUsed.stream().anyMatch(tp -> tp.getId() == tienPhap.getId());
+            boolean isAttackType = tienPhap.getParam() == 1 || tienPhap.getParam() == 3 || tienPhap.getParam() == 4;
+            boolean isCooldownReady = tienPhap.getCoolDown() <= 0;
+
+            if (!isUsed && isAttackType && isCooldownReady) {
+                if (best == null || tienPhap.getXParam() > best.getXParam()) {
+                    best = tienPhap;
+                }
+            }
+            if (best != null) {
+                best.useTienPhap();
+            }
         }
     }
 
@@ -543,6 +564,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             Service.gI().sendThongBao(player, "Bạn đã học hết Tiên Pháp hiện có");
             return;
         }
+        tienPhap.tuTien = this;
         tienPhaps.add(tienPhap);
         Service.gI().sendThongBao(player, "Bạn đã học " + tienPhap.getName());
     }
@@ -644,7 +666,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     public void showCaiDatLinhKhi() {
         String text = "|7|Cài đặt linh khí\n" + "|5|Giúp mình điểu khiển cách dùng linh khí vào đâu";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.LINH_KHI_SETTING, -1, text, "STLC\n" + (isAttackWithLinhCan ? "Mở" : "Đóng"), "Khống Thi\n" + (isKhongThi ? "Mở" : "Đóng"), "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.LINH_KHI_SETTING, -1, text, "STLC\n" + (isAttackWithLinhCan ? "Mở" : "Đóng"), "Khống Thi\n" + (isKhongThi ? "Mở" : "Đóng"), "ATTP\n" + (isAutoUseTienPhap ? "Mở" : "Đóng"), "Đóng");
     }
 
     public int getTyLeRoiDa() {
@@ -710,6 +732,25 @@ public class TuTien extends BasePoint implements IBaseAction {
                 }
             } else {
                 linhCan.getThuocTinhLinhCan().setParam(linhCan.getThuocTinhLinhCan().ratioThuocTinhLinhCan());
+            }
+        }
+    }
+
+    public void useBestAttackTienPhap() {
+        if (tienPhapsUsed.size() + 1 > MAX_USE_TP) return;
+        TienPhap best = null;
+        for (TienPhap tienPhap : tienPhaps) {
+            boolean isUsed = tienPhapsUsed.stream().anyMatch(tp -> tp.getId() == tienPhap.getId());
+            boolean isAttackType = tienPhap.getParam() == 0 || tienPhap.getParam() == 2;
+            boolean isCooldownReady = tienPhap.getCoolDown() <= 0;
+
+            if (!isUsed && isAttackType && isCooldownReady) {
+                if (best == null || tienPhap.getXParam() > best.getXParam()) {
+                    best = tienPhap;
+                }
+            }
+            if (best != null) {
+                best.useTienPhap();
             }
         }
     }

@@ -1,15 +1,9 @@
 package com.girlkun.models.npc;
 
 import com.girlkun.consts.ConstMap;
-import com.girlkun.models.map.ItemMap;
-import com.girlkun.models.map.challenge.MartialCongressService;
-import com.girlkun.models.player.tutien.base_tutien.CoDuyen;
-import com.girlkun.services.*;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.consts.ConstTask;
-import com.girlkun.models.map.bdkb.BanDoKhoBau;
-import com.girlkun.models.map.bdkb.BanDoKhoBauService;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.boss.Boss;
@@ -18,28 +12,17 @@ import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.boss.list_boss.MiNuong;
 import com.girlkun.models.boss.list_boss.NhanBan;
-import com.girlkun.models.boss.list_boss.PetLan;
 import com.girlkun.models.clan.Clan;
 import com.girlkun.models.clan.ClanMember;
-import com.girlkun.models.player.Thu_TrieuHoi;
-
-import java.util.HashMap;
-import java.util.List;
-
-import com.girlkun.services.func.ChangeMapService;
-import com.girlkun.services.func.SummonDragon;
-
-import static com.girlkun.services.func.SummonDragon.SHENRON_1_STAR_WISHES_1;
-import static com.girlkun.services.func.SummonDragon.SHENRON_1_STAR_WISHES_2;
-import static com.girlkun.services.func.SummonDragon.SHENRON_SAY;
-
-import com.girlkun.models.player.Player;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.map.Map;
-import com.girlkun.models.map.Zone;
-import com.girlkun.models.map.blackball.BlackBallWar;
 import com.girlkun.models.map.MapMaBu.MapMaBu;
+import com.girlkun.models.map.Zone;
+import com.girlkun.models.map.bdkb.BanDoKhoBau;
+import com.girlkun.models.map.bdkb.BanDoKhoBauService;
+import com.girlkun.models.map.blackball.BlackBallWar;
+import com.girlkun.models.map.challenge.MartialCongressService;
 import com.girlkun.models.map.doanhtrai.DoanhTrai;
 import com.girlkun.models.map.doanhtrai.DoanhTraiService;
 import com.girlkun.models.map.gas.Gas;
@@ -50,6 +33,9 @@ import com.girlkun.models.matches.pvp.DaiHoiVoThuatService;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Pet.ConstPet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
+import com.girlkun.models.player.Player;
+import com.girlkun.models.player.Thu_TrieuHoi;
+import com.girlkun.models.player.tutien.base_tutien.CoDuyen;
 import com.girlkun.models.shop.ShopServiceNew;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
@@ -57,27 +43,20 @@ import com.girlkun.server.Client;
 import com.girlkun.server.Maintenance;
 import com.girlkun.server.Manager;
 import com.girlkun.server.ServerNotify;
-
-import static com.girlkun.services.NgocRongNamecService.TIME_OP;
-
-import com.girlkun.services.func.CombineServiceNew;
-import com.girlkun.services.func.Input;
-import com.girlkun.services.func.LuckyRound;
-//import com.girlkun.services.func.TopService;
+import com.girlkun.services.*;
+import com.girlkun.services.func.*;
 import com.girlkun.utils.Logger;
+import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
-
-import com.girlkun.services.func.ChonAiDay;
-import com.girlkun.services.func.GoiRongXuong;
-import com.girlkun.services.func.RadaService;
-import com.girlkun.services.func.SummonSieuCap;
-import com.girlkun.services.func.TaiXiu;
-import com.girlkun.utils.SkillUtil;
-
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
+
+import static com.girlkun.services.NgocRongNamecService.TIME_OP;
+import static com.girlkun.services.func.SummonDragon.*;
 
 public class NpcFactory {
 
@@ -6664,7 +6643,7 @@ public class NpcFactory {
                                         Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Kim Đan");
                                         return;
                                     }
-                                    if (player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                    if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
                                         Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
                                         return;
                                     }
@@ -6687,7 +6666,7 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
                                     return;
                                 }
-                                if (player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
                                     Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
                                     return;
                                 }
@@ -6709,7 +6688,7 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
                                     return;
                                 }
-                                if (player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
                                     Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
                                     return;
                                 }
@@ -6731,7 +6710,7 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
                                     return;
                                 }
-                                if (player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
                                     Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
                                     return;
                                 }
@@ -6753,7 +6732,7 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Trúc Cơ");
                                     return;
                                 }
-                                if (player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
                                     Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
                                     return;
                                 }
@@ -7403,6 +7382,8 @@ public class NpcFactory {
                                 player.tuTien.showCaiDatLinhKhi();
                                 break;
                             case 2:
+                                player.tuTien.isAutoUseTienPhap = !player.tuTien.isAutoUseTienPhap;
+                                Service.gI().sendThongBao(player, "Đã " + (player.tuTien.isAutoUseTienPhap ? "Mở" : "Đóng" + " Tự động dùng tiên pháp"));
                                 break;
                         }
                         break;
@@ -7518,7 +7499,7 @@ public class NpcFactory {
                     case ConstNpc.MENU_PLAYER_TU_TIEN_F:
                         switch (select) {
                             case 0:
-                                boolean isDotPhaCao = player.tuTien.subLevel == 9 && player.tuTien.level > 2;
+                                boolean isDotPhaCao = player.tuTien.subLevel == 10 && player.tuTien.level > 2;
                                 // dot pha
                                 String text = "|7|Đột phá\n" + "|5|Cảnh Giới hiện tại : " + player.tuTien.getFormatName() + "\n" + "|2|Cảnh Giới tiếp theo : " + player.tuTien.getNextLevelStr() + "\n" + "|2|Tu vi : " + player.tuTien.getCurrentExpAsString() + "\n" + "|7|Tỷ lệ thành công : " + player.tuTien.getLevelUpPercent() + "%" + "\n" + "|7|Tỷ lệ thành công thiên đạo: " + player.tuTien.getLevelUpPercent() / 5 + "%" + "\n" + "|5|Bạn có thể ăn dan dược để tăng tỷ lệ thành công -.-";
                                 if (isDotPhaCao) {
