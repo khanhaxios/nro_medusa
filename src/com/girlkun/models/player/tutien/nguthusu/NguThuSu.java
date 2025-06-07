@@ -12,14 +12,13 @@ import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
-import javax.imageio.plugins.tiff.TIFFDirectory;
-
 public class NguThuSu extends BasePoint implements IBaseAction {
     public NguThuSu(Player player) {
         super(player);
     }
 
     private final byte MAX_LEVEL = 7;
+    private long lastTimeGetExp = System.currentTimeMillis();
 
     public void calcPoint() {
         player.nPoint.hpAdd += player.nPoint.hpg * getHPMPBuff() / 100;
@@ -31,12 +30,8 @@ public class NguThuSu extends BasePoint implements IBaseAction {
     }
 
     public void update() {
-        if (isNguThu()) {
-            Item item = InventoryServiceNew.gI().findLinhThuBody(player);
-            Item it1 = InventoryServiceNew.gI().findThuCuoiBody(player);
-            if ((item != null || it1 != null) && exp < maxExp) {
-                addExp(getExpCanGain(null));
-            }
+        if (isNguThu() && Util.canDoWithTime(lastTimeGetExp, 2000)) {
+            addExp(getExpCanGain(null));
             if (exp == maxExp) {
                 if (Util.isTrue(getLevelUpPercent(), 300)) {
                     this.levelUp();
@@ -252,13 +247,10 @@ public class NguThuSu extends BasePoint implements IBaseAction {
         for (Item.ItemOption option : item.itemOptions) {
             int id = option.optionTemplate.id;
             int param = option.param;
-
             // Các option chia 1000
             if (id == 0 || id == 2 || id == 5 || id == 6 || id == 7 || id == 22) {
                 point += param / 1000;
-            }
-            // Các option cộng thẳng
-            else if (id == 14 || id == 23 || id == 50 || id == 77 || id == 103) {
+            } else if (id == 14 || id == 23 || id == 50 || id == 77 || id == 103) {
                 point += param;
             }
         }
@@ -268,7 +260,6 @@ public class NguThuSu extends BasePoint implements IBaseAction {
         if (level >= 6 && point > 150) return true;
         if (level >= 4 && point > 100) return true;
         if (level >= 2 && point > 50) return true;
-
-        return false;
+        return level >= 1 && point >= 0 && point <= 50;
     }
 }

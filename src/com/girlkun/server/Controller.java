@@ -1,52 +1,36 @@
 package com.girlkun.server;
 
-import com.girlkun.database.GirlkunDB;
-import com.girlkun.models.item.Item;
-import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.consts.ConstIgnoreName;
 import com.girlkun.consts.ConstMap;
-import com.girlkun.services.*;
-import com.girlkun.utils.Util;
-import com.girlkun.data.DataGame;
-import com.girlkun.server.io.MySession;
-
-import java.io.IOException;
-
-import com.girlkun.models.card.Card;
-import com.girlkun.models.card.RadarCard;
-import com.girlkun.models.card.RadarService;
-
-import com.girlkun.services.func.ChangeMapService;
-import com.girlkun.services.func.UseItem;
-import com.girlkun.models.kygui.ShopKyGuiService;
-import com.girlkun.services.func.Input;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstTask;
+import com.girlkun.data.DataGame;
 import com.girlkun.data.ItemData;
+import com.girlkun.database.GirlkunDB;
 import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossManager;
-import com.girlkun.models.map.Zone;
+import com.girlkun.models.card.Card;
+import com.girlkun.models.card.RadarCard;
+import com.girlkun.models.card.RadarService;
+import com.girlkun.models.item.Item;
+import com.girlkun.models.kygui.ShopKyGuiService;
 import com.girlkun.models.map.blackball.BlackBallWar;
+import com.girlkun.models.matches.PVPService;
 import com.girlkun.models.npc.NpcManager;
 import com.girlkun.models.player.Player;
-import com.girlkun.models.matches.PVPService;
-import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.shop.ShopServiceNew;
 import com.girlkun.network.handler.IMessageHandler;
 import com.girlkun.network.io.Message;
 import com.girlkun.network.session.ISession;
-import com.girlkun.services.func.CombineServiceNew;
-import com.girlkun.services.func.GoiRongXuong;
-
-import static com.girlkun.services.func.Input.CHOOSE_LEVEL_BDKB;
-import static com.girlkun.services.func.Input.NUMERIC;
-
-import com.girlkun.services.func.LuckyRound;
-import com.girlkun.services.func.SummonDragon;
-import com.girlkun.services.func.SummonSieuCap;
-import com.girlkun.services.func.TransactionService;
+import com.girlkun.result.GirlkunResultSet;
+import com.girlkun.server.io.MySession;
+import com.girlkun.services.*;
+import com.girlkun.services.func.*;
 import com.girlkun.utils.Logger;
+import com.girlkun.utils.Util;
+
+import java.io.IOException;
 
 public class Controller implements IMessageHandler {
 
@@ -235,9 +219,7 @@ public class Controller implements IMessageHandler {
                     break;
                 case -108:
                     if (player != null && player.pet != null && player.typeTabPet == 0) {
-                        if (player.pet.handleCanChangeStatus()) {
-                            player.pet.changeStatus(_msg.reader().readByte());
-                        }
+                        player.pet.changeStatus(_msg.reader().readByte());
                     } else if (player != null && player.petDaoLu != null && player.typeTabPet == 1) {
                         player.petDaoLu.changeStatus(_msg.reader().readByte());
                     }

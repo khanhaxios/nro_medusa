@@ -82,7 +82,7 @@ public abstract class BasePoint {
     }
 
     public boolean canHandleWithLinhKhiPoint(int percent) {
-        return linhKhiPoint - (maxLinhKhiPoint * percent / 100) > 0;
+        return linhKhiPoint > (maxLinhKhiPoint * percent / 100);
     }
 
     public boolean canHandleWithLinhKhiPoint(long linhkhi) {

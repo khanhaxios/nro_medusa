@@ -1,33 +1,26 @@
 package com.girlkun.services;
 
-import com.girlkun.database.GirlkunDB;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
-import com.girlkun.models.boss.Boss;
-import com.girlkun.models.devices.DeviceInfo;
-import com.girlkun.utils.FileIO;
 import com.girlkun.data.DataGame;
-import com.girlkun.models.boss.BossManager;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.girlkun.models.item.Item;
-import com.girlkun.models.map.ItemMap;
-import com.girlkun.models.mob.Mob;
-import com.girlkun.models.player.Thu_TrieuHoi;
-import com.girlkun.models.player.Pet.Pet;
-import com.girlkun.models.item.Item.ItemOption;
-import com.girlkun.models.map.Zone;
+import com.girlkun.database.GirlkunDB;
 import com.girlkun.jdbc.daos.GodGK;
+import com.girlkun.models.boss.Boss;
+import com.girlkun.models.boss.BossManager;
+import com.girlkun.models.devices.DeviceInfo;
+import com.girlkun.models.item.Item;
+import com.girlkun.models.item.Item.ItemOption;
+import com.girlkun.models.map.ItemMap;
+import com.girlkun.models.map.Zone;
 import com.girlkun.models.matches.TOP;
+import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.NewPet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
+import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.Thu_TrieuHoi;
 import com.girlkun.models.shop.ItemShop;
 import com.girlkun.models.shop.Shop;
-import com.girlkun.server.io.MySession;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
 import com.girlkun.network.server.GirlkunSessionManager;
@@ -37,18 +30,22 @@ import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
 import com.girlkun.server.MenuController;
+import com.girlkun.server.io.MySession;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.services.func.Input;
 import com.girlkun.services.func.SummonDragon;
-
-import static com.girlkun.services.func.SummonDragon.TIME_UP;
-
 import com.girlkun.services.func.TaiXiu;
+import com.girlkun.utils.FileIO;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+
+import static com.girlkun.services.func.SummonDragon.TIME_UP;
 
 public class Service {
 
@@ -1543,21 +1540,14 @@ public class Service {
 
         if (player.pet != null) {
             if (text.equals("di theo") || text.equals("follow")) {
-                if (player.pet.handleCanChangeStatus()) {
-                    player.pet.changeStatus(Pet.FOLLOW);
-                }
+
+                player.pet.changeStatus(Pet.FOLLOW);
             } else if (text.equals("bao ve") || text.equals("protect")) {
-                if (player.pet.handleCanChangeStatus()) {
-                    player.pet.changeStatus(Pet.PROTECT);
-                }
+                player.pet.changeStatus(Pet.PROTECT);
             } else if (text.equals("tan cong") || text.equals("attack")) {
-                if (player.pet.handleCanChangeStatus()) {
-                    player.pet.changeStatus(Pet.ATTACK);
-                }
+                player.pet.changeStatus(Pet.ATTACK);
             } else if (text.equals("ve nha") || text.equals("go home")) {
-                if (player.pet.handleCanChangeStatus()) {
-                    player.pet.changeStatus(Pet.GOHOME);
-                }
+                player.pet.changeStatus(Pet.GOHOME);
             }
 //            else if (text.equals("bien hinh")) {
 //                player.pet.transform();

@@ -889,7 +889,7 @@ public class Player {
                 return "Chưởng Chí mạng 5000 lần";
             case 5:
                 this.chienthan.maxcount = 500;
-                return "Hạ 5.00 Quái bay";
+                return "Hạ 500 Quái bay";
             case 4:
                 this.chienthan.maxcount = 1000;
                 return "Nhặt 1000 Capsule Kì bí";

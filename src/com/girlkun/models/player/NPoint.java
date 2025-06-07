@@ -1,6 +1,5 @@
 package com.girlkun.models.player;
 
-import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.consts.ConstRatio;
 import com.girlkun.models.card.Card;
@@ -8,14 +7,10 @@ import com.girlkun.models.card.OptionCard;
 import com.girlkun.models.intrinsic.Intrinsic;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.player.Pet.ConstPet;
+import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.server.Manager;
-import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.ItemService;
-import com.girlkun.services.MapService;
-import com.girlkun.services.PlayerService;
-import com.girlkun.services.Service;
-import com.girlkun.services.TaskService;
+import com.girlkun.services.*;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
@@ -761,6 +756,9 @@ public class NPoint {
         //+hp đệ
         if (this.player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             this.hpMax += this.player.pet.nPoint.hpMax;
+            if (this.player.khongThiSu.isKhongThi()) {
+                this.hpMax += this.hpMax * player.khongThiSu.getHPMPBuff() / 100;
+            }
         }
         // chi so  hop the
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
@@ -985,6 +983,9 @@ public class NPoint {
         }
         if (this.player.fusion.typeFusion != 0) {
             this.mpMax += this.player.pet.nPoint.mpMax;
+            if (this.player.khongThiSu.isKhongThi()) {
+                this.mpMax += this.mpMax * player.khongThiSu.getHPMPBuff() / 100;
+            }
         }
 
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
@@ -1177,7 +1178,11 @@ public class NPoint {
         }
         if (this.player.fusion.typeFusion != 0) {
             this.dame += this.player.pet.nPoint.dame;
+            if (this.player.khongThiSu.isKhongThi()) {
+                this.dame += this.dame * player.khongThiSu.getDameBuff() / 100;
+            }
         }
+
 
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             switch (((Pet) this.player).typePet) {
@@ -1451,9 +1456,6 @@ public class NPoint {
             pointAdd += pointBase * player.linhThucSu.getDameBuff() / 100;
         }
         if (player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
-            pointAdd += pointBase * player.phuChuSu.getDameBuff() / 100;
-        }
-        if (player.khongThiSu != null && player.khongThiSu.isKhongThi()) {
             pointAdd += pointBase * player.phuChuSu.getDameBuff() / 100;
         }
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {

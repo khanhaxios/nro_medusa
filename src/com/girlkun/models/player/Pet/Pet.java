@@ -405,7 +405,6 @@ public class Pet extends Player {
     @Override
     public void update() {
         try {
-
             super.update();
             increasePoint(); //cộng chỉ số
             autodau(); //cộng chỉ số

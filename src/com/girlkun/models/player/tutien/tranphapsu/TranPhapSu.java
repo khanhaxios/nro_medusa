@@ -21,6 +21,8 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
         super(player);
     }
 
+    private long lastTimeAddExp = System.currentTimeMillis();
+
     public void calcPoint() {
         player.nPoint.hpAdd += player.nPoint.hpg * getHPMPBuff() / 100;
         player.nPoint.mpAdd += player.nPoint.mpg * getHPMPBuff() / 100;
@@ -34,7 +36,7 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
         if (isTranPhap()) {
             // find item chan menh
             Item chanMenh = InventoryServiceNew.gI().findItemBody(player, idsChanMenh);
-            if (chanMenh != null) {
+            if (chanMenh != null && Util.canDoWithTime(lastTimeAddExp, 2000)) {
                 addExp(getExpCanGain(null));
             }
             // auto dot pha

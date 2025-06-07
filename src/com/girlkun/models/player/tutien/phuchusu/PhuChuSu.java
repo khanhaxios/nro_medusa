@@ -107,7 +107,7 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
     }
 
     public void cheBua() {
-        if (!canCheBua()) {
+        if (canCheBua()) {
             Service.gI().sendThongBao(player, "Bạn không đủ linh lực để chế bùa");
             return;
         }
@@ -144,10 +144,8 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
             // find item option cua but chi
             itemOption.param -= 1;
             item = ItemService.gI().createNewItem(tempId);
-            Service.gI().sendThongBao(player, "Bạn nhận được " + item.template.name);
-            InventoryServiceNew.gI().subQuantityItemsBag(player, it1, 1);
             InventoryServiceNew.gI().addItemBag(player, item);
-            InventoryServiceNew.gI().sendItemBags(player);
+            Service.gI().sendThongBao(player, "Bạn nhận được " + item.template.name);
             exxxxp += getExpCanGain(null) * Util.nextInt(1, 5);
             if (player.chienthan.tasknow == 3) {
                 player.chienthan.dalamduoc++;
@@ -157,6 +155,8 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
             Service.gI().sendThongBao(player, "Chế bùa thất bại");
             exxxxp += getExpCanGain(null);
         }
+        InventoryServiceNew.gI().subQuantityItemsBag(player, it1, 1);
+        InventoryServiceNew.gI().sendItemBags(player);
         addExp(exxxxp);
     }
 
@@ -168,7 +168,7 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
     }
 
     public boolean canCheBua() {
-        return player.tuTien.linhKhiPoint - (player.tuTien.maxLinhKhiPoint / 100) > 0;
+        return player.tuTien.canHandleWithLinhKhiPoint(1);
     }
 
     public void cheBuaVIP() {
@@ -176,7 +176,7 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
             Service.gI().sendThongBao(player, "Bạn cần đạt phù sư cấp tông sư để chế bùa vip");
             return;
         }
-        if (!canCheBua()) {
+        if (canCheBua()) {
             Service.gI().sendThongBao(player, "Bạn không đủ linh lực để chế bùa");
             return;
         }

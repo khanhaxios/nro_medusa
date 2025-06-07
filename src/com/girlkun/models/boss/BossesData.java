@@ -3,7 +3,6 @@ package com.girlkun.models.boss;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.utils.Util;
-import com.girlkun.models.boss.BossID;
 
 /**
  * @Stole By NDQ❤
@@ -21,7 +20,6 @@ public class BossesData {
     private static final int[][] FULL_MASENKO = new int[][]{{Skill.MASENKO, 1}, {Skill.MASENKO, 2}, {Skill.MASENKO, 3}, {Skill.MASENKO, 4}, {Skill.MASENKO, 5}, {Skill.MASENKO, 6}, {Skill.MASENKO, 7}};
     private static final int[][] FULL_ANTOMIC = new int[][]{{Skill.ANTOMIC, 1}, {Skill.ANTOMIC, 2}, {Skill.ANTOMIC, 3}, {Skill.ANTOMIC, 4}, {Skill.ANTOMIC, 5}, {Skill.ANTOMIC, 6}, {Skill.ANTOMIC, 7}};
     private static final int[][] FULL_LIENHOAN = new int[][]{{Skill.LIEN_HOAN, 1}, {Skill.LIEN_HOAN, 2}, {Skill.LIEN_HOAN, 3}, {Skill.LIEN_HOAN, 4}, {Skill.LIEN_HOAN, 5}, {Skill.LIEN_HOAN, 6}, {Skill.LIEN_HOAN, 7}};
-    private static final int[][] FULL_TDHS = new int[][]{{Skill.THAI_DUONG_HA_SAN, 1}, {Skill.THAI_DUONG_HA_SAN, 2}, {Skill.THAI_DUONG_HA_SAN, 3}, {Skill.THAI_DUONG_HA_SAN, 4}, {Skill.THAI_DUONG_HA_SAN, 5}, {Skill.THAI_DUONG_HA_SAN, 6}, {Skill.THAI_DUONG_HA_SAN, 7}};
 
     private static final int REST_1_S = 1;
     private static final int REST_2_S = 2;
@@ -3384,7 +3382,7 @@ public class BossesData {
             new double[]{100},
             new int[]{5},
             new int[][]{
-                    {Skill.THAI_DUONG_HA_SAN, 5, 15000}},
+                    {Skill.TROI, 5, 15000}},
             new String[]{"|-1|Tới giờ làm việc, lụm lụm", "|-1|Cảm giác mình vào phải khu người nghèo :))"}, //text chat 1
             new String[]{"|-1|Ái chà vàng vàng", "|-2|Giám ăn trộm giữa ban ngày thế à"}, //text chat 2
             new String[]{"|-1|Híc lần sau ta sẽ cho ngươi phá sản", "|-2|Chừa thói ăn trộm nghe chưa"}, //text chat 3
@@ -3401,7 +3399,7 @@ public class BossesData {
             new int[][]{
                     {Skill.KAMEJOKO, 7, 600},
                     {Skill.LIEN_HOAN, 7, 300},
-                    {Skill.THAI_DUONG_HA_SAN, 7, 80000},
+                    {Skill.TROI, 7, 80000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 1, 20000},
                     {Skill.DRAGON, 7, 1000},
                     {Skill.SUPER_KAME, 2, 30000},},//skill//skill
@@ -3426,7 +3424,7 @@ public class BossesData {
             new int[][]{
                     {Skill.KAMEJOKO, 7, 600},
                     {Skill.LIEN_HOAN, 7, 300},
-                    {Skill.THAI_DUONG_HA_SAN, 7, 50000},
+                    {Skill.TROI, 7, 50000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 1, 20000},
                     {Skill.DRAGON, 7, 1000},
                     {Skill.LIEN_HOAN_CHUONG, 2, 30000},},//skill//skill
@@ -3452,7 +3450,7 @@ public class BossesData {
             new int[][]{
                     {Skill.KAMEJOKO, 7, 400},
                     {Skill.LIEN_HOAN, 7, 300},
-                    {Skill.THAI_DUONG_HA_SAN, 7, 50000},
+                    {Skill.TROI, 7, 50000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 1, 20000},
                     {Skill.DRAGON, 7, 400},
                     {Skill.LIEN_HOAN_CHUONG, 2, 30000},},//skill//skill
@@ -3480,7 +3478,7 @@ public class BossesData {
             new int[][]{
                     {Skill.KAMEJOKO, 7, 800},
                     {Skill.LIEN_HOAN, 7, 300},
-                    {Skill.THAI_DUONG_HA_SAN, 7, 80000},
+                    {Skill.TROI, 7, 80000},
                     {Skill.DRAGON, 7, 1200},
                     {Skill.LIEN_HOAN_CHUONG, 2, 45000},},//skill//skill
             new String[]{}, //text chat 1
@@ -3598,7 +3596,7 @@ public class BossesData {
             new int[]{182}, //map join
             new int[][]{
                     {Skill.KAMEJOKO, 7, 6000},
-                    {Skill.THAI_DUONG_HA_SAN, 7, 30000},
+                    {Skill.TROI, 7, 30000},
                     {Skill.THOI_MIEN, 1, 20000},
                     {Skill.LIEN_HOAN_CHUONG, 2, 30000},},//skill//skill
             new String[]{}, //text chat 1
@@ -3692,12 +3690,3 @@ public class BossesData {
             TypeAppear.APPEAR_WITH_ANOTHER
     );
 }
-
-//************************************************************************** Boss nappa
-//**************************************************************************
-//**************************************************************************
-//**************************************************************************
-//**************************************************************************
-//**************************************************************************
-//**************************************************************************
-

@@ -27,7 +27,6 @@ public class KhongThiSu extends BasePoint implements IBaseAction {
 
     public void update() {
         if (isKhongThi()) {
-            // auto try level up
             if (exp == maxExp) {
                 if (Util.isTrue(getLevelUpPercent(), 300)) {
                     this.levelUp();

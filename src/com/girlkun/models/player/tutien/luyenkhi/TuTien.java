@@ -185,6 +185,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             int lv = Math.min(level, BASE_LINH_KHI_HOI_PHUC.length - 1);
             long linhKhiCanHoiPhuc = ((BASE_LINH_KHI_HOI_PHUC[lv] * Math.max(1, congPhap.xTocDoKhoiPhucLinhKhi))) * Math.max(1, xParam);
             linhKhiCanHoiPhuc *= Util.nextInt(1, 2);
+            linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * getXDiemThienPhu();
             addLinhKhi(linhKhiCanHoiPhuc);
             lastTimeHoiPhuc = System.currentTimeMillis();
             // send effect to server
@@ -195,7 +196,8 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     public long calcMaxLinhKhiPoint() {
         long la = BASE_LINH_KHI[level] + (BASE_LINH_KHI[level] * (Math.max(1, congPhap.xLinhKhiBuff))) + BASE_SUB_LINH_KHI[subLevel - 1];
-        la += la * xParam;
+        la += (la * xParam);
+        la += (la * getXDiemThienPhu());
         return (la + (la * congPhap.tlLinhKhiBuff / 100)) * Math.max(1, congPhap.xLinhKhiBuff);
     }
 
@@ -242,7 +244,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     @Override
     public float getLevelUpPercent() {
         if (level <= LEVEL_UP_PERCENT.length - 1) {
-            return (getXDiemThienPhu() * 2) + LEVEL_UP_PERCENT[level];
+            return (getXDiemThienPhu() * 5) + LEVEL_UP_PERCENT[level];
         }
         return 1f;
     }
@@ -356,22 +358,26 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     @Override
     public float getDameBuff() {
-        return (getBaseBuffByLevel(5) + (getSubLevelOtherBuff() * Math.max(1, level))) * Math.max(1, xParam);
+        float percentBuff = (getBaseBuffByLevel(5) + (getSubLevelOtherBuff() + (Math.max(1, level - 1) * 10)));
+        return percentBuff + (percentBuff * xParam);
     }
 
     @Override
     public float getHPMPBuff() {
-        return (getBaseBuffByLevel(12) + (getSubLevelHpMpBuff() * Math.max(1, level))) * Math.max(1, xParam);
+        float percentBuff = (getBaseBuffByLevel(5) + (getSubLevelHpMpBuff() + (Math.max(1, level - 1) * 10)));
+        return percentBuff + (percentBuff * xParam);
     }
 
     @Override
     public float getDefBuff() {
-        return (getBaseBuffByLevel(5) + (getSubLevelOtherBuff() * Math.max(1, level))) * Math.max(1, xParam);
+        float percentBuff = (getBaseBuffByLevel(5) + (getSubLevelOtherBuff() + (Math.max(1, level - 1) * 10)));
+        return percentBuff + (percentBuff * xParam);
     }
 
     @Override
     public float getPSTBuff() {
-        return getBaseBuffByLevel(2) + (getSubLevelOtherBuff(0.1f) * Math.max(1, level));
+        float percentBuff = (getBaseBuffByLevel(5) + (getSubLevelOtherBuff(0.1f) + (Math.max(1, level - 1) * 10)));
+        return percentBuff + (percentBuff * xParam);
     }
 
     @Override
@@ -386,7 +392,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     @Override
     public float getNeBuff() {
-        return getBaseBuffByLevel(1) + (getSubLevelOtherBuff(0.1f) * Math.max(1, level));
+        return getBaseBuffByLevel(1) + (getSubLevelOtherBuff(0.1f) + (Math.max(1, level - 1) * 10));
     }
 
     @Override
@@ -653,7 +659,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public void showMenuTuTien() {
-        String npcSay = "|7|Thông tin thuộc tính\n" + "|2|Hp,Mp : " + getHPMPBuff() + "%" + "\n" + "|2|Dame :" + getDameBuff() + "%" + "\n" + "|1|Def : " + getDefBuff() + "%" + "\n" + "|1|Né : " + getNeBuff() + "%" + "\n" + "|1|Chính Xác : " + getChinhXacBuff() + "%" + "\n" + "|7|Cảnh giới càng cao thuộc tính tăng càng mạnh";
+        String npcSay = "|7|Thông tin thuộc tính\n" + "|2|Hp,Mp : " + getHPMPBuff() + "%" + "\n" + "|2|Dame :" + getDameBuff() + "%" + "\n" + "|1|Def : " + getDefBuff() + "%" + "\n" + "|1|Né : " + getNeBuff() + "%" + "\n" + "|1|Chính Xác : " + getChinhXacBuff() + "%" + "\n" + "|5|Đột phá thiên đạo " + xParam + " lần\n" + "|7|Cảnh giới càng cao thuộc tính tăng càng mạnh";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN_F, -1, npcSay, "Đột Phá\nCảnh Giới", "Tán Công", "Đóng");
     }
 

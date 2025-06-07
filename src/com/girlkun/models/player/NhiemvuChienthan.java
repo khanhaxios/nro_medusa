@@ -7,7 +7,6 @@ import com.girlkun.models.item.Item;
 
 public class NhiemvuChienthan {
 
-
     public Item trainArmor;
     public List<String> giftCode;
     public List<Item> itemsBody;

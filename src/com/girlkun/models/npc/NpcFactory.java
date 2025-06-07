@@ -2774,7 +2774,7 @@ public class NpcFactory {
                                 }
                                 break;
                             case 4:
-                                if (player.clan != null) {
+                                if (player.clan != null ) {
                                     if (player.clan.banDoKhoBau != null) {
                                         this.createOtherMenu(player, ConstNpc.MENU_OPENED_BDKB, "|7|BẢN ĐỒ KHO BÁU\n|6|Bang hội của con đang đi Bản đồ Kho báu cấp độ " + player.clan.banDoKhoBau.level + "\nCon có muốn đi theo không?", "Đồng ý", "Từ chối");
                                     } else {
@@ -2927,7 +2927,7 @@ public class NpcFactory {
                         thoivang = 300;
                     }
                     if (player.getSession().actived) {
-                        mtv = "Bạn đã là thành viên chính thức của Ngọc Rồng MEDUSA. Đã mở khóa tính năng Giao dịch và Chat thế giới !!!";
+                        mtv = "Bạn đã là thành viên chính thức của Ngọc Rồng RISE. Đã mở khóa tính năng Giao dịch và Chat thế giới !!!";
                     } else {
                         mtv = "Tài khoản của bạn chưa được Mở thành viên nên còn bị khóa mõm với không giao dịch được!!!";
                     }
@@ -7944,7 +7944,7 @@ public class NpcFactory {
                         CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.CHE_TAO_BT);
                         break;
                     case ConstNpc.MENU_CHE_DO:
-                        if (player.tuTien.canHandleWithLinhKhiPoint(10)) {
+                        if (!player.tuTien.canHandleWithLinhKhiPoint(10)) {
                             Service.gI().sendThongBao(player, "Bạn không đủ linh lực để luyện chế hãy bổ sung linh lực trước");
                             return;
                         }

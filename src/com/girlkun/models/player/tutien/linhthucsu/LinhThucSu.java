@@ -246,6 +246,9 @@ public class LinhThucSu extends BasePoint implements IBaseAction {
     }
 
     public void nauAn() {
+        if (!player.tuTien.canHandleWithLinhKhiPoint(1)){
+            return;
+        }
         Item it1 = InventoryServiceNew.gI().findItemBag(player, 2050);
         Item it2 = InventoryServiceNew.gI().findItemBag(player, 2048);
         if (it1 == null || it2 == null || it2.quantity < 10) {

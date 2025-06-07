@@ -4338,7 +4338,8 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
-            player.tuTien.subLinhKhiPercent(1);
+            player.tuTien.subLinhKhiPercent(10);
+
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4376,7 +4377,8 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
-            player.tuTien.subLinhKhiPercent(1);
+            player.tuTien.subLinhKhiPercent(10);
+
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4414,7 +4416,7 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
-            player.tuTien.subLinhKhiPercent(1);
+            player.tuTien.subLinhKhiPercent(10);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4808,7 +4810,7 @@ public class CombineServiceNew {
             InventoryServiceNew.gI().sendItemBags(player);
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
-            player.tuTien.subLinhKhiPercent(1);
+            player.tuTien.subLinhKhiPercent(10);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -4846,7 +4848,7 @@ public class CombineServiceNew {
             InventoryServiceNew.gI().sendItemBags(player);
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
-            player.tuTien.subLinhKhiPercent(1);
+            player.tuTien.subLinhKhiPercent(10);
 
         } catch (Exception e) {
             Logger.error(e.getMessage());
@@ -4885,7 +4887,8 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
-            player.tuTien.subLinhKhiPercent(1);
+            player.tuTien.subLinhKhiPercent(10);
+
 
         } catch (Exception e) {
             Logger.error(e.getMessage());
@@ -4924,7 +4927,8 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
-            player.tuTien.subLinhKhiPercent(1);
+            player.tuTien.subLinhKhiPercent(10);
+
 
         } catch (Exception e) {
             Logger.error(e.getMessage());
@@ -4963,7 +4967,8 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
-            player.tuTien.subLinhKhiPercent(1);
+            player.tuTien.subLinhKhiPercent(10);
+
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -5001,7 +5006,8 @@ public class CombineServiceNew {
             player.luyenKhiSu.addExp(kinhNghiemLuyenkhi);
             player.luyenKhiSu.getLinhHoa().addExp(knLinhHoa);
             InventoryServiceNew.gI().sendItemBags(player);
-            player.tuTien.subLinhKhiPercent(1);
+            player.tuTien.subLinhKhiPercent(10);
+
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
