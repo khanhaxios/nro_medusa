@@ -41,13 +41,13 @@ public class Chopper extends Boss {
                     this.location.y - 24), plKill.id);
             switch (itemDos[randomDo]) {
                 case 1474:
-                    itemReward.options.add(new Item.ItemOption(50, Util.nextInt(50, 200)));
+                    itemReward.options.add(new Item.ItemOption(50, Util.nextInt(50, 3)));
                     break;
                 case 1475:
-                    itemReward.options.add(new Item.ItemOption(77, Util.nextInt(50, 200)));
+                    itemReward.options.add(new Item.ItemOption(77, Util.nextInt(50, 5)));
                     break;
                 case 1476:
-                    itemReward.options.add(new Item.ItemOption(103, Util.nextInt(50, 200)));
+                    itemReward.options.add(new Item.ItemOption(103, Util.nextInt(50, 5)));
                     break;
             }
         }

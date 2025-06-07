@@ -458,10 +458,6 @@ public class InventoryServiceNew {
                         Service.gI().sendThongBaoOK(player, "Bạn cần học ngự thú sư để trang bị thú cưỡi,pet,linh thú");
                         return;
                     }
-                    if (!player.nguThuSu.canUseItem(index)) {
-                        Service.gI().sendThongBaoOK(player, "Bạn cần nâng cấp ngự thú sư để trang bị thú cưỡi này");
-                        return;
-                    }
                 }
                 player.inventory.itemsBag.set(index, putItemBody(player, item));
                 if (item.template.id > 1299 && item.template.id < 1309) {
