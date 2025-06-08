@@ -1,7 +1,10 @@
 package com.girlkun.models.player.tutien.luyenkhi;
 
 import com.girlkun.utils.Util;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -15,6 +18,10 @@ public class ThuocTinhLinhCan {
 
     public String getTenThuocTinhReplace() {
         return tenThuocTinh.replace("#", String.valueOf(param));
+    }
+
+    public short ratioThuocTinhLinhCanAdmin() {
+        return (short) Util.nextInt(1000, 10000);
     }
 
     public short ratioThuocTinhLinhCan() {

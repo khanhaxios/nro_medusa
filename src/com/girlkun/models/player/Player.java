@@ -31,6 +31,7 @@ import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.tutien.khongthisu.KhongThiSu;
 import com.girlkun.models.player.tutien.linhthucsu.LinhThucSu;
+import com.girlkun.models.player.tutien.luyendansu.LuyenDanSu;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.models.player.tutien.luyenkhisu.LuyenKhiSu;
 import com.girlkun.models.player.tutien.luyenthe.LuyenThe;
@@ -148,6 +149,7 @@ public class Player {
     public NhiemvuChienthan chienthan;
     //    public NewPet newpet1;
     public LuyenKhiSu luyenKhiSu;
+    public LuyenDanSu luyenDanSu;
     public MobMe mobMe;
     public Location location;
     public SetClothes setClothes;
@@ -288,6 +290,7 @@ public class Player {
         chienthan = new NhiemvuChienthan();
         luyenKhiSu = new LuyenKhiSu(this);
         tuTien = new TuTien(this);
+        luyenDanSu = new LuyenDanSu(this);
         luyenThe = new LuyenThe(this);
         phuChuSu = new PhuChuSu(this);
         tranPhapSu = new TranPhapSu(this);
@@ -383,6 +386,9 @@ public class Player {
                     }
                     if (tranPhapSu != null) {
                         tranPhapSu.update();
+                    }
+                    if (luyenDanSu!=null){
+                        luyenDanSu.update();
                     }
                     if (nguThuSu != null) {
                         nguThuSu.update();

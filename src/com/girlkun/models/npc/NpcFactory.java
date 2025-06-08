@@ -2774,7 +2774,7 @@ public class NpcFactory {
                                 }
                                 break;
                             case 4:
-                                if (player.clan != null ) {
+                                if (player.clan != null) {
                                     if (player.clan.banDoKhoBau != null) {
                                         this.createOtherMenu(player, ConstNpc.MENU_OPENED_BDKB, "|7|BẢN ĐỒ KHO BÁU\n|6|Bang hội của con đang đi Bản đồ Kho báu cấp độ " + player.clan.banDoKhoBau.level + "\nCon có muốn đi theo không?", "Đồng ý", "Từ chối");
                                     } else {
@@ -6613,7 +6613,7 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 21 || mapId == 22 || mapId == 23 || mapId == 5) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Muốn tu tiên?Tìm đúng người rồi đấy", "Học\nLuyện Phù", "Học\nTrận Pháp", "Học\nLinh Thực", "Học\nNgự Thú", "Học\nKhống Thi", "Đóng");
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Muốn tu tiên?Tìm đúng người rồi đấy", "Học\nLuyện Phù", "Học\nTrận Pháp", "Học\nLinh Thực", "Học\nNgự Thú", "Học\nKhống Thi", "Học\nLuyện Đan", "Đóng");
                     }
                 }
             }
@@ -6639,6 +6639,8 @@ public class NpcFactory {
                                 case 4:
                                     createOtherMenu(player, ConstNpc.MENU_MO_KHONG_THI, "Học khống thi cần đạt tu tiên cấp Trúc Cơ và  luyện thể tầng 10 thêm 100k điểm nữa nhé", "Học", "Từ chối");
                                     break;
+                                case 5:
+                                    createOtherMenu(player, ConstNpc.MENU_MO_LUYEN_DAN, "Học luyện đan cần đạt tu tiên cấp Nguyên anh và 100k điểm nạp");
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_PHU_SU) {
                             if (!player.isAdmin()) {
@@ -6664,94 +6666,126 @@ public class NpcFactory {
                                 PlayerDAO.subvnd(player, 100000);
                                 player.phuChuSu.openSystem();
                             }
+                        } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_LUYEN_DAN) {
+                            if (select == 0) {
+                                if (!player.isAdmin()) {
+                                    if (!player.tuTien.isTuTien() || player.tuTien.level < 3) {
+                                        Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
+                                        return;
+                                    }
+                                    if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                        Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
+                                        return;
+                                    }
+                                    if (player.luyenDanSu.isLuyenDan()) {
+                                        Service.gI().sendThongBao(player, "Bạn đã học luyện đan rồi");
+                                        return;
+                                    }
+                                    double sodu = player.session.vnd - 100_000;
+                                    if (sodu < 0) {
+                                        Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
+                                        return;
+                                    }
+                                }
+                                PlayerDAO.subvnd(player, 100000);
+                                player.luyenDanSu.openSystem();
+                            }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_TRAN_PHAP_SU) {
-                            if (!player.isAdmin()) {
-                                if (!player.tuTien.isTuTien() || player.tuTien.level < 3) {
-                                    Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
-                                    return;
+                            if (select == 0) {
+                                if (!player.isAdmin()) {
+                                    if (!player.tuTien.isTuTien() || player.tuTien.level < 3) {
+                                        Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
+                                        return;
+                                    }
+                                    if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                        Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
+                                        return;
+                                    }
+                                    if (player.tranPhapSu.isTranPhap()) {
+                                        Service.gI().sendThongBao(player, "Bạn đã học trận pháp rồi");
+                                        return;
+                                    }
+                                    double sodu = player.session.vnd - 100_000;
+                                    if (sodu < 0) {
+                                        Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
+                                        return;
+                                    }
                                 }
-                                if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
-                                    Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
-                                    return;
-                                }
-                                if (player.tranPhapSu.isTranPhap()) {
-                                    Service.gI().sendThongBao(player, "Bạn đã học trận pháp rồi");
-                                    return;
-                                }
-                                double sodu = player.session.vnd - 100_000;
-                                if (sodu < 0) {
-                                    Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
-                                    return;
-                                }
+                                PlayerDAO.subvnd(player, 100000);
+                                player.tranPhapSu.openSystem();
                             }
-                            PlayerDAO.subvnd(player, 100000);
-                            player.tranPhapSu.openSystem();
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_LINH_THUC) {
-                            if (!player.isAdmin()) {
-                                if (!player.tuTien.isTuTien() || player.tuTien.level < 3) {
-                                    Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
-                                    return;
+                            if (select == 0) {
+                                if (!player.isAdmin()) {
+                                    if (!player.tuTien.isTuTien() || player.tuTien.level < 3) {
+                                        Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
+                                        return;
+                                    }
+                                    if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                        Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
+                                        return;
+                                    }
+                                    if (player.linhThucSu.isLinhThuc()) {
+                                        Service.gI().sendThongBao(player, "Bạn đã học linh thực rồi");
+                                        return;
+                                    }
+                                    double sodu = player.session.vnd - 100_000;
+                                    if (sodu < 0) {
+                                        Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
+                                        return;
+                                    }
                                 }
-                                if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
-                                    Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
-                                    return;
-                                }
-                                if (player.linhThucSu.isLinhThuc()) {
-                                    Service.gI().sendThongBao(player, "Bạn đã học linh thực rồi");
-                                    return;
-                                }
-                                double sodu = player.session.vnd - 100_000;
-                                if (sodu < 0) {
-                                    Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
-                                    return;
-                                }
+                                PlayerDAO.subvnd(player, 100000);
+                                player.linhThucSu.openSystem();
                             }
-                            PlayerDAO.subvnd(player, 100000);
-                            player.linhThucSu.openSystem();
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_NGU_THU) {
-                            if (!player.isAdmin()) {
-                                if (!player.tuTien.isTuTien() || player.tuTien.level < 3) {
-                                    Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
-                                    return;
+                            if (select == 0) {
+                                if (!player.isAdmin()) {
+                                    if (!player.tuTien.isTuTien() || player.tuTien.level < 3) {
+                                        Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
+                                        return;
+                                    }
+                                    if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                        Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
+                                        return;
+                                    }
+                                    if (player.nguThuSu.isNguThu()) {
+                                        Service.gI().sendThongBao(player, "Bạn đã học ngự thú rồi");
+                                        return;
+                                    }
+                                    double sodu = player.session.vnd - 100_000;
+                                    if (sodu < 0) {
+                                        Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
+                                        return;
+                                    }
                                 }
-                                if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
-                                    Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
-                                    return;
-                                }
-                                if (player.nguThuSu.isNguThu()) {
-                                    Service.gI().sendThongBao(player, "Bạn đã học ngự thú rồi");
-                                    return;
-                                }
-                                double sodu = player.session.vnd - 100_000;
-                                if (sodu < 0) {
-                                    Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
-                                    return;
-                                }
+                                PlayerDAO.subvnd(player, 100000);
+                                player.nguThuSu.openSystem();
                             }
-                            PlayerDAO.subvnd(player, 100000);
-                            player.nguThuSu.openSystem();
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_KHONG_THI) {
-                            if (!player.isAdmin()) {
-                                if (!player.tuTien.isTuTien() || player.tuTien.level < 1) {
-                                    Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Trúc Cơ");
-                                    return;
+                            if (select == 0) {
+                                if (!player.isAdmin()) {
+                                    if (!player.tuTien.isTuTien() || player.tuTien.level < 1) {
+                                        Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Trúc Cơ");
+                                        return;
+                                    }
+                                    if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                        Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
+                                        return;
+                                    }
+                                    if (player.khongThiSu.isKhongThi()) {
+                                        Service.gI().sendThongBao(player, "Bạn đã học khống thi rồi");
+                                        return;
+                                    }
+                                    double sodu = player.session.vnd - 100_000;
+                                    if (sodu < 0) {
+                                        Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
+                                        return;
+                                    }
                                 }
-                                if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
-                                    Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
-                                    return;
-                                }
-                                if (player.khongThiSu.isKhongThi()) {
-                                    Service.gI().sendThongBao(player, "Bạn đã học khống thi rồi");
-                                    return;
-                                }
-                                double sodu = player.session.vnd - 100_000;
-                                if (sodu < 0) {
-                                    Service.gI().sendThongBao(player, "Cần 100k điểm nạp");
-                                    return;
-                                }
+                                PlayerDAO.subvnd(player, 100000);
+                                player.khongThiSu.openSystem();
                             }
-                            PlayerDAO.subvnd(player, 100000);
-                            player.khongThiSu.openSystem();
                         }
                     }
                 }
@@ -6975,7 +7009,7 @@ public class NpcFactory {
                                     Service.gI().sendThongBaoOK(player, "Kinh nghiệm luyện khí chưa đủ");
                                     return;
                                 }
-                                int tienCan = 1_000_000;
+                                int tienCan = 50_000;
                                 // get vnd
                                 if (player.session.vnd - tienCan < 0) {
                                     Service.gI().sendThongBaoOK(player, "Bạn không đủ điểm");
@@ -7007,7 +7041,7 @@ public class NpcFactory {
                                     return;
                                 }
                                 // dot pha thoi
-                                int tienCan = 1_000_000;
+                                int tienCan = 50_000;
                                 // get vnd
                                 if (player.session.vnd - tienCan < 0) {
                                     Service.gI().sendThongBaoOK(player, "Bạn không đủ điểm");
@@ -7037,7 +7071,7 @@ public class NpcFactory {
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.CF_TRUYEN_CONG_LK) {
                         // kinh nghiem
-                        int tienCan = 50_000_000;
+                        int tienCan = 100_000;
 
                         if (player.session.vnd - tienCan < 0) {
                             Service.gI().sendThongBao(player, "Bạn không đủ tiền");
@@ -7061,7 +7095,7 @@ public class NpcFactory {
                         Service.gI().sendThongBaoOK(player, "Truyền công hoàn tất bạn nhận được \n" + Util.format(exp) + " Kinh nghiệm luyện khí\nx" + soLuong + " " + item.template.name);
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.CF_TRUYEN_CONG_LH) {
                         // kinh nghiem
-                        int tienCan = 50_000_000;
+                        int tienCan = 100_000;
 
                         if (player.session.vnd - tienCan < 0) {
                             Service.gI().sendThongBao(player, "Bạn không đủ tiền");
@@ -7371,6 +7405,23 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 switch (player.iDMark.getIndexMenu()) {
+                    case ConstNpc.MENU_LUYEN_DAN:
+                        switch (select) {
+                            case 0:
+                                createOtherMenu(player, ConstNpc.MENU_CHON_DAN_PHUONG, "Hãy chọn đan muốn luyện", "Tôi\nThể đan", "Ngưng\nNguyên đan", "Đóng");
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_CHON_DAN_PHUONG:
+                        switch (select) {
+                            case 0:
+                                player.luyenDanSu.luyenToiTheDan();
+                                break;
+                            case 1:
+                                player.luyenDanSu.luyenNgungNguyenDan();
+                                break;
+                        }
+                        break;
                     case ConstNpc.LINH_KHI_SETTING:
                         switch (select) {
                             case 0:
@@ -7615,7 +7666,12 @@ public class NpcFactory {
                                 player.tuTien.congPhap.tangPham();
                                 break;
                             case 1:
+                                if (player.session.vnd - 1_000_000 < 0) {
+                                    Service.gI().sendThongBao(player, "Cần 1 triệu điểm nạp");
+                                    return;
+                                }
                                 // can 100 tr
+                                PlayerDAO.subvnd(player, 1_000_000);
                                 player.tuTien.congPhap.tangPham(100);
                                 break;
                         }

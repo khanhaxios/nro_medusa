@@ -230,7 +230,7 @@ public class CongPhap {
     public void randomNewBuff(int soLuongMuonRandom) {
         if (this.slThuocTinh >= maxThuocTinh) return;
 
-        boolean isAdd = Util.isTrue(getBaseTyLeLinhNgo() + 10, 100);
+        boolean isAdd = Util.isTrue(50, 100);
         if (!isAdd) return;
 
         byte countNew = 0;
@@ -360,9 +360,9 @@ public class CongPhap {
         player.nPoint.tlDameCrit.add(xDameThuocTinh * 5);
         player.nPoint.tlHutHp += tlHutHPBuff;
         player.nPoint.tlHutMp += tlHutMPBuff;
-        player.nPoint.dameg += totalHutDame;
-        player.nPoint.hpg += totalHutHp;
-        player.nPoint.mpg += totalHutMp;
+        player.nPoint.dameAdd += totalHutDame;
+        player.nPoint.hpAdd += totalHutHp;
+        player.nPoint.mpAdd += totalHutMp;
     }
 
     public void autoAddDoTT() {

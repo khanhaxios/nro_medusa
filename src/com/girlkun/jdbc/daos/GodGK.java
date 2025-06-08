@@ -1063,6 +1063,21 @@ public class GodGK {
                     e.printStackTrace();
                 }
                 try {
+                    String dataLuyenDan = rs.getString("data_luyen_dan");
+                    if (dataLuyenDan != null && !dataLuyenDan.isEmpty()) {
+                        JSONArray jsonArray = (JSONArray) JSONValue.parse(dataLuyenDan);
+                        if (jsonArray.size() > 0) {
+                            player.luyenDanSu.level = Byte.parseByte(jsonArray.get(0).toString());
+                            player.luyenDanSu.exp = Long.parseLong(jsonArray.get(1).toString());
+                            player.luyenDanSu.maxExp = Long.parseLong(jsonArray.get(2).toString());
+                            player.luyenDanSu.tongDanDuocDaAn = Byte.parseByte(jsonArray.get(3).toString());
+                            player.luyenDanSu.tongDanDuoc = Byte.parseByte(jsonArray.get(4).toString());
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
                     String dataLuyenThe = rs.getString("data_luyen_the");
                     if (dataLuyenThe != null && !dataLuyenThe.isEmpty()) {
                         JSONArray jsonArray = (JSONArray) JSONValue.parse(dataLuyenThe);

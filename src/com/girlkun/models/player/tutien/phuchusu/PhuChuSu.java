@@ -107,7 +107,7 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
     }
 
     public void cheBua() {
-        if (canCheBua()) {
+        if (!canCheBua()) {
             Service.gI().sendThongBao(player, "Bạn không đủ linh lực để chế bùa");
             return;
         }
@@ -176,7 +176,7 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
             Service.gI().sendThongBao(player, "Bạn cần đạt phù sư cấp tông sư để chế bùa vip");
             return;
         }
-        if (canCheBua()) {
+        if (!canCheBua()) {
             Service.gI().sendThongBao(player, "Bạn không đủ linh lực để chế bùa");
             return;
         }

@@ -1,41 +1,29 @@
 package com.girlkun.services.func;
 
-import com.girlkun.models.card.Card;
-import com.girlkun.models.card.RadarCard;
-import com.girlkun.models.card.RadarService;
 import com.girlkun.consts.ConstMap;
-import com.girlkun.models.item.Item;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.consts.ConstTask;
 import com.girlkun.models.boss.BossManager;
+import com.girlkun.models.card.Card;
+import com.girlkun.models.card.RadarCard;
+import com.girlkun.models.card.RadarService;
+import com.girlkun.models.item.Item;
 import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Inventory;
 import com.girlkun.models.player.Pet.ConstPet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
-import com.girlkun.services.NpcService;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
 import com.girlkun.server.Manager;
-import com.girlkun.utils.SkillUtil;
-import com.girlkun.services.Service;
-import com.girlkun.utils.Util;
 import com.girlkun.server.io.MySession;
-import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.ItemService;
-import com.girlkun.services.ItemTimeService;
-import com.girlkun.services.PetService;
-import com.girlkun.services.PlayerService;
-import com.girlkun.services.TaskService;
-import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.MapService;
-import com.girlkun.services.NgocRongNamecService;
-import com.girlkun.services.RewardService;
-import com.girlkun.services.SkillService;
+import com.girlkun.services.*;
 import com.girlkun.utils.Logger;
+import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.TimeUtil;
+import com.girlkun.utils.Util;
 
 import java.util.Date;
 import java.util.Random;
@@ -269,6 +257,13 @@ public class UseItem {
                     Service.getInstance().sendPetFollow(pl, (short) (item.template.iconID - 1));
                     break;
                 }
+                case 77:
+                    if (!pl.luyenDanSu.isLuyenDan()) {
+                        Service.gI().sendThongBao(pl, "Cần học luyện đan sư để có thể dùng đan dược");
+                        return;
+                    }
+                    pl.luyenDanSu.useDanDuoc(item);
+                    break;
                 case 13: {
                     // random thời gian có tác dụng của bùa
                     int min = 10;

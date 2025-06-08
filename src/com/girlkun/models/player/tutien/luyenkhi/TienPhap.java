@@ -53,7 +53,7 @@ public class TienPhap {
         byte randomParam = TienPhap.PARAM_TO_BUFF[Util.nextInt(TienPhap.PARAM_TO_BUFF.length)];
         this.setParam(randomParam);
         byte xP = (byte) Util.nextInt(baseXParam);
-        this.setPercentLinhKhiUse(baseXParam * 100);
+        this.setPercentLinhKhiUse(baseXParam * 10000);
         this.setXParam(xP);
     }
 
@@ -75,8 +75,7 @@ public class TienPhap {
     }
 
     public void useTienPhap() {
-        int percent = (int) ((100.0 * tuTien.linhKhiPoint) / tuTien.maxLinhKhiPoint);
-        if (percent - percentLinhKhiUse >= 0) {
+        if (tuTien.linhKhiPoint - percentLinhKhiUse >= 0) {
             restTienCoolDown();
             tuTien.subLinhKhiPercent(percentLinhKhiUse);
             Service.gI().chat(tuTien.player, ten);

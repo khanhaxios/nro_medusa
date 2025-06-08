@@ -1,0 +1,269 @@
+package com.girlkun.models.player.tutien.luyendansu;
+
+import com.girlkun.consts.ConstNpc;
+import com.girlkun.models.item.Item;
+import com.girlkun.models.mob.Mob;
+import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tutien.base_tutien.BasePoint;
+import com.girlkun.models.player.tutien.base_tutien.IBaseAction;
+import com.girlkun.services.InventoryServiceNew;
+import com.girlkun.services.ItemService;
+import com.girlkun.services.NpcService;
+import com.girlkun.services.Service;
+import com.girlkun.utils.Util;
+
+public class LuyenDanSu extends BasePoint implements IBaseAction {
+    private static byte MAX_LEVEL = 9;
+
+    public int tongDanDuocDaAn;
+    public int tongDanDuoc;
+
+    public LuyenDanSu(Player player) {
+        super(player);
+    }
+
+    @Override
+    public long getExpCanGain(Mob targetMob) {
+        return level * 100;
+    }
+
+    @Override
+    public void levelUp() {
+        this.level++;
+        restExp();
+        calcTongDanDuocAnDuoc();
+        Service.gI().sendThongBao(player, "Bạn đã đột phá luyện đan sư thành công");
+    }
+
+    @Override
+    public void restExp() {
+        this.exp = 0;
+        this.maxExp = getNextLevelExp();
+    }
+
+    @Override
+    public void levelDown() {
+        this.level--;
+        restExp();
+    }
+
+    @Override
+    public void resetLevel() {
+        this.level = 0;
+        restExp();
+    }
+
+    @Override
+    public float getLevelUpPercent() {
+        switch (level) {
+            case 1:
+                return 100f;
+            case 2:
+                return 50f;
+            case 3:
+                return 30f;
+            case 4:
+                return 20f;
+            case 5:
+                return 10f;
+            case 6:
+                return 3f;
+            case 7:
+                return 2f;
+            case 8:
+                return 1f;
+            case 9:
+                return .3f;
+        }
+        return .3f;
+    }
+
+    @Override
+    public void openSystem() {
+        if (player.tuTien.level < 3) {
+            Service.gI().sendThongBao(player, "Cần đạt nguyên anh để học luyện đan");
+            return;
+        }
+        levelUp();
+        // cho it vat lieu
+        InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2069, 10));
+        InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2070, 10));
+        InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2071, 10));
+        Service.gI().sendThongBao(player, "Bạn nhận được x10 Cam ngọc,Mầm đậu thần,Khúc liên");
+        InventoryServiceNew.gI().sendItemBags(player);
+    }
+
+    @Override
+    public boolean canLevelUp() {
+        return exp == maxExp && level + 1 < MAX_LEVEL;
+    }
+
+    @Override
+    public String getName() {
+        return "Luyện đan sư [" + level + "]";
+    }
+
+    @Override
+    public String getCurrentExpAsString() {
+        return Util.powerToString(exp) + "/" + Util.powerToString(maxExp);
+    }
+
+    @Override
+    public float getDameBuff() {
+        return 0;
+    }
+
+    @Override
+    public float getHPMPBuff() {
+        return 0;
+    }
+
+    @Override
+    public float getDefBuff() {
+        return 0;
+    }
+
+    @Override
+    public float getPSTBuff() {
+        return 0;
+    }
+
+    @Override
+    public float getHutHPBuff() {
+        return 0;
+    }
+
+    @Override
+    public float getHutMPBuff() {
+        return 0;
+    }
+
+    @Override
+    public float getNeBuff() {
+        return 0;
+    }
+
+    @Override
+    public float getChinhXacBuff() {
+        return 0;
+    }
+
+    public void update() {
+        if (isLuyenDan()) {
+            if (exp == maxExp) {
+                // try dot pha
+                if (Util.isTrue(getLevelUpPercent(), 100)) {
+                    levelUp();
+                    Service.gI().sendThongBao(player, "Tự động đột phá luyện đan sư thành công");
+                } else {
+                    Service.gI().sendThongBao(player, "Tự động đột phá luyện đan sư thất bại");
+                }
+            }
+        }
+    }
+
+    public boolean isLuyenDan() {
+        return level > 0;
+    }
+
+    public void calcTongDanDuocAnDuoc() {
+        this.tongDanDuoc += 30;
+    }
+
+    public void showBaseMenu() {
+        String menuText = "|7|Thông tin luyện đan sư\n" +
+                "|5|Cấp bậc :" + getName() + "\n" +
+                "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" +
+                "|7|Tỷ lệ đột phá : " + getLevelUpPercent() + "%\n" +
+                "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" +
+                "|2|Số đan dược đã dùng  : " + tongDanDuocDaAn + "viên\n" +
+                "|7|Đan dược kháng tính : " + tongDanDuocDaAn / tongDanDuoc * 100 + "%\n" +
+                "|7|Khi đột phá , đan dược kháng tính sẽ được giảm bớt đi 1 xíu";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_DAN, -1, menuText, "Luyện đan", "Đóng");
+    }
+
+    public void luyenToiTheDan() {
+        Item it1 = InventoryServiceNew.gI().findItemBag(player, 2069);
+        Item it2 = InventoryServiceNew.gI().findItemBag(player, 2070);
+        Item it3 = InventoryServiceNew.gI().findItemBag(player, 2071);
+        if (it1 == null || it3 == null || it2 == null || it1.quantity < 2 || it2.quantity < 2 || it3.quantity < 2) {
+            Service.gI().sendThongBaoOK(player, "Cần x2 mầm đậu thần , khúc liên ,cam ngọc");
+            return;
+        }
+        // tao dan theo ty le
+        float ratio = getTyLeCheDanThanhCong();
+        if (Util.isTrue(ratio, 110)) {
+            InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2072, 1));
+            Service.gI().sendThongBao(player, "Bạn nhận được Tôi thể đan x1");
+        } else {
+            Service.gI().sendThongBao(player, "Luyện chế thất bại");
+        }
+        addExp(getExpCanGain(null));
+        InventoryServiceNew.gI().subQuantityItemsBag(player, it1, 2);
+        InventoryServiceNew.gI().subQuantityItemsBag(player, it2, 2);
+        InventoryServiceNew.gI().subQuantityItemsBag(player, it3, 2);
+        InventoryServiceNew.gI().sendItemBags(player);
+    }
+
+    public void addExp(long exp) {
+        this.exp += exp;
+        if (this.exp > maxExp) {
+            this.exp = maxExp;
+        }
+    }
+
+    private float getTyLeCheDanThanhCong() {
+        return 5 + (player.tuTien.getXDiemThienPhu() * level);
+    }
+
+    public void useDanDuoc(Item item) {
+        // cong can cot
+        boolean canUse = true;
+        if (tongDanDuocDaAn + 1 > tongDanDuoc) {
+            Service.gI().sendThongBao(player, "Bạn đã đạt giới hạn đan dược có thể sử dụng nếu ăn nữa cũng ko có tác dụng");
+            canUse = false;
+        }
+        if (canUse) {
+            byte basePlus = 0;
+            switch (item.template.id) {
+                case 2072:
+                    basePlus = (byte) (this.level + Util.nextInt(1, 3));
+                    player.tuTien.canCot += basePlus;
+                    Service.gI().sendThongBao(player, "Bạn vừa dùng x1 " + item.template.name + " Căn cốt tăng lên " + basePlus);
+                    break;
+                case 2073:
+                    basePlus = (byte) (this.level + Util.nextInt(1, 2));
+                    player.tuTien.ngoTinh += this.level + Util.nextInt(1, 2);
+                    Service.gI().sendThongBao(player, "Bạn vừa dùng x1 " + item.template.name + " Căn cốt tăng lên " + basePlus);
+                    break;
+            }
+            tongDanDuocDaAn++;
+        }
+
+        InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
+        InventoryServiceNew.gI().sendItemBags(player);
+    }
+
+    public void luyenNgungNguyenDan() {
+        Item it1 = InventoryServiceNew.gI().findItemBag(player, 2069);
+        Item it2 = InventoryServiceNew.gI().findItemBag(player, 2070);
+        Item it3 = InventoryServiceNew.gI().findItemBag(player, 2071);
+        if (it1 == null || it3 == null || it2 == null || it1.quantity < 2 || it2.quantity < 2 || it3.quantity < 2) {
+            Service.gI().sendThongBaoOK(player, "Cần x2 mầm đậu thần , khúc liên ,cam ngọc");
+            return;
+        }
+        // tao dan theo ty le
+        float ratio = getTyLeCheDanThanhCong();
+        if (Util.isTrue(ratio, 110)) {
+            InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2073, 1));
+            Service.gI().sendThongBao(player, "Bạn nhận được Ngưng nguyên đan x1");
+        } else {
+            Service.gI().sendThongBao(player, "Luyện chế thất bại");
+        }
+        addExp(getExpCanGain(null));
+        InventoryServiceNew.gI().subQuantityItemsBag(player, it1, 2);
+        InventoryServiceNew.gI().subQuantityItemsBag(player, it2, 2);
+        InventoryServiceNew.gI().subQuantityItemsBag(player, it3, 2);
+        InventoryServiceNew.gI().sendItemBags(player);
+    }
+}

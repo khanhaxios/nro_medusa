@@ -250,7 +250,7 @@ public class Thu_TrieuHoi extends Player {
             if (masterr.TrieuHoiThucAn <= 0) {
                 masterr.TrieuHoiCapBac = -1;
                 Service.gI().sendThongBao(masterr, "|7|Chiến Thần đã chết vì bị bỏ đói");
-            } else if (masterr.TrieuHoiThucAn > 0 && masterr.TrieuHoiThucAn <= 50) {
+            } else if (masterr.TrieuHoiThucAn <= 50) {
                 Service.gI().sendThongBao(masterr, "|7|Thức ăn Chiến Thần dưới 50%");
             }
             ServerNotify.gI().sendNotifyTab(masterr);

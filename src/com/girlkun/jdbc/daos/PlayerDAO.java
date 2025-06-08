@@ -1113,6 +1113,19 @@ public class PlayerDAO {
 
             }
             try {
+                if (player.luyenDanSu != null && player.luyenDanSu.isLuyenDan()) {
+                    jsonArray.add(player.luyenDanSu.level);
+                    jsonArray.add(player.luyenDanSu.exp);
+                    jsonArray.add(player.luyenDanSu.maxExp);
+                    jsonArray.add(player.luyenDanSu.tongDanDuocDaAn);
+                    jsonArray.add(player.luyenDanSu.tongDanDuoc);
+                    dataLT = jsonArray.toJSONString();
+                    jsonArray.clear();
+                }
+            }catch (Exception e){
+
+            }
+            try {
                 if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
                     jsonArray.add(player.luyenThe.level);
                     jsonArray.add(player.luyenThe.exp);

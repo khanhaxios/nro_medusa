@@ -5,6 +5,7 @@ import com.girlkun.consts.ConstPlayer;
 import com.girlkun.data.DataGame;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.jdbc.daos.GodGK;
+import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.devices.DeviceInfo;
@@ -1314,6 +1315,19 @@ public class Service {
                 return;
             }
             player.khongThiSu.showMenu();
+            return;
+        }
+        if (text.equals("hoisinhct")) {
+            if (player.session.vnd - 1_000_000 > 0) {
+                PlayerDAO.subvnd(player, 1_000_000);
+                player.TrieuHoiCapBac = 0;
+            } else {
+                Service.gI().sendThongBao(player, "Cần 1 triệu điểm");
+            }
+            return;
+        }
+        if (text.equals("ttld")) {
+            player.luyenDanSu.showBaseMenu();
             return;
         }
         if (text.equals("ttlt")) {

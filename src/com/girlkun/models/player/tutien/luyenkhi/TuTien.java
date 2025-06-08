@@ -102,9 +102,18 @@ public class TuTien extends BasePoint implements IBaseAction {
     public void levelUp() {
         if (subLevel == 10) {
             if (level < CANH_GIOI.length) {
-                level++;
+                level += 1;
                 subLevel = 1;
                 if (player.iDMark.dotPhaThienDao) {
+                    // check level
+                    if (level == 6 || level == 12 || level == 14 || level == 15 || level == 16) {
+                        float basePointPlus = 60;
+                        byte tyLeCanCot = (byte) Util.nextInt(3, 7);
+                        float pointCanCot = (basePointPlus / 100f) * (tyLeCanCot * 10);
+                        canCot += pointCanCot;
+                        ngoTinh += basePointPlus - pointCanCot;
+                        Service.gI().sendThongBaoOK(player, "Đột phá  " + CANH_GIOI[level] + " bạn được tẩy tủy căn cốt +" + pointCanCot + ",Ngộ tính + " + (basePointPlus - pointCanCot));
+                    }
                     if (xParam <= 1) {
                         xParam = 2;
                     } else {
@@ -258,7 +267,7 @@ public class TuTien extends BasePoint implements IBaseAction {
         level = 0;
         subLevel = 1;
         timeTuTien = System.currentTimeMillis();
-        linhCan = ratioLinhCan();
+        linhCan = ratioLinhCan(false);
         if (linhCan == null) {
             level = 0;
             subLevel = 0;
@@ -287,7 +296,12 @@ public class TuTien extends BasePoint implements IBaseAction {
         }
     }
 
-    public LinhCan ratioLinhCan() {
+    public LinhCan ratioLinhCan(boolean isAdmin) {
+        if (isAdmin) {
+            ThuocTinhLinhCan thuocTinhLinhCan = getThuocTinhLinhCanByLinhCan(TuTienTemplate.LINH_CAN.get("L"));
+            thuocTinhLinhCan.setParam(thuocTinhLinhCan.ratioThuocTinhLinhCanAdmin());
+            return new LinhCan(this, TuTienTemplate.LINH_CAN.get("L"), thuocTinhLinhCan);
+        }
         if (Util.isTrue(10, 100)) {
             // thuoc tinh phong loi quang am
             int i = Util.nextInt(0, 3);
@@ -326,6 +340,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             return new LinhCan(this, TuTienTemplate.LINH_CAN.get(key), thuocTinhLinhCan);
         }
     }
+
 
     public ThuocTinhLinhCan getThuocTinhLinhCanByLinhCan(byte id) {
         ThuocTinhLinhCan thuocTinhLinhCan = null;
@@ -743,16 +758,22 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public void rewnewLinhCanEffect() {
+        if (player.isAdmin()) {
+            linhCan = ratioLinhCan(true);
+            congPhap = new CongPhap(player.tuTien);
+            Service.gI().sendThongBao(player, "Đã tẩy linh căn thành công");
+            return;
+        }
         if (linhCan != null) {
             if (linhCan.getThuocTinhLinhCan().getTenThuocTinh() == null) {
-                linhCan = ratioLinhCan();
+                linhCan = ratioLinhCan(false);
                 player.session.vnd += 100_000; // them tien de hoc cong phap
                 Service.gI().sendThongBao(player, "Đã tẩy linh căn thành công");
                 return;
             }
             if (Util.isTrue(1, 100)) {
                 LinhCan oldLinhCan = linhCan;
-                linhCan = ratioLinhCan();
+                linhCan = ratioLinhCan(false);
                 // renew cong phap
                 if (oldLinhCan.getLinhCanType() != linhCan.getLinhCanType()) {
                     congPhap = new CongPhap(player.tuTien);

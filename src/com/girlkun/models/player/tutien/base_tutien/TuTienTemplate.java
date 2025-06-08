@@ -1,7 +1,9 @@
 package com.girlkun.models.player.tutien.base_tutien;
 
-import com.girlkun.models.player.Player;
-import com.girlkun.models.player.tutien.luyenkhi.*;
+import com.girlkun.models.player.tutien.luyendansu.DanPhuong;
+import com.girlkun.models.player.tutien.luyenkhi.CongPhap;
+import com.girlkun.models.player.tutien.luyenkhi.ThuocTinhLinhCan;
+import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
@@ -29,6 +31,8 @@ public class TuTienTemplate {
 
     public static List<TienPhap> TIEN_PHAP = new ArrayList<>();
 
+    public static List<DanPhuong> DAN_PHUONG = new ArrayList<>();
+
     public void initBuffThuocTinhLinhCan() {
         // init thuoc tinh linh can
         THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 0, "Sát thương Kim +#%", (short) 0, (byte) 0));
@@ -36,9 +40,9 @@ public class TuTienTemplate {
         THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 2, "Sát thương Thủy +#%", (short) 0, (byte) 2));
         THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 3, "Sát thương Hỏa +#%", (short) 0, (byte) 3));
         THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 4, "Sát thương Thổ  +#%", (short) 0, (byte) 4));
-        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 5, "Sát thương Phong  +#%", (short) 0,(byte) 5));
+        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 5, "Sát thương Phong  +#%", (short) 0, (byte) 5));
         THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 6, "Sát thương lôi  +#%", (short) 0, (byte) 6));
-        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 7, "Sát thương Quang  +#%", (short) 0,(byte) 7));
+        THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 7, "Sát thương Quang  +#%", (short) 0, (byte) 7));
         THUOC_TINH_BUFF_LINH_CAN.add(new ThuocTinhLinhCan((byte) 8, "Sát thương Ám  +#%", (short) 0, (byte) 8));
     }
 
@@ -292,6 +296,11 @@ public class TuTienTemplate {
             initCongPhap();
             initTienPhap();
             initCoDuyen();
+            iniDanPhuong();
         }
+    }
+
+    private void iniDanPhuong() {
+
     }
 }

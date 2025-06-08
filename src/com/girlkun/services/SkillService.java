@@ -94,7 +94,6 @@ public class SkillService {
         switch (player.playerSkill.skillSelect.template.type) {
             case 1:
                 useSkillAttack(player, plTarget, mobTarget);
-//                Service.getInstance().releaseCooldownSkill(player);
                 break;
             case 3:
                 if (player.playerSkill.skillSelect.template.id > 26) {
@@ -566,7 +565,7 @@ public class SkillService {
     private void useSkillAttack(Player player, Player plTarget, Mob mobTarget) {
         if (!player.isBoss) {
             if (player.isTrieuhoipet && ((Thu_TrieuHoi) player).masterr.TrieuHoiCapBac != -1 && ((Thu_TrieuHoi) player).masterr.TrieuHoipet != null) {
-                // handle exp for chien than
+                ((Thu_TrieuHoi) player).masterr.TrieuHoiExpThanThu += Util.nextInt(1, 1000);
             } else if (player.isPet) {
                 if (player.nPoint.stamina > 0) {
                     player.nPoint.numAttack++;
@@ -1059,8 +1058,6 @@ public class SkillService {
         }
         miss = neDon(plAtt, miss);
         double dameHit = plInjure.injured(plAtt, miss ? 0 : plAtt.nPoint.getDameAttack(false), false, false);
-
-
         phanSatThuong(plAtt, plInjure, Util.DoubleGioihan(dameHit));
         hutHPMP(plAtt, dameHit, false);
         hutLinhKhi(plAtt, dameHit);
@@ -1083,8 +1080,11 @@ public class SkillService {
                     break;
             }
             short xParam = plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam();
-            if (plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("K") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("H") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("L")) {
+            if (plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("K") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("H")) {
                 xParam *= 2;
+            }
+            if (plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("L")) {
+                xParam *= 4;
             }
             double dame = dameHit * (xParam * Math.max(1, plAtt.tuTien.xParam)) / 100;
             double xDamePercent = 0;
