@@ -8,31 +8,23 @@ import com.girlkun.models.player.Friend;
 import com.girlkun.models.player.Fusion;
 import com.girlkun.models.player.Inventory;
 import com.girlkun.models.player.Player;
-import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
 import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.server.Manager;
-import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.ItemTimeService;
 import com.girlkun.services.MapService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 public class PlayerDAO {
 
@@ -1119,11 +1111,11 @@ public class PlayerDAO {
                     jsonArray.add(player.luyenDanSu.maxExp);
                     jsonArray.add(player.luyenDanSu.tongDanDuocDaAn);
                     jsonArray.add(player.luyenDanSu.tongDanDuoc);
-                    dataLT = jsonArray.toJSONString();
+                    dataLD = jsonArray.toJSONString();
                     jsonArray.clear();
                 }
-            }catch (Exception e){
-
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             try {
                 if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {

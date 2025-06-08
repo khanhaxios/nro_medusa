@@ -281,13 +281,16 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public void ratioThienPhu() {
-        if (Util.isTrue(10, 100)) {
+        // base by luyen the
+        int baseRatio = player.luyenThe.level * 45 / 100;
+
+        if (Util.isTrue(baseRatio + 2, 150)) {
             canCot = Util.nextInt(1, 500) + 500;
             ngoTinh = Util.nextInt(1, 250) + 250;
-        } else if (Util.isTrue(15, 100)) {
+        } else if (Util.isTrue(baseRatio + 15, 100)) {
             canCot = Util.nextInt(1, 200) + 200;
             ngoTinh = Util.nextInt(1, 100) + 100;
-        } else if (Util.isTrue(50, 100)) {
+        } else if (Util.isTrue(baseRatio + 50, 100)) {
             canCot = Util.nextInt(1, 30) + 100;
             ngoTinh = Util.nextInt(1, 15) + 50;
         } else {
