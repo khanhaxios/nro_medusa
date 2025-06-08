@@ -1327,6 +1327,10 @@ public class Service {
             return;
         }
         if (text.equals("ttld")) {
+            if (!player.luyenDanSu.isLuyenDan()){
+                Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện đan\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
+                return;
+            }
             player.luyenDanSu.showBaseMenu();
             return;
         }

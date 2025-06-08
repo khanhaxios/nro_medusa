@@ -6640,7 +6640,7 @@ public class NpcFactory {
                                     createOtherMenu(player, ConstNpc.MENU_MO_KHONG_THI, "Học khống thi cần đạt tu tiên cấp Trúc Cơ và  luyện thể tầng 10 thêm 100k điểm nữa nhé", "Học", "Từ chối");
                                     break;
                                 case 5:
-                                    createOtherMenu(player, ConstNpc.MENU_MO_LUYEN_DAN, "Học luyện đan cần đạt tu tiên cấp Nguyên anh và 100k điểm nạp");
+                                    createOtherMenu(player, ConstNpc.MENU_MO_LUYEN_DAN, "Học luyện đan cần đạt tu tiên cấp Nguyên anh và 100k điểm nạp", "Học", "Từ chối");
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_PHU_SU) {
                             if (!player.isAdmin()) {
