@@ -566,6 +566,10 @@ public class SkillService {
         if (!player.isBoss) {
             if (player.isTrieuhoipet && ((Thu_TrieuHoi) player).masterr.TrieuHoiCapBac != -1 && ((Thu_TrieuHoi) player).masterr.TrieuHoipet != null) {
                 ((Thu_TrieuHoi) player).masterr.TrieuHoiExpThanThu += Util.nextInt(1, 1000);
+                if (((Thu_TrieuHoi) player).masterr.TrieuHoiExpThanThu - 3_000_000 >= 0 && ((Thu_TrieuHoi) player).masterr.TrieuHoiLevel + 1 <= 100) {
+                    ((Thu_TrieuHoi) player).masterr.TrieuHoiLevel++;
+                    ((Thu_TrieuHoi) player).masterr.TrieuHoiExpThanThu -= 3_000_000;
+                }
             } else if (player.isPet) {
                 if (player.nPoint.stamina > 0) {
                     player.nPoint.numAttack++;

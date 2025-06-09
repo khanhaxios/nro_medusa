@@ -3,6 +3,7 @@ package com.girlkun.services;
 import com.girlkun.models.Template;
 import com.girlkun.models.Template.ItemOptionTemplate;
 import com.girlkun.models.item.Item;
+import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.shop.ItemShop;
@@ -10,7 +11,6 @@ import com.girlkun.server.Manager;
 import com.girlkun.services.func.CombineServiceNew;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
-import com.girlkun.models.item.Item.ItemOption;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -1496,7 +1496,7 @@ public class ItemService {
         short idItem = Manager.itemIds_TL[Util.nextInt(0, Manager.itemIds_TL.length - 1)];
         item = ItemService.gI().createNewItem(idItem);
         // add thuoc tinh cho do than linh
-        int param = 0;
+        int param = 10;
         int paramID = getParamIdByItemType(item.template.type);
 
         switch (paramID) {
@@ -1527,7 +1527,7 @@ public class ItemService {
         short idItem = Manager.itemIds_HD[Util.nextInt(0, Manager.itemIds_HD.length - 1)];
         item = ItemService.gI().createNewItem(idItem);
         // add thuoc tinh cho do than linh
-        int param = 0;
+        int param = 10;
         int paramID = getParamIdByItemType(item.template.type);
 
         switch (paramID) {
@@ -1549,6 +1549,9 @@ public class ItemService {
     }
 
     private Item randommOptionForCheDo(Item item, int param, int paramID) {
+        if (param <= 0) {
+            param = 10;
+        }
         ItemOption itemOption = new ItemOption(paramID, param);
         item.itemOptions.add(itemOption);
         return randomOption(item);
@@ -1569,10 +1572,10 @@ public class ItemService {
 
     public Item createRandomGoThienSu() {
         Item item = null;
-        short idItem = Manager.itemIds_HD[Util.nextInt(0, Manager.itemIds_HD.length - 1)];
+        short idItem = (short) Util.nextInt(1048, 1062);
         item = ItemService.gI().createNewItem(idItem);
         // add thuoc tinh cho do than linh
-        int param = 0;
+        int param = 10;
         int paramID = getParamIdByItemType(item.template.type);
 
         switch (paramID) {

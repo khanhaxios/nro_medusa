@@ -5,15 +5,10 @@ import com.girlkun.consts.ConstMob;
 import com.girlkun.consts.ConstTask;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
-
-import java.util.List;
-
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Location;
-import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
-import com.girlkun.models.player.Thu_TrieuHoi;
 import com.girlkun.models.reward.ItemMobReward;
 import com.girlkun.models.reward.MobReward;
 import com.girlkun.models.skill.PlayerSkill;
@@ -24,12 +19,11 @@ import com.girlkun.server.Manager;
 import com.girlkun.services.*;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
-import com.sun.source.tree.IfTree;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 public class Mob {
@@ -223,7 +217,7 @@ public class Mob {
     public void update() {
         try {
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         if (this.isDie() && !Maintenance.isRuning) {
@@ -586,23 +580,45 @@ public class Mob {
             }
         }
 
+        if (zone.map.mapId == 215) {
+            // roi nguyen lieu luyen dan
+            if (Util.isTrue(1, 1000)) {
+                list.add(new ItemMap(zone, 2072, 1, this.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(1, 1000)) {
+                list.add(new ItemMap(zone, 2073, 1, this.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(5, 100)) {
+                list.add(new ItemMap(zone, Util.nextInt(2069, 2071), 1, this.location.x, yEnd, player.id));
+            }
+        }
         // rơi các loại đá thạch ( chỉ có ở ngũ hành sơn )
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
-            if (zone.map.mapId == 123 && Util.isTrue(12, 100)) {
+            // roi con duong ran doc
+            if (zone.map.mapId == 141 && Util.isTrue(30f, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
                 list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }
-
+            if (zone.map.mapId == 141 && Util.isTrue(7f, 100)) {
+                short temIds = (short) Util.nextInt(1260, 1262);
+                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+            }
+            // roi nhs
+            if (zone.map.mapId == 123 && Util.isTrue(8f, 100)) {
+                short temIds = (short) Util.nextInt(1263, 1266);
+                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+            }
             if (zone.map.mapId == 123 && Util.isTrue(2f, 100)) {
                 short temIds = (short) Util.nextInt(1260, 1262);
                 list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }
 
+            // roi quai o ngoai
             if (Util.isTrue(3, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
                 list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }
-            if (zone.map.mapId == 123 && Util.isTrue(.5f, 100)) {
+            if (Util.isTrue(.5f, 100)) {
                 short temIds = (short) Util.nextInt(1260, 1262);
                 list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }

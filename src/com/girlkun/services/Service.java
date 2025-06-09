@@ -1321,13 +1321,14 @@ public class Service {
             if (player.session.vnd - 1_000_000 > 0) {
                 PlayerDAO.subvnd(player, 1_000_000);
                 player.TrieuHoiCapBac = 0;
+                Service.gI().hsChar(player.TrieuHoipet, player.TrieuHoipet.nPoint.hpMax, player.TrieuHoipet.nPoint.mpMax);
             } else {
                 Service.gI().sendThongBao(player, "Cần 1 triệu điểm");
             }
             return;
         }
         if (text.equals("ttld")) {
-            if (!player.luyenDanSu.isLuyenDan()){
+            if (!player.luyenDanSu.isLuyenDan()) {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện đan\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
                 return;
             }

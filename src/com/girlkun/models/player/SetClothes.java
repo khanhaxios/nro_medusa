@@ -1,6 +1,7 @@
 package com.girlkun.models.player;
 
 import com.girlkun.models.item.Item;
+import com.girlkun.server.Manager;
 
 public class SetClothes {
 
@@ -73,9 +74,6 @@ public class SetClothes {
     public byte pkkhMedusa;
 
     public void setup() {
-//        if (!player.isPet){
-//        setupGOGETA();
-//        }
         setDefault();
         setupSKT();
         setupAN();
@@ -449,22 +447,9 @@ public class SetClothes {
         for (int i = 0; i < 5; i++) {
             Item item = this.player.inventory.itemsBody.get(i);
             if (item.isNotNullItem()) {
-                boolean isActSet = false;
-                for (Item.ItemOption io : item.itemOptions) {
-                    switch (io.optionTemplate.id) {
-                        case 21:
-                            if (io.param == 80) {
-                                setDHD++;
-                            }
-                            break;
-                    }
-                    if (isActSet) {
-                        break;
-                    }
-
+                if (Manager.itemIds_HDS.contains(item.template.id)) {
+                    setDHD++;
                 }
-            } else {
-                break;
             }
         }
     }

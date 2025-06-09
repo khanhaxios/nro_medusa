@@ -167,7 +167,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
     }
 
     public void calcTongDanDuocAnDuoc() {
-        this.tongDanDuoc += 30;
+        this.tongDanDuoc += 20;
     }
 
     public void showBaseMenu() {
@@ -213,7 +213,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
     }
 
     private float getTyLeCheDanThanhCong() {
-        return 5 + (player.tuTien.getXDiemThienPhu() * level);
+        return 1 + (player.tuTien.getXDiemThienPhu() * level);
     }
 
     public void useDanDuoc(Item item) {
@@ -227,7 +227,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
             byte basePlus = 0;
             switch (item.template.id) {
                 case 2072:
-                    basePlus = (byte) (this.level + Util.nextInt(1, 3));
+                    basePlus = (byte) (this.level + Util.nextInt(1, 2));
                     player.tuTien.canCot += basePlus;
                     Service.gI().sendThongBao(player, "Bạn vừa dùng x1 " + item.template.name + " Căn cốt tăng lên " + basePlus);
                     break;

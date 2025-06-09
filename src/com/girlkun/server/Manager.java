@@ -1,16 +1,14 @@
 package com.girlkun.server;
 
+import com.girlkun.consts.ConstMap;
+import com.girlkun.consts.ConstPlayer;
+import com.girlkun.data.DataGame;
+import com.girlkun.database.GirlkunDB;
+import com.girlkun.jdbc.daos.ShopDAO;
+import com.girlkun.models.Template.*;
 import com.girlkun.models.card.OptionCard;
 import com.girlkun.models.card.RadarCard;
 import com.girlkun.models.card.RadarService;
-
-import com.girlkun.database.GirlkunDB;
-import com.girlkun.consts.ConstPlayer;
-import com.girlkun.consts.ConstMap;
-import com.girlkun.data.DataGame;
-import com.girlkun.jdbc.daos.GodGK;
-import com.girlkun.jdbc.daos.ShopDAO;
-import com.girlkun.models.Template.*;
 import com.girlkun.models.clan.Clan;
 import com.girlkun.models.clan.ClanMember;
 import com.girlkun.models.intrinsic.Intrinsic;
@@ -20,10 +18,8 @@ import com.girlkun.models.matches.TOP;
 import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.npc.NpcFactory;
-import com.girlkun.models.player.Player;
-import com.girlkun.models.player.Referee;
-import com.girlkun.models.player.Referee1;
-import com.girlkun.models.player.TestDame;
+import com.girlkun.models.player.*;
+import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
 import com.girlkun.models.reward.ItemMobReward;
 import com.girlkun.models.reward.ItemOptionMobReward;
@@ -31,10 +27,6 @@ import com.girlkun.models.reward.MobReward;
 import com.girlkun.models.shop.Shop;
 import com.girlkun.models.skill.NClass;
 import com.girlkun.models.skill.Skill;
-import com.girlkun.models.kygui.ItemKyGui;
-import com.girlkun.models.kygui.ShopKyGuiManager;
-import com.girlkun.models.player.MedusaNPC;
-import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.task.SideTaskTemplate;
 import com.girlkun.models.task.SubTaskMain;
 import com.girlkun.models.task.TaskMain;
@@ -42,32 +34,21 @@ import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.services.ItemService;
 import com.girlkun.services.MapService;
 import com.girlkun.utils.Logger;
+import com.girlkun.utils.MobRewardExporter;
+import com.girlkun.utils.Util;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-
-import com.girlkun.utils.MobRewardExporter;
-import com.girlkun.utils.Util;
-
-import java.io.InputStreamReader;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 public class Manager {
 
@@ -78,6 +59,7 @@ public class Manager {
     public static short[] setNguyenThuy = new short[]{1450, 1451, 1452};
     public static short[] setThanhTon = new short[]{1431, 1432, 1433, 1434, 1435};
     public static List<Integer> idsMapCold = Arrays.asList(110, 109, 108, 107, 106, 105);
+    public static short[] itemIdsTS;
     private static Manager i;
 
     public static byte SERVER = 1;
@@ -174,6 +156,8 @@ public class Manager {
     public static long timeRealTop = 0;
     public static final short[] itemIds_TL = {555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561};
     public static final short[] itemIds_HD = {650, 651, 657, 658, 656, 652, 653, 659, 660, 656, 654, 655, 661, 662, 656};
+    public static final List<Integer> itemIds_HDS =Arrays.asList(650,651,657,658,656,652,653,659,660,656,654,655,661,662,656);
+
     public static final byte[] itemIds_NR_SB = {15, 16};
     public static final byte[] itemIds_NR = {20, 19, 18, 17};
     public static final short[] SuKien_TrungThu = {1338, 1339, 1340};

@@ -4267,15 +4267,15 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     if (mapId == 0 || mapId == 5) {
-                        this.createOtherMenu(player, 0, "Ngũ Hàng Sơn x5 Tnsm\nHỗ trợ cho Ae Từ\b|1|Dưới 1tr5 SM dến 160 Tỷ SM?", "OK", "Oéo");
+                        this.createOtherMenu(player, 0, "Bạn muốn đi đâu", "Ngũ\nHành Sơn", "Plant\nSSS");
                     }
                     if (mapId == 123) {
                         this.createOtherMenu(player, 0, "Bạn Muốn Quay Trở Lại Làng Ảru?", "OK", "Từ chối");
 
                     }
-                    if (mapId == 122) {
-                        this.createOtherMenu(player, 0, "Xia xia thua phùa\b|7|Thí chủ đang có: " + player.NguHanhSonPoint + " điểm ngũ hành sơn\b|1|Thí chủ muốn đổi cải trang x4 chưởng ko?", "Âu kê", "Top Ngu Hanh Son", "No");
-                    }
+//                    if (mapId == 122) {
+//                        this.createOtherMenu(player, 0, "Xia xia thua phùa\b|7|Thí chủ đang có: " + player.NguHanhSonPoint + " điểm ngũ hành sơn\b|1|Thí chủ muốn đổi cải trang x4 chưởng ko?", "Âu kê", "Top Ngu Hanh Son", "No");
+//                    }
                 }
             }
 
@@ -4314,6 +4314,13 @@ public class NpcFactory {
                                     Service.gI().showListTop(player, Manager.topSD);
                                 }
                             }
+                            break;
+                        case 1:
+                            if (!player.luyenDanSu.isLuyenDan()) {
+                                Service.gI().sendThongBaoOK(player, "Bạn cần mở luyện đan để qua đây?");
+                                return;
+                            }
+                            ChangeMapService.gI().changeMapInYard(player, 215, -1, -1);
                             break;
                     }
                 }
