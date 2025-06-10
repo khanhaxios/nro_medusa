@@ -1110,7 +1110,7 @@ public class PlayerDAO {
                     jsonArray.add(player.luyenDanSu.exp);
                     jsonArray.add(player.luyenDanSu.maxExp);
                     jsonArray.add(player.luyenDanSu.tongDanDuocDaAn);
-                    jsonArray.add(player.luyenDanSu.tongDanDuoc);
+                    jsonArray.add(player.luyenDanSu.diemKhangTinh);
                     dataLD = jsonArray.toJSONString();
                     jsonArray.clear();
                 }

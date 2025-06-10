@@ -774,7 +774,7 @@ public class SkillService {
                     mobTarget.effectSkill.setTroi(System.currentTimeMillis(), timeHold);
                 }
                 affterUseSkill(player, player.playerSkill.skillSelect.template.id);
-                if (plTarget != null && plTarget.isBoss && MapService.gI().isMapHuyDiet(player.zone.map.mapId) && Util.isTrue(40, 100)) {
+                if (plTarget != null && plTarget.isBoss && MapService.gI().isMapHuyDiet(player.zone.map.mapId) && Util.isTrue(10, 100)) {
                     EffectSkillService.gI().removeUseTroi(player);
                     EffectSkillService.gI().removeAnTroi(plTarget);
                     Service.getInstance().chat(plTarget, "Chiêu đó không có tác dụng đâu kaka");

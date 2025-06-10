@@ -993,6 +993,7 @@ public class GodGK {
                                 player.tuTien.timeTuTien = Long.parseLong(basePointArray.get(9).toString());
                                 player.tuTien.xParam = Byte.parseByte(basePointArray.get(10).toString());
                                 player.tuTien.lastimeCoDuyen = Long.parseLong(basePointArray.get(11).toString());
+
                             }
 
                             // index 1: linh can
@@ -1071,10 +1072,12 @@ public class GodGK {
                             player.luyenDanSu.exp = Long.parseLong(jsonArray.get(1).toString());
                             player.luyenDanSu.maxExp = Long.parseLong(jsonArray.get(2).toString());
                             player.luyenDanSu.tongDanDuocDaAn = Byte.parseByte(jsonArray.get(3).toString());
-                            player.luyenDanSu.tongDanDuoc = Byte.parseByte(jsonArray.get(4).toString());
+                            player.luyenDanSu.diemKhangTinh = Integer.parseInt(jsonArray.get(4).toString());
                         }
                     }
                 } catch (Exception e) {
+                    player.luyenDanSu.tongDanDuocDaAn = 0;
+                    player.luyenDanSu.diemKhangTinh = 0;
                     e.printStackTrace();
                 }
                 try {
@@ -1161,6 +1164,10 @@ public class GodGK {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+                if ((player.tuTien.canCot > 100 || player.tuTien.ngoTinh > 100) && rs.getInt("rs") == 1) {
+                    player.tuTien.canCot = Util.nextInt(50, 100);
+                    player.tuTien.ngoTinh = Util.nextInt(50, 100);
                 }
             }
         } catch (Exception e) {

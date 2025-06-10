@@ -7415,7 +7415,7 @@ public class NpcFactory {
                     case ConstNpc.MENU_LUYEN_DAN:
                         switch (select) {
                             case 0:
-                                createOtherMenu(player, ConstNpc.MENU_CHON_DAN_PHUONG, "Hãy chọn đan muốn luyện", "Tôi\nThể đan", "Ngưng\nNguyên đan", "Đóng");
+                                createOtherMenu(player, ConstNpc.MENU_CHON_DAN_PHUONG, "Hãy chọn đan muốn luyện", "Tôi\nThể đan", "Ngưng\nNguyên đan", "Tẩy\nTủy Đan", "Đóng");
                                 break;
                         }
                         break;
@@ -7426,6 +7426,13 @@ public class NpcFactory {
                                 break;
                             case 1:
                                 player.luyenDanSu.luyenNgungNguyenDan();
+                                break;
+                            case 2:
+                                if (player.luyenDanSu.level < 3) {
+                                    Service.gI().sendThongBaoOK(player, "Cần luyện đan sư cấp 3 để luyện");
+                                    return;
+                                }
+                                player.luyenDanSu.luyenTayTuyDan();
                                 break;
                         }
                         break;
@@ -7576,7 +7583,6 @@ public class NpcFactory {
                                 // dot pha
                                 String text = "|7|Đột phá\n" + "|5|Cảnh Giới hiện tại : " + player.tuTien.getFormatName() + "\n" + "|2|Cảnh Giới tiếp theo : " + player.tuTien.getNextLevelStr() + "\n" + "|2|Tu vi : " + player.tuTien.getCurrentExpAsString() + "\n" + "|7|Tỷ lệ thành công : " + player.tuTien.getLevelUpPercent() + "%" + "\n" + "|7|Tỷ lệ thành công thiên đạo: " + player.tuTien.getLevelUpPercent() / 5 + "%" + "\n" + "|5|Bạn có thể ăn dan dược để tăng tỷ lệ thành công -.-";
                                 if (isDotPhaCao) {
-                                    player.iDMark.dotPhaThienDao = true;
                                     NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_DOT_PHA, -1, text, "Đột phá\nThiên đạo", "Đột phá thường", "Từ Chối");
                                 } else {
                                     NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_DOT_PHA, -1, text, "Đột phá", "Từ Chối");
@@ -7589,52 +7595,52 @@ public class NpcFactory {
                         }
                         break;
                     case ConstNpc.TU_TIEN_DOT_PHA:
-                        if (select == 0) {
-                            if (!player.tuTien.canLevelUp()) {
-                                Service.gI().sendThongBao(player, "Tu Vi Của Bạn Chưa Đủ Hãy Đợi Thêm");
-                                return;
+                        if (!player.tuTien.canLevelUp()) {
+                            Service.gI().sendThongBao(player, "Tu Vi Của Bạn Chưa Đủ Hãy Đợi Thêm");
+                            return;
+                        }
+                        if (!player.tuTien.hasLinhKhi()) {
+                            Service.gI().sendThongBao(player, "Đột phá cần đầy đủ lượng linh khí hãy bổ sung");
+                            return;
+                        }
+                        if (player.tuTien.subLevel == 10) {
+                            switch (select) {
+                                case 0:
+                                    player.iDMark.dotPhaThienDao = true;
+                                    // dot pha thien dao
+                                    Item item = InventoryServiceNew.gI().findItemBag(player, 2031);
+                                    if (item == null || item.quantity < player.tuTien.level * 10) {
+                                        Service.gI().sendThongBao(player, "Cần x" + player.tuTien.level * 10 + " thăng tinh thạch để dột phá");
+                                        return;
+                                    }
+                                    float subPercent = player.luyenDanSu.diemKhangTinh / 10f;
+                                    float ratio = (player.tuTien.getLevelUpPercent() / 5);
+                                    if (Util.isTrue(ratio - subPercent, 110)) {
+                                        player.tuTien.levelUp();
+                                        return;
+                                    }
+                                    player.tuTien.restExp();
+                                    player.tuTien.restLinhKhi();
+                                    Service.gI().sendThongBao(player, "Bạn đã đột phá thất bại , mất hết tu vi và linh khí hiện tại");
+                                    InventoryServiceNew.gI().subQuantityItemsBag(player, item, 10 * player.tuTien.level);
+                                    InventoryServiceNew.gI().sendItemBags(player);
+                                    break;
+                                case 1:
+                                    float subPercent1 = player.luyenDanSu.diemKhangTinh / 10f;
+                                    float ratio1 = player.tuTien.getLevelUpPercent() - subPercent1;
+                                    if (Util.isTrue(ratio1, 110)) {
+                                        player.tuTien.levelUp();
+                                    } else {
+                                        player.tuTien.restExp();
+                                        player.tuTien.restLinhKhi();
+                                        Service.gI().sendThongBao(player, "Bạn đã đột phá thất bại , mất hết tu vi và linh khí hiện tại");
+                                    }
+                                    break;
                             }
-                            if (!player.tuTien.hasLinhKhi()) {
-                                Service.gI().sendThongBao(player, "Đột phá cần đầy đủ lượng linh khí hãy bổ sung");
-                                return;
-                            }
-                            if (player.iDMark.dotPhaThienDao) {
-                                Item item = InventoryServiceNew.gI().findItemBag(player, 2031);
-                                if (item == null || item.quantity < player.tuTien.level * 10) {
-                                    Service.gI().sendThongBao(player, "Cần x" + player.tuTien.level * 10 + " thăng tinh thạch để dột phá");
-                                    return;
-                                }
-                                float ratio = player.tuTien.getLevelUpPercent() / 5;
-                                if (Util.isTrue(ratio, 110)) {
-                                    player.tuTien.levelUp();
-                                    return;
-                                }
-                                player.tuTien.restExp();
-                                player.tuTien.restLinhKhi();
-                                Service.gI().sendThongBao(player, "Bạn đã đột phá thất bại , mất hết tu vi và linh khí hiện tại");
-                                InventoryServiceNew.gI().subQuantityItemsBag(player, item, 10 * player.tuTien.level);
-                                InventoryServiceNew.gI().sendItemBags(player);
-                                return;
-                            }
+                        } else if (select == 0) {
+                            float subPercent1 = player.luyenDanSu.diemKhangTinh / 10f;
                             float ratio = player.tuTien.getLevelUpPercent();
-                            if (Util.isTrue(ratio, 110)) {
-                                player.tuTien.levelUp();
-                            } else {
-                                player.tuTien.restExp();
-                                player.tuTien.restLinhKhi();
-                                Service.gI().sendThongBao(player, "Bạn đã đột phá thất bại , mất hết tu vi và linh khí hiện tại");
-                            }
-                        } else if (select == 1) {
-                            if (!player.tuTien.canLevelUp()) {
-                                Service.gI().sendThongBao(player, "Tu Vi Của Bạn Chưa Đủ Hãy Đợi Thêm");
-                                return;
-                            }
-                            if (!player.tuTien.hasLinhKhi()) {
-                                Service.gI().sendThongBao(player, "Đột phá cần đầy đủ lượng linh khí hãy bổ sung");
-                                return;
-                            }
-                            float ratio = player.tuTien.getLevelUpPercent();
-                            if (Util.isTrue(ratio, 110)) {
+                            if (Util.isTrue(ratio - subPercent1, 110)) {
                                 player.tuTien.levelUp();
                             } else {
                                 player.tuTien.restExp();

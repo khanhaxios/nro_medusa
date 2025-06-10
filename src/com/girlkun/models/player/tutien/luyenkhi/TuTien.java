@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TuTien extends BasePoint implements IBaseAction {
+    private static final int MAX_CAN_COT = 999;
+    private static final int MAX_NGO_TINH = 999;
     public byte xParam = 0;
     public long lastimeCoDuyen = System.currentTimeMillis();
     public CoDuyen currentCoDuyen;
@@ -119,6 +121,7 @@ public class TuTien extends BasePoint implements IBaseAction {
                     } else {
                         xParam++;
                     }
+                    player.iDMark.dotPhaThienDao = false;
                 }
                 Service.gI().sendThongBao(player, "Chúc mừng bạn đã đột phá lên " + (player.iDMark.dotPhaThienDao ? "Thiên đạo " : "") + getFormatName());
             } else {
@@ -128,7 +131,6 @@ public class TuTien extends BasePoint implements IBaseAction {
             subLevel++;
             Service.gI().sendThongBao(player, "Bạn đã đột phá lên " + getFormatName());
         }
-        player.iDMark.dotPhaThienDao = false;
         restExp();
         restLinhKhi();
         Service.gI().point(player);
@@ -195,6 +197,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             long linhKhiCanHoiPhuc = ((BASE_LINH_KHI_HOI_PHUC[lv] * Math.max(1, congPhap.xTocDoKhoiPhucLinhKhi))) * Math.max(1, xParam);
             linhKhiCanHoiPhuc *= Util.nextInt(1, 2);
             linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * getXDiemThienPhu();
+            linhKhiCanHoiPhuc += maxLinhKhiPoint / 100;
             addLinhKhi(linhKhiCanHoiPhuc);
             lastTimeHoiPhuc = System.currentTimeMillis();
             // send effect to server
@@ -280,11 +283,27 @@ public class TuTien extends BasePoint implements IBaseAction {
         Service.gI().sendThongBao(player, "Chúc mừng bạn đã mở hệ thống tu tiên");
     }
 
+    public void addPoint(int type, int point) {
+        switch (type) {
+            case 0:
+                canCot += point;
+                break;
+            case 1:
+                ngoTinh += point;
+        }
+        if (canCot > MAX_CAN_COT) {
+            canCot = MAX_CAN_COT;
+        }
+        if (ngoTinh > MAX_NGO_TINH) {
+            ngoTinh = MAX_NGO_TINH;
+        }
+    }
+
     public void ratioThienPhu() {
         // base by luyen the
         int baseRatio = player.luyenThe.level * 45 / 100;
 
-        if (Util.isTrue(baseRatio + 2, 150)) {
+        if (Util.isTrue(baseRatio + 2, 250)) {
             canCot = Util.nextInt(1, 500) + 500;
             ngoTinh = Util.nextInt(1, 250) + 250;
         } else if (Util.isTrue(baseRatio + 15, 100)) {
@@ -677,7 +696,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public void showMenuTuTien() {
-        String npcSay = "|7|Thông tin thuộc tính\n" + "|2|Hp,Mp : " + getHPMPBuff() + "%" + "\n" + "|2|Dame :" + getDameBuff() + "%" + "\n" + "|1|Def : " + getDefBuff() + "%" + "\n" + "|1|Né : " + getNeBuff() + "%" + "\n" + "|1|Chính Xác : " + getChinhXacBuff() + "%" + "\n" + "|5|Đột phá thiên đạo " + xParam + " lần\n" + "|7|Cảnh giới càng cao thuộc tính tăng càng mạnh";
+        String npcSay = "|7|Thông tin thuộc tính\n" + "|2|Hp,Mp : " + getHPMPBuff() + "%" + "\n" + "|2|Dame :" + getDameBuff() + "%" + "\n" + "|1|Def : " + getDefBuff() + "%" + "\n" + "|1|Né : " + getNeBuff() + "%" + "\n" + "|1|Chính Xác : " + getChinhXacBuff() + "%" + "\n" + "|5|Đột phá thiên đạo " + (xParam - 1) + " lần\n" + "|7|Cảnh giới càng cao thuộc tính tăng càng mạnh";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN_F, -1, npcSay, "Đột Phá\nCảnh Giới", "Tán Công", "Đóng");
     }
 

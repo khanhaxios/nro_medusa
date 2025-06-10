@@ -16,11 +16,14 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
     private static byte MAX_LEVEL = 9;
 
     public int tongDanDuocDaAn;
-    public int tongDanDuoc;
+    public long lastTimeTruDiemKhangTinh = System.currentTimeMillis();
 
     public LuyenDanSu(Player player) {
         super(player);
     }
+
+    public int diemKhangTinh = 0;
+    public int totalDiemKhangTinh = 100;
 
     @Override
     public long getExpCanGain(Mob targetMob) {
@@ -31,14 +34,21 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
     public void levelUp() {
         this.level++;
         restExp();
-        calcTongDanDuocAnDuoc();
+        diemKhangTinh = 0;
         Service.gI().sendThongBao(player, "Bạn đã đột phá luyện đan sư thành công");
     }
+
 
     @Override
     public void restExp() {
         this.exp = 0;
         this.maxExp = getNextLevelExp();
+    }
+
+    @Override
+    protected long getNextLevelExp() {
+        return (level + 1) * 1000000;
+
     }
 
     @Override
@@ -57,23 +67,23 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
     public float getLevelUpPercent() {
         switch (level) {
             case 1:
-                return 100f;
-            case 2:
-                return 50f;
-            case 3:
-                return 30f;
-            case 4:
-                return 20f;
-            case 5:
                 return 10f;
-            case 6:
+            case 2:
+                return 5f;
+            case 3:
                 return 3f;
-            case 7:
-                return 2f;
-            case 8:
+            case 4:
                 return 1f;
-            case 9:
+            case 5:
+                return .5f;
+            case 6:
                 return .3f;
+            case 7:
+                return .1f;
+            case 8:
+                return .05f;
+            case 9:
+                return .03f;
         }
         return .3f;
     }
@@ -95,7 +105,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
 
     @Override
     public boolean canLevelUp() {
-        return exp == maxExp && level + 1 < MAX_LEVEL;
+        return exp == maxExp && level + 1 <= MAX_LEVEL;
     }
 
     @Override
@@ -150,7 +160,12 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
 
     public void update() {
         if (isLuyenDan()) {
-            if (exp == maxExp) {
+            //// handle diem khang tinh cho dan
+            if (diemKhangTinh - 1 >= 0 && Util.canDoWithTime(lastTimeTruDiemKhangTinh, 2 * 60 * 60 * 1000)) {
+                diemKhangTinh -= 1;
+                lastTimeTruDiemKhangTinh = System.currentTimeMillis();
+            }
+            if (canLevelUp()) {
                 // try dot pha
                 if (Util.isTrue(getLevelUpPercent(), 100)) {
                     levelUp();
@@ -166,19 +181,8 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
         return level > 0;
     }
 
-    public void calcTongDanDuocAnDuoc() {
-        this.tongDanDuoc += 20;
-    }
-
     public void showBaseMenu() {
-        String menuText = "|7|Thông tin luyện đan sư\n" +
-                "|5|Cấp bậc :" + getName() + "\n" +
-                "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" +
-                "|7|Tỷ lệ đột phá : " + getLevelUpPercent() + "%\n" +
-                "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" +
-                "|2|Số đan dược đã dùng  : " + tongDanDuocDaAn + "viên\n" +
-                "|7|Đan dược kháng tính : " + tongDanDuocDaAn / tongDanDuoc * 100 + "%\n" +
-                "|7|Khi đột phá , đan dược kháng tính sẽ được giảm bớt đi 1 xíu";
+        String menuText = "|7|Thông tin luyện đan sư\n" + "|5|Cấp bậc :" + getName() + "\n" + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" + "|7|Tỷ lệ đột phá : " + getLevelUpPercent() + "%\n" + "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" + "|2|Số đan dược đã dùng  : " + tongDanDuocDaAn + " viên\n" + "|5|Đan dược kháng tính : " + diemKhangTinh + "%\n" + "|7|Khi đột phá , đan dược kháng tính sẽ được giảm bớt đi 1 xíu";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_DAN, -1, menuText, "Luyện đan", "Đóng");
     }
 
@@ -213,31 +217,45 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
     }
 
     private float getTyLeCheDanThanhCong() {
-        return 1 + (player.tuTien.getXDiemThienPhu() * level);
+        return 1 + ((player.tuTien.ngoTinh / 100f) * level);
     }
 
     public void useDanDuoc(Item item) {
         // cong can cot
         boolean canUse = true;
-        if (tongDanDuocDaAn + 1 > tongDanDuoc) {
+        boolean canAddKhangTinh = true;
+        if (diemKhangTinh >= totalDiemKhangTinh) {
             Service.gI().sendThongBao(player, "Bạn đã đạt giới hạn đan dược có thể sử dụng nếu ăn nữa cũng ko có tác dụng");
             canUse = false;
         }
         if (canUse) {
-            byte basePlus = 0;
             switch (item.template.id) {
                 case 2072:
-                    basePlus = (byte) (this.level + Util.nextInt(1, 2));
-                    player.tuTien.canCot += basePlus;
-                    Service.gI().sendThongBao(player, "Bạn vừa dùng x1 " + item.template.name + " Căn cốt tăng lên " + basePlus);
+                    player.tuTien.addPoint(0, 2);
+                    Service.gI().sendThongBao(player, "Bạn vừa dùng x1 " + item.template.name + " Căn cốt tăng lên " + 2);
                     break;
                 case 2073:
-                    basePlus = (byte) (this.level + Util.nextInt(1, 2));
-                    player.tuTien.ngoTinh += this.level + Util.nextInt(1, 2);
-                    Service.gI().sendThongBao(player, "Bạn vừa dùng x1 " + item.template.name + " Căn cốt tăng lên " + basePlus);
+                    player.tuTien.addPoint(1, 1);
+                    Service.gI().sendThongBao(player, "Bạn vừa dùng x1 " + item.template.name + " Căn cốt tăng lên " + 1);
+                    break;
+                case 2074:
+                    if (diemKhangTinh > 0) {
+                        diemKhangTinh -= 20;
+                        canAddKhangTinh = false;
+                    } else {
+                        player.tuTien.addPoint(0, Util.nextInt(2, 6));
+                        player.tuTien.addPoint(1, Util.nextInt(1, 3));
+                    }
+                    break;
+                case 2075:
+                    player.tuTien.ratioThienPhu();
+                    Service.gI().sendThongBao(player, "Thiên phú của bạn đã được làm mới hãy kiểm tra");
                     break;
             }
             tongDanDuocDaAn++;
+            if (canAddKhangTinh) {
+                diemKhangTinh += 5;
+            }
         }
 
         InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
@@ -264,6 +282,29 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
         InventoryServiceNew.gI().subQuantityItemsBag(player, it1, 2);
         InventoryServiceNew.gI().subQuantityItemsBag(player, it2, 2);
         InventoryServiceNew.gI().subQuantityItemsBag(player, it3, 2);
+        InventoryServiceNew.gI().sendItemBags(player);
+    }
+
+    public void luyenTayTuyDan() {
+        Item it1 = InventoryServiceNew.gI().findItemBag(player, 2069);
+        Item it2 = InventoryServiceNew.gI().findItemBag(player, 2070);
+        Item it3 = InventoryServiceNew.gI().findItemBag(player, 2071);
+        if (it1 == null || it3 == null || it2 == null || it1.quantity < 20 || it2.quantity < 20 || it3.quantity < 20) {
+            Service.gI().sendThongBaoOK(player, "Cần x20 mầm đậu thần , khúc liên ,cam ngọc");
+            return;
+        }
+        // tao dan theo ty le
+        float ratio = getTyLeCheDanThanhCong();
+        if (Util.isTrue(ratio, 110)) {
+            InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2074, 1));
+            Service.gI().sendThongBao(player, "Bạn nhận được Tẩy Tủy Đan x1");
+        } else {
+            Service.gI().sendThongBao(player, "Luyện chế thất bại");
+        }
+        addExp(getExpCanGain(null));
+        InventoryServiceNew.gI().subQuantityItemsBag(player, it1, 20);
+        InventoryServiceNew.gI().subQuantityItemsBag(player, it2, 20);
+        InventoryServiceNew.gI().subQuantityItemsBag(player, it3, 20);
         InventoryServiceNew.gI().sendItemBags(player);
     }
 }

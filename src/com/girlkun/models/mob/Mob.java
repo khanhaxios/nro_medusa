@@ -582,14 +582,17 @@ public class Mob {
 
         if (zone.map.mapId == 215) {
             // roi nguyen lieu luyen dan
-            if (Util.isTrue(1, 1000)) {
+            if (Util.isTrue(1, 10000)) {
                 list.add(new ItemMap(zone, 2072, 1, this.location.x, yEnd, player.id));
             }
-            if (Util.isTrue(1, 1000)) {
+            if (Util.isTrue(1, 10000)) {
                 list.add(new ItemMap(zone, 2073, 1, this.location.x, yEnd, player.id));
             }
             if (Util.isTrue(5, 100)) {
                 list.add(new ItemMap(zone, Util.nextInt(2069, 2071), 1, this.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(1, 100000)) {
+                list.add(new ItemMap(zone, 2074, 1, this.location.x, yEnd, player.id));
             }
         }
         // rơi các loại đá thạch ( chỉ có ở ngũ hành sơn )
@@ -597,11 +600,11 @@ public class Mob {
             // roi con duong ran doc
             if (zone.map.mapId == 141 && Util.isTrue(30f, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
-                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 3), this.location.x, yEnd, player.id));
             }
             if (zone.map.mapId == 141 && Util.isTrue(7f, 100)) {
                 short temIds = (short) Util.nextInt(1260, 1262);
-                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 3), this.location.x, yEnd, player.id));
             }
             // roi nhs
             if (zone.map.mapId == 123 && Util.isTrue(8f, 100)) {
