@@ -175,23 +175,7 @@ public class NguThuSu extends BasePoint implements IBaseAction {
 
     @Override
     protected long getNextLevelExp() {
-        switch (level + 1) {
-            case 1:
-                return 2000;
-            case 2:
-                return 10000;
-            case 3:
-                return 50000;
-            case 4:
-                return 100000;
-            case 5:
-                return 200000;
-            case 6:
-                return 300000;
-            case 7:
-                return 500000;
-        }
-        return 2000000000;
+        return (level + 1) * 1_000_000;
     }
 
     @Override

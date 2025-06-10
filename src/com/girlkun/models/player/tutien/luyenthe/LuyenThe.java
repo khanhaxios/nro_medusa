@@ -79,7 +79,7 @@ public class LuyenThe extends BasePoint implements IBaseAction {
 
     @Override
     protected long getNextLevelExp() {
-        return level * 100;
+        return level * 1000;
     }
 
     @Override
