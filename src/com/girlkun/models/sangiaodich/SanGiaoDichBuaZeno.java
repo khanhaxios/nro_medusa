@@ -2,6 +2,7 @@ package com.girlkun.models.sangiaodich;
 
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.database.GirlkunDB;
+import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.player.Player;
 import com.girlkun.result.GirlkunResultSet;
@@ -271,6 +272,12 @@ public class SanGiaoDichBuaZeno implements Runnable {
             Service.gI().sendThongBao(player, "Trên sàn không đủ bùa");
             return;
         }
+        int vnd = (holder.finalPrice * soluong4);
+        if (player.session.vnd - vnd < 0) {
+            Service.gI().sendThongBao(player, "Bạn éo đủ tiền");
+            return;
+        }
+        PlayerDAO.subvnd(player, vnd);
         holder.inStockBuaZeno -= soluong4;
         holder.setLastTimeUpdate(System.currentTimeMillis());
         sanGiaoDichPlayer.setTotalHold(sanGiaoDichPlayer.getTotalHold() + soluong4);
