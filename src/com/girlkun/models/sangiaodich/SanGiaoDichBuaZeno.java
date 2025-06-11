@@ -130,7 +130,7 @@ public class SanGiaoDichBuaZeno implements Runnable {
             float multiplier = 1 - ((ratio - 1) * 1); // Giá giảm nhẹ nếu cung quá dư
             finalPrice = basePrice * Math.max(multiplier, 0.1f); // Không giảm dưới 10% giá gốc
         }
-        float marketFluctuation = random.nextFloat(0.95f, 1.05f); // Giá dao động nhẹ
+        float marketFluctuation = 0.95f + random.nextFloat() * (1.05f - 0.95f);
         finalPrice *= marketFluctuation;
         if (holder.finalPrice != Math.round(finalPrice)) {
             holder.finalPrice = Math.round(finalPrice);
