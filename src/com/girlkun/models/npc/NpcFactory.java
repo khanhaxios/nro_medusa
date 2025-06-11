@@ -55,7 +55,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import static com.girlkun.consts.ConstNpc.MENU_START_COMBINE;
 import static com.girlkun.services.NgocRongNamecService.TIME_OP;
+import static com.girlkun.services.func.CombineServiceNew.MENU_START_COMBINE_NEW;
 import static com.girlkun.services.func.SummonDragon.*;
 
 public class NpcFactory {
@@ -3962,7 +3964,7 @@ public class NpcFactory {
 //                                    ShopServiceNew.gI().opendShop(player, "CHAN MENH", true);
 //                                    break;
                             }
-                        } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_START_COMBINE) {
+                        } else if (player.iDMark.getIndexMenu() == MENU_START_COMBINE) {
                             switch (player.combineNew.typeCombine) {
                                 case CombineServiceNew.KICH_HOAT_TRANG_BI:
                                 case CombineServiceNew.EP_SAO_TRANG_BI:
@@ -3982,6 +3984,7 @@ public class NpcFactory {
                                 case CombineServiceNew.RANDOM_SKH:
                                 case CombineServiceNew.GIA_HAN_VAT_PHAM:
                                 case CombineServiceNew.MO_KHOA_GIAO_DICH:
+                                case CombineServiceNew.PHAN_RA_TRANG_BI:
 //                                case CombineServiceNew.DUNG_HOP_DO_VIP:
                                     switch (select) {
                                         case 0:
@@ -4064,7 +4067,7 @@ public class NpcFactory {
                                     ShopServiceNew.gI().opendShop(player, "BUA_1M", true);
                                     break;
                             }
-                        } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_START_COMBINE) {
+                        } else if (player.iDMark.getIndexMenu() == MENU_START_COMBINE) {
                             switch (player.combineNew.typeCombine) {
                                 case CombineServiceNew.NANG_CAP_VAT_PHAM:
                                 case CombineServiceNew.NANG_CAP_BONG_TAI:
@@ -4116,7 +4119,7 @@ public class NpcFactory {
                                     ShopServiceNew.gI().opendShop(player, "THIEN_SU", true);
                                     break;
                             }
-                        } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_START_COMBINE) {
+                        } else if (player.iDMark.getIndexMenu() == MENU_START_COMBINE) {
                             switch (player.combineNew.typeCombine) {
                                 case CombineServiceNew.NANG_CAP_DO_TS:
                                     if (select == 0) {
@@ -7412,6 +7415,45 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 switch (player.iDMark.getIndexMenu()) {
+                    case ConstNpc.MENU_INFO_SGD_ZENO:
+                        switch (select) {
+                            case 0:
+                                if (Manager.sanGiaoDichBuaZeno.getThongTinAccount(player) != null) {
+                                    // try to login
+                                    Manager.sanGiaoDichBuaZeno.loginPlayer(player);
+                                    Manager.sanGiaoDichBuaZeno.showPlayerInfo(player);
+                                    break;
+                                } else {
+                                    NpcService.gI().createMenuConMeo(player, ConstNpc.TAO_TAI_KHOAN_SGD, -1, "|7|Bạn chưa có tài khoản\n|1|Bạn có muốn tạo tài khoản mới để tham gia giao dịch không?", "Có", "Không");
+                                }
+
+                        }
+                        break;
+                    case ConstNpc.TAO_TAI_KHOAN_SGD:
+                        if (select == 0) {
+                            Manager.sanGiaoDichBuaZeno.dangKyTaiKhoan(player);
+                        }
+                        break;
+                    case ConstNpc.MY_ACCOUNT:
+                        switch (select) {
+                            case 0:
+                                Input.gI().createForm(player, Input.RUT_BUA, "Rút bùa", new Input.SubInput("Nhập số lượng bùa cần rút", Input.NUMERIC));
+                                // rut bua
+                                break;
+                            case 1:
+                                Input.gI().createForm(player, Input.NAP_BUA, "Nạp bùa", new Input.SubInput("Nhập số lượnbùg a cần nạp", Input.NUMERIC));
+                                break;
+                            case 2:
+                                Input.gI().createForm(player, Input.LEN_BUA, "Lên bùa", new Input.SubInput("Nhập số lượng bùa cần lên", Input.NUMERIC));
+                                break;
+                            case 3:
+                                Input.gI().createForm(player, Input.MUA_BUA, "Mua bùa", new Input.SubInput("Nhập số lượng bùa cần mua", Input.NUMERIC));
+                                break;
+                        }
+                        break;
+                    case MENU_START_COMBINE_NEW:
+                        CombineServiceNew.gI().startCombine(player);
+                        break;
                     case ConstNpc.MENU_LUYEN_DAN:
                         switch (select) {
                             case 0:
@@ -7579,7 +7621,7 @@ public class NpcFactory {
                     case ConstNpc.MENU_PLAYER_TU_TIEN_F:
                         switch (select) {
                             case 0:
-                                boolean isDotPhaCao = player.tuTien.subLevel == 10 && player.tuTien.level > 2;
+                                boolean isDotPhaCao = player.tuTien.subLevel == 10;
                                 // dot pha
                                 String text = "|7|Đột phá\n" + "|5|Cảnh Giới hiện tại : " + player.tuTien.getFormatName() + "\n" + "|2|Cảnh Giới tiếp theo : " + player.tuTien.getNextLevelStr() + "\n" + "|2|Tu vi : " + player.tuTien.getCurrentExpAsString() + "\n" + "|7|Tỷ lệ thành công : " + player.tuTien.getLevelUpPercent() + "%" + "\n" + "|7|Tỷ lệ thành công thiên đạo: " + player.tuTien.getLevelUpPercent() / 5 + "%" + "\n" + "|5|Bạn có thể ăn dan dược để tăng tỷ lệ thành công -.-";
                                 if (isDotPhaCao) {
@@ -7603,6 +7645,10 @@ public class NpcFactory {
                             Service.gI().sendThongBao(player, "Đột phá cần đầy đủ lượng linh khí hãy bổ sung");
                             return;
                         }
+                        if (player.inventory.ruby - (player.tuTien.level + 1) * 10_000 < 0) {
+                            Service.gI().sendThongBao(player, "Đột phá cần " + (player.tuTien.level + 1) * 10_000 + " hồng ngọc");
+                            return;
+                        }
                         if (player.tuTien.subLevel == 10) {
                             switch (select) {
                                 case 0:
@@ -7614,7 +7660,7 @@ public class NpcFactory {
                                         return;
                                     }
                                     float subPercent = player.luyenDanSu.diemKhangTinh / 10f;
-                                    float ratio = (player.tuTien.getLevelUpPercent() / 5);
+                                    float ratio = (player.tuTien.getLevelUpPercent() / 20f);
                                     if (Util.isTrue(ratio - subPercent, 110)) {
                                         player.tuTien.levelUp();
                                         return;
@@ -7648,6 +7694,8 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Bạn đã đột phá thất bại , mất hết tu vi và linh khí hiện tại");
                             }
                         }
+                        player.inventory.ruby -= (player.tuTien.level + 1) * 10_000;
+                        Service.gI().sendMoney(player);
                         break;
                     case ConstNpc.TU_TIEN_TAN_CONG:
                         if (select == 0) {

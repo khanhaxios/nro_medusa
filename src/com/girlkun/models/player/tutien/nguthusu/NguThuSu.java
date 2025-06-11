@@ -32,7 +32,7 @@ public class NguThuSu extends BasePoint implements IBaseAction {
     public void update() {
         if (isNguThu() && Util.canDoWithTime(lastTimeGetExp, 2000)) {
             addExp(getExpCanGain(null));
-            if (exp == maxExp) {
+            if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 10_000 >= 0) {
                 if (Util.isTrue(getLevelUpPercent(), 300)) {
                     this.levelUp();
                     Service.gI().sendThongBao(player, "Tự động đột phá ngự thú sư thành công");
@@ -40,6 +40,8 @@ public class NguThuSu extends BasePoint implements IBaseAction {
                     Service.gI().sendThongBao(player, "Tự động đột phá ngự thú sư thất bại");
                 }
                 restExp();
+                player.inventory.ruby -= 10_000;
+                Service.gI().sendMoney(player);
             }
         }
     }

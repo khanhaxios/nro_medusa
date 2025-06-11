@@ -33,13 +33,15 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
     }
 
     public void update() {
-        if (exp == maxExp) {
+        if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 10_000 >= 0) {
             if (Util.isTrue(getLevelUpPercent(), 100)) {
                 this.levelUp();
                 Service.gI().sendThongBao(player, "Tự động đột phá phù chú sư thành công");
             } else {
                 Service.gI().sendThongBao(player, "Tự động đột phá phù chứ sư thất bại");
             }
+            player.inventory.ruby -= 10_000;
+            Service.gI().sendMoney(player);
             restExp();
         }
     }

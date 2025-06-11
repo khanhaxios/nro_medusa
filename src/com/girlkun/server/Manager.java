@@ -24,6 +24,7 @@ import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
 import com.girlkun.models.reward.ItemMobReward;
 import com.girlkun.models.reward.ItemOptionMobReward;
 import com.girlkun.models.reward.MobReward;
+import com.girlkun.models.sangiaodich.SanGiaoDichBuaZeno;
 import com.girlkun.models.shop.Shop;
 import com.girlkun.models.skill.NClass;
 import com.girlkun.models.skill.Skill;
@@ -34,7 +35,6 @@ import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.services.ItemService;
 import com.girlkun.services.MapService;
 import com.girlkun.utils.Logger;
-import com.girlkun.utils.MobRewardExporter;
 import com.girlkun.utils.Util;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -51,7 +51,7 @@ import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class Manager {
-
+    public static SanGiaoDichBuaZeno sanGiaoDichBuaZeno;
     public static byte LEVEL_HARD = 8;
     public static final int GIA_QUY_DOI_BUA_ZENO = 2222;
     public static short[] LIST_CAI_TRANG_ID = new short[]{};
@@ -156,7 +156,7 @@ public class Manager {
     public static long timeRealTop = 0;
     public static final short[] itemIds_TL = {555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561};
     public static final short[] itemIds_HD = {650, 651, 657, 658, 656, 652, 653, 659, 660, 656, 654, 655, 661, 662, 656};
-    public static final List<Integer> itemIds_HDS =Arrays.asList(650,651,657,658,656,652,653,659,660,656,654,655,661,662,656);
+    public static final List<Integer> itemIds_HDS = Arrays.asList(650, 651, 657, 658, 656, 652, 653, 659, 660, 656, 654, 655, 661, 662, 656);
 
     public static final byte[] itemIds_NR_SB = {15, 16};
     public static final byte[] itemIds_NR = {20, 19, 18, 17};
@@ -242,10 +242,9 @@ public class Manager {
         NpcFactory.createNpcRongThieng();
         NpcFactory.createNpcRongXuong();
         NpcFactory.createNpcRongSieuCap();
-        this.initMap();
         TuTienTemplate.getI().initTemplate();
-        // extract
-        MobRewardExporter.exportMobRewardsToTxt("exported_mob_rewards.txt");
+        sanGiaoDichBuaZeno = new SanGiaoDichBuaZeno();
+        this.initMap();
     }
 
     public void loadCaiTrang() {

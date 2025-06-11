@@ -395,7 +395,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     @Override
     public float getDameBuff() {
-        float percentBuff = (getBaseBuffByLevel(5) + (getSubLevelOtherBuff() + (Math.max(1, level - 1) * 10)));
+        float percentBuff = (getBaseBuffByLevel(2) + (getSubLevelOtherBuff() + (Math.max(1, level - 1) * 10)));
         return percentBuff + (percentBuff * xParam);
     }
 
@@ -413,7 +413,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     @Override
     public float getPSTBuff() {
-        float percentBuff = (getBaseBuffByLevel(5) + (getSubLevelOtherBuff(0.1f) + (Math.max(1, level - 1) * 10)));
+        float percentBuff = (getBaseBuffByLevel(1) + (getSubLevelOtherBuff(0.1f) + (Math.max(1, level - 1) * 10)));
         return percentBuff + (percentBuff * xParam);
     }
 

@@ -430,6 +430,9 @@ public class ConstNpc {
     public static final int MENU_MO_LUYEN_DAN = -982742312;
     public static final int MENU_LUYEN_DAN = -913232;
     public static final int MENU_CHON_DAN_PHUONG = -66613822;
+    public static final int MENU_INFO_SGD_ZENO = -9167873;
+    public static final int MY_ACCOUNT = -123123123;
+    public static final int TAO_TAI_KHOAN_SGD = -23423432;
 }
 
 /**

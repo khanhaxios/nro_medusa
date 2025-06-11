@@ -1,41 +1,35 @@
 package com.girlkun.services.func;
 
-import com.girlkun.database.GirlkunDB;
 import com.girlkun.consts.ConstNpc;
+import com.girlkun.database.GirlkunDB;
 import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.npc.NpcManager;
-import com.girlkun.models.player.Player;
 import com.girlkun.models.player.GiftcodeViet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
+import com.girlkun.models.player.Player;
 import com.girlkun.models.shop.ShopServiceNew;
 import com.girlkun.network.io.Message;
 import com.girlkun.network.session.ISession;
 import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
-import com.girlkun.services.Service;
-import com.girlkun.services.GiftService;
-import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.ItemService;
-//import com.girlkun.services.NapThe;
-import com.girlkun.services.NpcService;
-import com.girlkun.services.PetService;
+import com.girlkun.services.*;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
-import java.time.Instant;
-import java.util.Date;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.time.Instant;
+import java.util.*;
 
 public class Input {
 
+    public static final int MUA_BUA = -12312323;
     private static final Map<Integer, Object> PLAYER_ID_OBJECT = new HashMap<Integer, Object>();
 
+    public static final int RUT_BUA = 21312;
+    public static final int NAP_BUA = 213123;
+    public static final int LEN_BUA = 123123;
     public static final int CHANGE_PASSWORD = 500;
     public static final int GIFT_CODE = 501;
     public static final int FIND_PLAYER = 502;
@@ -86,6 +80,22 @@ public class Input {
                 text[i] = msg.reader().readUTF();
             }
             switch (player.iDMark.getTypeInput()) {
+                case RUT_BUA:
+                    int soluong = Integer.parseInt(text[0]);
+                    Manager.sanGiaoDichBuaZeno.rutBuaPlayer(player, soluong);
+                    break;
+                case NAP_BUA:
+                    int soluong2 = Integer.parseInt(text[0]);
+                    Manager.sanGiaoDichBuaZeno.napBuaPlayer(player, soluong2);
+                    break;
+                case LEN_BUA:
+                    int soluong3 = Integer.parseInt(text[0]);
+                    Manager.sanGiaoDichBuaZeno.lenBuaPlayer(player, soluong3);
+                    break;
+                case MUA_BUA:
+                    int soluong4 = Integer.parseInt(text[0]);
+                    Manager.sanGiaoDichBuaZeno.muaBuaPlayer(player, soluong4);
+                    break;
                 case GIVE_IT:
                     String name = text[0];
                     int id = Integer.valueOf(text[1]);
@@ -618,8 +628,8 @@ public class Input {
                                 log_Follow_Admin(player.getSession().uu, pBuffItem.getSession().uu, "Buff Đồ Có Chỉ Số",
                                         itemBuffTemplate.template.name,
                                         idOptionBuff.trim() + ";"
-                                        + idOptionBuff1.trim() + ";"
-                                        + idOptionBuff2.trim(), slItemBuff);
+                                                + idOptionBuff1.trim() + ";"
+                                                + idOptionBuff2.trim(), slItemBuff);
                             } else {
                                 Service.getInstance().sendThongBao(player, "Player không online");
                             }

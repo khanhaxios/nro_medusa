@@ -1,29 +1,21 @@
 package com.girlkun.server;
 
-import com.girlkun.data.DataGame;
 import com.girlkun.database.GirlkunDB;
-
-import java.io.*;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-
 import com.girlkun.jdbc.daos.HistoryTransactionDAO;
 import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.item.Item;
-import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
+import com.girlkun.models.kygui.ShopKyGuiManager;
 import com.girlkun.models.map.challenge.MartialCongressManager;
+import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
 import com.girlkun.models.player.Player;
-import com.girlkun.network.io.Message;
-import com.girlkun.network.server.GirlkunSessionManager;
-import com.girlkun.network.session.ISession;
 import com.girlkun.network.example.MessageSendCollect;
+import com.girlkun.network.io.Message;
 import com.girlkun.network.server.GirlkunServer;
-import com.girlkun.network.server.IServerClose;
+import com.girlkun.network.server.GirlkunSessionManager;
 import com.girlkun.network.server.ISessionAcceptHandler;
+import com.girlkun.network.session.ISession;
 import com.girlkun.server.io.MyKeyHandler;
 import com.girlkun.server.io.MySession;
-import com.girlkun.models.kygui.ShopKyGuiManager;
-import com.girlkun.panel.JFramePanel;
 import com.girlkun.services.ClanService;
 import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.NgocRongNamecService;
@@ -34,9 +26,10 @@ import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 
+import java.io.*;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
-
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -204,8 +197,7 @@ public class ServerManager {
                 }
             }
         }, "Update dai hoi vo thuat").start();
-
-
+        new Thread(Manager.sanGiaoDichBuaZeno, "SGD").start();
         try {
             Thread.sleep(1000);
             BossManager.gI().loadBoss();

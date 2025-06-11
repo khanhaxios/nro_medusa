@@ -1664,11 +1664,11 @@ public class NPoint {
                 }
                 // Goku UI
                 if (this.player.setClothes.setGokuUITD == 5) {
-                    percentXDame = 450;
+                    percentXDame = 750;
                 }
                 // set tien
                 if (this.player.setClothes.setTienTD == 5) {
-                    percentXDame = 500;
+                    percentXDame = 1000;
                 }
                 break;
             case Skill.GALICK:

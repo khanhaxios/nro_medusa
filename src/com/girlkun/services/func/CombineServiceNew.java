@@ -10,10 +10,7 @@ import com.girlkun.models.player.Player;
 import com.girlkun.network.io.Message;
 import com.girlkun.server.Manager;
 import com.girlkun.server.ServerNotify;
-import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.ItemService;
-import com.girlkun.services.RewardService;
-import com.girlkun.services.Service;
+import com.girlkun.services.*;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
@@ -21,8 +18,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CombineServiceNew {
+    public static final int MENU_START_COMBINE_NEW = -1312123;
 
     public static final int CHE_TAO_BT = -12312;
+    public static final int PHAN_RA_TRANG_BI = -1231321;
     private static final int[] TIEN_KHI_OPTIONS_ID = new int[]{254, 255, 256};
     private static final int COST_DOI_VE_DOI_DO_HUY_DIET = 500000000;
     private static final int COST_DAP_DO_KICH_HOAT = 500000000;
@@ -141,6 +140,18 @@ public class CombineServiceNew {
             }
         }
         switch (player.combineNew.typeCombine) {
+            case PHAN_RA_TRANG_BI:
+                // check all is trang bi
+                if (player.combineNew.itemsCombine.size() == 0) {
+                    Service.gI().sendThongBaoOK(player, "Hãy đặt trang bị bất kỳ vào nào");
+                    return;
+                }
+                if (!player.combineNew.itemsCombine.stream().allMatch(a -> a.template.type >= 0 && a.template.type < 5)) {
+                    Service.gI().sendThongBaoOK(player, "Hãy bỏ đồ không phải là trang bị ra nào");
+                    return;
+                }
+                NpcService.gI().createMenuConMeo(player, MENU_START_COMBINE_NEW, -1, "Bạn có chắc muốn phân rã những đồ này?", "Phân rã", "Không!!!");
+                break;
             case CHE_TAO_BT:
                 if (player.combineNew.itemsCombine.size() == 4) {
                     Item dvt = null;
@@ -197,7 +208,7 @@ public class CombineServiceNew {
                         Service.gI().sendThongBao(player, "Không đủ linh khí cần 5% tổng linh khí để chế tạo");
                         return;
                     }
-                    this.baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, "Cấp luyện khí càng cao tỷ lệ thành công càng cao", "Chế tạo", "Đóng");
+                    this.baHatMit.createOtherMenu(player, MENU_START_COMBINE_NEW, "Cấp luyện khí càng cao tỷ lệ thành công càng cao", "Chế tạo", "Đóng");
                 } else {
                     Service.gI().sendThongBaoOK(player, "Hãy đặt vào trang bị , ĐÁ MEDUSA và Đế Vương Thạch,Thiên Mệnh Thạch ,Thiên Nguyệt Thạch");
                 }
@@ -232,7 +243,7 @@ public class CombineServiceNew {
                         Service.gI().sendThongBao(player, "Trang bị đã được kích hoạt");
                         return;
                     }
-                    this.baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, "Cấp luyện khí càng cao kích hoạt trang bị dòng càng tốt", "Kích hoạt");
+                    NpcService.gI().createMenuConMeo(player, MENU_START_COMBINE_NEW, -1, "Cấp luyện khí càng cao kích hoạt trang bị dòng càng tốt , tỷ lệ hiện tại " + player.luyenKhiSu.getPercentBounce() / 5f + "%", "Kích hoạt");
                 } else {
                     Service.gI().sendThongBaoOK(player, "Hãy đặt vào trang bị , ĐÁ MEDUSA và Đế Vương Thạch");
                 }
@@ -1358,6 +1369,9 @@ public class CombineServiceNew {
      */
     public void startCombine(Player player) {
         switch (player.combineNew.typeCombine) {
+            case PHAN_RA_TRANG_BI:
+                phanratrangbi(player);
+                break;
             case CHE_TAO_BT:
                 chetaoBongTai(player);
                 break;
@@ -1469,6 +1483,33 @@ public class CombineServiceNew {
 
     }
 
+    private void phanratrangbi(Player player) {
+        List<Item> items = player.combineNew.itemsCombine;
+        int point = 0;
+        int lhPoint = 0;
+        if (items.size() == 0) {
+            Service.gI().sendThongBaoOK(player, "Không có đồ nào để phân rã");
+            return;
+        }
+        for (Item item : items) {
+            int multiplier = Util.nextInt(3, 5); // nhỏ hơn
+            point += (item.template.id) * multiplier;
+            lhPoint += (item.template.id) * Util.nextInt(2, 3);
+        }
+        if (items.size() >= 10) {
+            point *= 1.05f;
+            lhPoint *= 1.05f;
+        }
+        // sub do
+        items.forEach(i -> InventoryServiceNew.gI().removeItemBag(player, i));
+        InventoryServiceNew.gI().sendItemBags(player);
+        // cong point
+        player.luyenKhiSu.addExp(point);
+        player.luyenKhiSu.getLinhHoa().addExp(lhPoint);
+        Service.gI().sendThongBaoOK(player, String.format("Phân rã %s trang bị thành công bạn nhận được \n x%s", items.size(), Util.format(point) + " Kinh nghiệm luyện khí\nx" + Util.format(lhPoint) + " Tu vi Linh Hỏa"));
+        reOpenItemCombine(player);
+    }
+
     private void chetaoBongTai(Player player) {
         Item dvt = player.combineNew.itemsCombine.stream().filter(t -> t.template.id == 1260).findFirst().orElse(null);
         Item tnt = player.combineNew.itemsCombine.stream().filter(t -> t.template.id == 1266).findFirst().orElse(null);
@@ -1529,7 +1570,7 @@ public class CombineServiceNew {
             Service.gI().sendThongBao(player, "Thiếu trang bị");
             return;
         }
-        float baseRatio = player.luyenKhiSu.getPercentBounce() / 3;
+        float baseRatio = player.luyenKhiSu.getPercentBounce() / 5;
         boolean isSuccess = false;
         // kich hoat set goku
         if (Util.isTrue(baseRatio + 3, 200)) {
@@ -1565,7 +1606,6 @@ public class CombineServiceNew {
             sendEffectFailCombine(player);
             Service.gI().sendThongBao(player, "Kích hoạt thất bại chúc bạn may mắn lần sau");
         }
-        InventoryServiceNew.gI().sendItemBags(player);
         InventoryServiceNew.gI().subQuantityItemsBag(player, da, 1);
         InventoryServiceNew.gI().subQuantityItemsBag(player, devuongthach, 10);
         InventoryServiceNew.gI().sendItemBags(player);
@@ -4640,6 +4680,8 @@ public class CombineServiceNew {
     //--------------------------------------------------------------------------Text tab combine
     private String getTextTopTabCombine(int type) {
         switch (type) {
+            case PHAN_RA_TRANG_BI:
+                return "Phân ra trang bị giúp kiếm kinh nghiệm\nluyện khí và linh hỏa";
             case CHE_TAO_BT:
                 return "Bông tai giúp m hợp thể với đệ tử";
             case KICH_HOAT_TRANG_BI:
@@ -4707,6 +4749,8 @@ public class CombineServiceNew {
 
     private String getTextInfoTabCombine(int type) {
         switch (type) {
+            case PHAN_RA_TRANG_BI:
+                return "Đặt trang bị bất kỳ vào và chọn phân rã";
             case CHE_TAO_BT:
                 return "Cho vào đây số lượng Đế Vương thạch , Thiên mệnh thạch,\n Thiên nguyệt thạch đầy đủ";
             case KICH_HOAT_TRANG_BI:

@@ -40,7 +40,7 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
                 addExp(getExpCanGain(null));
             }
             // auto dot pha
-            if (exp == maxExp) {
+            if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 10_000 >= 0) {
                 float tyle = getLevelUpPercent();
                 if (Util.isTrue(tyle, 300)) {
                     levelUp();
@@ -48,6 +48,8 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
                 } else {
                     Service.gI().sendThongBao(player, "Tự động đột phá trận pháp sư thất bại");
                 }
+                player.inventory.ruby -= 10_000;
+                Service.gI().sendMoney(player);
                 restExp();
             }
         }

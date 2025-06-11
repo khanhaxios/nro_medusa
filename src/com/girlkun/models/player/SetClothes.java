@@ -435,7 +435,6 @@ public class SetClothes {
                     if (isActSet) {
                         break;
                     }
-
                 }
             } else {
                 break;
@@ -447,7 +446,7 @@ public class SetClothes {
         for (int i = 0; i < 5; i++) {
             Item item = this.player.inventory.itemsBody.get(i);
             if (item.isNotNullItem()) {
-                if (Manager.itemIds_HDS.contains(item.template.id)) {
+                if (Manager.itemIds_HDS.contains((int) item.template.id)) {
                     setDHD++;
                 }
             }
