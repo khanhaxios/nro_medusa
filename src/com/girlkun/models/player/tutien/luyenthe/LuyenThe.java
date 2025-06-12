@@ -96,7 +96,7 @@ public class LuyenThe extends BasePoint implements IBaseAction {
 
     @Override
     public boolean canLevelUp() {
-        return level < MAX_LEVEL && exp == maxExp;
+        return level < MAX_LEVEL;
     }
 
     @Override
@@ -111,7 +111,7 @@ public class LuyenThe extends BasePoint implements IBaseAction {
 
     @Override
     public float getDameBuff() {
-        return Math.max(1, level) * 2f;
+        return Math.max(1, level) * 6f;
     }
 
     @Override

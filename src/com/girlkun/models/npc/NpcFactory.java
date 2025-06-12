@@ -7645,7 +7645,7 @@ public class NpcFactory {
                             Service.gI().sendThongBao(player, "Đột phá cần đầy đủ lượng linh khí hãy bổ sung");
                             return;
                         }
-                        if (player.inventory.ruby - (player.tuTien.level + 1) * 10_000 < 0) {
+                        if (player.inventory.ruby - (player.tuTien.level + 1) * 5_000 < 0) {
                             Service.gI().sendThongBao(player, "Đột phá cần " + (player.tuTien.level + 1) * 10_000 + " hồng ngọc");
                             return;
                         }
@@ -7694,7 +7694,7 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Bạn đã đột phá thất bại , mất hết tu vi và linh khí hiện tại");
                             }
                         }
-                        player.inventory.ruby -= (player.tuTien.level + 1) * 10_000;
+                        player.inventory.ruby -= (player.tuTien.level + 1) * 5_000;
                         Service.gI().sendMoney(player);
                         break;
                     case ConstNpc.TU_TIEN_TAN_CONG:

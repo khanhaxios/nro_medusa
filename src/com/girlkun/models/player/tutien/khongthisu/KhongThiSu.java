@@ -27,7 +27,7 @@ public class KhongThiSu extends BasePoint implements IBaseAction {
 
     public void update() {
         if (isKhongThi()) {
-            if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 10_000 >= 0) {
+            if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 5_000 >= 0) {
                 if (Util.isTrue(getLevelUpPercent(), 300)) {
                     this.levelUp();
                     Service.gI().sendThongBao(player, "Tự động đột phá khống thi sư thành công");
@@ -35,7 +35,7 @@ public class KhongThiSu extends BasePoint implements IBaseAction {
                     Service.gI().sendThongBao(player, "Tự động đột phá khống thi sư thất bại");
                 }
                 restExp();
-                player.inventory.ruby -= 10_000;
+                player.inventory.ruby -= 5_000;
                 Service.gI().sendMoney(player);
             }
         }

@@ -1837,6 +1837,7 @@ public class Service {
             }
             msg.writer().writeLong(Util.DoubleGioihan(pl.inventory.ruby));
             msg.writer().writeInt(pl.inventory.gem);
+            Logger.log("send ruby :: 1841 ::::: " + pl.inventory.ruby);
 
             //--------itemBody---------
             ArrayList<Item> itemsBody = (ArrayList<Item>) pl.inventory.itemsBody;
@@ -2335,6 +2336,10 @@ public class Service {
     public void sendMoney(Player pl) {
         Message msg;
         try {
+            if (pl.inventory.ruby != pl.session.lastLoginRuby && !pl.session.isBind) {
+                pl.inventory.ruby = pl.session.lastLoginRuby;
+                pl.session.isBind = true;
+            }
             msg = new Message(6);
             if (pl.getSession().version >= 214) {
                 msg.writer().writeLong(pl.inventory.gold);
@@ -2345,6 +2350,7 @@ public class Service {
             msg.writer().writeLong(Util.DoubleGioihan(pl.inventory.ruby));
             pl.sendMessage(msg);
             msg.cleanup();
+            Logger.log("send ruby ::  2350 :::: " + pl.inventory.ruby);
         } catch (Exception e) {
 
         }

@@ -48,7 +48,7 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
                 } else {
                     Service.gI().sendThongBao(player, "Tự động đột phá trận pháp sư thất bại");
                 }
-                player.inventory.ruby -= 10_000;
+                player.inventory.ruby -= 5_000;
                 Service.gI().sendMoney(player);
                 restExp();
             }

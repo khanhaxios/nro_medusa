@@ -47,7 +47,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
 
     @Override
     protected long getNextLevelExp() {
-        return (level + 1) * 1000000;
+        return (level + 1) * 10000;
 
     }
 
@@ -165,7 +165,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
                 diemKhangTinh -= 1;
                 lastTimeTruDiemKhangTinh = System.currentTimeMillis();
             }
-            if (canLevelUp() && player.inventory.ruby - 10_000 >= 0) {
+            if (canLevelUp() && player.inventory.ruby - 5_000 >= 0) {
                 // try dot pha
                 if (Util.isTrue(getLevelUpPercent(), 100)) {
                     levelUp();
@@ -173,7 +173,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
                 } else {
                     Service.gI().sendThongBao(player, "Tự động đột phá luyện đan sư thất bại");
                 }
-                player.inventory.ruby -= 10_000;
+                player.inventory.ruby -= 5_000;
                 Service.gI().sendMoney(player);
             }
         }
@@ -257,6 +257,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
             tongDanDuocDaAn++;
             if (canAddKhangTinh) {
                 diemKhangTinh += 5;
+                if (diemKhangTinh > 100) diemKhangTinh = 100;
             }
         }
 

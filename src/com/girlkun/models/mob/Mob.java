@@ -595,6 +595,9 @@ public class Mob {
                 list.add(new ItemMap(zone, 2074, 1, this.location.x, yEnd, player.id));
             }
         }
+        if (zone.map.mapId == 144) {
+            list.add(new ItemMap(zone, 861, Util.nextInt(100, 300), this.location.x, yEnd, player.id));
+        }
         // rơi các loại đá thạch ( chỉ có ở ngũ hành sơn )
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
             // roi con duong ran doc
@@ -627,7 +630,7 @@ public class Mob {
             }
         }
         // roi hong ngoc khi danh quai
-        list.add(new ItemMap(zone, 861, Util.nextInt(1, 5), this.location.x, yEnd, player.id));
+        list.add(new ItemMap(zone, 861, Util.nextInt(1, 25), this.location.x, yEnd, player.id));
         // rơi giấy thếp để chế bùa
         if (Manager.idsMapCold.contains(zone.map.mapId) && player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
             if (Util.isTrue(3, 100)) {

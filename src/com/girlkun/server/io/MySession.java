@@ -1,31 +1,23 @@
 package com.girlkun.server.io;
 
-import com.girlkun.consts.ConstPlayer;
-
-import java.net.Socket;
-
-import com.girlkun.models.player.Player;
-import com.girlkun.server.Controller;
 import com.girlkun.data.DataGame;
 import com.girlkun.jdbc.daos.GodGK;
 import com.girlkun.models.item.Item;
-import com.girlkun.models.skill.Skill;
-import com.girlkun.network.session.Session;
+import com.girlkun.models.player.Player;
 import com.girlkun.network.io.Message;
+import com.girlkun.network.session.Session;
 import com.girlkun.server.Client;
+import com.girlkun.server.Controller;
 import com.girlkun.server.Maintenance;
 import com.girlkun.server.Manager;
-import com.girlkun.server.ServerManager;
 import com.girlkun.server.model.AntiLogin;
 import com.girlkun.services.ItemService;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
-import com.girlkun.services.func.Input;
 import com.girlkun.utils.Logger;
-import com.girlkun.utils.Util;
 
 import java.io.IOException;
-
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +25,8 @@ import java.util.Map;
 
 public class MySession extends Session {
 
+    public long lastLoginRuby = 0;
+    public boolean isBind = false;
     private static final Map<String, AntiLogin> ANTILOGIN = new HashMap<>();
     public Player player;
 
@@ -190,6 +184,7 @@ public class MySession extends Session {
             }
             player = GodGK.login(this, al);
             if (player != null) {
+                lastLoginRuby = player.inventory.ruby;
                 // -77 max small
                 DataGame.sendSmallVersion(this);
                 // -93 bgitem version

@@ -35,14 +35,14 @@ public class LinhThucSu extends BasePoint implements IBaseAction {
     }
 
     public void update() {
-        if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 10_000 >= 0) {
+        if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 5_000 >= 0) {
             if (Util.isTrue(getLevelUpPercent(), 100)) {
                 this.levelUp();
                 Service.gI().sendThongBao(player, "Tự động đột phá linh thực sư thành công");
             } else {
                 Service.gI().sendThongBao(player, "Tự động đột phá linh thực sư thất bại");
             }
-            player.inventory.ruby -= 10_000;
+            player.inventory.ruby -= 5_000;
             Service.gI().sendMoney(player);
             restExp();
         }
