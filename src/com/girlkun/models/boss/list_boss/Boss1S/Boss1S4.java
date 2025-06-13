@@ -30,26 +30,25 @@ public class Boss1S4 extends Boss {
         plKill.inventory.event++;
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         ItemMap it = new ItemMap(this.zone, 1236, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                this.location.y - 24),  plKill.id);
+                this.location.y - 24), plKill.id);
         it.options.add(new Item.ItemOption(30, 1));
         Service.getInstance().dropItemMap(this.zone, it);
-        ItemMap itT = new ItemMap(this.zone, 1236, 1, this.location.x +10, this.zone.map.yPhysicInTop(this.location.x,
+        ItemMap itT = new ItemMap(this.zone, 1236, 1, this.location.x + 10, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);
         itT.options.add(new Item.ItemOption(30, 1));
         Service.getInstance().dropItemMap(this.zone, itT);
-         int a=20;
-                for (int i=0; i<3; i++)
-                {
-                      ItemMap it1 = new ItemMap(this.zone, 717, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
+        int a = 20;
+        for (int i = 0; i < 3; i++) {
+            ItemMap it1 = new ItemMap(this.zone, 717, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
                     this.location.y - 24), plKill.id);
-                Service.getInstance().dropItemMap(this.zone, it1);
-                it1.options.add(new Item.ItemOption(30, 1));
-                a+=10;
-                }
-                ItemMap it1 = new ItemMap(this.zone, 2030, 5, this.location.x - a, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
-        if (Util.isTrue(5,100)){
+            it1.options.add(new Item.ItemOption(30, 1));
+            a += 10;
+        }
+        ItemMap it1 = new ItemMap(this.zone, 2030, 5, this.location.x - a, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        Service.getInstance().dropItemMap(this.zone, it1);
+        if (Util.isTrue(5, 100)) {
             ItemMap it11 = new ItemMap(this.zone, 1473, 5, this.location.x - a, this.zone.map.yPhysicInTop(this.location.x,
                     this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it11);
@@ -69,22 +68,26 @@ public class Boss1S4 extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
+            if (!a) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
+                    this.chat("Xí hụt");
+                    return 0;
                 }
-                damage = 1;
+                damage = this.nPoint.subDameInjureWithDeff(damage);
+                if (!piercing && effectSkill.isShielding) {
+                    if (damage > nPoint.hpMax) {
+                        EffectSkillService.gI().breakShield(this);
+                    }
+                    damage = 1;
+                }
             }
+
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);
@@ -95,4 +98,5 @@ public class Boss1S4 extends Boss {
             return 0;
         }
     }
+
 }

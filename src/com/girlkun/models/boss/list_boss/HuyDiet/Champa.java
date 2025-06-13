@@ -2,13 +2,14 @@ package com.girlkun.models.boss.list_boss.HuyDiet;
 
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.boss.Boss;
-import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Manager;
-import com.girlkun.services.*;
+import com.girlkun.services.EffectSkillService;
+import com.girlkun.services.PlayerService;
+import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
 import java.util.Random;
@@ -44,14 +45,17 @@ public class Champa extends Boss {
     }
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1)) {
-                this.chat("Xí hụt");
-                return 0;
+            if (!a) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1)) {
+                    this.chat("Xí hụt");
+                    return 0;
+                }
+                damage = this.nPoint.subDameInjureWithDeff(damage);
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
-            if (!piercing && effectSkill.isShielding) {
+
+            if (!piercing && effectSkill.isShielding && a) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
@@ -103,7 +107,7 @@ public class Champa extends Boss {
         this.nPoint.critg++;
         this.nPoint.calPoint();
         PlayerService.gI().hoiPhuc(this, pl.nPoint.hp, 0);
-        pl.injured(null, Util.DoubleGioihan(pl.nPoint.hpMax), true, false);
+        pl.injured(null, Util.DoubleGioihan(pl.nPoint.hpMax), true, false, false);
         Service.getInstance().sendThongBao(pl, "Bạn vừa bị " + this.name + " cho bay màu");
         this.chat(2, "Hắn ta mạnh quá,coi chừng " + pl.name + ",tên " + this.name + " hắn không giống như những kẻ thù trước đây");
         this.chat("Thật là yếu ớt " + pl.name);

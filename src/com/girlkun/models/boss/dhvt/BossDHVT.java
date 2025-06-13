@@ -5,7 +5,6 @@ import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossData;
 import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.boss.BossStatus;
-import com.girlkun.models.map.challenge.MartialCongressService;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.PlayerService;
@@ -15,7 +14,7 @@ import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
 
 /**
- * @author BTH sieu cap vippr0 
+ * @author BTH sieu cap vippr0
  */
 public abstract class BossDHVT extends Boss {
 
@@ -63,15 +62,14 @@ public abstract class BossDHVT extends Boss {
                     } else {
                         goToPlayer(playerAtt, false);
                     }
-                }
-                else {
+                } else {
                     this.leaveMap();
 //                    MartialCongressService.gI().check = false;
                 }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-                System.out.println("loi ne    44    ClassCastException ");
+            System.out.println("loi ne    44    ClassCastException ");
         }
     }
 
@@ -141,8 +139,9 @@ public abstract class BossDHVT extends Boss {
         super.leaveMap();
         BossManager.gI().removeBoss(this);
     }
+
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
                 this.chat("Xí hụt");

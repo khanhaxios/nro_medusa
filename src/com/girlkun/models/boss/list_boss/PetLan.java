@@ -69,24 +69,27 @@ public class PetLan extends Boss {
     }
     private long st;
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack,boolean a) {
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
+            if (!a){
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
+                    this.chat("Xí hụt");
+                    return 0;
                 }
-                damage = 1;
-            }
-            if (plAtt != null) {
-                if (plAtt.setClothes.setDTS == 5) {
-                damage = 5;
+                if (!piercing && effectSkill.isShielding) {
+                    if (damage > nPoint.hpMax) {
+                        EffectSkillService.gI().breakShield(this);
+                    }
+                    damage = 1;
                 }
-    
+                if (plAtt != null) {
+                    if (plAtt.setClothes.setDTS == 5) {
+                        damage = 5;
+                    }
+
+                }
             }
+
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);

@@ -155,7 +155,7 @@ public class TrungUyTrang extends Boss {
     private long lastTimeBlame;
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack,boolean a) {
         if (!this.isDie()) {
             if (this.zone.isbulon14Alive) {
                 if (System.currentTimeMillis() - lastTimeBlame > 3000) {

@@ -313,7 +313,7 @@ public class Mob {
                 t.writer().writeByte(players.size());
                 for (Byte i = 0; i < players.size(); i++) {
                     t.writer().writeInt((int) players.get(i).id);
-                    t.writer().writeInt((int) players.get(i).injured(null, (int) dame, false, true));
+                    t.writer().writeInt((int) players.get(i).injured(null, (int) dame, false, true, false));
                 }
                 Service.getInstance().sendMessAllPlayerInMap(this.zone, t);
                 t.cleanup();
@@ -326,7 +326,7 @@ public class Mob {
                 t.writer().writeByte(players.size());
                 for (Byte i = 0; i < players.size(); i++) {
                     t.writer().writeInt((int) players.get(i).id);
-                    t.writer().writeInt((int) players.get(i).injured(null, (int) dame, false, true));
+                    t.writer().writeInt((int) players.get(i).injured(null, (int) dame, false, true, false));
                 }
                 Service.getInstance().sendMessAllPlayerInMap(this.zone, t);
                 t.cleanup();
@@ -384,7 +384,7 @@ public class Mob {
             if (this.isSieuQuai()) {
                 dameMob = player.nPoint.hpMax / 10;
             }
-            double dame = player.injured(null, dameMob, false, true);
+            double dame = player.injured(null, dameMob, false, true, false);
             this.sendMobAttackMe(player, dame);
             this.sendMobAttackPlayer(player);
         }

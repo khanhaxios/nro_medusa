@@ -387,7 +387,7 @@ public class Player {
                     if (tranPhapSu != null) {
                         tranPhapSu.update();
                     }
-                    if (luyenDanSu!=null){
+                    if (luyenDanSu != null) {
                         luyenDanSu.update();
                     }
                     if (nguThuSu != null) {
@@ -1167,7 +1167,7 @@ public class Player {
     }
 
     //--------------------------------------------------------------------------
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean isStChuan) {
         if (!this.isDie()) {
             int TileChinhxac = 0;
             if (plAtt != null) {
@@ -1182,25 +1182,30 @@ public class Player {
                     case Skill.KAIOKEN:
                     case Skill.LIEN_HOAN:
                     case Skill.DE_TRUNG:
-                        if (this.nPoint.voHieuChuong > 0) {
+                        if (this.nPoint.voHieuChuong > 0 && !isStChuan) {
                             com.girlkun.services.PlayerService.gI().hoiPhuc(this, 0, Util.DoubleGioihan(damage * this.nPoint.voHieuChuong / 100));
                             return 0;
                         }
                 }
             }
-            if (this.setClothes.isSetGokuUI()) {
-                int tl = 60 + (this.nPoint.tlNeDon - TileChinhxac);
-                tl = Math.min(tl, 95);
-                if (!piercing && Util.isTrue(tl, 100)) {
-                    return 0;
-                }
-            } else {
-                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - TileChinhxac, 100)) {
-                    return 0;
+            if (!isStChuan) {
+                if (this.setClothes.isSetGokuUI()) {
+                    int tl = 60 + (this.nPoint.tlNeDon - TileChinhxac);
+                    tl = Math.min(tl, 95);
+                    if (!piercing && Util.isTrue(tl, 100)) {
+                        return 0;
+                    }
+                } else {
+                    if (!piercing && Util.isTrue(this.nPoint.tlNeDon - TileChinhxac, 100)) {
+                        return 0;
+                    }
                 }
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
-            if (!piercing && effectSkill.isShielding) {
+
+            if (!isStChuan) {
+                damage = this.nPoint.subDameInjureWithDeff(damage);
+            }
+            if (!piercing && effectSkill.isShielding && !isStChuan) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
@@ -1218,43 +1223,51 @@ public class Player {
                     damage += damage * tyle;
                 }
             }
-            if (this.nPoint.tyLeGiamDame > 0) {
-                damage -= damage * nPoint.tyLeGiamDame / 100;
+            if (!isStChuan) {
+                if (this.nPoint.tyLeGiamDame > 0) {
+                    damage -= damage * nPoint.tyLeGiamDame / 100;
+                }
             }
+
             this.nPoint.subHP(damage);
+
             // healing hp after get dame
             if (tuTien != null && tuTien.isAutoUseTienPhap && (nPoint.hp / nPoint.hpMax * 100) < 20) {
                 tuTien.useBestHealingTienPhap();
             }
             if (isDie()) {
                 if (this.isPl()) {
-                    if (plAtt != null && this.zone.map.mapId == 175) {
-                        plAtt.pointPvpthuong++;
-                        Service.gI().sendThongBao(plAtt, "Bạn vừa hạ đối thủ và nhận được 1 điểm PVP Thường");
-                        if (plAtt.tusat) {
-                            ChangeMapService.gI().changeMapNonSpaceship(plAtt, plAtt.gender + 21, -1, 250);
-                            PlayerService.gI().hoiSinh(plAtt);
-                            plAtt.tusat = false;
+                    if (tuTien.isTuTien() && tuTien.linhCan.getLinhCanType() == 8) {
+                        this.nPoint.hp = 1;
+                    } else {
+                        if (plAtt != null && this.zone.map.mapId == 175) {
+                            plAtt.pointPvpthuong++;
+                            Service.gI().sendThongBao(plAtt, "Bạn vừa hạ đối thủ và nhận được 1 điểm PVP Thường");
+                            if (plAtt.tusat) {
+                                ChangeMapService.gI().changeMapNonSpaceship(plAtt, plAtt.gender + 21, -1, 250);
+                                PlayerService.gI().hoiSinh(plAtt);
+                                plAtt.tusat = false;
+                            }
+                            if (this != null && this.zone != null && this.zone.map.mapId == 175) {
+                                ChangeMapService.gI().changeMapNonSpaceship(this, this.gender + 21, -1, 250);
+                                PlayerService.gI().hoiSinh(this);
+                            }
                         }
-                        if (this != null && this.zone != null && this.zone.map.mapId == 175) {
-                            ChangeMapService.gI().changeMapNonSpaceship(this, this.gender + 21, -1, 250);
-                            PlayerService.gI().hoiSinh(this);
+                        if (plAtt != null && this.zone.map.mapId == 176) {
+                            plAtt.pointPvpVip++;
+                            Service.gI().sendThongBao(plAtt, "Bạn vừa hạ đối thủ và nhận được 1 điểm PVP VIP");
+                            if (plAtt.tusat == true) {
+                                ChangeMapService.gI().changeMapNonSpaceship(plAtt, plAtt.gender + 21, -1, 250);
+                                PlayerService.gI().hoiSinh(plAtt);
+                                plAtt.tusat = false;
+                            }
+                            if (this != null && this.zone != null && this.zone.map.mapId == 176) {
+                                ChangeMapService.gI().changeMapNonSpaceship(this, this.gender + 21, -1, 250);
+                                PlayerService.gI().hoiSinh(this);
+                            }
                         }
+                        setDie(plAtt);
                     }
-                    if (plAtt != null && this.zone.map.mapId == 176) {
-                        plAtt.pointPvpVip++;
-                        Service.gI().sendThongBao(plAtt, "Bạn vừa hạ đối thủ và nhận được 1 điểm PVP VIP");
-                        if (plAtt.tusat == true) {
-                            ChangeMapService.gI().changeMapNonSpaceship(plAtt, plAtt.gender + 21, -1, 250);
-                            PlayerService.gI().hoiSinh(plAtt);
-                            plAtt.tusat = false;
-                        }
-                        if (this != null && this.zone != null && this.zone.map.mapId == 176) {
-                            ChangeMapService.gI().changeMapNonSpaceship(this, this.gender + 21, -1, 250);
-                            PlayerService.gI().hoiSinh(this);
-                        }
-                    }
-                    setDie(plAtt);
                 }
             }
             return damage;

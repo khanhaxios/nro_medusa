@@ -46,6 +46,8 @@ public class NPoint {
 
     /*-----------------------Chỉ số cơ bản------------------------------------*/
     public byte numAttack;
+    public long lastTimeNumAttackLinhCan = System.currentTimeMillis();
+    public short numAttackLinhCan;
     public short stamina, maxStamina;
 
     public byte limitPower;
@@ -1969,12 +1971,21 @@ public class NPoint {
 
     public double subDameInjureWithDeff(double dame) {
         double def = this.def;
+        if (player.tuTien.isTuTien() && player.tuTien.linhCan.getLinhCanType() == 4) {
+            def += def * player.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 100;
+        }
         dame -= def;
         if (this.player.itemTime.isUseGiapXen) {
             dame /= 2;
         }
         if (this.player.itemTimesieucap.isUseGiapXen3) {
             dame /= 2.5;
+        }
+        if (player.tuTien.isTuTien() && player.tuTien.linhCan.getLinhCanType() == 4) {
+            dame /= (player.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 100f);
+        }
+        if (player.tuTien.isTuTien() && player.tuTien.linhCan.getLinhCanType() == 7) {
+            dame /= (player.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 100f);
         }
         if (dame < 0) {
             dame = 1;
@@ -2374,6 +2385,10 @@ public class NPoint {
     private long lastTimeHoiStamina;
 
     public void update() {
+        //
+        if (Util.canDoWithTime(lastTimeNumAttackLinhCan, 5000)) {
+            numAttackLinhCan = 0;
+        }
         if (player != null && player.effectSkill != null) {
             if (player.effectSkill.isCharging && player.effectSkill.countCharging < 10) {
                 long tiLeHoiPhuc = SkillUtil.getPercentCharge(player.playerSkill.skillSelect.point);

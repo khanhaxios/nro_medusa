@@ -9,12 +9,8 @@ import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
-import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
-import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.ItemService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
@@ -27,7 +23,7 @@ public class ThoTrang extends Boss {
         super(BossID.BOSS_THOTRANG, BossesData.BOSS_THOTRANG);
     }
 
-//    private long lateTimeCheckItem;
+    //    private long lateTimeCheckItem;
 //    private long lateTimeCheckItem2;
     @Override
     public void reward(Player plKill) {
@@ -59,25 +55,29 @@ public class ThoTrang extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
             byte damageLimit = 1;
-            if (plAtt != null) {
-                if (plAtt.setClothes.isThuongLinhDietMa) {
-                    damageLimit += 5;
-                } else if (plAtt.setClothes.isDaoYeuLinhPhucMa) {
-                    damageLimit += 3;
+            if (!a) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
+                    this.chat("Xí hụt");
+                    return 0;
                 }
-                damageLimit += plAtt.setClothes.pkkhMedusa * 2;
-    
+                if (plAtt != null) {
+                    if (plAtt.setClothes.isThuongLinhDietMa) {
+                        damageLimit += 5;
+                    } else if (plAtt.setClothes.isDaoYeuLinhPhucMa) {
+                        damageLimit += 3;
+                    }
+                    damageLimit += plAtt.setClothes.pkkhMedusa * 2;
+
+                }
             }
+
             this.nPoint.subHP(damageLimit);
             if (isDie()) {
                 this.setDie(plAtt);

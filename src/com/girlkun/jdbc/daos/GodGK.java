@@ -1002,7 +1002,7 @@ public class GodGK {
                             JSONArray linhCanArray = (JSONArray) jsonArray.get(1);
                             if (linhCanArray.size() > 0) {
                                 player.tuTien.linhCan.setLinhCanType(Byte.parseByte(linhCanArray.get(0).toString()));
-                                player.tuTien.linhCan.getThuocTinhLinhCan().setParam(Byte.parseByte(linhCanArray.get(1).toString()));
+                                player.tuTien.linhCan.getThuocTinhLinhCan().setParam(Short.parseShort(linhCanArray.get(1).toString()));
                                 player.tuTien.linhCan.getThuocTinhLinhCan().setTenThuocTinh(linhCanArray.get(2).toString());
                                 player.tuTien.linhCan.getThuocTinhLinhCan().setId(Byte.parseByte(linhCanArray.get(3).toString()));
                                 player.tuTien.linhCan.getThuocTinhLinhCan().setLinhCanBatBuoc(Byte.parseByte(linhCanArray.get(4).toString()));

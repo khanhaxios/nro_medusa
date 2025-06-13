@@ -14,7 +14,7 @@ import java.util.Random;
 public class ZamasKaio extends Boss {
 
     public ZamasKaio() throws Exception {
-       super(BossID.ZAMASZIN, BossesData.ZAMAS);
+        super(BossID.ZAMASZIN, BossesData.ZAMAS);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class ZamasKaio extends Boss {
         int randomc12 = new Random().nextInt(itemDos.length);
         if (Util.isTrue(BossManager.ratioReward, 100)) {
             if (Util.isTrue(1, 5)) {
-             Service.getInstance().dropItemMap(this.zone,new ItemMap(zone, 874, 1, this.location.x, this.location.y, plKill.id));
+                Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, 874, 1, this.location.x, this.location.y, plKill.id));
                 return;
             }
             Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
@@ -38,9 +38,9 @@ public class ZamasKaio extends Boss {
         } else {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, 722, 2, this.location.x, this.location.y, plKill.id));
         }
-                ItemMap it1 = new ItemMap(this.zone, 2030, 2, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
+        ItemMap it1 = new ItemMap(this.zone, 2030, 2, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        Service.getInstance().dropItemMap(this.zone, it1);
 
         Util.ratioRoiBuaZeno(zone, 1, this.location.x, this.location.y, plKill.id);
         // ratio
@@ -56,7 +56,7 @@ public class ZamasKaio extends Boss {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
-   
+
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
@@ -64,20 +64,24 @@ public class ZamasKaio extends Boss {
     }
 
     private long st;
- @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+
+    @Override
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
+            if (!a) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
+                    this.chat("Xí hụt");
+                    return 0;
                 }
-                damage = 1;
+                damage = this.nPoint.subDameInjureWithDeff(damage);
+                if (!piercing && effectSkill.isShielding) {
+                    if (damage > nPoint.hpMax) {
+                        EffectSkillService.gI().breakShield(this);
+                    }
+                    damage = 1;
+                }
             }
+
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);
@@ -88,6 +92,7 @@ public class ZamasKaio extends Boss {
             return 0;
         }
     }
+
 //    @Override
 //    public void moveTo(int x, int y) {
 //        if(this.currentLevel == 1){

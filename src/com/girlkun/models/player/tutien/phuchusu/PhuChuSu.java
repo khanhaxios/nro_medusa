@@ -33,7 +33,7 @@ public class PhuChuSu extends BasePoint implements IBaseAction {
     }
 
     public void update() {
-        if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 5_000 >= 0) {
+        if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 5_000 >= 0 && player.tuTien.isAutoDotPhaPhuChu) {
             if (Util.isTrue(getLevelUpPercent(), 100)) {
                 this.levelUp();
                 Service.gI().sendThongBao(player, "Tự động đột phá phù chú sư thành công");

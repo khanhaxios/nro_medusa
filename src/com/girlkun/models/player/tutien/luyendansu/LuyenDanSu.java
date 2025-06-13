@@ -165,7 +165,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
                 diemKhangTinh -= 1;
                 lastTimeTruDiemKhangTinh = System.currentTimeMillis();
             }
-            if (canLevelUp() && player.inventory.ruby - 5_000 >= 0) {
+            if (canLevelUp() && player.inventory.ruby - 5_000 >= 0 && player.tuTien.isAutoDotPhaLuyenDan) {
                 // try dot pha
                 if (Util.isTrue(getLevelUpPercent(), 100)) {
                     levelUp();

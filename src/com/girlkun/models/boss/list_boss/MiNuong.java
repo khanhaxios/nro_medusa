@@ -1,20 +1,16 @@
 package com.girlkun.models.boss.list_boss;
 
-import com.girlkun.consts.ConstPlayer;
-import com.girlkun.models.boss.*;
+import com.girlkun.models.boss.Boss;
+import com.girlkun.models.boss.BossData;
+import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Client;
-import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.ItemService;
-import com.girlkun.services.MapService;
-import com.girlkun.services.Service;
+import com.girlkun.services.*;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Util;
-import com.girlkun.models.player.Inventory;
 
 /**
  * @author Administrator
@@ -28,7 +24,7 @@ public class MiNuong extends Boss {
         this.location.y = y;
     }
 
-//    @Override
+    //    @Override
 //    public void reward(Player plKill) {
 //        ItemMap it = new ItemMap(this.zone, Util.nextInt(1099, 1103), Util.nextInt(3, 4), this.location.x, this.zone.map.yPhysicInTop(this.location.x,
 //                this.location.y - 24), plKill.id);
@@ -120,24 +116,27 @@ public class MiNuong extends Boss {
     }
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
+            if (!a){
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
+                    this.chat("Xí hụt");
+                    return 0;
                 }
-                damage = 1;
+                damage = this.nPoint.subDameInjureWithDeff(damage);
+                if (!piercing && effectSkill.isShielding) {
+                    if (damage > nPoint.hpMax) {
+                        EffectSkillService.gI().breakShield(this);
+                    }
+                    damage = 1;
+                }
+                if (plAtt != this.playerTarger) {
+                    damage = this.nPoint.hpMax / 120;
+                } else {
+                    damage = 0;
+                }
             }
-            if (plAtt != this.playerTarger) {
-                damage = this.nPoint.hpMax / 120;
-            } else {
-                damage = 0;
-            }
+
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);
@@ -171,7 +170,8 @@ public class MiNuong extends Boss {
                 if (this.parentBoss == null) {
                     ChangeMapService.gI().changeMap(this, this.zone, this.location.x, this.location.y);
                 } else {
-                    ChangeMapService.gI().changeMap(this, this.zone, this.location.x, this.location.y);;
+                    ChangeMapService.gI().changeMap(this, this.zone, this.location.x, this.location.y);
+                    ;
                 }
 //                this.wakeupAnotherBossWhenAppear();
             } else {

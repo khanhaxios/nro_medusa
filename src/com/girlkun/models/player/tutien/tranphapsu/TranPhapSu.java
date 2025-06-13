@@ -40,7 +40,7 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
                 addExp(getExpCanGain(null));
             }
             // auto dot pha
-            if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 10_000 >= 0) {
+            if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 10_000 >= 0 && player.tuTien.isAutoDotPhaTranPhap) {
                 float tyle = getLevelUpPercent();
                 if (Util.isTrue(tyle, 300)) {
                     levelUp();

@@ -305,7 +305,7 @@ public class PlayerService {
     }
 
     private static final int COST_GOLD_HOI_SINH = 10000000;
-    private static final int COST_GEM_HOI_SINH = 1;
+    private static final int COST_GEM_HOI_SINH = 10000;
     private static final int COST_GOLD_HOI_SINH_NRSD = 20000000;
 
     public void hoiSinh(Player player) {
@@ -320,11 +320,11 @@ public class PlayerService {
                     return;
                 }
             } else {
-                if (player.inventory.gem >= COST_GEM_HOI_SINH) {
-                    player.inventory.gem -= COST_GEM_HOI_SINH;
+                if (player.inventory.ruby >= COST_GEM_HOI_SINH) {
+                    player.inventory.ruby -= COST_GEM_HOI_SINH;
                     canHs = true;
                 } else {
-                    Service.getInstance().sendThongBao(player, "Không đủ vàng để thực hiện, còn thiếu " + Util.numberToMoney(COST_GEM_HOI_SINH - player.inventory.gem) + " vàng");
+                    Service.getInstance().sendThongBao(player, "Không đủ hồng ngọc để thực hiện, còn thiếu " + Util.numberToMoney(COST_GEM_HOI_SINH - player.inventory.ruby) + " hồng ngọc");
                     return;
                 }
             }

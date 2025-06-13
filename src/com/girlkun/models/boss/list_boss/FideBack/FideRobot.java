@@ -39,7 +39,7 @@ public class FideRobot extends Boss {
     }
 
 //    @Override
-//    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+//    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a)       {
 //        if (plAtt != null) {
 //            switch (plAtt.playerSkill.skillSelect.template.id) {
 //                case Skill.KAMEJOKO:

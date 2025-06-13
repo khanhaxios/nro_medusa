@@ -5,7 +5,6 @@ import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
-import com.girlkun.server.Manager;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
@@ -15,13 +14,13 @@ import java.util.Random;
 public class Cooler extends Boss {
 
     public Cooler() throws Exception {
-        super(Util.randomBossId(), BossesData.COOLER_1,BossesData.COOLER_2);
+        super(Util.randomBossId(), BossesData.COOLER_1, BossesData.COOLER_2);
     }
 
     @Override
     public void reward(Player plKill) {
-        int[] itemDos = new int[]{233, 237, 241,245, 249, 253,257, 261, 265,269, 273, 277,281};
-        int[] itemtime = new int[]{381,382,383,384,385};
+        int[] itemDos = new int[]{233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277, 281};
+        int[] itemtime = new int[]{381, 382, 383, 384, 385};
         int randomDo = new Random().nextInt(itemDos.length);
         int randomitem = new Random().nextInt(itemtime.length);
         if (Util.isTrue(20, 100)) {
@@ -43,20 +42,24 @@ public class Cooler extends Boss {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
+
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
+            if (!a) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
+                    this.chat("Xí hụt");
+                    return 0;
                 }
-                damage = 1;
+                damage = this.nPoint.subDameInjureWithDeff(damage);
+                if (!piercing && effectSkill.isShielding) {
+                    if (damage > nPoint.hpMax) {
+                        EffectSkillService.gI().breakShield(this);
+                    }
+                    damage = 1;
+                }
             }
+
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);
@@ -67,11 +70,14 @@ public class Cooler extends Boss {
             return 0;
         }
     }
+
+
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
 }

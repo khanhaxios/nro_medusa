@@ -2341,7 +2341,6 @@ public class NpcFactory {
                             Service.gI().sendThongBao(player, "Học công pháp cần 100k điểm");
                             return;
                         }
-                        PlayerDAO.subvnd(player, 100000);
                         player.tuTien.hocCongPhap(select);
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.TRUYEN_CONG_TU_TIEN) {
                         switch (select) {
@@ -7415,6 +7414,10 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 switch (player.iDMark.getIndexMenu()) {
+
+                    case ConstNpc.MENU_AUTO_DOT_PHA_NGHE_PHU:
+                        player.tuTien.switchAutoDotPhaNghePhu(select);
+                        break;
                     case ConstNpc.MENU_INFO_SGD_ZENO:
                         switch (select) {
                             case 0:
@@ -7615,6 +7618,9 @@ public class NpcFactory {
                                 break;
                             case 4:
                                 player.tuTien.showCaiDatLinhKhi();
+                                break;
+                            case 5:
+                                player.tuTien.showMenuAutoNghePhu();
                                 break;
                         }
                         break;

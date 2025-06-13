@@ -433,6 +433,7 @@ public class ConstNpc {
     public static final int MENU_INFO_SGD_ZENO = -9167873;
     public static final int MY_ACCOUNT = -123123123;
     public static final int TAO_TAI_KHOAN_SGD = -23423432;
+    public static final int MENU_AUTO_DOT_PHA_NGHE_PHU = -23129123;
 }
 
 /**

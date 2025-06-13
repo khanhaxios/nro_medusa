@@ -8,8 +8,8 @@ package com.girlkun.models.boss.list_boss.BossMa;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
-import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.boss.BossStatus;
+import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
@@ -17,6 +17,7 @@ import com.girlkun.services.Service;
 import com.girlkun.services.SkillService;
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
+
 import java.util.Random;
 
 /**
@@ -81,6 +82,7 @@ public class MaTroiXanh extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override
@@ -118,20 +120,21 @@ public class MaTroiXanh extends Boss {
     }
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
             damage = 20;
-            if (plAtt != null) {
-                if (plAtt.setClothes.isThuongLinhDietMa) {
-                    damage = Util.nextInt(100, 400);
-                } else if (plAtt.setClothes.isDaoYeuLinhPhucMa) {
-                    damage = Util.nextInt(50, 200);
-                } else {
-                    damage = 20;
+            if (!a) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
+                    this.chat("Xí hụt");
+                    return 0;
+
+                }
+                if (plAtt != null) {
+                    if (plAtt.setClothes.isThuongLinhDietMa) {
+                        damage = Util.nextInt(100, 400);
+                    } else if (plAtt.setClothes.isDaoYeuLinhPhucMa) {
+                        damage = Util.nextInt(50, 200);
+                    }
                 }
             }
             this.nPoint.subHP(damage);

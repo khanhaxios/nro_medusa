@@ -66,7 +66,7 @@ public class DrKore extends Boss {
     private long st;
 
    @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack,boolean a) {
         if (plAtt != null) {
             switch (plAtt.playerSkill.skillSelect.template.id) {
                 case Skill.KAMEJOKO:
@@ -79,7 +79,7 @@ public class DrKore extends Boss {
                     return 0;
             }
         }
-        return super.injured(plAtt, damage, piercing, isMobAttack);
+        return super.injured(plAtt, damage, piercing, isMobAttack,a);
     }
 
     @Override

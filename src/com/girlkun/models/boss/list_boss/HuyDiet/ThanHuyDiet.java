@@ -9,9 +9,9 @@ import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Manager;
 import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
+
 import java.util.Random;
 
 public class ThanHuyDiet extends Boss {
@@ -44,14 +44,18 @@ public class ThanHuyDiet extends Boss {
     }
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1)) {
-                this.chat("Xí hụt");
-                return 0;
+            if (!a) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1)) {
+                    this.chat("Xí hụt");
+                    return 0;
+                }
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
-            if (!piercing && effectSkill.isShielding) {
+            if (!a) {
+                damage = this.nPoint.subDameInjureWithDeff(damage);
+            }
+            if (!piercing && effectSkill.isShielding && !a) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
@@ -82,12 +86,13 @@ public class ThanHuyDiet extends Boss {
         }
     }
 
-//    }   
+    //    }
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     private void huydiet() {
@@ -108,7 +113,7 @@ public class ThanHuyDiet extends Boss {
         this.nPoint.critg++;
         this.nPoint.calPoint();
 //        PlayerService.gI().hoiPhuc(this, pl.nPoint.hp, pl.nPoint.mp);
-        pl.injured(null, Util.DoubleGioihan(pl.nPoint.hpMax), true, false);
+        pl.injured(null, Util.DoubleGioihan(pl.nPoint.hpMax), true, false, false);
         Service.getInstance().sendThongBao(pl, "Bạn vừa bị " + this.name + " cho bay màu");
         this.chat(2, "Hắn ta mạnh quá,coi chừng " + pl.name + ",tên " + this.name + " hắn không giống như những kẻ thù trước đây");
         this.chat("Thật là yếu ớt " + pl.name);

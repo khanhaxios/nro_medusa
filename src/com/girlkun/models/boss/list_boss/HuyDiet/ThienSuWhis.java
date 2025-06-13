@@ -1,7 +1,6 @@
 package com.girlkun.models.boss.list_boss.HuyDiet;
 
 import com.girlkun.models.boss.Boss;
-import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
@@ -10,6 +9,7 @@ import com.girlkun.server.Manager;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
+
 import java.util.Random;
 
 public class ThienSuWhis extends Boss {
@@ -39,7 +39,7 @@ public class ThienSuWhis extends Boss {
     }
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (Util.isTrue(50, 100) && plAtt != null) {//tỉ lệ hụt của thiên sứ
             if (Util.isTrue(1, 100)) {
                 this.chat("Hãy để bản năng tự vận động");
@@ -55,20 +55,22 @@ public class ThienSuWhis extends Boss {
 
         }
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
+            if (!a) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1)) {
+                    this.chat("Xí hụt");
+                    return 0;
                 }
-                damage = 1;
-            }
+                damage = this.nPoint.subDameInjureWithDeff(damage);
+                if (!piercing && effectSkill.isShielding) {
+                    if (damage > nPoint.hpMax) {
+                        EffectSkillService.gI().breakShield(this);
+                    }
+                    damage = 1;
+                }
 //            if (damage >= 1) {
 //                damage = 1;
 //            }
+            }
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);

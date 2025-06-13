@@ -33,17 +33,16 @@ public class BossCU6 extends Boss {
                 this.location.y - 24), plKill.id);
         it.options.add(new Item.ItemOption(30, 0));
         Service.getInstance().dropItemMap(this.zone, it);
-         int a=0;
-                for (int i=0; i<8; i++)
-                {
-                      ItemMap it1 = new ItemMap(this.zone, 1456, 3, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
+        int a = 0;
+        for (int i = 0; i < 8; i++) {
+            ItemMap it1 = new ItemMap(this.zone, 1456, 3, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
-            a+=10;
-                }
-                ItemMap it1 = new ItemMap(this.zone, 1457, 3, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
+            a += 10;
+        }
+        ItemMap it1 = new ItemMap(this.zone, 1457, 3, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        Service.getInstance().dropItemMap(this.zone, it1);
         if (Util.isTrue(5, 100)) {
             ItemMap daMedusa = new ItemMap(this.zone, 1081, Util.nextInt(1, 3), this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                     this.location.y - 24), plKill.id);
@@ -65,22 +64,26 @@ public class BossCU6 extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
+            if (!a) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
+                    this.chat("Xí hụt");
+                    return 0;
                 }
-                damage = 1;
+                damage = this.nPoint.subDameInjureWithDeff(damage);
+                if (!piercing && effectSkill.isShielding) {
+                    if (damage > nPoint.hpMax) {
+                        EffectSkillService.gI().breakShield(this);
+                    }
+                    damage = 1;
+                }
             }
+
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);
@@ -91,4 +94,5 @@ public class BossCU6 extends Boss {
             return 0;
         }
     }
+
 }

@@ -1,6 +1,7 @@
 package com.girlkun.models.player.tutien.luyenkhi;
 
 import com.girlkun.consts.ConstNpc;
+import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.tutien.base_tutien.BasePoint;
@@ -25,15 +26,21 @@ public class TuTien extends BasePoint implements IBaseAction {
     public byte MAX_USE_TP = 2;
     long lastTimeAddExp = System.currentTimeMillis();
     long lastTimeAddDoTT = System.currentTimeMillis();
+    public boolean isAutoDotPhaLinhThuc = false;
+    public boolean isAutoDotPhaNguThu = false;
+    public boolean isAutoDotPhaPhuChu = false;
+    public boolean isAutoDotPhaKhongThi = false;
+    public boolean isAutoDotPhaTranPhap = false;
+    public boolean isAutoDotPhaLuyenDan = false;
 
-    private static final String[] CANH_GIOI = new String[]{"Luyện Khí", "Trúc Cơ", "Kim Đan", "Nguyên Anh", "Hóa Thần", "Phong Thánh", "Thần Chiếu", "Huyền Linh", "Quy Nguyên", "Du Tầm", "Không Luân", "Tam Thiên", "Tứ Trụ", "Dạ Ma Thiên Cảnh", "Tu Di Sơn Chủ", "Tinh Hà Thánh Nhân", "Thần Quỷ Mạt Trắc", "Đạo Lộ Chi Cảnh", "Thánh Tôn Chi Cảnh"};
-    private static final long[] LEVEL_EXP = new long[]{100, 200, 500, 1000, 5000, 60000, 200000, 3000000, 5000000, 10000000, 12_000_000, 15_000_000, 18_000_000, 20_000_000, 25_000_000, 30_000_000, 40_000_000, 60_000_000, 80_000_000}; // 19
-    private static final long[] SUB_LEVEL_EXP = new long[]{100, 150, 200, 250, 300, 320, 350, 360, 370, 399};
-    private static final long[] BASE_LINH_KHI = new long[]{1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000, 20000000, 50000000, 100000000, 200000000, 500000000, 1000000000};
-    private static final long[] BASE_SUB_LINH_KHI = new long[]{100, 200, 300, 400, 500, 600, 700, 800, 900, 1000};
-    private static final long[] BASE_EXP_BUFF = new long[]{1, 2, 5, 10, 15, 20, 25, 50, 100, 120, 140, 200, 210, 230, 300, 350, 360, 400, 500};
+    public static final String[] CANH_GIOI = new String[]{"Luyện Khí", "Trúc Cơ", "Kim Đan", "Nguyên Anh", "Hóa Thần", "Phong Thánh", "Thần Chiếu", "Huyền Linh", "Quy Nguyên", "Du Tầm", "Không Luân", "Tam Thiên", "Tứ Trụ", "Dạ Ma Thiên Cảnh", "Tu Di Sơn Chủ", "Tinh Hà Thánh Nhân", "Thần Quỷ Mạt Trắc", "Đạo Lộ Chi Cảnh", "Thánh Tôn Chi Cảnh"};
+    public static final long[] LEVEL_EXP = new long[]{100, 200, 500, 1000, 5000, 60000, 200000, 3000000, 5000000, 10000000, 12_000_000, 15_000_000, 18_000_000, 20_000_000, 25_000_000, 30_000_000, 40_000_000, 60_000_000, 80_000_000}; // 19
+    public static final long[] SUB_LEVEL_EXP = new long[]{100, 150, 200, 250, 300, 320, 350, 360, 370, 399};
+    public static final long[] BASE_LINH_KHI = new long[]{1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000, 20000000, 50000000, 100000000, 200000000, 500000000, 1000000000};
+    public static final long[] BASE_SUB_LINH_KHI = new long[]{100, 200, 300, 400, 500, 600, 700, 800, 900, 1000};
+    public static final long[] BASE_EXP_BUFF = new long[]{1, 2, 5, 10, 15, 20, 25, 50, 100, 120, 140, 200, 210, 230, 300, 350, 360, 400, 500};
 
-    private static final long[] BASE_LINH_KHI_HOI_PHUC = new long[]{
+    public static final long[] BASE_LINH_KHI_HOI_PHUC = new long[]{
             /* 0  */     20L,
             /* 1  */     40L,
             /* 2  */     70L,
@@ -449,7 +456,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             // dau tien la cong exp //
             if (exp < maxExp && !player.isDie() && Util.canDoWithTime(lastTimeAddExp, 3000)) {
                 if (player.tuTien.congPhap != null && player.tuTien.congPhap.tenCongPhap != null) {
-                    long expAdd = (long) (getXDiemThienPhu() * (BASE_EXP_BUFF[level] + (SUB_LEVEL_EXP[subLevel - 1] / 10))) * congPhap.phamchat.id + 1;
+                    long expAdd = (long) (getXDiemThienPhu() * (BASE_EXP_BUFF[level] + (SUB_LEVEL_EXP[subLevel - 1] / 10))) * Math.max(1, congPhap.phamchat.id + 1);
                     addExp(expAdd * Math.max(1, xParam));
                     PlayerService.gI().sendTuTienAddTuVi(player, expAdd);
                     PlayerService.gI().sendTuTienTuVi(player);
@@ -554,10 +561,10 @@ public class TuTien extends BasePoint implements IBaseAction {
             Service.gI().sendThongBao(player, "Bạn cần mở tu tiên trước");
             return;
         }
-        if (congPhap.tenCongPhap != null) {
-            Service.gI().sendThongBao(player, "Bạn đã học công pháp rồi mà.");
-            return;
-        }
+//        if (congPhap.tenCongPhap != null) {
+//            Service.gI().sendThongBao(player, "Bạn đã học công pháp rồi mà.");
+//            return;
+//        }
         CongPhap cpTem = getCongPhapByLinhCan(select);
         if (cpTem.thuoctinh != linhCan.getLinhCanType()) {
             Service.gI().sendThongBao(player, "Công pháp không phù hợp với linh căn của bạn");
@@ -566,7 +573,7 @@ public class TuTien extends BasePoint implements IBaseAction {
         cpTem.tuTien = this;
         congPhap = cpTem;
         congPhap.ratioNewCongPhap();
-        // random chi so
+        PlayerDAO.subvnd(player, 100000);
         Service.gI().sendThongBao(player, "Bạn đã học " + congPhap.getFullName());
     }
 
@@ -638,7 +645,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             Service.gI().sendThongBaoOK(player, "Bạn cần mở tu tiên");
             return;
         }
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN, -1, "|7|Thông Tin Tu Tiên\n" + "|5|Cảnh Giới : " + getFormatName() + "\n" + "|5|Tu Vi : " + getCurrentExpAsString() + "\n" + "Linh Khí : " + Util.powerToString(linhKhiPoint) + "/" + Util.powerToString(maxLinhKhiPoint) + "\n|7|Căn Cốt : " + canCot + "\n" + "|7|Ngộ tính : " + ngoTinh + "\n" + "Thiên phú : " + getThienPhu() + "\nĐã tu luyện : " + getYearOpened() + "\n" + "|2|Cảnh giới tiếp theo : " + getNextLevelStr() + "\n" + "|1|Tỷ lệ đột phá : " + getLevelUpPercent() + "\n" + "|7|Cảnh giới càng cao tỷ lệ đột phá càng thấp" + "\n" + "|5|Đánh giá : " + pointForMe(), "Chức Năng\nTu Tiên", "Thông Tin\nCông Pháp", "Thông Tin\nTiên Pháp", "Thông Tin\nLinh Căn", "Cài đặt\nLinh Khí");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN, -1, "|7|Thông Tin Tu Tiên\n" + "|5|Cảnh Giới : " + getFormatName() + "\n" + "|5|Tu Vi : " + getCurrentExpAsString() + "\n" + "Linh Khí : " + Util.powerToString(linhKhiPoint) + "/" + Util.powerToString(maxLinhKhiPoint) + "\n|7|Căn Cốt : " + canCot + "\n" + "|7|Ngộ tính : " + ngoTinh + "\n" + "Thiên phú : " + getThienPhu() + "\nĐã tu luyện : " + getYearOpened() + "\n" + "|2|Cảnh giới tiếp theo : " + getNextLevelStr() + "\n" + "|1|Tỷ lệ đột phá : " + getLevelUpPercent() + "\n" + "|7|Cảnh giới càng cao tỷ lệ đột phá càng thấp" + "\n" + "|5|Đánh giá : " + pointForMe(), "Chức Năng\nTu Tiên", "Thông Tin\nCông Pháp", "Thông Tin\nTiên Pháp", "Thông Tin\nLinh Căn", "Cài đặt\nLinh Khí", "Auto\nNghề Phụ");
         // handle process string
     }
 
@@ -825,5 +832,41 @@ public class TuTien extends BasePoint implements IBaseAction {
                 }
             }
         }
+    }
+
+    public void showMenuAutoNghePhu() {
+        String text = "|7|Cài đặt auto đột phá nghề phụ\n|5|Bạn có thể lưa chọn tắt bật tự động đột phá nghề phụ ở đây";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_AUTO_DOT_PHA_NGHE_PHU, -1, text,
+                "Linh thực\n" + (isAutoDotPhaLinhThuc ? "BẬT" : "TẮT"),
+                "Phù chú\n" + (!isAutoDotPhaPhuChu ? "BẬT" : "TẮT"),
+                "Khống thi\n" + (!isAutoDotPhaKhongThi ? "BẬT" : "TẮT"),
+                "Ngự thú\n" + (!isAutoDotPhaNguThu ? "BẬT" : "TẮT"),
+                "Luyện đan\n" + (!isAutoDotPhaLuyenDan ? "BẬT" : "TẮT"),
+                "Trận pháp\n" + (!isAutoDotPhaTranPhap ? "BẬT" : "TẮT")
+        );
+    }
+
+    public void switchAutoDotPhaNghePhu(int select) {
+        switch (select) {
+            case 0:
+                isAutoDotPhaLinhThuc = !isAutoDotPhaLinhThuc;
+                break;
+            case 1:
+                isAutoDotPhaPhuChu = !isAutoDotPhaPhuChu;
+                break;
+            case 2:
+                isAutoDotPhaKhongThi = !isAutoDotPhaKhongThi;
+                break;
+            case 3:
+                isAutoDotPhaNguThu = !isAutoDotPhaNguThu;
+                break;
+            case 4:
+                isAutoDotPhaLuyenDan = !isAutoDotPhaLuyenDan;
+                break;
+            case 5:
+                isAutoDotPhaTranPhap = !isAutoDotPhaTranPhap;
+                break;
+        }
+        showMenuAutoNghePhu();
     }
 }

@@ -2,11 +2,7 @@ package com.girlkun.models.player;
 
 import com.girlkun.models.item.Item;
 import com.girlkun.models.mob.Mob;
-import com.girlkun.services.ItemService;
-import com.girlkun.services.PlayerService;
-import com.girlkun.services.Service;
-import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.MapService;
+import com.girlkun.services.*;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
@@ -160,7 +156,7 @@ public class EffectSkin {
                                     subHp = mob.point.gethp() - 1;
                                 }
                                 hpHut += subHp;
-                                mob.injured(null, subHp, false, (byte)0);
+                                mob.injured(null, subHp, false, (byte) 0);
                             }
                         }
                     }
@@ -177,7 +173,7 @@ public class EffectSkin {
                         mpHut += subMp;
                         PlayerService.gI().sendInfoHpMpMoney(pl);
                         Service.getInstance().Send_Info_NV(pl);
-                        pl.injured(null, subHp, true, false);
+                        pl.injured(null, subHp, true, false, false);
                     }
                     this.player.nPoint.addHp(hpHut);
                     this.player.nPoint.addMp(mpHut);
@@ -212,7 +208,7 @@ public class EffectSkin {
                         Service.getInstance().chat(pl, textOdo[Util.nextInt(0, textOdo.length - 1)]);
                         PlayerService.gI().sendInfoHpMpMoney(pl);
                         Service.getInstance().Send_Info_NV(pl);
-                        pl.injured(null, subHp, true, false);
+                        pl.injured(null, subHp, true, false, false);
                     }
                     this.lastTimeOdo = System.currentTimeMillis();
                 }

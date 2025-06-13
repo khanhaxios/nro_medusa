@@ -10,10 +10,7 @@ import com.girlkun.models.skill.Skill;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
 import com.girlkun.services.TaskService;
-import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Util;
-
-import java.util.List;
 
 
 public class Android19 extends Boss {
@@ -50,7 +47,7 @@ public class Android19 extends Boss {
     private long st;
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (plAtt != null) {
             switch (plAtt.playerSkill.skillSelect.template.id) {
                 case Skill.KAMEJOKO:
@@ -64,7 +61,7 @@ public class Android19 extends Boss {
                     return 0;
             }
         }
-        return super.injured(plAtt, damage, piercing, isMobAttack);
+        return super.injured(plAtt, damage, piercing, isMobAttack, a);
     }
 
     @Override

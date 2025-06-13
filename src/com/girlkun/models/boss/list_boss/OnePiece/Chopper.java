@@ -14,6 +14,7 @@ import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
+
 import java.util.Random;
 
 /**
@@ -70,16 +71,20 @@ public class Chopper extends Boss {
         st = System.currentTimeMillis();
         this.actFight = true;
     }
+
     private long st;
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
+            if (!a) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
+                    this.chat("Xí hụt");
+                    return 0;
+                }
+                damage = injuredLimitDame(plAtt, damage, piercing, DAME_10M);
             }
-            damage = injuredLimitDame(plAtt, damage, piercing, DAME_10M);
+
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);

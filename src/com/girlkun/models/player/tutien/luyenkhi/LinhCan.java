@@ -2,7 +2,9 @@ package com.girlkun.models.player.tutien.luyenkhi;
 
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.services.NpcService;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -46,8 +48,44 @@ public class LinhCan {
         return "Vô thuộc tính";
     }
 
+    public String getHieuQuaLinhCan() {
+        String text = "";
+        switch (linhCanType) {
+            case 0:
+                text = String.format("-Bỏ qua tất cả phòng thủ của đối phương\n-Dưới %s máu miễn mọi khống chế\n-Mỗi mất %s hp tăng %s sát thương linh căn(tối đa %s)", "30%", "1%", "1%", "30%");
+                break;
+            case 1:
+                text = String.format("-Tăng %s khả năng hút máu\n-Đòn đánh thường có %s tỷ lệ gây choáng\n-Hồi phục linh khí mạnh mẽ", thuocTinhLinhCan.getParam() * 3 + "%", (thuocTinhLinhCan.getParam() / 10) + "%");
+                break;
+            case 2:
+                text = String.format("-Tăng %s né tránh và %s phản sát thương\n-Khi máu dưới %s miễn mọi khống chế\n-Hồi phục linh khí mạnh mẽ", thuocTinhLinhCan.getParam() / 5 + "%", thuocTinhLinhCan.getParam() + "%", "70%");
+                break;
+            case 3:
+                text = String.format("-Sát thương cộng dồn mỗi đòn đánh(tối đa lên đến %s)", thuocTinhLinhCan.getParam() + "%");
+                break;
+            case 4:
+                text = String.format("-Tăng %s Giáp và %s Giảm sát thương\n-Tỷ lệ phản sát thương %s", thuocTinhLinhCan.getParam() * 10 + "%", thuocTinhLinhCan.getParam() + "%", thuocTinhLinhCan.getParam() / 5 + "%");
+                break;
+            case 5:
+                text = String.format("-Đánh thường có %s tỷ lệ gây chí mạng và %s sát thương chí mạng\n-Tăng tỷ lệ chí mạng mỗi đòn đánh(tối đa lên đến %s)\nCó %s tỷ lệ né đòn", thuocTinhLinhCan.getParam() / 3 + "%", 100 + thuocTinhLinhCan.getParam() + "%", thuocTinhLinhCan.getParam() / 3 + "%", thuocTinhLinhCan.getParam() / 10 + "%");
+                break;
+            case 6:
+                text = String.format("-Đánh thường có %s tỷ lệ gây chí mạng và %s sát thương chí mạng\n-Tăng tỷ lệ chí mạng mỗi đòn đánh(tối đa lên đến %s)\nCó %s tỷ lệ gây choáng đối phương", thuocTinhLinhCan.getParam() / 2 + "%", 100 + thuocTinhLinhCan.getParam() + "%", thuocTinhLinhCan.getParam() / 2 + "%", thuocTinhLinhCan.getParam() / 10 + "%");
+                break;
+            case 7:
+                text = String.format("-Giảm %s sát thương nhận vào\n-Gây sát thương chuẩn bằng %s sát thương hiện có\nThần thánh thẩm phán", thuocTinhLinhCan.getParam() / 5 + "%", thuocTinhLinhCan.getParam() + "%");
+                break;
+            case 8:
+                text = String.format("-Bất tử\n-Tăng %s né\nĐòn đánh thường có tỷ lệ gây choáng đối thủ", thuocTinhLinhCan.getParam() + "%");
+                break;
+
+        }
+        return text;
+    }
+
     public void showMenuLinhCan() {
-        String npc = String.format("|7|Thông Tin Linh Căn\n|5|Linh Căn  : %s\n|5|Hiệu Quả : %s", getLinhCanName(getThuocTinhLinhCan().getLinhCanBatBuoc()), thuocTinhLinhCan.getTenThuocTinhReplace());
+        String npc = String.format("|7|Thông Tin Linh Căn\n|5|Linh Căn  : %s\n|5|Hiệu Quả\n%s",
+                getLinhCanName(getThuocTinhLinhCan().getLinhCanBatBuoc()), getHieuQuaLinhCan());
         NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_TT_LINH_CAN, -1, npc, "Đóng");
     }
 }

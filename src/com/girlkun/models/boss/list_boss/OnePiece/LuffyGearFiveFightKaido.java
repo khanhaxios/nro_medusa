@@ -1,10 +1,10 @@
 package com.girlkun.models.boss.list_boss.OnePiece;
 
+import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
-import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
@@ -12,9 +12,6 @@ import com.girlkun.server.Manager;
 import com.girlkun.services.ItemService;
 import com.girlkun.services.Service;
 import com.girlkun.services.SkillService;
-
-import java.util.Random;
-
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
 
@@ -156,16 +153,19 @@ public class LuffyGearFiveFightKaido extends Boss {
     }
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!canAttackBoss(plAtt)) {
-                return 0;
+            if (!a) {
+                if (!canAttackBoss(plAtt)) {
+                    return 0;
+                }
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
+                    this.chat("Haki Quan Sát");
+                    return 0;
+                }
+                damage = injuredLimitDame(plAtt, damage, piercing, DAME_10M);
             }
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Haki Quan Sát");
-                return 0;
-            }
-            damage = injuredLimitDame(plAtt, damage, piercing, DAME_10M);
+
             this.nPoint.subHP(damage);
             if (isDie()) {
                 Service.gI().chat(this, "Ta sẽ còn quay lại...!");

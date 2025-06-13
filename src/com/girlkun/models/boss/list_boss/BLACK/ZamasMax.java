@@ -27,7 +27,7 @@ public class ZamasMax extends Boss {
         int[] itemDos = new int[]{233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277, 281};
         if (Util.isTrue(BossManager.ratioReward, 100)) {
             if (Util.isTrue(1, 20)) {
-              Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, 725, 1, this.location.x, this.location.y, plKill.id));
+                Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, 725, 1, this.location.x, this.location.y, plKill.id));
             } else {
                 Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
             }
@@ -36,16 +36,16 @@ public class ZamasMax extends Boss {
         } else {
             Service.getInstance().dropItemMap(this.zone, Util.RaitiDoc12(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
         }
-                ItemMap it1 = new ItemMap(this.zone, 2030, 2, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
+        ItemMap it1 = new ItemMap(this.zone, 2030, 2, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        Service.getInstance().dropItemMap(this.zone, it1);
         Util.ratioRoiBuaZeno(zone, 1, this.location.x, this.location.y, plKill.id);
         // ratio
         Util.ratioDropCaiTrang(zone, 1, this.location.x, this.location.y, plKill.id, 2f, 100, 150);
 
         Util.ratioDropHaoQuang(zone, 1, this.location.x, this.location.y, plKill.id, .5f, 100, 150);
     }
-    
+
     @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
@@ -61,20 +61,24 @@ public class ZamasMax extends Boss {
     }
 
     private long st;
-@Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+
+    @Override
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
+            if (!a) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
+                    this.chat("Xí hụt");
+                    return 0;
                 }
-                damage = 1;
+                damage = this.nPoint.subDameInjureWithDeff(damage);
+                if (!piercing && effectSkill.isShielding) {
+                    if (damage > nPoint.hpMax) {
+                        EffectSkillService.gI().breakShield(this);
+                    }
+                    damage = 1;
+                }
             }
+
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);
@@ -85,6 +89,7 @@ public class ZamasMax extends Boss {
             return 0;
         }
     }
+
 //    @Override
 //    public void moveTo(int x, int y) {
 //        if(this.currentLevel == 1){

@@ -12,7 +12,6 @@ import com.girlkun.server.Manager;
 import com.girlkun.services.ItemService;
 import com.girlkun.services.Service;
 import com.girlkun.services.SkillService;
-import java.util.Random;
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
 
@@ -133,6 +132,7 @@ public class Kaido extends Boss {
         this.location.y = 312;
         this.isWin = false;
     }
+
     private long st;
 
     private boolean canAttackBoss(Player pl) {
@@ -149,7 +149,7 @@ public class Kaido extends Boss {
                 } else {
                     Service.gI().sendThongBao(pl,
                             "Vui lòng tách hợp thể và mang cải trang cải trang hải tặc tí hon"
-                            + " mới có thể tấn công Kaido");
+                                    + " mới có thể tấn công Kaido");
                 }
             }
         }
@@ -157,16 +157,18 @@ public class Kaido extends Boss {
     }
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!canAttackBoss(plAtt)) {
-                return 0;
+            if (!a) {
+                if (!canAttackBoss(plAtt)) {
+                    return 0;
+                }
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
+                    this.chat("Quá chậm chạp");
+                    return 0;
+                }
+                damage = injuredLimitDame(plAtt, damage, piercing, DAME_10M);
             }
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Quá chậm chạp");
-                return 0;
-            }
-            damage = injuredLimitDame(plAtt, damage, piercing, DAME_10M);
             this.nPoint.subHP(damage);
             if (isDie()) {
                 Service.gI().chat(this, "Không thể nào...!");

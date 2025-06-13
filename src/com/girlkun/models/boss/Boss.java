@@ -5,20 +5,13 @@ import com.girlkun.models.boss.iboss.IBossNew;
 import com.girlkun.models.boss.iboss.IBossOutfit;
 import com.girlkun.models.boss.list_boss.AnTrom;
 import com.girlkun.models.boss.list_boss.MiNuong;
-import com.girlkun.models.boss.list_boss.NRD.*;
 import com.girlkun.models.boss.list_boss.PetLan;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.server.ServerNotify;
-import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.MapService;
-import com.girlkun.services.PlayerService;
-import com.girlkun.services.Service;
-import com.girlkun.services.SkillService;
-import com.girlkun.services.TaskService;
+import com.girlkun.services.*;
 import com.girlkun.services.func.ChangeMapService;
-import com.girlkun.utils.Logger;
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
 
@@ -571,18 +564,20 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 //    }
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean isSTChuan) {
         if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
+            if (!isSTChuan) {
+                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
+                    this.chat("Xí hụt");
+                    return 0;
                 }
-                damage = 1;
+                damage = this.nPoint.subDameInjureWithDeff(damage);
+                if (!piercing && effectSkill.isShielding) {
+                    if (damage > nPoint.hpMax) {
+                        EffectSkillService.gI().breakShield(this);
+                    }
+                    damage = 1;
+                }
             }
             this.nPoint.subHP(damage);
             if (isDie()) {

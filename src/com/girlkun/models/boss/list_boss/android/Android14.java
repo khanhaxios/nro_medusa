@@ -19,16 +19,18 @@ public class Android14 extends Boss {
     public Android14() throws Exception {
         super(BossID.ANDROID_14, BossesData.ANDROID_14);
     }
-   @Override
+
+    @Override
     public void reward(Player plKill) {
-        int[] itemRan = new int[]{380,381,382,383,384,385};
+        int[] itemRan = new int[]{380, 381, 382, 383, 384, 385};
         int itemId = itemRan[2];
         if (Util.isTrue(15, 100)) {
             ItemMap it = new ItemMap(this.zone, itemId, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                     this.location.y - 24), plKill.id);
-        Service.getInstance().dropItemMap(this.zone, it);
+            Service.getInstance().dropItemMap(this.zone, it);
         }
     }
+
     @Override
     protected void resetBase() {
         super.resetBase();
@@ -44,12 +46,12 @@ public class Android14 extends Boss {
     }
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.callApk13 && damage >= this.nPoint.hp) {
             this.callApk13();
             return 0;
         }
-        return super.injured(plAtt, damage, piercing, isMobAttack);
+        return super.injured(plAtt, damage, piercing, isMobAttack, a);
     }
 
     public void callApk13() {

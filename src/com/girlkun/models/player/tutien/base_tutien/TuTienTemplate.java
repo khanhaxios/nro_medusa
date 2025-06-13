@@ -2,6 +2,7 @@ package com.girlkun.models.player.tutien.base_tutien;
 
 import com.girlkun.models.player.tutien.luyendansu.DanPhuong;
 import com.girlkun.models.player.tutien.luyenkhi.CongPhap;
+import com.girlkun.models.player.tutien.luyenkhi.LinhCan;
 import com.girlkun.models.player.tutien.luyenkhi.ThuocTinhLinhCan;
 import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.services.Service;

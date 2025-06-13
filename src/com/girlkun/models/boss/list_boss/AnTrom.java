@@ -77,7 +77,7 @@ public class AnTrom extends Boss {
     }
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack,boolean a) {
         if (!this.isDie()) {
             damage = 1;
             this.nPoint.subHP(damage);
