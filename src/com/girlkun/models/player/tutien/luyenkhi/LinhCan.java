@@ -76,7 +76,7 @@ public class LinhCan {
                 text = String.format("-Giảm %s sát thương nhận vào\n-Gây sát thương chuẩn bằng %s sát thương hiện có\nThần thánh thẩm phán", thuocTinhLinhCan.getParam() / 5 + "%", thuocTinhLinhCan.getParam() + "%");
                 break;
             case 8:
-                text = String.format("-Bất tử\n-Tăng %s né\nĐòn đánh thường có %s tỷ lệ gây choáng đối thủ", thuocTinhLinhCan.getParam() + "%", thuocTinhLinhCan.getParam() / 10 + "%");
+                text = String.format("-Bất tử\n-Tăng %s né\nĐòn đánh thường có %s tỷ lệ gây choáng đối thủ\nCó %s tỷ lệ gây ra sát thương ám ảnh mỗi giây -0.2 phần trăm hp", thuocTinhLinhCan.getParam() + "%", thuocTinhLinhCan.getParam() / 10 + "%", thuocTinhLinhCan.getParam() / 10 + "%");
                 break;
 
         }

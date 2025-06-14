@@ -7,6 +7,7 @@ import com.girlkun.network.io.Message;
 import com.girlkun.server.Manager;
 import com.girlkun.services.func.RadaService;
 import com.girlkun.utils.SkillUtil;
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -167,6 +168,7 @@ public class EffectSkillService {
         player.effectSkill.isSocola = true;
         player.effectSkill.countPem1hp = 0;
     }
+
     public void setBinh(Player player, long lastTimeBinh, int timeBinh) {
         player.effectSkill.lastTimeBinh = lastTimeBinh;
         player.effectSkill.timeBinh = timeBinh;
@@ -178,6 +180,7 @@ public class EffectSkillService {
         player.effectSkill.isSocola = false;
         Service.getInstance().Send_Caitrang(player);
     }
+
     //player trở lại thành người
     public void removeBinh(Player player) {
         player.effectSkill.isBinh = false;
@@ -199,6 +202,7 @@ public class EffectSkillService {
             com.girlkun.utils.Logger.logException(EffectSkillService.class, e);
         }
     }
+
     public void sendMobToBinh(Player player, Mob mob, int timeBinh) {
         Message msg;
         try {
@@ -253,7 +257,7 @@ public class EffectSkillService {
             Logger.getLogger(EffectSkillService.class.getName()).log(Level.SEVERE, null, ex);
         }
         int timeMonkey = SkillUtil.getTimeMonkey(player.playerSkill.skillSelect.point);
-        if(player.setClothes.cadic == 5){
+        if (player.setClothes.cadic == 5) {
             timeMonkey *= 5;
         }
         player.effectSkill.isMonkey = true;
@@ -279,7 +283,7 @@ public class EffectSkillService {
         Service.getInstance().Send_Info_NV(player);
         Service.getInstance().sendInfoPlayerEatPea(player);
     }
-    
+
     public void monkeyDown2(Player player) {
         player.itemTimesieucap.isBienhinh1 = false;
         if (player.nPoint.hp > player.nPoint.hpMax) {
@@ -294,7 +298,7 @@ public class EffectSkillService {
         Service.getInstance().Send_Info_NV(player);
         Service.getInstance().sendInfoPlayerEatPea(player);
     }
-    
+
     public void setIsBienhinh2(Player player) {
         try {
             Thread.sleep(2000);
@@ -304,6 +308,7 @@ public class EffectSkillService {
         player.itemTimesieucap.isBienhinh1 = true;
         player.itemTimesieucap.lastTimeBienhinh1 = System.currentTimeMillis();
     }
+
     //hiệu ứng nổ kết thúc gồng
     public void sendEffectEndCharge2(Player player) {
         Message msg;
@@ -318,7 +323,7 @@ public class EffectSkillService {
             com.girlkun.utils.Logger.logException(EffectSkillService.class, e);
         }
     }
-    
+
     public void sendEffectBienhinh2(Player player) {
         Message msg;
         try {
@@ -332,6 +337,7 @@ public class EffectSkillService {
             com.girlkun.utils.Logger.logException(EffectSkillService.class, e);
         }
     }
+
     public void monkeyDown1(Player player) {
         player.itemTimesieucap.isBienhinh = false;
         if (player.nPoint.hp > player.nPoint.hpMax) {
@@ -346,7 +352,7 @@ public class EffectSkillService {
         Service.getInstance().Send_Info_NV(player);
         Service.getInstance().sendInfoPlayerEatPea(player);
     }
-    
+
     public void setIsBienhinh(Player player) {
         try {
             Thread.sleep(2000);
@@ -356,6 +362,7 @@ public class EffectSkillService {
         player.itemTimesieucap.isBienhinh = true;
         player.itemTimesieucap.lastTimeBienhinh = System.currentTimeMillis();
     }
+
     //hiệu ứng nổ kết thúc gồng
     public void sendEffectEndCharge1(Player player) {
         Message msg;
@@ -370,7 +377,7 @@ public class EffectSkillService {
             com.girlkun.utils.Logger.logException(EffectSkillService.class, e);
         }
     }
-    
+
     public void sendEffectBienhinh(Player player) {
         Message msg;
         try {
@@ -396,7 +403,8 @@ public class EffectSkillService {
 
     public void stopCharge(Player player) {
         player.effectSkill.countCharging = 0;
-        player.effectSkill.isCharging = false;;
+        player.effectSkill.isCharging = false;
+        ;
         sendEffectStopCharge(player);
 
     }
@@ -524,7 +532,7 @@ public class EffectSkillService {
             com.girlkun.utils.Logger.logException(EffectSkillService.class, e);
         }
     }
-    
+
     //Remake by ndq (Zalo - 0372475179) *************************************************************
     //SKILL BIẾN HÌNH*****************************************************************
     public void setSkillBienHinh(Player player) {
@@ -577,22 +585,60 @@ public class EffectSkillService {
         PlayerService.gI().sendInfoHpMp(player);
         Service.getInstance().Send_Info_NV(player);
         Service.getInstance().sendInfoPlayerEatPea(player);
-        
+
         Skill sBienHinh = player.playerSkill.getSkillbyId(27 + player.gender);
         int skillLevel = sBienHinh.point;
         boolean lastLevel = player.effectSkill.levelBienHinh >= skillLevel - 1;
         if (!lastLevel) {
             Skill template = Manager.NCLASS.get(player.gender)
-                .getSkillTemplate(sBienHinh.template.id).skillss.stream().filter(s -> s.point == sBienHinh.point)
-                .findFirst().orElse(null);
-            
+                    .getSkillTemplate(sBienHinh.template.id).skillss.stream().filter(s -> s.point == sBienHinh.point)
+                    .findFirst().orElse(null);
+
             int nowTime = (int) (System.currentTimeMillis() - player.effectSkill.lastTimeBienHinh);
             sBienHinh.coolDown = template.coolDown - nowTime;
             Service.getInstance().sendTimeSkill(player);
         }
-        
+
         int iconLvNow = (player.gender == 0 ? 30007 : player.gender == 1 ? 30013 : 30001) + level - 1;
         ItemTimeService.gI().removeItemTime(player, iconLvNow);
-        
+    }
+
+    public void addAmAnh(Player plInjure, Player plAtt) {
+        if (plInjure.effectSkill.isAmAnh) {
+            // remove effect skill
+            EffectSkillService.gI().removeAmAnh(plInjure);
+        }
+        // add new am anh
+        plInjure.effectSkill.isAmAnh = true;
+        plInjure.effectSkill.lastTimeAmAnh = System.currentTimeMillis();
+        plInjure.effectSkill.timeAmAnh = 5000;
+        plInjure.effectSkill.playerAmAnh = plAtt;
+        Service.gI().sendThongBao(plInjure, "Bạn đã bị khắc ấn Ám Ảnh");
+        // renew haha
+    }
+
+    public void addThieuDot(Player plInjure, Player plAtt) {
+        if (plInjure.effectSkill.isThieuDot) {
+            // remove effect skill
+            EffectSkillService.gI().removeThieuDot(plInjure);
+        }
+        // add new am anh
+        plInjure.effectSkill.isThieuDot = true;
+        plInjure.effectSkill.lastTimeThieuDot = System.currentTimeMillis();
+        plInjure.effectSkill.timeThieuDot = 2000;
+        plInjure.effectSkill.playerThieuDot = plAtt;
+        Service.gI().sendThongBao(plInjure, "Bạn đã bị khắc ấn Thiêu đốt");
+    }
+
+    public void removeAmAnh(Player player) {
+        player.effectSkill.isAmAnh = false;
+        player.effectSkill.playerAmAnh = null;
+        player.effectSkill.timeAmAnh = 0;
+    }
+
+    public void removeThieuDot(Player player) {
+        player.effectSkill.isThieuDot = false;
+        player.effectSkill.playerThieuDot = null;
+        player.effectSkill.timeThieuDot = 0;
     }
 }

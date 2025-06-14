@@ -3,6 +3,7 @@ package com.girlkun.models.player;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.ItemTimeService;
+import com.girlkun.services.SkillService;
 import com.girlkun.utils.Util;
 
 
@@ -14,7 +15,10 @@ public class EffectSkill {
     public boolean isStun;
     public long lastTimeStartStun;
     public int timeStun;
-
+    public long lastTimeAmAnh;
+    public long lastTimeThieuDot;
+    public int timeAmAnh;
+    public int timeThieuDot;
     //khiên năng lượng
     public boolean isShielding;
     public long lastTimeShieldUp;
@@ -43,13 +47,15 @@ public class EffectSkill {
     public boolean useTroi;
     public boolean anTroi;
     public long lastTimeTroi;
-//    public long lastTimeAnTroi;
+    //    public long lastTimeAnTroi;
     public int timeTroi;
-//    public int timeAnTroi;
+    //    public int timeAnTroi;
     public Player plTroi;
     public Player plAnTroi;
     public Mob mobAnTroi;
 
+    public Player playerAmAnh;
+    public Player playerThieuDot;
     //dịch chuyển tức thời
     public boolean isBlindDCTT;
     public long lastTimeBlindDCTT;
@@ -63,7 +69,9 @@ public class EffectSkill {
     public long lastTimeBinh;
     public int timeBinh;
     public int countPem1hp;
-    
+
+    public boolean isAmAnh;
+    public boolean isThieuDot;
     // Bien hinh
     public boolean isBienHinh;
     public long lastTimeBienHinh;
@@ -94,9 +102,29 @@ public class EffectSkill {
         if (isBlindDCTT) {
             EffectSkillService.gI().removeBlindDCTT(this.player);
         }
+        if (isAmAnh) {
+            EffectSkillService.gI().removeAmAnh(this.player);
+        }
+        if (isThieuDot) {
+            EffectSkillService.gI().removeThieuDot(this.player);
+        }
+    }
+
+    public void updateDebuff() {
+        if (isAmAnh && playerAmAnh != null) {
+            double dame = player.nPoint.hpMax / 100 * .2f;
+            player.injured(playerAmAnh, dame, false, false, true);
+            SkillService.gI().sendMessagePlayerAttackPlayer(playerAmAnh, player, dame, (byte) 1);
+        }
+        if (isThieuDot && playerThieuDot != null) {
+            double dame = player.nPoint.hpMax / 100 * .1f;
+            player.injured(playerAmAnh, dame, false, false, true);
+            SkillService.gI().sendMessagePlayerAttackPlayer(playerAmAnh, player, dame, (byte) 1);
+        }
     }
 
     public void update() {
+        updateDebuff();
         if (isMonkey && (Util.canDoWithTime(lastTimeUpMonkey, timeMonkey))) {
             EffectSkillService.gI().monkeyDown(player);
         }
@@ -111,9 +139,12 @@ public class EffectSkill {
                 || useTroi && isHaveEffectSkill()) {
             EffectSkillService.gI().removeUseTroi(this.player);
         }
-//        if (anTroi && (Util.canDoWithTime(lastTimeAnTroi, timeAnTroi) || player.isDie())) {
-//            EffectSkillService.gI().removeAnTroi(this.player);
-//        }
+        if (isAmAnh && Util.canDoWithTime(lastTimeAmAnh, timeAmAnh) || player.isDie()) {
+            EffectSkillService.gI().removeAmAnh(player);
+        }
+        if (isThieuDot && Util.canDoWithTime(lastTimeThieuDot, timeThieuDot) || player.isDie()) {
+            EffectSkillService.gI().removeThieuDot(player);
+        }
         if (isStun && Util.canDoWithTime(lastTimeStartStun, timeStun)) {
             EffectSkillService.gI().removeStun(this.player);
         }
@@ -137,8 +168,8 @@ public class EffectSkill {
     public boolean isHaveEffectSkill() {
         return isStun || isBlindDCTT || anTroi || isThoiMien;
     }
-    
-    public void dispose(){
+
+    public void dispose() {
         this.player = null;
     }
 }

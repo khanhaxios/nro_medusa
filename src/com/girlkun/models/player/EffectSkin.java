@@ -23,6 +23,7 @@ public class EffectSkin {
         this.xHPKI = 1;
     }
 
+
     public long lastTimeAttack;
     private long lastTimeOdo;
     private long lastTimeXenHutHpKi;

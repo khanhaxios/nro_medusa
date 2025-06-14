@@ -1812,10 +1812,13 @@ public class NPoint {
             if (SkillUtil.isUseSkillChuong(this.player) && this.player.chienthan.tasknow == 6) {
                 this.player.chienthan.dalamduoc++;
             }
-            dameAttack *= 2;
-            for (Integer tl : this.tlDameCrit) {
-                dameAttack += (dameAttack * tl / 100);
+            double dameG = dameAttack * 2;
+            int totalTyLe = 0;
+            for (Integer integer : tlDameCrit) {
+                totalTyLe += integer;
             }
+            dameG += dameAttack * totalTyLe / 120;
+            dameAttack = dameG;
         }
         dameAttack += dameAttack * percentXDame / 100;
         dameAttack = Util.GioiHannextdame(dameAttack - (dameAttack * 5 / 100), dameAttack + (dameAttack * 5 / 100));

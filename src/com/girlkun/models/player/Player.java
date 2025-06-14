@@ -1217,6 +1217,9 @@ public class Player {
                 }
             }
 
+            if (tuTien.isTuTien() && tuTien.linhCan.getLinhCanType() == 8 && damage > this.nPoint.hp) {
+                damage = 0;
+            }
             this.nPoint.subHP(damage);
             // healing hp after get dame
             if (tuTien != null && tuTien.isAutoUseTienPhap && (nPoint.hp / nPoint.hpMax * 100) < 20) {
@@ -1224,37 +1227,33 @@ public class Player {
             }
             if (isDie()) {
                 if (this.isPl()) {
-                    if (tuTien.isTuTien() && tuTien.linhCan.getLinhCanType() == 8) {
-                        this.nPoint.hp = 1;
-                    } else {
-                        if (plAtt != null && this.zone.map.mapId == 175) {
-                            plAtt.pointPvpthuong++;
-                            Service.gI().sendThongBao(plAtt, "Bạn vừa hạ đối thủ và nhận được 1 điểm PVP Thường");
-                            if (plAtt.tusat) {
-                                ChangeMapService.gI().changeMapNonSpaceship(plAtt, plAtt.gender + 21, -1, 250);
-                                PlayerService.gI().hoiSinh(plAtt);
-                                plAtt.tusat = false;
-                            }
-                            if (this != null && this.zone != null && this.zone.map.mapId == 175) {
-                                ChangeMapService.gI().changeMapNonSpaceship(this, this.gender + 21, -1, 250);
-                                PlayerService.gI().hoiSinh(this);
-                            }
+                    if (plAtt != null && this.zone.map.mapId == 175) {
+                        plAtt.pointPvpthuong++;
+                        Service.gI().sendThongBao(plAtt, "Bạn vừa hạ đối thủ và nhận được 1 điểm PVP Thường");
+                        if (plAtt.tusat) {
+                            ChangeMapService.gI().changeMapNonSpaceship(plAtt, plAtt.gender + 21, -1, 250);
+                            PlayerService.gI().hoiSinh(plAtt);
+                            plAtt.tusat = false;
                         }
-                        if (plAtt != null && this.zone.map.mapId == 176) {
-                            plAtt.pointPvpVip++;
-                            Service.gI().sendThongBao(plAtt, "Bạn vừa hạ đối thủ và nhận được 1 điểm PVP VIP");
-                            if (plAtt.tusat == true) {
-                                ChangeMapService.gI().changeMapNonSpaceship(plAtt, plAtt.gender + 21, -1, 250);
-                                PlayerService.gI().hoiSinh(plAtt);
-                                plAtt.tusat = false;
-                            }
-                            if (this != null && this.zone != null && this.zone.map.mapId == 176) {
-                                ChangeMapService.gI().changeMapNonSpaceship(this, this.gender + 21, -1, 250);
-                                PlayerService.gI().hoiSinh(this);
-                            }
+                        if (this != null && this.zone != null && this.zone.map.mapId == 175) {
+                            ChangeMapService.gI().changeMapNonSpaceship(this, this.gender + 21, -1, 250);
+                            PlayerService.gI().hoiSinh(this);
                         }
-                        setDie(plAtt);
                     }
+                    if (plAtt != null && this.zone.map.mapId == 176) {
+                        plAtt.pointPvpVip++;
+                        Service.gI().sendThongBao(plAtt, "Bạn vừa hạ đối thủ và nhận được 1 điểm PVP VIP");
+                        if (plAtt.tusat == true) {
+                            ChangeMapService.gI().changeMapNonSpaceship(plAtt, plAtt.gender + 21, -1, 250);
+                            PlayerService.gI().hoiSinh(plAtt);
+                            plAtt.tusat = false;
+                        }
+                        if (this != null && this.zone != null && this.zone.map.mapId == 176) {
+                            ChangeMapService.gI().changeMapNonSpaceship(this, this.gender + 21, -1, 250);
+                            PlayerService.gI().hoiSinh(this);
+                        }
+                    }
+                    setDie(plAtt);
                 }
             }
             return damage;

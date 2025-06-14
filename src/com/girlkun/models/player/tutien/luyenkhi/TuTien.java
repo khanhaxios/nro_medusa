@@ -144,8 +144,6 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public void calcPoint() {
-        // add buff vo day sau do se call lai point
-        // buff dame goc o day
         player.nPoint.tlchinhxac += player.nPoint.tlchinhxac * getChinhXacBuff() / 100;
         player.nPoint.tlNeDon += player.nPoint.tlNeDon * getNeBuff() / 100;
         player.nPoint.tlHutHp += getHutHPBuff();
@@ -457,7 +455,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             if (exp < maxExp && !player.isDie() && Util.canDoWithTime(lastTimeAddExp, 3000)) {
                 if (player.tuTien.congPhap != null && player.tuTien.congPhap.tenCongPhap != null) {
                     long expAdd = (long) (getXDiemThienPhu() * (BASE_EXP_BUFF[level] + (SUB_LEVEL_EXP[subLevel - 1] / 10))) * Math.max(1, congPhap.phamchat.id + 1);
-                    addExp(expAdd * Math.max(1, xParam));
+                    addExp(expAdd * Math.max(1, xParam) * Util.nextInt(2, 5));
                     PlayerService.gI().sendTuTienAddTuVi(player, expAdd);
                     PlayerService.gI().sendTuTienTuVi(player);
                     lastTimeAddExp = System.currentTimeMillis();

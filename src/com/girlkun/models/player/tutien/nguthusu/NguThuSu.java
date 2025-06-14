@@ -32,6 +32,7 @@ public class NguThuSu extends BasePoint implements IBaseAction {
     public void update() {
         if (isNguThu() && Util.canDoWithTime(lastTimeGetExp, 2000)) {
             addExp(getExpCanGain(null));
+            lastTimeGetExp = System.currentTimeMillis();
             if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 5_000 >= 0 && player.tuTien.isAutoDotPhaNguThu) {
                 if (Util.isTrue(getLevelUpPercent(), 300)) {
                     this.levelUp();

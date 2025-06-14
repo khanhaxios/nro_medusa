@@ -38,6 +38,7 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
             Item chanMenh = InventoryServiceNew.gI().findItemBody(player, idsChanMenh);
             if (chanMenh != null && Util.canDoWithTime(lastTimeAddExp, 2000)) {
                 addExp(getExpCanGain(null));
+                lastTimeAddExp = System.currentTimeMillis();
             }
             // auto dot pha
             if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 10_000 >= 0 && player.tuTien.isAutoDotPhaTranPhap) {

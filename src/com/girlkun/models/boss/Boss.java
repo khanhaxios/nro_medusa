@@ -76,11 +76,9 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         this.data = data;
         this.secondsRest = this.data[0].getSecondsRest();
         this.bossStatus = BossStatus.REST;
-        this.name = "[" + TuTien.CANH_GIOI[this.data[0].getTuTienLevel()] + "]" + this.name;
         this.level = data[0].getTuTienLevel();
         this.subLevel = data[0].getTuTienSubLevel();
         BossManager.gI().addBoss(this);
-
         this.bossAppearTogether = new Boss[this.data.length][];
         for (int i = 0; i < this.bossAppearTogether.length; i++) {
             if (this.data[i].getBossesAppearTogether() != null) {
@@ -99,7 +97,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     @Override
     public void initBase() {
         BossData data = this.data[this.currentLevel];
-        this.name = String.format(data.getName(), Util.nextInt(0, 100));
+        this.name = "[" + TuTien.CANH_GIOI[this.level] + "]" + data.getName();
         this.gender = data.getGender();
         this.nPoint.mpg = 7_5_2002;
         this.nPoint.dameg = (long) data.getDame();
@@ -672,10 +670,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     @Override
     public void wakeupAnotherBossWhenAppear() {
-//        if (!(this instanceof AnTrom)
-//                && !(this instanceof MiNuong)) {
-//            System.out.println(this.name + ":" + this.zone.map.mapName + " khu vực " + this.zone.zoneId + "(" + this.zone.map.mapId + ")");
-//        }
         if (!MapService.gI().isMapMaBu(this.zone.map.mapId)
                 && !MapService.gI().isMapBlackBallWar(this.zone.map.mapId)
                 && !(this instanceof AnTrom)
@@ -687,10 +681,14 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
             return;
         }
         for (Boss boss : this.bossAppearTogether[this.currentLevel]) {
+            if (boss == null) {
+                continue;
+            }
             int nextLevelBoss = boss.currentLevel + 1;
             if (nextLevelBoss >= boss.data.length) {
                 nextLevelBoss = 0;
             }
+
             if (boss.data[nextLevelBoss].getTypeAppear() == TypeAppear.CALL_BY_ANOTHER) {
                 if (boss.zone != null) {
                     boss.leaveMap();
