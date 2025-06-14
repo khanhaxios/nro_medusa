@@ -69,9 +69,9 @@ public class BossJiren extends Boss {
                     return 0;
                 }
                 damage = this.nPoint.subDameInjureWithDeff(damage);
-                // if (damage > this.nPoint.hpMax * 2 / 100) {
-                //     damage = this.nPoint.hpMax * 1 / 100;
-                // }
+                if (damage > this.nPoint.hpMax * 2 / 100) {
+                    damage = this.nPoint.hpMax * 1 / 100;
+                }
                 if (!piercing && effectSkill.isShielding) {
                     if (damage > nPoint.hpMax) {
                         EffectSkillService.gI().breakShield(this);

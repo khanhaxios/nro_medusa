@@ -1,6 +1,7 @@
 package com.girlkun.services;
 
 import com.girlkun.consts.ConstPlayer;
+import com.girlkun.models.boss.Boss;
 import com.girlkun.models.intrinsic.Intrinsic;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.mob.MobMe;
@@ -9,7 +10,6 @@ import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.SkillSpecial;
 import com.girlkun.models.player.Thu_TrieuHoi;
-import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
@@ -1070,7 +1070,7 @@ public class SkillService {
             }
             short xParam = player.tuTien.linhCan.getThuocTinhLinhCan().getParam();
             if (player.tuTien.linhCan.getLinhCanType() == 1 || player.tuTien.linhCan.getLinhCanType() == 8) {
-                xParam *= 3;
+                xParam *= (player.tuTien.linhCan.getThuocTinhLinhCan().getParam() * 5);
             }
             hpHoi += hpHoi * xParam / 100;
             mpHoi += mpHoi * xParam / 100;
@@ -1084,8 +1084,51 @@ public class SkillService {
         if (plInjure.effectSkill.anTroi) {
             plAtt.nPoint.isCrit100 = true;
         }
+        double damGoc = -1;
+        if ((plInjure.tuTien != null && plInjure.tuTien.isTuTien()) || plInjure.isBoss) {
+            if (plInjure.isBoss) {
+                Boss boss = ((Boss) plInjure);
+                byte level = boss.level;
+                byte subLevel = boss.subLevel;
+                damGoc = plAtt.nPoint.getDameAttack(false);
+                if (level >= 0 && subLevel >= 0) {
+                    if (!plAtt.tuTien.isTuTien() || plAtt.tuTien.level < level) {
+                        int levelDiff = level - plAtt.tuTien.level;
+                        damGoc -= damGoc * (20 + (20 * levelDiff)) / 100;
+                    } else {
+                        int levelDiff = plAtt.tuTien.level - level;
+                        int subLevelDiff = plAtt.tuTien.subLevel - subLevel;
+
+                        if (subLevelDiff > 0) {
+                            damGoc += damGoc * (5 * subLevelDiff) / 100; // +5% mỗi sub level
+                        }
+                        if (levelDiff > 0) {
+                            damGoc += damGoc * (20 * levelDiff) / 100; // +20% mỗi level
+                        }
+                    }
+                }
+            } else if (plInjure.isPl()) {
+                damGoc = plAtt.nPoint.getDameAttack(false);
+                byte level = plInjure.tuTien.level;
+                byte subLevel = plInjure.tuTien.subLevel;
+                if (!plAtt.tuTien.isTuTien() || plAtt.tuTien.level < level) {
+                    int levelDiff = level - plAtt.tuTien.level;
+                    damGoc -= damGoc * (20 + (20 * levelDiff)) / 100;
+                } else {
+                    int levelDiff = plAtt.tuTien.level - level;
+                    int subLevelDiff = plAtt.tuTien.subLevel - subLevel;
+
+                    if (subLevelDiff > 0) {
+                        damGoc += damGoc * (5 * subLevelDiff) / 100; // +5% mỗi sub level
+                    }
+                    if (levelDiff > 0) {
+                        damGoc += damGoc * (20 * levelDiff) / 100; // +20% mỗi level
+                    }
+                }
+            }
+        }
         miss = neDon(plAtt, miss);
-        double dameHit = plInjure.injured(plAtt, miss ? 0 : plAtt.nPoint.getDameAttack(false), false, false, false);
+        double dameHit = plInjure.injured(plAtt, miss ? 0 : damGoc, false, false, false);
         phanSatThuong(plAtt, plInjure, Util.DoubleGioihan(dameHit));
         hutHPMP(plAtt, dameHit, false);
         hutLinhKhi(plAtt);
@@ -1102,9 +1145,9 @@ public class SkillService {
                     double percentHpLost = 100 - plAtt.nPoint.getCurrPercentHP();
                     byte percentBuff = 0;
                     if (percentHpLost > 0) {
-                        percentBuff = (byte) Math.min(30, percentHpLost);
+                        percentBuff = (byte) Math.max(1, percentHpLost);
                     }
-                    double dame = dameHit * ((Math.max(1, paramOfLinhCan / 2f) + percentBuff) * Math.max(1, plAtt.tuTien.xParam)) / 100;
+                    double dame = dameHit * ((Math.max(1, paramOfLinhCan / 3f) + percentBuff) * Math.max(1, plAtt.tuTien.xParam)) / 100;
                     dame += plInjure.nPoint.def;
                     if (plInjure.itemTime.isUseGiapXen) {
                         dame *= 2;
@@ -1127,8 +1170,11 @@ public class SkillService {
                     break;
                 case 3:
                     double dameHoa = dameHit * (plAtt.nPoint.numAttackLinhCan * Math.max(1, plAtt.tuTien.xParam)) / 100;
-                    if (plAtt.nPoint.numAttackLinhCan + 1 <= plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam()) {
-                        plAtt.nPoint.numAttackLinhCan++;
+                    if (plAtt.nPoint.numAttackLinhCan + 2 <= paramOfLinhCan) {
+                        plAtt.nPoint.numAttackLinhCan += 2;
+                        plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
+                    } else {
+                        plAtt.nPoint.numAttackLinhCan = paramOfLinhCan;
                         plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
                     }
                     double dm = plInjure.injured(plAtt, dameHoa, false, false, false);
@@ -1137,11 +1183,14 @@ public class SkillService {
                 case 5:
                     double damePhong = dameHit * (paramOfLinhCan * Math.max(1, plAtt.tuTien.xParam)) / 100;
                     byte maxTyLeChiMang = (byte) (Math.min(paramOfLinhCan / 3, 100));
-                    if (plAtt.nPoint.numAttackLinhCan + 1 <= maxTyLeChiMang) {
-                        plAtt.nPoint.numAttackLinhCan++;
+                    if (plAtt.nPoint.numAttackLinhCan + 5 <= maxTyLeChiMang) {
+                        plAtt.nPoint.numAttackLinhCan += 5;
+                        plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
+                    } else {
+                        plAtt.nPoint.numAttackLinhCan = maxTyLeChiMang;
                         plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
                     }
-                    if (Util.isTrue(plAtt.nPoint.numAttackLinhCan, 120)) {
+                    if (Util.isTrue(plAtt.nPoint.numAttackLinhCan, 100)) {
                         damePhong *= (2 + (paramOfLinhCan / 100f));
                     }
                     double dp = plInjure.injured(plAtt, damePhong, false, false, false);
@@ -1150,11 +1199,14 @@ public class SkillService {
                 case 6:
                     double dameLoi = dameHit * (paramOfLinhCan * Math.max(1, plAtt.tuTien.xParam)) / 100;
                     byte maxTlChiMang = (byte) (Math.min(paramOfLinhCan / 50, 100));
-                    if (plAtt.nPoint.numAttackLinhCan + 1 <= maxTlChiMang) {
-                        plAtt.nPoint.numAttackLinhCan++;
+                    if (plAtt.nPoint.numAttackLinhCan + 5 <= maxTlChiMang) {
+                        plAtt.nPoint.numAttackLinhCan += 5;
+                        plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
+                    } else {
+                        plAtt.nPoint.numAttackLinhCan = maxTlChiMang;
                         plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
                     }
-                    if (Util.isTrue(plAtt.nPoint.numAttackLinhCan, 120)) {
+                    if (Util.isTrue(plAtt.nPoint.numAttackLinhCan, 100)) {
                         dameLoi *= (2.5 + (paramOfLinhCan / 100f));
                     }
                     double dl = plInjure.injured(plAtt, dameLoi, false, false, false);
@@ -1175,7 +1227,6 @@ public class SkillService {
 
             }
             plAtt.tuTien.subLinhKhiPercent(1);
-            // handle ton linh khi
         }
     }
 
@@ -1289,13 +1340,88 @@ public class SkillService {
             sendPlayerAttackMob(plAtt, mob);
             mob.injured(plAtt, dameHit, dieWhenHpFull, (byte) 0);
             if (plAtt.tuTien.isTuTien() && plAtt.tuTien.canHandleWithLinhKhiPoint(1) && plAtt.tuTien.isAttackWithLinhCan) {
-                byte x = 1;
-                if (plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("K") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("H") || plAtt.tuTien.linhCan.getLinhCanType() == TuTienTemplate.LINH_CAN.get("L")) {
-                    x = 2;
+                short paramOfLinhCan = plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam();
+                switch (plAtt.tuTien.linhCan.getLinhCanType()) {
+                    case 0:
+                        // kim
+                        // calc % mau da mat de cong them dame
+                        double percentHpLost = 100 - plAtt.nPoint.getCurrPercentHP();
+                        byte percentBuff = 0;
+                        if (percentHpLost > 0) {
+                            percentBuff = (byte) Math.max(1, percentHpLost);
+                        }
+                        double dame = dameHit * ((Math.max(1, paramOfLinhCan / 3f) + percentBuff) * Math.max(1, plAtt.tuTien.xParam)) / 100;
+                        mob.injured(plAtt, dame, false, (byte) 1);
+                        sendPlayerAttackMob(plAtt, mob);
+                        break;
+                    case 1, 8:
+                        // ty le gay choang
+                        if (Util.isTrue((paramOfLinhCan / 10), 100) && Util.canDoWithTime(mob.effectSkill.lastTimeStun, 5000)) {
+                            // gay choang cho doi thu
+                            if (!mob.effectSkill.isStun) {
+                                int timeStun = 2000;
+                                mob.effectSkill.startStun(System.currentTimeMillis(), timeStun);
+                            }
+                        }
+                        break;
+                    case 3:
+                        double dameHoa = dameHit * (plAtt.nPoint.numAttackLinhCan * Math.max(1, plAtt.tuTien.xParam)) / 100;
+                        if (plAtt.nPoint.numAttackLinhCan + 2 <= paramOfLinhCan) {
+                            plAtt.nPoint.numAttackLinhCan += 2;
+                            plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
+                        } else {
+                            plAtt.nPoint.numAttackLinhCan = paramOfLinhCan;
+                            plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
+                        }
+                        mob.injured(plAtt, dameHoa, false, (byte) 1);
+                        sendPlayerAttackMob(plAtt, mob);
+                        break;
+                    case 5:
+                        double damePhong = dameHit * (paramOfLinhCan * Math.max(1, plAtt.tuTien.xParam)) / 100;
+                        byte maxTyLeChiMang = (byte) (Math.min(paramOfLinhCan / 3, 100));
+                        if (plAtt.nPoint.numAttackLinhCan + 5 <= maxTyLeChiMang) {
+                            plAtt.nPoint.numAttackLinhCan += 5;
+                            plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
+                        } else {
+                            plAtt.nPoint.numAttackLinhCan = maxTyLeChiMang;
+                            plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
+                        }
+                        if (Util.isTrue(plAtt.nPoint.numAttackLinhCan, 100)) {
+                            damePhong *= (2 + (paramOfLinhCan / 100f));
+                        }
+                        mob.injured(plAtt, damePhong, false, (byte) 1);
+                        sendPlayerAttackMob(plAtt, mob);
+                        break;
+                    case 6:
+                        double dameLoi = dameHit * (paramOfLinhCan * Math.max(1, plAtt.tuTien.xParam)) / 100;
+                        byte maxTlChiMang = (byte) (Math.min(paramOfLinhCan / 50, 100));
+                        if (plAtt.nPoint.numAttackLinhCan + 5 <= maxTlChiMang) {
+                            plAtt.nPoint.numAttackLinhCan += 5;
+                            plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
+                        } else {
+                            plAtt.nPoint.numAttackLinhCan = maxTlChiMang;
+                            plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
+                        }
+                        if (Util.isTrue(plAtt.nPoint.numAttackLinhCan, 100)) {
+                            dameLoi *= (2.5 + (paramOfLinhCan / 100f));
+                        }
+                        mob.injured(plAtt, dameLoi, false, (byte) 1);
+                        sendPlayerAttackMob(plAtt, mob);
+                        if (Util.isTrue((paramOfLinhCan / 10), 100) && Util.canDoWithTime(mob.effectSkill.lastTimeStun, 5000)) {
+                            // gay choang cho doi thu
+                            if (!mob.effectSkill.isStun) {
+                                int timeStun = 2000;
+                                mob.effectSkill.startStun(System.currentTimeMillis(), timeStun);
+                            }
+                        }
+                        break;
+                    case 7:
+                        double dameQuang = plAtt.nPoint.getDameAttack(false) * (paramOfLinhCan * Math.max(1, plAtt.tuTien.xParam)) / 100;
+                        mob.injured(plAtt, dameQuang, false, (byte) 1);
+                        sendPlayerAttackMob(plAtt, mob);
+                        break;
+
                 }
-                double dameH = dameHit * ((plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam() * x) * Math.max(1, plAtt.tuTien.xParam)) / 100;
-                mob.injured(plAtt, dameH, dieWhenHpFull, (byte) 1);
-                plAtt.tuTien.subLinhKhiPercent(1);
             }
         }
     }

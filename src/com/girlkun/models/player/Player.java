@@ -1200,9 +1200,6 @@ public class Player {
                         return 0;
                     }
                 }
-            }
-
-            if (!isStChuan) {
                 damage = this.nPoint.subDameInjureWithDeff(damage);
             }
             if (!piercing && effectSkill.isShielding && !isStChuan) {
@@ -1214,15 +1211,6 @@ public class Player {
             if (isMobAttack && this.charms.tdBatTu > System.currentTimeMillis() && damage >= this.nPoint.hp) {
                 damage = Util.DoubleGioihang(this.nPoint.hp - 1);
             }
-            if (plAtt != null && !isMobAttack) {
-                float tyle = (plAtt.tienLuc - this.tienLuc) / 100f;
-
-                if (tyle < 0) {
-                    damage -= (Math.abs(tyle) * 10) * damage;
-                } else {
-                    damage += damage * tyle;
-                }
-            }
             if (!isStChuan) {
                 if (this.nPoint.tyLeGiamDame > 0) {
                     damage -= damage * nPoint.tyLeGiamDame / 100;
@@ -1230,7 +1218,6 @@ public class Player {
             }
 
             this.nPoint.subHP(damage);
-
             // healing hp after get dame
             if (tuTien != null && tuTien.isAutoUseTienPhap && (nPoint.hp / nPoint.hpMax * 100) < 20) {
                 tuTien.useBestHealingTienPhap();

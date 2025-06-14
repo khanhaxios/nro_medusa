@@ -52,7 +52,7 @@ public class LinhCan {
         String text = "";
         switch (linhCanType) {
             case 0:
-                text = String.format("-Bỏ qua tất cả phòng thủ của đối phương\n-Dưới %s máu miễn mọi khống chế\n-Mỗi mất %s hp tăng %s sát thương linh căn(tối đa %s)", "30%", "1%", "1%", "30%");
+                text = String.format("-Bỏ qua tất cả phòng thủ của đối phương\n-Dưới %s máu miễn mọi khống chế\n-Mỗi mất %s hp tăng %s sát thương linh căn(tối đa %s)", thuocTinhLinhCan.getParam() / 2 + "%", "1%", "1%", 100 + "%");
                 break;
             case 1:
                 text = String.format("-Tăng %s khả năng hút máu\n-Đòn đánh thường có %s tỷ lệ gây choáng\n-Hồi phục linh khí mạnh mẽ", thuocTinhLinhCan.getParam() * 3 + "%", (thuocTinhLinhCan.getParam() / 10) + "%");
@@ -76,7 +76,7 @@ public class LinhCan {
                 text = String.format("-Giảm %s sát thương nhận vào\n-Gây sát thương chuẩn bằng %s sát thương hiện có\nThần thánh thẩm phán", thuocTinhLinhCan.getParam() / 5 + "%", thuocTinhLinhCan.getParam() + "%");
                 break;
             case 8:
-                text = String.format("-Bất tử\n-Tăng %s né\nĐòn đánh thường có tỷ lệ gây choáng đối thủ", thuocTinhLinhCan.getParam() + "%");
+                text = String.format("-Bất tử\n-Tăng %s né\nĐòn đánh thường có %s tỷ lệ gây choáng đối thủ", thuocTinhLinhCan.getParam() + "%", thuocTinhLinhCan.getParam() / 10 + "%");
                 break;
 
         }

@@ -8,6 +8,7 @@ import com.girlkun.models.boss.list_boss.MiNuong;
 import com.girlkun.models.boss.list_boss.PetLan;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.server.ServerNotify;
 import com.girlkun.services.*;
@@ -43,6 +44,8 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     protected long lastTimeTargetPlayer;
     protected int timeTargetPlayer;
     public Player playerTarger;
+    public byte level;
+    public byte subLevel;
 
     protected Boss parentBoss;
     public Boss[][] bossAppearTogether;
@@ -73,6 +76,9 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         this.data = data;
         this.secondsRest = this.data[0].getSecondsRest();
         this.bossStatus = BossStatus.REST;
+        this.name = "[" + TuTien.CANH_GIOI[this.data[0].getTuTienLevel()] + "]" + this.name;
+        this.level = data[0].getTuTienLevel();
+        this.subLevel = data[0].getTuTienSubLevel();
         BossManager.gI().addBoss(this);
 
         this.bossAppearTogether = new Boss[this.data.length][];
@@ -88,12 +94,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                 }
             }
         }
-        if (Util.isTrue(10, 100)) {
-            for (int i = 0; i <= this.data.length - 1; i++) {
-                this.data[i].setName(String.format("[Tiên] %s", this.data[i].getName()));
-                this.tienLuc += 1;
-            }
-        }
     }
 
     @Override
@@ -104,7 +104,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         this.nPoint.mpg = 7_5_2002;
         this.nPoint.dameg = (long) data.getDame();
         this.nPoint.hpg = data.getHp()[Util.nextInt(0, data.getHp().length - 1)];
-//        System.err.println("Boss " + this.name + " máu: " + this.nPoint.hpg);s
         this.nPoint.hp = nPoint.hpg;
         this.nPoint.calPoint();
         this.initSkill();
@@ -226,7 +225,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     @Override
     public void update() {
         super.update();
-//        System.out.println("this status: " + this.bossStatus + " (" + this.id + ")");
         this.nPoint.mp = this.nPoint.mpg;
         if (this.effectSkill.isHaveEffectSkill()) {
             return;
