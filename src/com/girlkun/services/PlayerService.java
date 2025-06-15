@@ -305,7 +305,7 @@ public class PlayerService {
     }
 
     private static final int COST_GOLD_HOI_SINH = 10000000;
-    private static final int COST_GEM_HOI_SINH = 10000;
+    private static final int COST_GEM_HOI_SINH = 1000;
     private static final int COST_GOLD_HOI_SINH_NRSD = 20000000;
 
     public void hoiSinh(Player player) {

@@ -51,7 +51,7 @@ public class DaoLu extends Player {
     public boolean isThangDauDe = false;
     public boolean isMacDo = false;
 
-    public static int POWER_DAU_THANH = 50000;
+    public static int POWER_DAU_THANH = 1000;
 
     public byte getStatus() {
         return this.status;
@@ -758,13 +758,13 @@ public class DaoLu extends Player {
     public int getNPointAddByType() {
         switch (this.typeDaoLu) {
             case 3 -> {
-                return 100000;
+                return 1000;
             }
             case 2 -> {
-                return 10000;
+                return 500;
             }
             case 1 -> {
-                return 1000;
+                return 100;
             }
         }
         return 0;
@@ -773,37 +773,37 @@ public class DaoLu extends Player {
     public int getNPointAddCapBac() {
         switch (this.pointCapCanhGioi) {
             case 10 -> {
-                return 100000;
+                return 700;
             }
             case 9 -> {
-                return 50000;
+                return 600;
             }
             case 8 -> {
-                return 30000;
+                return 500;
             }
             case 7 -> {
-                return 20000;
+                return 400;
             }
             case 6 -> {
-                return 10000;
+                return 300;
             }
             case 5 -> {
-                return 5000;
+                return 250;
             }
             case 4 -> {
-                return 4000;
+                return 200;
             }
             case 3 -> {
-                return 3000;
+                return 150;
             }
             case 2 -> {
-                return 2000;
+                return 100;
             }
             case 1 -> {
-                return 1000;
+                return 50;
             }
             case 0 -> {
-                return 500;
+                return 10;
             }
         }
         return 0;
@@ -811,7 +811,7 @@ public class DaoLu extends Player {
 
     public int getNPointAddCapTinh() {
         if (this.pointCapCanhGioi == 10) {
-            return 900 + (this.pointCapTinh + 1) * 100;
+            return 900 + (this.pointCapTinh + 1) * 2;
         }
         return switch (this.pointCapTinh) {
             default ->

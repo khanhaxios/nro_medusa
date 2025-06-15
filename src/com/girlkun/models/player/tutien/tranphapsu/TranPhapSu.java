@@ -182,7 +182,7 @@ public class TranPhapSu extends BasePoint implements IBaseAction {
 
     @Override
     protected long getNextLevelExp() {
-        return (level + 1) * 1_000_000;
+        return (level + 1) * 10_000;
     }
 
     @Override

@@ -1216,9 +1216,10 @@ public class Player {
                     damage -= damage * nPoint.tyLeGiamDame / 100;
                 }
             }
-
-            if (tuTien.isTuTien() && tuTien.linhCan.getLinhCanType() == 8 && damage > this.nPoint.hp) {
-                damage = 0;
+            if (plAtt != null) {
+                if (tuTien.isTuTien() && tuTien.linhCan.getLinhCanType() == 8 && damage > this.nPoint.hp && plAtt.tuTien.linhCan.getLinhCanType() != 7) {
+                    damage = 0;
+                }
             }
             this.nPoint.subHP(damage);
             // healing hp after get dame
