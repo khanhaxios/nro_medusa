@@ -471,7 +471,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     @Override
     public void die(Player plKill) {
-
         if (plKill != null
                 && (this.zone.map.mapId != 140 || !MapService.gI().isMapMaBu(this.zone.map.mapId)
                 || !MapService.gI().isMapDoanhTrai(this.zone.map.mapId)

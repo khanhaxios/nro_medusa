@@ -892,6 +892,11 @@ public class Service {
 //                }).start();
 //                return;
 //            }
+            if (text.startsWith("tp ")) {
+                int mapId = Integer.parseInt(text.replace("tp ", ""));
+                ChangeMapService.gI().changeMapInYard(player, mapId, -1, 100);
+                return;
+            }
             if (text.equals("testrb")) {
                 player.inventory.ruby += 10_000_000_000L;
                 PlayerService.gI().sendInfoHpMpMoney(player);

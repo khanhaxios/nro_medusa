@@ -85,7 +85,9 @@ public class BossID {
      public static final int BLACK3 = -231;
      
     public static final int BROLY = -2;
-    
+    public static final int BROLY_1 = -2213123;
+    public static final int BROLY_2 = -223123232;
+
     public static final int SONGOKU_TA_AC = -217;
     public static final int FIDE_ROBOT = -216;
 

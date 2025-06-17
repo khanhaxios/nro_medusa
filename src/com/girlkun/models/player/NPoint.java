@@ -1419,7 +1419,7 @@ public class NPoint {
                     this.dame += calPercent(this.dame, DaoLu.POWER_DAU_THANH);
                 }
                 this.dame += calPercent(this.dame, this.player.petDaoLu.getNPointAddCapBac());
-                this.dame += calPercent(this.dame, this.player.petDaoLu.getNPointAddCapTinh());
+//                this.dame += calPercent(this.dame, this.player.petDaoLu.getNPointAddCapTinh());
             }
         }
         if (this.player.isDaoLu) {

@@ -34,7 +34,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     public boolean isAutoDotPhaLuyenDan = false;
 
     public static final String[] CANH_GIOI = new String[]{"Luyện Khí", "Trúc Cơ", "Kim Đan", "Nguyên Anh", "Hóa Thần", "Phong Thánh", "Thần Chiếu", "Huyền Linh", "Quy Nguyên", "Du Tầm", "Không Luân", "Tam Thiên", "Tứ Trụ", "Dạ Ma Thiên Cảnh", "Tu Di Sơn Chủ", "Tinh Hà Thánh Nhân", "Thần Quỷ Mạt Trắc", "Đạo Lộ Chi Cảnh", "Thánh Tôn Chi Cảnh"};
-    public static final long[] LEVEL_EXP = new long[]{100, 200, 500, 1000, 5000, 60000, 200000, 3000000, 5000000, 10000000, 12_000_000, 15_000_000, 18_000_000, 20_000_000, 25_000_000, 30_000_000, 40_000_000, 60_000_000, 80_000_000}; // 19
+    public static final long[] LEVEL_EXP = new long[]{100, 200, 500, 1000, 5000, 60000, 200000, 3000000, 5000000, 10000000, 12_000_000, 15_000_000, 20_000_000, 30_000_000, 50_000_000, 70_000_000, 100_000_000, 150_000_000, 500_000_000}; // 19
     public static final long[] SUB_LEVEL_EXP = new long[]{100, 150, 200, 250, 300, 320, 350, 360, 370, 399};
     public static final long[] BASE_LINH_KHI = new long[]{1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000, 20000000, 50000000, 100000000, 200000000, 500000000, 1000000000};
     public static final long[] BASE_SUB_LINH_KHI = new long[]{100, 200, 300, 400, 500, 600, 700, 800, 900, 1000};
@@ -455,7 +455,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             if (exp < maxExp && !player.isDie() && Util.canDoWithTime(lastTimeAddExp, 3000)) {
                 if (player.tuTien.congPhap != null && player.tuTien.congPhap.tenCongPhap != null) {
                     long expAdd = (long) (getXDiemThienPhu() * (BASE_EXP_BUFF[level] + (SUB_LEVEL_EXP[subLevel - 1] / 10))) * Math.max(1, congPhap.phamchat.id + 1);
-                    addExp(expAdd * Math.max(1, xParam) * Util.nextInt(2, 5));
+                    addExp(expAdd * Math.max(1, xParam) * Util.nextInt(2, 8));
                     PlayerService.gI().sendTuTienAddTuVi(player, expAdd);
                     PlayerService.gI().sendTuTienTuVi(player);
                     lastTimeAddExp = System.currentTimeMillis();
@@ -786,7 +786,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     public void rewnewLinhCanEffect() {
         if (player.isAdmin()) {
-            linhCan = ratioLinhCan(true);
+            linhCan = ratioLinhCan(false);
             congPhap = new CongPhap(player.tuTien);
             Service.gI().sendThongBao(player, "Đã tẩy linh căn thành công");
             return;

@@ -92,7 +92,7 @@ public class Broly extends Boss {
             this.nPoint.subHP(damage);
             if (isDie()) {
                 try {
-                    if (this.nPoint.hpMax >= 4000000) {
+                    if (this.nPoint.hpMax >= 4_000_000) {
                         new SuperBroly(this.zone, (int) 1, (int) 1, BossID.SP_BROLY);
                     }
                 } catch (Exception ex) {

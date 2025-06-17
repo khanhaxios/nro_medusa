@@ -1221,6 +1221,11 @@ public class Player {
                     damage = 0;
                 }
             }
+            if (isMobAttack){
+                if (tuTien.isTuTien() && tuTien.linhCan.getLinhCanType() == 8){
+                    damage = 0;
+                }
+            }
             this.nPoint.subHP(damage);
             // healing hp after get dame
             if (tuTien != null && tuTien.isAutoUseTienPhap && (nPoint.hp / nPoint.hpMax * 100) < 20) {

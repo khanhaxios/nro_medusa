@@ -2704,7 +2704,7 @@ public class NpcFactory {
                                         BossData bossDataClone = new BossData("Nhân Bản" + player.name, player.gender, new short[]{player.getHead(), player.getBody(), player.getLeg(), player.getFlagBag(), player.getAura(), player.getEffFront()}, player.nPoint.dame, new double[]{player.nPoint.hpMax}, new int[]{140}, skillTemp, new String[]{"|-2|Boss nhân bản đã xuất hiện rồi"}, //text chat 1
                                                 new String[]{"|-1|Ta sẽ chiếm lấy thân xác của ngươi hahaha!"}, //text chat 2
                                                 new String[]{"|-1|Lần khác ta sẽ xử đẹp ngươi"}, //text chat 3
-                                                60);
+                                                60, player.tuTien.isTuTien() ? player.tuTien.level : 0, (byte) (player.tuTien.isTuTien() ? 10 : 1));
 
                                         try {
                                             new NhanBan(Util.createIdBossClone((int) player.id), bossDataClone, player.zone, player);
@@ -7676,6 +7676,7 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Bạn đã đột phá thất bại , mất hết tu vi và linh khí hiện tại");
                                     InventoryServiceNew.gI().subQuantityItemsBag(player, item, 10 * player.tuTien.level);
                                     InventoryServiceNew.gI().sendItemBags(player);
+                                    player.iDMark.dotPhaThienDao = false;
                                     break;
                                 case 1:
                                     float subPercent1 = player.luyenDanSu.diemKhangTinh / 10f;

@@ -158,6 +158,9 @@ public abstract class BasePoint {
         if (xDiem == 1998) {
             return "Vạn cổ yêu nghiệt";
         }
+        if (xDiem > 1800) {
+            return "Vạn cổ thiên kiêu";
+        }
         if (xDiem > 1700) {
             return "Yêu nghiệt";
         }

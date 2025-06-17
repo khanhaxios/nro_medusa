@@ -1,31 +1,17 @@
 package com.girlkun.models.boss.list_boss.Broly;
 
 import com.girlkun.consts.ConstPlayer;
-import com.girlkun.models.boss.*;
-
-import static com.girlkun.models.boss.BossStatus.ACTIVE;
-import static com.girlkun.models.boss.BossStatus.JOIN_MAP;
-import static com.girlkun.models.boss.BossStatus.RESPAWN;
-
-import com.girlkun.models.boss.list_boss.cell.SieuBoHung;
-import com.girlkun.models.map.ItemMap;
+import com.girlkun.models.boss.Boss;
+import com.girlkun.models.boss.BossData;
+import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.map.Zone;
-import com.girlkun.models.map.challenge.MartialCongressService;
 import com.girlkun.models.player.Pet.ConstPet;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.PlayerService;
-import com.girlkun.services.Service;
-import com.girlkun.server.Maintenance;
-import com.girlkun.server.Manager;
 import com.girlkun.services.PetService;
-import com.girlkun.services.SkillService;
-import com.girlkun.utils.SkillUtil;
+import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author BTH sieu cap vippr0
@@ -54,7 +40,9 @@ public class SuperBroly extends Boss {
                 new String[]{"|-1|Ta đang giữ đệ đây"}, //text chat 1
                 new String[]{"|-1|Nhóc con. Giỏi thì lấy mạng ta này"}, //text chat 2
                 new String[]{"|-1|Giết ta sẽ nhận được trứng Mabu. Giỏi thì đến đây"}, //text chat 3
-                60
+                60,
+                (byte) 2,
+                (byte) 10
         ));
         this.zone = zone;
     }
@@ -77,7 +65,7 @@ public class SuperBroly extends Boss {
         super.active();
     }
 
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a)       {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
                 this.chat("Xí hụt");
@@ -94,6 +82,12 @@ public class SuperBroly extends Boss {
             if (isDie()) {
                 this.setDie(plAtt);
                 die(plAtt);
+                // call super broly 3
+                try {
+                    new BrolyGod(this.zone);
+                } catch (Exception ex) {
+                    System.out.println("     Loi ra Super Broly");
+                }
             }
             return damage;
         } else {

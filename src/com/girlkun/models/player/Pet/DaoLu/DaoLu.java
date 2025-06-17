@@ -758,10 +758,10 @@ public class DaoLu extends Player {
     public int getNPointAddByType() {
         switch (this.typeDaoLu) {
             case 3 -> {
-                return 1000;
+                return 500;
             }
             case 2 -> {
-                return 500;
+                return 250;
             }
             case 1 -> {
                 return 100;
@@ -776,31 +776,31 @@ public class DaoLu extends Player {
                 return 700;
             }
             case 9 -> {
-                return 600;
-            }
-            case 8 -> {
-                return 500;
-            }
-            case 7 -> {
-                return 400;
-            }
-            case 6 -> {
                 return 300;
             }
-            case 5 -> {
+            case 8 -> {
                 return 250;
             }
-            case 4 -> {
+            case 7 -> {
                 return 200;
             }
-            case 3 -> {
+            case 6 -> {
                 return 150;
             }
-            case 2 -> {
+            case 5 -> {
+                return 120;
+            }
+            case 4 -> {
                 return 100;
             }
-            case 1 -> {
+            case 3 -> {
                 return 50;
+            }
+            case 2 -> {
+                return 30;
+            }
+            case 1 -> {
+                return 20;
             }
             case 0 -> {
                 return 10;
@@ -813,10 +813,7 @@ public class DaoLu extends Player {
         if (this.pointCapCanhGioi == 10) {
             return 900 + (this.pointCapTinh + 1) * 2;
         }
-        return switch (this.pointCapTinh) {
-            default ->
-                (this.pointCapTinh + 1) * 100;
-        };
+        return (this.pointCapTinh + 1) * 100;
     }
 
 //    private Mob findMobAttack() {
