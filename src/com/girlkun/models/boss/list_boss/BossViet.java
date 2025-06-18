@@ -39,9 +39,11 @@ public class BossViet extends Boss {
         } else {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, NRs[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
-        if (Util.isTrue(5, 100)) {
-
+        if (Util.isTrue(50, 500)) {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, 1599, 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+        }
+        if (Util.isTrue(2, 100)) {
+            Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, 2076, 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
     }
 //    @Override

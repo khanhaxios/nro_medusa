@@ -2027,7 +2027,8 @@ public class BossesData {
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 1, 3000},
-                    {Skill.LIEN_HOAN, 7, 300000},},//skill//skill
+                    {Skill.LIEN_HOAN, 7, 300000},//skill//skill
+                    {Skill.TAI_TAO_NANG_LUONG, 7,30_000}},//skill//skill
             new String[]{}, //text chat 1
             new String[]{"|-1|Các ngươi thật là yếu ớt",
                     "|-1|Ta là trùm cuối của game...",

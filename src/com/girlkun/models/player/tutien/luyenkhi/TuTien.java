@@ -461,9 +461,9 @@ public class TuTien extends BasePoint implements IBaseAction {
                     lastTimeAddExp = System.currentTimeMillis();
                 }
             }
-            if (congPhap.tenCongPhap != null && !player.isDie() && congPhap.doThuanThuc < congPhap.maxDoThuanThuc && Util.canDoWithTime(lastTimeAddDoTT, 3000)) {
-                congPhap.autoAddDoTT();
-            }
+//            if (congPhap.tenCongPhap != null && !player.isDie() && congPhap.doThuanThuc < congPhap.maxDoThuanThuc && Util.canDoWithTime(lastTimeAddDoTT, 3000)) {
+//                congPhap.autoAddDoTT();
+//            }
             if (maxLinhKhiPoint == 0) {
                 maxLinhKhiPoint = calcMaxLinhKhiPoint();
             }

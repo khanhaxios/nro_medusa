@@ -42,6 +42,8 @@ public class CongPhap {
     public byte xTocDoKhoiPhucLinhKhi = 0;
     public long doThuanThuc = 0;
     public long maxDoThuanThuc = 0;
+    List<Runnable> thuocTinhList = new ArrayList<>();
+
     public String tenCongPhap;
     byte maxThuocTinh;
     byte slThuocTinh;
@@ -144,7 +146,6 @@ public class CongPhap {
             // success linh ngo
             this.phamchat = phamchat.getNext();
             this.maxThuocTinh = getMaxThuocTinhByPhamChat();
-//            randomNewBuff();
             upOldBuff();
             restDoTT();
         } else {
@@ -207,11 +208,7 @@ public class CongPhap {
 
         if (tlDameBuff > 0) tlDameBuff += Math.min(tlDameBuff + Util.nextInt(1, 2), MAX_BUFF);
 
-        if (tlHutHPBuff > 0) tlHutHPBuff += Math.min(tlHutHPBuff + Util.nextInt(3, 6), MAX_BUFF);
-
-        if (tlHutMPBuff > 0) tlHutMPBuff += Math.min(tlHutMPBuff + Util.nextInt(3, 6), MAX_BUFF);
-
-        if (tlLinhKhiBuff > 0) tlLinhKhiBuff += Math.min(tlLinhKhiBuff + Util.nextInt(1, 2), MAX_BUFF);
+        if (tlLinhKhiBuff > 0) tlLinhKhiBuff += Math.min(tlLinhKhiBuff + Util.nextInt(1), MAX_BUFF);
 
         if (hutDame > 0) hutDame += Math.min(hutDame + Util.nextInt(1, 3), MAX_BUFF);
 
@@ -221,7 +218,7 @@ public class CongPhap {
 
         if (xDameThuocTinh > 0) xDameThuocTinh += (byte) Math.min(xDameThuocTinh + Util.nextInt(1, 2), 100);
 
-        if (xLinhKhiBuff > 0) xLinhKhiBuff += (byte) Math.min(xLinhKhiBuff + Util.nextInt(1, 2), 100);
+        if (xLinhKhiBuff > 0) xLinhKhiBuff += (byte) Math.min(xLinhKhiBuff + Util.nextInt(1), 100);
 
         if (xTocDoKhoiPhucLinhKhi > 0)
             xTocDoKhoiPhucLinhKhi += (byte) Math.min(xTocDoKhoiPhucLinhKhi + Util.nextInt(1, 2), 100);
@@ -230,8 +227,9 @@ public class CongPhap {
     public void randomNewBuff(int soLuongMuonRandom) {
         if (this.slThuocTinh >= maxThuocTinh) return;
 
-        boolean isAdd = Util.isTrue(50, 100);
+        boolean isAdd = Util.isTrue(getBaseTyLeLinhNgo(), 100);
         if (!isAdd) return;
+        thuocTinhList.clear();
 
         byte countNew = 0;
 
@@ -241,8 +239,6 @@ public class CongPhap {
         if (tlMpBuff == 0) thuocTinhList.add(() -> tlMpBuff = Util.nextInt(5, 12));
         if (tlDameBuff == 0) thuocTinhList.add(() -> tlDameBuff = Util.nextInt(5, 12));
         if (tlLinhKhiBuff == 0) thuocTinhList.add(() -> tlLinhKhiBuff = Util.nextInt(5, 12));
-        if (tlHutHPBuff == 0) thuocTinhList.add(() -> tlHutHPBuff = Util.nextInt(5, 12));
-        if (tlHutMPBuff == 0) thuocTinhList.add(() -> tlHutMPBuff = Util.nextInt(5, 12));
         if (tlAnCapVang == 0) thuocTinhList.add(() -> tlAnCapVang = Util.nextInt(5, 12));
         if (hutDame == 0) thuocTinhList.add(() -> hutDame = Util.nextInt(5, 12));
         if (hutHp == 0) thuocTinhList.add(() -> hutHp = Util.nextInt(5, 12));
@@ -250,9 +246,7 @@ public class CongPhap {
         if (xDameThuocTinh == 0) thuocTinhList.add(() -> xDameThuocTinh = (byte) Util.nextInt(1, 4));
         if (xLinhKhiBuff == 0) thuocTinhList.add(() -> xLinhKhiBuff = (byte) Util.nextInt(1, 4));
         if (xTocDoKhoiPhucLinhKhi == 0) thuocTinhList.add(() -> xTocDoKhoiPhucLinhKhi = (byte) Util.nextInt(1, 4));
-
         Collections.shuffle(thuocTinhList);
-
         for (Runnable r : thuocTinhList) {
             if (countNew >= soLuongMuonRandom || (slThuocTinh + countNew) >= maxThuocTinh) break;
             r.run();
@@ -261,6 +255,39 @@ public class CongPhap {
         calcSlThuocTinh();
         calcPoint(tuTien.player);
     }
+
+    public int randomNewBuffA(int soLuongMuonRandom) {
+        if (this.slThuocTinh >= maxThuocTinh) return 0;
+
+        boolean isAdd = Util.isTrue(getBaseTyLeLinhNgo(), 100);
+        if (!isAdd) return -1;
+        thuocTinhList.clear();
+        if (tlHpBuff == 0) thuocTinhList.add(() -> tlHpBuff = Util.nextInt(5, 12));
+        if (tlMpBuff == 0) thuocTinhList.add(() -> tlMpBuff = Util.nextInt(5, 12));
+        if (tlDameBuff == 0) thuocTinhList.add(() -> tlDameBuff = Util.nextInt(5, 12));
+        if (tlLinhKhiBuff == 0) thuocTinhList.add(() -> tlLinhKhiBuff = Util.nextInt(5, 12));
+        if (tlAnCapVang == 0) thuocTinhList.add(() -> tlAnCapVang = Util.nextInt(5, 12));
+        if (hutDame == 0) thuocTinhList.add(() -> hutDame = Util.nextInt(5, 12));
+        if (hutHp == 0) thuocTinhList.add(() -> hutHp = Util.nextInt(5, 12));
+        if (hutMp == 0) thuocTinhList.add(() -> hutMp = Util.nextInt(5, 12));
+        if (xDameThuocTinh == 0) thuocTinhList.add(() -> xDameThuocTinh = (byte) Util.nextInt(1, 4));
+        if (xLinhKhiBuff == 0) thuocTinhList.add(() -> xLinhKhiBuff = (byte) Util.nextInt(1, 4));
+        if (xTocDoKhoiPhucLinhKhi == 0) thuocTinhList.add(() -> xTocDoKhoiPhucLinhKhi = (byte) Util.nextInt(1, 4));
+
+        int soLuongBuffCoTheThem = Math.min(soLuongMuonRandom, thuocTinhList.size());
+        int countNew = 0;
+
+        Collections.shuffle(thuocTinhList);
+        for (int i = 0; i < soLuongBuffCoTheThem; i++) {
+            thuocTinhList.get(i).run();
+            countNew++;
+        }
+        calcSlThuocTinh();
+        calcPoint(tuTien.player);
+
+        return countNew;
+    }
+
 
     public float getTyLeLinhNgo() {
         float tyle = getTyLeThuanThuc();
@@ -383,10 +410,14 @@ public class CongPhap {
             return;
         }
         String npcSay = "|7|Công Pháp+\n" + "|5|" + getFullName() + "\n" + "|5|Độ thuần thục : " + getCurrentExpStr() + "\n" + "|2|Số lượng thuộc tính : " + slThuocTinh + " thuộc tính\n" + "|1|Phẩm chất : " + phamchat.name + "\n" + "|5|Thuộc tính công pháp : " + getThuocTinhName() + "\n" + "|7|Bạn muốn ? ";
-        NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_CONG_PHAP, -1, npcSay, "Tăng Phẩm", "Xem Thuộc\nTính", "Đóng");
+        NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_CONG_PHAP, -1, npcSay, "Tăng Phẩm", "Lĩnh ngộ", "Xem Thuộc\nTính", "Đóng");
     }
 
     public boolean canLevelUp() {
         return doThuanThuc == maxDoThuanThuc;
+    }
+
+    public boolean canLinhNgo() {
+        return canLevelUp();
     }
 }

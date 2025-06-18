@@ -47,7 +47,7 @@ public class Boss1S1 extends Boss {
                 a += 10;
             }
             if (Util.isTrue(5, 100)) {
-                ItemMap it1 = new ItemMap(this.zone, 1470, 5, this.location.x - a, this.zone.map.yPhysicInTop(this.location.x,
+                ItemMap it1 = new ItemMap(this.zone, 1470, 1, this.location.x - a, this.zone.map.yPhysicInTop(this.location.x,
                         this.location.y - 24), plKill.id);
                 Service.getInstance().dropItemMap(this.zone, it1);
             }

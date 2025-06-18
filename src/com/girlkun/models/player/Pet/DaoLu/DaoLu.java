@@ -1,19 +1,15 @@
 package com.girlkun.models.player.Pet.DaoLu;
 
-import com.girlkun.models.player.*;
 import com.girlkun.consts.ConstPlayer;
-import com.girlkun.services.MapService;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Pet.ConstPet;
+import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.server.Manager;
-import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.Service;
-import com.girlkun.utils.Util;
-import com.girlkun.services.PlayerService;
-import com.girlkun.services.SkillService;
+import com.girlkun.services.*;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.services.func.RadaService;
+import com.girlkun.utils.Util;
 
 public class DaoLu extends Player {
 
@@ -110,15 +106,11 @@ public class DaoLu extends Player {
 
     private String getTextStatus(byte status) {
         return switch (status) {
-            case FOLLOW ->
-                "Phu quân, thiếp ở đây...";
+            case FOLLOW -> "Phu quân, thiếp ở đây...";
 //            case PROTECT -> "Á..À!!Dám Đánh Phu Quân Tao À, Mày no mày rồi";
-            case ATTACK ->
-                "Ok phu quân, thiếp sẽ chăm chỉ luyện tập";
-            case GOHOME ->
-                "Tạm biệt chàng, cần gì cứ gọi, ta sẽ đến ngay";
-            default ->
-                "";
+            case ATTACK -> "Ok phu quân, thiếp sẽ chăm chỉ luyện tập";
+            case GOHOME -> "Tạm biệt chàng, cần gì cứ gọi, ta sẽ đến ngay";
+            default -> "";
         };
     }
 
@@ -423,14 +415,19 @@ public class DaoLu extends Player {
 
     public short getAvatar() {
         return switch (this.typeDaoLu) {
-            case ConstPet.DAO_LU_TYPE_1 ->
-                409;
-            case ConstPet.DAO_LU_TYPE_2 ->
-                1330;
-            case ConstPet.DAO_LU_TYPE_3 ->
-                1475;
-            default ->
-                DAO_LU_STYLE[3][this.gender];
+            case ConstPet.DAO_LU_TYPE_1 -> 409;
+            case ConstPet.DAO_LU_TYPE_2 -> 1330;
+            case ConstPet.DAO_LU_TYPE_3,
+                    ConstPet.DAO_LU_TYPE_4,
+                    ConstPet.DAO_LU_TYPE_5,
+                    ConstPet.DAO_LU_TYPE_6,
+                    ConstPet.DAO_LU_TYPE_7,
+                    ConstPet.DAO_LU_TYPE_8,
+                    ConstPet.DAO_LU_TYPE_9,
+                    ConstPet.DAO_LU_TYPE_10,
+                    ConstPet.DAO_LU_TYPE_11,
+                    ConstPet.DAO_LU_TYPE_12 -> 1475;
+            default -> DAO_LU_STYLE[3][this.gender];
         };
     }
 
@@ -444,7 +441,7 @@ public class DaoLu extends Player {
             return 409;
         } else if (this.typeDaoLu == ConstPet.DAO_LU_TYPE_2) {
             return 1330;
-        } else if (this.typeDaoLu == ConstPet.DAO_LU_TYPE_3) {
+        } else if (this.typeDaoLu >= ConstPet.DAO_LU_TYPE_3) {
             return 1475;
         } else if (inventory.itemsBody.get(5).isNotNullItem()) {
             int part = inventory.itemsBody.get(5).template.head;
@@ -469,7 +466,7 @@ public class DaoLu extends Player {
             return 410;
         } else if (this.typeDaoLu == ConstPet.DAO_LU_TYPE_2 && !this.isTransform) {
             return 1331;
-        } else if (this.typeDaoLu == ConstPet.DAO_LU_TYPE_3 && !this.isTransform) {
+        } else if ((this.typeDaoLu >= ConstPet.DAO_LU_TYPE_3 && !this.isTransform)) {
             return 1476;
         } else if (inventory.itemsBody.get(5).isNotNullItem()) {
             int body = inventory.itemsBody.get(5).template.body;
@@ -497,7 +494,7 @@ public class DaoLu extends Player {
             return 411;
         } else if (this.typeDaoLu == ConstPet.DAO_LU_TYPE_2 && !this.isTransform) {
             return 1332;
-        } else if (this.typeDaoLu == ConstPet.DAO_LU_TYPE_3 && !this.isTransform) {
+        } else if (this.typeDaoLu >= ConstPet.DAO_LU_TYPE_3 && !this.isTransform) {
             return 1477;
         } else if (inventory.itemsBody.get(5).isNotNullItem()) {
             int leg = inventory.itemsBody.get(5).template.leg;
@@ -533,51 +530,43 @@ public class DaoLu extends Player {
 
     public String getTypeString() {
         return switch (this.typeDaoLu) {
-            case 3 ->
-                "Tam Phẩm";
-            case 2 ->
-                "Nhị Phẩm";
-            case 1 ->
-                "Nhất Phẩm";
-            default ->
-                "Vô Phẩm";
+            case 5 -> "Ngũ Phẩm";
+            case 6 -> "Lục Phẩm";
+            case 4 -> "Tứ Phẩm";
+            case 3 -> "Tam Phẩm";
+            case 2 -> "Nhị Phẩm";
+            case 1 -> "Nhất Phẩm";
+            case 7 -> "Thất Phẩm";
+            case 8 -> "Bát Phẩm";
+            case 9 -> "Cửu Phẩm";
+            case 10 -> "Tiên Phẩm";
+            case 11 -> "Thánh Phẩm";
+            case 12 -> "Đế Phẩm";
+            default -> "Vô Phẩm";
         };
     }
 
     public static String sGetTypeString(int type) {
         return switch (type) {
-            case 3 ->
-                "Tam Phẩm";
-            case 2 ->
-                "Nhị Phẩm";
-            case 1 ->
-                "Nhất Phẩm";
-            default ->
-                "Vô Phẩm";
+            case 3 -> "Tam Phẩm";
+            case 2 -> "Nhị Phẩm";
+            case 1 -> "Nhất Phẩm";
+            default -> "Vô Phẩm";
         };
     }
 
     public static String sGetCapBacCapTinh(int CapBac, int CapTinh) {
         String intBac = CapBac + "-" + CapTinh;
         return switch (intBac) {
-            case "9-10" ->
-                "Đấu Thánh - Đỉnh Phong";
-            case "8-11" ->
-                "Đấu Tôn - Nữa Bước Đấu Thánh";
-            case "8-10" ->
-                "Đấu Tôn - Đỉnh Phong";
-            case "7-10" ->
-                "Đấu Tông - Nữa Bước Đấu Tôn";
-            case "6-10" ->
-                "Đấu Hoàng - Nữa Bước Đấu Tông";
-            case "5-10" ->
-                "Đấu Vương - Nữa Bước Đấu Hoàng";
-            case "4-10" ->
-                "Đấu Linh - Nữa Bước Đấu Vương";
-            case "3-10" ->
-                "Đại Đấu Sư - Nữa Bước Đấu Linh";
-            default ->
-                getCapBac(CapBac) + " - " + getCapTinhDaoLu(CapBac, CapTinh);
+            case "9-10" -> "Đấu Thánh - Đỉnh Phong";
+            case "8-11" -> "Đấu Tôn - Nữa Bước Đấu Thánh";
+            case "8-10" -> "Đấu Tôn - Đỉnh Phong";
+            case "7-10" -> "Đấu Tông - Nữa Bước Đấu Tôn";
+            case "6-10" -> "Đấu Hoàng - Nữa Bước Đấu Tông";
+            case "5-10" -> "Đấu Vương - Nữa Bước Đấu Hoàng";
+            case "4-10" -> "Đấu Linh - Nữa Bước Đấu Vương";
+            case "3-10" -> "Đại Đấu Sư - Nữa Bước Đấu Linh";
+            default -> getCapBac(CapBac) + " - " + getCapTinhDaoLu(CapBac, CapTinh);
         };
     }
 
@@ -587,30 +576,18 @@ public class DaoLu extends Player {
 
     public static String getCapBac(int capBac) {
         return switch (capBac) {
-            case 10 ->
-                "Đấu Đế";
-            case 9 ->
-                "Đấu Thánh";
-            case 8 ->
-                "Đấu Tôn";
-            case 7 ->
-                "Đấu Tông";
-            case 6 ->
-                "Đấu Hoàng";
-            case 5 ->
-                "Đấu Vương";
-            case 4 ->
-                "Đấu Linh";
-            case 3 ->
-                "Đại Đấu Sư";
-            case 2 ->
-                "Đấu Sư";
-            case 1 ->
-                "Đấu Giả";
-            case 0 ->
-                "Đấu Khí";
-            default ->
-                "Vô Danh";
+            case 10 -> "Đấu Đế";
+            case 9 -> "Đấu Thánh";
+            case 8 -> "Đấu Tôn";
+            case 7 -> "Đấu Tông";
+            case 6 -> "Đấu Hoàng";
+            case 5 -> "Đấu Vương";
+            case 4 -> "Đấu Linh";
+            case 3 -> "Đại Đấu Sư";
+            case 2 -> "Đấu Sư";
+            case 1 -> "Đấu Giả";
+            case 0 -> "Đấu Khí";
+            default -> "Vô Danh";
         };
     }
 
@@ -699,31 +676,21 @@ public class DaoLu extends Player {
 
     public static int getMaxTinh(int capBac) {
         return switch (capBac) {
-            case 10 ->
-                0;
-            case 8 ->
-                11;
-            case 9, 7, 6, 5, 4, 3 ->
-                10;
-            case 2, 1, 0 ->
-                9;
-            default ->
-                0;
+            case 10 -> 0;
+            case 8 -> 11;
+            case 9, 7, 6, 5, 4, 3 -> 10;
+            case 2, 1, 0 -> 9;
+            default -> 0;
         };
     }
 
     public int getMaxTinh() {
         return switch (pointCapCanhGioi) {
-            case 10 ->
-                0;
-            case 8 ->
-                11;
-            case 9, 7, 6, 5, 4, 3 ->
-                10;
-            case 2, 1, 0 ->
-                9;
-            default ->
-                0;
+            case 10 -> 0;
+            case 8 -> 11;
+            case 9, 7, 6, 5, 4, 3 -> 10;
+            case 2, 1, 0 -> 9;
+            default -> 0;
         };
     }
 
@@ -743,31 +710,16 @@ public class DaoLu extends Player {
 
     public String getTextStatus() {
         return switch (this.status) {
-            case GOHOME ->
-                "Về Nhà\nVề Chông Nhà, Rửa Chén, Nấu Cơm";
-            case ATTACK ->
-                "Tu Luyện\nTấn Công Quái Xung Quanh Luyện Sức Mạnh và Tu Vi\n"
-                + "Số Đòn Tấn Công Tăng 1 Tu Vi: " + numAttackMob + "/" + NUM_TO_TUVI;
-            case FOLLOW ->
-                "Đi Theo\nTung Kỹ Năng Và Tấn Công Mục Tiêu Cùng Chủ Công";
-            default ->
-                "";
+            case GOHOME -> "Về Nhà\nVề Chông Nhà, Rửa Chén, Nấu Cơm";
+            case ATTACK -> "Tu Luyện\nTấn Công Quái Xung Quanh Luyện Sức Mạnh và Tu Vi\n"
+                    + "Số Đòn Tấn Công Tăng 1 Tu Vi: " + numAttackMob + "/" + NUM_TO_TUVI;
+            case FOLLOW -> "Đi Theo\nTung Kỹ Năng Và Tấn Công Mục Tiêu Cùng Chủ Công";
+            default -> "";
         };
     }
 
     public int getNPointAddByType() {
-        switch (this.typeDaoLu) {
-            case 3 -> {
-                return 500;
-            }
-            case 2 -> {
-                return 250;
-            }
-            case 1 -> {
-                return 100;
-            }
-        }
-        return 0;
+        return typeDaoLu * 100;
     }
 
     public int getNPointAddCapBac() {
@@ -816,7 +768,7 @@ public class DaoLu extends Player {
         return (this.pointCapTinh + 1) * 100;
     }
 
-//    private Mob findMobAttack() {
+    //    private Mob findMobAttack() {
 //        int dis = ARANGE_CAN_ATTACK;
 //        Mob mobAtt = null;
 //        for (Mob mob : zone.mobs) {
@@ -888,7 +840,7 @@ public class DaoLu extends Player {
                     EffectSkillService.gI().sendEffectBienhinh(player.petDaoLu);
                     RadaService.gI().setIDAuraEff(player.petDaoLu, (byte) 22);
                     String[] str = {"Đấu đế, là đấu đế!!",
-                        "Mauuu, mau quỳ xuống!"};
+                            "Mauuu, mau quỳ xuống!"};
                     for (String s : str) {
                         Player plMap = player.zone.getRandomPlayerInMap();
                         if (plMap != null && !plMap.isDie()) { // && Util.getDistance(player, plMap) <= 600

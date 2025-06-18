@@ -12,11 +12,8 @@ import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
-import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
-
-import java.util.Random;
 
 /**
  * @@Edit by ndq
@@ -38,6 +35,12 @@ public class BossZeno3 extends Boss {
                 this.location.y - 24), plKill.id);
         it1.options.add(new Item.ItemOption(30, 1));
         Service.getInstance().dropItemMap(this.zone, it1);
+        if (Util.isTrue(1, 200)) {
+            ItemMap it2 = new ItemMap(this.zone, 1610, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                    this.location.y - 24), plKill.id);
+            it1.options.add(new Item.ItemOption(30, 1));
+            Service.getInstance().dropItemMap(this.zone, it2);
+        }
     }
 
     @Override
@@ -57,9 +60,9 @@ public class BossZeno3 extends Boss {
     private long st;
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack,boolean a) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!a){
+            if (!a) {
                 if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
                     this.chat("Xí hụt");
                     return 0;

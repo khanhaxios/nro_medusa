@@ -7,6 +7,7 @@ import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Location;
+import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.reward.ItemMobReward;
@@ -826,39 +827,43 @@ public class Mob {
 
         //Dao Lu rơi đan
         if (player.isDaoLu) {
-            ItemMap itemDan = null;
-            int randNhanPham = Util.nextInt(1, 100);
-            int randVuong = 1;
-            int randLinh = 1;
-            int randDDS = 1;
-            int randDS = 3;
-            int randDGia = 5;
-            int randDKhi = 10;
-            if (randNhanPham > 100 - randVuong) {
-                itemDan = new ItemMap(zone, 1605, 1, this.location.x, yEnd, player.id);
-            } else if (randNhanPham > 100 - randVuong - randLinh) {
-                itemDan = new ItemMap(zone, 1604, 1, this.location.x, yEnd, player.id);
-            } else if (randNhanPham > 100 - randVuong - randLinh - randDDS) {
-                itemDan = new ItemMap(zone, 1603, 1, this.location.x, yEnd, player.id);
-            } else if (randNhanPham > 100 - randVuong - randLinh - randDDS - randDS) {
-                itemDan = new ItemMap(zone, 1602, 1, this.location.x, yEnd, player.id);
-            } else if (randNhanPham > 100 - randVuong - randLinh - randDDS - randDS - randDGia) {
-                itemDan = new ItemMap(zone, 1601, 1, this.location.x, yEnd, player.id);
-            } else if (randNhanPham > 100 - randVuong - randLinh - randDDS - randDS - randDGia - randDKhi) {
-                itemDan = new ItemMap(zone, 1600, 1, this.location.x, yEnd, player.id);
-            }
-            if (itemDan != null) {
-                itemDan.options.add(new Item.ItemOption(30, 1));
-                list.add(itemDan);
+            if (((DaoLu) player).pointCapCanhGioi > 6) {
+                // TODO : handle roi item here  with item id from 1066-1069
+                if (Util.isTrue(1, 100)) { // 20% xác suất
+                    int[] itemIds = {1066, 1067, 1068, 1069};
+                    int randomIndex = Util.nextInt(0, itemIds.length);
+                    int itemId = itemIds[randomIndex];
+                    ItemMap itemSpecial = new ItemMap(zone, itemId, 1, this.location.x, yEnd, player.id);
+                    list.add(itemSpecial);
+                }
+            } else {
+                ItemMap itemDan = null;
+                int randNhanPham = Util.nextInt(1, 100);
+                int randVuong = 1;
+                int randLinh = 1;
+                int randDDS = 1;
+                int randDS = 3;
+                int randDGia = 5;
+                int randDKhi = 10;
+                if (randNhanPham > 100 - randVuong) {
+                    itemDan = new ItemMap(zone, 1605, 1, this.location.x, yEnd, player.id);
+                } else if (randNhanPham > 100 - randVuong - randLinh) {
+                    itemDan = new ItemMap(zone, 1604, 1, this.location.x, yEnd, player.id);
+                } else if (randNhanPham > 100 - randVuong - randLinh - randDDS) {
+                    itemDan = new ItemMap(zone, 1603, 1, this.location.x, yEnd, player.id);
+                } else if (randNhanPham > 100 - randVuong - randLinh - randDDS - randDS) {
+                    itemDan = new ItemMap(zone, 1602, 1, this.location.x, yEnd, player.id);
+                } else if (randNhanPham > 100 - randVuong - randLinh - randDDS - randDS - randDGia) {
+                    itemDan = new ItemMap(zone, 1601, 1, this.location.x, yEnd, player.id);
+                } else if (randNhanPham > 100 - randVuong - randLinh - randDDS - randDS - randDGia - randDKhi) {
+                    itemDan = new ItemMap(zone, 1600, 1, this.location.x, yEnd, player.id);
+                }
+                if (itemDan != null) {
+                    itemDan.options.add(new Item.ItemOption(30, 1));
+                    list.add(itemDan);
+                }
             }
         }
-
-        //SK 2T9
-//        if (Util.isTrue(5, 100)) { //Util.isTrue(5, 100)
-//            ItemMap nhanhTre = new ItemMap(zone, 1539, 1, this.location.x, this.location.y, player.id);
-//            list.add(nhanhTre);
-//        }
-
         return list;
     }
 

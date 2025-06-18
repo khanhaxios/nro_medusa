@@ -116,8 +116,7 @@ public class Input {
                             NpcService.gI().createTutorial(plReveiced, 24, txtBuff);
                         }
 
-                        log_Follow_Admin(player.getSession().uu, plReveiced.getSession().uu, "Buff Đồ Không Chỉ Số",
-                                item.template.name, null, q);
+                        log_Follow_Admin(player.getSession().uu, plReveiced.getSession().uu, "Buff Đồ Không Chỉ Số", item.template.name, null, q);
                     } else {
                         Service.getInstance().sendThongBao(player, "Không online");
                     }
@@ -240,9 +239,7 @@ public class Input {
                 case FIND_PLAYER:
                     Player pl = Client.gI().getPlayerOrigin(text[0]);
                     if (pl != null) {
-                        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_FIND_PLAYER, -1, "Ngài muốn..?",
-                                new String[]{"Đi tới\n" + pl.name, "Gọi " + pl.name + "\ntới đây", "Đổi tên", "Ban", "Kick"},
-                                pl);
+                        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_FIND_PLAYER, -1, "Ngài muốn..?", new String[]{"Đi tới\n" + pl.name, "Gọi " + pl.name + "\ntới đây", "Đổi tên", "Ban", "Kick"}, pl);
                     } else {
                         Service.getInstance().sendThongBao(player, "Người chơi không tồn tại hoặc đang offline");
                     }
@@ -262,8 +259,7 @@ public class Input {
                             ChangeMapService.gI().changeMap(plChanged, zone, plChanged.location.x, plChanged.location.y);
                             Service.getInstance().sendThongBao(plChanged, "Chúc mừng bạn đã có cái tên mới đẹp đẽ hơn tên ban đầu");
                             Service.getInstance().sendThongBao(player, "Đổi tên người chơi thành công");
-                            log_Follow_Admin(player.getSession().uu, text[0], "Đổi tên người chơi",
-                                    null, null, 1);
+                            log_Follow_Admin(player.getSession().uu, text[0], "Đổi tên người chơi", null, null, 1);
                         }
                     }
                 }
@@ -295,15 +291,13 @@ public class Input {
                 case TAO_DAO_LU: {
                     String NameDaoLu = text[0];
                     if (NameDaoLu.length() < 4 || NameDaoLu.length() > 20) {
-                        Service.gI().sendThongBao(player,
-                                "Không ngắn hơn 4 và dài hơn 20 kí tự, Và cho phép kí tự đặt biệt.");
+                        Service.gI().sendThongBao(player, "Không ngắn hơn 4 và dài hơn 20 kí tự, Và cho phép kí tự đặt biệt.");
                         break;
                     }
                     byte typeDaoLu;
-                    int nhanpham = Util.nextInt(1, 100);
-                    if (nhanpham > 98) {
+                    if (Util.isTrue(1, 500)) {
                         typeDaoLu = 3;
-                    } else if (nhanpham > 75) {
+                    } else if (Util.isTrue(20, 500)) {
                         typeDaoLu = 2;
                     } else {
                         typeDaoLu = 1;
@@ -332,8 +326,7 @@ public class Input {
                 case TAO_PET: {
                     String NamePet = text[0];
                     if (NamePet.length() < 4 || NamePet.length() > 20) {
-                        Service.gI().sendThongBao(player,
-                                "Không ngắn hơn 4 và dài hơn 20 kí tự, Và cho phép kí tự đặt biệt.");
+                        Service.gI().sendThongBao(player, "Không ngắn hơn 4 và dài hơn 20 kí tự, Và cho phép kí tự đặt biệt.");
                         break;
                     }
                     player.TrieuHoiCapBac = -1;
@@ -380,9 +373,7 @@ public class Input {
                                                     player.inventory.ruby += sotvxiu * 1.8;
                                                     InventoryServiceNew.gI().sendItemBags(player);
                                                     Service.getInstance().sendMoney(player);
-                                                    Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "\nSố hệ thống quay ra : " + x + " "
-                                                            + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : " + sotvxiu
-                                                            + " Hồng ngọc vào Xỉu" + "\nKẾT QUẢ : Xỉu" + "\n\nVề bờ");
+                                                    Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "\nSố hệ thống quay ra : " + x + " " + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : " + sotvxiu + " Hồng ngọc vào Xỉu" + "\nKẾT QUẢ : Xỉu" + "\n\nVề bờ");
                                                     return;
                                                 }
                                             } else if (x == y && x == z) {
@@ -392,9 +383,7 @@ public class Input {
                                                 }
                                             } else if ((x + y + z) > 10) {
                                                 if (player != null) {
-                                                    Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "\nSố hệ thống quay ra là :"
-                                                            + " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : "
-                                                            + sotvxiu + " Hồng ngọc vào Xỉu" + "\nKẾT QUẢ : Tài" + "\n\nXui quá làm lại thôi.");
+                                                    Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "\nSố hệ thống quay ra là :" + " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : " + sotvxiu + " Hồng ngọc vào Xỉu" + "\nKẾT QUẢ : Tài" + "\n\nXui quá làm lại thôi.");
                                                     return;
                                                 }
                                             }
@@ -460,9 +449,7 @@ public class Input {
                                             int tong = (x + y + z);
                                             if (4 <= (x + y + z) && (x + y + z) <= 10) {
                                                 if (player != null) {// tự sửa lại tên lấy
-                                                    Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "\nSố hệ thống quay ra là :"
-                                                            + " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : "
-                                                            + sotvtai + " Hồng ngọc vào Tài" + "\nKẾT QUẢ : Xỉu " + "\n\nXui quá làm lại thôi.");
+                                                    Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "\nSố hệ thống quay ra là :" + " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : " + sotvtai + " Hồng ngọc vào Tài" + "\nKẾT QUẢ : Xỉu " + "\n\nXui quá làm lại thôi.");
                                                     return;
                                                 }
                                             } else if (x == y && x == z) {
@@ -476,9 +463,7 @@ public class Input {
                                                     player.inventory.ruby += sotvtai * 1.8;
                                                     InventoryServiceNew.gI().sendItemBags(player);
                                                     Service.getInstance().sendMoney(player);
-                                                    Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "\nSố hệ thống quay ra : " + x + " "
-                                                            + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : " + sotvtai
-                                                            + " Hồng ngọc vào Tài" + "\nKẾT QUẢ : Tài" + "\n\nVề bờ");
+                                                    Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "\nSố hệ thống quay ra : " + x + " " + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : " + sotvtai + " Hồng ngọc vào Tài" + "\nKẾT QUẢ : Tài" + "\n\nVề bờ");
                                                     return;
                                                 }
                                             }
@@ -537,8 +522,7 @@ public class Input {
                                 Service.gI().sendThongBao(player, "Bạn không đủ Hồng ngọc để chơi.");
                             }
                         } else {
-                            Service.gI().sendThongBao(player, "Cược ít nhất "
-                                    + Util.powerToStringnew(TaiXiu.MIN_HN) + " Hồng ngọc.");
+                            Service.gI().sendThongBao(player, "Cược ít nhất " + Util.powerToStringnew(TaiXiu.MIN_HN) + " Hồng ngọc.");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -566,8 +550,7 @@ public class Input {
                                 Service.gI().sendThongBao(player, "Bạn không đủ Hồng ngọc để chơi.");
                             }
                         } else {
-                            Service.gI().sendThongBao(player, "Cược ít nhất "
-                                    + Util.powerToStringnew(TaiXiu.MIN_HN) + " Hồng ngọc.");
+                            Service.gI().sendThongBao(player, "Cược ít nhất " + Util.powerToStringnew(TaiXiu.MIN_HN) + " Hồng ngọc.");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -625,11 +608,7 @@ public class Input {
                                 if (player.id != pBuffItem.id) {
                                     NpcService.gI().createTutorial(pBuffItem, 24, txtBuff);
                                 }
-                                log_Follow_Admin(player.getSession().uu, pBuffItem.getSession().uu, "Buff Đồ Có Chỉ Số",
-                                        itemBuffTemplate.template.name,
-                                        idOptionBuff.trim() + ";"
-                                                + idOptionBuff1.trim() + ";"
-                                                + idOptionBuff2.trim(), slItemBuff);
+                                log_Follow_Admin(player.getSession().uu, pBuffItem.getSession().uu, "Buff Đồ Có Chỉ Số", itemBuffTemplate.template.name, idOptionBuff.trim() + ";" + idOptionBuff1.trim() + ";" + idOptionBuff2.trim(), slItemBuff);
                             } else {
                                 Service.getInstance().sendThongBao(player, "Player không online");
                             }
@@ -682,8 +661,7 @@ public class Input {
                             default:
                                 break;
                         }
-                        log_Follow_Admin(player.getSession().uu, text[0], "Buff Danh Hiệu",
-                                "Danh hiệu " + danhhieu + " HSD " + ngay + " ngày", null, 1);
+                        log_Follow_Admin(player.getSession().uu, text[0], "Buff Danh Hiệu", "Danh hiệu " + danhhieu + " HSD " + ngay + " ngày", null, 1);
                     } else {
                         Service.getInstance().sendThongBao(player, "Không online");
                     }
@@ -693,9 +671,7 @@ public class Input {
                     if (levele >= 1 && levele <= 110) {
                         Npc npc = NpcManager.getByIdAndMap(ConstNpc.MR_POPO, player.zone.map.mapId);
                         if (npc != null) {
-                            npc.createOtherMenu(player, ConstNpc.MENU_ACCPET_GO_TO_GAS,
-                                    "Con có chắc chắn muốn tới Khí gas huỷ diệt cấp độ " + levele + "?",
-                                    new String[]{"Đồng ý, Let's Go", "Từ chối"}, levele);
+                            npc.createOtherMenu(player, ConstNpc.MENU_ACCPET_GO_TO_GAS, "Con có chắc chắn muốn tới Khí gas huỷ diệt cấp độ " + levele + "?", new String[]{"Đồng ý, Let's Go", "Từ chối"}, levele);
                         }
                     } else {
                         Service.getInstance().sendThongBao(player, "Không thể thực hiện");
@@ -707,9 +683,7 @@ public class Input {
                     if (level >= 1 && level <= 110) {
                         Npc npc = NpcManager.getByIdAndMap(ConstNpc.QUY_LAO_KAME, player.zone.map.mapId);
                         if (npc != null) {
-                            npc.createOtherMenu(player, ConstNpc.MENU_ACCPET_GO_TO_BDKB,
-                                    "Con có chắc chắn muốn tới bản đồ kho báu cấp độ " + level + "?",
-                                    new String[]{"Đồng ý", "Từ chối"}, level);
+                            npc.createOtherMenu(player, ConstNpc.MENU_ACCPET_GO_TO_BDKB, "Con có chắc chắn muốn tới bản đồ kho báu cấp độ " + level + "?", new String[]{"Đồng ý", "Từ chối"}, level);
                         }
                     } else {
                         Service.getInstance().sendThongBao(player, "Không thể thực hiện");
@@ -763,8 +737,7 @@ public class Input {
                                             + " Điểm sự kiện Trung thu");
                                 }
                             } else {
-                                Service.getInstance().sendThongBao(player, "|7|Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy "
-                                        + " đổi " + goldTrade + " Hồng ngọc " + " " + "bạn cần thêm " + (player.getSession().vnd - goldTrade));
+                                Service.getInstance().sendThongBao(player, "|7|Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy " + " đổi " + goldTrade + " Hồng ngọc " + " " + "bạn cần thêm " + (player.getSession().vnd - goldTrade));
                             }
                         } else {
                             Service.getInstance().sendThongBao(player, "|7|Số tiền nhập phải là bội số của 1000");
@@ -814,8 +787,7 @@ public class Input {
                                             + " Điểm sự kiện Trung thu");
                                 }
                             } else {
-                                Service.getInstance().sendThongBao(player, "|7|Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy "
-                                        + " đổi " + goldTrade + " Hồng ngọc " + " " + "bạn cần thêm " + (player.getSession().vnd - goldTrade));
+                                Service.getInstance().sendThongBao(player, "|7|Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy " + " đổi " + goldTrade + " Hồng ngọc " + " " + "bạn cần thêm " + (player.getSession().vnd - goldTrade));
                             }
                         } else {
                             Service.getInstance().sendThongBao(player, "|7|Số tiền nhập phải là bội số của 1000");
@@ -870,8 +842,7 @@ public class Input {
                                             + " Điểm sự kiện Trung thu");
                                 }
                             } else {
-                                Service.getInstance().sendThongBao(player, "|7|Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy "
-                                        + " đổi " + goldTrade1 / 1000 + " Thỏi vàng" + " " + "bạn cần thêm " + (player.getSession().vnd - goldTrade1));
+                                Service.getInstance().sendThongBao(player, "|7|Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy " + " đổi " + goldTrade1 / 1000 + " Thỏi vàng" + " " + "bạn cần thêm " + (player.getSession().vnd - goldTrade1));
                             }
                         } else {
                             Service.getInstance().sendThongBao(player, "|7|Số tiền nhập phải là bội số của 1000");
@@ -921,8 +892,7 @@ public class Input {
                                             + " Điểm sự kiện Trung thu");
                                 }
                             } else {
-                                Service.getInstance().sendThongBao(player, "|7|Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy "
-                                        + " đổi " + goldTrade1 / 1000 + " Thỏi vàng" + " " + "bạn cần thêm " + (player.getSession().vnd - goldTrade1));
+                                Service.getInstance().sendThongBao(player, "|7|Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy " + " đổi " + goldTrade1 / 1000 + " Thỏi vàng" + " " + "bạn cần thêm " + (player.getSession().vnd - goldTrade1));
                             }
                         } else {
                             Service.getInstance().sendThongBao(player, "|7|Số tiền nhập phải là bội số của 1000");
@@ -944,8 +914,7 @@ public class Input {
                         GirlkunDB.executeUpdate("update player set vndd = (vndd + " + soxu * 200 //* coinGold
                                 + ") where id = " + player.id);
                     } else {
-                        Service.getInstance().sendThongBao(player, "|7|Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy "
-                                + " đổi " + soxu + " XU\nBạn cần thêm " + (player.getSession().vnd - soxu * 200));
+                        Service.getInstance().sendThongBao(player, "|7|Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy " + " đổi " + soxu + " XU\nBạn cần thêm " + (player.getSession().vnd - soxu * 200));
                     }
                     break;
 
@@ -993,9 +962,7 @@ public class Input {
     }
 
     public void createFormChangePassword(Player pl) {
-        createForm(pl, CHANGE_PASSWORD, "Đổi mật khẩu", new SubInput("Mật khẩu cũ", PASSWORD),
-                new SubInput("Mật khẩu mới", PASSWORD),
-                new SubInput("Nhập lại mật khẩu mới", PASSWORD));
+        createForm(pl, CHANGE_PASSWORD, "Đổi mật khẩu", new SubInput("Mật khẩu cũ", PASSWORD), new SubInput("Mật khẩu mới", PASSWORD), new SubInput("Nhập lại mật khẩu mới", PASSWORD));
     }
 
     public void TAOPET(Player pl) {
@@ -1032,13 +999,7 @@ public class Input {
     }
 
     public void createFormBuffItemVip(Player pl) {
-        createForm(pl, BUFF_ITEM_VIP, "BUFF VIP",
-                new SubInput("Tên người chơi", ANY),
-                new SubInput("Id Item", ANY),
-                new SubInput("Chuỗi option vd : 230-1;50-20", ANY),
-                new SubInput("Chuỗi option vd : 30-1;77-20", ANY),
-                new SubInput("Chuỗi option vd : 73-1;103-20", ANY),
-                new SubInput("Số lượng", ANY));
+        createForm(pl, BUFF_ITEM_VIP, "BUFF VIP", new SubInput("Tên người chơi", ANY), new SubInput("Id Item", ANY), new SubInput("Chuỗi option vd : 230-1;50-20", ANY), new SubInput("Chuỗi option vd : 30-1;77-20", ANY), new SubInput("Chuỗi option vd : 73-1;103-20", ANY), new SubInput("Số lượng", ANY));
     }
 
     public void buffdanhhieu(Player pl) {
@@ -1116,14 +1077,9 @@ public class Input {
         if (qtyBuff < 1) {
             return;
         }
-        String txtInsert = "('" + nameAd + "', '" + nameTarget + "', '"
-                + typeBuff + "', '" + nameItem + "', '" + idOption + "', " + qtyBuff + ", '"
-                + Util.toDateString(Date.from(Instant.now()))
-                + "');";
+        String txtInsert = "('" + nameAd + "', '" + nameTarget + "', '" + typeBuff + "', '" + nameItem + "', '" + idOption + "', " + qtyBuff + ", '" + Util.toDateString(Date.from(Instant.now())) + "');";
         try {
-            GirlkunDB.executeUpdate("INSERT INTO `Admin_Follow` "
-                    + "(`user_admin`,`user_target`,`type_buff`,`name_item`,`id_option`,`qty_buff`,`time_buff`) "
-                    + "VALUES " + txtInsert);
+            GirlkunDB.executeUpdate("INSERT INTO `Admin_Follow` " + "(`user_admin`,`user_target`,`type_buff`,`name_item`,`id_option`,`qty_buff`,`time_buff`) " + "VALUES " + txtInsert);
         } catch (Exception e) {
             System.err.println("Lỗi insert db log admin follow");
         }

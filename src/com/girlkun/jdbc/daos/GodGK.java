@@ -1,6 +1,5 @@
 package com.girlkun.jdbc.daos;
 
-import com.girlkun.Log;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.data.DataGame;
 import com.girlkun.database.GirlkunDB;
@@ -152,6 +151,7 @@ public class GodGK {
                             player.diemdanh = rs.getLong("violate");
                             player.NguHanhSonPoint = rs.getInt("NguHanhSonPoint");
                             player.tienLuc = rs.getInt("tien_luc");
+                            player.tyLeTangPhamDaoLu = rs.getFloat("tl_dl");
                             // data rada card
                             // data rada card
                             dataArray = (JSONArray) jv.parse(rs.getString("data_card"));
@@ -2074,7 +2074,7 @@ public class GodGK {
                 rs.dispose();
             }
         }
-        Logger.log("ruby ::: " +  player.inventory.ruby);
+        Logger.log("ruby ::: " + player.inventory.ruby);
         return player;
     }
 }

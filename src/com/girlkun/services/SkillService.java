@@ -574,7 +574,7 @@ public class SkillService {
     private void useSkillAttack(Player player, Player plTarget, Mob mobTarget) {
         if (!player.isBoss) {
             if (player.isTrieuhoipet && ((Thu_TrieuHoi) player).masterr.TrieuHoiCapBac != -1 && ((Thu_TrieuHoi) player).masterr.TrieuHoipet != null) {
-                ((Thu_TrieuHoi) player).masterr.TrieuHoiExpThanThu += Util.nextInt(1, 1000);
+                ((Thu_TrieuHoi) player).masterr.TrieuHoiExpThanThu += Util.nextInt(1, 50_000);
                 if (((Thu_TrieuHoi) player).masterr.TrieuHoiExpThanThu - 3_000_000 >= 0 && ((Thu_TrieuHoi) player).masterr.TrieuHoiLevel + 1 <= 100) {
                     ((Thu_TrieuHoi) player).masterr.TrieuHoiLevel++;
                     ((Thu_TrieuHoi) player).masterr.TrieuHoiExpThanThu -= 3_000_000;
@@ -1082,7 +1082,6 @@ public class SkillService {
 
     private double subDameWithCanhGioi(Player plAtt, Player plInjure) {
         double damGoc = -1;
-
         if ((plInjure.tuTien != null && plInjure.tuTien.isTuTien()) || plInjure.isBoss) {
             if (plInjure.isBoss) {
                 Boss boss = ((Boss) plInjure);
@@ -1092,7 +1091,7 @@ public class SkillService {
                 if (level >= 0 && subLevel >= 0) {
                     if (!plAtt.tuTien.isTuTien() || plAtt.tuTien.level < level) {
                         int levelDiff = level - plAtt.tuTien.level;
-                        damGoc -= damGoc * (20 + (20 * levelDiff)) / 100;
+                        damGoc -= damGoc * (30 + (20 * levelDiff)) / 100;
                     } else {
                         int levelDiff = plAtt.tuTien.level - level;
                         int subLevelDiff = plAtt.tuTien.subLevel - subLevel;
@@ -1101,7 +1100,7 @@ public class SkillService {
                             damGoc += damGoc * (5 * subLevelDiff) / 100; // +5% mỗi sub level
                         }
                         if (levelDiff > 0) {
-                            damGoc += damGoc * (20 * levelDiff) / 100; // +20% mỗi level
+                            damGoc += damGoc * (30 * levelDiff) / 100; // +20% mỗi level
                         }
                     }
                 }
@@ -1111,16 +1110,16 @@ public class SkillService {
                 byte subLevel = plInjure.tuTien.subLevel;
                 if (!plAtt.tuTien.isTuTien() || plAtt.tuTien.level < level) {
                     int levelDiff = level - plAtt.tuTien.level;
-                    damGoc -= damGoc * (20 + (20 * levelDiff)) / 100;
+                    damGoc -= damGoc * (30 + (20 * levelDiff)) / 100;
                 } else {
                     int levelDiff = plAtt.tuTien.level - level;
                     int subLevelDiff = plAtt.tuTien.subLevel - subLevel;
 
                     if (subLevelDiff > 0) {
-                        damGoc += damGoc * (5 * subLevelDiff) / 100; // +5% mỗi sub level
+                        damGoc += damGoc * (10 * subLevelDiff) / 100; // +5% mỗi sub level
                     }
                     if (levelDiff > 0) {
-                        damGoc += damGoc * (20 * levelDiff) / 100; // +20% mỗi level
+                        damGoc += damGoc * (30 * levelDiff) / 100; // +20% mỗi level
                     }
                 }
             }
@@ -1134,7 +1133,6 @@ public class SkillService {
                 Boss boss = ((Boss) plInjure);
                 byte level = boss.level;
                 byte subLevel = boss.subLevel;
-                dameG = plAtt.nPoint.getDameAttack(false);
                 if (level >= 0 && subLevel >= 0) {
                     if (!plAtt.tuTien.isTuTien() || plAtt.tuTien.level < level) {
                         int levelDiff = level - plAtt.tuTien.level;
@@ -1152,7 +1150,6 @@ public class SkillService {
                     }
                 }
             } else if (plInjure.isPl()) {
-                dameG = plAtt.nPoint.getDameAttack(false);
                 byte level = plInjure.tuTien.level;
                 byte subLevel = plInjure.tuTien.subLevel;
                 if (!plAtt.tuTien.isTuTien() || plAtt.tuTien.level < level) {
@@ -1180,7 +1177,7 @@ public class SkillService {
         }
         // handle for dame bosss
         double damGoc = subDameWithCanhGioi(plAtt, plInjure);
-        miss = neDon(plInjure, plAtt, miss);
+//        miss = neDon(plInjure, plAtt, miss);
         double dameHit = plInjure.injured(plAtt, miss ? 0 : damGoc, false, false, false);
         phanSatThuong(plAtt, plInjure, Util.DoubleGioihan(dameHit));
         hutHPMP(plAtt, dameHit, false);
@@ -1224,7 +1221,7 @@ public class SkillService {
                     break;
                 case 2:
                     // gay sat thuong dua tren max mp
-                    double dameThuy = (plAtt.nPoint.mpMax / 8f) * paramOfLinhCan / 100;
+                    double dameThuy = (plAtt.nPoint.mpMax / 2f) * paramOfLinhCan / 100;
                     dameThuy += linhKhiPoint;
                     dameThuy *= (plAtt.tuTien.congPhap.phamchat.id + 1 + plAtt.tuTien.xParam);
                     dameThuy = subDameWithCanhGioi(plAtt, plInjure, dameThuy);
@@ -1252,7 +1249,7 @@ public class SkillService {
                     }
                     break;
                 case 4:
-                    double dameTho = (plAtt.nPoint.hpMax / 8f) * paramOfLinhCan / 100;
+                    double dameTho = (plAtt.nPoint.hpMax / 2f) * paramOfLinhCan / 100;
                     dameTho += linhKhiPoint;
                     dameTho *= (plAtt.tuTien.congPhap.phamchat.id + 1 + plAtt.tuTien.xParam);
                     dameTho = subDameWithCanhGioi(plAtt, plInjure, dameTho);
@@ -1315,6 +1312,9 @@ public class SkillService {
                     }
                     break;
                 case 8:
+                    double dameAm = dameHit * paramOfLinhCan / 100;
+                    double dameA = plInjure.injured(plAtt, dameAm, false, false, true);
+                    sendMessagePlayerAttackPlayer(plAtt, plInjure, dameA, (byte) 1);
                     // gay am anh tru hp theo giay
                     if (Util.isTrue(paramOfLinhCan / 10, 100)) {
                         EffectSkillService.gI().addAmAnh(plInjure, plAtt);
@@ -1415,7 +1415,7 @@ public class SkillService {
     private void playerAttackMob(Player plAtt, Mob mob, boolean miss, boolean dieWhenHpFull) {
         if (!mob.isDie()) {
             double dameHit = plAtt.nPoint.getDameAttack(true);
-            neDon(plAtt, null, miss);
+//            neDon(plAtt, null, miss);
             hutLinhKhi(plAtt);
             if (plAtt.charms.tdBatTu > System.currentTimeMillis() && plAtt.nPoint.hp == 1) {
                 dameHit = 0;

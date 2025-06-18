@@ -282,6 +282,13 @@ public class UseItem {
                 }
                 default:
                     switch (item.template.id) {
+                        case 2076:
+                            if (pl.petDaoLu == null) {
+                                Service.gI().sendThongBao(pl, "Bạn cần có đạo lữ để dùng vật phẩm này");
+                                return;
+                            }
+                            useDanTangPham(pl, item);
+                            break;
                         case 1542:
                             //SK 2T9
                             hopQua2T9(pl, item);
@@ -1613,6 +1620,52 @@ public class UseItem {
         }
         InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
         InventoryServiceNew.gI().sendItemBags(pl);
+    }
+
+    private void useDanTangPham(Player player, Item item) {
+        byte phamHienTai = player.petDaoLu.typeDaoLu;
+        byte nextPham = (byte) (phamHienTai + 1);
+        if (nextPham > 12) {
+            Service.gI().sendThongBao(player, "Phẩm hiện tại đã là cao nhất rồi");
+            return;
+        }
+        // get ty le len cap
+        int tyLeLenCapMax = phamHienTai * 100;
+        // ty le base
+        float tyLeBase = 1 + player.tyLeTangPhamDaoLu;
+        if (Util.isTrue(tyLeBase, tyLeLenCapMax)) {
+            player.petDaoLu.typeDaoLu = nextPham;
+            player.petDaoLu.name = "[" + player.petDaoLu.getTypeString() + "] " + player.petDaoLu.nameDaoLu;
+            new Thread(() -> {
+                if (!Manager.haveEffectNightSky) {
+                    Manager.haveEffectNightSky = true;
+                    try {
+                        EffectSkillService.gI().sendEffectBienhinh(player.petDaoLu);
+                        SkillService.sendPlayerPrepareBom(player.petDaoLu, 2000);
+                        Service.gI().nightSky(player);
+                        Thread.sleep(3000);
+                        ChangeMapService.gI().exitMap(player.petDaoLu);
+                        player.petDaoLu.location.x = player.location.x + Util.nextInt(-10, 10);
+                        player.petDaoLu.location.y = player.location.y;
+                        ChangeMapService.gI().goToMap(player.petDaoLu, player.zone);
+                        player.petDaoLu.zone.load_Me_To_Another(player.petDaoLu);
+                        Service.gI().lightSky();
+                        Service.getInstance().sendThongBao(player,
+                                "|1|Chúc mừng đạo lữ đã thăng lên \n|7|" + player.petDaoLu.getTypeString());
+                        Thread.sleep(2000);
+                    } catch (Exception e) {
+                        Logger.logException(UseItem.class, e, "Lỗi hiệu ứng tăng phẩm tại pl: " + player.name);
+                    }
+                    Manager.haveEffectNightSky = false;
+                }
+            }).start();
+            player.tyLeTangPhamDaoLu = 0;
+        } else {
+            player.tyLeTangPhamDaoLu += 0.5f;
+            Service.gI().sendThongBao(player, "Tăng phẩm thất bại tăng tỷ lệ thành công lên " + 1 + player.tyLeTangPhamDaoLu + "%");
+        }
+        InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
+        InventoryServiceNew.gI().sendItemBags(player);
     }
 
     private void openDanTangPham(Player pl, Item item, int lvPhamDan) {

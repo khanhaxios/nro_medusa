@@ -7717,10 +7717,34 @@ public class NpcFactory {
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.CONG_PHAP_LINH_NGO, -1, npcSay, "Tự Thân\nLĩnh ngộ", "Sư phụ\nChỉ Dẫn", "Đóng");
                                 break;
                             case 1:
+                                // linh ngo cong phap
+                                String npcSat = "|7|Lĩnh ngộ công pháp\n" + "|5|Lĩnh ngộ công pháp sẽ giúp bạn lĩnh ngộ ra những thuộc tính \nmới hoặc tăng cường những thuộc tính đã có";
+                                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LINH_NGO_CONG_PHAP, -1, npcSat, "Lĩnh ngộ", "Đóng");
+                                break;
+                            case 2:
                                 // thong tin buff ne
-                                String npcSayHi = String.format("|5|TlHP: %s , TlMp: %s , TlDame: %s\n|5|Tl Linh Khí: %s , Tl Hút HP: %s , Tl Hút MP: %s\n|5|Tl Ăn Cắp Vàng: %s , Hút Dame: %s , Hút HP: %s , Hút Mp: %s\n|5|Tổng Dame hút:%s , Tổng HP hút: %s , Tổng MP hút: %s\nx Linh Khí: %s , Tốc Độ Khôi Phục LK: %s , x Dame Thuộc Tính: %s", player.tuTien.congPhap.tlHpBuff + "%", player.tuTien.congPhap.tlMpBuff + "%", player.tuTien.congPhap.tlDameBuff + "%", player.tuTien.congPhap.tlLinhKhiBuff + "%", player.tuTien.congPhap.tlHutHPBuff + "%", player.tuTien.congPhap.tlHutMPBuff + "%", player.tuTien.congPhap.tlAnCapVang + "%", player.tuTien.congPhap.hutDame + " Điểm", player.tuTien.congPhap.hutHp + " Điểm", player.tuTien.congPhap.hutMp + " Điểm", player.tuTien.congPhap.totalHutDame + " Điểm", player.tuTien.congPhap.totalHutHp + " Điểm", player.tuTien.congPhap.totalHutMp + " Điểm", player.tuTien.congPhap.xLinhKhiBuff + "x Lần", player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi + "x Lần", player.tuTien.congPhap.xDameThuocTinh + "x Lần");
+                                String npcSayHi = String.format("|5|TlHP: %s , TlMp: %s , TlDame: %s\n|5|Tl Linh Khí: %s|5|Tl Ăn Cắp Vàng: %s , Hút Dame: %s , Hút HP: %s , Hút Mp: %s\n|5|Tổng Dame hút:%s , Tổng HP hút: %s , Tổng MP hút: %s\nx Linh Khí: %s , Tốc Độ Khôi Phục LK: %s , x Dame Thuộc Tính: %s", player.tuTien.congPhap.tlHpBuff + "%", player.tuTien.congPhap.tlMpBuff + "%", player.tuTien.congPhap.tlDameBuff + "%", player.tuTien.congPhap.tlLinhKhiBuff + "%", player.tuTien.congPhap.tlAnCapVang + "%", player.tuTien.congPhap.hutDame + " Điểm", player.tuTien.congPhap.hutHp + " Điểm", player.tuTien.congPhap.hutMp + " Điểm", player.tuTien.congPhap.totalHutDame + " Điểm", player.tuTien.congPhap.totalHutHp + " Điểm", player.tuTien.congPhap.totalHutMp + " Điểm", player.tuTien.congPhap.xLinhKhiBuff + "x Lần", player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi + "x Lần", player.tuTien.congPhap.xDameThuocTinh + "x Lần");
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_INFO_CONG_PHAP_BUFF, -1, npcSayHi, "Đóng");
                                 break;
+                        }
+                        break;
+                    case ConstNpc.MENU_LINH_NGO_CONG_PHAP:
+                        if (select == 0) {
+//                            // linh ngo cong phap
+                            if (!player.tuTien.congPhap.canLinhNgo()) {
+                                Service.gI().sendThongBao(player, "Bạn cần đầy độ thuần thục để lĩnh ngộ");
+                                return;
+                            }
+                            // tru do thuan thuc
+                            player.tuTien.congPhap.doThuanThuc = 0;
+                            int buffAdd = player.tuTien.congPhap.randomNewBuffA(1);
+                            if (buffAdd >= 0) {
+                                player.tuTien.congPhap.upOldBuff();
+                            } else if (buffAdd == -1) {
+                                Service.gI().sendThongBao(player, "Lĩnh ngộ thất bại");
+                                return;
+                            }
+                            Service.gI().sendThongBao(player, "Lĩnh ngộ thành công");
                         }
                         break;
                     case ConstNpc.CONG_PHAP_LINH_NGO:

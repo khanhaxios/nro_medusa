@@ -149,6 +149,7 @@ public class Player {
     public NhiemvuChienthan chienthan;
     //    public NewPet newpet1;
     public LuyenKhiSu luyenKhiSu;
+    public float tyLeTangPhamDaoLu;
     public LuyenDanSu luyenDanSu;
     public MobMe mobMe;
     public Location location;
@@ -1221,8 +1222,8 @@ public class Player {
                     damage = 0;
                 }
             }
-            if (isMobAttack){
-                if (tuTien.isTuTien() && tuTien.linhCan.getLinhCanType() == 8){
+            if (isMobAttack) {
+                if (tuTien.isTuTien() && tuTien.linhCan.getLinhCanType() == 8) {
                     damage = 0;
                 }
             }

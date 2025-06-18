@@ -900,8 +900,8 @@ public class NPoint {
                 if (this.player.petDaoLu.pointCapCanhGioi == 10) {
                     this.hpMax += calPercent(this.hpMax, DaoLu.POWER_DAU_THANH);
                 }
-                this.hpMax += calPercent(this.hpMax, this.player.petDaoLu.getNPointAddCapBac());
-                this.hpMax += calPercent(this.hpMax, this.player.petDaoLu.getNPointAddCapTinh());
+                this.hpMax += calPercent(this.hpMax, ((DaoLu) this.player.petDaoLu).getNPointAddCapBac());
+                this.hpMax += calPercent(this.hpMax, ((DaoLu) this.player.petDaoLu).getNPointAddCapTinh());
             }
         }
         // he thong dao lu dang phat trien
@@ -1109,8 +1109,8 @@ public class NPoint {
                 if (this.player.petDaoLu.pointCapCanhGioi == 10) {
                     this.mpMax += calPercent(this.mpMax, DaoLu.POWER_DAU_THANH);
                 }
-                this.mpMax += calPercent(this.mpMax, this.player.petDaoLu.getNPointAddCapBac());
-                this.mpMax += calPercent(this.mpMax, this.player.petDaoLu.getNPointAddCapTinh());
+                this.mpMax += calPercent(this.hpMax, ((DaoLu) this.player.petDaoLu).getNPointAddCapBac());
+                this.mpMax += calPercent(this.hpMax, ((DaoLu) this.player.petDaoLu).getNPointAddCapTinh());
             }
         }
         if (this.player.isDaoLu) {
@@ -1298,6 +1298,7 @@ public class NPoint {
             this.dame += ((double) this.dame * 15 / 100);
             this.tlDameCrit.add(75);
         }
+
         if (this.player.setClothes.nguyenthuyxd == 5) {
             this.dame += ((double) this.dame * 10 / 100);
             this.tlDameCrit.add(100);
@@ -1418,8 +1419,8 @@ public class NPoint {
                 if (this.player.petDaoLu.pointCapCanhGioi == 10) {
                     this.dame += calPercent(this.dame, DaoLu.POWER_DAU_THANH);
                 }
-                this.dame += calPercent(this.dame, this.player.petDaoLu.getNPointAddCapBac());
-//                this.dame += calPercent(this.dame, this.player.petDaoLu.getNPointAddCapTinh());
+                this.dame += calPercent(this.dame, ((DaoLu) this.player.petDaoLu).getNPointAddCapBac());
+                this.dame += calPercent(this.dame, ((DaoLu) this.player.petDaoLu).getNPointAddCapTinh());
             }
         }
         if (this.player.isDaoLu) {
