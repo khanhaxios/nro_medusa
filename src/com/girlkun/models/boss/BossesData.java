@@ -272,7 +272,9 @@ public class BossesData {
                     "|-1|Được thôi, nếu muốn chết đến vậy, ta rất vui lòng!!"
             }, //text chat 2
             new String[]{"|-1|Biến hình, hây aaaa..."}, //text chat 3
-            REST_10_M //second rest
+            REST_10_M ,
+            (byte) 2,
+            (byte) 10//type appear//second rest
     );
 
     public static final BossData FIDE_DAI_CA_2 = new BossData(

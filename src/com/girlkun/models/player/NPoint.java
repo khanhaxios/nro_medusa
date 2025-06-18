@@ -1814,14 +1814,11 @@ public class NPoint {
                 this.player.chienthan.dalamduoc++;
             }
             double dameG = dameAttack * 2;
-            int totalTyLe = 0;
             for (Integer integer : tlDameCrit) {
-                totalTyLe += integer;
+                dameG += dameG * integer / 100;
             }
-            dameG += dameAttack * totalTyLe / 120;
-            dameAttack = dameG;
         }
-        dameAttack += dameAttack * percentXDame / 100;
+        dameAttack += dameAttack * percentXDame / 80;
         dameAttack = Util.GioiHannextdame(dameAttack - (dameAttack * 5 / 100), dameAttack + (dameAttack * 5 / 100));
         if (player.isPl()) {
             if (player.inventory.haveOption(player.inventory.itemsBody, 5, 159)) {

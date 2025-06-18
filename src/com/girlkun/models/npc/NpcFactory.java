@@ -7734,13 +7734,14 @@ public class NpcFactory {
                                 player.tuTien.congPhap.tangPham();
                                 break;
                             case 1:
-                                if (player.session.vnd - 1_000_000 < 0) {
-                                    Service.gI().sendThongBao(player, "Cần 1 triệu điểm nạp");
-                                    return;
-                                }
-                                // can 100 tr
-                                PlayerDAO.subvnd(player, 1_000_000);
-                                player.tuTien.congPhap.tangPham(100);
+                                Service.gI().sendThongBao(player, "Có cái nịt");
+//                                if (player.session.vnd - 1_000_000 < 0) {
+//                                    Service.gI().sendThongBao(player, "Cần 1 triệu điểm nạp");
+//                                    return;
+//                                }
+//                                // can 100 tr
+//                                PlayerDAO.subvnd(player, 1_000_000);
+//                                player.tuTien.congPhap.tangPham(100);
                                 break;
                         }
                         break;
