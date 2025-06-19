@@ -11,6 +11,7 @@ public class IDMark {
 
     public int idItemUpTop;
     public boolean dotPhaThienDao;
+    public int typePlusChiSoMaCong;
     private int typeChangeMap; //capsule, ngọc rồng đen...
     private int indexMenu; //menu npc
     private int typeInput; //input

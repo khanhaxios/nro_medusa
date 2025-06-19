@@ -1,22 +1,17 @@
 package com.girlkun.models.player.Pet;
 
 import com.girlkun.consts.ConstPlayer;
-import com.girlkun.services.MapService;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Fusion;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
-import com.girlkun.utils.SkillUtil;
-import com.girlkun.services.Service;
-import com.girlkun.utils.Util;
 import com.girlkun.network.io.Message;
-import com.girlkun.server.Manager;
-import com.girlkun.services.ItemTimeService;
-import com.girlkun.services.PlayerService;
-import com.girlkun.services.SkillService;
+import com.girlkun.services.*;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.services.func.UseItem;
+import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.TimeUtil;
+import com.girlkun.utils.Util;
 
 public class Pet extends Player {
 
@@ -30,6 +25,8 @@ public class Pet extends Player {
     public static final byte ATTACK = 2;
     public static final byte GOHOME = 3;
     public static final byte FUSION = 4;
+    public static final byte FUSION_FOREVER = 5;
+
 
     public Player master;
     public byte status = 0;
@@ -60,21 +57,32 @@ public class Pet extends Player {
         this.isPet = true;
     }
 
-    public boolean handleCanChangeStatus() {
-        if (shouldDisobeyMaster()) {
-            sayDisobedientLine();
-            return false;
-        }
-        return true;
-    }
-
     public void changeStatus(byte requestedStatus) {
         if (isBusyOrInvalidFusion(requestedStatus)) {
             Service.getInstance().sendThongBao(master, "Không thể thực hiện");
             return;
         }
-        handleWithStatus(requestedStatus);
-        this.status = requestedStatus;
+        if (requestedStatus == FUSION_FOREVER) {
+            // hop the vinh vien tang 5% chi so cua pet cho su phu
+            double dameAdd = this.nPoint.dame * 5 / 100;
+            double hpAdd = this.nPoint.hpMax * 5 / 100;
+            double mpAdd = this.nPoint.mpAdd * 5 / 100;
+            master.nPoint.dameg += dameAdd;
+            master.nPoint.hpg += hpAdd;
+            master.nPoint.mpg += mpAdd;
+            Service.gI().point(master);
+            Service.gI().chatJustForMe(master, this, "Tạm biệt sư phụ aaa.a.a.a.a..a");
+            EffectSkillService.gI().sendEffectBienhinh(master);
+            new Thread(() -> {
+                ChangeMapService.gI().exitMap(this);
+                master.pet = null;
+                Service.gI().sendHavePet(master);
+                this.dispose();
+            }).start();
+        } else {
+            handleWithStatus(requestedStatus);
+            this.status = requestedStatus;
+        }
     }
 
     private boolean shouldDisobeyMaster() {

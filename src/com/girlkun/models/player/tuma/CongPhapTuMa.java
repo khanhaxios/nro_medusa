@@ -1,0 +1,430 @@
+package com.girlkun.models.player.tuma;
+
+import com.girlkun.consts.ConstNpc;
+import com.girlkun.models.mob.Mob;
+import com.girlkun.models.player.Player;
+import com.girlkun.services.EffectSkillService;
+import com.girlkun.services.NpcService;
+import com.girlkun.services.Service;
+import com.girlkun.services.func.ChangeMapService;
+import com.girlkun.utils.Util;
+
+public class CongPhapTuMa {
+    public static final int MAX_PHAM_CHAT = 20;
+    Player player;
+    public long lastTimeAutoChiSo;
+
+    public String ten;
+    public int phamChat = 0;
+    public int dlThonPhe;
+    public int deTuThonPhe;
+
+    public boolean autoDame = false;
+    public boolean autoHp = false;
+    public boolean autoMp = false;
+    public float tyLeLinhNgo;
+
+    public double dameBuff;
+    public double hpBuff;
+    public double mpBuff;
+
+    public double totalDameBuff;
+    public double totalHpBuff;
+    public double totalMpBuff;
+
+    public CongPhapTuMa(String ten) {
+        this.ten = ten;
+    }
+
+    public CongPhapTuMa(Player player) {
+        this.player = player;
+    }
+
+    public double getMaxDameBuff() {
+        double baseDame = 1_000_000_00D;
+        return baseDame * phamChat;
+    }
+
+    public double getMaxHpMpBuff() {
+        double baseHpMp = 10_000_000_00D;
+        return baseHpMp * phamChat;
+    }
+
+    public String getTenPhamChat() {
+        switch (phamChat) {
+            case 0:
+                return "Tạp";
+            case 1:
+                return "Vô";
+            case 2:
+                return "Không";
+            case 3:
+                return "Luân";
+            case 4:
+                return "Thi";
+            case 5:
+                return "Huyết";
+            case 6:
+                return "Tà";
+            case 7:
+                return "Ma";
+            case 8:
+                return "U";
+            case 9:
+                return "Vong";
+            case 10:
+                return "Lệ";
+            case 11:
+                return "Ảnh";
+            case 12:
+                return "Sát";
+            case 13:
+                return "Linh";
+            case 14:
+                return "Ma Vương";
+            case 15:
+                return "Hắc Ám";
+            case 16:
+                return "Hủy Diệt";
+            case 17:
+                return "Chân Ma";
+            case 18:
+                return "Tuyệt Ma";
+            case 19:
+                return "Hư Vô";
+            case 20:
+                return "Ma Thần";
+            default:
+                return "Không xác định";
+        }
+    }
+
+    public String getTenCongPhap() {
+        return "[" + getTenPhamChat() + "]" + ten;
+    }
+
+    public float getTyLeLinhNgoPhamChat() {
+        return tyLeLinhNgo;
+    }
+
+    public double getDameBuff() {
+        return dameBuff;
+    }
+
+    public double getHpBuff() {
+        return hpBuff;
+    }
+
+    public double getMpBuff() {
+        return mpBuff;
+    }
+
+    public long getBaseMaKhiToChuMa() {
+        int phamChat = Math.max(this.phamChat, 1);
+        if (phamChat <= 5) {
+            return phamChat * 1000L;
+        } else if (phamChat <= 10) {
+            return phamChat * 10000L;
+        } else if (phamChat <= 15) {
+            return phamChat * 100000;
+        } else if (phamChat <= 20) {
+            return phamChat * 1000000;
+        }
+        return 100;
+    }
+
+    public void update() {
+        // auto chi so
+        if (Util.canDoWithTime(lastTimeAutoChiSo, 2000) && (autoMp || autoDame || autoHp)) {
+            if (autoDame) {
+                congBuffKhongThongBao((byte) 0, 1);
+            }
+            if (autoMp) {
+                congBuffKhongThongBao((byte) 2, 1);
+            }
+            if (autoHp) {
+                congBuffKhongThongBao((byte) 1, 1);
+            }
+            lastTimeAutoChiSo = System.currentTimeMillis();
+        }
+    }
+
+    public void chuMa() {
+        long maKhiChuMaCan = getBaseMaKhiToChuMa();
+        if (!player.tuMa.canHandleWithMaKhiPoint(maKhiChuMaCan)) {
+            Service.gI().sendThongBao(player, "Bạn không đủ ma khí để chú ma cần " + maKhiChuMaCan + " ma khí");
+            return;
+        }
+        // chu ma tang len ty le linh ngo
+        tyLeLinhNgo += 1;
+        Service.gI().sendThongBao(player, "Chú ma thành công tăng tỷ lệ lĩnh ngộ lên " + tyLeLinhNgo + "%");
+        player.tuMa.subMaKhi(maKhiChuMaCan);
+    }
+
+    public long getBaseDiemLinhNgoMax() {
+        if (phamChat + 1 > MAX_PHAM_CHAT) return 0;
+        if (phamChat + 1 <= 5) {
+            return (phamChat + 1) * 100L;
+        } else if (phamChat + 1 <= 10) {
+            return (phamChat + 1) * 500;
+        } else if (phamChat + 1 < 20) {
+            return (phamChat + 1) * 1000;
+        } else {
+            return (phamChat + 1) * 10_000;
+        }
+    }
+
+    public float getBaseTyLeLinhNgo() {
+        return (player.tuMa.maTinh);
+    }
+
+    public void linhNgo() {
+        float baseTyLe = getBaseTyLeLinhNgo() + tyLeLinhNgo;
+        if (baseTyLe >= getBaseDiemLinhNgoMax()) {
+            Service.gI().sendThongBao(player, "Lĩnh ngộ thành công");
+            phamChat += 1;
+            calcTotalBuff();
+        } else {
+            Service.gI().sendThongBao(player, "Lĩnh ngộ thất bại");
+        }
+        tyLeLinhNgo = 0;
+    }
+
+    public void calcTotalBuff() {
+        this.totalDameBuff = getMaxDameBuff();
+        this.totalHpBuff = getMaxHpMpBuff();
+        this.totalMpBuff = getMaxHpMpBuff();
+    }
+
+    public long getMaKhiCanDeCongDiem(byte type) {
+        if (type == 0) {
+            // dua tren pham chat
+            return phamChat * 2L;
+        } else if (type == 1 || type == 2) {
+            return phamChat;
+        }
+        return phamChat;
+    }
+
+    public void congBuff(byte type, long pris) {
+        long maKhiCan = getMaKhiCanDeCongDiem(type) * pris;
+        if (!player.tuMa.canHandleWithMaKhiPoint(maKhiCan)) {
+            Service.gI().sendThongBaoOK(player, "Bạn không đủ ma khí để cộng điểm cần " + maKhiCan);
+            return;
+        }
+        if (type == 0 && (dameBuff + (pris * 2) > totalDameBuff)) {
+            Service.gI().sendThongBaoOK(player, "Bạn đang cộng quá giới hạn rồi");
+            return;
+        }
+        if (type == 1 && (hpBuff + (pris * 10) > totalHpBuff)) {
+            Service.gI().sendThongBaoOK(player, "Bạn đang cộng quá giới hạn rồi");
+            return;
+        }
+        if (type == 2 && (mpBuff + (pris * 10) > totalMpBuff)) {
+            Service.gI().sendThongBaoOK(player, "Bạn đang cộng quá giới hạn rồi");
+            return;
+        }
+        switch (type) {
+            case 0 -> dameBuff += pris * 2;
+            case 1 -> hpBuff += pris * 10;
+            case 2 -> mpBuff += pris * 10;
+        }
+        player.tuMa.subMaKhi(maKhiCan);
+        Service.gI().point(player);
+    }
+
+    public void congBuffKhongThongBao(byte type, long pris) {
+        long maKhiCan = getMaKhiCanDeCongDiem(type) * pris;
+        if (!player.tuMa.canHandleWithMaKhiPoint(maKhiCan)) {
+            return;
+        }
+        if (type == 0 && (dameBuff + (pris * 2) > totalDameBuff)) {
+            return;
+        }
+        if (type == 1 && (hpBuff + (pris * 10) > totalHpBuff)) {
+            return;
+        }
+        if (type == 2 && (mpBuff + (pris * 10) > totalMpBuff)) {
+            return;
+        }
+        switch (type) {
+            case 0 -> dameBuff += pris * 2;
+            case 1 -> hpBuff += pris * 10;
+            case 2 -> mpBuff += pris * 10;
+        }
+        player.tuMa.subMaKhi(maKhiCan);
+        Service.gI().point(player);
+    }
+
+    // show info cong phap
+    public void showBaseMenu() {
+        if (ten == null) {
+            Service.gI().sendThongBao(player, "Bạn chưa học công pháp");
+            return;
+        }
+        String text = "|7|Thông tin công pháp\n" + "|5|" + getTenCongPhap() + "\n" + "|5|Dame Buff : " + Util.powerToString(dameBuff) + "\n" + "|5|HPBuff : " + Util.powerToString(hpBuff) + "\n" + "|5|MpBuff : " + mpBuff + "\n" + "|1|Chú ma : " + tyLeLinhNgo + "%\n" + "|7|Phẩm cấp càng cao giới hạn buff càng cao";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONG_PHAP_TU_MA, -1, text, "Lĩnh ngộ", "Chú ma", "Tăng\nChỉ Số", "Thôn phệ", "Đóng");
+    }
+
+    public void showCOngChiSoMenu() {
+        String text = "|7|Cộng chỉ số\n" + "|5|Bạn có thể tự cộng chỉ số ở đây hoặc bật auto cộng chỉ số";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONG_CHI_SO, -1, text, "Cộng\nChỉ Số", "Auto\nCộng CS");
+    }
+
+    public void calcPoint() {
+        player.nPoint.hpAdd += getHpBuff();
+        player.nPoint.mpAdd += getMpBuff();
+        player.nPoint.dameAdd += getDameBuff();
+    }
+
+    public void thonPheDeTu() {
+        // thon phe de tu
+        if (player.pet == null) {
+            Service.gI().sendThongBao(player, "Bạn làm đéo gì có đệ tử mà đòi thôn phệ");
+            return;
+        }
+        double dameAdd = player.pet.nPoint.dame * 20 / 100;
+        double hpAdd = player.pet.nPoint.hpMax * 20 / 100;
+        double mpAdd = player.pet.nPoint.mpMax * 20 / 100;
+        // remove pet
+        addDameBuff(dameAdd);
+        addHpBuff(hpAdd);
+        addMPBuff(mpAdd);
+        Service.gI().point(player);
+        Service.gI().chatJustForMe(player, player.pet, "Sao sư phụ lại aa...aa...aaaa....");
+        EffectSkillService.gI().sendEffectBienhinh(player);
+        new Thread(() -> {
+            ChangeMapService.gI().exitMap(player.pet);
+            player.pet.dispose();
+            player.pet = null;
+            Service.gI().sendHavePet(player);
+        }).start();
+        deTuThonPhe++;
+    }
+
+    public void addDameBuff(double dameB) {
+        this.dameBuff += dameB;
+        if (dameBuff > totalDameBuff) {
+            dameBuff = totalDameBuff;
+        }
+    }
+
+    public void addHpBuff(double dameB) {
+        this.hpBuff += dameB;
+        if (hpBuff > totalHpBuff) {
+            hpBuff = totalHpBuff;
+        }
+    }
+
+    public void addMPBuff(double dameB) {
+        this.mpBuff += dameB;
+        if (mpBuff > totalMpBuff) {
+            mpBuff = totalMpBuff;
+        }
+    }
+
+    public void thonPheDaoLu() {
+        // thon phe de tu
+        if (player.petDaoLu == null) {
+            Service.gI().sendThongBao(player, "Bạn làm đéo gì có đạo lữ mà đòi thôn phệ");
+            return;
+        }
+        double dameAdd = player.petDaoLu.nPoint.dame * 50 / 100;
+        double hpAdd = player.petDaoLu.nPoint.hpMax * 50 / 100;
+        double mpAdd = player.petDaoLu.nPoint.mpMax * 50 / 100;
+        // remove pet
+        addDameBuff(dameAdd);
+        addHpBuff(hpAdd);
+        addMPBuff(mpAdd);
+        Service.gI().point(player);
+        Service.gI().chatJustForMe(player, player.petDaoLu, "Sao phu quân lại aa...aa...aaaa....");
+        EffectSkillService.gI().sendEffectBienhinh(player);
+        new Thread(() -> {
+            ChangeMapService.gI().exitMap(player.petDaoLu);
+            player.petDaoLu.dispose();
+            player.petDaoLu = null;
+            Service.gI().sendHavePet(player);
+        }).start();
+        dlThonPhe++;
+    }
+
+    public void showMenuThonPhe() {
+        String text = "|7|Thôn phệ\n" + "|5|Khi bạn thôn phệ đệ tử hoặc đạo lữ sẽ nhận được 20% chỉ số của họ";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHON_THON_PHE, -1, text, "Đệ tử", "Đạo lữ");
+    }
+
+    public void showMenuCongChiSo() {
+        String text = "|7|Cộng chỉ số\n" + "|5|Bạn muốn cộng chỉ số nào";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONG_CHI_SO_MANUAL, -1, text, "Tấn công", "HP", "MP");
+    }
+
+    public void showMenuAutoCs() {
+        String text = "|7|Cộng chỉ số tự động\n" + "|5|Bạn muốn tự động cộng chỉ số nào";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONG_CHI_SO_AUTO, -1, text, "Tấn công\n" + (autoDame ? "Mở" : "Đóng"), "HP\n" + (autoHp ? "Mở" : "Đóng"), "MP\n" + (autoMp ? "Mở" : "Đóng"));
+    }
+
+    public void showMenuChuMa() {
+        String text = "|7|Chú ma\n" + "|5|Chú ma để tăng tỷ lệ lĩnh ngộ công pháp" + "\n|7|Đã chú ma[" + tyLeLinhNgo + "%]";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHU_MA, -1, text, "Chú ma", "Đóng");
+    }
+
+    public void showMemuLinhNgo() {
+        String text = "|7|Lĩnh ngộ công pháp\n" + "|5|Khi bạn chú ma đầy hãy lĩnh ngộ công pháp" + "\n|7|Chú ma [" + tyLeLinhNgo + "%]";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LINH_NGO_TU_MA, -1, text, "Lĩnh ngộ", "Đóng");
+    }
+
+    public void toggleAutoCs(int select) {
+        if (select == 0) {
+            autoDame = !autoDame;
+        }
+        if (select == 1) {
+            autoHp = !autoHp;
+        }
+        if (select == 2) {
+            autoMp = !autoMp;
+        }
+    }
+
+    public void showMenuCongChiSoManual(int select) {
+        String text = "|7|Chọn số lượng cần cộng\n|5|Bạn muốn cộng bao nhiêu nào?";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONFIRM_CHI_SO, -1, text, "1 Lần", "10 Lần", "100 Lần", "1000 Lần", "Tất cả");
+        player.iDMark.typePlusChiSoMaCong = select;
+    }
+
+    public void handleCongChiSo(int typePlusChiSoMaCong, int timeCong) {
+        if (timeCong != -1) {
+            congBuff((byte) typePlusChiSoMaCong, timeCong);
+            return;
+        }
+        // tinh tong chi so co the dung bang ma khi hien tai
+        long totalPris = (player.tuMa.maKhiPoint / getMaKhiCanDeCongDiem((byte) typePlusChiSoMaCong));
+        if (totalPris == 0) {
+            Service.gI().sendThongBao(player, "Không có ma khí");
+            return;
+        }
+        switch (typePlusChiSoMaCong) {
+            case 0:
+                if (dameBuff + (totalPris * 2) > totalDameBuff) {
+                    totalPris = (long) ((totalDameBuff - dameBuff) / 2);
+                }
+                break;
+            case 1:
+                if (hpBuff + (totalPris * 10) > totalHpBuff) {
+                    totalPris = (long) ((totalHpBuff - hpBuff) / 10);
+                }
+                break;
+            case 2:
+                if (mpBuff + (totalPris * 10) > totalMpBuff) {
+                    totalPris = (long) ((totalMpBuff - mpBuff) / 10);
+                }
+                break;
+        }
+        congBuff((byte) typePlusChiSoMaCong, totalPris);
+    }
+
+    public void handleHutMaKhi(Mob mob) {
+        double baseHut = Math.max(mob.point.maxHp / 1_000_000, Util.nextInt(1, 3));
+        baseHut *= phamChat + 1;
+        player.tuMa.addMaKhi((long) baseHut);
+    }
+}

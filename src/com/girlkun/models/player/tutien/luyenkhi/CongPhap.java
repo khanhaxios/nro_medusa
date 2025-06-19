@@ -146,8 +146,6 @@ public class CongPhap {
             // success linh ngo
             this.phamchat = phamchat.getNext();
             this.maxThuocTinh = getMaxThuocTinhByPhamChat();
-            upOldBuff();
-            restDoTT();
         } else {
             restDoTT();
             Service.gI().sendThongBao(tuTien.player, "Lĩnh ngộ thất bại bạn mất hết độ thuần thục");

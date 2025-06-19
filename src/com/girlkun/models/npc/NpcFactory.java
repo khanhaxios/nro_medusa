@@ -7414,7 +7414,112 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 switch (player.iDMark.getIndexMenu()) {
-
+                    case ConstNpc.MENU_CONG_PHAP_TU_MA:
+                        switch (select) {
+                            case 0:
+                                player.tuMa.congPhapTuMa.showMemuLinhNgo();
+                                break;
+                            case 1:
+                                player.tuMa.congPhapTuMa.showMenuChuMa();
+                                break;
+                            case 2:
+                                player.tuMa.congPhapTuMa.showCOngChiSoMenu();
+                                break;
+                            case 3:
+                                player.tuMa.congPhapTuMa.showMenuThonPhe();
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_CONG_CHI_SO:
+                        switch (select) {
+                            case 0:
+                                player.tuMa.congPhapTuMa.showMenuCongChiSo();
+                                break;
+                            case 1:
+                                player.tuMa.congPhapTuMa.showMenuAutoCs();
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_CONG_CHI_SO_AUTO:
+                        player.tuMa.congPhapTuMa.toggleAutoCs(select);
+                        break;
+                    case ConstNpc.MENU_CONG_CHI_SO_MANUAL:
+                        player.tuMa.congPhapTuMa.showMenuCongChiSoManual(select);
+                        break;
+                    case ConstNpc.MENU_CHU_MA:
+                        player.tuMa.congPhapTuMa.chuMa();
+                        break;
+                    case ConstNpc.MENU_LINH_NGO_TU_MA:
+                        player.tuMa.congPhapTuMa.linhNgo();
+                        break;
+                    case ConstNpc.MENU_CONFIRM_CHI_SO:
+                        int timeCong = 1;
+                        switch (select) {
+                            case 0:
+                                timeCong = 1;
+                                break;
+                            case 1:
+                                timeCong = 10;
+                                break;
+                            case 2:
+                                timeCong = 100;
+                                break;
+                            case 3:
+                                timeCong = 1000;
+                                break;
+                            case 4:
+                                timeCong = -1;
+                                break;
+                        }
+                        player.tuMa.congPhapTuMa.handleCongChiSo(player.iDMark.typePlusChiSoMaCong, timeCong);
+                        player.iDMark.typePlusChiSoMaCong = -2;
+                        break;
+                    case ConstNpc.MENU_CHON_THON_PHE:
+                        if (select == 0) {
+                            player.tuMa.congPhapTuMa.thonPheDeTu();
+                        }
+                        if (select == 1) {
+                            player.tuMa.congPhapTuMa.thonPheDaoLu();
+                        }
+                        break;
+                    case ConstNpc.MENU_BASE_TU_MA:
+                        switch (select) {
+                            case 0:
+                                player.tuMa.showMenuTuMa();
+                                break;
+                            case 1:
+                                player.tuMa.congPhapTuMa.showBaseMenu();
+                                break;
+                            case 2:
+                                player.tuMa.linhCanTuMa.showBaseMenu();
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_MA_TU_DOT_PHA:
+                        if (select == 0) {
+                            player.tuMa.dotPha();
+                        }
+                        break;
+                    case ConstNpc.MENU_MA_TU_LINH_CAN:
+                        if (select == 0) {
+                            player.tuMa.linhCanTuMa.duongLinhCan();
+                        }
+                        break;
+                    case ConstNpc.MENU_DUONG_LINH_CAN:
+                        int time1 = 1;
+                        switch (select) {
+                            case 0:
+                                time1 = 1;
+                                break;
+                            case 1:
+                                time1 = 10;
+                                break;
+                            case 2:
+                                time1 = 100;
+                                break;
+                        }
+                        player.tuMa.linhCanTuMa.duongLinhCan(time1);
+                        break;
                     case ConstNpc.MENU_AUTO_DOT_PHA_NGHE_PHU:
                         player.tuTien.switchAutoDotPhaNghePhu(select);
                         break;
@@ -7655,6 +7760,10 @@ public class NpcFactory {
                             Service.gI().sendThongBao(player, "Đột phá cần " + (player.tuTien.level + 1) * 10_000 + " hồng ngọc");
                             return;
                         }
+                        if (!player.tuTien.canHandleWithLinhKhiPoint(10)) {
+                            Service.gI().sendThongBao(player, "Cần 10 % tổng lượng linh khí");
+                            return;
+                        }
                         if (player.tuTien.subLevel == 10) {
                             switch (select) {
                                 case 0:
@@ -7701,6 +7810,7 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Bạn đã đột phá thất bại , mất hết tu vi và linh khí hiện tại");
                             }
                         }
+                        player.tuTien.subLinhKhiPercent(10);
                         player.inventory.ruby -= (player.tuTien.level + 1) * 5_000;
                         Service.gI().sendMoney(player);
                         break;

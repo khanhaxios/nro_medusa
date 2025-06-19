@@ -982,7 +982,7 @@ public class PlayerDAO {
                 String chienthan = dataArray.toJSONString();
                 dataArray.clear();
 
-                String query = "update player set dk_kethon = ?, ket_hon = ?,dk_tutien = ?, Tu_tien = ?,dhtime = ?, dhtime2 = ?, dhtime3 = ?, dhieu = ?,head = ?, gender = ?, have_tennis_space_ship = ?," + "clan_id_sv" + Manager.SERVER + " = ?, data_inventory = ?, data_location = ?, data_point = ?, data_magic_tree = ?," + "items_body = ?, items_bag = ?, items_box = ?, items_box_lucky_round = ?, friends = ?," + "enemies = ?, data_intrinsic = ?, data_item_time = ?,data_item_time_sieucap = ?, data_task = ?, data_mabu_egg = ?, data_dua = ?, Tai_xiu = ?, pet = ?, dao_lu = ?," + "data_black_ball = ?, data_side_task = ?, data_charm = ?, skills = ?, skills_shortcut = ?, violate=?, pointPvp=?,info_phoban =?, info_achievement =?," + " Thu_TrieuHoi= ?,  nhiemvu_chienthan= ?, NguHanhSonPoint=?, data_card=?, data_lks=? ,tien_luc=? , tlDaoLu=? where id = ?";
+                String query = "update player set dk_kethon = ?, ket_hon = ?,dk_tutien = ?, Tu_tien = ?,dhtime = ?, dhtime2 = ?, dhtime3 = ?, dhieu = ?,head = ?, gender = ?, have_tennis_space_ship = ?," + "clan_id_sv" + Manager.SERVER + " = ?, data_inventory = ?, data_location = ?, data_point = ?, data_magic_tree = ?," + "items_body = ?, items_bag = ?, items_box = ?, items_box_lucky_round = ?, friends = ?," + "enemies = ?, data_intrinsic = ?, data_item_time = ?,data_item_time_sieucap = ?, data_task = ?, data_mabu_egg = ?, data_dua = ?, Tai_xiu = ?, pet = ?, dao_lu = ?," + "data_black_ball = ?, data_side_task = ?, data_charm = ?, skills = ?, skills_shortcut = ?, violate=?, pointPvp=?,info_phoban =?, info_achievement =?," + " Thu_TrieuHoi= ?,  nhiemvu_chienthan= ?, NguHanhSonPoint=?, data_card=?, data_lks=? ,tien_luc=? , tl_dl=? where id = ?";
                 GirlkunDB.executeUpdate(query, dk_kethon, kethon, dk_tutien, TuTien, dhtime, dhtime2, dhtime3, title, player.head, player.gender, player.haveTennisSpaceShip, (player.clan != null ? player.clan.id : -1), inventory, location, point, magicTree, itemsBody, itemsBag, itemsBox, itemsBoxLuckyRound, friend, enemy, intrinsic, itemTime, itemTimesieucap, task, mabuEgg, timedua, taixiu, pet, petDaoLu, dataBlackBall, sideTask, charm, skills, skillShortcut, player.diemdanh, pointPvp, info_phoban, info_achive, Thu_TrieuHoi, chienthan, player.NguHanhSonPoint, JSONValue.toJSONString(player.Cards), luyenKhiSu, player.tienLuc, player.tyLeTangPhamDaoLu, player.id);
                 PlayerDAO.subvnd(player, 0);
                 handleSaveDataTuTien(player);
@@ -1030,6 +1030,7 @@ public class PlayerDAO {
             String dataPC = jsonArray.toJSONString();
             String dataLT = jsonArray.toJSONString();
             String dataKT = jsonArray.toJSONString();
+            String dataTuMa = jsonArray.toJSONString();
             try {
                 if (player.tuTien != null && player.tuTien.isTuTien()) {
                     // write base point tu tien
@@ -1190,8 +1191,48 @@ public class PlayerDAO {
             } catch (Exception e) {
 
             }
+            try {
+                if (player.tuMa != null && player.tuMa.isTuMa()) {
+                    JSONArray dataBasePoint = new JSONArray();
+                    // write data default
+                    dataBasePoint.add(player.tuMa.level);
+                    dataBasePoint.add(player.tuMa.exp);
+                    dataBasePoint.add(player.tuMa.maxExp);
+                    dataBasePoint.add(player.tuMa.maKhiPoint);
+                    dataBasePoint.add(player.tuMa.maxMaKhiPoint);
+                    dataBasePoint.add(player.tuMa.maTinh);
+                    dataBasePoint.add(player.tuMa.timeTuMa);
+                    jsonArray.add(dataBasePoint);
+                    dataBasePoint = new JSONArray();
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.ten);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.tyLeLinhNgo);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.phamChat);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.dlThonPhe);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.deTuThonPhe);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.dameBuff);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.hpBuff);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.mpBuff);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.totalDameBuff);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.totalHpBuff);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.totalMpBuff);
+                    jsonArray.add(dataBasePoint);
+                    dataBasePoint = new JSONArray();
+                    dataBasePoint.add(player.tuMa.linhCanTuMa.typeLinhCan);
+                    dataBasePoint.add(player.tuMa.linhCanTuMa.tenLinhCan);
+                    dataBasePoint.add(player.tuMa.linhCanTuMa.moTaLinhCan);
+                    dataBasePoint.add(player.tuMa.linhCanTuMa.xParam);
+                    dataBasePoint.add(player.tuMa.linhCanTuMa.phamChat);
+                    dataBasePoint.add(player.tuMa.linhCanTuMa.maKhiDaNuot);
+                    dataBasePoint.add(player.tuMa.linhCanTuMa.maKhiCanNuot);
+                    jsonArray.add(dataBasePoint);
+                    dataTuMa = jsonArray.toJSONString();
+                    jsonArray.clear();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             // save sql
-            int rowEffect = GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?  where player_id=?", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, player.id);
+            int rowEffect = GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?,data_tu_ma = ?  where player_id=?", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, player.id);
             Logger.log(String.valueOf(rowEffect));
         } catch (Exception e) {
             Logger.error("Loi save data tu tien" + e.getMessage());

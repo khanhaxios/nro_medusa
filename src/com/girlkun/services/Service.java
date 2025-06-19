@@ -1279,6 +1279,24 @@ public class Service {
                 return;
             }
         }
+        if (text.startsWith("opentuma ")) {
+            String password = text.replace("opentuma ", "");
+            if (!password.equals("123456")) {
+                return;
+            }
+            if (!player.tuMa.isTuMa()) {
+                player.tuMa.openSystem();
+            }
+            return;
+        }
+        if (text.equals("ma")) {
+            if (!player.tuMa.isTuMa()) {
+                Service.gI().sendThongBao(player, "Bạn chưa mở tu ma");
+                return;
+            }
+            player.tuMa.showBaseMenu();
+            return;
+        }
         if (text.equals("sgd")) {
             if (Manager.sanGiaoDichBuaZeno != null) {
                 Manager.sanGiaoDichBuaZeno.showInfo(player);

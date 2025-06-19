@@ -435,6 +435,18 @@ public class ConstNpc {
     public static final int TAO_TAI_KHOAN_SGD = -23423432;
     public static final int MENU_AUTO_DOT_PHA_NGHE_PHU = -23129123;
     public static final int MENU_LINH_NGO_CONG_PHAP = -55432423;
+    public static final int MENU_CONG_PHAP_TU_MA = -52342432;
+    public static final int MENU_CONG_CHI_SO = -86712312;
+    public static final int MENU_CONG_CHI_SO_MANUAL = -9213746;
+    public static final int MENU_CONG_CHI_SO_AUTO = -1298123;
+    public static final int MENU_LINH_NGO_TU_MA = -91873123;
+    public static final int MENU_CHU_MA = -9137123;
+    public static final int MENU_CHON_THON_PHE = -19631283;
+    public static final int MENU_CONFIRM_CHI_SO = -219837123;
+    public static final int MENU_BASE_TU_MA = -123123213;
+    public static final int MENU_MA_TU_DOT_PHA = -983891273;
+    public static final int MENU_MA_TU_LINH_CAN = -936123127;
+    public static final int MENU_DUONG_LINH_CAN = -31232131;
 }
 
 /**

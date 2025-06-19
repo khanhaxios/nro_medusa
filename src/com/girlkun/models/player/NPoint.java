@@ -543,27 +543,12 @@ public class NPoint {
                 }
             }
         }
-//        if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
-//            player.luyenThe.calcPoint();
-//        }
         if (player.tuTien != null && player.tuTien.isTuTien()) {
             player.tuTien.calcPoint();
         }
-//        if (player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
-//            player.phuChuSu.calcPoint();
-//        }
-//        if (player.tranPhapSu != null && player.tranPhapSu.isTranPhap()) {
-//            player.tranPhapSu.calcPoint();
-//        }
-//        if (player.linhThucSu != null && player.linhThucSu.isLinhThuc()) {
-//            player.linhThucSu.calcPoint();
-//        }
-//        if (player.nguThuSu != null && player.nguThuSu.isNguThu()) {
-//            player.nguThuSu.calcPoint();
-//        }
-//        if (player.khongThiSu != null && player.khongThiSu.isKhongThi()) {
-//            player.khongThiSu.calcPoint();
-//        }
+        if (player.tuMa != null && player.tuMa.isTuMa()) {
+            player.tuMa.calcPoint();
+        }
         setDameTrainArmor();
         setBasePoint();
     }
@@ -951,6 +936,9 @@ public class NPoint {
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
             pointAdd += pointBase * player.luyenThe.getHPMPBuff() / 100;
         }
+        if (player.tuMa != null && player.tuMa.isTuMa()) {
+            pointAdd += pointBase * player.tuMa.getHPMPBuff() / 100;
+        }
         this.hpMax += pointAdd;
     }
 
@@ -1158,6 +1146,9 @@ public class NPoint {
         }
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
             pointAdd += pointBase * player.luyenThe.getHPMPBuff() / 100;
+        }
+        if (player.tuMa != null && player.tuMa.isTuMa()) {
+            pointAdd += pointBase * player.tuMa.getHPMPBuff() / 100;
         }
         this.mpMax += pointAdd;
     }
@@ -1464,6 +1455,9 @@ public class NPoint {
         }
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
             pointAdd += pointBase * player.luyenThe.getDameBuff() / 100;
+        }
+        if (player.tuMa != null && player.tuMa.isTuMa()) {
+            pointAdd += pointBase * player.tuMa.getDameBuff() / 100;
         }
         this.dame += pointAdd;
     }

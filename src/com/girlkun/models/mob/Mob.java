@@ -553,6 +553,15 @@ public class Mob {
                 // send data kn luyen the
                 PlayerService.gI().sendOtherOrigan(player, (byte) 1, exp);
             }
+            if (player.tuMa != null && player.tuMa.isTuMa()) {
+                long exp = player.tuMa.getExpCanGain(this);
+                player.tuMa.addExp(exp);
+                PlayerService.gI().sendTuTienAddTuVi(player, exp);
+                PlayerService.gI().sendTuTienTuVi(player);
+                if (player.tuMa.congPhapTuMa != null && player.tuMa.congPhapTuMa.ten != null) {
+                    player.tuMa.congPhapTuMa.handleHutMaKhi(this);
+                }
+            }
 
             itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10), physicalTop(this));
             if (itemTask != null) {

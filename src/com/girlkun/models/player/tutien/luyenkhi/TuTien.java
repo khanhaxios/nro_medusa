@@ -239,6 +239,8 @@ public class TuTien extends BasePoint implements IBaseAction {
         level = 0;
         subLevel = 1;
         restExp();
+        restLinhKhi();
+        // ratio linh can
         Service.gI().point(player);
     }
 

@@ -20,6 +20,7 @@ import com.girlkun.models.npc.Npc;
 import com.girlkun.models.npc.NpcFactory;
 import com.girlkun.models.player.*;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
+import com.girlkun.models.player.tuma.TuMaTemplate;
 import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
 import com.girlkun.models.reward.ItemMobReward;
 import com.girlkun.models.reward.ItemOptionMobReward;
@@ -243,6 +244,7 @@ public class Manager {
         NpcFactory.createNpcRongXuong();
         NpcFactory.createNpcRongSieuCap();
         TuTienTemplate.getI().initTemplate();
+        TuMaTemplate.getI().initTuMaTemplate();
         sanGiaoDichBuaZeno = new SanGiaoDichBuaZeno();
         this.initMap();
     }

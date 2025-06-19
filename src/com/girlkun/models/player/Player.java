@@ -29,6 +29,7 @@ import com.girlkun.models.npc.specialnpc.MagicTree;
 import com.girlkun.models.npc.specialnpc.Timedua;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
+import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.khongthisu.KhongThiSu;
 import com.girlkun.models.player.tutien.linhthucsu.LinhThucSu;
 import com.girlkun.models.player.tutien.luyendansu.LuyenDanSu;
@@ -150,6 +151,7 @@ public class Player {
     //    public NewPet newpet1;
     public LuyenKhiSu luyenKhiSu;
     public float tyLeTangPhamDaoLu;
+    public TuMa tuMa;
     public LuyenDanSu luyenDanSu;
     public MobMe mobMe;
     public Location location;
@@ -298,6 +300,7 @@ public class Player {
         linhThucSu = new LinhThucSu(this);
         nguThuSu = new NguThuSu(this);
         khongThiSu = new KhongThiSu(this);
+        tuMa = new TuMa(this);
     }
 
     //--------------------------------------------------------------------------
