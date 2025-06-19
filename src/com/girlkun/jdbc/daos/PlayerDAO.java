@@ -1004,7 +1004,8 @@ public class PlayerDAO {
             String dataPC = jsonArray.toJSONString();
             String dataLT = jsonArray.toJSONString();
             String dataKT = jsonArray.toJSONString();
-            GirlkunDB.executeUpdate("insert into tu_tien(data_tu_tien,data_luyen_the,data_tran_phap ,data_ngu_thu,data_luyen_dan,data_phu_chu,data_linh_thuc ,data_khong_thi,player_id) values(?,?,?,?,?,?,?,?,?)", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, playerId);
+            String dataTuMa = jsonArray.toJSONString();
+            GirlkunDB.executeUpdate("insert into tu_tien(data_tu_tien,data_luyen_the,data_tran_phap ,data_ngu_thu,data_luyen_dan,data_phu_chu,data_linh_thuc ,data_khong_thi,data_tu_ma,player_id) values(?,?,?,?,?,?,?,?,?,?)", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, playerId);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
