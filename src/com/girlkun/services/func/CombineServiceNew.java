@@ -208,9 +208,9 @@ public class CombineServiceNew {
                         Service.gI().sendThongBao(player, "Không đủ linh khí cần 5% tổng linh khí để chế tạo");
                         return;
                     }
-                    this.baHatMit.createOtherMenu(player, MENU_START_COMBINE_NEW, "Cấp luyện khí càng cao tỷ lệ thành công càng cao", "Chế tạo", "Đóng");
+                    NpcService.gI().createMenuConMeo(player, MENU_START_COMBINE_NEW, -1, "Cấp luyện khí càng cao tỷ lệ thành công càng cao", "Chế tạo", "Đóng");
                 } else {
-                    Service.gI().sendThongBaoOK(player, "Hãy đặt vào trang bị , ĐÁ MEDUSA và Đế Vương Thạch,Thiên Mệnh Thạch ,Thiên Nguyệt Thạch");
+                    Service.gI().sendThongBaoOK(player, "ĐÁ MEDUSA VIP và Đế Vương Thạch,Thiên Mệnh Thạch ,Thiên Nguyệt Thạch");
                 }
                 break;
             case KICH_HOAT_TRANG_BI:
@@ -1516,10 +1516,8 @@ public class CombineServiceNew {
         Item tmt = player.combineNew.itemsCombine.stream().filter(t -> t.template.id == 1262).findFirst().orElse(null);
         Item daMedusaVip = player.combineNew.itemsCombine.stream().filter(t -> t.template.id == 1081).findFirst().orElse(null);
         float baseRatio = 3 + player.luyenKhiSu.getPercentBounce() / 3 + player.tuTien.level;
-        boolean isSuccess = false;
         int kinhnghiem = 0;
         if (Util.isTrue(baseRatio, 100)) {
-            isSuccess = true;
             sendEffectSuccessCombine(player);
             Item bongTai = ItemService.gI().createNewItem(getIdBongTaiByLevel(player.iDMark.capCheBongTai + 1));
             // ratio bong tai
@@ -1541,6 +1539,7 @@ public class CombineServiceNew {
         player.luyenKhiSu.getLinhHoa().addExp(kinhnghiem);
         player.iDMark.capCheBongTai = -1;
         player.tuTien.subLinhKhiPercent(10);
+        reOpenItemCombine(player);
     }
 
     private short getIdBongTaiByLevel(int i) {
@@ -4752,7 +4751,7 @@ public class CombineServiceNew {
             case PHAN_RA_TRANG_BI:
                 return "Đặt trang bị bất kỳ vào và chọn phân rã";
             case CHE_TAO_BT:
-                return "Cho vào đây số lượng Đế Vương thạch , Thiên mệnh thạch,\n Thiên nguyệt thạch đầy đủ";
+                return "Cho vào đây số lượng Đế Vương thạch , Thiên mệnh thạch,\n Thiên nguyệt thạch , ĐÁ MEDUSA VIP đầy đủ";
             case KICH_HOAT_TRANG_BI:
                 return "Chọn trang bị\n và đặt vào 2 loại nguyên liệu\n(Đá MEDUSA,Đế Vương Thạch).\n";
             case EP_SAO_TRANG_BI:

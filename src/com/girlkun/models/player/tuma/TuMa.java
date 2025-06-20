@@ -4,12 +4,17 @@ import com.girlkun.consts.ConstNpc;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.tutien.base_tutien.IBaseAction;
+import com.girlkun.models.player.tutien.khongthisu.KhongThiSu;
+import com.girlkun.models.player.tutien.luyendansu.LuyenDanSu;
+import com.girlkun.models.player.tutien.luyenkhi.TuTien;
+import com.girlkun.models.player.tutien.tranphapsu.TranPhapSu;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
 public class TuMa implements IBaseAction {
     public static final int MAX_LEVEL = 180;
+    public boolean isAttackWithLinhCan = false;
     Player player;
     public long maKhiPoint;
     public long maxMaKhiPoint;
@@ -54,7 +59,7 @@ public class TuMa implements IBaseAction {
 
     @Override
     public long getExpCanGain(Mob targetMob) {
-        return Math.max((long) (targetMob.point.maxHp / 100_000), Util.nextInt(10, 50));
+        return Math.max((long) (targetMob.point.maxHp / 100_000_0), Util.nextInt(10, 50));
     }
 
     @Override
@@ -83,7 +88,7 @@ public class TuMa implements IBaseAction {
     }
 
     private long getNextLevelExp() {
-        return (LEVEL_EXP[level / 10] + SUB_LEVEL_EXP[level / 10]) * (congPhapTuMa.phamChat + 50);
+        return (LEVEL_EXP[level / 10] + SUB_LEVEL_EXP[level / 10]) * (congPhapTuMa.phamChat + 500);
     }
 
     @Override
@@ -99,6 +104,31 @@ public class TuMa implements IBaseAction {
 
     }
 
+    public String getMaTinhDanhGia() {
+        if (maTinh >= 1 && maTinh <= 3) {
+            return "Ma Nhân";
+        }
+        if (maTinh >= 4 && maTinh <= 6) {
+            return "Ma Đầu";
+        }
+        if (maTinh >= 7 && maTinh <= 9) {
+            return "Ma Sát";
+        }
+        if (maTinh >= 10 && maTinh <= 12) {
+            return "Ma Quân";
+        }
+        if (maTinh >= 13 && maTinh <= 15) {
+            return "Ma Tôn";
+        }
+        if (maTinh >= 16 && maTinh <= 18) {
+            return "Ma Đế";
+        }
+        if (maTinh >= 19 && maTinh <= 20) {
+            return "Ma Thần";
+        }
+        return "Vô Danh Ma"; // fallback cho giá trị không hợp lệ hoặc = 0
+    }
+
     @Override
     public float getLevelUpPercent() {
         return 0;
@@ -109,7 +139,6 @@ public class TuMa implements IBaseAction {
         // mo system
         maTinh = 1;
         ratioLinhCan();
-        ratioCongPhap();
         level += 1;
         restExp();
         restMaKhi();
@@ -126,6 +155,7 @@ public class TuMa implements IBaseAction {
             }
         }
         if (linhCanTuMa1 != null) {
+            linhCanTuMa1.ratioNewLinhCan();
             linhCanTuMa1.player = player;
             this.linhCanTuMa = linhCanTuMa1;
         }
@@ -142,6 +172,7 @@ public class TuMa implements IBaseAction {
         CongPhapTuMa congPhapTuMa1 = TuMaTemplate.CONG_PHAP.get(typeLinhCan);
         congPhapTuMa1.player = player;
         this.congPhapTuMa = congPhapTuMa1;
+        Service.gI().sendThongBao(player, "Bạn đã học được " + congPhapTuMa1.ten);
     }
 
     public boolean canLevelUp() {
@@ -174,14 +205,14 @@ public class TuMa implements IBaseAction {
 
     @Override
     public float getDameBuff() {
-        float percentBuff = (getBaseBuffByLevel(5) + (getSubLevelOtherBuff()));
+        float percentBuff = (getBaseBuffByLevel(3) + (getSubLevelOtherBuff()));
         percentBuff *= (congPhapTuMa.phamChat + 1 + maTinh);
         return percentBuff;
     }
 
     @Override
     public float getHPMPBuff() {
-        float percentBuff = (getBaseBuffByLevel(10) + (getSubLevelHpMpBuff()));
+        float percentBuff = (getBaseBuffByLevel(6) + (getSubLevelHpMpBuff()));
         percentBuff *= (congPhapTuMa.phamChat + 1 + maTinh);
         return percentBuff;
     }
@@ -249,7 +280,7 @@ public class TuMa implements IBaseAction {
     }
 
     public void showBaseMenu() {
-        String text = "|7|Thông Tin Ma Tu\n" + "|5|" + getName() + "\n" + "|5|Tu vi : " + getCurrentExpAsString() + "\n" + "Ma khí : " + getMaKhiAsString() + "\n|5| Đã tu ma " + getYearOpened() + "\n" + "|1|Khi đầy exp ấn đột phá";
+        String text = "|7|Thông Tin Ma Tu\n" + "|5|" + getName() + "\n" + "|5|Tu vi :" + getCurrentExpAsString() + "\n" + "Ma khí :" + getMaKhiAsString() + "\n" + "|7|" + getMaTinhDanhGia() + "\n|5| Đã tu ma " + getYearOpened() + "\n" + "|1|Khi đầy exp ấn đột phá";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_TU_MA, -1, text, "TT\nTu Ma", "TT\nCông Pháp", "TT\nLinh Căn", "Đóng");
     }
 
@@ -284,6 +315,20 @@ public class TuMa implements IBaseAction {
     public void dotPha() {
         if (canLevelUp()) {
             levelUp();
+        } else {
+            Service.gI().sendThongBao(player, "Tu vi chưa đủ");
         }
+    }
+
+    public void nhapMa() {
+        player.tuTien = new TuTien(player);
+        player.luyenDanSu = new LuyenDanSu(player);
+        player.tranPhapSu = new TranPhapSu(player);
+        player.khongThiSu = new KhongThiSu(player);
+        // remove all tu tien data
+        player.tuMa = new TuMa(player);
+        player.tuMa.openSystem();
+        player.tuMa.ratioCongPhap();
+        Service.gI().sendThongBaoOK(player, "Bạn đã nhập ma thành công");
     }
 }

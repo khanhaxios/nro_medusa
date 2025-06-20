@@ -157,16 +157,8 @@ public class Util {
     public static String powerToString(double power) {
         Locale locale = new Locale("vi", "VN");
         NumberFormat num = NumberFormat.getInstance(locale);
-        num.setMaximumFractionDigits(1);
-        if (power >= 1000000000) {
-            return num.format((double) power / 1000000000) + " Tỷ";
-        } else if (power >= 1000000) {
-            return num.format((double) power / 1000000) + " Tr";
-        } else if (power >= 1000) {
-            return num.format((double) power / 1000) + " k";
-        } else {
-            return num.format(power);
-        }
+        num.setMaximumFractionDigits(0); // Không lấy số lẻ sau dấu phẩy
+        return num.format(power);
     }
 
     //    public static String powerToStringnew(double power) {

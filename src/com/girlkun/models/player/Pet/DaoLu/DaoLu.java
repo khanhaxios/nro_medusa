@@ -725,7 +725,7 @@ public class DaoLu extends Player {
     public int getNPointAddCapBac() {
         switch (this.pointCapCanhGioi) {
             case 10 -> {
-                return 700;
+                return 400;
             }
             case 9 -> {
                 return 300;
@@ -743,7 +743,7 @@ public class DaoLu extends Player {
                 return 120;
             }
             case 4 -> {
-                return 100;
+                return 75;
             }
             case 3 -> {
                 return 50;
@@ -763,9 +763,9 @@ public class DaoLu extends Player {
 
     public int getNPointAddCapTinh() {
         if (this.pointCapCanhGioi == 10) {
-            return 900 + (this.pointCapTinh + 1) * 2;
+            return 10 + (this.pointCapTinh + 1) * 2;
         }
-        return (this.pointCapTinh + 1) * 100;
+        return (this.pointCapTinh + 1) * 10;
     }
 
     //    private Mob findMobAttack() {

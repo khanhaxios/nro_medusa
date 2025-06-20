@@ -230,6 +230,10 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
             Service.gI().sendThongBao(player, "Bạn đã đạt giới hạn đan dược có thể sử dụng nếu ăn nữa cũng ko có tác dụng");
             canUse = false;
         }
+        if (!Util.isTrue(50, (int) (100 * getXDiemThienPhu()))) {
+            canUse = false;
+            Service.gI().sendThongBao(player, "Thiên phú quá cao dùng đan thất bại");
+        }
         if (canUse) {
             switch (item.template.id) {
                 case 2072:

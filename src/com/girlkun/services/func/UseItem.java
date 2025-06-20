@@ -1007,8 +1007,9 @@ public class UseItem {
             try {
                 moi = InventoryServiceNew.gI().findItemBag(pl, 1363);
             } catch (Exception e) {
+                e.printStackTrace();
             }
-            if (pl.useCanCau == false) {
+            if (!pl.useCanCau) {
                 if (InventoryServiceNew.gI().getCountEmptyBag(pl) > 0) {
                     pl.iconCancau = item.template.iconID;
                     pl.useCanCau = true;
@@ -1019,7 +1020,7 @@ public class UseItem {
                         InventoryServiceNew.gI().subQuantityItemsBag(pl, moi, 1);
                         Thread thread = new Thread(() -> {
                             try {
-                                Thread.sleep(3000);
+                                Thread.sleep(60_000);
                                 if (idcancau == 1359 ? Util.isTrue(35, 100) : idcancau == 1360 ? Util.isTrue(45, 100) : idcancau == 1361 ? Util.isTrue(55, 100) : Util.isTrue(70, 100)) {
                                     Item it = ItemService.gI().createNewItem(ConCa[random]);
                                     if (idcancau == 1362) {
@@ -1029,9 +1030,6 @@ public class UseItem {
                                     InventoryServiceNew.gI().addItemBag(pl, it);
                                     InventoryServiceNew.gI().sendItemBags(pl);
                                     Service.getInstance().sendThongBao(pl, "|4|Bạn đã nhận được " + it.template.name);
-                                    if (pl.haveTuTien == false) {
-                                        pl.tt_cauca++;
-                                    }
                                 } else {
                                     Service.getInstance().sendThongBao(pl, "|3|Cá khôn quá chạy mất tiêu gòi");
                                 }
@@ -1633,7 +1631,8 @@ public class UseItem {
         int tyLeLenCapMax = phamHienTai * 100;
         // ty le base
         float tyLeBase = 1 + player.tyLeTangPhamDaoLu;
-        if (Util.isTrue(tyLeBase, tyLeLenCapMax)) {
+        int nguong = tyLeLenCapMax * 70 / 100;
+        if (tyLeBase > nguong * 70 && Util.isTrue(tyLeBase, tyLeLenCapMax)) {
             player.petDaoLu.typeDaoLu = nextPham;
             player.petDaoLu.name = "[" + player.petDaoLu.getTypeString() + "] " + player.petDaoLu.nameDaoLu;
             new Thread(() -> {

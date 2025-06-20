@@ -6,9 +6,7 @@ import com.girlkun.models.player.Player;
 import com.girlkun.models.player.tutien.base_tutien.BasePoint;
 import com.girlkun.models.player.tutien.base_tutien.IBaseAction;
 import com.girlkun.server.Manager;
-import com.girlkun.services.ItemService;
 import com.girlkun.services.NpcService;
-import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
@@ -157,7 +155,7 @@ public class LuyenThe extends BasePoint implements IBaseAction {
         if (!isLuyenThe()) {
             Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện thể");
         }
-        String text = "|7|Luyện Thể\n|5|Cấp bậc : " + getName() + "\n" + "Tu Vi : " + getCurrentExpAsString() + "\n" + "Tổng Thuộc tính buff : " + totalBuff() + "\n" + "Tỷ lệ đột phá : " + String.format("%.2f%%", getLevelUpPercent()) + "\n" + "|7|Cấp càng cao tỷ lệ đột phá càng thấp";
+        String text = "|7|Luyện Thể\n|5|Cấp bậc : " + getName() + "\n" + "Tu Vi : " + getCurrentExpAsString() + "\n" + "Dame : " + getDameBuff() + "%" + "\n" + "MPHP : " + getHPMPBuff() + "%" + "\n" + "Tỷ lệ đột phá : " + String.format("%.2f%%", getLevelUpPercent()) + "\n" + "|7|Cấp càng cao tỷ lệ đột phá càng thấp";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text, "Đột phá", "Đóng");
     }
 

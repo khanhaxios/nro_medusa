@@ -45,6 +45,8 @@ public class NPoint {
     private int percentDameIntrinsic;
     public int dameAfter;
 
+    public double hutMauTamThoi;
+    public long lastTimeHutMau;
     /*-----------------------Chỉ số cơ bản------------------------------------*/
     public byte numAttack;
     public long lastTimeNumAttackLinhCan = System.currentTimeMillis();
@@ -882,11 +884,6 @@ public class NPoint {
             // note  : he thong dao lu dang phat trien
             if (this.player.petDaoLu != null && this.player.petDaoLu.status != DaoLu.GOHOME) {
                 this.hpMax += calPercent(this.hpMax, this.player.petDaoLu.getNPointAddByType());
-                if (this.player.petDaoLu.pointCapCanhGioi == 10) {
-                    this.hpMax += calPercent(this.hpMax, DaoLu.POWER_DAU_THANH);
-                }
-                this.hpMax += calPercent(this.hpMax, ((DaoLu) this.player.petDaoLu).getNPointAddCapBac());
-                this.hpMax += calPercent(this.hpMax, ((DaoLu) this.player.petDaoLu).getNPointAddCapTinh());
             }
         }
         // he thong dao lu dang phat trien
@@ -1094,11 +1091,6 @@ public class NPoint {
             // Đạo Lữ Song Tu
             if (this.player.petDaoLu != null && this.player.petDaoLu.status != DaoLu.GOHOME) {
                 this.mpMax += calPercent(this.mpMax, this.player.petDaoLu.getNPointAddByType());
-                if (this.player.petDaoLu.pointCapCanhGioi == 10) {
-                    this.mpMax += calPercent(this.mpMax, DaoLu.POWER_DAU_THANH);
-                }
-                this.mpMax += calPercent(this.hpMax, ((DaoLu) this.player.petDaoLu).getNPointAddCapBac());
-                this.mpMax += calPercent(this.hpMax, ((DaoLu) this.player.petDaoLu).getNPointAddCapTinh());
             }
         }
         if (this.player.isDaoLu) {
@@ -2384,6 +2376,10 @@ public class NPoint {
         //
         if (Util.canDoWithTime(lastTimeNumAttackLinhCan, 5000)) {
             numAttackLinhCan = 0;
+        }
+        if (player.isPl() && player.tuMa.isTuMa() && player.tuMa.linhCanTuMa.typeLinhCan == 0 && Util.canDoWithTime(lastTimeHutMau, 10_000)) {
+            // reset mau ve binh thuong ne
+            this.hpMax -= hutMauTamThoi;
         }
         if (player != null && player.effectSkill != null) {
             if (player.effectSkill.isCharging && player.effectSkill.countCharging < 10) {

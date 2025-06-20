@@ -1080,95 +1080,164 @@ public class SkillService {
         }
     }
 
+//    private double subDameWithCanhGioi(Player plAtt, Player plInjure) {
+//        double damGoc = -1;
+//
+//        // --------- XỬ LÝ TU TIÊN ----------
+//        if ((plInjure.tuTien != null && plInjure.tuTien.isTuTien()) || plInjure.isBoss) {
+//            damGoc = plAtt.nPoint.getDameAttack(false);
+//            if (plInjure.isBoss) {
+//                Boss boss = (Boss) plInjure;
+//                byte level = boss.level;
+//                byte subLevel = boss.subLevel;
+//                if (!plAtt.tuTien.isTuTien() || plAtt.tuTien.level < level) {
+//                    int levelDiff = level - plAtt.tuTien.level;
+//                    damGoc -= damGoc * (30 + (20 * levelDiff)) / 100;
+//                } else {
+//                    int levelDiff = plAtt.tuTien.level - level;
+//                    int subLevelDiff = plAtt.tuTien.subLevel - subLevel;
+//                    if (subLevelDiff > 0) {
+//                        damGoc += damGoc * (5 * subLevelDiff) / 100;
+//                    }
+//                    if (levelDiff > 0) {
+//                        damGoc += damGoc * (30 * levelDiff) / 100;
+//                    }
+//                }
+//            } else if (plInjure.isPl()) {
+//                byte level = plInjure.tuTien.level;
+//                byte subLevel = plInjure.tuTien.subLevel;
+//                if (!plAtt.tuTien.isTuTien() || plAtt.tuTien.level < level) {
+//                    int levelDiff = level - plAtt.tuTien.level;
+//                    damGoc -= damGoc * (30 + (20 * levelDiff)) / 100;
+//                } else {
+//                    int levelDiff = plAtt.tuTien.level - level;
+//                    int subLevelDiff = plAtt.tuTien.subLevel - subLevel;
+//                    if (subLevelDiff > 0) {
+//                        damGoc += damGoc * (10 * subLevelDiff) / 100;
+//                    }
+//                    if (levelDiff > 0) {
+//                        damGoc += damGoc * (30 * levelDiff) / 100;
+//                    }
+//                }
+//            }
+//        }
+//
+//        // --------- XỬ LÝ TU MA ----------
+//        if ((plInjure.tuMa != null && plInjure.tuMa.isTuMa()) || plInjure.isBoss) {
+//            damGoc = plAtt.nPoint.getDameAttack(false);
+//            if (plInjure.isBoss) {
+//                Boss boss = (Boss) plInjure;
+//                int level = boss.level;
+//                int subLevel = boss.subLevel;
+//
+//                int attLevel = (plAtt.tuMa != null && plAtt.tuMa.isTuMa()) ? (plAtt.tuMa.level / 10) : -1;
+//                int attSubLevel = (plAtt.tuMa != null && plAtt.tuMa.isTuMa()) ? (plAtt.tuMa.level % 10) : -1;
+//
+//                if (attLevel < level) {
+//                    int levelDiff = level - attLevel;
+//                    damGoc -= damGoc * (10 + (20 * levelDiff)) / 100;
+//                } else {
+//                    int levelDiff = attLevel - level;
+//                    int subLevelDiff = attSubLevel - subLevel;
+//                    if (subLevelDiff > 0) {
+//                        damGoc += damGoc * (5 * subLevelDiff) / 100;
+//                    }
+//                    if (levelDiff > 0) {
+//                        damGoc += damGoc * (10 * levelDiff) / 100;
+//                    }
+//                }
+//            } else if (plInjure.isPl()) {
+//                int level = plInjure.tuMa.level / 10;
+//                int subLevel = plInjure.tuMa.level % 10;
+//
+//                int attLevel = (plAtt.tuMa != null && plAtt.tuMa.isTuMa()) ? (plAtt.tuMa.level / 10) : -1;
+//                int attSubLevel = (plAtt.tuMa != null && plAtt.tuMa.isTuMa()) ? (plAtt.tuMa.level % 10) : -1;
+//
+//                if (attLevel < level) {
+//                    int levelDiff = level - attLevel;
+//                    damGoc -= damGoc * (10 + (20 * levelDiff)) / 100;
+//                } else {
+//                    int levelDiff = attLevel - level;
+//                    int subLevelDiff = attSubLevel - subLevel;
+//                    if (subLevelDiff > 0) {
+//                        damGoc += damGoc * (10 * subLevelDiff) / 100;
+//                    }
+//                    if (levelDiff > 0) {
+//                        damGoc += damGoc * (10 * levelDiff) / 100;
+//                    }
+//                }
+//            }
+//        }
+//
+//        return damGoc;
+//    }
+
     private double subDameWithCanhGioi(Player plAtt, Player plInjure) {
-        double damGoc = -1;
-        if ((plInjure.tuTien != null && plInjure.tuTien.isTuTien()) || plInjure.isBoss) {
-            if (plInjure.isBoss) {
-                Boss boss = ((Boss) plInjure);
-                byte level = boss.level;
-                byte subLevel = boss.subLevel;
-                damGoc = plAtt.nPoint.getDameAttack(false);
-                if (level >= 0 && subLevel >= 0) {
-                    if (!plAtt.tuTien.isTuTien() || plAtt.tuTien.level < level) {
-                        int levelDiff = level - plAtt.tuTien.level;
-                        damGoc -= damGoc * (30 + (20 * levelDiff)) / 100;
-                    } else {
-                        int levelDiff = plAtt.tuTien.level - level;
-                        int subLevelDiff = plAtt.tuTien.subLevel - subLevel;
+        double dame = plAtt.nPoint.getDameAttack(false);
 
-                        if (subLevelDiff > 0) {
-                            damGoc += damGoc * (5 * subLevelDiff) / 100; // +5% mỗi sub level
-                        }
-                        if (levelDiff > 0) {
-                            damGoc += damGoc * (30 * levelDiff) / 100; // +20% mỗi level
-                        }
-                    }
-                }
-            } else if (plInjure.isPl()) {
-                damGoc = plAtt.nPoint.getDameAttack(false);
-                byte level = plInjure.tuTien.level;
-                byte subLevel = plInjure.tuTien.subLevel;
-                if (!plAtt.tuTien.isTuTien() || plAtt.tuTien.level < level) {
-                    int levelDiff = level - plAtt.tuTien.level;
-                    damGoc -= damGoc * (30 + (20 * levelDiff)) / 100;
-                } else {
-                    int levelDiff = plAtt.tuTien.level - level;
-                    int subLevelDiff = plAtt.tuTien.subLevel - subLevel;
+        int attLevel = getLevel(plAtt);
+        int attSub = getSubLevel(plAtt);
 
-                    if (subLevelDiff > 0) {
-                        damGoc += damGoc * (10 * subLevelDiff) / 100; // +5% mỗi sub level
-                    }
-                    if (levelDiff > 0) {
-                        damGoc += damGoc * (30 * levelDiff) / 100; // +20% mỗi level
-                    }
-                }
+        int targetLevel = getLevel(plInjure);
+        int targetSub = getSubLevel(plInjure);
+
+        if (attLevel < 0 || targetLevel < 0) return dame;
+
+        if (attLevel < targetLevel) {
+            int levelDiff = targetLevel - attLevel;
+            dame -= dame * (30 + 20 * levelDiff) / 100;
+        } else {
+            int levelDiff = attLevel - targetLevel;
+            int subDiff = attSub - targetSub;
+
+            if (subDiff > 0) {
+                dame += dame * (10 * subDiff) / 100;
+            }
+            if (levelDiff > 0) {
+                dame += dame * (30 * levelDiff) / 100;
             }
         }
-        return damGoc;
+        return dame;
     }
 
-    private double subDameWithCanhGioi(Player plAtt, Player plInjure, double dameG) {
-        if ((plInjure.tuTien != null && plInjure.tuTien.isTuTien()) || plInjure.isBoss) {
-            if (plInjure.isBoss) {
-                Boss boss = ((Boss) plInjure);
-                byte level = boss.level;
-                byte subLevel = boss.subLevel;
-                if (level >= 0 && subLevel >= 0) {
-                    if (!plAtt.tuTien.isTuTien() || plAtt.tuTien.level < level) {
-                        int levelDiff = level - plAtt.tuTien.level;
-                        dameG -= dameG * (20 + (20 * levelDiff)) / 100;
-                    } else {
-                        int levelDiff = plAtt.tuTien.level - level;
-                        int subLevelDiff = plAtt.tuTien.subLevel - subLevel;
+    private double subDameWithCanhGioi(Player plAtt, Player plInjure, double dame) {
+        int attLevel = getLevel(plAtt);
+        int attSub = getSubLevel(plAtt);
 
-                        if (subLevelDiff > 0) {
-                            dameG += dameG * (5 * subLevelDiff) / 100; // +5% mỗi sub level
-                        }
-                        if (levelDiff > 0) {
-                            dameG += dameG * (20 * levelDiff) / 100; // +20% mỗi level
-                        }
-                    }
-                }
-            } else if (plInjure.isPl()) {
-                byte level = plInjure.tuTien.level;
-                byte subLevel = plInjure.tuTien.subLevel;
-                if (!plAtt.tuTien.isTuTien() || plAtt.tuTien.level < level) {
-                    int levelDiff = level - plAtt.tuTien.level;
-                    dameG -= dameG * (20 + (20 * levelDiff)) / 100;
-                } else {
-                    int levelDiff = plAtt.tuTien.level - level;
-                    int subLevelDiff = plAtt.tuTien.subLevel - subLevel;
+        int targetLevel = getLevel(plInjure);
+        int targetSub = getSubLevel(plInjure);
 
-                    if (subLevelDiff > 0) {
-                        dameG += dameG * (5 * subLevelDiff) / 100; // +5% mỗi sub level
-                    }
-                    if (levelDiff > 0) {
-                        dameG += dameG * (20 * levelDiff) / 100; // +20% mỗi level
-                    }
-                }
+        if (attLevel < 0 || targetLevel < 0) return dame;
+
+        if (attLevel < targetLevel) {
+            int levelDiff = targetLevel - attLevel;
+            dame -= dame * (30 + 20 * levelDiff) / 100;
+        } else {
+            int levelDiff = attLevel - targetLevel;
+            int subDiff = attSub - targetSub;
+
+            if (subDiff > 0) {
+                dame += dame * (10 * subDiff) / 100;
+            }
+            if (levelDiff > 0) {
+                dame += dame * (30 * levelDiff) / 100;
             }
         }
-        return dameG;
+        return dame;
+    }
+
+    private int getLevel(Player p) {
+        if (p.isBoss) return ((Boss) p).level;
+        if (p.tuTien != null && p.tuTien.isTuTien()) return p.tuTien.level;
+        if (p.tuMa != null && p.tuMa.isTuMa()) return p.tuMa.level / 10;
+        return -1;
+    }
+
+    private int getSubLevel(Player p) {
+        if (p.isBoss) return ((Boss) p).subLevel;
+        if (p.tuTien != null && p.tuTien.isTuTien()) return p.tuTien.subLevel;
+        if (p.tuMa != null && p.tuMa.isTuMa()) return p.tuMa.level % 10;
+        return -1;
     }
 
     private void playerAttackPlayer(Player plAtt, Player plInjure, boolean miss, boolean isLinhCan) {
@@ -1322,6 +1391,47 @@ public class SkillService {
                     break;
             }
             plAtt.tuTien.subLinhKhi(linhKhiPoint);
+        }
+        if (isLinhCan && plAtt.isPl() && plAtt.tuMa.isTuMa() && plAtt.tuMa.isAttackWithLinhCan) {
+            if (!plAtt.tuMa.canHandleWithMaKhiPoint(1)) {
+                return;
+            }
+            float paramOfLinhCan = plAtt.tuMa.linhCanTuMa.xParam;
+            switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
+                case 0:
+                    double hp = plInjure.injured(plAtt, plInjure.nPoint.hpMax * paramOfLinhCan, false, false, true);
+                    plAtt.nPoint.hutMauTamThoi += hp;
+                    plAtt.nPoint.hpMax += plAtt.nPoint.hutMauTamThoi;
+                    plAtt.nPoint.lastTimeHutMau = System.currentTimeMillis();
+                    sendMessagePlayerAttackPlayer(plAtt, plInjure, hp, (byte) 0);
+                    break;
+                case 1:
+                    double dameA = plInjure.injured(plAtt, dameHit * paramOfLinhCan, false, false, true);
+                    sendMessagePlayerAttackPlayer(plAtt, plInjure, dameA, (byte) 0);
+                    break;
+                case 2:
+                    double dameB = (plInjure.nPoint.hpMax * paramOfLinhCan) * Util.nextInt(2, 4);
+                    dameB = plInjure.injured(plAtt, dameB, false, false, false);
+                    sendMessagePlayerAttackPlayer(plAtt, plInjure, dameB, (byte) 0);
+                    break;
+                case 3:
+                    double dameC = plInjure.injured(plAtt, dameHit * paramOfLinhCan, false, false, true);
+                    sendMessagePlayerAttackPlayer(plAtt, plInjure, dameC, (byte) 0);
+                    if (Util.isTrue(paramOfLinhCan * Util.nextInt(2, 3), Util.nextInt(100, 120))) {
+                        if (!plInjure.effectSkill.isStun) {
+                            EffectSkillService.gI().startStun(plInjure, System.currentTimeMillis(), 2000);
+                        }
+                    }
+                    break;
+                case 4:
+                    // - hp cua ban than
+                    double dame = plAtt.nPoint.hpMax * paramOfLinhCan;
+                    plAtt.nPoint.subHP(dame);
+                    double dameD = plInjure.injured(plAtt, dame, false, false, false);
+                    sendMessagePlayerAttackPlayer(plAtt, plInjure, dameD, (byte) 0);
+                    break;
+            }
+            plAtt.tuMa.subMaKhi(1);
         }
     }
 

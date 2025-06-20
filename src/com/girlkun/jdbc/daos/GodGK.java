@@ -19,8 +19,10 @@ import com.girlkun.models.player.Fusion;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.luyenkhi.PhamChat;
 import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
+import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.models.task.TaskMain;
 import com.girlkun.result.GirlkunResultSet;
@@ -138,13 +140,7 @@ public class GodGK {
                             //base info
                             player.id = rs.getInt("id");
                             player.vnd = rs.getInt("vndd");
-                            if (player.vnd >= 500000 && player.vnd < 1000000) {
-                                player.name = "[VIP] " + rs.getString("name");
-                            } else if (player.vnd >= 1000000) {
-                                player.name = "[SVIP] " + rs.getString("name");
-                            } else {
-                                player.name = rs.getString("name");
-                            }
+                            player.name = rs.getString("name");
                             player.head = rs.getShort("head");
                             player.gender = rs.getByte("gender");
                             player.haveTennisSpaceShip = rs.getBoolean("have_tennis_space_ship");
@@ -967,7 +963,6 @@ public class GodGK {
                 rs.dispose();
             }
         }
-        Logger.log("ruby :::: " + player.inventory.ruby);
         return player;
     }
 
@@ -1205,8 +1200,13 @@ public class GodGK {
                             player.tuMa.linhCanTuMa.maKhiCanNuot = Long.parseLong(linhCanArray.get(6).toString());
                         }
                     }
+                    if (player.tuTien.isTuTien()) {
+                        player.name = "[" + TuTien.CANH_GIOI[player.tuTien.level] + "]" + player.name;
+                    } else if (player.tuMa.isTuMa()) {
+                        player.name = "[" + TuMa.CANH_GIOI[player.tuMa.level / 10] + "]" + player.name;
+                    }
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
             }
         } catch (Exception e) {

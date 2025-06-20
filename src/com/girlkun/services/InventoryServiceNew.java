@@ -9,14 +9,12 @@ import com.girlkun.models.npc.specialnpc.Timedua;
 import com.girlkun.models.player.Inventory;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
-import com.girlkun.models.player.GiftcodeViet;
 import com.girlkun.network.io.Message;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class InventoryServiceNew {
 
@@ -454,7 +452,7 @@ public class InventoryServiceNew {
             Item pettt = player.inventory.itemsBody.get(7);
             if (item.isNotNullItem()) {
                 if (item.template.type == 23 || item.template.type == 24 || item.template.type == 72 || item.template.type == 21) {
-                    if (player.nguThuSu == null || !player.nguThuSu.isNguThu()) {
+                    if (!player.tuMa.isTuMa() && (player.nguThuSu == null || !player.nguThuSu.isNguThu())) {
                         Service.gI().sendThongBaoOK(player, "Bạn cần học ngự thú sư để trang bị thú cưỡi,pet,linh thú");
                         return;
                     }

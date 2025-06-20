@@ -41,12 +41,12 @@ public class CongPhapTuMa {
     }
 
     public double getMaxDameBuff() {
-        double baseDame = 1_000_000_00D;
+        double baseDame = 2_000_000;
         return baseDame * phamChat;
     }
 
     public double getMaxHpMpBuff() {
-        double baseHpMp = 10_000_000_00D;
+        double baseHpMp = 6_000_000;
         return baseHpMp * phamChat;
     }
 
@@ -135,7 +135,7 @@ public class CongPhapTuMa {
 
     public void update() {
         // auto chi so
-        if (Util.canDoWithTime(lastTimeAutoChiSo, 2000) && (autoMp || autoDame || autoHp)) {
+        if (Util.canDoWithTime(lastTimeAutoChiSo, 1000) && (autoMp || autoDame || autoHp)) {
             if (autoDame) {
                 congBuffKhongThongBao((byte) 0, 1);
             }
@@ -262,7 +262,7 @@ public class CongPhapTuMa {
             Service.gI().sendThongBao(player, "Bạn chưa học công pháp");
             return;
         }
-        String text = "|7|Thông tin công pháp\n" + "|5|" + getTenCongPhap() + "\n" + "|5|Dame Buff : " + Util.powerToString(dameBuff) + "\n" + "|5|HPBuff : " + Util.powerToString(hpBuff) + "\n" + "|5|MpBuff : " + mpBuff + "\n" + "|1|Chú ma : " + tyLeLinhNgo + "%\n" + "|7|Phẩm cấp càng cao giới hạn buff càng cao";
+        String text = "|7|Thông tin công pháp\n" + "|5|" + getTenCongPhap() + "\n" + "|5|Dame Buff : " + Util.powerToString(dameBuff) + "\n" + "|5|HP Buff :" + Util.powerToString(hpBuff) + "\n" + "|5|Mp Buff :" + mpBuff + "\n" + "|1|Chú ma :" + tyLeLinhNgo + "%" + "/" + getBaseDiemLinhNgoMax() + "%" + "\n" + "|7|Phẩm cấp càng cao giới hạn buff càng cao";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONG_PHAP_TU_MA, -1, text, "Lĩnh ngộ", "Chú ma", "Tăng\nChỉ Số", "Thôn phệ", "Đóng");
     }
 
@@ -423,8 +423,8 @@ public class CongPhapTuMa {
     }
 
     public void handleHutMaKhi(Mob mob) {
-        double baseHut = Math.max(mob.point.maxHp / 1_000_000, Util.nextInt(1, 3));
+        double baseHut = Math.max(mob.point.maxHp / 1_000_000_0, Util.nextInt(1, 3));
         baseHut *= phamChat + 1;
-        player.tuMa.addMaKhi((long) baseHut);
+        player.tuMa.addMaKhi(Math.min(100, (long) baseHut));
     }
 }

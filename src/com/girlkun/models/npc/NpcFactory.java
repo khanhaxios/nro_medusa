@@ -941,8 +941,9 @@ public class NpcFactory {
                         thoivang = InventoryServiceNew.gI().findItemBag(player, 457);
                         bonghong = InventoryServiceNew.gI().findItemBag(player, 723);
                     } catch (Exception e) {
+                        Logger.log(e.getMessage());
                     }
-//                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "|7|KẾT HÔN" + "\n|5|Bạn cần Nhẫn cầu hôn để thực hiện Kết hôn với người khác" + "\nĐiều kiện nhận Nhẫn kết hôn:" + " \n|6|Trứng đệ: Broly: " + (broly == null ? 0 : broly.quantity) + " / 50" + " ; " + "Zeno: " + (zeno == null ? 0 : zeno.quantity) + " / 50" + "\nTrứng đệ Berus: " + (berus == null ? 0 : berus.quantity) + " / 10" + "\nChiến thần đạt cấp Đế tiên: Cấp hiện tại: " + player.NameThanthu(player.TrieuHoiCapBac) + "\nTu tiên đạt Thiên đạo: Cấp hiện tại: " + player.CapTuTien(player.CapTuTien) + "\nChuyển sinh đạt 30: " + player.taixiu.chuyensinh + " / 30" + "\nTham gia Bản đồ kho báu: " + player.dk_bdkb + " / 10" + "\nGắp thú VIP: " + player.dk_gapvip + " / 50" + "\nThỏi vàng: " + (thoivang == null ? 0 : thoivang.quantity) + " / 99.999" + "\nHồng ngọc: " + Util.format(player.inventory.ruby) + " / 9.999.999" + "\nBông hồng: " + (bonghong == null ? 0 : bonghong.quantity) + " / 99", "Nhận nhẫn", "Thông tin\nKết hôn");
+                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "|7|KẾT HÔN" + "\n|5|Bạn cần Nhẫn cầu hôn để thực hiện Kết hôn với người khác" + "\nĐiều kiện nhận Nhẫn kết hôn:" + " \n|6|Trứng đệ: Broly: " + (broly == null ? 0 : broly.quantity) + " / 10" + " ; " + "Zeno: " + (zeno == null ? 0 : zeno.quantity) + " / 10" + "\nTrứng đệ Berus: " + (berus == null ? 0 : berus.quantity) + " / 10" + "\nChiến thần đạt cấp Đế tiên: Cấp hiện tại: " + player.NameThanthu(player.TrieuHoiCapBac) + "\nTu tiên đạt Nguyên Anh: Cấp hiện tại: " + player.tuTien.getName() + "\nTham gia Bản đồ kho báu: " + player.dk_bdkb + " / 10" + "\nThỏi vàng: " + (thoivang == null ? 0 : thoivang.quantity) + " / 999" + "\nHồng ngọc: " + Util.format(player.inventory.ruby) + " / 999.999" + "\nBông hồng: " + (bonghong == null ? 0 : bonghong.quantity) + " / 99", "Nhận nhẫn", "Thông tin\nKết hôn");
                 }
             }
 
@@ -965,11 +966,11 @@ public class NpcFactory {
                                     bonghong = InventoryServiceNew.gI().findItemBag(player, 723);
                                 } catch (Exception e) {
                                 }
-                                if (broly == null || broly.quantity < 50) {
+                                if (broly == null || broly.quantity < 10) {
                                     Service.gI().sendThongBao(player, "Bạn chưa đủ Trứng Broly");
                                     return;
                                 }
-                                if (zeno == null || zeno.quantity < 50) {
+                                if (zeno == null || zeno.quantity < 10) {
                                     Service.gI().sendThongBao(player, "Bạn chưa đủ Trứng Zeno");
                                     return;
                                 }
@@ -978,7 +979,7 @@ public class NpcFactory {
                                     return;
                                 }
                                 if (thoivang == null || thoivang.quantity < 999) {
-                                    Service.gI().sendThongBao(player, "Bạn chưa đủ 99999 Thỏi vàng");
+                                    Service.gI().sendThongBao(player, "Bạn chưa đủ 999 Thỏi vàng");
                                     return;
                                 }
                                 if (player.inventory.ruby < 999_999) {
@@ -989,32 +990,23 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Bạn chưa đủ Bông hồng");
                                     return;
                                 }
-                                if (player.dk_gapvip < 50) {
-                                    Service.gI().sendThongBao(player, "Bạn chưa đủ Số lẩn Gắp VIP");
+                                if (player.tuTien.level < 3) {
+                                    Service.gI().sendThongBao(player, "Bạn cần đạt tu tiên cấp Nguyên Anh");
                                     return;
                                 }
-                                if (player.taixiu.chuyensinh < 30) {
-                                    Service.gI().sendThongBao(player, "Bạn chưa đủ Số lẩn Chuyển sinh");
-                                    return;
-                                }
-                                if (player.CapTuTien < 19) {
-                                    Service.gI().sendThongBao(player, "Bạn chưa đủ Cấp Tu tiên");
-                                    return;
-                                }
-                                if (player.TrieuHoiCapBac == -1 || player.TrieuHoiCapBac < 10) {
+                                if (player.TrieuHoiCapBac < 6) {
                                     Service.gI().sendThongBao(player, "Bạn chưa đủ điều kiện cấp Chiến thần");
                                     return;
                                 }
                                 if (player.dk_bdkb < 10) {
                                     Service.gI().sendThongBao(player, "Bạn chưa đủ Số lẩn Tham gia Bản đồ kho báu");
                                 } else {
-                                    player.inventory.ruby -= 9_999_999;
+                                    player.inventory.ruby -= 999_999;
                                     player.dk_bdkb -= 10;
-                                    player.dk_gapvip -= 50;
-                                    InventoryServiceNew.gI().subQuantityItemsBag(player, broly, 50);
-                                    InventoryServiceNew.gI().subQuantityItemsBag(player, zeno, 50);
+                                    InventoryServiceNew.gI().subQuantityItemsBag(player, broly, 10);
+                                    InventoryServiceNew.gI().subQuantityItemsBag(player, zeno, 10);
                                     InventoryServiceNew.gI().subQuantityItemsBag(player, berus, 10);
-                                    InventoryServiceNew.gI().subQuantityItemsBag(player, thoivang, 9999);
+                                    InventoryServiceNew.gI().subQuantityItemsBag(player, thoivang, 999);
                                     InventoryServiceNew.gI().subQuantityItemsBag(player, bonghong, 99);
 
                                     Item nhan = ItemService.gI().createNewItem((short) 1415);
@@ -1026,7 +1018,7 @@ public class NpcFactory {
                                 }
                                 break;
                             case 1:
-                                this.createOtherMenu(player, 54855, "|7|Thông tin kết hôn" + "\n|5|Số lần Kết hôn: " + player.dakethon + " Lần" + "\n|4|+" + (50 * player.dakethon) + "% Chỉ số HP,KI,SD" + "\n|5|Số lần Được Cầu hôn: " + player.duockethon + " Lần" + "\n|4|+" + (player.duockethon == 0 ? 0 : player.duockethon == 1 ? 10 : player.duockethon == 2 ? 20 : player.duockethon == 3 ? 30 : player.duockethon == 4 ? 40 : player.duockethon == 5 ? 50 : player.duockethon == 6 ? 60 : player.duockethon == 7 ? 70 : player.duockethon == 8 ? 80 : player.duockethon == 9 ? 90 : player.duockethon == 10 ? 100 : player.duockethon == 11 ? 110 : player.duockethon == 12 ? 120 : player.duockethon == 13 ? 130 : player.duockethon == 14 ? 140 : player.duockethon == 15 ? 150 : player.duockethon == 16 ? 160 : player.duockethon == 17 ? 170 : player.duockethon == 18 ? 180 : player.duockethon == 19 ? 190 : 200) + "% Chỉ số HP,KI,SD", "OK");
+                                this.createOtherMenu(player, 54855, "|7|Thông tin kết hôn" + "\n|5|Số lần Kết hôn: " + player.dakethon + " Lần" + "\n|4|+" + (5 * player.dakethon) + "% Chỉ số HP,KI,SD" + "\n|5|Số lần Được Cầu hôn: " + player.duockethon + " Lần" + "\n|4|+" + (player.duockethon == 0 ? 0 : player.duockethon == 1 ? 10 : player.duockethon == 2 ? 20 : player.duockethon == 3 ? 30 : player.duockethon == 4 ? 40 : player.duockethon == 5 ? 50 : player.duockethon == 6 ? 60 : player.duockethon == 7 ? 70 : player.duockethon == 8 ? 80 : player.duockethon == 9 ? 90 : player.duockethon == 10 ? 100 : player.duockethon == 11 ? 110 : player.duockethon == 12 ? 120 : player.duockethon == 13 ? 130 : player.duockethon == 14 ? 140 : player.duockethon == 15 ? 150 : player.duockethon == 16 ? 160 : player.duockethon == 17 ? 170 : player.duockethon == 18 ? 180 : player.duockethon == 19 ? 190 : 200) + "% Chỉ số HP,KI,SD", "OK");
                                 break;
                         }
                     }
@@ -2274,8 +2266,13 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 //npc se o vach nui aru
+
                 if (canOpenNpc(player) && mapId == 44) {
-                    createOtherMenu(player, ConstNpc.MENU_NPC_TU_TIEN, "Tu tiên a , nghèo thì tu cái gì tiên", "Giới Thiệu", "Học Tu \nTiên", "Học Tiên\nPháp", "Học Công Pháp", "Truyền Công", "Bí Kíp\nTu Tiên");
+                    if (player.tuMa.isTuMa()) {
+                        createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ở Đây không tiếp ma tu", "Đóng");
+                    } else {
+                        createOtherMenu(player, ConstNpc.MENU_NPC_TU_TIEN, "Tu tiên a , nghèo thì tu cái gì tiên", "Giới Thiệu", "Học Tu \nTiên", "Học Tiên\nPháp", "Học Công Pháp", "Truyền Công", "Bí Kíp\nTu Tiên");
+                    }
                 }
             }
 
@@ -2352,6 +2349,68 @@ public class NpcFactory {
                 }
             }
 
+        }
+
+                ;
+    }
+
+    public static Npc tuma(int mapId, int status, int cx, int cy, int tempId, int avartar) {
+        return new Npc(mapId, status, cx, cy, tempId, avartar) {
+            @Override
+            public void openBaseMenu(Player player) {
+                if (canOpenNpc(player)) {
+                    createOtherMenu(player, ConstNpc.BASE_MENU, "Đi đến đường cùng ?  Nhập ma a", "Tu Ma", "Học\nCông Pháp");
+                }
+            }
+
+            @Override
+            public void confirmMenu(Player player, int select) {
+                if (player.iDMark.getIndexMenu() == ConstNpc.BASE_MENU) {
+                    switch (select) {
+                        case 0:
+                            if (player.tuMa.isTuMa()) {
+                                Service.gI().sendThongBao(player, "Bạn đã mở tu ma rồi mà");
+                                return;
+                            }
+                            if (player.tuTien.isTuTien()) {
+                                createOtherMenu(player, ConstNpc.MENU_NHAP_MA, "Muốn nhập ma?", "Nhập ma", "Đóng");
+                                return;
+                            }
+                            double tienCan = player.session.vnd - 100_000;
+                            if (tienCan < 0) {
+                                Service.gI().sendThongBao(player, "Mở tu ma cần 100k điểm");
+                                return;
+                            }
+
+                            PlayerDAO.subvnd(player, 100_000);
+                            player.tuMa.openSystem();
+                            break;
+                        case 1:
+                            if (!player.tuMa.isTuMa()) {
+                                Service.gI().sendThongBao(player, "Cần mở tu ma để học công pháp");
+                                return;
+                            }
+                            double tienC2an = player.session.vnd - 1_000_000;
+                            if (tienC2an < 0) {
+                                Service.gI().sendThongBao(player, "Học công pháp cần 1tr điểm");
+                                return;
+                            }
+                            PlayerDAO.subvnd(player, 1_000_000);
+                            player.tuMa.ratioCongPhap();
+                            break;
+                    }
+                } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NHAP_MA) {
+                    if (select == 0) {
+                        double tienCan = player.session.vnd - 1_000_000;
+                        if (tienCan < 0) {
+                            Service.gI().sendThongBao(player, "Nhập ma cần 1tr điểm");
+                            return;
+                        }
+                        PlayerDAO.subvnd(player, 1_000_000);
+                        player.tuMa.nhapMa();
+                    }
+                }
+            }
         };
     }
 
@@ -4576,25 +4635,29 @@ public class NpcFactory {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
             public void openBaseMenu(Player player) {
-                if (TaskService.gI().getIdTask(player) < ConstTask.TASK_24_0) {
-                    // chưa thỏa dkien để nhận nhiệm vụ
-                    createOtherMenu(player, 0, "|7|NHẬN CHIẾN THẦN" + "\n\n|5|Ngươi muốn có được Chiến Thần để trở nên mạnh hơn?" + "\nTa không thể để các vị Thần mạnh mẽ đi theo kẻ yếu kém được" + "\n|3|Để nhận được Chiến Thần ngươi cần đạt đến Nhiệm vụ 24 và Phải hoàn thành 10 nhiệm vụ ngoại tuyến mà ta đưa ra !!" + "\n|5|Hãy tiếp tục cố gắng để trở nên mạnh hơn nhé", "Đóng");
-                }
-                // đã hoàn thành nhiệm vụ thứ...=> trả nhiệm vụ, menu 100
-                if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_24_0 && player.chienthan.dalamduoc >= player.chienthan.maxcount && player.chienthan.maxcount != 0 && player.chienthan.tasknow < 10) {
-                    createOtherMenu(player, 100, "|7|NHẬN CHIẾN THẦN" + "\n\n|1|Nhiệm vụ hiện tại: " + player.nhiemvuchienthan(player.chienthan.tasknow) + "\n\n|2|Đã hoàn thành: " + player.chienthan.dalamduoc + "/" + player.chienthan.maxcount + "\n|3|Tiến độ: " + player.chienthan.tasknow + "/" + player.chienthan.maxtask + " (Nhiệm vụ)" + "\n|7| Đã xong nhiệm vụ thứ " + player.chienthan.tasknow, "Trả nhiệm vụ", "Đóng");
-                }
-                // chưa hoàn thành nhiệm vụ, menu 100
-                if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_24_0 && player.chienthan.dalamduoc < player.chienthan.maxcount && player.chienthan.maxcount != 0) {
-                    createOtherMenu(player, 100, "|7|NHẬN CHIẾN THẦN" + "\n\n|1|Nhiệm vụ hiện tại: " + player.nhiemvuchienthan(player.chienthan.tasknow) + "\n\n|2|Đã hoàn thành: " + player.chienthan.dalamduoc + "/" + player.chienthan.maxcount + "\n|3|Tiến độ: " + player.chienthan.tasknow + "/" + player.chienthan.maxtask + " (Nhiệm vụ)", "Đóng");
-                }
-                // Nhận nhiệm vụ tiếp theo
-                if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_24_0 && player.chienthan.maxcount == 0 && player.chienthan.tasknow < 10) {
-                    createOtherMenu(player, 101, "|7|NHẬN CHIẾN THẦN" + "\n\n|5|Ngươi muốn có được Chiến Thần để trở nên mạnh hơn?" + "\nTa không thể để các vị Thần mạnh mẽ đi theo kẻ yếu kém được" + "\n|3|Để nhận được Chiến Thần ngươi cần đạt đến Nhiệm vụ 24 và Phải hoàn thành 10 nhiệm vụ ngoại tuyến mà ta đưa ra !!" + "\n|5|Hãy tiếp tục cố gắng để trở nên mạnh hơn nhé" + "\n|1|Tiến độ: " + player.chienthan.tasknow + "/" + player.chienthan.maxtask + " (Nhiệm vụ)", "Nhận nhiệm vụ", "Đóng");
-                }
-                // Hoàn thành hết => Nhận Chiến thần
-                if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_24_0 && player.chienthan.dalamduoc >= player.chienthan.maxcount && player.chienthan.tasknow == 10) {// && player.chienthan.dalamduoc >= player.chienthan.maxcount
-                    createOtherMenu(player, 104, "|7|NHẬN CHIẾN THẦN" + "\n\n|1|Nhiệm vụ hiện tại: " + player.nhiemvuchienthan(player.chienthan.tasknow) + "\n\n|2|Đã hoàn thành: " + player.chienthan.dalamduoc + "/" + player.chienthan.maxcount + "\n|3|Tiến độ: " + player.chienthan.tasknow + "/" + player.chienthan.maxtask + " (Nhiệm vụ)" + "\n|7|Bạn đã hoàn thành tất cả nhiệm vụ", "Nhận Chiến Thần", "Đóng");
+                if (player.tuMa.isTuMa()) {
+                    createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ở đây không tiếp ma tu", "Đóng");
+                } else {
+                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_24_0) {
+                        // chưa thỏa dkien để nhận nhiệm vụ
+                        createOtherMenu(player, 0, "|7|NHẬN CHIẾN THẦN" + "\n\n|5|Ngươi muốn có được Chiến Thần để trở nên mạnh hơn?" + "\nTa không thể để các vị Thần mạnh mẽ đi theo kẻ yếu kém được" + "\n|3|Để nhận được Chiến Thần ngươi cần đạt đến Nhiệm vụ 24 và Phải hoàn thành 10 nhiệm vụ ngoại tuyến mà ta đưa ra !!" + "\n|5|Hãy tiếp tục cố gắng để trở nên mạnh hơn nhé", "Đóng");
+                    }
+                    // đã hoàn thành nhiệm vụ thứ...=> trả nhiệm vụ, menu 100
+                    if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_24_0 && player.chienthan.dalamduoc >= player.chienthan.maxcount && player.chienthan.maxcount != 0 && player.chienthan.tasknow < 10) {
+                        createOtherMenu(player, 100, "|7|NHẬN CHIẾN THẦN" + "\n\n|1|Nhiệm vụ hiện tại: " + player.nhiemvuchienthan(player.chienthan.tasknow) + "\n\n|2|Đã hoàn thành: " + player.chienthan.dalamduoc + "/" + player.chienthan.maxcount + "\n|3|Tiến độ: " + player.chienthan.tasknow + "/" + player.chienthan.maxtask + " (Nhiệm vụ)" + "\n|7| Đã xong nhiệm vụ thứ " + player.chienthan.tasknow, "Trả nhiệm vụ", "Đóng");
+                    }
+                    // chưa hoàn thành nhiệm vụ, menu 100
+                    if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_24_0 && player.chienthan.dalamduoc < player.chienthan.maxcount && player.chienthan.maxcount != 0) {
+                        createOtherMenu(player, 100, "|7|NHẬN CHIẾN THẦN" + "\n\n|1|Nhiệm vụ hiện tại: " + player.nhiemvuchienthan(player.chienthan.tasknow) + "\n\n|2|Đã hoàn thành: " + player.chienthan.dalamduoc + "/" + player.chienthan.maxcount + "\n|3|Tiến độ: " + player.chienthan.tasknow + "/" + player.chienthan.maxtask + " (Nhiệm vụ)", "Đóng");
+                    }
+                    // Nhận nhiệm vụ tiếp theo
+                    if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_24_0 && player.chienthan.maxcount == 0 && player.chienthan.tasknow < 10) {
+                        createOtherMenu(player, 101, "|7|NHẬN CHIẾN THẦN" + "\n\n|5|Ngươi muốn có được Chiến Thần để trở nên mạnh hơn?" + "\nTa không thể để các vị Thần mạnh mẽ đi theo kẻ yếu kém được" + "\n|3|Để nhận được Chiến Thần ngươi cần đạt đến Nhiệm vụ 24 và Phải hoàn thành 10 nhiệm vụ ngoại tuyến mà ta đưa ra !!" + "\n|5|Hãy tiếp tục cố gắng để trở nên mạnh hơn nhé" + "\n|1|Tiến độ: " + player.chienthan.tasknow + "/" + player.chienthan.maxtask + " (Nhiệm vụ)", "Nhận nhiệm vụ", "Đóng");
+                    }
+                    // Hoàn thành hết => Nhận Chiến thần
+                    if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_24_0 && player.chienthan.dalamduoc >= player.chienthan.maxcount && player.chienthan.tasknow == 10) {// && player.chienthan.dalamduoc >= player.chienthan.maxcount
+                        createOtherMenu(player, 104, "|7|NHẬN CHIẾN THẦN" + "\n\n|1|Nhiệm vụ hiện tại: " + player.nhiemvuchienthan(player.chienthan.tasknow) + "\n\n|2|Đã hoàn thành: " + player.chienthan.dalamduoc + "/" + player.chienthan.maxcount + "\n|3|Tiến độ: " + player.chienthan.tasknow + "/" + player.chienthan.maxtask + " (Nhiệm vụ)" + "\n|7|Bạn đã hoàn thành tất cả nhiệm vụ", "Nhận Chiến Thần", "Đóng");
+                    }
                 }
             }
 
@@ -6622,7 +6685,11 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 21 || mapId == 22 || mapId == 23 || mapId == 5) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Muốn tu tiên?Tìm đúng người rồi đấy", "Học\nLuyện Phù", "Học\nTrận Pháp", "Học\nLinh Thực", "Học\nNgự Thú", "Học\nKhống Thi", "Học\nLuyện Đan", "Đóng");
+                        if (player.tuMa.isTuMa()) {
+                            this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ở đây không tiếp ma tu", "Đóng");
+                        } else {
+                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "Muốn tu tiên?Tìm đúng người rồi đấy", "Học\nLuyện Phù", "Học\nTrận Pháp", "Học\nLinh Thực", "Học\nNgự Thú", "Học\nKhống Thi", "Học\nLuyện Đan", "Đóng");
+                        }
                     }
                 }
             }
@@ -7132,10 +7199,13 @@ public class NpcFactory {
         };
     }
 
+
     public static Npc createNPC(int mapId, int status, int cx, int cy, int tempId) {
         int avatar = Manager.NPC_TEMPLATES.get(tempId).avatar;
         try {
             switch (tempId) {
+                case ConstNpc.MEDUSA_TU_MA:
+                    return tuma(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.NPC_LUYEN_THE:
                     return luyenthe(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.MEDUSA_TU_TIEN:
@@ -7447,10 +7517,14 @@ public class NpcFactory {
                         player.tuMa.congPhapTuMa.showMenuCongChiSoManual(select);
                         break;
                     case ConstNpc.MENU_CHU_MA:
-                        player.tuMa.congPhapTuMa.chuMa();
+                        if (select == 0) {
+                            player.tuMa.congPhapTuMa.chuMa();
+                        }
                         break;
                     case ConstNpc.MENU_LINH_NGO_TU_MA:
-                        player.tuMa.congPhapTuMa.linhNgo();
+                        if (select == 0) {
+                            player.tuMa.congPhapTuMa.linhNgo();
+                        }
                         break;
                     case ConstNpc.MENU_CONFIRM_CHI_SO:
                         int timeCong = 1;
@@ -7503,6 +7577,9 @@ public class NpcFactory {
                     case ConstNpc.MENU_MA_TU_LINH_CAN:
                         if (select == 0) {
                             player.tuMa.linhCanTuMa.duongLinhCan();
+                        }
+                        if (select == 1) {
+                            player.tuMa.linhCanTuMa.toggleSTLC();
                         }
                         break;
                     case ConstNpc.MENU_DUONG_LINH_CAN:

@@ -43,7 +43,7 @@ public class ItemTimeService {
         }
         
         if (player.useCanCau) {
-            sendItemTime(player, player.iconCancau, (int) ((3000 - (System.currentTimeMillis() - player.lasttimeCanCau)) / 1000));
+            sendItemTime(player, player.iconCancau, (int) ((60_000 - (System.currentTimeMillis() - player.lasttimeCanCau)) / 1000));
         }
         if (player.itemTime.isUseBoHuyet) {
             sendItemTime(player, 2755, (int) ((TIME_ITEM - (System.currentTimeMillis() - player.itemTime.lastTimeBoHuyet)) / 1000));

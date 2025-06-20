@@ -447,6 +447,8 @@ public class ConstNpc {
     public static final int MENU_MA_TU_DOT_PHA = -983891273;
     public static final int MENU_MA_TU_LINH_CAN = -936123127;
     public static final int MENU_DUONG_LINH_CAN = -31232131;
+    public static final int MEDUSA_TU_MA = 106;
+    public static final int MENU_NHAP_MA = 12312323;
 }
 
 /**

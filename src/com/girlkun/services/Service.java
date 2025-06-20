@@ -1344,9 +1344,19 @@ public class Service {
         }
         if (text.equals("hoisinhct")) {
             if (player.session.vnd - 1_000_000 > 0) {
-                PlayerDAO.subvnd(player, 1_000_000);
-                player.TrieuHoiCapBac = 0;
-                Service.gI().hsChar(player.TrieuHoipet, player.TrieuHoipet.nPoint.hpMax, player.TrieuHoipet.nPoint.mpMax);
+                if (player.TrieuHoipet != null) {
+                    PlayerDAO.subvnd(player, 1_000_000);
+                    player.TrieuHoiCapBac = -1;
+                    String oldName = player.TenThuTrieuHoi;
+                    ChangeMapService.gI().exitMap(player.TrieuHoipet);
+                    player.TrieuHoipet.dispose();
+                    player.TrieuHoipet = null;
+                    player.CreatePet(oldName);
+                    Service.gI().sendThongBao(player, "Đã hồi sinh chiến thần");
+
+                } else {
+                    Service.gI().sendThongBao(player, "M có chiến thần đâu ma hồi sinh");
+                }
             } else {
                 Service.gI().sendThongBao(player, "Cần 1 triệu điểm");
             }

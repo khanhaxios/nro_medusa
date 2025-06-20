@@ -340,7 +340,6 @@ public class Input {
                     Service.gI().sendThongBao(player, "Bạn đã thu nhận Chiến Thần: " + NamePet);
                     break;
                 }
-
                 case XIU:
                     int sotvxiu = Integer.valueOf(text[0]);
                     try {

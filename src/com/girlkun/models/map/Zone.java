@@ -8,39 +8,20 @@ import com.girlkun.models.item.Item;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.npc.NpcManager;
-import com.girlkun.models.player.MedusaNPC;
-//import com.girlkun.models.npc.specialnpc.MabuEgg;
-//import com.girlkun.models.npc.specialnpc.Timedua;
-//import com.girlkun.models.player.Inventory;
-import com.girlkun.models.player.Pet.Pet;
-import com.girlkun.models.player.Player;
-import com.girlkun.models.player.Referee;
-import com.girlkun.models.player.Referee1;
-import com.girlkun.models.player.TestDame;
+import com.girlkun.models.player.*;
 import com.girlkun.network.io.Message;
-import com.girlkun.services.ItemMapService;
-import com.girlkun.services.ItemService;
-import com.girlkun.services.MapService;
-import com.girlkun.services.PlayerService;
-import com.girlkun.services.Service;
-import com.girlkun.services.TaskService;
-import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.NgocRongNamecService;
-
-import static com.girlkun.services.NgocRongNamecService.TIME_BL;
-import static com.girlkun.services.NgocRongNamecService.TIME_OP;
-//import com.girlkun.services.func.TopService;
-import com.girlkun.models.player.Thu_TrieuHoi;
+import com.girlkun.services.*;
 import com.girlkun.utils.FileIO;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.girlkun.services.NgocRongNamecService.TIME_BL;
+import static com.girlkun.services.NgocRongNamecService.TIME_OP;
 
 public class Zone {
 
@@ -99,8 +80,13 @@ public class Zone {
             for (int i = this.notBosses.size() - 1; i >= 0; i--) {
                 Player pl = this.notBosses.get(i);
                 if (pl != null && pl.isPl()) {
+                    if (map.mapId == 5 && pl.tuMa.isTuMa() && pl.cFlag != 8) {
+                        Service.gI().changeFlag(pl, 8);
+                    }
                     this.notBosses.get(i).update();
                 }
+                // check map
+
             }
         }
     }

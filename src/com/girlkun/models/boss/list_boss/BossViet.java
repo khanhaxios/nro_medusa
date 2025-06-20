@@ -7,6 +7,7 @@ package com.girlkun.models.boss.list_boss;
 
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
+import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
@@ -16,9 +17,6 @@ import com.girlkun.utils.Util;
 
 import java.util.Random;
 
-/**
- * @@Stole By Hoàng Việt
- */
 public class BossViet extends Boss {
 
     public BossViet() throws Exception {
@@ -46,13 +44,14 @@ public class BossViet extends Boss {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, 2076, 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
     }
-//    @Override
-//    public void active() {
-//        super.active(); //To change body of generated methods, choose Tools | Templates.
-//        if (Util.canDoWithTime(st, 900000)) {
-//            this.changeStatus(BossStatus.LEAVE_MAP);
-//        }
-//    }
+
+    @Override
+    public void active() {
+        super.active(); //To change body of generated methods, choose Tools | Templates.
+        if (Util.canDoWithTime(st, 900000)) {
+            this.changeStatus(BossStatus.LEAVE_MAP);
+        }
+    }
 
     @Override
     public void joinMap() {
@@ -65,18 +64,16 @@ public class BossViet extends Boss {
     @Override
     public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!a) {
-                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                    this.chat("Xí hụt");
-                    return 0;
+            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
+                this.chat("Xí hụt");
+                return 0;
+            }
+            damage = this.nPoint.subDameInjureWithDeff(Util.nextInt(50, 1000));
+            if (!piercing && effectSkill.isShielding) {
+                if (damage > nPoint.hpMax) {
+                    EffectSkillService.gI().breakShield(this);
                 }
-                damage = this.nPoint.subDameInjureWithDeff(50);
-                if (!piercing && effectSkill.isShielding) {
-                    if (damage > nPoint.hpMax) {
-                        EffectSkillService.gI().breakShield(this);
-                    }
-                    damage = 50;
-                }
+                damage = 50;
             }
 
             this.nPoint.subHP(damage);

@@ -272,7 +272,7 @@ public class BossesData {
                     "|-1|Được thôi, nếu muốn chết đến vậy, ta rất vui lòng!!"
             }, //text chat 2
             new String[]{"|-1|Biến hình, hây aaaa..."}, //text chat 3
-            REST_10_M ,
+            REST_10_M,
             (byte) 2,
             (byte) 10//type appear//second rest
     );
@@ -638,12 +638,10 @@ public class BossesData {
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
                     {Skill.KAMEJOKO, 7, 1000},
-                    //{Skill.DICH_CHUYEN_TUC_THOI, 7, 60000},
+                    {Skill.DICH_CHUYEN_TUC_THOI, 7, 60000},
                     {Skill.TAI_TAO_NANG_LUONG, 7, 100000},
                     {Skill.TAI_TAO_NANG_LUONG, 5, 50000},
                     {Skill.LIEN_HOAN, 7, 1000}},
-            //{Skill.BIEN_KHI, 7, 100000}},
-            //skill
 
             new String[]{"|-2|Cuối cùng hắn cũng đã biến đổi",
                     "|-2|Khốn kiếp! Phải kết liễu hắn ngay lúc này!"
@@ -754,7 +752,7 @@ public class BossesData {
                     {Skill.KAMEJOKO, 7, 1000},
                     {Skill.TAI_TAO_NANG_LUONG, 7, 100000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 7, 20000},
-                    // {Skill.KHIEN_NANG_LUONG, 7, 130000},
+                    {Skill.KHIEN_NANG_LUONG, 7, 130000},
                     {Skill.TAI_TAO_NANG_LUONG, 7, 50000}},
             //{Skill.BIEN_KHI, 7, 40000}},
             //skill
@@ -1093,7 +1091,7 @@ public class BossesData {
             }, //text chat 2
             new String[]{"|-1|Biến hình! Super Sayan Rose"}, //text chat 3
             REST_15_M,
-            (byte) 6,
+            (byte) 8,
             (byte) 10//second rest
     );
 
@@ -1282,7 +1280,7 @@ public class BossesData {
             new double[]{210000000}, //hp
             new int[]{5}, //map join
             new int[][]{
-                    //                {Skill.TAI_TAO_NANG_LUONG, 5, 15000},
+                    {Skill.TAI_TAO_NANG_LUONG, 5, 15000},
                     {Skill.ANTOMIC, 3, 1000}}, //skill
             new String[]{
                     "|-1|Gaaaaaa",
@@ -1886,8 +1884,7 @@ public class BossesData {
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 2, 3000},
-                    //                    {Skill.TAI_TAO_NANG_LUONG, 7, 90000},
-
+                    {Skill.TAI_TAO_NANG_LUONG, 7, 90000},
                     {Skill.LIEN_HOAN, 7, 300},},//skill//skill
             new String[]{}, //text chat 1
             new String[]{"|-1|Các ngươi thật là yếu ớt",
@@ -2028,7 +2025,7 @@ public class BossesData {
                     {Skill.KAMEJOKO, 7, 1000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 1, 3000},
                     {Skill.LIEN_HOAN, 7, 300000},//skill//skill
-                    {Skill.TAI_TAO_NANG_LUONG, 7,30_000}},//skill//skill
+                    {Skill.TAI_TAO_NANG_LUONG, 7, 30_000}},//skill//skill
             new String[]{}, //text chat 1
             new String[]{"|-1|Các ngươi thật là yếu ớt",
                     "|-1|Ta là trùm cuối của game...",
@@ -2085,7 +2082,7 @@ public class BossesData {
                     "|-1|Mấy con gà !!!!!",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_10_M,
-            (byte) 5,
+            (byte) 7,
             (byte) 10
     );
     /////////////// boss moi 3
@@ -2108,7 +2105,7 @@ public class BossesData {
                     "|-1|Mấy con gà !!!!!",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_5_M,
-            (byte) 5,
+            (byte) 7,
             (byte) 10
     );
     /////////////// boss moi 1
@@ -2131,7 +2128,8 @@ public class BossesData {
                     "|-1|Mấy con gà !!!!!",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_10_M,
-            (byte) 5,
+            (byte) 7,
+
             (byte) 10
     );
     ////////////////////////
@@ -2181,7 +2179,8 @@ public class BossesData {
                     "|-1|Mấy con gà !!!!!",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_10_M,
-            (byte) 5,
+            (byte) 7,
+
             (byte) 10
     );
     /////////////// boss moi 3
@@ -2203,7 +2202,8 @@ public class BossesData {
                     "|-1|Mấy con gà !!!!!",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_10_M,
-            (byte) 5,
+            (byte) 7,
+
             (byte) 10
     );
     /////////////// boss moi 1
@@ -2217,8 +2217,8 @@ public class BossesData {
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 1, 3000},
-                    // {Skill.BIEN_KHI, 5, 90000},
-                    //  {Skill.TAI_TAO_NANG_LUONG, 7, 5000},
+                    {Skill.BIEN_KHI, 5, 90000},
+                    {Skill.TAI_TAO_NANG_LUONG, 7, 5000},
                     {Skill.LIEN_HOAN, 7, 300000},},//skill//skill
             new String[]{}, //text chat 1
             new String[]{"|-1|Các ngươi thật là yếu ớt",
@@ -2227,7 +2227,8 @@ public class BossesData {
                     "|-1|Mấy con gà !!!!!",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_10_M,
-            (byte) 5,
+            (byte) 7,
+
             (byte) 10
     );
     /////////////// boss moi 3
@@ -2241,7 +2242,7 @@ public class BossesData {
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 1, 3000},
-                    //   {Skill.TAI_TAO_NANG_LUONG, 7, 5000},
+                    {Skill.TAI_TAO_NANG_LUONG, 7, 5000},
                     {Skill.LIEN_HOAN, 7, 300000},},//skill//skill
             new String[]{}, //text chat 1
             new String[]{"|-1|Các ngươi thật là yếu ớt",
@@ -2250,7 +2251,8 @@ public class BossesData {
                     "|-1|Mấy con gà !!!!!",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_10_M,
-            (byte) 5,
+            (byte) 7,
+
             (byte) 10
     );
     /////////////// boss moi 1
@@ -2264,8 +2266,8 @@ public class BossesData {
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 1, 3000},
-                    // {Skill.BIEN_KHI, 5, 90000},
-                    //  {Skill.TAI_TAO_NANG_LUONG, 7, 5000},
+                    {Skill.BIEN_KHI, 5, 90000},
+                    {Skill.TAI_TAO_NANG_LUONG, 7, 5000},
                     {Skill.LIEN_HOAN, 7, 300000},},//skill//skill
             new String[]{}, //text chat 1
             new String[]{"|-1|Các ngươi thật là yếu ớt",
@@ -2358,7 +2360,7 @@ public class BossesData {
                     {Skill.KAMEJOKO, 7, 100000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 1, 3000},
                     {Skill.BIEN_KHI, 5, 90000},
-                    //  {Skill.TAI_TAO_NANG_LUONG, 7, 5000},
+                    {Skill.TAI_TAO_NANG_LUONG, 7, 5000},
                     {Skill.LIEN_HOAN, 7, 300000},},//skill//skill
             new String[]{}, //text chat 1
             new String[]{"|-1|Các ngươi thật là yếu ớt",
@@ -2605,7 +2607,7 @@ public class BossesData {
                     "|-1|Mấy con gà !!!!!",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_5_M,
-            (byte) 10,
+            (byte) 5,
             (byte) 10
     );
     public static final BossData BOSS_TET11 = new BossData(
@@ -3363,7 +3365,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{1324, 1325, 1326, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             3000000, //dame
-            new double[]{10_000_000_000D}, //hp
+            new double[]{25_000_000_000D}, //hp
             new int[]{96}, //map join
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
@@ -3387,7 +3389,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{1312, 1313, 1314, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             3000000, //dame
-            new double[]{21_000_000_000D}, //hp
+            new double[]{50_000_000_000D}, //hp
             new int[]{169}, //map join
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
@@ -3409,7 +3411,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{1315, 1316, 1317, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             4000000, //dame
-            new double[]{30_000_000_000D}, //hp
+            new double[]{100_000_000_000D}, //hp
             new int[]{143}, //map join
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
@@ -3423,7 +3425,7 @@ public class BossesData {
                     "|-1|Mấy con gà, yếu đuối",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_5_M,
-            (byte) 8,
+            (byte) 10,
             (byte) 10
     );
     public static final BossData BOSS_NRO1S4 = new BossData(
@@ -3431,7 +3433,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{1288, 1289, 1290, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             5000000, //dame
-            new double[]{10_000_000_000D}, //hp
+            new double[]{200_000_000_000D}, //hp
             new int[]{169}, //map join
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
@@ -3445,7 +3447,7 @@ public class BossesData {
                     "|-1|Mấy con gà, yếu đuối",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_5_M,
-            (byte) 8,
+            (byte) 10,
             (byte) 10
     );
     public static final BossData SOI_HEC_QUYN = BossData.builder()
@@ -3620,7 +3622,7 @@ public class BossesData {
             .skillTemp(new int[][]{
                     {Skill.DRAGON, 1, 100}, {Skill.DRAGON, 2, 200}, {Skill.DRAGON, 3, 300}, {Skill.DRAGON, 7, 700},
                     {Skill.KAMEJOKO, 1, 1000}, {Skill.KAMEJOKO, 2, 1200}, {Skill.KAMEJOKO, 5, 1500}, {Skill.KAMEJOKO, 7, 1700},
-                    {Skill.GALICK, 1, 100}, //                    {Skill.TAI_TAO_NANG_LUONG, 1, 15000}
+                    {Skill.GALICK, 1, 100}, {Skill.TAI_TAO_NANG_LUONG, 1, 15000}
             })
             .secondsRest(REST_5_S)
             .build();

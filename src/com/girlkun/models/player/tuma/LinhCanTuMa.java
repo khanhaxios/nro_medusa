@@ -47,6 +47,7 @@ public class LinhCanTuMa {
         } else {
             xParam = .1f;
         }
+        restMaKhi();
     }
 
     public long calcMaKhiCanNuot() {
@@ -58,7 +59,7 @@ public class LinhCanTuMa {
         maKhiCanNuot = calcMaKhiCanNuot();
     }
 
-    public LinhCanTuMa(String tenLinhCan, String moTaLinhCan, short xParam, byte typeLinhCan) {
+    public LinhCanTuMa(String tenLinhCan, String moTaLinhCan, float xParam, byte typeLinhCan) {
         this.tenLinhCan = tenLinhCan;
         this.moTaLinhCan = moTaLinhCan;
         this.xParam = xParam;
@@ -71,7 +72,11 @@ public class LinhCanTuMa {
 
     public void showBaseMenu() {
         String text = "|7|Thông tin Ma Linh Căn\n|5|" + tenLinhCan + "\n|5|" + getMoTaLinhCan();
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MA_TU_LINH_CAN, -1, text, "Dưỡng\nLinh Căn", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MA_TU_LINH_CAN, -1, text, "Dưỡng\nLinh Căn", "STLC\n" + (player.tuMa.isAttackWithLinhCan ? "Mở" : "Đóng"), "Đóng");
+    }
+
+    public void toggleSTLC() {
+        player.tuMa.isAttackWithLinhCan = !player.tuMa.isAttackWithLinhCan;
     }
 
     public void duongLinhCan() {
@@ -89,7 +94,7 @@ public class LinhCanTuMa {
             return;
         }
         // tinh xem luong ma khi can co du hay ko
-        long maKhiCanThiet = player.tuMa.maKhiPoint / time;
+        long maKhiCanThiet = 1000L * time;
         if (!player.tuMa.canHandleWithMaKhiPoint(maKhiCanThiet)) {
             Service.gI().sendThongBao(player, "Bạn không đủ ma khí cần " + maKhiCanThiet);
             return;
@@ -106,6 +111,7 @@ public class LinhCanTuMa {
     }
 
     private String getPercentMakhi() {
+        if (maKhiDaNuot == 0) return 0 + "%";
         return (maKhiDaNuot / maKhiCanNuot * 100) + "%";
     }
 }
