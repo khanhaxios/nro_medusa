@@ -1,9 +1,7 @@
 #!/bin/bash
 
-until mysql -h mysql -u"$DB_USER" -p"$DB_PASSWORD" -e "USE $DB_NAME;" >/dev/null 2>&1; do
-  echo "🕐 Đợi MySQL sẵn sàng..."
-  sleep 2
-done
+# STEP 1: Run the Java client to send M_MAINTAIN
+#!/bin/bash
 
 echo "[INFO] Sending maintain command..."
 
@@ -17,21 +15,24 @@ else
     exit 1
 fi
 
-echo "[INFO] Waiting 30 seconds before restarting container..."
+
+# STEP 2: Delay 30s
+echo "[INFO] Waiting 30 seconds before restarting server..."
 sleep 30
 
-PORT=14445
-echo "🔪 Killing process on port $PORT..."
-PID=$(lsof -ti:$PORT)
-if [ -n "$PID" ]; then
-  kill -9 $PID
-  echo "✅ Killed PID $PID using port $PORT"
+# STEP 3: Kill all tasks on port 14444
+echo "[INFO] Killing any process on port 14444..."
+PID_TO_KILL=$(lsof -ti:14445)
+if [ -n "$PID_TO_KILL" ]; then
+  kill -9 $PID_TO_KILL
+  echo "[INFO] Killed process using port 14444 (PID: $PID_TO_KILL)"
 else
-  echo "✅ No process using port $PORT"
+  echo "[INFO] No process found on port 14444"
 fi
 
-# Restart the container instead of killing processes manually
-echo "[INFO] Restarting game server inside the same container..."
-exec java -jar /app/game.jar
+# STEP 4: Run the server using run.sh
+echo "[INFO] Restarting game server..."
+chmod +x /root/nro_medusa/run.sh
+/root/nro_medusa/run.sh
 
-echo "[DONE] Game server container restarted successfully."
+echo "[DONE] Server restarted successfully."
