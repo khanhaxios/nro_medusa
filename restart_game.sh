@@ -1,6 +1,7 @@
 #!/bin/bash
 
-until mysqladmin ping -h mysql --silent; do
+until mysql -h mysql -u"$DB_USER" -p"$DB_PASSWORD" -e "USE $DB_NAME;" >/dev/null 2>&1; do
+  echo "🕐 Đợi MySQL sẵn sàng..."
   sleep 2
 done
 
