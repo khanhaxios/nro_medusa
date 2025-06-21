@@ -1,7 +1,6 @@
 #!/bin/bash
 
-echo "[INFO] Chờ MySQL online..."
-until nc -z mysql 3306; do
+until mysqladmin ping -h mysql --silent; do
   sleep 2
 done
 
