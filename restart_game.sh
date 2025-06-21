@@ -21,7 +21,7 @@ echo "[INFO] Waiting 30 seconds before restarting container..."
 sleep 30
 
 # Restart the container instead of killing processes manually
-echo "[INFO] Restarting game_server container..."
-docker restart game_server || { echo "[ERROR] Failed to restart container!"; exit 1; }
+echo "[INFO] Restarting game server inside the same container..."
+exec java -jar /app/game.jar
 
 echo "[DONE] Game server container restarted successfully."
