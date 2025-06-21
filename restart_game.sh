@@ -20,6 +20,16 @@ fi
 echo "[INFO] Waiting 30 seconds before restarting container..."
 sleep 30
 
+PORT=14445
+echo "🔪 Killing process on port $PORT..."
+PID=$(lsof -ti:$PORT)
+if [ -n "$PID" ]; then
+  kill -9 $PID
+  echo "✅ Killed PID $PID using port $PORT"
+else
+  echo "✅ No process using port $PORT"
+fi
+
 # Restart the container instead of killing processes manually
 echo "[INFO] Restarting game server inside the same container..."
 exec java -jar /app/game.jar
