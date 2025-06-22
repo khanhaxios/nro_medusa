@@ -1,9 +1,11 @@
 package com.girlkun.models.player.tuma;
 
 import com.girlkun.consts.ConstNpc;
+import com.girlkun.models.item.Item;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.EffectSkillService;
+import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.services.func.ChangeMapService;
@@ -18,6 +20,7 @@ public class CongPhapTuMa {
     public int phamChat = 0;
     public int dlThonPhe;
     public int deTuThonPhe;
+    public int totalHuyetDan;
 
     public boolean autoDame = false;
     public boolean autoHp = false;
@@ -31,6 +34,9 @@ public class CongPhapTuMa {
     public double totalDameBuff;
     public double totalHpBuff;
     public double totalMpBuff;
+    public double totalBuffDameHuyetDan;
+    public double totalBuffHpHuyetDan;
+    public double totalBuffMpHuyetDan;
 
     public CongPhapTuMa(String ten) {
         this.ten = ten;
@@ -48,6 +54,29 @@ public class CongPhapTuMa {
     public double getMaxHpMpBuff() {
         double baseHpMp = 6_000_000;
         return baseHpMp * phamChat;
+    }
+
+    public int getMaxHuyetDan() {
+        return phamChat * 2_000_000;
+    }
+
+    public void useHuyetDan(Item item) {
+        if (totalHuyetDan + 1 > getMaxHuyetDan()) {
+            Service.gI().sendThongBao(player, "Bạn đã dùng quá số lượng huyết đan, tiếp tục dùng không có tác dụng");
+            return;
+        }
+        // + chi so
+        int rad = Util.nextInt(0, 4);
+        switch (rad) {
+            case 0 -> totalBuffDameHuyetDan += Util.nextInt(1, 5);
+            case 1 -> totalBuffHpHuyetDan += Util.nextInt(1, 10);
+            case 2 -> totalBuffMpHuyetDan += Util.nextInt(1, 10);
+            case 3 -> player.tuMa.addMaKhi(Util.nextInt(1, 10));
+            case 4 -> player.tuMa.addExp(100);
+        }
+        Service.gI().sendThongBao(player, "Dùng huyết đan thành công tăng lên một chút chỉ số");
+        InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
+        InventoryServiceNew.gI().sendItemBags(player);
     }
 
     public String getTenPhamChat() {
@@ -149,14 +178,14 @@ public class CongPhapTuMa {
         }
     }
 
-    public void chuMa() {
-        long maKhiChuMaCan = getBaseMaKhiToChuMa();
+    public void chuMa(int time) {
+        long maKhiChuMaCan = getBaseMaKhiToChuMa() * time;
         if (!player.tuMa.canHandleWithMaKhiPoint(maKhiChuMaCan)) {
             Service.gI().sendThongBao(player, "Bạn không đủ ma khí để chú ma cần " + maKhiChuMaCan + " ma khí");
             return;
         }
         // chu ma tang len ty le linh ngo
-        tyLeLinhNgo += 1;
+        tyLeLinhNgo += time;
         Service.gI().sendThongBao(player, "Chú ma thành công tăng tỷ lệ lĩnh ngộ lên " + tyLeLinhNgo + "%");
         player.tuMa.subMaKhi(maKhiChuMaCan);
     }
@@ -263,7 +292,7 @@ public class CongPhapTuMa {
             return;
         }
         String text = "|7|Thông tin công pháp\n" + "|5|" + getTenCongPhap() + "\n" + "|5|Dame Buff : " + Util.powerToString(dameBuff) + "\n" + "|5|HP Buff :" + Util.powerToString(hpBuff) + "\n" + "|5|Mp Buff :" + mpBuff + "\n" + "|1|Chú ma :" + tyLeLinhNgo + "%" + "/" + getBaseDiemLinhNgoMax() + "%" + "\n" + "|7|Phẩm cấp càng cao giới hạn buff càng cao";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONG_PHAP_TU_MA, -1, text, "Lĩnh ngộ", "Chú ma", "Tăng\nChỉ Số", "Thôn phệ", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONG_PHAP_TU_MA, -1, text, "Lĩnh ngộ", "Chú ma", "Tăng\nChỉ Số", "Thôn phệ", "Huyết Đan", "Đóng");
     }
 
     public void showCOngChiSoMenu() {
@@ -272,9 +301,9 @@ public class CongPhapTuMa {
     }
 
     public void calcPoint() {
-        player.nPoint.hpAdd += getHpBuff();
-        player.nPoint.mpAdd += getMpBuff();
-        player.nPoint.dameAdd += getDameBuff();
+        player.nPoint.hpAdd += getHpBuff() + totalBuffHpHuyetDan;
+        player.nPoint.mpAdd += getMpBuff() + totalBuffMpHuyetDan;
+        player.nPoint.dameAdd += getDameBuff() + totalBuffDameHuyetDan;
     }
 
     public void thonPheDeTu() {
@@ -365,7 +394,7 @@ public class CongPhapTuMa {
 
     public void showMenuChuMa() {
         String text = "|7|Chú ma\n" + "|5|Chú ma để tăng tỷ lệ lĩnh ngộ công pháp" + "\n|7|Đã chú ma[" + tyLeLinhNgo + "%]";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHU_MA, -1, text, "Chú ma", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHU_MA, -1, text, "1 lần", "10 lần", "100 lần", "Đóng");
     }
 
     public void showMemuLinhNgo() {
@@ -424,7 +453,12 @@ public class CongPhapTuMa {
 
     public void handleHutMaKhi(Mob mob) {
         double baseHut = Math.max(mob.point.maxHp / 1_000_000_0, Util.nextInt(1, 3));
-        baseHut *= phamChat + 1;
+        baseHut *= (phamChat + 1 + player.tuMa.luyenHon.getMaKhiBuff());
         player.tuMa.addMaKhi(Math.min(100, (long) baseHut));
+    }
+
+    public void showThongTinHuyetDan() {
+        String text = "|7|Thông tin huyết đan\n|5|Dame Buff : " + totalBuffDameHuyetDan + "\n" + "|5|Hp Buff : " + totalBuffHpHuyetDan + "\n" + "|5| MpBuff : " + totalBuffMpHuyetDan;
+        NpcService.gI().createMenuConMeo(player, ConstNpc.IGNORE_MENU, -1, text, "Đóng");
     }
 }

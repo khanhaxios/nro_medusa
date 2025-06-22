@@ -680,9 +680,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
             return;
         }
         for (Boss boss : this.bossAppearTogether[this.currentLevel]) {
-            if (boss == null) {
-                continue;
-            }
             int nextLevelBoss = boss.currentLevel + 1;
             if (nextLevelBoss >= boss.data.length) {
                 nextLevelBoss = 0;

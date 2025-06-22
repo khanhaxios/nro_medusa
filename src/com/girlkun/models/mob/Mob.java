@@ -590,6 +590,15 @@ public class Mob {
             }
         }
 
+        if (zone.map.mapId == 210 && player.tuTien.isTuTien() && player.tuTien.congPhap.getTenCongPhap() != null) {
+            player.tuTien.congPhap.addDoThuanThuc((long) (player.tuTien.congPhap.phamchat.id + 1 + Util.nextInt(5)) * Util.nextInt(1, 5));
+        }
+        if (player.tuMa.isTuMa()) {
+            // roi huyet dan
+            if (Util.isTrue(5, 100)) {
+                list.add(new ItemMap(zone, 2077, 1, this.location.x, yEnd, player.id));
+            }
+        }
         if (zone.map.mapId == 215) {
             // roi nguyen lieu luyen dan
             if (Util.isTrue(1, 10000)) {

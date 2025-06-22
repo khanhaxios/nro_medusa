@@ -50,6 +50,9 @@ public class Xuka extends Boss {
                     this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
         }
+        ItemMap it12 = new ItemMap(this.zone, 987, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        Service.getInstance().dropItemMap(this.zone, it12);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
 

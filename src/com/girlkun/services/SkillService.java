@@ -1399,7 +1399,7 @@ public class SkillService {
             float paramOfLinhCan = plAtt.tuMa.linhCanTuMa.xParam;
             switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
                 case 0:
-                    double hp = plInjure.injured(plAtt, plInjure.nPoint.hpMax * paramOfLinhCan, false, false, true);
+                    double hp = plInjure.injured(plAtt, plInjure.nPoint.hpMax * (paramOfLinhCan / 10), false, false, true);
                     plAtt.nPoint.hutMauTamThoi += hp;
                     plAtt.nPoint.hpMax += plAtt.nPoint.hutMauTamThoi;
                     plAtt.nPoint.lastTimeHutMau = System.currentTimeMillis();
@@ -1425,7 +1425,7 @@ public class SkillService {
                     break;
                 case 4:
                     // - hp cua ban than
-                    double dame = plAtt.nPoint.hpMax * paramOfLinhCan;
+                    double dame = plAtt.nPoint.hpMax * (paramOfLinhCan / 10);
                     plAtt.nPoint.subHP(dame);
                     double dameD = plInjure.injured(plAtt, dame, false, false, false);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameD, (byte) 0);

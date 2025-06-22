@@ -3,21 +3,23 @@ package com.girlkun.models.player.tutien.luyenthe;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
-import com.girlkun.models.player.tutien.base_tutien.BasePoint;
-import com.girlkun.models.player.tutien.base_tutien.IBaseAction;
 import com.girlkun.server.Manager;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
-public class LuyenThe extends BasePoint implements IBaseAction {
-
+public class LuyenThe {
+    public short level;
+    public long exp;
+    public long maxExp;
+    Player player;
     public final byte MAX_LEVEL = 99;
+    public final short MAX_LEVEL_FINAL = 9999;
 
     public byte timeThatBai = 0;
 
     public LuyenThe(Player player) {
-        super(player);
+        this.player = player;
     }
 
     public void calcPoint() {
@@ -28,12 +30,10 @@ public class LuyenThe extends BasePoint implements IBaseAction {
         player.nPoint.tlHutMp += getHPMPBuff();
     }
 
-    @Override
     public long getExpCanGain(Mob targetMob) {
         return ((long) level * Util.nextInt(1, 3)) * targetMob.level;
     }
 
-    @Override
     public void levelUp() {
         if (canLevelUp()) {
             level += 1;
@@ -51,13 +51,15 @@ public class LuyenThe extends BasePoint implements IBaseAction {
         }
     }
 
-    @Override
+    public short getLevel() {
+        return level;
+    }
+
     public void restExp() {
         exp = 0;
         maxExp = getNextLevelExp();
     }
 
-    @Override
     public void levelDown() {
         if (level > 1) {
             level--;
@@ -67,7 +69,6 @@ public class LuyenThe extends BasePoint implements IBaseAction {
         }
     }
 
-    @Override
     public void resetLevel() {
         level = 1;
         exp = 0;
@@ -75,74 +76,80 @@ public class LuyenThe extends BasePoint implements IBaseAction {
         Service.gI().point(player);
     }
 
-    @Override
     protected long getNextLevelExp() {
         return level * 1000;
     }
 
-    @Override
     public float getLevelUpPercent() {
         if (exp == 0) return 0;
-        return ((exp / (maxExp * 1f) * 100) / (level * 3)) + (timeThatBai * 3);
+        if (isNotLuyenThe()) {
+            return ((exp / (maxExp * 1f) * 100) / 3) + (timeThatBai * 3);
+        } else {
+            return ((exp / (maxExp * 1f) * 100)) + (timeThatBai * 5);
+        }
     }
 
-    @Override
+    public boolean isNotLuyenThe() {
+        return (player.tuTien.isTuTien() || player.tuMa.isTuMa()) && level >= 10;
+    }
+
     public void openSystem() {
         levelUp();
         Service.gI().sendThongBao(player, "Đã học luyện thể");
     }
 
-    @Override
     public boolean canLevelUp() {
         return level < MAX_LEVEL;
     }
 
-    @Override
     public String getName() {
         return "Luyện Thể Tầng " + level;
     }
 
-    @Override
     public String getCurrentExpAsString() {
         return exp + "/" + Util.powerToString(maxExp) + " (" + String.format("%s", exp / maxExp * 100) + "%)";
     }
 
-    @Override
     public float getDameBuff() {
-        return Math.max(1, level) * 6;
+        if (isNotLuyenThe()) {
+            return Math.max(1, level) * 6f;
+        } else {
+            return Math.max(1, level) * 10;
+        }
     }
 
-    @Override
     public float getHPMPBuff() {
-        return Math.max(1, level) * 6f;
+        if (isNotLuyenThe()) {
+            return Math.max(1, level) * 6f;
+        } else {
+            return Math.max(1, level) * 10;
+        }
     }
 
-    @Override
     public float getDefBuff() {
-        return Math.max(1, level) * 1f;
+        if (isNotLuyenThe()) {
+            return Math.max(1, level) * 1f;
+        } else {
+            return Math.max(1, level) * 2f;
+        }
     }
 
-    @Override
     public float getPSTBuff() {
         return Math.max(1, level) * .1f;
     }
 
-    @Override
     public float getHutHPBuff() {
         return Math.max(1, level) * .1f;
     }
 
-    @Override
     public float getHutMPBuff() {
         return Math.max(1, level) * .1f;
     }
 
-    @Override
     public float getNeBuff() {
         return Math.max(1, level) * .1f;
     }
 
-    @Override
     public float getChinhXacBuff() {
         return Math.max(1, level) * .1f;
     }

@@ -46,6 +46,7 @@ public class NPoint {
     public int dameAfter;
 
     public double hutMauTamThoi;
+    public double mauGoc;
     public long lastTimeHutMau;
     /*-----------------------Chỉ số cơ bản------------------------------------*/
     public byte numAttack;
@@ -937,6 +938,7 @@ public class NPoint {
             pointAdd += pointBase * player.tuMa.getHPMPBuff() / 100;
         }
         this.hpMax += pointAdd;
+        mauGoc = this.hpMax;
     }
 
     private void setHp() {
@@ -2379,7 +2381,7 @@ public class NPoint {
         }
         if (player.isPl() && player.tuMa.isTuMa() && player.tuMa.linhCanTuMa.typeLinhCan == 0 && Util.canDoWithTime(lastTimeHutMau, 10_000)) {
             // reset mau ve binh thuong ne
-            this.hpMax -= hutMauTamThoi;
+            this.hpMax = mauGoc;
         }
         if (player != null && player.effectSkill != null) {
             if (player.effectSkill.isCharging && player.effectSkill.countCharging < 10) {

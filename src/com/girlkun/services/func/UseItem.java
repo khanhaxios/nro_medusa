@@ -258,8 +258,12 @@ public class UseItem {
                     break;
                 }
                 case 77:
-                    if (!pl.luyenDanSu.isLuyenDan()) {
+                    if (pl.luyenThe.isNotLuyenThe() && !pl.luyenDanSu.isLuyenDan()) {
                         Service.gI().sendThongBao(pl, "Cần học luyện đan sư để có thể dùng đan dược");
+                        return;
+                    }
+                    if (pl.tuMa.isTuMa()) {
+                        Service.gI().sendThongBao(pl, "Bạn tu ma éo cắn được đan");
                         return;
                     }
                     pl.luyenDanSu.useDanDuoc(item);
@@ -282,6 +286,13 @@ public class UseItem {
                 }
                 default:
                     switch (item.template.id) {
+                        case 2077:
+                            if (!pl.tuMa.isTuMa()) {
+                                Service.gI().sendThongBao(pl, "Bạn cần tu ma để dùng cái này");
+                                return;
+                            }
+                            pl.tuMa.congPhapTuMa.useHuyetDan(item);
+                            break;
                         case 2076:
                             if (pl.petDaoLu == null) {
                                 Service.gI().sendThongBao(pl, "Bạn cần có đạo lữ để dùng vật phẩm này");
@@ -1020,7 +1031,7 @@ public class UseItem {
                         InventoryServiceNew.gI().subQuantityItemsBag(pl, moi, 1);
                         Thread thread = new Thread(() -> {
                             try {
-                                Thread.sleep(60_000);
+                                Thread.sleep(30_000);
                                 if (idcancau == 1359 ? Util.isTrue(35, 100) : idcancau == 1360 ? Util.isTrue(45, 100) : idcancau == 1361 ? Util.isTrue(55, 100) : Util.isTrue(70, 100)) {
                                     Item it = ItemService.gI().createNewItem(ConCa[random]);
                                     if (idcancau == 1362) {

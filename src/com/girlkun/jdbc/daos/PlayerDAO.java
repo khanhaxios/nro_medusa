@@ -1216,6 +1216,10 @@ public class PlayerDAO {
                     dataBasePoint.add(player.tuMa.congPhapTuMa.totalDameBuff);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.totalHpBuff);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.totalMpBuff);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.totalBuffDameHuyetDan);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.totalBuffHpHuyetDan);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.totalBuffMpHuyetDan);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.totalHuyetDan);
                     jsonArray.add(dataBasePoint);
                     dataBasePoint = new JSONArray();
                     dataBasePoint.add(player.tuMa.linhCanTuMa.typeLinhCan);
@@ -1225,6 +1229,13 @@ public class PlayerDAO {
                     dataBasePoint.add(player.tuMa.linhCanTuMa.phamChat);
                     dataBasePoint.add(player.tuMa.linhCanTuMa.maKhiDaNuot);
                     dataBasePoint.add(player.tuMa.linhCanTuMa.maKhiCanNuot);
+                    jsonArray.add(dataBasePoint);
+                    dataBasePoint = new JSONArray();
+                    dataBasePoint.add(player.tuMa.luyenHon.soHonChuaLuyen);
+                    dataBasePoint.add(player.tuMa.luyenHon.soHonDaLuyen);
+                    dataBasePoint.add(player.tuMa.luyenHon.tongSoHonCanLuyen);
+                    dataBasePoint.add(player.tuMa.luyenHon.soTangDaLuyen);
+                    dataBasePoint.add(player.tuMa.luyenHon.isOpen);
                     jsonArray.add(dataBasePoint);
                     dataTuMa = jsonArray.toJSONString();
                     jsonArray.clear();

@@ -836,14 +836,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     public void showMenuAutoNghePhu() {
         String text = "|7|Cài đặt auto đột phá nghề phụ\n|5|Bạn có thể lưa chọn tắt bật tự động đột phá nghề phụ ở đây";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_AUTO_DOT_PHA_NGHE_PHU, -1, text,
-                "Linh thực\n" + (isAutoDotPhaLinhThuc ? "BẬT" : "TẮT"),
-                "Phù chú\n" + (!isAutoDotPhaPhuChu ? "BẬT" : "TẮT"),
-                "Khống thi\n" + (!isAutoDotPhaKhongThi ? "BẬT" : "TẮT"),
-                "Ngự thú\n" + (!isAutoDotPhaNguThu ? "BẬT" : "TẮT"),
-                "Luyện đan\n" + (!isAutoDotPhaLuyenDan ? "BẬT" : "TẮT"),
-                "Trận pháp\n" + (!isAutoDotPhaTranPhap ? "BẬT" : "TẮT")
-        );
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_AUTO_DOT_PHA_NGHE_PHU, -1, text, "Linh thực\n" + (isAutoDotPhaLinhThuc ? "BẬT" : "TẮT"), "Phù chú\n" + (!isAutoDotPhaPhuChu ? "BẬT" : "TẮT"), "Khống thi\n" + (!isAutoDotPhaKhongThi ? "BẬT" : "TẮT"), "Ngự thú\n" + (!isAutoDotPhaNguThu ? "BẬT" : "TẮT"), "Luyện đan\n" + (!isAutoDotPhaLuyenDan ? "BẬT" : "TẮT"), "Trận pháp\n" + (!isAutoDotPhaTranPhap ? "BẬT" : "TẮT"));
     }
 
     public void switchAutoDotPhaNghePhu(int select) {
@@ -868,5 +861,22 @@ public class TuTien extends BasePoint implements IBaseAction {
                 break;
         }
         showMenuAutoNghePhu();
+    }
+
+    public boolean gapTamMa() {
+        int tamMaLc = Util.nextInt(100, 999);
+        boolean isSuccess = Util.isTrue(ngoTinh / 100, tamMaLc);
+        String text = "";
+        if (isSuccess) {
+            text = "|7|Tâm ma đột kích\n|5|Trong lúc đột phá bạn gặp phải Tâm Ma đột kích nhưng chiến lự bạn mạnh mẽ nên đã đánh bại tâm ma";
+            player.tuTien.ngoTinh += Util.nextInt(1, 2);
+        } else {
+            text = "|7|Tâm ma đột kích\n|5|Trong lúc đột phá bạn gặp phải Tâm Ma đột kích trong lúc nhất thời bạn bị tâm ma đả thương";
+            levelDown();
+            // - ngo tinh
+            player.tuTien.ngoTinh -= Util.nextInt(1, 2);
+        }
+        NpcService.gI().createMenuConMeo(player, 13912783, -1, text, "Đóng");
+        return isSuccess;
     }
 }

@@ -2,22 +2,16 @@ package com.girlkun.services;
 
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.item.Item;
-import static com.girlkun.models.item.ItemTime.*;
-import static com.girlkun.models.item.ItemTimeSieuCap.TIME_EAT_MEAL;
-import static com.girlkun.models.item.ItemTimeSieuCap.TIME_ITEM3;
-import static com.girlkun.models.item.ItemTimeSieuCap.TIME_ITEM_SC_30P;
-import static com.girlkun.models.item.ItemTimeSieuCap.TIME_XI_MUOI;
-import static com.girlkun.models.item.ItemTimeSieuCap.TIME_TRUNGTHU;
-import static com.girlkun.models.item.ItemTimeSieuCap.TIME_KEO;
 import com.girlkun.models.map.bdkb.BanDoKhoBau;
-import static com.girlkun.models.map.bdkb.BanDoKhoBau.TIME_KHI_BAN_DO_KHO_BAU;
 import com.girlkun.models.map.doanhtrai.DoanhTrai;
 import com.girlkun.models.map.gas.Gas;
-import static com.girlkun.models.map.gas.Gas.KHI_GAS;
 import com.girlkun.models.player.Fusion;
 import com.girlkun.models.player.Player;
 import com.girlkun.network.io.Message;
 import com.girlkun.utils.Logger;
+
+import static com.girlkun.models.item.ItemTime.*;
+import static com.girlkun.models.item.ItemTimeSieuCap.*;
 
 
 public class ItemTimeService {
@@ -41,9 +35,9 @@ public class ItemTimeService {
             sendItemTime(player, player.gender == ConstPlayer.NAMEC ? 3901 : 3790,
                     (int) ((Fusion.TIME_FUSION - (System.currentTimeMillis() - player.fusion.lastTimeFusion)) / 1000));
         }
-        
+
         if (player.useCanCau) {
-            sendItemTime(player, player.iconCancau, (int) ((60_000 - (System.currentTimeMillis() - player.lasttimeCanCau)) / 1000));
+            sendItemTime(player, player.iconCancau, (int) ((30_000 - (System.currentTimeMillis() - player.lasttimeCanCau)) / 1000));
         }
         if (player.itemTime.isUseBoHuyet) {
             sendItemTime(player, 2755, (int) ((TIME_ITEM - (System.currentTimeMillis() - player.itemTime.lastTimeBoHuyet)) / 1000));
@@ -57,7 +51,7 @@ public class ItemTimeService {
         if (player.itemTime.isUseCuongNo) {
             sendItemTime(player, 2754, (int) ((TIME_ITEM - (System.currentTimeMillis() - player.itemTime.lastTimeCuongNo)) / 1000));
         }
-        
+
         if (player.itemTime.isUseAnDanh) {
             sendItemTime(player, 2760, (int) ((TIME_ITEM - (System.currentTimeMillis() - player.itemTime.lastTimeAnDanh)) / 1000));
         }
@@ -74,7 +68,7 @@ public class ItemTimeService {
             sendItemTime(player, player.itemTime.iconDuoi, (int) ((TIME_DUOI_KHI - (System.currentTimeMillis() - player.itemTime.lastTimeDuoikhi)) / 1000));
         }
         if (player.itemTime.isUseTDLT) {
-            sendItemTime(player, 4387,player.itemTime.timeTDLT / 1000);
+            sendItemTime(player, 4387, player.itemTime.timeTDLT / 1000);
         }
         if (player.itemTimesieucap.isUseBoHuyet3) {
             sendItemTime(player, 10714, (int) ((TIME_ITEM3 - (System.currentTimeMillis() - player.itemTimesieucap.lastTimeBoHuyet3)) / 1000));
@@ -88,7 +82,7 @@ public class ItemTimeService {
         if (player.itemTimesieucap.isUseCuongNo3) {
             sendItemTime(player, 10716, (int) ((TIME_ITEM3 - (System.currentTimeMillis() - player.itemTimesieucap.lastTimeCuongNo3)) / 1000));
         }
-        
+
         if (player.itemTimesieucap.isUseAnDanh3) {
             sendItemTime(player, 10717, (int) ((TIME_ITEM3 - (System.currentTimeMillis() - player.itemTimesieucap.lastTimeAnDanh3)) / 1000));
         }
@@ -154,7 +148,7 @@ public class ItemTimeService {
             Logger.logException(ItemTimeService.class, e);
         }
     }
-    
+
     public void sendTextRongSieuCap(Player player) {
         if (player.itemTimesieucap.isRongSieuCap) {
             int secondsLeft = (int) ((TIME_ITEM_SC_30P - (System.currentTimeMillis() - player.itemTimesieucap.lastTimeRongSieuCap)) / 1000);
@@ -168,42 +162,42 @@ public class ItemTimeService {
             int secondPassed = (int) ((System.currentTimeMillis() - player.clan.timeOpenDoanhTrai) / 1000);
             int secondsLeft = (DoanhTrai.TIME_DOANH_TRAI / 1000) - secondPassed;
             sendTextTime(player, DOANH_TRAI, "Doanh trại độc nhãn", secondsLeft);
-            if (secondsLeft <=0 || secondsLeft > 1800){
+            if (secondsLeft <= 0 || secondsLeft > 1800) {
                 removeTextDoanhTrai(player);
             }
         }
     }
-    
+
     public void sendTextGas(Player player) {
         if (player.clan != null
                 && player.clan.timeOpenKhiGas != 0) {
             int secondPassed = (int) ((System.currentTimeMillis() - player.clan.timeOpenKhiGas) / 1000);
             int secondsLeft = (Gas.TIME_KHI_GAS / 1000) - secondPassed;
             sendTextTime(player, KHI_GASS, "Khí Gas Hủy Diệt: ", secondsLeft);
-            if (secondsLeft <=0 || secondsLeft > 1800){
+            if (secondsLeft <= 0 || secondsLeft > 1800) {
                 removeTextKhiGas(player);
             }
         }
     }
-    
+
     public void sendTextBanDoKhoBau(Player player) {
         if (player.clan != null
                 && player.clan.timeOpenbdkb != 0) {
             int secondPassed = (int) ((System.currentTimeMillis() - player.clan.timeOpenbdkb) / 1000);
             int secondsLeft = (BanDoKhoBau.TIME_KHI_BAN_DO_KHO_BAU / 1000) - secondPassed;
             sendTextTime(player, BAN_DO_KHO_BAU, "Bản đồ kho báu: ", secondsLeft);
-            if (secondsLeft <=0 || secondsLeft > 1800){
+            if (secondsLeft <= 0 || secondsLeft > 1800) {
                 removeTextbdkb(player);
             }
         }
     }
-    
+
     public void sendItemTimeBienHinh(Player player, int level) {
         int iconLvFirst = player.gender == 0 ? 30007 : player.gender == 1 ? 30013 : 30001;
         int timeIcon = (player.effectSkill.timeBienHinh / 1000);
         if (level == 1) {
             sendItemTime(player, iconLvFirst, timeIcon);
-        }else {
+        } else {
             removeItemTime(player, iconLvFirst + level - 2);
             int timeIconNext = (int) (timeIcon - ((System.currentTimeMillis() - player.effectSkill.lastTimeBienHinh) / 1000));
             sendItemTime(player, iconLvFirst + level - 1, timeIconNext);
@@ -217,14 +211,16 @@ public class ItemTimeService {
     public void removeTextTime(Player player, byte id) {
         sendTextTime(player, id, "", 0);
     }
-       public void removeTextKhiGas(Player player) {
-        removeTextTime(player, KHI_GASS );
-    }
-       public void removeTextbdkb(Player player) {
-        removeTextTime(player, BAN_DO_KHO_BAU );
+
+    public void removeTextKhiGas(Player player) {
+        removeTextTime(player, KHI_GASS);
     }
 
-     public void sendTextTime(Player player, byte id, String text, int seconds) {
+    public void removeTextbdkb(Player player) {
+        removeTextTime(player, BAN_DO_KHO_BAU);
+    }
+
+    public void sendTextTime(Player player, byte id, String text, int seconds) {
         Message msg;
         try {
             msg = new Message(65);
@@ -236,6 +232,7 @@ public class ItemTimeService {
         } catch (Exception e) {
         }
     }
+
     public void sendItemTime(Player player, int itemId, int time) {
         Message msg;
         try {

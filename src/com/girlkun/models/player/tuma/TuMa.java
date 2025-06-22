@@ -16,6 +16,7 @@ public class TuMa implements IBaseAction {
     public static final int MAX_LEVEL = 180;
     public boolean isAttackWithLinhCan = false;
     Player player;
+    public LuyenHon luyenHon;
     public long maKhiPoint;
     public long maxMaKhiPoint;
     public int level;
@@ -39,6 +40,7 @@ public class TuMa implements IBaseAction {
         this.player = player;
         congPhapTuMa = new CongPhapTuMa(player);
         linhCanTuMa = new LinhCanTuMa(player);
+        luyenHon = new LuyenHon(player);
     }
 
     public boolean canHandleWithMaKhiPoint(long maKhi) {
@@ -280,8 +282,9 @@ public class TuMa implements IBaseAction {
     }
 
     public void showBaseMenu() {
-        String text = "|7|Thông Tin Ma Tu\n" + "|5|" + getName() + "\n" + "|5|Tu vi :" + getCurrentExpAsString() + "\n" + "Ma khí :" + getMaKhiAsString() + "\n" + "|7|" + getMaTinhDanhGia() + "\n|5| Đã tu ma " + getYearOpened() + "\n" + "|1|Khi đầy exp ấn đột phá";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_TU_MA, -1, text, "TT\nTu Ma", "TT\nCông Pháp", "TT\nLinh Căn", "Đóng");
+        String text = "|7|Thông Tin Ma Tu\n" + "|5|" + getName() + "\n" + "|5|Tu vi :" + getCurrentExpAsString() + "\n" + "Ma khí :" + getMaKhiAsString() + "\n" + "|5|SL Huyết Đan : " + (congPhapTuMa.ten != null ? congPhapTuMa.totalHuyetDan : 0) + "/" + congPhapTuMa.getMaxHuyetDan() +
+                " \n" + "|7|" + getMaTinhDanhGia() + "\n|5| Đã tu ma " + getYearOpened() + "\n" + "|1|Khi đầy exp ấn đột phá";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_TU_MA, -1, text, "Thông Tin\nTu Ma", "Thông Tin\nCông Pháp", "Thông Tin\nLinh Căn", "Thông tin\nLuyện Hồn", "Đóng");
     }
 
     private String getMaKhiAsString() {
@@ -330,5 +333,10 @@ public class TuMa implements IBaseAction {
         player.tuMa.openSystem();
         player.tuMa.ratioCongPhap();
         Service.gI().sendThongBaoOK(player, "Bạn đã nhập ma thành công");
+    }
+
+    public void openLuyenHon() {
+        player.tuMa.luyenHon.isOpen = true;
+        Service.gI().sendThongBao(player, "Đã mở luyện hồn");
     }
 }

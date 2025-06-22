@@ -35,6 +35,7 @@ import com.girlkun.models.player.Pet.ConstPet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.Thu_TrieuHoi;
+import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.base_tutien.CoDuyen;
 import com.girlkun.models.shop.ShopServiceNew;
 import com.girlkun.models.skill.Skill;
@@ -2359,7 +2360,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
-                    createOtherMenu(player, ConstNpc.BASE_MENU, "Đi đến đường cùng ?  Nhập ma a", "Tu Ma", "Học\nCông Pháp");
+                    createOtherMenu(player, ConstNpc.BASE_MENU, "Đi đến đường cùng ?  Nhập ma a", "Tu Ma", "Học\nCông Pháp", "Luyện hồn");
                 }
             }
 
@@ -2395,8 +2396,29 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Học công pháp cần 1tr điểm");
                                 return;
                             }
+                            if (player.tuMa.isTuMa() && player.tuMa.congPhapTuMa.ten != null) {
+                                Service.gI().sendThongBao(player, "Bạn đã học công pháp rồi");
+                                return;
+                            }
                             PlayerDAO.subvnd(player, 1_000_000);
                             player.tuMa.ratioCongPhap();
+                            break;
+                        case 2:
+                            if (!player.tuMa.isTuMa()) {
+                                Service.gI().sendThongBao(player, "Cần mở tu ma để học luyện hồn");
+                                return;
+                            }
+                            if (player.tuMa.level / 10 < 5) {
+                                Service.gI().sendThongBao(player, "Cần tu ma đạt " + TuMa.CANH_GIOI[5] + " để mở luyện hồn");
+                                return;
+                            }
+                            double tienCq2an = player.session.vnd - 1_000_000;
+                            if (tienCq2an < 0) {
+                                Service.gI().sendThongBao(player, "Mở luyện hồn cần 1tr điểm");
+                                return;
+                            }
+                            PlayerDAO.subvnd(player, 1_000_000);
+                            player.tuMa.openLuyenHon();
                             break;
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NHAP_MA) {
@@ -3060,21 +3082,6 @@ public class NpcFactory {
                                     this.npcChat(player, "Hôm nay đã nhận rồi mà !!!");
                                 }
                                 break;
-//                            case 5:
-//                                if (TaskService.gI().getIdTask(player) > ConstTask.TASK_17_0) {
-//                                    Service.gI().sendThongBao(player, "Ta hết sức rồi con cày đi");
-//                                    return;
-//                                } else {
-//                                    //     // pass task 500 trieu diem
-//                                    //     int diemCan = 20_000_000;
-//                                    //     if (player.session.vnd - diemCan < 0) {
-//                                    //         Service.gI().sendThongBao(player, "Cần 20tr điểm để next nghiệm vụ");
-//                                    //         return;
-//                                    //     }
-//                                    //     PlayerDAO.subvnd(player, diemCan);
-//                                    TaskService.gI().sendNextTaskMain(player);
-//                                    break;
-//                                }
                             case 5:
                                 ChangeMapService.gI().changeMapBySpaceShip(player, 170, -1, -1);
                                 break;
@@ -3094,6 +3101,33 @@ public class NpcFactory {
                                     Service.getInstance().sendThongBao(player, "|4|Bạn đã mở thành viên rồi mà. Tiếp tục chơi game thui nào!!!!");
                                     return;
                                 }
+                                if (player.tuMa.isTuMa() && player.tuMa.level > 4) {
+                                    player.inventory.ruby += 500_000;
+                                    Service.getInstance().sendMoney(player);
+                                    try {
+                                        player.getSession().actived = true;
+                                        PlayerDAO.subvnd(player, 10000);
+                                        GirlkunDB.executeUpdate("update account set active = 1 where id = " + player.getSession().userId);
+                                        Service.getInstance().sendThongBao(player, "|2|Bạn đã mở thành viên và nhận được 1.000.000 Hồng ngọc. Đã mở khóa chức năng Giao dịch và Chat thế giới !!");
+                                    } catch (Exception e) {
+                                        System.out.println("Loi chuc nang mo thanh vien");
+                                    }
+                                    return;
+                                }
+                                if (!player.luyenThe.isNotLuyenThe() && player.luyenThe.level > 20) {
+                                    player.inventory.ruby += 500_000;
+                                    Service.getInstance().sendMoney(player);
+                                    try {
+                                        player.getSession().actived = true;
+                                        PlayerDAO.subvnd(player, 10000);
+                                        GirlkunDB.executeUpdate("update account set active = 1 where id = " + player.getSession().userId);
+                                        Service.getInstance().sendThongBao(player, "|2|Bạn đã mở thành viên và nhận được 1.000.000 Hồng ngọc. Đã mở khóa chức năng Giao dịch và Chat thế giới !!");
+                                    } catch (Exception e) {
+                                        System.out.println("Loi chuc nang mo thanh vien");
+                                    }
+                                    return;
+                                }
+                                // cho tu tien
                                 if (player.tuTien.level < 4 && player.luyenThe.level < 10) {
                                     Service.getInstance().sendThongBao(player, "Cần Tu Tiên Đạt Nguyên Anh Kỳ và Luyện Thể Đạt Tầng 10");
                                     return;
@@ -4328,11 +4362,10 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     if (mapId == 0 || mapId == 5) {
-                        this.createOtherMenu(player, 0, "Bạn muốn đi đâu", "Ngũ\nHành Sơn", "Plant\nSSS");
+                        this.createOtherMenu(player, 0, "Bạn muốn đi đâu", "Ngũ\nHành Sơn", "Plant\nSSS", "Titan\nSSS");
                     }
                     if (mapId == 123) {
                         this.createOtherMenu(player, 0, "Bạn Muốn Quay Trở Lại Làng Ảru?", "OK", "Từ chối");
-
                     }
 //                    if (mapId == 122) {
 //                        this.createOtherMenu(player, 0, "Xia xia thua phùa\b|7|Thí chủ đang có: " + player.NguHanhSonPoint + " điểm ngũ hành sơn\b|1|Thí chủ muốn đổi cải trang x4 chưởng ko?", "Âu kê", "Top Ngu Hanh Son", "No");
@@ -4383,6 +4416,12 @@ public class NpcFactory {
                             }
                             ChangeMapService.gI().changeMapInYard(player, 215, -1, -1);
                             break;
+                        case 2:
+                            if (!player.tuTien.isTuTien()) {
+                                Service.gI().sendThongBaoOK(player, "Bạn cần mở tu tiên để qua đây?");
+                                return;
+                            }
+                            ChangeMapService.gI().changeMapInYard(player, 210, -1, -1);
                     }
                 }
             }
@@ -7484,6 +7523,31 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 switch (player.iDMark.getIndexMenu()) {
+                    case ConstNpc.MENU_LUYEN_HON:
+                        switch (select) {
+                            case 0:
+                                player.tuMa.luyenHon.showMenuChuHon();
+                                break;
+                            case 1:
+                                player.tuMa.luyenHon.showMenuLuyenHon();
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_CHU_HON:
+                        int timelh = 1;
+                        switch (select) {
+                            case 1:
+                                timelh = 100;
+                                break;
+                            case 2:
+                                timelh = 1000;
+                                break;
+                        }
+                        player.tuMa.luyenHon.chuHon(timelh);
+                        break;
+                    case ConstNpc.MENU_CONFIRM_LH:
+                        player.tuMa.luyenHon.tangBac();
+                        break;
                     case ConstNpc.MENU_CONG_PHAP_TU_MA:
                         switch (select) {
                             case 0:
@@ -7497,6 +7561,9 @@ public class NpcFactory {
                                 break;
                             case 3:
                                 player.tuMa.congPhapTuMa.showMenuThonPhe();
+                                break;
+                            case 4:
+                                player.tuMa.congPhapTuMa.showThongTinHuyetDan();
                                 break;
                         }
                         break;
@@ -7517,9 +7584,19 @@ public class NpcFactory {
                         player.tuMa.congPhapTuMa.showMenuCongChiSoManual(select);
                         break;
                     case ConstNpc.MENU_CHU_MA:
-                        if (select == 0) {
-                            player.tuMa.congPhapTuMa.chuMa();
+                        int timecm = 1;
+                        switch (select) {
+                            case 0:
+                                timecm = 1;
+                                break;
+                            case 1:
+                                timecm = 100;
+                                break;
+                            case 2:
+                                timecm = 1000;
+                                break;
                         }
+                        player.tuMa.congPhapTuMa.chuMa(timecm);
                         break;
                     case ConstNpc.MENU_LINH_NGO_TU_MA:
                         if (select == 0) {
@@ -7566,6 +7643,13 @@ public class NpcFactory {
                                 break;
                             case 2:
                                 player.tuMa.linhCanTuMa.showBaseMenu();
+                                break;
+                            case 3:
+                                if (!player.tuMa.luyenHon.isLuyenHon()) {
+                                    Service.gI().sendThongBao(player, "Bạn chưa mở luyện hồn");
+                                    return;
+                                }
+                                player.tuMa.luyenHon.showBaseMenu();
                                 break;
                         }
                         break;
@@ -7736,10 +7820,18 @@ public class NpcFactory {
                     case ConstNpc.MENU_LUYEN_THE:
                         if (select == 0) {
                             short[] idsItemNeed = new short[]{1264, 1265, 1266};
-                            if (player.luyenThe.level + 1 > player.luyenThe.MAX_LEVEL) {
-                                Service.gI().sendThongBao(player, "Bạn đã đạt cấp tối đa");
-                                return;
+                            if (player.luyenThe.isNotLuyenThe()) {
+                                if (player.luyenThe.level + 1 > player.luyenThe.MAX_LEVEL) {
+                                    Service.gI().sendThongBao(player, "Bạn đã đạt cấp tối đa");
+                                    return;
+                                }
+                            } else {
+                                if (player.luyenThe.level + 1 > player.luyenThe.MAX_LEVEL_FINAL) {
+                                    Service.gI().sendThongBao(player, "Bạn đã đạt cấp tối đa");
+                                    return;
+                                }
                             }
+
                             String text = "|7|Đột phá luyện thể\n" + "|5|Cấp hiện tại : " + player.luyenThe.getName() + "\n" + "|2|Cấp tiếp theo : " + "Luyện thể tầng " + (player.luyenThe.level + 1) + "\n" + "|7|Tỷ lệ đột phá : " + player.luyenThe.getLevelUpPercent() + "%" + "(Thất bại " + player.luyenThe.timeThatBai + " lần)\n" + "|1|Đột phá cần : " + player.luyenThe.getItemNeed(idsItemNeed);
                             NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_DOT_PHA_LUYEN_THE, -1, text, "Đột phá", "Đóng");
                         }
@@ -7854,8 +7946,17 @@ public class NpcFactory {
                                     float subPercent = player.luyenDanSu.diemKhangTinh / 10f;
                                     float ratio = (player.tuTien.getLevelUpPercent() / 20f);
                                     if (Util.isTrue(ratio - subPercent, 110)) {
-                                        player.tuTien.levelUp();
-                                        return;
+                                        boolean isSuccess = true;
+                                        if (player.tuTien.level > 6) {
+                                            if (Util.isTrue(player.tuTien.level + player.tuTien.subLevel, 100)) {
+                                                // gap tam ma
+                                                isSuccess = player.tuTien.gapTamMa();
+                                            }
+                                        }
+                                        if (isSuccess) {
+                                            player.tuTien.levelUp();
+                                            return;
+                                        }
                                     }
                                     player.tuTien.restExp();
                                     player.tuTien.restLinhKhi();
@@ -7868,7 +7969,17 @@ public class NpcFactory {
                                     float subPercent1 = player.luyenDanSu.diemKhangTinh / 10f;
                                     float ratio1 = player.tuTien.getLevelUpPercent() - subPercent1;
                                     if (Util.isTrue(ratio1, 110)) {
-                                        player.tuTien.levelUp();
+                                        boolean isSuccess = true;
+                                        if (player.tuTien.level > 6) {
+                                            if (Util.isTrue(player.tuTien.level + player.tuTien.subLevel, 100)) {
+                                                // gap tam ma
+                                                isSuccess = player.tuTien.gapTamMa();
+                                            }
+                                        }
+                                        if (isSuccess) {
+                                            player.tuTien.levelUp();
+                                            return;
+                                        }
                                     } else {
                                         player.tuTien.restExp();
                                         player.tuTien.restLinhKhi();
@@ -7880,7 +7991,17 @@ public class NpcFactory {
                             float subPercent1 = player.luyenDanSu.diemKhangTinh / 10f;
                             float ratio = player.tuTien.getLevelUpPercent();
                             if (Util.isTrue(ratio - subPercent1, 110)) {
-                                player.tuTien.levelUp();
+                                boolean isSuccess = true;
+                                if (player.tuTien.level > 6) {
+                                    if (Util.isTrue(player.tuTien.level + player.tuTien.subLevel, 100)) {
+                                        // gap tam ma
+                                        isSuccess = player.tuTien.gapTamMa();
+                                    }
+                                }
+                                if (isSuccess) {
+                                    player.tuTien.levelUp();
+                                    return;
+                                }
                             } else {
                                 player.tuTien.restExp();
                                 player.tuTien.restLinhKhi();

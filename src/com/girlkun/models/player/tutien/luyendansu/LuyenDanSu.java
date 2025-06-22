@@ -239,10 +239,14 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
                 case 2072:
                     player.tuTien.addPoint(0, 2);
                     Service.gI().sendThongBao(player, "Bạn vừa dùng x1 " + item.template.name + " Căn cốt tăng lên " + 2);
+                    if (!player.luyenThe.isNotLuyenThe() && player.luyenThe.level >= 100) {
+                        //+ tu vi
+                        player.luyenThe.addExp(Util.nextInt(1, 100));
+                    }
                     break;
                 case 2073:
                     player.tuTien.addPoint(1, 1);
-                    Service.gI().sendThongBao(player, "Bạn vừa dùng x1 " + item.template.name + " Căn cốt tăng lên " + 1);
+                    Service.gI().sendThongBao(player, "Bạn vừa dùng x1 " + item.template.name + " Ngộ tính tăng lên " + 1);
                     break;
                 case 2074:
                     if (diemKhangTinh > 0) {
