@@ -1643,7 +1643,7 @@ public class UseItem {
         // ty le base
         float tyLeBase = 1 + player.tyLeTangPhamDaoLu;
         int nguong = tyLeLenCapMax * 70 / 100;
-        if (tyLeBase > nguong * 70 && Util.isTrue(tyLeBase, tyLeLenCapMax)) {
+        if (tyLeBase > nguong && Util.isTrue(tyLeBase, tyLeLenCapMax)) {
             player.petDaoLu.typeDaoLu = nextPham;
             player.petDaoLu.name = "[" + player.petDaoLu.getTypeString() + "] " + player.petDaoLu.nameDaoLu;
             new Thread(() -> {
