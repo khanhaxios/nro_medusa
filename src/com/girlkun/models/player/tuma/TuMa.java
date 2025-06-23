@@ -305,9 +305,9 @@ public class TuMa implements IBaseAction {
     public void calcPoint() {
         if (congPhapTuMa != null && congPhapTuMa.ten != null) {
             congPhapTuMa.calcPoint();
+            player.nPoint.tlHutHp += getHutHPBuff();
+            player.nPoint.tlHutMp += getHutMPBuff();
         }
-        player.nPoint.tlHutHp += getHutHPBuff();
-        player.nPoint.tlHutMp += getHutMPBuff();
     }
 
     public void showMenuTuMa() {

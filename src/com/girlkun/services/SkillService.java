@@ -1076,7 +1076,7 @@ public class SkillService {
             mpHoi += mpHoi * xParam / 100;
         }
         if (hpHoi > 0 || mpHoi > 0) {
-            PlayerService.gI().hoiPhuc(player, hpHoi, mpHoi);
+            PlayerService.gI().hoiPhuc(player, Math.abs(hpHoi), Math.abs(mpHoi));
         }
     }
 
@@ -1246,7 +1246,7 @@ public class SkillService {
         }
         // handle for dame bosss
         double damGoc = subDameWithCanhGioi(plAtt, plInjure);
-//        miss = neDon(plInjure, plAtt, miss);
+        miss = neDon(plInjure, plAtt, miss);
         double dameHit = plInjure.injured(plAtt, miss ? 0 : damGoc, false, false, false);
         phanSatThuong(plAtt, plInjure, Util.DoubleGioihan(dameHit));
         hutHPMP(plAtt, dameHit, false);
@@ -1443,11 +1443,6 @@ public class SkillService {
                     xParam = 80;
                 }
                 miss = Util.isTrue(xParam, 100);
-                if (miss && plInjure.tuTien.linhCan.getLinhCanType() == 8) {
-                    Service.gI().chat(plInjure, "Né nè");
-                    double damH = plAtt.injured(plInjure, plInjure.nPoint.getDameAttack(false) * plInjure.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 100, false, false, false);
-                    sendMessagePlayerAttackPlayer(plInjure, plAtt, damH, (byte) 1);
-                }
             }
         }
         return miss;

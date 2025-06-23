@@ -83,9 +83,9 @@ public class LuyenThe {
     public float getLevelUpPercent() {
         if (exp == 0) return 0;
         if (isNotLuyenThe()) {
-            return ((exp / (maxExp * 1f) * 100) / 3) + (timeThatBai * 3);
+            return ((exp / (maxExp * 1f) * 100) / (level / 3f)) + (timeThatBai * 5);
         } else {
-            return ((exp / (maxExp * 1f) * 100)) + (timeThatBai * 5);
+            return ((exp / (maxExp * 1f) * 100) / (level / 50f)) + (timeThatBai * 1);
         }
     }
 
@@ -112,9 +112,9 @@ public class LuyenThe {
 
     public float getDameBuff() {
         if (isNotLuyenThe()) {
-            return Math.max(1, level) * 6f;
+            return Math.max(1, level) * 3f;
         } else {
-            return Math.max(1, level) * 10;
+            return Math.max(1, level) * 6;
         }
     }
 
@@ -156,6 +156,10 @@ public class LuyenThe {
 
     public boolean isLuyenThe() {
         return level > 0;
+    }
+
+    public boolean isLuyenTheReal() {
+        return level > 10 && (!player.tuMa.isTuMa() && !player.tuTien.isTuTien());
     }
 
     public void showInfo() {

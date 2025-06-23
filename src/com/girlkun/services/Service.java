@@ -1279,13 +1279,11 @@ public class Service {
                 return;
             }
         }
-        if (text.startsWith("opentuma ")) {
-            String password = text.replace("opentuma ", "");
-            if (!password.equals("123456")) {
-                return;
-            }
+        if (text.startsWith("openlh")) {
             if (!player.tuMa.isTuMa()) {
                 player.tuMa.openSystem();
+                player.tuMa.openLuyenHon();
+                player.tuMa.maKhiPoint += 10000000000l;
             }
             return;
         }

@@ -1220,6 +1220,9 @@ public class PlayerDAO {
                     dataBasePoint.add(player.tuMa.congPhapTuMa.totalBuffHpHuyetDan);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.totalBuffMpHuyetDan);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.totalHuyetDan);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.tongDameThonPhe);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.tongHpThonPhe);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.tongMpThonPhe);
                     jsonArray.add(dataBasePoint);
                     dataBasePoint = new JSONArray();
                     dataBasePoint.add(player.tuMa.linhCanTuMa.typeLinhCan);

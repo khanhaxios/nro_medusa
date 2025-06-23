@@ -27,6 +27,10 @@ public class CongPhapTuMa {
     public boolean autoMp = false;
     public float tyLeLinhNgo;
 
+    public double tongDameThonPhe;
+    public double tongHpThonPhe;
+    public double tongMpThonPhe;
+
     public double dameBuff;
     public double hpBuff;
     public double mpBuff;
@@ -47,12 +51,12 @@ public class CongPhapTuMa {
     }
 
     public double getMaxDameBuff() {
-        double baseDame = 2_000_000;
+        double baseDame = 200_000;
         return baseDame * phamChat;
     }
 
     public double getMaxHpMpBuff() {
-        double baseHpMp = 6_000_000;
+        double baseHpMp = 600_000;
         return baseHpMp * phamChat;
     }
 
@@ -301,9 +305,9 @@ public class CongPhapTuMa {
     }
 
     public void calcPoint() {
-        player.nPoint.hpAdd += getHpBuff() + totalBuffHpHuyetDan;
-        player.nPoint.mpAdd += getMpBuff() + totalBuffMpHuyetDan;
-        player.nPoint.dameAdd += getDameBuff() + totalBuffDameHuyetDan;
+        player.nPoint.hpAdd += getHpBuff() + totalBuffHpHuyetDan + tongDameThonPhe;
+        player.nPoint.mpAdd += getMpBuff() + totalBuffMpHuyetDan + tongHpThonPhe;
+        player.nPoint.dameAdd += getDameBuff() + totalBuffDameHuyetDan + tongMpThonPhe;
     }
 
     public void thonPheDeTu() {
@@ -358,13 +362,11 @@ public class CongPhapTuMa {
             Service.gI().sendThongBao(player, "Bạn làm đéo gì có đạo lữ mà đòi thôn phệ");
             return;
         }
-        double dameAdd = player.petDaoLu.nPoint.dame * 50 / 100;
-        double hpAdd = player.petDaoLu.nPoint.hpMax * 50 / 100;
-        double mpAdd = player.petDaoLu.nPoint.mpMax * 50 / 100;
+        tongDameThonPhe += player.petDaoLu.nPoint.dame * 50 / 100;
+        tongHpThonPhe += player.petDaoLu.nPoint.hpMax * 50 / 100;
+        tongMpThonPhe += player.petDaoLu.nPoint.mpMax * 50 / 100;
         // remove pet
-        addDameBuff(dameAdd);
-        addHpBuff(hpAdd);
-        addMPBuff(mpAdd);
+
         Service.gI().point(player);
         Service.gI().chatJustForMe(player, player.petDaoLu, "Sao phu quân lại aa...aa...aaaa....");
         EffectSkillService.gI().sendEffectBienhinh(player);
@@ -393,7 +395,7 @@ public class CongPhapTuMa {
     }
 
     public void showMenuChuMa() {
-        String text = "|7|Chú ma\n" + "|5|Chú ma để tăng tỷ lệ lĩnh ngộ công pháp" + "\n|7|Đã chú ma[" + tyLeLinhNgo + "%]";
+        String text = "|7|Chú ma\n" + "|5|Chú ma để tăng tỷ lệ lĩnh ngộ công pháp" + "\n|7|Tiến độ [" + tyLeLinhNgo + "/ + " + getBaseDiemLinhNgoMax() + "%]";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHU_MA, -1, text, "1 lần", "10 lần", "100 lần", "Đóng");
     }
 

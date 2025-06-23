@@ -46,6 +46,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class GodGK {
 
@@ -1168,47 +1169,67 @@ public class GodGK {
                     if (dataTuMa != null && !dataTuMa.isEmpty()) {
                         JSONArray jsonArray = (JSONArray) JSONValue.parse(dataTuMa);
                         if (jsonArray.size() > 0) {
-                            JSONArray basePoint = (JSONArray) jsonArray.get(0);
-                            player.tuMa.level = Byte.parseByte(basePoint.get(0).toString());
-                            player.tuMa.exp = Long.parseLong(basePoint.get(1).toString());
-                            player.tuMa.maxExp = Long.parseLong(basePoint.get(2).toString());
-                            player.tuMa.maKhiPoint = Long.parseLong(basePoint.get(3).toString());
-                            player.tuMa.maxMaKhiPoint = Long.parseLong(basePoint.get(4).toString());
-                            player.tuMa.maTinh = Integer.parseInt(basePoint.get(5).toString());
-                            player.tuMa.timeTuMa = Long.parseLong(basePoint.get(6).toString());
+                            try {
+                                JSONArray basePoint = (JSONArray) jsonArray.get(0);
+                                player.tuMa.level = Byte.parseByte(basePoint.get(0).toString());
+                                player.tuMa.exp = Long.parseLong(basePoint.get(1).toString());
+                                player.tuMa.maxExp = Long.parseLong(basePoint.get(2).toString());
+                                player.tuMa.maKhiPoint = Long.parseLong(basePoint.get(3).toString());
+                                player.tuMa.maxMaKhiPoint = Long.parseLong(basePoint.get(4).toString());
+                                player.tuMa.maTinh = Integer.parseInt(basePoint.get(5).toString());
+                                player.tuMa.timeTuMa = Long.parseLong(basePoint.get(6).toString());
+                            } catch (Exception e) {
 
-                            JSONArray congPhapArray = (JSONArray) jsonArray.get(1);
-                            player.tuMa.congPhapTuMa.ten = congPhapArray.get(0).toString();
-                            player.tuMa.congPhapTuMa.tyLeLinhNgo = Float.parseFloat(congPhapArray.get(1).toString());
-                            player.tuMa.congPhapTuMa.phamChat = Integer.parseInt(congPhapArray.get(2).toString());
-                            player.tuMa.congPhapTuMa.dlThonPhe = Integer.parseInt(congPhapArray.get(3).toString());
-                            player.tuMa.congPhapTuMa.deTuThonPhe = Integer.parseInt(congPhapArray.get(4).toString());
-                            player.tuMa.congPhapTuMa.dameBuff = Double.parseDouble(congPhapArray.get(5).toString());
-                            player.tuMa.congPhapTuMa.hpBuff = Double.parseDouble(congPhapArray.get(6).toString());
-                            player.tuMa.congPhapTuMa.mpBuff = Double.parseDouble(congPhapArray.get(7).toString());
-                            player.tuMa.congPhapTuMa.totalDameBuff = Double.parseDouble(congPhapArray.get(8).toString());
-                            player.tuMa.congPhapTuMa.totalHpBuff = Double.parseDouble(congPhapArray.get(9).toString());
-                            player.tuMa.congPhapTuMa.totalMpBuff = Double.parseDouble(congPhapArray.get(10).toString());
-                            player.tuMa.congPhapTuMa.totalBuffDameHuyetDan = Double.parseDouble(congPhapArray.get(11).toString());
-                            player.tuMa.congPhapTuMa.totalBuffHpHuyetDan = Double.parseDouble(congPhapArray.get(12).toString());
-                            player.tuMa.congPhapTuMa.totalBuffMpHuyetDan = Double.parseDouble(congPhapArray.get(13).toString());
-                            player.tuMa.congPhapTuMa.totalHuyetDan = Integer.parseInt(congPhapArray.get(14).toString());
+                            }
 
-                            JSONArray linhCanArray = (JSONArray) jsonArray.get(2);
-                            player.tuMa.linhCanTuMa.typeLinhCan = Byte.parseByte(linhCanArray.get(0).toString());
-                            player.tuMa.linhCanTuMa.tenLinhCan = linhCanArray.get(1).toString();
-                            player.tuMa.linhCanTuMa.moTaLinhCan = linhCanArray.get(2).toString();
-                            player.tuMa.linhCanTuMa.xParam = Float.parseFloat(linhCanArray.get(3).toString());
-                            player.tuMa.linhCanTuMa.phamChat = Byte.parseByte(linhCanArray.get(4).toString());
-                            player.tuMa.linhCanTuMa.maKhiDaNuot = Long.parseLong(linhCanArray.get(5).toString());
-                            player.tuMa.linhCanTuMa.maKhiCanNuot = Long.parseLong(linhCanArray.get(6).toString());
 
-                            JSONArray luyenHonArr = (JSONArray) jsonArray.get(2);
-                            player.tuMa.luyenHon.soHonChuaLuyen = Integer.parseInt(luyenHonArr.get(0).toString());
-                            player.tuMa.luyenHon.soHonDaLuyen = Integer.parseInt(luyenHonArr.get(1).toString());
-                            player.tuMa.luyenHon.tongSoHonCanLuyen = Integer.parseInt(luyenHonArr.get(2).toString());
-                            player.tuMa.luyenHon.soTangDaLuyen = Integer.parseInt(luyenHonArr.get(3).toString());
-                            player.tuMa.luyenHon.isOpen = Boolean.parseBoolean(luyenHonArr.get(4).toString());
+                            try {
+                                JSONArray congPhapArray = (JSONArray) jsonArray.get(1);
+                                Object tenCp = congPhapArray.get(0);
+                                player.tuMa.congPhapTuMa.ten = Objects.isNull(tenCp) ? null : tenCp.toString();
+                                player.tuMa.congPhapTuMa.tyLeLinhNgo = Float.parseFloat(congPhapArray.get(1).toString());
+                                player.tuMa.congPhapTuMa.phamChat = Integer.parseInt(congPhapArray.get(2).toString());
+                                player.tuMa.congPhapTuMa.dlThonPhe = Integer.parseInt(congPhapArray.get(3).toString());
+                                player.tuMa.congPhapTuMa.deTuThonPhe = Integer.parseInt(congPhapArray.get(4).toString());
+                                player.tuMa.congPhapTuMa.dameBuff = Double.parseDouble(congPhapArray.get(5).toString());
+                                player.tuMa.congPhapTuMa.hpBuff = Double.parseDouble(congPhapArray.get(6).toString());
+                                player.tuMa.congPhapTuMa.mpBuff = Double.parseDouble(congPhapArray.get(7).toString());
+                                player.tuMa.congPhapTuMa.totalDameBuff = Double.parseDouble(congPhapArray.get(8).toString());
+                                player.tuMa.congPhapTuMa.totalHpBuff = Double.parseDouble(congPhapArray.get(9).toString());
+                                player.tuMa.congPhapTuMa.totalMpBuff = Double.parseDouble(congPhapArray.get(10).toString());
+                                player.tuMa.congPhapTuMa.totalBuffDameHuyetDan = Double.parseDouble(congPhapArray.get(11).toString());
+                                player.tuMa.congPhapTuMa.totalBuffHpHuyetDan = Double.parseDouble(congPhapArray.get(12).toString());
+                                player.tuMa.congPhapTuMa.totalBuffMpHuyetDan = Double.parseDouble(congPhapArray.get(13).toString());
+                                player.tuMa.congPhapTuMa.totalHuyetDan = Integer.parseInt(congPhapArray.get(14).toString());
+                                player.tuMa.congPhapTuMa.tongDameThonPhe = Double.parseDouble(congPhapArray.get(15).toString());
+                                player.tuMa.congPhapTuMa.tongHpThonPhe = Double.parseDouble(congPhapArray.get(16).toString());
+                                player.tuMa.congPhapTuMa.tongMpThonPhe = Double.parseDouble(congPhapArray.get(17).toString());
+                            } catch (Exception e) {
+
+                            }
+
+                            try {
+                                JSONArray linhCanArray = (JSONArray) jsonArray.get(2);
+                                player.tuMa.linhCanTuMa.typeLinhCan = Byte.parseByte(linhCanArray.get(0).toString());
+                                player.tuMa.linhCanTuMa.tenLinhCan = linhCanArray.get(1).toString();
+                                player.tuMa.linhCanTuMa.moTaLinhCan = linhCanArray.get(2).toString();
+                                player.tuMa.linhCanTuMa.xParam = Float.parseFloat(linhCanArray.get(3).toString());
+                                player.tuMa.linhCanTuMa.phamChat = Byte.parseByte(linhCanArray.get(4).toString());
+                                player.tuMa.linhCanTuMa.maKhiDaNuot = Long.parseLong(linhCanArray.get(5).toString());
+                                player.tuMa.linhCanTuMa.maKhiCanNuot = Long.parseLong(linhCanArray.get(6).toString());
+                            } catch (Exception e) {
+
+                            }
+                            try {
+                                JSONArray luyenHonArr = (JSONArray) jsonArray.get(3);
+                                player.tuMa.luyenHon.soHonChuaLuyen = Integer.parseInt(luyenHonArr.get(0).toString());
+                                player.tuMa.luyenHon.soHonDaLuyen = Integer.parseInt(luyenHonArr.get(1).toString());
+                                player.tuMa.luyenHon.tongSoHonCanLuyen = Integer.parseInt(luyenHonArr.get(2).toString());
+                                player.tuMa.luyenHon.soTangDaLuyen = Integer.parseInt(luyenHonArr.get(3).toString());
+                                player.tuMa.luyenHon.isOpen = Boolean.parseBoolean(luyenHonArr.get(4).toString());
+                            } catch (Exception e) {
+
+                            }
                         }
                     }
                     if (player.tuTien.isTuTien()) {

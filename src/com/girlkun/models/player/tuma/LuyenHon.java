@@ -97,4 +97,8 @@ public class LuyenHon {
     public boolean isLuyenHon() {
         return isOpen;
     }
+
+    public void addHon(int i) {
+        soHonChuaLuyen += i;
+    }
 }

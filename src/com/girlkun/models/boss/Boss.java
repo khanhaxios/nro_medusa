@@ -16,6 +16,10 @@ import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class Boss extends Player implements IBossNew, IBossOutfit {
 
     public int currentLevel = -1;
@@ -174,12 +178,32 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         return (byte) this.data[this.currentLevel].getOutfit()[5];
     }
 
-    public Zone getMapJoin() {
-        int mapId = this.data[this.currentLevel].getMapJoin()[Util.nextInt(0, this.data[this.currentLevel].getMapJoin().length - 1)];
-        Zone map = MapService.gI().getMapWithRandZone(mapId);
-        //to do: check boss in map
+    public int[] ID_BOSS_NV = new int[]{BossID.KUKU, BossID.RAMBO, BossID.MAP_DAU_DINH, BossID.SO_1, BossID.SO_2, BossID.SO_4, BossID.SO_3, BossID.TIEU_DOI_TRUONG, BossID.TDST, BossID.FIDE, BossID.ANDROID_15, BossID.ANDROID_13, BossID.ANDROID_14, BossID.ANDROID_19, BossID.XEN_CON_1, BossID.XEN_BO_HUNG};
 
-        return map;
+    public int[] MAP_CAN_NOT_JOIN = new int[]{21, 22, 23, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 67, 85, 86, 87, 88, 89, 90, 91, 112, 113, 114, 115, 116, 117, 118, 119, 120, 127, 128};
+    public final Set<Integer> MAP_CANT_JOIN_SET = Arrays.stream(MAP_CAN_NOT_JOIN).boxed().collect(Collectors.toSet());
+
+    public boolean inMapCantJoin(int mapId) {
+        return MAP_CANT_JOIN_SET.contains(mapId);
+    }
+
+    public boolean canJoinMap(int mapId) {
+        Zone zoneJoin = MapService.gI().getMapWithRandZone(mapId);
+        return zoneJoin != null && zoneJoin.map.mapWidth > 100;
+    }
+
+    public Zone getMapJoin() {
+        int mapId = -1;
+        if (Arrays.stream(ID_BOSS_NV).anyMatch(i -> i == id)) {
+            mapId = this.data[this.currentLevel].getMapJoin()[Util.nextInt(0, this.data[this.currentLevel].getMapJoin().length - 1)];
+        } else {
+            while (mapId == -1
+                    || inMapCantJoin(mapId)
+                    || !canJoinMap(mapId)) {
+                mapId = Util.nextInt(0, 131);
+            }
+        }
+        return MapService.gI().getMapWithRandZone(mapId);
     }
 
     @Override

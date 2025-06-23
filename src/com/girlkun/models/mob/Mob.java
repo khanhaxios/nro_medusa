@@ -590,13 +590,19 @@ public class Mob {
             }
         }
 
-        if (zone.map.mapId == 210 && player.tuTien.isTuTien() && player.tuTien.congPhap.getTenCongPhap() != null) {
-            player.tuTien.congPhap.addDoThuanThuc((long) (player.tuTien.congPhap.phamchat.id + 1 + Util.nextInt(5)) * Util.nextInt(1, 5));
+        if (id == 0 && player.tuTien.isTuTien() && player.tuTien.congPhap.getTenCongPhap() != null) {
+            player.tuTien.congPhap.addDoThuanThuc((long) (player.tuTien.congPhap.phamchat.id + 1 + Util.nextInt(5)));
         }
         if (player.tuMa.isTuMa()) {
             // roi huyet dan
             if (Util.isTrue(5, 100)) {
                 list.add(new ItemMap(zone, 2077, 1, this.location.x, yEnd, player.id));
+            }
+            // roi hon
+            if (player.tuMa.luyenHon.isOpen && player.tuMa.congPhapTuMa.ten != null) {
+                if (Util.isTrue(10 + player.tuMa.congPhapTuMa.phamChat + 1, 100)) {
+                    player.tuMa.luyenHon.addHon(1);
+                }
             }
         }
         if (zone.map.mapId == 215) {

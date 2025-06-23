@@ -135,7 +135,6 @@ public class SanGiaoDichBuaZeno implements Runnable {
         finalPrice *= marketFluctuation;
         if (holder.finalPrice != Math.round(finalPrice)) {
             holder.finalPrice = Math.round(finalPrice);
-            Logger.log("Đã cập nhật giá thị trường : " + holder.finalPrice + " , " + Math.round(finalPrice));
         }
     }
 

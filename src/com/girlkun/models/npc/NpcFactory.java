@@ -2294,6 +2294,10 @@ public class NpcFactory {
                                         return;
                                     }
                                 }
+                                if (player.luyenThe.isLuyenTheReal()) {
+                                    Service.gI().sendThongBao(player, "Bạn đã luyện thể " + player.luyenThe.level + " tầng , Không thể tu tiên");
+                                    return;
+                                }
                                 // mo tu tien
                                 if (player.tuTien.isTuTien()) {
                                     Service.gI().sendThongBao(player, "Bạn đã mở tu tiên rồi mà");
@@ -2369,12 +2373,12 @@ public class NpcFactory {
                 if (player.iDMark.getIndexMenu() == ConstNpc.BASE_MENU) {
                     switch (select) {
                         case 0:
-                            if (player.tuMa.isTuMa()) {
-                                Service.gI().sendThongBao(player, "Bạn đã mở tu ma rồi mà");
-                                return;
-                            }
                             if (player.tuTien.isTuTien()) {
                                 createOtherMenu(player, ConstNpc.MENU_NHAP_MA, "Muốn nhập ma?", "Nhập ma", "Đóng");
+                                return;
+                            }
+                            if (player.luyenThe.isLuyenTheReal()) {
+                                Service.gI().sendThongBao(player, "Bạn đã luyện thể rồi không thể tu ma");
                                 return;
                             }
                             double tienCan = player.session.vnd - 100_000;
@@ -3101,6 +3105,7 @@ public class NpcFactory {
                                     Service.getInstance().sendThongBao(player, "|4|Bạn đã mở thành viên rồi mà. Tiếp tục chơi game thui nào!!!!");
                                     return;
                                 }
+                                // handle cho tu ma
                                 if (player.tuMa.isTuMa() && player.tuMa.level > 4) {
                                     player.inventory.ruby += 500_000;
                                     Service.getInstance().sendMoney(player);
@@ -3114,6 +3119,8 @@ public class NpcFactory {
                                     }
                                     return;
                                 }
+
+                                // handle for luyen the
                                 if (!player.luyenThe.isNotLuyenThe() && player.luyenThe.level > 20) {
                                     player.inventory.ruby += 500_000;
                                     Service.getInstance().sendMoney(player);
@@ -7590,10 +7597,10 @@ public class NpcFactory {
                                 timecm = 1;
                                 break;
                             case 1:
-                                timecm = 100;
+                                timecm = 10;
                                 break;
                             case 2:
-                                timecm = 1000;
+                                timecm = 100;
                                 break;
                         }
                         player.tuMa.congPhapTuMa.chuMa(timecm);
@@ -7679,7 +7686,9 @@ public class NpcFactory {
                                 time1 = 100;
                                 break;
                         }
-                        player.tuMa.linhCanTuMa.duongLinhCan(time1);
+                        if (select <= 2) {
+                            player.tuMa.linhCanTuMa.duongLinhCan(time1);
+                        }
                         break;
                     case ConstNpc.MENU_AUTO_DOT_PHA_NGHE_PHU:
                         player.tuTien.switchAutoDotPhaNghePhu(select);
@@ -7853,16 +7862,22 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Đột phá thành công");
                             } else {
                                 player.luyenThe.restExp();
-                                if (player.luyenThe.level < 30) {
-                                    if (player.luyenThe.timeThatBai + 1 <= 10) {
-                                        player.luyenThe.timeThatBai++;
+                                if (player.luyenThe.isNotLuyenThe()) {
+                                    if (player.luyenThe.level < 30) {
+                                        if (player.luyenThe.timeThatBai + 1 <= 10) {
+                                            player.luyenThe.timeThatBai++;
+                                        }
+                                    } else if (player.luyenThe.level < 50) {
+                                        if (player.luyenThe.timeThatBai + 1 <= 5) {
+                                            player.luyenThe.timeThatBai++;
+                                        }
+                                    } else if (player.luyenThe.level < 90) {
+                                        if (player.luyenThe.timeThatBai + 1 <= 3) {
+                                            player.luyenThe.timeThatBai++;
+                                        }
                                     }
-                                } else if (player.luyenThe.level < 50) {
-                                    if (player.luyenThe.timeThatBai + 1 <= 5) {
-                                        player.luyenThe.timeThatBai++;
-                                    }
-                                } else if (player.luyenThe.level < 90) {
-                                    if (player.luyenThe.timeThatBai + 1 <= 3) {
+                                } else {
+                                    if (player.luyenThe.timeThatBai < 50) {
                                         player.luyenThe.timeThatBai++;
                                     }
                                 }
