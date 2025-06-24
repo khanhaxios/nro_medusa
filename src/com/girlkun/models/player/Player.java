@@ -213,7 +213,7 @@ public class Player {
     public long numKillSieuHang;
 
     public String TrieuHoiNamePlayer;
-    public int TrieuHoiCapBac = -1;
+    public int TrieuHoiCapBac = -100;
     public String TenThuTrieuHoi;
     public int TrieuHoiThucAn;
     public long TrieuHoiDame;

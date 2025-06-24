@@ -99,7 +99,10 @@ public class LuyenThe {
     }
 
     public boolean canLevelUp() {
-        return level < MAX_LEVEL;
+        if (isNotLuyenThe()){
+            return level < MAX_LEVEL;
+        }
+        return level < MAX_LEVEL_FINAL;
     }
 
     public String getName() {

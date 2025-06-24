@@ -60,6 +60,7 @@ public class LuyenHon {
         soHonChuaLuyen -= time;
         soHonDaLuyen += time;
         Service.gI().sendThongBao(player, "Chú hồn thành công");
+        player.tuMa.subMaKhi(maKhiCan);
     }
 
     public void calcPoint() {
@@ -70,7 +71,7 @@ public class LuyenHon {
 
     public void restHon() {
         soHonDaLuyen -= tongSoHonCanLuyen;
-        soHonChuaLuyen = getTongSoHonCanLuyen();
+        tongSoHonCanLuyen = getTongSoHonCanLuyen();
         if (soHonDaLuyen < 0) {
             soHonDaLuyen = 0;
         }

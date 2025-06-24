@@ -180,7 +180,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     public int[] ID_BOSS_NV = new int[]{BossID.KUKU, BossID.RAMBO, BossID.MAP_DAU_DINH, BossID.SO_1, BossID.SO_2, BossID.SO_4, BossID.SO_3, BossID.TIEU_DOI_TRUONG, BossID.TDST, BossID.FIDE, BossID.ANDROID_15, BossID.ANDROID_13, BossID.ANDROID_14, BossID.ANDROID_19, BossID.XEN_CON_1, BossID.XEN_BO_HUNG};
 
-    public int[] MAP_CAN_NOT_JOIN = new int[]{21, 22, 23, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 67, 85, 86, 87, 88, 89, 90, 91, 112, 113, 114, 115, 116, 117, 118, 119, 120, 127, 128};
+    public int[] MAP_CAN_NOT_JOIN = new int[]{21, 22, 23, 45, 48, 49, 50, 46, 47, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 67, 85, 86, 87, 88, 89, 90, 91, 112, 113, 114, 115, 116, 117, 118, 119, 120, 127, 128};
     public final Set<Integer> MAP_CANT_JOIN_SET = Arrays.stream(MAP_CAN_NOT_JOIN).boxed().collect(Collectors.toSet());
 
     public boolean inMapCantJoin(int mapId) {
@@ -197,9 +197,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         if (Arrays.stream(ID_BOSS_NV).anyMatch(i -> i == id)) {
             mapId = this.data[this.currentLevel].getMapJoin()[Util.nextInt(0, this.data[this.currentLevel].getMapJoin().length - 1)];
         } else {
-            while (mapId == -1
-                    || inMapCantJoin(mapId)
-                    || !canJoinMap(mapId)) {
+            while (mapId == -1 || inMapCantJoin(mapId) || !canJoinMap(mapId)) {
                 mapId = Util.nextInt(0, 131);
             }
         }
@@ -300,8 +298,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         if (nextLevel >= this.data.length) {
             nextLevel = 0;
         }
-        if (this.data[nextLevel].getTypeAppear() == TypeAppear.DEFAULT_APPEAR
-                && Util.canDoWithTime(lastTimeRest, secondsRest * 1000)) {
+        if (this.data[nextLevel].getTypeAppear() == TypeAppear.DEFAULT_APPEAR && Util.canDoWithTime(lastTimeRest, secondsRest * 1000)) {
             this.changeStatus(BossStatus.RESPAWN);
         }
     }
@@ -344,8 +341,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                         this.parentBoss.xTogether = this.parentBoss.location.x;
                         this.parentBoss.cX = -1;
                     }
-                    ChangeMapService.gI().changeMapInYard(this, this.zone,
-                            this.parentBoss.xTogether); // + Util.nextInt(-100, 100)
+                    ChangeMapService.gI().changeMapInYard(this, this.zone, this.parentBoss.xTogether); // + Util.nextInt(-100, 100)
                 }
                 this.wakeupAnotherBossWhenAppear();
             } else {
@@ -373,14 +369,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     protected void notifyJoinMap() {
 //        if (this.id >= -22 && this.id <= -20) return;
-        if (this.zone.map.mapId == 140 || MapService.gI().isMapMaBu(this.zone.map.mapId)
-                || MapService.gI().isMapDoanhTrai(this.zone.map.mapId)
-                || MapService.gI().isMapKhiGas(this.zone.map.mapId)
-                || MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId)
-                || MapService.gI().isMapBlackBallWar(this.zone.map.mapId)
-                || this instanceof MiNuong
-                || this instanceof PetLan
-                || this instanceof AnTrom) {
+        if (this.zone.map.mapId == 140 || MapService.gI().isMapMaBu(this.zone.map.mapId) || MapService.gI().isMapDoanhTrai(this.zone.map.mapId) || MapService.gI().isMapKhiGas(this.zone.map.mapId) || MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId) || MapService.gI().isMapBlackBallWar(this.zone.map.mapId) || this instanceof MiNuong || this instanceof PetLan || this instanceof AnTrom) {
             return;
         }
         ServerNotify.gI().notify("BOSS " + this.name + " vừa xuất hiện tại " + this.zone.map.mapName);
@@ -456,11 +445,9 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                 if (Util.getDistance(this, pl) <= this.getRangeCanAttackWithSkillSelect()) {
                     if (Util.isTrue(5, 20)) {
                         if (SkillUtil.isUseSkillChuong(this)) {
-                            this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 200)),
-                                    Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 70));
+                            this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 200)), Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 70));
                         } else {
-                            this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(10, 40)),
-                                    Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 50));
+                            this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(10, 40)), Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 50));
                         }
                     }
                     SkillService.gI().useSkill(this, pl, null, null);
@@ -495,13 +482,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     @Override
     public void die(Player plKill) {
-        if (plKill != null
-                && (this.zone.map.mapId != 140 || !MapService.gI().isMapMaBu(this.zone.map.mapId)
-                || !MapService.gI().isMapDoanhTrai(this.zone.map.mapId)
-                || !MapService.gI().isMapKhiGas(this.zone.map.mapId)
-                || !MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId)
-                || !MapService.gI().isMapBlackBallWar(this.zone.map.mapId) || !(this instanceof MiNuong)
-                || !(this instanceof AnTrom) || !(this instanceof PetLan))) {
+        if (plKill != null && (this.zone.map.mapId != 140 || !MapService.gI().isMapMaBu(this.zone.map.mapId) || !MapService.gI().isMapDoanhTrai(this.zone.map.mapId) || !MapService.gI().isMapKhiGas(this.zone.map.mapId) || !MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId) || !MapService.gI().isMapBlackBallWar(this.zone.map.mapId) || !(this instanceof MiNuong) || !(this instanceof AnTrom) || !(this instanceof PetLan))) {
             reward(plKill.getMaster());
             ServerNotify.gI().notify(plKill.getMaster().name + " vừa tiêu diệt được " + this.name + ", ghê chưa ghê chưa..");
             System.out.println("=> Boss " + this.name + " vừa bị tiêu diệt bởi " + plKill.getMaster().name);
@@ -552,12 +533,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
             this.lastZone = this.zone;
             this.changeStatus(BossStatus.RESPAWN);
         } else {
-            if (this.id != BossID.SOI_HEC_QUYN && this.id != BossID.O_DO && this.id != BossID.CHA_PA && this.id != BossID.CHAN_XU
-                    && this.id != BossID.JACKY_CHUN && this.id != BossID.LIU_LIU && this.id != BossID.PON_PUT
-                    && this.id != BossID.TAU_PAY_PAY && this.id != BossID.THIEN_XIN_HANG
-                    && this.id != BossID.THIEN_XIN_HANG_CLONE
-                    && this.id != BossID.THIEN_XIN_HANG_CLONE1 && this.id != BossID.THIEN_XIN_HANG_CLONE2 && this.id != BossID.THIEN_XIN_HANG_CLONE3
-                    && this.id != BossID.XINBATO && this.id != BossID.YAMCHA) {
+            if (this.id != BossID.SOI_HEC_QUYN && this.id != BossID.O_DO && this.id != BossID.CHA_PA && this.id != BossID.CHAN_XU && this.id != BossID.JACKY_CHUN && this.id != BossID.LIU_LIU && this.id != BossID.PON_PUT && this.id != BossID.TAU_PAY_PAY && this.id != BossID.THIEN_XIN_HANG && this.id != BossID.THIEN_XIN_HANG_CLONE && this.id != BossID.THIEN_XIN_HANG_CLONE1 && this.id != BossID.THIEN_XIN_HANG_CLONE2 && this.id != BossID.THIEN_XIN_HANG_CLONE3 && this.id != BossID.XINBATO && this.id != BossID.YAMCHA) {
                 ChangeMapService.gI().spaceShipArrive(this, (byte) 2, ChangeMapService.DEFAULT_SPACE_SHIP);
             }
             ChangeMapService.gI().exitMap(this);
@@ -680,8 +656,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                 if (!boss.isDie()) {
                     boss.chat(textChat);
                 }
-            } else if (this.parentBoss != null && this.parentBoss.bossAppearTogether != null
-                    && this.parentBoss.bossAppearTogether[this.parentBoss.currentLevel] != null) {
+            } else if (this.parentBoss != null && this.parentBoss.bossAppearTogether != null && this.parentBoss.bossAppearTogether[this.parentBoss.currentLevel] != null) {
                 Boss boss = this.parentBoss.bossAppearTogether[this.parentBoss.currentLevel][prefix];
                 if (!boss.isDie()) {
                     boss.chat(textChat);
@@ -693,11 +668,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     @Override
     public void wakeupAnotherBossWhenAppear() {
-        if (!MapService.gI().isMapMaBu(this.zone.map.mapId)
-                && !MapService.gI().isMapBlackBallWar(this.zone.map.mapId)
-                && !(this instanceof AnTrom)
-                && !(this instanceof MiNuong)
-                && !(this instanceof PetLan)) {
+        if (!MapService.gI().isMapMaBu(this.zone.map.mapId) && !MapService.gI().isMapBlackBallWar(this.zone.map.mapId) && !(this instanceof AnTrom) && !(this instanceof MiNuong) && !(this instanceof PetLan)) {
             System.out.println("BOSS  " + this.name + "  :  " + this.zone.map.mapName + " khu vực " + this.zone.zoneId + "(" + this.zone.map.mapId + ")");
         }
         if (this.bossAppearTogether == null || this.bossAppearTogether[this.currentLevel] == null) {

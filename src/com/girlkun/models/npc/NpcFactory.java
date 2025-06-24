@@ -1250,6 +1250,31 @@ public class NpcFactory {
                                     break;
                                 }
                                 case 3: {
+                                    createOtherMenu(player, ConstNpc.DOI_XO_CA_VANG, "Đổi xô cá xanh sang vàng nèo", "Đổi xô\nXanh", "Đổi xô\nVàng");
+                                    break;
+                                }
+                                case 4:
+                                    ChangeMapService.gI().changeMap(player, 5, -1, 643, 455);//con đường rắn độc
+                            }
+                        } else if (player.iDMark.getIndexMenu() == ConstNpc.DOI_XO_CA_VANG) {
+                            switch (select) {
+                                case 0:
+                                    Item xoCaXanh = InventoryServiceNew.gI().findItemBag(player, 1005);
+                                    if (xoCaXanh == null) {
+                                        Service.gI().sendThongBao(player, "Không tìm thấy xô cá xanh nào trong túi");
+                                        return;
+                                    }
+                                    int slCoTheDoi = xoCaXanh.quantity / 5;
+                                    if (slCoTheDoi <= 0) {
+                                        Service.gI().sendThongBao(player, "Cần ít nhất 5 xô cá xanh để đổi 1 xô cá vàng");
+                                        return;
+                                    }
+                                    Item xoca = ItemService.gI().createNewItem((short) 1006, slCoTheDoi);
+                                    InventoryServiceNew.gI().addItemBag(player, xoca);
+                                    InventoryServiceNew.gI().sendItemBags(player);
+                                    this.npcChat(player, "|4|Bạn nhận được x" + slCoTheDoi + " Xô cá Vàng");
+                                    break;
+                                case 1:
                                     Item cathuong = null;
                                     Item cathuong1 = null;
                                     Item cathuong2 = null;
@@ -1282,15 +1307,12 @@ public class NpcFactory {
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, cathuong2, 1);
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, cathuong3, 1);
                                         Service.getInstance().sendMoney(player);
-                                        Item xoca = ItemService.gI().createNewItem((short) 1006);
-                                        InventoryServiceNew.gI().addItemBag(player, xoca);
+                                        Item xoca123 = ItemService.gI().createNewItem((short) 1006);
+                                        InventoryServiceNew.gI().addItemBag(player, xoca123);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "|4|Bạn nhận được Xô cá Vàng");
                                     }
                                     break;
-                                }
-                                case 4:
-                                    ChangeMapService.gI().changeMap(player, 5, -1, 643, 455);//con đường rắn độc
                             }
                         }
                     }
@@ -7840,7 +7862,6 @@ public class NpcFactory {
                                     return;
                                 }
                             }
-
                             String text = "|7|Đột phá luyện thể\n" + "|5|Cấp hiện tại : " + player.luyenThe.getName() + "\n" + "|2|Cấp tiếp theo : " + "Luyện thể tầng " + (player.luyenThe.level + 1) + "\n" + "|7|Tỷ lệ đột phá : " + player.luyenThe.getLevelUpPercent() + "%" + "(Thất bại " + player.luyenThe.timeThatBai + " lần)\n" + "|1|Đột phá cần : " + player.luyenThe.getItemNeed(idsItemNeed);
                             NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_DOT_PHA_LUYEN_THE, -1, text, "Đột phá", "Đóng");
                         }

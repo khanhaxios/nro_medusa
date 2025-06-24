@@ -1342,7 +1342,7 @@ public class Service {
         }
         if (text.equals("hoisinhct")) {
             if (player.session.vnd - 1_000_000 > 0) {
-                if (player.TrieuHoipet != null) {
+                if (player.TrieuHoipet != null || player.TrieuHoiCapBac == -1) {
                     PlayerDAO.subvnd(player, 1_000_000);
                     player.TrieuHoiCapBac = -1;
                     String oldName = player.TenThuTrieuHoi;
@@ -1351,7 +1351,6 @@ public class Service {
                     player.TrieuHoipet = null;
                     player.CreatePet(oldName);
                     Service.gI().sendThongBao(player, "Đã hồi sinh chiến thần");
-
                 } else {
                     Service.gI().sendThongBao(player, "M có chiến thần đâu ma hồi sinh");
                 }

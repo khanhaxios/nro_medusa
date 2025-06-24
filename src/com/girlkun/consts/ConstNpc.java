@@ -452,6 +452,7 @@ public class ConstNpc {
     public static final int MENU_LUYEN_HON = -239621387;
     public static final int MENU_CHU_HON = -1236213;
     public static final int MENU_CONFIRM_LH = -129837128;
+    public static final int DOI_XO_CA_VANG = -19673123;
 }
 
 /**

@@ -590,8 +590,8 @@ public class Mob {
             }
         }
 
-        if (id == 0 && player.tuTien.isTuTien() && player.tuTien.congPhap.getTenCongPhap() != null) {
-            player.tuTien.congPhap.addDoThuanThuc((long) (player.tuTien.congPhap.phamchat.id + 1 + Util.nextInt(5)));
+        if (player.tuTien.isTuTien() && player.tuTien.congPhap.getTenCongPhap() != null) {
+            player.tuTien.congPhap.addDoThuanThuc(player.tuTien.congPhap.phamchat.id + 1 + Util.nextInt(5));
         }
         if (player.tuMa.isTuMa()) {
             // roi huyet dan
