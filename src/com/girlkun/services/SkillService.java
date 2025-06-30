@@ -1254,7 +1254,7 @@ public class SkillService {
         sendMessagePlayerAttackPlayer(plAtt, plInjure, dameHit, (byte) 0);
         /// handle for linh can
         if (isLinhCan && plAtt.isPl() && plAtt.tuTien.isTuTien() && plAtt.tuTien.isAttackWithLinhCan) {
-            long linhKhiPoint = TuTien.BASE_LINH_KHI[plAtt.tuTien.level] / 1000;
+            long linhKhiPoint = TuTien.BASE_LINH_KHI[plAtt.tuTien.level] / (Util.nextInt(500, 1000));
             linhKhiPoint *= Util.nextInt(1, 3);
             if (!plAtt.tuTien.canHandleWithLinhKhiPoint(linhKhiPoint)) {
                 return;
@@ -1266,14 +1266,15 @@ public class SkillService {
                     // gay sat thuong xuyen giap bung no
                     double damKim = dameHit * paramOfLinhCan / 100;
                     // + them sat thuong bung no
-                    damKim += linhKhiPoint;
-                    damKim *= ((paramOfLinhCan / 30f) + plAtt.tuTien.congPhap.phamchat.id + 1 + plAtt.tuTien.xParam);
+                    damKim += linhKhiPoint; // 12500
+                    damKim += (dameHit * (plAtt.tuTien.congPhap.phamchat.id + 1 + plAtt.tuTien.xParam)) / 100;
+                    damKim += plAtt.nPoint.getDameAttack(false);
                     double dameK = plInjure.injured(plAtt, damKim, false, false, false);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameK, (byte) 1);
                     break;
                 case 1:
                     // ty le gay choang
-                    double dameMoc = dameHit * (paramOfLinhCan / 10f) / 100;
+                    double dameMoc = dameHit * (paramOfLinhCan / 20f) / 100;
                     dameMoc += linhKhiPoint;
                     dameMoc *= (plAtt.tuTien.congPhap.phamchat.id + 1 + plAtt.tuTien.xParam);
                     dameMoc = subDameWithCanhGioi(plAtt, plInjure, dameMoc);
@@ -1290,7 +1291,7 @@ public class SkillService {
                     break;
                 case 2:
                     // gay sat thuong dua tren max mp
-                    double dameThuy = (plAtt.nPoint.mpMax / 2f) * paramOfLinhCan / 100;
+                    double dameThuy = (plAtt.nPoint.mpMax / 2.1f) * paramOfLinhCan / 100;
                     dameThuy += linhKhiPoint;
                     dameThuy *= (plAtt.tuTien.congPhap.phamchat.id + 1 + plAtt.tuTien.xParam);
                     dameThuy = subDameWithCanhGioi(plAtt, plInjure, dameThuy);
@@ -1304,8 +1305,9 @@ public class SkillService {
                         plAtt.nPoint.numAttackLinhCan += 2;
                         if (plAtt.nPoint.numAttackLinhCan == paramOfLinhCan) {
                             Service.gI().chat(plAtt, "Viêm Bạo");
-                            dameHoa *= 10;
+                            dameHoa *= 4;
                             plAtt.nPoint.numAttackLinhCan = 0;
+                            EffectSkillService.gI().addThieuDot(plInjure, plAtt);
                         }
                     } else {
                         plAtt.nPoint.numAttackLinhCan = paramOfLinhCan;
@@ -1313,12 +1315,9 @@ public class SkillService {
                     plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
                     double dm = plInjure.injured(plAtt, dameHoa, false, false, false);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dm, (byte) 1);
-                    if (Util.isTrue(paramOfLinhCan / 10, 100)) {
-                        EffectSkillService.gI().addThieuDot(plInjure, plAtt);
-                    }
                     break;
                 case 4:
-                    double dameTho = (plAtt.nPoint.hpMax / 2f) * paramOfLinhCan / 100;
+                    double dameTho = (plAtt.nPoint.hpMax / 2.1f) * paramOfLinhCan / 100;
                     dameTho += linhKhiPoint;
                     dameTho *= (plAtt.tuTien.congPhap.phamchat.id + 1 + plAtt.tuTien.xParam);
                     dameTho = subDameWithCanhGioi(plAtt, plInjure, dameTho);
@@ -1354,7 +1353,7 @@ public class SkillService {
                         plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
                     }
                     if (Util.isTrue(plAtt.nPoint.numAttackLinhCan, 100)) {
-                        dameLoi *= (4 + (paramOfLinhCan / 10f));
+                        dameLoi *= (2.5 + (paramOfLinhCan / 10f));
                     }
                     double dl = plInjure.injured(plAtt, dameLoi, false, false, false);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dl, (byte) 1);
@@ -1367,18 +1366,18 @@ public class SkillService {
                     }
                     break;
                 case 7:
-                    if (plInjure.nPoint.getCurrPercentHP() < 2) {
-                        // pham phan
-                        Service.gI().chat(plAtt, "Thần thánh thẩm phán");
-                        double dameQuang = plInjure.nPoint.hp;
-                        double dq = plInjure.injured(plAtt, dameQuang, false, false, true);
-                        sendMessagePlayerAttackPlayer(plAtt, plInjure, dq, (byte) 1);
-                    } else {
-                        double dameQuang = plAtt.nPoint.getDameAttack(false) * (paramOfLinhCan * Math.max(1, plAtt.tuTien.xParam)) / 100;
-                        dameQuang += linhKhiPoint;
-                        double dq = plInjure.injured(plAtt, dameQuang, false, false, true);
-                        sendMessagePlayerAttackPlayer(plAtt, plInjure, dq, (byte) 1);
-                    }
+//                    if (plInjure.nPoint.getCurrPercentHP() < 2) {
+//                        // pham phan
+//                        Service.gI().chat(plAtt, "Thần thánh thẩm phán");
+//                        double dameQuang = plInjure.nPoint.hp;
+//                        double dq = plInjure.injured(plAtt, dameQuang, false, false, true);
+//                        sendMessagePlayerAttackPlayer(plAtt, plInjure, dq, (byte) 1);
+//                    } else {
+                    double dameQuang = plAtt.nPoint.getDameAttack(false) * (paramOfLinhCan * Math.max(1, plAtt.tuTien.xParam)) / 100;
+                    dameQuang += linhKhiPoint;
+                    double dq = plInjure.injured(plAtt, dameQuang, false, false, true);
+                    sendMessagePlayerAttackPlayer(plAtt, plInjure, dq, (byte) 1);
+//                    }
                     break;
                 case 8:
                     double dameAm = dameHit * paramOfLinhCan / 100;
@@ -1393,13 +1392,13 @@ public class SkillService {
             plAtt.tuTien.subLinhKhi(linhKhiPoint);
         }
         if (isLinhCan && plAtt.isPl() && plAtt.tuMa.isTuMa() && plAtt.tuMa.isAttackWithLinhCan) {
-            if (!plAtt.tuMa.canHandleWithMaKhiPoint(1)) {
+            if (!plAtt.tuMa.canHandleWithMaKhiPoint(3)) {
                 return;
             }
             float paramOfLinhCan = plAtt.tuMa.linhCanTuMa.xParam;
             switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
                 case 0:
-                    double hp = plInjure.injured(plAtt, plInjure.nPoint.hpMax * (paramOfLinhCan / 10), false, false, true);
+                    double hp = plInjure.injured(plAtt, plInjure.nPoint.hpMax * (paramOfLinhCan / 100), false, false, true);
                     plAtt.nPoint.hutMauTamThoi += hp;
                     plAtt.nPoint.hpMax += plAtt.nPoint.hutMauTamThoi;
                     plAtt.nPoint.lastTimeHutMau = System.currentTimeMillis();
@@ -1431,7 +1430,7 @@ public class SkillService {
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameD, (byte) 0);
                     break;
             }
-            plAtt.tuMa.subMaKhi(1);
+            plAtt.tuMa.subMaKhi(Util.nextInt(1, 3));
         }
     }
 

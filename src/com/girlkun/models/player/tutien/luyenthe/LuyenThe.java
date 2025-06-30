@@ -99,7 +99,7 @@ public class LuyenThe {
     }
 
     public boolean canLevelUp() {
-        if (isNotLuyenThe()){
+        if (isNotLuyenThe()) {
             return level < MAX_LEVEL;
         }
         return level < MAX_LEVEL_FINAL;

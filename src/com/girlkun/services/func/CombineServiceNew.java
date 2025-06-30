@@ -1491,6 +1491,10 @@ public class CombineServiceNew {
             Service.gI().sendThongBaoOK(player, "Không có đồ nào để phân rã");
             return;
         }
+        if (!items.stream().filter(it -> it.template.id < Manager.itemIds_TL[0]).toList().isEmpty()) {
+            Service.gI().sendThongBao(player, "Không phân rã được đồ mua ở shop đâu");
+            return;
+        }
         for (Item item : items) {
             int multiplier = Util.nextInt(3, 5); // nhỏ hơn
             point += (item.template.id) * multiplier;

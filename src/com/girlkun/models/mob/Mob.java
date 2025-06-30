@@ -7,7 +7,6 @@ import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Location;
-import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.reward.ItemMobReward;
@@ -625,33 +624,39 @@ public class Mob {
         }
         // rơi các loại đá thạch ( chỉ có ở ngũ hành sơn )
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
+            int sl = Util.nextInt(1, 2);
+            if (player.luyenThe.isLuyenTheReal()) {
+                sl += Util.nextInt(1, 10);
+            }
             // roi con duong ran doc
             if (zone.map.mapId == 141 && Util.isTrue(30f, 100)) {
+
                 short temIds = (short) Util.nextInt(1263, 1266);
-                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 3), this.location.x, yEnd, player.id));
+                list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
+
             if (zone.map.mapId == 141 && Util.isTrue(7f, 100)) {
                 short temIds = (short) Util.nextInt(1260, 1262);
-                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 3), this.location.x, yEnd, player.id));
+                list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
             // roi nhs
             if (zone.map.mapId == 123 && Util.isTrue(8f, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
-                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+                list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
             if (zone.map.mapId == 123 && Util.isTrue(2f, 100)) {
                 short temIds = (short) Util.nextInt(1260, 1262);
-                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+                list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
 
             // roi quai o ngoai
             if (Util.isTrue(3, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
-                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+                list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
             if (Util.isTrue(.5f, 100)) {
                 short temIds = (short) Util.nextInt(1260, 1262);
-                list.add(new ItemMap(zone, temIds, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+                list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
         }
         // roi hong ngoc khi danh quai
@@ -851,40 +856,27 @@ public class Mob {
 
         //Dao Lu rơi đan
         if (player.isDaoLu) {
-            if (((DaoLu) player).pointCapCanhGioi > 6) {
-                // TODO : handle roi item here  with item id from 1066-1069
-                if (Util.isTrue(1, 100)) { // 20% xác suất
-                    int[] itemIds = {1066, 1067, 1068, 1069};
-                    int randomIndex = Util.nextInt(0, itemIds.length);
-                    int itemId = itemIds[randomIndex];
-                    ItemMap itemSpecial = new ItemMap(zone, itemId, 1, this.location.x, yEnd, player.id);
-                    list.add(itemSpecial);
-                }
-            } else {
-                ItemMap itemDan = null;
-                int randNhanPham = Util.nextInt(1, 100);
-                int randVuong = 1;
-                int randLinh = 1;
-                int randDDS = 1;
-                int randDS = 3;
-                int randDGia = 5;
-                int randDKhi = 10;
-                if (randNhanPham > 100 - randVuong) {
-                    itemDan = new ItemMap(zone, 1605, 1, this.location.x, yEnd, player.id);
-                } else if (randNhanPham > 100 - randVuong - randLinh) {
-                    itemDan = new ItemMap(zone, 1604, 1, this.location.x, yEnd, player.id);
-                } else if (randNhanPham > 100 - randVuong - randLinh - randDDS) {
-                    itemDan = new ItemMap(zone, 1603, 1, this.location.x, yEnd, player.id);
-                } else if (randNhanPham > 100 - randVuong - randLinh - randDDS - randDS) {
-                    itemDan = new ItemMap(zone, 1602, 1, this.location.x, yEnd, player.id);
-                } else if (randNhanPham > 100 - randVuong - randLinh - randDDS - randDS - randDGia) {
-                    itemDan = new ItemMap(zone, 1601, 1, this.location.x, yEnd, player.id);
-                } else if (randNhanPham > 100 - randVuong - randLinh - randDDS - randDS - randDGia - randDKhi) {
-                    itemDan = new ItemMap(zone, 1600, 1, this.location.x, yEnd, player.id);
-                }
-                if (itemDan != null) {
-                    itemDan.options.add(new Item.ItemOption(30, 1));
-                    list.add(itemDan);
+            // Xác suất 1% để rơi đồ đặc biệt
+            if (Util.isTrue(1, 100)) {
+                // Rơi 1 item đặc biệt trong khoảng 1066–1069
+                int[] itemIds = {1066, 1067, 1068, 1069};
+                int itemId = itemIds[Util.nextInt(0, itemIds.length)];
+                list.add(new ItemMap(zone, itemId, 1, this.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(5, 100)) {
+                int[] danIds = {1605, 1604, 1603, 1602, 1601, 1600};
+                int[] rates = {1, 1, 1, 3, 5, 10}; // tổng 21%
+                int rand = Util.nextInt(1, 100);
+                int cumulative = 0;
+
+                for (int i = 0; i < danIds.length; i++) {
+                    cumulative += rates[i];
+                    if (rand > 100 - cumulative) {
+                        ItemMap itemDan = new ItemMap(zone, danIds[i], 1, this.location.x, yEnd, player.id);
+                        itemDan.options.add(new Item.ItemOption(30, 1));
+                        list.add(itemDan);
+                        break;
+                    }
                 }
             }
         }

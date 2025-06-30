@@ -308,6 +308,9 @@ public class TuMa implements IBaseAction {
             player.nPoint.tlHutHp += getHutHPBuff();
             player.nPoint.tlHutMp += getHutMPBuff();
         }
+        if (luyenHon != null && luyenHon.isOpen) {
+            luyenHon.calcPoint();
+        }
     }
 
     public void showMenuTuMa() {
@@ -337,6 +340,7 @@ public class TuMa implements IBaseAction {
 
     public void openLuyenHon() {
         player.tuMa.luyenHon.isOpen = true;
+        player.tuMa.luyenHon.open();
         Service.gI().sendThongBao(player, "Đã mở luyện hồn");
     }
 }

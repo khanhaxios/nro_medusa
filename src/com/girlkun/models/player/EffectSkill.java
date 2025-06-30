@@ -112,12 +112,12 @@ public class EffectSkill {
 
     public void updateDebuff() {
         if (isAmAnh && playerAmAnh != null) {
-            double dame = player.nPoint.hpMax / 100 * .2f;
+            double dame = player.nPoint.hpMax / 100 * .02f;
             player.injured(playerAmAnh, dame, false, false, true);
             SkillService.gI().sendMessagePlayerAttackPlayer(playerAmAnh, player, dame, (byte) 1);
         }
         if (isThieuDot && playerThieuDot != null) {
-            double dame = player.nPoint.hpMax / 100 * .1f;
+            double dame = player.nPoint.hpMax / 100 * .04f;
             player.injured(playerAmAnh, dame, false, false, true);
             SkillService.gI().sendMessagePlayerAttackPlayer(playerAmAnh, player, dame, (byte) 1);
         }

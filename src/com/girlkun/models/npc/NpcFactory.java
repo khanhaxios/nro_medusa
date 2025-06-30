@@ -1270,6 +1270,7 @@ public class NpcFactory {
                                         return;
                                     }
                                     Item xoca = ItemService.gI().createNewItem((short) 1006, slCoTheDoi);
+                                    InventoryServiceNew.gI().subQuantityItemsBag(player, xoCaXanh, slCoTheDoi * 5);
                                     InventoryServiceNew.gI().addItemBag(player, xoca);
                                     InventoryServiceNew.gI().sendItemBags(player);
                                     this.npcChat(player, "|4|Bạn nhận được x" + slCoTheDoi + " Xô cá Vàng");

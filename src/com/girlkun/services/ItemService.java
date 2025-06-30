@@ -1673,4 +1673,13 @@ public class ItemService {
         }
         return randommOptionForCheDo(item, param, paramID);
     }
+
+    public boolean hasOption(int i, Item it) {
+        for (ItemOption itemOption : it.itemOptions) {
+            if (itemOption.optionTemplate.id == i) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

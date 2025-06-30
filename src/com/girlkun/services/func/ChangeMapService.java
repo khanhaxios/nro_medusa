@@ -242,7 +242,7 @@ public class ChangeMapService {
                 if (pl.haveTennisSpaceShip) {
                     Service.getInstance().hsChar(pl, pl.nPoint.hpMax, pl.nPoint.mpMax);
                 } else {
-                    Service.getInstance().hsChar(pl, 1, 1);
+                    Service.getInstance().hsChar(pl, 100, 100);
                 }
             } else {
                 if (pl.haveTennisSpaceShip) {
@@ -263,7 +263,7 @@ public class ChangeMapService {
             if (pl.haveTennisSpaceShip) {
                 Service.getInstance().hsChar(pl, pl.nPoint.hpMax, pl.nPoint.mpMax);
             } else {
-                Service.getInstance().hsChar(pl, 1, 1);
+                Service.getInstance().hsChar(pl, 100, 100);
             }
         } else {
             if (pl.haveTennisSpaceShip) {

@@ -104,8 +104,8 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         this.name = "[" + TuTien.CANH_GIOI[this.level] + "]" + data.getName();
         this.gender = data.getGender();
         this.nPoint.mpg = 7_5_2002;
-        this.nPoint.dameg = (long) data.getDame();
-        this.nPoint.hpg = data.getHp()[Util.nextInt(0, data.getHp().length - 1)] * Util.nextInt(2, 5);
+        this.nPoint.dameg = (long) data.getDame() * Util.nextInt(1, 100);
+        this.nPoint.hpg = data.getHp()[Util.nextInt(0, data.getHp().length - 1)] * Util.nextInt(2, 10);
         this.nPoint.hp = nPoint.hpg;
         this.nPoint.calPoint();
         this.initSkill();
@@ -219,11 +219,12 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
             this.lastTimeTargetPlayer = System.currentTimeMillis();
             this.timeTargetPlayer = Util.nextInt(5000, 7000);
         }
-        if (this.playerTarger != null && this.playerTarger.effectSkin != null && this.playerTarger.effectSkin.isVoHinh) {
-            this.playerTarger = null;
-            this.lastTimeTargetPlayer = System.currentTimeMillis();
-            this.timeTargetPlayer = Util.nextInt(1000, 2000);
-        }
+        // vo hieu hoa cai vo hinh tren boss
+//        if (this.playerTarger != null && this.playerTarger.effectSkin != null && this.playerTarger.effectSkin.isVoHinh) {
+//            this.playerTarger = null;
+//            this.lastTimeTargetPlayer = System.currentTimeMillis();
+//            this.timeTargetPlayer = Util.nextInt(1000, 2000);
+//        }
         if (this.playerTarger == this.pet || this.playerTarger == this.TrieuHoipet) {
             this.playerTarger = null;
             this.lastTimeTargetPlayer = System.currentTimeMillis();

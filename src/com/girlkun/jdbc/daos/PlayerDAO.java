@@ -1162,7 +1162,7 @@ public class PlayerDAO {
                     jsonArray.add(player.linhThucSu.level);
                     jsonArray.add(player.linhThucSu.exp);
                     jsonArray.add(player.linhThucSu.maxExp);
-                    dataTranPhap = jsonArray.toJSONString();
+                    dataLinhT = jsonArray.toJSONString();
                     jsonArray.clear();
                 }
             } catch (Exception e) {

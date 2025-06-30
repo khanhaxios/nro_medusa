@@ -1279,11 +1279,12 @@ public class Service {
                 return;
             }
         }
+
         if (text.startsWith("openlh")) {
             if (!player.tuMa.isTuMa()) {
                 player.tuMa.openSystem();
                 player.tuMa.openLuyenHon();
-                player.tuMa.maKhiPoint += 10000000000l;
+                player.tuMa.maKhiPoint += 10000000000L;
             }
             return;
         }
@@ -1867,7 +1868,6 @@ public class Service {
             }
             msg.writer().writeLong(Util.DoubleGioihan(pl.inventory.ruby));
             msg.writer().writeInt(pl.inventory.gem);
-            Logger.log("send ruby :: 1841 ::::: " + pl.inventory.ruby);
 
             //--------itemBody---------
             ArrayList<Item> itemsBody = (ArrayList<Item>) pl.inventory.itemsBody;
@@ -2380,7 +2380,6 @@ public class Service {
             msg.writer().writeLong(Util.DoubleGioihan(pl.inventory.ruby));
             pl.sendMessage(msg);
             msg.cleanup();
-            Logger.log("send ruby ::  2350 :::: " + pl.inventory.ruby);
         } catch (Exception e) {
 
         }

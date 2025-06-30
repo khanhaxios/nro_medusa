@@ -21,7 +21,7 @@ public class LuyenHon {
     }
 
     public int getTongSoHonCanLuyen() {
-        return soHonDaLuyen * 1_000_000;
+        return Math.max(1,soTangDaLuyen) * 1_000_000;
     }
 
     public void tangBac() {
@@ -35,15 +35,15 @@ public class LuyenHon {
     }
 
     public int getDameBuff() {
-        return soTangDaLuyen * 30;
+        return Math.max(1, soTangDaLuyen) * 30;
     }
 
     public int getHPMPBuff() {
-        return soTangDaLuyen * 30;
+        return Math.max(1, soTangDaLuyen) * 30;
     }
 
     public int getMaKhiBuff() {
-        return soTangDaLuyen;
+        return Math.max(1, soTangDaLuyen);
     }
 
     public void chuHon(int time) {
@@ -101,5 +101,11 @@ public class LuyenHon {
 
     public void addHon(int i) {
         soHonChuaLuyen += i;
+    }
+
+    public void open() {
+        this.soHonChuaLuyen = 0;
+        this.soHonDaLuyen = 0;
+        this.tongSoHonCanLuyen = getTongSoHonCanLuyen();
     }
 }
