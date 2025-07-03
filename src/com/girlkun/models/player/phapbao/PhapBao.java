@@ -13,7 +13,7 @@ import java.util.List;
 import static com.girlkun.models.player.phapbao.PhapBaoFactory.phapBaoNames;
 import static com.girlkun.models.player.phapbao.PhapBaoFactory.vuKhiNames;
 
-public class PhapBao {
+public class PhapBao implements Cloneable {
 
     private static final byte MAX_LEVEL = 18;
     private static final int MAX_PHAM = 12;
@@ -35,6 +35,15 @@ public class PhapBao {
     private long maxExpNangCap;
 
     private byte subType;
+
+    @Override
+    public PhapBao clone() {
+        try {
+            return (PhapBao) super.clone();  // shallow copy
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Clone failed", e);
+        }
+    }
 
     public PhapBao(Player player) {
         this.player = player;

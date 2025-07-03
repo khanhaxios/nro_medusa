@@ -7563,7 +7563,7 @@ public class NpcFactory {
                         paa.addExpNangCap(Util.nextInt(1, 100));
                         break;
                     case ConstNpc.TRANG_BI_PHAP_BAO:
-                        player.changePhapBao(player.iDMark.typePhapBaoHandling, player.phapBaoTamThoi);
+                        player.changePhapBao(player.iDMark.typePhapBaoHandling, player.phapBaoTamThoi.clone());
                         player.iDMark.typePhapBaoHandling = -1;
                         player.phapBaoTamThoi = null;
                         break;
@@ -7576,10 +7576,10 @@ public class NpcFactory {
                         switch (select) {
                             case 0:
                                 player.phapBaoTamThoi.nuotPhapBao(phapBao);
-                                player.changePhapBao(player.iDMark.typePhapBaoHandling, player.phapBaoTamThoi);
+                                player.changePhapBao(player.iDMark.typePhapBaoHandling, player.phapBaoTamThoi.clone());
                                 break;
                             case 1:
-                                phapBao.nuotPhapBao(player.phapBaoTamThoi);
+                                phapBao.nuotPhapBao(player.phapBaoTamThoi.clone());
                                 // nuot phap bao
                                 break;
                             default:
