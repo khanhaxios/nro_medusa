@@ -43,6 +43,9 @@ public class BossADMIN5 extends Boss {
         ItemMap it1 = new ItemMap(this.zone, 2030, 5, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);
         Service.getInstance().dropItemMap(this.zone, it1);
+        Util.ratioManhPhapBao(zone, 1, this.location.x, this.location.y, plKill.id, 100);
+
+        Util.ratioVeNangCap(zone, 1, this.location.x, this.location.y, plKill.id, 100);
         Util.ratioRoiBuaZeno(zone, 1, this.location.x, this.location.y, plKill.id);
         Util.ratioDropLinhThu(zone, 1, this.location.x, this.location.y, plKill.id, 2f, 120, 175);
     }

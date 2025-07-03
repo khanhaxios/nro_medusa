@@ -1,6 +1,7 @@
 package com.girlkun.models.player;
 
 import BoMong.BoMong;
+import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.consts.ConstTask;
 import com.girlkun.data.DataGame;
@@ -29,6 +30,7 @@ import com.girlkun.models.npc.specialnpc.MagicTree;
 import com.girlkun.models.npc.specialnpc.Timedua;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
+import com.girlkun.models.player.phapbao.PhapBao;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.khongthisu.KhongThiSu;
 import com.girlkun.models.player.tutien.linhthucsu.LinhThucSu;
@@ -53,6 +55,7 @@ import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,6 +65,8 @@ public class Player {
     public int pointPvpthuong;
     public int pointPvpVip;
     public boolean autoUse;
+
+    public PhapBao phapBaoTamThoi;
     public boolean autoUseNow;
     public TranPhapSu tranPhapSu;
     public boolean muanhieu;
@@ -95,6 +100,7 @@ public class Player {
     public boolean autoKI = false;
     public boolean autoSD = false;
     public boolean autoGiap = false;
+    public List<PhapBao> phapBaos;
     public boolean autodau = false;
     public boolean batco = false;
     public boolean haveBeQuynh;
@@ -301,6 +307,8 @@ public class Player {
         nguThuSu = new NguThuSu(this);
         khongThiSu = new KhongThiSu(this);
         tuMa = new TuMa(this);
+        // init data phap bao
+        phapBaos = new ArrayList<>(Collections.nCopies(5, null));
     }
 
     //--------------------------------------------------------------------------
@@ -515,11 +523,9 @@ public class Player {
                         newpet.dispose();
                         newpet = null;
                     }
-                    if (this.isPl() && this.TrieuHoipet == null && this.TrieuHoiCapBac >= 0
-                            && this.TrieuHoiCapBac <= 10) {
+                    if (this.isPl() && this.TrieuHoipet == null && this.TrieuHoiCapBac >= 0 && this.TrieuHoiCapBac <= 10) {
                         PetService.Thu_TrieuHoi(this);
-                    } else if (this.isPl() && this.TrieuHoipet != null && this.TrieuHoiCapBac < 0
-                            && this.TrieuHoiCapBac > 10) {
+                    } else if (this.isPl() && this.TrieuHoipet != null && this.TrieuHoiCapBac < 0 && this.TrieuHoiCapBac > 10) {
                         ChangeMapService.gI().exitMap(this.TrieuHoipet);
                         TrieuHoipet.dispose();
                         TrieuHoipet = null;
@@ -554,8 +560,7 @@ public class Player {
                     int countit = 0;
                     while (iterator1.hasNext()) {
                         ItemKyGui it = iterator1.next();
-                        if (it != null && it.isBuy == false && it.player_sell == this.id && this.session != null
-                                && it.thoigian <= System.currentTimeMillis() - 172800000) {
+                        if (it != null && it.isBuy == false && it.player_sell == this.id && this.session != null && it.thoigian <= System.currentTimeMillis() - 172800000) {
                             countit++;
                         }
                     }
@@ -563,8 +568,7 @@ public class Player {
                     Iterator<ItemKyGui> iterator = ShopKyGuiManager.gI().listItem.iterator();
                     while (iterator.hasNext()) {
                         ItemKyGui it = iterator.next();
-                        if (it != null && it.isBuy == false && it.player_sell == this.id && this.session != null
-                                && it.thoigian <= System.currentTimeMillis() - 172800000) {
+                        if (it != null && it.isBuy == false && it.player_sell == this.id && this.session != null && it.thoigian <= System.currentTimeMillis() - 172800000) {
 
                             if (InventoryServiceNew.gI().getCountEmptyBag(this) < countit) {
                                 Service.getInstance().sendThongBao(this, "Hành trang không đủ chỗ trống để hoàn trả vật phẩm kí gửi");
@@ -609,8 +613,7 @@ public class Player {
      * {873, 874, 875}: ht c2 namếc
      * {867, 878, 869}: ht c2 xayda
      */
-    private static final short[][] idOutfitFusion = {
-            {380, 381, 382}, {383, 384, 385}, {391, 392, 393},// btc1
+    private static final short[][] idOutfitFusion = {{380, 381, 382}, {383, 384, 385}, {391, 392, 393},// btc1
             //        {1080, 1081, 1082}, {1086, 1087, 1088}, {1083, 1084, 1085}, // btc2
             {1204, 1205, 1206}, {1207, 1208, 1209}, {1210, 1211, 1212}, //btc2
             {1375, 1376, 1377}, {1372, 1373, 1374}, {1369, 1370, 1371}, //btc3
@@ -968,14 +971,11 @@ public class Player {
     public String TrieuHoiKiNang(int CapBac) {
         switch (CapBac) {
             case 10:
-                return "Tìm " + ((TrieuHoiLevel + 1) * 15) + " Hồng ngọc cho Chủ nhân\n"
-                        + "Tăng " + 10 + "% HP, KI, Giáp, SD, SD chí mạng cho Chủ nhân\n";
+                return "Tìm " + ((TrieuHoiLevel + 1) * 15) + " Hồng ngọc cho Chủ nhân\n" + "Tăng " + 10 + "% HP, KI, Giáp, SD, SD chí mạng cho Chủ nhân\n";
             case 9:
-                return "Tìm " + ((TrieuHoiLevel + 1) * 12) + " Hồng ngọc cho Chủ nhân\n"
-                        + "Tăng " + 7 + "% HP, KI, Giáp, SD, SD chí mạng cho Chủ nhân";
+                return "Tìm " + ((TrieuHoiLevel + 1) * 12) + " Hồng ngọc cho Chủ nhân\n" + "Tăng " + 7 + "% HP, KI, Giáp, SD, SD chí mạng cho Chủ nhân";
             case 8:
-                return "Tìm " + ((TrieuHoiLevel + 1) * 10) + " Hồng ngọc cho Chủ nhân\n"
-                        + "Tăng " + 6 + "% HP, KI, Giáp, SD cho Chủ nhân";
+                return "Tìm " + ((TrieuHoiLevel + 1) * 10) + " Hồng ngọc cho Chủ nhân\n" + "Tăng " + 6 + "% HP, KI, Giáp, SD cho Chủ nhân";
             case 7:
                 return "Tăng " + 6 + "% HP, KI, Giáp, SD cho Chủ nhân";
             case 6:
@@ -1293,9 +1293,7 @@ public class Player {
         }
         Service.getInstance().charDie(this);
         //add kẻ thù
-        if (!this.isPet && !this.isDaoLu && !this.isNewPet && !this.isTrieuhoipet && !this.isBoss
-                && plAtt != null
-                && !plAtt.isPet && !plAtt.isDaoLu && !plAtt.isNewPet && !plAtt.isTrieuhoipet && !plAtt.isBoss) {// && !this.isNewPet1 && !plAtt.isNewPet1
+        if (!this.isPet && !this.isDaoLu && !this.isNewPet && !this.isTrieuhoipet && !this.isBoss && plAtt != null && !plAtt.isPet && !plAtt.isDaoLu && !plAtt.isNewPet && !plAtt.isTrieuhoipet && !plAtt.isBoss) {// && !this.isNewPet1 && !plAtt.isNewPet1
             if (!plAtt.itemTime.isUseAnDanh) {
                 FriendAndEnemyService.gI().addEnemy(this, plAtt);
             }
@@ -1499,6 +1497,22 @@ public class Player {
         name = null;
     }
 
+    public boolean hasPhapBaoAtIndex(int index) {
+        return phapBaos.get(index) != null;
+    }
+
+    public String getTrangThaiPhapBao(int index) {
+        if (hasPhapBaoAtIndex(index)) {
+            return "Có";
+        }
+        return "Chưa có";
+    }
+
+    public void showMenuPhapBao() {
+        String text = "|7|Danh sách pháp bảo\n|5|Pháp bảo giúp bạn tăng cường sức mạnh và thuộc tính\nHãy nhớ nâng cấp pháp bảo nhé\nPháp bảo có chiến lực cao hơn sẽ nuốt pháp bảo có chiến lực thấp hơn";
+        NpcService.gI().createMenuConMeo(this, ConstNpc.MENU_BASE_PHAP_BAO, -1, text, "Khôi\n" + getTrangThaiPhapBao(0), "Thủ\n" + getTrangThaiPhapBao(1), "Bộ\n" + getTrangThaiPhapBao(2), "Y\n" + getTrangThaiPhapBao(3), "Khí\n" + getTrangThaiPhapBao(4));
+    }
+
     public String percentGold(int type) {
         try {
             if (type == 0) {
@@ -1512,6 +1526,12 @@ public class Player {
             return "0";
         }
         return "0";
+    }
+
+    public void changePhapBao(int index, PhapBao phapBao) {
+        phapBaos.set(index, phapBao);
+        Service.gI().point(this);
+        Service.gI().sendThongBao(this, "Trang bị pháp bảo thành công");
     }
 }
 //nplayer

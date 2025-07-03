@@ -43,6 +43,9 @@ public class ZamasMax extends Boss {
         // ratio
         Util.ratioDropCaiTrang(zone, 1, this.location.x, this.location.y, plKill.id, 2f, 100, 150);
 
+        Util.ratioManhPhapBao(zone, 1, this.location.x, this.location.y, plKill.id, 100);
+
+        Util.ratioVeNangCap(zone, 1, this.location.x, this.location.y, plKill.id, 100);
         Util.ratioDropHaoQuang(zone, 1, this.location.x, this.location.y, plKill.id, .5f, 100, 150);
     }
 

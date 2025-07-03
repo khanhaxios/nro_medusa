@@ -15,6 +15,8 @@ import com.girlkun.models.player.Inventory;
 import com.girlkun.models.player.Pet.ConstPet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.phapbao.PhapBao;
+import com.girlkun.models.player.phapbao.PhapBaoFactory;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
 import com.girlkun.server.Manager;
@@ -286,6 +288,39 @@ public class UseItem {
                 }
                 default:
                     switch (item.template.id) {
+                        case 2078:
+                            // su dung manh phap bao
+                            if (item.quantity - 10 < 0) {
+                                Service.gI().sendThongBao(pl, "Cần 10 mảnh để ghép");
+                                return;
+                            }
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 10);
+                            InventoryServiceNew.gI().sendItemBags(pl);
+                            // tao ra phap bao ne
+                            PhapBao phapBao = PhapBaoFactory.createRandomVuKhi(pl);
+                            pl.phapBaoTamThoi = phapBao;
+                            // get phap bao hien tai
+                            PhapBao phapbaoHienTai = pl.phapBaos.get(phapBao.getType());
+                            if (phapbaoHienTai == null) {
+                                pl.iDMark.typePhapBaoHandling = phapBao.getType();
+                                NpcService.gI().createMenuConMeo(pl, ConstNpc.TRANG_BI_PHAP_BAO, -1, phapBao.getBaseThuocTinh(), "Trang bị", "Vứt bỏ");
+                            } else {
+                                // do chien luc
+                                pl.iDMark.typePhapBaoHandling = phapBao.getType();
+                                if (phapbaoHienTai.danhGiaLucChienPhapBao() < phapBao.danhGiaLucChienPhapBao()) {
+                                    NpcService.gI().createMenuConMeo(pl, ConstNpc.THAY_TRANG_BI, -1, phapBao.getBaseThuocTinhHon(), "Trang bị", "Nuốt");
+                                } else {
+                                    phapbaoHienTai.nuotPhapBao(phapBao);
+                                }
+                            }
+                            break;
+                        case 2079:
+                            // cuong hoa cho phap bao nao
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                            InventoryServiceNew.gI().sendItemBags(pl);
+                            // add exp
+                            NpcService.gI().createMenuConMeo(pl, ConstNpc.CHON_PHAP_BAO_CUONG_HOA, -1, "|7|Cường hóa pháp bảo\n|5|Bạn muốn cường hóa pháp bảo nào?", "Khôi", "Thủ", "Bộ", "Y", "Khí");
+                            break;
                         case 2077:
                             if (!pl.tuMa.isTuMa()) {
                                 Service.gI().sendThongBao(pl, "Bạn cần tu ma để dùng cái này");

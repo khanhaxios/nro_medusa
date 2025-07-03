@@ -12,6 +12,7 @@ public class IDMark {
     public int idItemUpTop;
     public boolean dotPhaThienDao;
     public int typePlusChiSoMaCong;
+    public byte typePhapBaoHandling = -1;
     private int typeChangeMap; //capsule, ngọc rồng đen...
     private int indexMenu; //menu npc
     private int typeInput; //input
@@ -60,17 +61,17 @@ public class IDMark {
     private long lastTimeChangeZone;
     private long lastTimeChatGlobal;
     private long lastTimeChatPrivate;
-    
+
     private long lastTimePickItem;
-    
+
     private boolean goToBDKB;
     private long lastTimeGoToBDKB;
     private long lastTimeAnXienTrapBDKB;
 
     private Npc npcChose; //npc mở
-    
+
     private byte loaiThe; //loại thẻ nạp
-    
+
     public boolean isBaseMenu() {
         return this.indexMenu == ConstNpc.BASE_MENU;
     }

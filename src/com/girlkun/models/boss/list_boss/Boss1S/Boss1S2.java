@@ -45,6 +45,9 @@ public class Boss1S2 extends Boss {
                     this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
         }
+        Util.ratioManhPhapBao(zone, 1, this.location.x, this.location.y, plKill.id, 100);
+
+        Util.ratioVeNangCap(zone, 1, this.location.x, this.location.y, plKill.id, 100);
     }
 
     @Override

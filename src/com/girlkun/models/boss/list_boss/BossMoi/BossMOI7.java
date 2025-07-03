@@ -41,6 +41,9 @@ public class BossMOI7 extends Boss {
             Service.getInstance().dropItemMap(this.zone, it1);
             a += 10;
         }
+        Util.ratioManhPhapBao(zone, 1, this.location.x, this.location.y, plKill.id, 100);
+
+        Util.ratioVeNangCap(zone, 1, this.location.x, this.location.y, plKill.id, 100);
 
     }
 

@@ -8,6 +8,7 @@ import com.girlkun.models.player.Friend;
 import com.girlkun.models.player.Fusion;
 import com.girlkun.models.player.Inventory;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.phapbao.PhapBao;
 import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.result.GirlkunResultSet;
@@ -1005,7 +1006,8 @@ public class PlayerDAO {
             String dataLT = jsonArray.toJSONString();
             String dataKT = jsonArray.toJSONString();
             String dataTuMa = jsonArray.toJSONString();
-            GirlkunDB.executeUpdate("insert into tu_tien(data_tu_tien,data_luyen_the,data_tran_phap ,data_ngu_thu,data_luyen_dan,data_phu_chu,data_linh_thuc ,data_khong_thi,data_tu_ma,player_id) values(?,?,?,?,?,?,?,?,?,?)", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, playerId);
+            String dataPhapBao = jsonArray.toJSONString();
+            GirlkunDB.executeUpdate("insert into tu_tien(data_tu_tien,data_luyen_the,data_tran_phap ,data_ngu_thu,data_luyen_dan,data_phu_chu,data_linh_thuc ,data_khong_thi,data_tu_ma,data_phap_bao,player_id) values(?,?,?,?,?,?,?,?,?,?,?)", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, playerId);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -1032,6 +1034,7 @@ public class PlayerDAO {
             String dataLT = jsonArray.toJSONString();
             String dataKT = jsonArray.toJSONString();
             String dataTuMa = jsonArray.toJSONString();
+            String dataPhapBao = jsonArray.toJSONString();
             try {
                 if (player.tuTien != null && player.tuTien.isTuTien()) {
                     // write base point tu tien
@@ -1246,8 +1249,34 @@ public class PlayerDAO {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            if (player.phapBaos.size() > 0) {
+                JSONArray datapbb = new JSONArray();
+                for (PhapBao phapBao : player.phapBaos) {
+                    JSONArray dataPb = new JSONArray();
+                    JSONArray dataOptions = new JSONArray();
+                    dataPb.add(phapBao.getId());
+                    dataPb.add(phapBao.getName());
+                    dataPb.add(phapBao.getType());
+                    dataPb.add(phapBao.getSubType());
+                    dataPb.add(phapBao.getPham());
+                    dataPb.add(phapBao.getExp());
+                    dataPb.add(phapBao.getMaxExp());
+                    dataPb.add(phapBao.getLevel());
+                    dataPb.add(phapBao.getExpNangCap());
+                    dataPb.add(phapBao.getMaxExpNangCap());
+                    for (Item.ItemOption option : phapBao.options) {
+                        JSONArray dataOptionPb = new JSONArray();
+                        dataOptionPb.add(option.optionTemplate.id);
+                        dataOptionPb.add(option.param);
+                        dataOptions.add(dataOptionPb);
+                    }
+                    dataPb.add(dataOptions);
+                    datapbb.add(dataPb);
+                }
+                dataPhapBao = datapbb.toJSONString();
+            }
             // save sql
-            int rowEffect = GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?,data_tu_ma = ?  where player_id=?", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, player.id);
+            int rowEffect = GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?,data_tu_ma = ?,data_phap_bao=?  where player_id=?", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, player.id);
             Logger.log(String.valueOf(rowEffect));
         } catch (Exception e) {
             Logger.error("Loi save data tu tien" + e.getMessage());

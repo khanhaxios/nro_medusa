@@ -456,7 +456,7 @@ public class CongPhapTuMa {
     public void handleHutMaKhi(Mob mob) {
         double baseHut = Math.max(mob.point.maxHp / 1_000_000_0, Util.nextInt(1, 3));
         baseHut *= (phamChat + 1 + player.tuMa.luyenHon.getMaKhiBuff());
-        player.tuMa.addMaKhi(Math.min(100, (long) baseHut));
+        player.tuMa.addMaKhi(Math.max(100, (long) baseHut));
     }
 
     public void showThongTinHuyetDan() {

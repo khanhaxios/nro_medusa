@@ -4,36 +4,28 @@ import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.Zone;
-
-import java.security.MessageDigest;
-import java.text.NumberFormat;
-import java.util.*;
-
-import com.girlkun.models.matches.TOP;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.player.Player;
-import com.girlkun.network.io.Message;
 import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
 import com.girlkun.services.ItemMapService;
 import com.girlkun.services.ItemService;
+import com.girlkun.services.Service;
+import org.apache.commons.lang.ArrayUtils;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import javax.imageio.ImageIO;
-
-import com.girlkun.services.Service;
-import com.girlkun.services.func.CombineServiceNew;
-import org.apache.commons.lang.ArrayUtils;
 
 import static com.girlkun.server.Manager.LIST_CAI_TRANG_ID;
 
@@ -560,6 +552,20 @@ public class Util {
         }
         it.itemOptions.add(new Item.ItemOption(21, 500));
         return it;
+    }
+
+    public static void ratioVeNangCap(Zone zone, int i, int x, int y, long id, int i1) {
+        if (Util.isTrue(i1, 100)) {
+            ItemMap itemMap = new ItemMap(zone, 2079, i, x, y, id);
+            itemMap.options.add(new Item.ItemOption(30, 0));
+            Service.gI().dropItemMap(zone, itemMap);
+        }
+    }
+
+    public static void ratioManhPhapBao(Zone zone, int i, int x, int y, long id, int i1) {
+        ItemMap itemMap = new ItemMap(zone, 2078, i, x, y, id);
+        itemMap.options.add(new Item.ItemOption(30, 0));
+        Service.gI().dropItemMap(zone, itemMap);
     }
 
 

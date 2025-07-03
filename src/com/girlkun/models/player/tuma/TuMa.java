@@ -61,7 +61,7 @@ public class TuMa implements IBaseAction {
 
     @Override
     public long getExpCanGain(Mob targetMob) {
-        return Math.max((long) (targetMob.point.maxHp / 100_000_0), Util.nextInt(10, 50));
+        return Math.max((long) (targetMob.point.maxHp / 100_000), Util.nextInt(10, 50));
     }
 
     @Override
@@ -207,7 +207,7 @@ public class TuMa implements IBaseAction {
 
     @Override
     public float getDameBuff() {
-        float percentBuff = (getBaseBuffByLevel(3) + (getSubLevelOtherBuff()));
+        float percentBuff = (getBaseBuffByLevel(2) + (getSubLevelOtherBuff()));
         percentBuff *= (congPhapTuMa.phamChat + 1 + maTinh);
         return percentBuff;
     }
@@ -224,7 +224,7 @@ public class TuMa implements IBaseAction {
     }
 
     private float getSubLevelOtherBuff() {
-        return Math.max(2f, (this.level % 10) * 2f);
+        return Math.max(2f, (this.level % 10) * 1.2f);
     }
 
     private float getSubLevelOtherBuff(float pt) {
@@ -284,7 +284,7 @@ public class TuMa implements IBaseAction {
     public void showBaseMenu() {
         String text = "|7|Thông Tin Ma Tu\n" + "|5|" + getName() + "\n" + "|5|Tu vi :" + getCurrentExpAsString() + "\n" + "Ma khí :" + getMaKhiAsString() + "\n" + "|5|SL Huyết Đan : " + (congPhapTuMa.ten != null ? congPhapTuMa.totalHuyetDan : 0) + "/" + congPhapTuMa.getMaxHuyetDan() +
                 " \n" + "|7|" + getMaTinhDanhGia() + "\n|5| Đã tu ma " + getYearOpened() + "\n" + "|1|Khi đầy exp ấn đột phá";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_TU_MA, -1, text, "Thông Tin\nTu Ma", "Thông Tin\nCông Pháp", "Thông Tin\nLinh Căn", "Thông tin\nLuyện Hồn", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_TU_MA, -1, text, "Thông Tin\nTu Ma", "Thông Tin\nCông Pháp", "Thông Tin\nLinh Căn", "Thông tin\nLuyện Hồn", "Pháp bảo", "Đóng");
     }
 
     private String getMaKhiAsString() {

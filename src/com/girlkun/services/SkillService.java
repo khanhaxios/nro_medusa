@@ -1409,7 +1409,7 @@ public class SkillService {
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameA, (byte) 0);
                     break;
                 case 2:
-                    double dameB = (plInjure.nPoint.hpMax * paramOfLinhCan) * Util.nextInt(2, 4);
+                    double dameB = (plInjure.nPoint.hpMax * paramOfLinhCan / 100) * Util.nextInt(2, 4);
                     dameB = plInjure.injured(plAtt, dameB, false, false, false);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameB, (byte) 0);
                     break;

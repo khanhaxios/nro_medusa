@@ -41,6 +41,9 @@ public class BossADMIN2 extends Boss {
         Service.getInstance().dropItemMap(this.zone, it);
         Util.ratioRoiBuaZeno(zone, 1, this.location.x, this.location.y, plKill.id);
         // ratio
+        Util.ratioManhPhapBao(zone, 1, this.location.x, this.location.y, plKill.id, 100);
+
+        Util.ratioVeNangCap(zone, 1, this.location.x, this.location.y, plKill.id, 100);
         Util.ratioDropLinhThu(zone, 1, this.location.x, this.location.y, plKill.id, 2f, 120, 175);
     }
 

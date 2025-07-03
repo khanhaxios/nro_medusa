@@ -19,6 +19,7 @@ import com.girlkun.models.player.Fusion;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.phapbao.PhapBao;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.luyenkhi.PhamChat;
 import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
@@ -43,10 +44,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class GodGK {
 
@@ -1107,7 +1105,6 @@ public class GodGK {
                     e.printStackTrace();
                 }
 
-
                 try {
                     String dataTP = rs.getString("data_tran_phap");
                     if (dataTP != null && !dataTP.isEmpty()) {
@@ -1182,7 +1179,6 @@ public class GodGK {
 
                             }
 
-
                             try {
                                 JSONArray congPhapArray = (JSONArray) jsonArray.get(1);
                                 Object tenCp = congPhapArray.get(0);
@@ -1239,6 +1235,46 @@ public class GodGK {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+                try {
+                    String dataPhapBao = rs.getString("data_phap_bao");
+                    if (dataPhapBao != null && !dataPhapBao.isEmpty()) {
+                        JSONArray dataArr = (JSONArray) JSONValue.parse(dataPhapBao);
+                        player.phapBaos = Collections.nCopies(5, null);
+                        for (Object pbObj : dataArr) {
+                            JSONArray pbData = (JSONArray) pbObj;
+                            PhapBao phapBao = new PhapBao(player);
+                            phapBao.setId(String.valueOf(pbData.get(0)));
+                            phapBao.setName(String.valueOf(pbData.get(1)));
+                            phapBao.setType(Byte.parseByte(String.valueOf(pbData.get(2))));
+                            phapBao.setSubType(Byte.parseByte(String.valueOf(pbData.get(3))));
+                            phapBao.setPham(Byte.parseByte(String.valueOf(pbData.get(4))));
+                            phapBao.setExp(Long.parseLong(String.valueOf(pbData.get(5))));
+                            phapBao.setMaxExp(Long.parseLong(String.valueOf(pbData.get(6))));
+                            phapBao.setLevel(Byte.parseByte(String.valueOf(pbData.get(7))));
+                            phapBao.setExpNangCap(Long.parseLong(String.valueOf(pbData.get(8))));
+                            phapBao.setMaxExpNangCap(Long.parseLong(String.valueOf(pbData.get(9))));
+
+                            JSONArray optionArr = (JSONArray) pbData.get(10);
+                            List<Item.ItemOption> options = new ArrayList<>();
+                            for (Object optObj : optionArr) {
+                                JSONArray optData = (JSONArray) optObj;
+                                int optionId = Integer.parseInt(String.valueOf(optData.get(0)));
+                                int param = Integer.parseInt(String.valueOf(optData.get(1)));
+
+                                Item.ItemOption option = new Item.ItemOption();
+                                option.optionTemplate = ItemService.gI().getItemOptionTemplate(optionId);
+                                option.param = param;
+                                options.add(option);
+                            }
+
+                            phapBao.options = options;
+                            player.phapBaos.set(phapBao.getType(), phapBao);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    player.phapBaos = Collections.nCopies(5, null); // fallback nếu lỗi
                 }
             }
         } catch (Exception e) {

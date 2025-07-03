@@ -249,7 +249,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     private float getSubLevelOtherBuff() {
-        return Math.max(1f, this.subLevel * 1f);
+        return Math.max(.5f, this.subLevel * .5f);
     }
 
     private float getSubLevelOtherBuff(float pt) {
@@ -257,7 +257,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     private float getSubLevelHpMpBuff() {
-        return Math.max(1.5f, this.subLevel * 1.5f);
+        return Math.max(1f, this.subLevel * 1f);
     }
 
     @Override
@@ -408,7 +408,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     @Override
     public float getHPMPBuff() {
-        float percentBuff = (getBaseBuffByLevel(5) + (getSubLevelHpMpBuff() + (Math.max(1, level - 1) * 10)));
+        float percentBuff = (getBaseBuffByLevel(3) + (getSubLevelHpMpBuff() + (Math.max(1, level - 1) * 10)));
         return percentBuff + (percentBuff * xParam);
     }
 
@@ -645,7 +645,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             Service.gI().sendThongBaoOK(player, "Bạn cần mở tu tiên");
             return;
         }
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN, -1, "|7|Thông Tin Tu Tiên\n" + "|5|Cảnh Giới : " + getFormatName() + "\n" + "|5|Tu Vi : " + getCurrentExpAsString() + "\n" + "Linh Khí : " + Util.powerToString(linhKhiPoint) + "/" + Util.powerToString(maxLinhKhiPoint) + "\n|7|Căn Cốt : " + canCot + "\n" + "|7|Ngộ tính : " + ngoTinh + "\n" + "Thiên phú : " + getThienPhu() + "\nĐã tu luyện : " + getYearOpened() + "\n" + "|2|Cảnh giới tiếp theo : " + getNextLevelStr() + "\n" + "|1|Tỷ lệ đột phá : " + getLevelUpPercent() + "\n" + "|7|Cảnh giới càng cao tỷ lệ đột phá càng thấp" + "\n" + "|5|Đánh giá : " + pointForMe(), "Chức Năng\nTu Tiên", "Thông Tin\nCông Pháp", "Thông Tin\nTiên Pháp", "Thông Tin\nLinh Căn", "Cài đặt\nLinh Khí", "Auto\nNghề Phụ");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN, -1, "|7|Thông Tin Tu Tiên\n" + "|5|Cảnh Giới : " + getFormatName() + "\n" + "|5|Tu Vi : " + getCurrentExpAsString() + "\n" + "Linh Khí : " + Util.powerToString(linhKhiPoint) + "/" + Util.powerToString(maxLinhKhiPoint) + "\n|7|Căn Cốt : " + canCot + "\n" + "|7|Ngộ tính : " + ngoTinh + "\n" + "Thiên phú : " + getThienPhu() + "\nĐã tu luyện : " + getYearOpened() + "\n" + "|2|Cảnh giới tiếp theo : " + getNextLevelStr() + "\n" + "|1|Tỷ lệ đột phá : " + getLevelUpPercent() + "\n" + "|7|Cảnh giới càng cao tỷ lệ đột phá càng thấp" + "\n" + "|5|Đánh giá : " + pointForMe(), "Chức Năng\nTu Tiên", "Thông Tin\nCông Pháp", "Thông Tin\nTiên Pháp", "Thông Tin\nLinh Căn", "Cài đặt\nLinh Khí", "Auto\nNghề Phụ", "Pháp bảo");
         // handle process string
     }
 

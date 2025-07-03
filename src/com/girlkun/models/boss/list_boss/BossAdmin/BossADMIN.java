@@ -52,6 +52,10 @@ public class BossADMIN extends Boss {
         Util.ratioRoiBuaZeno(zone, 1, this.location.x, this.location.y, plKill.id);
         // ratio
         Util.ratioDropLinhThu(zone, 1, this.location.x, this.location.y, plKill.id, 1f, 120, 175);
+
+        Util.ratioManhPhapBao(zone, 1, this.location.x, this.location.y, plKill.id, 100);
+
+        Util.ratioVeNangCap(zone, 1, this.location.x, this.location.y, plKill.id, 100);
     }
 
     @Override

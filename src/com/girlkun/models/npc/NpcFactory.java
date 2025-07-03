@@ -35,6 +35,7 @@ import com.girlkun.models.player.Pet.ConstPet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.Thu_TrieuHoi;
+import com.girlkun.models.player.phapbao.PhapBao;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.base_tutien.CoDuyen;
 import com.girlkun.models.shop.ShopServiceNew;
@@ -7553,6 +7554,69 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 switch (player.iDMark.getIndexMenu()) {
+                    case ConstNpc.CHON_PHAP_BAO_CUONG_HOA:
+                        PhapBao paa = player.phapBaos.get(select);
+                        if (paa == null) {
+                            Service.gI().sendThongBaoOK(player, "Bạn chưa có pháp bảo này");
+                            return;
+                        }
+                        paa.addExpNangCap(Util.nextInt(1, 100));
+                        break;
+                    case ConstNpc.TRANG_BI_PHAP_BAO:
+                        player.changePhapBao(player.iDMark.typePhapBaoHandling, player.phapBaoTamThoi);
+                        player.iDMark.typePhapBaoHandling = -1;
+                        player.phapBaoTamThoi = null;
+                        break;
+                    case ConstNpc.THAY_TRANG_BI:
+                        PhapBao phapBao = player.phapBaos.get(player.iDMark.typePhapBaoHandling);
+                        if (phapBao == null) {
+                            Service.gI().sendThongBao(player, "Không tìm thấy pháp bảo đang đeo");
+                            return;
+                        }
+                        switch (select) {
+                            case 0:
+                                player.phapBaoTamThoi.nuotPhapBao(phapBao);
+                                player.changePhapBao(player.iDMark.typePhapBaoHandling, player.phapBaoTamThoi);
+                                break;
+                            case 1:
+                                phapBao.nuotPhapBao(player.phapBaoTamThoi);
+                                // nuot phap bao
+                                break;
+                            default:
+                                break;
+                        }
+                        player.iDMark.typePhapBaoHandling = -1;
+                        player.phapBaoTamThoi = null;
+                        break;
+                    case ConstNpc.MENU_BASE_PHAP_BAO:
+                        PhapBao pb = player.phapBaos.get(select);
+                        if (pb == null) {
+                            Service.gI().sendThongBao(player, "Bạn chưa có pháp bảo này");
+                            player.showMenuPhapBao();
+                            return;
+                        }
+                        pb.showBaseMenu();
+                        break;
+                    case ConstNpc.MENU_PHAP_BAO:
+                        // get phap bao by type
+                        PhapBao aascass = player.phapBaos.get(player.iDMark.typePhapBaoHandling);
+                        if (aascass == null) {
+                            Service.gI().sendThongBao(player, "Không tìm thấy pháp bảo");
+                            return;
+                        }
+                        switch (select) {
+                            case 0:
+                                aascass.lenPham();
+                                break;
+                            case 1:
+                                aascass.nangCap();
+                                break;
+                            default:
+                                // đóng nè
+                                break;
+                        }
+                        player.iDMark.typePhapBaoHandling = -1;
+                        break;
                     case ConstNpc.MENU_LUYEN_HON:
                         switch (select) {
                             case 0:
@@ -7680,6 +7744,9 @@ public class NpcFactory {
                                     return;
                                 }
                                 player.tuMa.luyenHon.showBaseMenu();
+                                break;
+                            case 4:
+                                player.showMenuPhapBao();
                                 break;
                         }
                         break;
@@ -7932,6 +7999,9 @@ public class NpcFactory {
                                 break;
                             case 5:
                                 player.tuTien.showMenuAutoNghePhu();
+                                break;
+                            case 6:
+                                player.showMenuPhapBao();
                                 break;
                         }
                         break;

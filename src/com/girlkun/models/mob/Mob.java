@@ -859,7 +859,7 @@ public class Mob {
             // Xác suất 1% để rơi đồ đặc biệt
             if (Util.isTrue(1, 100)) {
                 // Rơi 1 item đặc biệt trong khoảng 1066–1069
-                int[] itemIds = {1066, 1067, 1068, 1069};
+                int[] itemIds = {1606, 1607, 1608, 1609};
                 int itemId = itemIds[Util.nextInt(0, itemIds.length)];
                 list.add(new ItemMap(zone, itemId, 1, this.location.x, yEnd, player.id));
             }

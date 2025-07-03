@@ -40,6 +40,9 @@ public class BossCU extends Boss {
             it.options.add(new Item.ItemOption(30, 0));
             Service.getInstance().dropItemMap(this.zone, daMedusa);
         }
+        Util.ratioManhPhapBao(zone, 1, this.location.x, this.location.y, plKill.id, 100);
+
+        Util.ratioVeNangCap(zone, 1, this.location.x, this.location.y, plKill.id, 100);
     }
 
     @Override

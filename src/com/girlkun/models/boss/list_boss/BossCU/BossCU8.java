@@ -49,6 +49,9 @@ public class BossCU8 extends Boss {
             it.options.add(new Item.ItemOption(30, 0));
             Service.getInstance().dropItemMap(this.zone, daMedusa);
         }
+        Util.ratioManhPhapBao(zone, 1, this.location.x, this.location.y, plKill.id, 100);
+
+        Util.ratioVeNangCap(zone, 1, this.location.x, this.location.y, plKill.id, 100);
     }
 
     @Override
@@ -68,9 +71,9 @@ public class BossCU8 extends Boss {
     private long st;
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack,boolean a) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!a){
+            if (!a) {
                 if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
                     this.chat("Xí hụt");
                     return 0;
