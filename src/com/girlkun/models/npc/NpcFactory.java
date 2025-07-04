@@ -7611,6 +7611,9 @@ public class NpcFactory {
                             case 1:
                                 aascass.nangCap();
                                 break;
+                            case 2:
+                                player.vutBoPhapBao(player.iDMark.typePhapBaoHandling);
+                                break;
                             default:
                                 // đóng nè
                                 break;

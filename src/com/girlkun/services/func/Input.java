@@ -100,7 +100,6 @@ public class Input {
                     String name = text[0];
                     int id = Integer.valueOf(text[1]);
                     int q = Integer.valueOf(text[2]);
-
                     Player plReveiced = Client.gI().getPlayerOrigin(name);
                     if (plReveiced != null) {
                         Item item = ItemService.gI().createNewItem(((short) id));

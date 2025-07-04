@@ -88,20 +88,15 @@ public class PhapBao implements Cloneable {
     public String getThuocTinhPhapBaoAsString() {
         StringBuilder text = new StringBuilder();
         for (Item.ItemOption option : options) {
-            text.append("|5|" + "+").append(option.getOptionString()).append("\n");
+            text.append("|5|").append(option.getOptionString()).append("\n");
         }
         return text.toString();
     }
 
     public void showBaseMenu() {
-        String text = "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + "Kinh nghiệm : " + getCurrentExp() + "\n"
-                + "Kinh nghiệm cường hóa : " + getCurrentExpNc()
-                + getThuocTinhPhapBaoAsString()
-                + "|7|Tỷ lệ nâng cấp : " + getTyLeNangCap() + "%" + "\n"
-                + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n"
-                + "|7|Mỗi lên phẩm tăng một chút thuộc tính\nPhẩm càng cao thuộc tính càng mạnh" + "\n" + "|2|Bạn muốn?";
+        String text = "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + "Exp : " + getCurrentExp() + "\n" + "Exp cường hóa : " + getCurrentExpNc() + "\n" + getThuocTinhPhapBaoAsString() + "|7|Tỷ lệ nâng cấp : " + getTyLeNangCap() + "%" + "\n" + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n" + "|7|Mỗi lên phẩm tăng một chút thuộc tính\nPhẩm càng cao thuộc tính càng mạnh" + "\n" + "|2|Bạn muốn?";
         player.iDMark.typePhapBaoHandling = type;
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PHAP_BAO, -1, text, "Nâng phẩm", "Nâng cấp", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PHAP_BAO, -1, text, "Nâng phẩm", "Nâng cấp", "Vứt bỏ", "Đóng");
     }
 
     private String getCurrentExpNc() {
@@ -658,17 +653,11 @@ public class PhapBao implements Cloneable {
     }
 
     public String getBaseThuocTinh() {
-        return "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n"
-                + getThuocTinhPhapBaoAsString()
-                + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n"
-                + "|2|Bạn muốn?";
+        return "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + getThuocTinhPhapBaoAsString() + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n" + "|2|Bạn muốn?";
     }
 
     public String getBaseThuocTinhHon() {
-        return "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n"
-                + getThuocTinhPhapBaoAsString()
-                + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n"
-                + "|2|Bạn muốn?";
+        return "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + getThuocTinhPhapBaoAsString() + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n" + "|2|Bạn muốn?";
     }
 
     public long getExpPhanra() {

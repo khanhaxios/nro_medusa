@@ -1253,24 +1253,26 @@ public class PlayerDAO {
                 JSONArray datapbb = new JSONArray();
                 for (PhapBao phapBao : player.phapBaos) {
                     JSONArray dataPb = new JSONArray();
-                    JSONArray dataOptions = new JSONArray();
-                    dataPb.add(phapBao.getId());
-                    dataPb.add(phapBao.getName());
-                    dataPb.add(phapBao.getType());
-                    dataPb.add(phapBao.getSubType());
-                    dataPb.add(phapBao.getPham());
-                    dataPb.add(phapBao.getExp());
-                    dataPb.add(phapBao.getMaxExp());
-                    dataPb.add(phapBao.getLevel());
-                    dataPb.add(phapBao.getExpNangCap());
-                    dataPb.add(phapBao.getMaxExpNangCap());
-                    for (Item.ItemOption option : phapBao.options) {
-                        JSONArray dataOptionPb = new JSONArray();
-                        dataOptionPb.add(option.optionTemplate.id);
-                        dataOptionPb.add(option.param);
-                        dataOptions.add(dataOptionPb);
+                    if (phapBao != null) {
+                        JSONArray dataOptions = new JSONArray();
+                        dataPb.add(phapBao.getId());
+                        dataPb.add(phapBao.getName());
+                        dataPb.add(phapBao.getType());
+                        dataPb.add(phapBao.getSubType());
+                        dataPb.add(phapBao.getPham());
+                        dataPb.add(phapBao.getExp());
+                        dataPb.add(phapBao.getMaxExp());
+                        dataPb.add(phapBao.getLevel());
+                        dataPb.add(phapBao.getExpNangCap());
+                        dataPb.add(phapBao.getMaxExpNangCap());
+                        for (Item.ItemOption option : phapBao.options) {
+                            JSONArray dataOptionPb = new JSONArray();
+                            dataOptionPb.add(option.optionTemplate.id);
+                            dataOptionPb.add(option.param);
+                            dataOptions.add(dataOptionPb);
+                        }
+                        dataPb.add(dataOptions);
                     }
-                    dataPb.add(dataOptions);
                     datapbb.add(dataPb);
                 }
                 dataPhapBao = datapbb.toJSONString();

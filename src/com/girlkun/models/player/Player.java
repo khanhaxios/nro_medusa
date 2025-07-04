@@ -1533,5 +1533,10 @@ public class Player {
         Service.gI().point(this);
         Service.gI().sendThongBao(this, "Trang bị pháp bảo thành công");
     }
+
+    public void vutBoPhapBao(byte typePhapBaoHandling) {
+        phapBaos.set(typePhapBaoHandling, null);
+        Service.gI().sendThongBaoOK(this, "Đã vứt bỏ pháp bảo");
+    }
 }
 //nplayer

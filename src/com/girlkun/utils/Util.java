@@ -62,16 +62,14 @@ public class Util {
         byte[] array = null;
         try {
             BufferedImage img = new BufferedImage(nextInt(80, 250), nextInt(80, 250), BufferedImage.TYPE_INT_ARGB);
-            IntStream.range(0, img.getWidth())
-                    .forEach(x -> IntStream.range(0, img.getHeight())
-                            .forEach(y -> {
-                                int a = ThreadLocalRandom.current().nextInt(256);
-                                int r = ThreadLocalRandom.current().nextInt(256);
-                                int g = ThreadLocalRandom.current().nextInt(256);
-                                int b = ThreadLocalRandom.current().nextInt(256);
-                                int p = (a << 24) | (r << 16) | (g << 8) | b;
-                                img.setRGB(x, y, p);
-                            }));
+            IntStream.range(0, img.getWidth()).forEach(x -> IntStream.range(0, img.getHeight()).forEach(y -> {
+                int a = ThreadLocalRandom.current().nextInt(256);
+                int r = ThreadLocalRandom.current().nextInt(256);
+                int g = ThreadLocalRandom.current().nextInt(256);
+                int b = ThreadLocalRandom.current().nextInt(256);
+                int p = (a << 24) | (r << 16) | (g << 8) | b;
+                img.setRGB(x, y, p);
+            }));
             ImageIO.write(img, "png", baos);
             array = baos.toByteArray();
         } catch (IOException e) {
@@ -274,33 +272,12 @@ public class Util {
     }
 
     public static String formatDouble(double a) {
-        if (a < 1000)
-            return String.format("%.0f", a);
+        if (a < 1000) return String.format("%.0f", a);
 
-        String[] suffixes = {
-                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "M", "N", "V", "X", "Y", "Z",
-                "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AM", "AN", "AV", "AX", "AY", "AZ",
-                "BA", "BB", "BC", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BK", "BM", "BN", "BV", "BX", "BY", "BZ",
-                "CA", "CB", "CC", "CD", "CE", "CF", "CG", "CH", "CI", "CJ", "CK", "CM", "CN", "CV", "CX", "CY", "CZ",
-                "DA", "DB", "DC", "DD", "DE", "DF", "DG", "DH", "DI", "DJ", "DK", "DM", "DN", "DV", "DX", "DY", "DZ",
-                "EA", "EB", "EC", "ED", "EE", "EF", "EG", "EH", "EI", "EJ", "EK", "EM", "EN", "EV", "EX", "EY", "EZ",
-                "FA", "FB", "FC", "FD", "FE", "FF", "FG", "FH", "FI", "FJ", "FK", "FM", "FN", "FV", "FX", "FY", "FZ",
-                "GA", "GB", "GC", "GD", "GE", "GF", "GG", "GH", "GI", "GJ", "GK", "GM", "GN", "GV", "GX", "GY", "GZ",
-                "HA", "HB", "HC", "HD", "HE", "HF", "HG", "HH", "HI", "HJ", "HK", "HM", "HN", "HV", "HX", "HY", "HZ",
-                "IA", "IB", "IC", "ID", "IE", "IF", "IG", "IH", "II", "IJ", "IK", "IM", "IN", "IV", "IX", "IY", "IZ",
-                "JA", "JB", "JC", "JD", "JE", "JF", "JG", "JH", "JI", "JJ", "JK", "JM", "JN", "JV", "JX", "JY", "JZ",
-                "KA", "KB", "KC", "KD", "KE", "KF", "KG", "KH", "KI", "KJ", "KK", "KM", "KN", "KV", "KX", "KY", "KZ",
-                "MA", "MB", "MC", "MD", "ME", "MF", "MG", "MH", "MI", "MJ", "MK", "MM", "MN", "MV", "MX", "MY", "MZ",
-                "NA", "NB", "NC", "ND", "NE", "NF", "NG", "NH", "NI", "NJ", "NK", "NM", "NN", "NV", "NX", "NY", "NZ",
-                "VA", "VB", "VC", "VD", "VE", "VF", "VG", "VH", "VI", "VJ", "VK", "VM", "VN", "VV", "VX", "VY", "VZ",
-                "XA", "XB", "XC", "XD", "XE", "XF", "XG", "XH", "XI", "XJ", "XK", "XM", "XN", "XV", "XX", "XY", "XZ",
-                "YA", "YB", "YC", "YD", "YE", "YF", "YG", "YH", "YI", "YJ", "YK", "YM", "YN", "YV", "YX", "YY", "YZ",
-                "ZA", "ZB", "ZC", "ZD", "ZE", "ZF", "ZG", "ZH", "ZI", "ZJ", "ZK", "ZM", "ZN", "ZV", "ZX", "ZY", "ZZ"
-        };
+        String[] suffixes = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "M", "N", "V", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AM", "AN", "AV", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BK", "BM", "BN", "BV", "BX", "BY", "BZ", "CA", "CB", "CC", "CD", "CE", "CF", "CG", "CH", "CI", "CJ", "CK", "CM", "CN", "CV", "CX", "CY", "CZ", "DA", "DB", "DC", "DD", "DE", "DF", "DG", "DH", "DI", "DJ", "DK", "DM", "DN", "DV", "DX", "DY", "DZ", "EA", "EB", "EC", "ED", "EE", "EF", "EG", "EH", "EI", "EJ", "EK", "EM", "EN", "EV", "EX", "EY", "EZ", "FA", "FB", "FC", "FD", "FE", "FF", "FG", "FH", "FI", "FJ", "FK", "FM", "FN", "FV", "FX", "FY", "FZ", "GA", "GB", "GC", "GD", "GE", "GF", "GG", "GH", "GI", "GJ", "GK", "GM", "GN", "GV", "GX", "GY", "GZ", "HA", "HB", "HC", "HD", "HE", "HF", "HG", "HH", "HI", "HJ", "HK", "HM", "HN", "HV", "HX", "HY", "HZ", "IA", "IB", "IC", "ID", "IE", "IF", "IG", "IH", "II", "IJ", "IK", "IM", "IN", "IV", "IX", "IY", "IZ", "JA", "JB", "JC", "JD", "JE", "JF", "JG", "JH", "JI", "JJ", "JK", "JM", "JN", "JV", "JX", "JY", "JZ", "KA", "KB", "KC", "KD", "KE", "KF", "KG", "KH", "KI", "KJ", "KK", "KM", "KN", "KV", "KX", "KY", "KZ", "MA", "MB", "MC", "MD", "ME", "MF", "MG", "MH", "MI", "MJ", "MK", "MM", "MN", "MV", "MX", "MY", "MZ", "NA", "NB", "NC", "ND", "NE", "NF", "NG", "NH", "NI", "NJ", "NK", "NM", "NN", "NV", "NX", "NY", "NZ", "VA", "VB", "VC", "VD", "VE", "VF", "VG", "VH", "VI", "VJ", "VK", "VM", "VN", "VV", "VX", "VY", "VZ", "XA", "XB", "XC", "XD", "XE", "XF", "XG", "XH", "XI", "XJ", "XK", "XM", "XN", "XV", "XX", "XY", "XZ", "YA", "YB", "YC", "YD", "YE", "YF", "YG", "YH", "YI", "YJ", "YK", "YM", "YN", "YV", "YX", "YY", "YZ", "ZA", "ZB", "ZC", "ZD", "ZE", "ZF", "ZG", "ZH", "ZI", "ZJ", "ZK", "ZM", "ZN", "ZV", "ZX", "ZY", "ZZ"};
 
         int exponent = (int) (Math.log10(a) / 3);
-        if (exponent >= suffixes.length)
-            return String.format("%.2E", a); // fallback scientific notation
+        if (exponent >= suffixes.length) return String.format("%.2E", a); // fallback scientific notation
 
         double value = a / Math.pow(1000, exponent);
         return String.format("%.4f", value) + suffixes[exponent - 1];
@@ -410,14 +387,11 @@ public class Util {
     }
 
     public static String clearKeywordVip(String name) {
-        return name.replace("[SVIP] ", "")
-                .replace("[VIP] ", "");
+        return name.replace("[SVIP] ", "").replace("[VIP] ", "");
     }
 
     public static boolean kituvip(String text) {
-        if (text.contains("[svip]") || text.contains("[vip]") || text.contains("[SVIP]")
-                || text.contains("[VIP]") || text.contains("VIP") || text.contains("vip")
-                || text.contains("SVIP") || text.contains("svip")) {
+        if (text.contains("[svip]") || text.contains("[vip]") || text.contains("[SVIP]") || text.contains("[VIP]") || text.contains("VIP") || text.contains("vip") || text.contains("SVIP") || text.contains("svip")) {
             return false;
         }
         return true;
@@ -427,29 +401,9 @@ public class Util {
         return System.currentTimeMillis() - lastTime > miniTimeTarget;
     }
 
-    private static final char[] SOURCE_CHARACTERS = {'À', 'Á', 'Â', 'Ã', 'È', 'É',
-            'Ê', 'Ì', 'Í', 'Ò', 'Ó', 'Ô', 'Õ', 'Ù', 'Ú', 'Ý', 'à', 'á', 'â',
-            'ã', 'è', 'é', 'ê', 'ì', 'í', 'ò', 'ó', 'ô', 'õ', 'ù', 'ú', 'ý',
-            'Ă', 'ă', 'Đ', 'đ', 'Ĩ', 'ĩ', 'Ũ', 'ũ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ạ',
-            'ạ', 'Ả', 'ả', 'Ấ', 'ấ', 'Ầ', 'ầ', 'Ẩ', 'ẩ', 'Ẫ', 'ẫ', 'Ậ', 'ậ',
-            'Ắ', 'ắ', 'Ằ', 'ằ', 'Ẳ', 'ẳ', 'Ẵ', 'ẵ', 'Ặ', 'ặ', 'Ẹ', 'ẹ', 'Ẻ',
-            'ẻ', 'Ẽ', 'ẽ', 'Ế', 'ế', 'Ề', 'ề', 'Ể', 'ể', 'Ễ', 'ễ', 'Ệ', 'ệ',
-            'Ỉ', 'ỉ', 'Ị', 'ị', 'Ọ', 'ọ', 'Ỏ', 'ỏ', 'Ố', 'ố', 'Ồ', 'ồ', 'Ổ',
-            'ổ', 'Ỗ', 'ỗ', 'Ộ', 'ộ', 'Ớ', 'ớ', 'Ờ', 'ờ', 'Ở', 'ở', 'Ỡ', 'ỡ',
-            'Ợ', 'ợ', 'Ụ', 'ụ', 'Ủ', 'ủ', 'Ứ', 'ứ', 'Ừ', 'ừ', 'Ử', 'ử', 'Ữ',
-            'ữ', 'Ự', 'ự',};
+    private static final char[] SOURCE_CHARACTERS = {'À', 'Á', 'Â', 'Ã', 'È', 'É', 'Ê', 'Ì', 'Í', 'Ò', 'Ó', 'Ô', 'Õ', 'Ù', 'Ú', 'Ý', 'à', 'á', 'â', 'ã', 'è', 'é', 'ê', 'ì', 'í', 'ò', 'ó', 'ô', 'õ', 'ù', 'ú', 'ý', 'Ă', 'ă', 'Đ', 'đ', 'Ĩ', 'ĩ', 'Ũ', 'ũ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ạ', 'ạ', 'Ả', 'ả', 'Ấ', 'ấ', 'Ầ', 'ầ', 'Ẩ', 'ẩ', 'Ẫ', 'ẫ', 'Ậ', 'ậ', 'Ắ', 'ắ', 'Ằ', 'ằ', 'Ẳ', 'ẳ', 'Ẵ', 'ẵ', 'Ặ', 'ặ', 'Ẹ', 'ẹ', 'Ẻ', 'ẻ', 'Ẽ', 'ẽ', 'Ế', 'ế', 'Ề', 'ề', 'Ể', 'ể', 'Ễ', 'ễ', 'Ệ', 'ệ', 'Ỉ', 'ỉ', 'Ị', 'ị', 'Ọ', 'ọ', 'Ỏ', 'ỏ', 'Ố', 'ố', 'Ồ', 'ồ', 'Ổ', 'ổ', 'Ỗ', 'ỗ', 'Ộ', 'ộ', 'Ớ', 'ớ', 'Ờ', 'ờ', 'Ở', 'ở', 'Ỡ', 'ỡ', 'Ợ', 'ợ', 'Ụ', 'ụ', 'Ủ', 'ủ', 'Ứ', 'ứ', 'Ừ', 'ừ', 'Ử', 'ử', 'Ữ', 'ữ', 'Ự', 'ự',};
 
-    private static final char[] DESTINATION_CHARACTERS = {'A', 'A', 'A', 'A', 'E',
-            'E', 'E', 'I', 'I', 'O', 'O', 'O', 'O', 'U', 'U', 'Y', 'a', 'a',
-            'a', 'a', 'e', 'e', 'e', 'i', 'i', 'o', 'o', 'o', 'o', 'u', 'u',
-            'y', 'A', 'a', 'D', 'd', 'I', 'i', 'U', 'u', 'O', 'o', 'U', 'u',
-            'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A',
-            'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'E', 'e',
-            'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E',
-            'e', 'I', 'i', 'I', 'i', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o',
-            'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O',
-            'o', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u',
-            'U', 'u', 'U', 'u',};
+    private static final char[] DESTINATION_CHARACTERS = {'A', 'A', 'A', 'A', 'E', 'E', 'E', 'I', 'I', 'O', 'O', 'O', 'O', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'e', 'e', 'e', 'i', 'i', 'o', 'o', 'o', 'o', 'u', 'u', 'y', 'A', 'a', 'D', 'd', 'I', 'i', 'U', 'u', 'O', 'o', 'U', 'u', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'I', 'i', 'I', 'i', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u',};
 
     public static char removeAccent(char ch) {
         int index = Arrays.binarySearch(SOURCE_CHARACTERS, ch);
@@ -468,8 +422,7 @@ public class Util {
     }
 
     public static String generateRandomText(int len) {
-        String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
-                + "lmnopqrstuvwxyz!@#$%&";
+        String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk" + "lmnopqrstuvwxyz!@#$%&";
         Random rnd = new Random();
         StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
@@ -566,6 +519,10 @@ public class Util {
         ItemMap itemMap = new ItemMap(zone, 2078, i, x, y, id);
         itemMap.options.add(new Item.ItemOption(30, 0));
         Service.gI().dropItemMap(zone, itemMap);
+    }
+
+    public static String clearKeywordCanhGioi(String name) {
+        return name.substring(0, name.lastIndexOf(']'));
     }
 
 
@@ -1314,9 +1271,7 @@ public class Util {
 
     public static void checkPlayer(Player player) {
         new Thread(() -> {
-            List<Player> list = Client.gI().getPlayers().stream().filter(
-                    p -> !p.isPet && !p.isDaoLu && !p.isNewPet && !p.isTrieuhoipet
-                            && p.getSession().userId == player.getSession().userId).collect(Collectors.toList());
+            List<Player> list = Client.gI().getPlayers().stream().filter(p -> !p.isPet && !p.isDaoLu && !p.isNewPet && !p.isTrieuhoipet && p.getSession().userId == player.getSession().userId).collect(Collectors.toList());
             if (list.size() > 1) {
                 list.forEach(pp -> Client.gI().kickSession(pp.getSession()));
                 list.clear();

@@ -61,7 +61,7 @@ public class CongPhapTuMa {
     }
 
     public int getMaxHuyetDan() {
-        return phamChat * 2_000_000;
+        return Math.max(1, phamChat) * 2_000_000;
     }
 
     public void useHuyetDan(Item item) {

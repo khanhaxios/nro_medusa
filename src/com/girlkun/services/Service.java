@@ -1220,12 +1220,14 @@ public class Service {
                 Input.log_Follow_Admin(player.getSession().uu, player.getSession().uu, "Buff Đồ lệnh isl", item.template.name, "", (int) quantity);
                 return;
             } else if (text.startsWith("item ")) {
-                int itemId = Integer.parseInt(text.replace("item ", "").trim());
-                Item item = ItemService.gI().createNewItem(((short) itemId));
+                String[] cmd = text.split(" ");
+                int itemId = Integer.parseInt(cmd[1]);
+                int quantity = Integer.parseInt(cmd[2]);
+                Item item = ItemService.gI().createNewItem(((short) itemId), quantity);
                 InventoryServiceNew.gI().addItemBag(player, item);
                 InventoryServiceNew.gI().sendItemBags(player);
                 Service.gI().sendThongBao(player, "Đã lấy " + item.template.name + " [" + item.template.id + "]  ra từ kho đồ vũ trụ!");
-                Input.log_Follow_Admin(player.getSession().uu, player.getSession().uu, "Buff Đồ lệnh i", item.template.name, "", 1);
+//                Input.log_Follow_Admin(player.getSession().uu, player.getSession().uu, "Buff Đồ lệnh i", item.template.name, "", 1);
                 return;
             } else if (text.equals("buff")) {
                 Input.gI().createFormGiveItem(player);

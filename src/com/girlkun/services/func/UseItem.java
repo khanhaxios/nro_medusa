@@ -301,12 +301,11 @@ public class UseItem {
                             pl.phapBaoTamThoi = phapBao;
                             // get phap bao hien tai
                             PhapBao phapbaoHienTai = pl.phapBaos.get(phapBao.getType());
+                            pl.iDMark.typePhapBaoHandling = phapBao.getType();
                             if (phapbaoHienTai == null) {
-                                pl.iDMark.typePhapBaoHandling = phapBao.getType();
                                 NpcService.gI().createMenuConMeo(pl, ConstNpc.TRANG_BI_PHAP_BAO, -1, phapBao.getBaseThuocTinh(), "Trang bị", "Vứt bỏ");
                             } else {
                                 // do chien luc
-                                pl.iDMark.typePhapBaoHandling = phapBao.getType();
                                 if (phapbaoHienTai.danhGiaLucChienPhapBao() < phapBao.danhGiaLucChienPhapBao()) {
                                     NpcService.gI().createMenuConMeo(pl, ConstNpc.THAY_TRANG_BI, -1, phapBao.getBaseThuocTinhHon(), "Trang bị", "Nuốt");
                                 } else {

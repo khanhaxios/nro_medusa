@@ -1240,41 +1240,42 @@ public class GodGK {
                     String dataPhapBao = rs.getString("data_phap_bao");
                     if (dataPhapBao != null && !dataPhapBao.isEmpty()) {
                         JSONArray dataArr = (JSONArray) JSONValue.parse(dataPhapBao);
-                        player.phapBaos = Collections.nCopies(5, null);
+                        player.phapBaos = new ArrayList<>(Collections.nCopies(5, null));
                         for (Object pbObj : dataArr) {
                             JSONArray pbData = (JSONArray) pbObj;
-                            PhapBao phapBao = new PhapBao(player);
-                            phapBao.setId(String.valueOf(pbData.get(0)));
-                            phapBao.setName(String.valueOf(pbData.get(1)));
-                            phapBao.setType(Byte.parseByte(String.valueOf(pbData.get(2))));
-                            phapBao.setSubType(Byte.parseByte(String.valueOf(pbData.get(3))));
-                            phapBao.setPham(Byte.parseByte(String.valueOf(pbData.get(4))));
-                            phapBao.setExp(Long.parseLong(String.valueOf(pbData.get(5))));
-                            phapBao.setMaxExp(Long.parseLong(String.valueOf(pbData.get(6))));
-                            phapBao.setLevel(Byte.parseByte(String.valueOf(pbData.get(7))));
-                            phapBao.setExpNangCap(Long.parseLong(String.valueOf(pbData.get(8))));
-                            phapBao.setMaxExpNangCap(Long.parseLong(String.valueOf(pbData.get(9))));
+                            if (pbData.size() > 0) {
+                                PhapBao phapBao = new PhapBao(player);
+                                phapBao.setId(String.valueOf(pbData.get(0)));
+                                phapBao.setName(String.valueOf(pbData.get(1)));
+                                phapBao.setType(Byte.parseByte(String.valueOf(pbData.get(2))));
+                                phapBao.setSubType(Byte.parseByte(String.valueOf(pbData.get(3))));
+                                phapBao.setPham(Byte.parseByte(String.valueOf(pbData.get(4))));
+                                phapBao.setExp(Long.parseLong(String.valueOf(pbData.get(5))));
+                                phapBao.setMaxExp(Long.parseLong(String.valueOf(pbData.get(6))));
+                                phapBao.setLevel(Byte.parseByte(String.valueOf(pbData.get(7))));
+                                phapBao.setExpNangCap(Long.parseLong(String.valueOf(pbData.get(8))));
+                                phapBao.setMaxExpNangCap(Long.parseLong(String.valueOf(pbData.get(9))));
 
-                            JSONArray optionArr = (JSONArray) pbData.get(10);
-                            List<Item.ItemOption> options = new ArrayList<>();
-                            for (Object optObj : optionArr) {
-                                JSONArray optData = (JSONArray) optObj;
-                                int optionId = Integer.parseInt(String.valueOf(optData.get(0)));
-                                int param = Integer.parseInt(String.valueOf(optData.get(1)));
+                                JSONArray optionArr = (JSONArray) pbData.get(10);
+                                List<Item.ItemOption> options = new ArrayList<>();
+                                for (Object optObj : optionArr) {
+                                    JSONArray optData = (JSONArray) optObj;
+                                    int optionId = Integer.parseInt(String.valueOf(optData.get(0)));
+                                    int param = Integer.parseInt(String.valueOf(optData.get(1)));
 
-                                Item.ItemOption option = new Item.ItemOption();
-                                option.optionTemplate = ItemService.gI().getItemOptionTemplate(optionId);
-                                option.param = param;
-                                options.add(option);
+                                    Item.ItemOption option = new Item.ItemOption();
+                                    option.optionTemplate = ItemService.gI().getItemOptionTemplate(optionId);
+                                    option.param = param;
+                                    options.add(option);
+                                }
+                                phapBao.options = options;
+                                player.phapBaos.set(phapBao.getType(), phapBao);
                             }
-
-                            phapBao.options = options;
-                            player.phapBaos.set(phapBao.getType(), phapBao);
                         }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    player.phapBaos = Collections.nCopies(5, null); // fallback nếu lỗi
+                    player.phapBaos = new ArrayList<>(Collections.nCopies(5, null));// fallback nếu lỗi
                 }
             }
         } catch (Exception e) {
