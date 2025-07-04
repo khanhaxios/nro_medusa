@@ -69,7 +69,6 @@ public class Client implements Runnable {
             this.players_name.put(player.name, player);
         }
         String nameOrigin = Util.clearKeywordVip(player.name);
-        nameOrigin = Util.clearKeywordCanhGioi(nameOrigin);
         if (!players_name_origin.containsValue(player)) {
             this.players_name_origin.put(nameOrigin, player);
         }
