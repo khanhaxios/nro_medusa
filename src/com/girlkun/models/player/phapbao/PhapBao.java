@@ -657,7 +657,11 @@ public class PhapBao implements Cloneable {
     }
 
     public String getBaseThuocTinhHon() {
-        return "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + getThuocTinhPhapBaoAsString() + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n" + "|2|Bạn muốn?";
+        return "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + getThuocTinhPhapBaoAsString() + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n";
+    }
+
+    public String getBaseThuocTinhHon(PhapBao cu) {
+        return "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + getThuocTinhPhapBaoAsString() + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n" + cu.getBaseThuocTinhHon();
     }
 
     public long getExpPhanra() {

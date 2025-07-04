@@ -307,7 +307,7 @@ public class UseItem {
                             } else {
                                 // do chien luc
                                 if (phapbaoHienTai.danhGiaLucChienPhapBao() < phapBao.danhGiaLucChienPhapBao()) {
-                                    NpcService.gI().createMenuConMeo(pl, ConstNpc.THAY_TRANG_BI, -1, phapBao.getBaseThuocTinhHon(), "Trang bị", "Nuốt");
+                                    NpcService.gI().createMenuConMeo(pl, ConstNpc.THAY_TRANG_BI, -1, phapBao.getBaseThuocTinhHon(phapbaoHienTai), "Trang bị", "Nuốt");
                                 } else {
                                     phapbaoHienTai.nuotPhapBao(phapBao);
                                 }
