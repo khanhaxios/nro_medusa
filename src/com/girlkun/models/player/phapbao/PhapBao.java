@@ -9,6 +9,7 @@ import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static com.girlkun.models.player.phapbao.PhapBaoFactory.phapBaoNames;
 import static com.girlkun.models.player.phapbao.PhapBaoFactory.vuKhiNames;
@@ -48,6 +49,7 @@ public class PhapBao implements Cloneable {
     public PhapBao(Player player) {
         this.player = player;
         options = new ArrayList<>();
+        this.id = UUID.randomUUID().toString();
     }
 
     public void addExp(long exp) {
