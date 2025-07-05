@@ -5,7 +5,6 @@ import com.girlkun.jdbc.daos.HistoryTransactionDAO;
 import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.kygui.ShopKyGuiManager;
-import com.girlkun.models.map.challenge.MartialCongressManager;
 import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
 import com.girlkun.models.player.Player;
 import com.girlkun.network.example.MessageSendCollect;
@@ -166,43 +165,39 @@ public class ServerManager {
         long delay = 500;
         delaylogin = System.currentTimeMillis();
         isRunning = true;
-        activeCommandLine();
-        activeGame();
         activeServerSocket();
-        Logger.log(Logger.PURPLE_BOLD_BRIGHT, "░░░░░░░░░░░░▄▄\n░░░░░░░░░░░█░░█\n░░░░░░░░░░░█░░█\n░░░░░░░░░░█░░░█\n░░░░░░░░░█░░░░█\n███████▄▄█░░░░░██████▄\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█░░░░░░░░░░░░░░█\n▓▓▓▓▓▓█████░░░░░░░░░█\n██████▀░░░░▀▀██████▀\n");
         new Thread(DaiHoiVoThuat.gI(), "Thread DHVT").start();
 //        ChonAiDay.gI().lastTimeEnd = System.currentTimeMillis() + 300000;
 //        new Thread(ChonAiDay.gI() , "Thread ChonAiDay").start();
         TaiXiu.gI().lastTimeEnd = System.currentTimeMillis() + 50000;
-        new Thread(TaiXiu.gI(), "Thread TaiXiu").start();
-
+//        new Thread(TaiXiu.gI(), "Thread TaiXiu").start();
         NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
 
         new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
 
         new Thread(TopService.gI(), "Thread TOP").start();
 
-        new Thread(() -> {
-            while (isRunning) {
-                try {
-                    long start = System.currentTimeMillis();
-                    MartialCongressManager.gI().update();
-                    ShopKyGuiManager.gI().save();
-                    long timeUpdate = System.currentTimeMillis() - start;
-                    if (timeUpdate < delay) {
-                        Thread.sleep(delay - timeUpdate);
-                    }
-                } catch (Exception e) {
-                    System.out.println("qwert");
-                }
-            }
-        }, "Update dai hoi vo thuat").start();
+//        new Thread(() -> {
+//            while (isRunning) {
+//                try {
+//                    long start = System.currentTimeMillis();
+//                    MartialCongressManager.gI().update();
+//                    ShopKyGuiManager.gI().save();
+//                    long timeUpdate = System.currentTimeMillis() - start;
+//                    if (timeUpdate < delay) {
+//                        Thread.sleep(delay - timeUpdate);
+//                    }
+//                } catch (Exception e) {
+//                    System.out.println("qwert");
+//                }
+//            }
+//        }, "Update dai hoi vo thuat").start();
         new Thread(Manager.sanGiaoDichBuaZeno, "SGD").start();
         try {
-            Thread.sleep(1000);
+//            Thread.sleep(1000);
             BossManager.gI().loadBoss();
             Manager.MAPS.forEach(com.girlkun.models.map.Map::initBoss);
-        } catch (InterruptedException ex) {
+        } catch (Exception ex) {
             java.util.logging.Logger.getLogger(BossManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         new Thread(this::activePanelControllerApi).start();
@@ -226,7 +221,13 @@ public class ServerManager {
                 @Override
                 public void sessionDisconnect(ISession iSession) {
                     Client.gI().kickSession((MySession) iSession);
-                    GirlkunSessionManager.gI().removeSession(iSession);
+                    List<ISession> sessions = new ArrayList<>(GirlkunSessionManager.gI().getSessions());
+                    for (ISession session : sessions) {
+                        MySession mySession = (MySession) session;
+                        if (mySession.player == null) {
+                            GirlkunSessionManager.gI().removeSession(session);
+                        }
+                    }
                 }
             };
             GirlkunServer.gI().init().setAcceptHandler(sessionAcceptHandler).setTypeSessioClone(MySession.class)
@@ -327,9 +328,6 @@ public class ServerManager {
                 }
             }
         }, "Active line").start();
-    }
-
-    private void activeGame() {
     }
 
     public void close(long delay) {
