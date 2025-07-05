@@ -1792,6 +1792,15 @@ public class NPoint {
                 dame = dame + (Util.nextInt(-5, 5) * dame / 100);
                 return dame;
         }
+        if (player.setClothes.tienKhi >= 5) {
+            percentXDame += 100;
+        }
+        if (player.setClothes.thanhKhi >= 5) {
+            percentXDame += 300;
+        }
+        if (player.setClothes.thanKhi >= 5) {
+            percentXDame += 500;
+        }
         if (intrinsic.id == 18 && this.player.effectSkill.isMonkey) {
             percentDameIntrinsic = intrinsic.param1;
         }

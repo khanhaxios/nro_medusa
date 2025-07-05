@@ -5,7 +5,9 @@ import com.girlkun.models.player.Player;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PhapBaoFactory {
     public static final String[] phapBaoNames = {"[Khôi]", // 0
@@ -21,11 +23,11 @@ public class PhapBaoFactory {
             "[Côn]",         // 5
             "[Bổng]",        // 6
             "[Tiên]",        // 7
-            "[Phi Tiêu]",    // 8
-            "[Ám Khí]",      // 9
-            "[Pháp Trượng]", // 12
-            "[Linh Châu]",   // 13
-            "[Ngọc Phù]",    // 14
+            "[Tiêu]",    // 8
+            "[Ám]",      // 9
+            "[Trượng]", // 12
+            "[Châu]",   // 13
+            "[Phù]",    // 14
     };
 
     public static final String[] tenPhapBao = {
@@ -59,16 +61,23 @@ public class PhapBaoFactory {
         if (Util.isTrue(1, 350)) {
             slOption = 5;
         }
+        Set<Integer> usedOptionIds = new HashSet<>(); // để lưu các idOption đã được chọn
         List<Item.ItemOption> options = new ArrayList<>();
-        for (int i = 0; i < slOption; i++) {
+        while (options.size() < slOption) {
             int idOption = -1;
-            if (Util.isTrue(5, 100)) {
+            if (Util.isTrue(1, 100)) {
                 idOption = PhapBao.OPTION_SSS_VIP_CAN_ROLL[Util.nextInt(0, PhapBao.OPTION_SSS_VIP_CAN_ROLL.length - 1)];
             } else if (Util.isTrue(10, 100)) {
                 idOption = PhapBao.OPTION_VIP_CAN_ROLL[Util.nextInt(0, PhapBao.OPTION_VIP_CAN_ROLL.length - 1)];
             } else {
                 idOption = PhapBao.OPTION_CAN_ROLL[Util.nextInt(0, PhapBao.OPTION_CAN_ROLL.length - 1)];
             }
+
+            if (usedOptionIds.contains(idOption)) {
+                continue; // đã có option này rồi, random lại
+            }
+
+            usedOptionIds.add(idOption);
             int param = getParam(idOption, slOption);
             Item.ItemOption itemOption = new Item.ItemOption(idOption, param);
             options.add(itemOption);

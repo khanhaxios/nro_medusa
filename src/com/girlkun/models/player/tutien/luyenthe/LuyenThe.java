@@ -187,4 +187,9 @@ public class LuyenThe {
         }
         return needStr.toString();
     }
+
+    public void subExp(long l) {
+        exp -= l;
+        if (exp < 0) exp = 0;
+    }
 }

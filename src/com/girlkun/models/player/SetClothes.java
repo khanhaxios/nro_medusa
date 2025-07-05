@@ -593,6 +593,9 @@ public class SetClothes {
         this.setGokuUIXD = 0;
         this.skhMedusa = 0;
 
+        tienKhi = 0;
+        thanhKhi = 0;
+        thanKhi = 0;
         this.isDaoYeuLinhPhucMa = false;
         this.isThuongLinhDietMa = false;
     }

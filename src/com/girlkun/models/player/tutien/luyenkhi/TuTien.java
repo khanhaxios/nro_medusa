@@ -879,4 +879,9 @@ public class TuTien extends BasePoint implements IBaseAction {
         NpcService.gI().createMenuConMeo(player, 13912783, -1, text, "Đóng");
         return isSuccess;
     }
+
+    public void subExp(long l) {
+        exp -= l;
+        if (exp < 0) exp = 0;
+    }
 }

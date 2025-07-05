@@ -17,7 +17,7 @@ public class PhapBao implements Cloneable {
 
     private static final byte MAX_LEVEL = 18;
     private static final int MAX_PHAM = 12;
-    public static int[] OPTION_SSS_VIP_CAN_ROLL = new int[]{41, 42, 43, 45, 49};
+    public static int[] OPTION_SSS_VIP_CAN_ROLL = new int[]{41, 42, 43, 45, 49, 44};
     public static int[] OPTION_VIP_CAN_ROLL = new int[]{0, 2, 5, 22, 23, 50, 77, 103, 251, 252};
     public static int[] OPTION_CAN_ROLL = new int[]{6, 7, 14, 17, 18};
 
@@ -300,6 +300,15 @@ public class PhapBao implements Cloneable {
         int dameSSSAdd = 0;
         for (Item.ItemOption io : options) {
             switch (io.optionTemplate.id) {
+                case 41:
+                    player.setClothes.tienKhi++;
+                    break;
+                case 42:
+                    player.setClothes.thanhKhi++;
+                    break;
+                case 43:
+                    player.setClothes.thanKhi++;
+                    break;
                 case 0: //Tấn công +#
                     player.nPoint.dameAdd += io.param;
                     break;
@@ -348,7 +357,7 @@ public class PhapBao implements Cloneable {
                     break;
                 case 44: // tien luc
                     player.tienLuc += io.param;
-                    float tyLe = (float) (io.param * 20) / 100f;
+                    float tyLe = (float) (io.param) / 100f;
                     player.nPoint.hpAdd += player.nPoint.hpMax * tyLe;
                     player.nPoint.dameAdd += player.nPoint.dame * tyLe;
                     player.nPoint.mpAdd += player.nPoint.mpMax * tyLe;
@@ -660,15 +669,19 @@ public class PhapBao implements Cloneable {
         return "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + getThuocTinhPhapBaoAsString() + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n";
     }
 
+    public String getBaseThuocTinhHonNoTitle() {
+        return getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + getThuocTinhPhapBaoAsString() + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n";
+    }
+
     public String getBaseThuocTinhHon(PhapBao cu) {
-        return "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + getThuocTinhPhapBaoAsString() + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n" + cu.getBaseThuocTinhHon();
+        return "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + getThuocTinhPhapBaoAsString() + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n" + cu.getBaseThuocTinhHonNoTitle();
     }
 
     public long getExpPhanra() {
-        return pham * 12_000;
+        return Math.max(1, pham) * 12_000;
     }
 
     public long getExpNangCapPhanra() {
-        return level * 10_000;
+        return Math.max(1, level) * 10_000;
     }
 }

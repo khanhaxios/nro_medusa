@@ -1273,6 +1273,16 @@ public class Player {
     }
 
     protected void setDie(Player plAtt) {
+        // giam tu vi tu tien
+        if (tuTien != null && tuTien.isTuTien()) {
+            tuTien.subExp(tuTien.maxExp / 100);
+        }
+        if (tuMa != null && tuMa.isTuMa()) {
+            tuMa.subExp(tuMa.maxExp / 100);
+        }
+        if (luyenThe.isLuyenTheReal()) {
+            luyenThe.subExp(luyenThe.maxExp / 100);
+        }
         //xóa phù
         if (this.effectSkin.xHPKI > 1) {
             this.effectSkin.xHPKI = 1;

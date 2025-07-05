@@ -343,4 +343,9 @@ public class TuMa implements IBaseAction {
         player.tuMa.luyenHon.open();
         Service.gI().sendThongBao(player, "Đã mở luyện hồn");
     }
+
+    public void subExp(long l) {
+        exp -= l;
+        if (exp < 0) exp = 0;
+    }
 }
