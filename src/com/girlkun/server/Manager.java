@@ -60,7 +60,6 @@ public class Manager {
     public static short[] setNguyenThuy = new short[]{1450, 1451, 1452};
     public static short[] setThanhTon = new short[]{1431, 1432, 1433, 1434, 1435};
     public static List<Integer> idsMapCold = Arrays.asList(110, 109, 108, 107, 106, 105);
-    public static short[] itemIdsTS;
     private static Manager i;
 
     public static byte SERVER = 1;

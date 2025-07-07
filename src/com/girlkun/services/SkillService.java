@@ -1291,7 +1291,7 @@ public class SkillService {
                     break;
                 case 2:
                     // gay sat thuong dua tren max mp
-                    double dameThuy = (plAtt.nPoint.mpMax / 2.1f) * paramOfLinhCan / 100;
+                    double dameThuy = (plAtt.nPoint.mpMax / 1.2) * paramOfLinhCan / 100;
                     dameThuy += linhKhiPoint;
                     dameThuy *= (plAtt.tuTien.congPhap.phamchat.id + 1 + plAtt.tuTien.xParam);
                     dameThuy = subDameWithCanhGioi(plAtt, plInjure, dameThuy);
@@ -1317,7 +1317,7 @@ public class SkillService {
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dm, (byte) 1);
                     break;
                 case 4:
-                    double dameTho = (plAtt.nPoint.hpMax / 2.1f) * paramOfLinhCan / 100;
+                    double dameTho = (plAtt.nPoint.hpMax / 1.2) * paramOfLinhCan / 100;
                     dameTho += linhKhiPoint;
                     dameTho *= (plAtt.tuTien.congPhap.phamchat.id + 1 + plAtt.tuTien.xParam);
                     dameTho = subDameWithCanhGioi(plAtt, plInjure, dameTho);

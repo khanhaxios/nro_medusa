@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class PhapBaoFactory {
     public static final String[] phapBaoNames = {"[Khôi]", // 0
@@ -90,6 +91,32 @@ public class PhapBaoFactory {
         });
         phapBao.options = options;
         return phapBao;
+    }
+
+    public static Item.ItemOption rollNewOption(int slOption, List<Item.ItemOption> usedOptions) {
+        Set<Integer> usedIds = usedOptions.stream()
+                .map(opt -> opt.optionTemplate.id) // hoặc opt.id nếu có sẵn
+                .collect(Collectors.toSet());
+
+        int attempts = 0;
+        final int MAX_ATTEMPTS = 100;
+
+        while (attempts++ < MAX_ATTEMPTS) {
+            int idOption;
+            if (Util.isTrue(1, 100)) {
+                idOption = PhapBao.OPTION_SSS_VIP_CAN_ROLL[Util.nextInt(0, PhapBao.OPTION_SSS_VIP_CAN_ROLL.length)];
+            } else if (Util.isTrue(10, 100)) {
+                idOption = PhapBao.OPTION_VIP_CAN_ROLL[Util.nextInt(0, PhapBao.OPTION_VIP_CAN_ROLL.length)];
+            } else {
+                idOption = PhapBao.OPTION_CAN_ROLL[Util.nextInt(0, PhapBao.OPTION_CAN_ROLL.length)];
+            }
+
+            if (!usedIds.contains(idOption)) {
+                int param = getParam(idOption, slOption);
+                return new Item.ItemOption(idOption, param);
+            }
+        }
+        return null;
     }
 
     public static int getParam(int id, int slOption) {

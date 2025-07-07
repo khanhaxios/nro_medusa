@@ -7563,10 +7563,17 @@ public class NpcFactory {
                         paa.addExpNangCap(Util.nextInt(1, 100));
                         break;
                     case ConstNpc.TRANG_BI_PHAP_BAO:
-                        player.changePhapBao(player.iDMark.typePhapBaoHandling, player.phapBaoTamThoi.clone());
-                        player.iDMark.typePhapBaoHandling = -1;
-                        player.phapBaoTamThoi = null;
-                        break;
+                        switch (select) {
+                            case 0:
+                                player.changePhapBao(player.iDMark.typePhapBaoHandling, player.phapBaoTamThoi.clone());
+                                player.iDMark.typePhapBaoHandling = -1;
+                                player.phapBaoTamThoi = null;
+                                break;
+                            case 1:
+                                player.iDMark.typePhapBaoHandling = -1;
+                                player.phapBaoTamThoi = null;
+                                break;
+                        }
                     case ConstNpc.THAY_TRANG_BI:
                         PhapBao phapBao = player.phapBaos.get(player.iDMark.typePhapBaoHandling);
                         if (phapBao == null) {
@@ -7597,6 +7604,36 @@ public class NpcFactory {
                         }
                         pb.showBaseMenu();
                         break;
+                    case ConstNpc.MENU_KHOA_DONG_PHAP_BAO:
+                        PhapBao ppppapp = player.phapBaos.get(player.iDMark.typePhapBaoHandling);
+                        if (ppppapp == null) {
+                            Service.gI().sendThongBao(player, "Không tìm thấy pháp bảo này");
+                            return;
+                        }
+                        ppppapp.khoaDong((byte) select);
+                        ppppapp.showMenuKhoaDong();
+                        Service.gI().sendThongBao(player, "Đã khóa dòng " + select + 1);
+                        player.iDMark.typePhapBaoHandling = -1;
+                        break;
+                    case ConstNpc.MENU_TINH_DONG_PHAP_BAO:
+                        PhapBao pppppp = player.phapBaos.get(player.iDMark.typePhapBaoHandling);
+                        if (pppppp == null) {
+                            Service.gI().sendThongBao(player, "Không tìm thấy pháp bảo này");
+                            return;
+                        }
+                        switch (select) {
+                            case 0:
+                                pppppp.rollDongPhapBao();
+                                break;
+                            case 1:
+                                pppppp.showMenuKhoaDong();
+                                break;
+                            case 2:
+                                pppppp.showBaseMenu();
+                                break;
+                        }
+                        player.iDMark.typePhapBaoHandling = -1;
+                        break;
                     case ConstNpc.MENU_PHAP_BAO:
                         // get phap bao by type
                         PhapBao aascass = player.phapBaos.get(player.iDMark.typePhapBaoHandling);
@@ -7612,6 +7649,9 @@ public class NpcFactory {
                                 aascass.nangCap();
                                 break;
                             case 2:
+                                aascass.showMenuTinhDong();
+                                break;
+                            case 3:
                                 player.vutBoPhapBao(player.iDMark.typePhapBaoHandling);
                                 break;
                             default:

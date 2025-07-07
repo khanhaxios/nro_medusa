@@ -381,10 +381,6 @@ public class NPoint {
                             break;
                         case 44: // tien luc
                             this.player.tienLuc += io.param;
-                            float tyLe = (float) (io.param * 20) / 100f;
-                            this.hpAdd += this.hpMax * tyLe;
-                            this.dameAdd += this.dame * tyLe;
-                            this.mpAdd += this.mpMax * tyLe;
                             break;
                         case 45:
                             this.dameAdd += io.param * 1_000_000L;

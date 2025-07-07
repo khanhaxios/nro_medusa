@@ -3,6 +3,7 @@ package com.girlkun.models.player.phapbao;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.player.Player;
+import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
@@ -16,6 +17,7 @@ import static com.girlkun.models.player.phapbao.PhapBaoFactory.vuKhiNames;
 
 public class PhapBao implements Cloneable {
 
+    public List<Byte> dongKhoa = new ArrayList<>();
     private static final byte MAX_LEVEL = 18;
     private static final int MAX_PHAM = 12;
     public static int[] OPTION_SSS_VIP_CAN_ROLL = new int[]{41, 42, 43, 45, 49, 44};
@@ -89,6 +91,11 @@ public class PhapBao implements Cloneable {
 
     public String getThuocTinhPhapBaoAsString() {
         StringBuilder text = new StringBuilder();
+        options.sort((o1, o2) -> {
+            String name1 = o1.optionTemplate.name != null ? o1.optionTemplate.name : "";
+            String name2 = o2.optionTemplate.name != null ? o2.optionTemplate.name : "";
+            return Integer.compare(name1.length(), name2.length());
+        });
         for (Item.ItemOption option : options) {
             text.append("|5|").append(option.getOptionString()).append("\n");
         }
@@ -96,9 +103,9 @@ public class PhapBao implements Cloneable {
     }
 
     public void showBaseMenu() {
-        String text = "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + "Exp : " + getCurrentExp() + "\n" + "Exp cường hóa : " + getCurrentExpNc() + "\n" + getThuocTinhPhapBaoAsString() + "|7|Tỷ lệ nâng cấp : " + getTyLeNangCap() + "%" + "\n" + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n" + "|7|Mỗi lên phẩm tăng một chút thuộc tính\nPhẩm càng cao thuộc tính càng mạnh" + "\n" + "|2|Bạn muốn?";
+        String text = "|7|Thông tin pháp bảo\n|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + getThuocTinhPhapBaoAsString() + "Exp : " + getCurrentExp() + "\n" + "Exp cường hóa : " + getCurrentExpNc() + "\n" + "|7|Tỷ lệ nâng cấp : " + getTyLeNangCap() + "%" + "\n" + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n" + "|7|Mỗi lên phẩm tăng một chút thuộc tính\nPhẩm càng cao thuộc tính càng mạnh" + "\n" + "|2|Bạn muốn?";
         player.iDMark.typePhapBaoHandling = type;
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PHAP_BAO, -1, text, "Nâng phẩm", "Nâng cấp", "Vứt bỏ", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PHAP_BAO, -1, text, "Nâng phẩm", "Nâng cấp", "Tinh dòng", "Vứt bỏ", "Đóng");
     }
 
     private String getCurrentExpNc() {
@@ -297,6 +304,93 @@ public class PhapBao implements Cloneable {
         return diem;
     }
 
+    public void rollDongPhapBao() {
+        // can nguyen lieu la hong ngoc + da
+        Item item = InventoryServiceNew.gI().findItemBag(player, 1263);
+        int itemQuanNeed = getItemNeedQuantity();
+        int rubyNeed = getRubyNeed();
+        if (item == null || item.quantity < itemQuanNeed) {
+            Service.gI().sendThongBao(player, "Cần x" + itemQuanNeed + " Huyết tinh thạch để luyện dòng");
+            return;
+        }
+        if (player.inventory.ruby - rubyNeed < 0) {
+            Service.gI().sendThongBao(player, "Cần x" + rubyNeed + " hồng ngọc để luyện dòng");
+            return;
+        }
+        player.inventory.ruby -= rubyNeed;
+        Service.gI().sendMoney(player);
+        InventoryServiceNew.gI().subQuantityItemsBag(player, item, itemQuanNeed);
+        InventoryServiceNew.gI().sendItemBags(player);
+        // roll dong khong khoa
+        rollDong();
+    }
+
+    private void rollDong() {
+        // get dong ko khoa
+        List<Byte> indexDongCanRoll = new ArrayList<>();
+        for (byte i = 0; i < options.size(); i++) {
+            boolean isLocked = false;
+            for (byte b : dongKhoa) {
+                if (i == b) {
+                    isLocked = true;
+                    break;
+                }
+            }
+            if (!isLocked) {
+                indexDongCanRoll.add(i);
+            }
+        }
+        boolean hasFail = false;
+
+        for (Byte aByte : indexDongCanRoll) {
+            int index = aByte;
+            if (index < 0 || index >= options.size()) continue;
+
+            List<Item.ItemOption> currentUsed = new ArrayList<>(options);
+            Item.ItemOption newOption = PhapBaoFactory.rollNewOption(options.size(), currentUsed);
+
+            if (newOption == null) {
+                hasFail = true;
+                continue;
+            }
+            options.set(index, newOption);
+        }
+
+        if (hasFail) {
+            Service.gI().sendThongBao(player, "Có dòng bị đè, tinh dòng phần thành công một phần");
+        } else {
+            Service.gI().sendThongBao(player, "Tinh dòng thành công");
+        }
+    }
+
+    public void khoaDong(byte index) {
+        dongKhoa.add(index);
+    }
+
+    private int getRubyNeed() {
+        int quantity = 1000;
+        for (byte b : dongKhoa) {
+            for (byte i = 0; i < options.size(); i++) {
+                if (b == i) {
+                    quantity *= 1.5;
+                }
+            }
+        }
+        return quantity;
+    }
+
+    public int getItemNeedQuantity() {
+        byte quantity = 10;
+        for (byte b : dongKhoa) {
+            for (byte i = 0; i < options.size(); i++) {
+                if (b == i) {
+                    quantity *= 2;
+                }
+            }
+        }
+        return quantity;
+    }
+
     public void calcPoint() {
         int dameAdd = 0;
         int dameSSSAdd = 0;
@@ -359,10 +453,6 @@ public class PhapBao implements Cloneable {
                     break;
                 case 44: // tien luc
                     player.tienLuc += io.param;
-                    float tyLe = (float) (io.param) / 100f;
-                    player.nPoint.hpAdd += player.nPoint.hpMax * tyLe;
-                    player.nPoint.dameAdd += player.nPoint.dame * tyLe;
-                    player.nPoint.mpAdd += player.nPoint.mpMax * tyLe;
                     break;
                 case 45:
                     player.nPoint.dameAdd += io.param * 1_000_000L;
@@ -454,6 +544,9 @@ public class PhapBao implements Cloneable {
         } else if (dameAdd > 0) {
             player.nPoint.tlDame.add(dameAdd);
         }
+        player.nPoint.hpAdd += player.nPoint.hpMax * player.tienLuc / 100;
+        player.nPoint.mpAdd += player.nPoint.hpMax * player.tienLuc / 100;
+        player.nPoint.dameAdd += player.nPoint.hpMax * player.tienLuc / 100;
     }
 
     public float getTyLeNangCap() {
@@ -685,5 +778,39 @@ public class PhapBao implements Cloneable {
 
     public long getExpNangCapPhanra() {
         return Math.max(1, level) * 10_000;
+    }
+
+    public void showMenuTinhDong() {
+        player.iDMark.typePhapBaoHandling = type;
+        String text = "|7|Tinh dòng pháp bảo\n|5|Tinh dòng pháp bảo giúp pháp bảo của bạn trở lên mạnh mẽ hơn";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TINH_DONG_PHAP_BAO, -1, text, "Tinh dòng", "Khóa đòng", "Đóng");
+    }
+
+    public List<String> getDong() {
+        List<String> strings = new ArrayList<>();
+        for (int i = 0; i < options.size(); i++) {
+            String t = "Dòng " + i + 1 + "\n";
+            boolean isLocked = false;
+            for (byte b : dongKhoa) {
+                if (b == i) {
+                    isLocked = true;
+                    break;
+                }
+            }
+
+            if (isLocked) {
+                t += "Đã khóa";
+            } else {
+                t += "Mở";
+            }
+            strings.add(t);
+        }
+        return strings;
+    }
+
+    public void showMenuKhoaDong() {
+        player.iDMark.typePhapBaoHandling = type;
+        String text = "|7|Khóa dòng pháp bảo\n|5|Khóa dòng pháp bảo giúp bạn có dòng mong muốn\n" + getThuocTinhPhapBaoAsString();
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_KHOA_DONG_PHAP_BAO, -1, text, getDong().toArray(new String[]{}));
     }
 }

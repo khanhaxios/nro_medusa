@@ -1,26 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.girlkun.services.func;
 
-import com.girlkun.database.GirlkunDB;
-import com.girlkun.models.item.Item;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Client;
-import com.girlkun.services.ChatGlobalService;
 import com.girlkun.services.InventoryServiceNew;
-import com.girlkun.services.ItemService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
+
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
- *
  * @author DEV Ăn Trộm
  */
 public class TaiXiu implements Runnable {
@@ -77,7 +67,26 @@ public class TaiXiu implements Runnable {
     public void run() {
         while (true) {
             try {
-                if (((TaiXiu.gI().lastTimeEnd - System.currentTimeMillis()) / 1000) <= 0) {
+                if (TaiXiu.gI().lastTimeEnd - System.currentTimeMillis() / 1000 < 0) {
+                    TaiXiu.gI().PlayersTai.forEach(pl -> {
+                        pl.inventory.ruby += goldTai / 100;
+                        Service.gI().sendMoney(pl);
+                    });
+                    TaiXiu.gI().PlayersXiu.forEach(pl -> {
+                        pl.inventory.ruby += goldXiu / 100;
+                        Service.gI().sendMoney(pl);
+                    });
+                    TaiXiu.gI().ketquaXiu = false;
+                    TaiXiu.gI().ketquaTai = false;
+                    TaiXiu.gI().ketquaTamhoa = false;
+                    TaiXiu.gI().goldTai = 0;
+                    TaiXiu.gI().goldXiu = 0;
+                    TaiXiu.gI().PlayersTai.clear();
+                    TaiXiu.gI().PlayersXiu.clear();
+                    TaiXiu.gI().lastTimeEnd = System.currentTimeMillis() + 100000;
+                    Service.gI().sendThongBaoAllPlayer("Lỗi tài xỉu đã tự động làm mới , hồng ngọc sẽ được tra về cho mọi người");
+                }
+                if (((TaiXiu.gI().lastTimeEnd - System.currentTimeMillis()) / 1000) == 0) {
                     int x, y, z;
                     // Thực hiện các hành động sau khi chờ 10 giây
                     if (TaiXiu.gI().goldTai >= TaiXiu.gI().goldXiu) {
@@ -125,16 +134,15 @@ public class TaiXiu implements Runnable {
                         ketquaXiu = false;
                         ketquaTai = true;
                     }
-                    if (x == y && y == z && z == x) {
+                    if (y == z && z == x) {
                         ketquaTamhoa = true;
                         ketquaXiu = false;
                         ketquaTai = false;
                     }
 
-                    if (ketquaTai == true) {
+                    if (ketquaTai) {
                         if (!TaiXiu.gI().PlayersTai.isEmpty()) {
-                            for (int i = 0; i < PlayersTai.size(); i++) {
-                                Player pl = this.PlayersTai.get(i);
+                            for (Player pl : PlayersTai) {
                                 if (pl != null && Client.gI().getPlayer(pl.name) != null) {
                                     int goldC = pl.goldTai + (pl.goldTai / 100 * TILE_AN_THUA);
                                     Service.getInstance().sendThongBao(pl, "Số hệ thống quay ra\n" + x + " : "
@@ -148,18 +156,16 @@ public class TaiXiu implements Runnable {
                                 }
                             }
                         }
-                        for (int i = 0; i < PlayersXiu.size(); i++) {
-                            Player pl = this.PlayersXiu.get(i);
+                        for (Player pl : PlayersXiu) {
                             if (pl != null && Client.gI().getPlayer(pl.name) != null) {
                                 Service.getInstance().sendThongBao(pl, "Số hệ thống quay ra\n" + x + " : "
                                         + y + " : " + z + "\n|5|Tổng là : " + tong + "\n(TÀI)\n\n|7|Trắng tay gòi, chơi lại đi!!!");
                                 Logger.logTaiXiu(pl, 2, pl.goldXiu, 0);
                             }
                         }
-                    } else if (ketquaXiu == true) {
+                    } else if (ketquaXiu) {
                         if (!TaiXiu.gI().PlayersXiu.isEmpty()) {
-                            for (int i = 0; i < PlayersXiu.size(); i++) {
-                                Player pl = this.PlayersXiu.get(i);
+                            for (Player pl : PlayersXiu) {
                                 if (pl != null && Client.gI().getPlayer(pl.name) != null) {
                                     int goldC = pl.goldXiu + (pl.goldXiu / 100 * TILE_AN_THUA);
                                     Service.getInstance().sendThongBao(pl, "Số hệ thống quay ra\n" + x + " : "
@@ -173,8 +179,7 @@ public class TaiXiu implements Runnable {
                                 }
                             }
                         }
-                        for (int i = 0; i < PlayersTai.size(); i++) {
-                            Player pl = this.PlayersTai.get(i);
+                        for (Player pl : PlayersTai) {
                             if (pl != null && Client.gI().getPlayer(pl.name) != null) {
                                 Service.getInstance().sendThongBao(pl, "Số hệ thống quay ra\n" + x + " : "
                                         + y + " : " + z + "\n|5|Tổng là : " + tong + "\n(XỈU)\n\n|7|Trắng tay gòi, chơi lại đi!!!");
@@ -182,16 +187,14 @@ public class TaiXiu implements Runnable {
                             }
                         }
                     } else {
-                        for (int i = 0; i < PlayersTai.size(); i++) {
-                            Player pl = this.PlayersTai.get(i);
+                        for (Player pl : PlayersTai) {
                             if (pl != null && Client.gI().getPlayer(pl.name) != null) {
                                 Service.getInstance().sendThongBao(pl, "Số hệ thống quay ra\n" + x + " : "
                                         + y + " : " + z + "\n|5|Tổng là : " + tong + "\n(TAM HOA)\n\n|7|Hahaha Nhà cái lụm hết nha!!!");
                                 Logger.logTaiXiu(pl, 4, pl.goldTai, 0);
                             }
                         }
-                        for (int i = 0; i < PlayersXiu.size(); i++) {
-                            Player pl = this.PlayersXiu.get(i);
+                        for (Player pl : PlayersXiu) {
                             if (pl != null && Client.gI().getPlayer(pl.name) != null) {
                                 Service.getInstance().sendThongBao(pl, "Số hệ thống quay ra\n" + x + " : "
                                         + y + " : " + z + "\n|5|Tổng là : " + tong + "\n(TAM HOA)\n\n|7|Hahaha Nhà cái lụm hết nha!!!");
@@ -223,6 +226,7 @@ public class TaiXiu implements Runnable {
                 }
                 Thread.sleep(500);
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

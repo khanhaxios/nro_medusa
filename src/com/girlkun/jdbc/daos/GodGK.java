@@ -145,7 +145,7 @@ public class GodGK {
                             player.haveTennisSpaceShip = rs.getBoolean("have_tennis_space_ship");
                             player.diemdanh = rs.getLong("violate");
                             player.NguHanhSonPoint = rs.getInt("NguHanhSonPoint");
-                            player.tienLuc = rs.getInt("tien_luc");
+//                            player.tienLuc = rs.getInt("tien_luc");
                             player.tyLeTangPhamDaoLu = rs.getFloat("tl_dl");
                             // data rada card
                             // data rada card
