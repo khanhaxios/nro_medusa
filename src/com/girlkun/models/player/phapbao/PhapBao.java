@@ -323,11 +323,17 @@ public class PhapBao implements Cloneable {
         InventoryServiceNew.gI().sendItemBags(player);
         // roll dong khong khoa
         rollDong();
+        showBaseMenu();
     }
 
     private void rollDong() {
         // get dong ko khoa
         List<Byte> indexDongCanRoll = new ArrayList<>();
+        options.sort((o1, o2) -> {
+            String name1 = o1.optionTemplate.name != null ? o1.optionTemplate.name : "";
+            String name2 = o2.optionTemplate.name != null ? o2.optionTemplate.name : "";
+            return Integer.compare(name1.length(), name2.length());
+        });
         for (byte i = 0; i < options.size(); i++) {
             boolean isLocked = false;
             for (byte b : dongKhoa) {
@@ -340,31 +346,23 @@ public class PhapBao implements Cloneable {
                 indexDongCanRoll.add(i);
             }
         }
-        boolean hasFail = false;
-
         for (Byte aByte : indexDongCanRoll) {
             int index = aByte;
             if (index < 0 || index >= options.size()) continue;
-
-            List<Item.ItemOption> currentUsed = new ArrayList<>(options);
-            Item.ItemOption newOption = PhapBaoFactory.rollNewOption(options.size(), currentUsed);
-
-            if (newOption == null) {
-                hasFail = true;
-                continue;
-            }
+            Item.ItemOption newOption = PhapBaoFactory.rollNewOption(options.size());
             options.set(index, newOption);
         }
-
-        if (hasFail) {
-            Service.gI().sendThongBao(player, "Có dòng bị đè, tinh dòng phần thành công một phần");
-        } else {
-            Service.gI().sendThongBao(player, "Tinh dòng thành công");
-        }
+        Service.gI().sendThongBao(player, "Tinh dòng thành công");
     }
 
     public void khoaDong(byte index) {
-        dongKhoa.add(index);
+        if (dongKhoa.stream().filter(t -> t == index).toList().size() > 0) {
+            dongKhoa.removeIf(f -> f == index);
+            Service.gI().sendThongBao(player, "Đã mở khóa dòng " + index);
+        } else {
+            dongKhoa.add(index);
+            Service.gI().sendThongBao(player, "Đã khóa dòng " + index);
+        }
     }
 
     private int getRubyNeed() {
@@ -606,12 +604,11 @@ public class PhapBao implements Cloneable {
             restExpNangCap();
             rollBuff();
             Service.gI().sendThongBao(player, "Nâng cấp thành công");
-            showBaseMenu();
         } else {
             Service.gI().sendThongBao(player, "Nâng cấp thất bại");
             restExpNangCap();
-            showBaseMenu();
         }
+        showBaseMenu();
     }
 
     public void rollBuff() {
@@ -788,8 +785,9 @@ public class PhapBao implements Cloneable {
 
     public List<String> getDong() {
         List<String> strings = new ArrayList<>();
+        strings.add("Đóng");
         for (int i = 0; i < options.size(); i++) {
-            String t = "Dòng " + i + 1 + "\n";
+            String t = "Dòng " + (i + 1) + "\n";
             boolean isLocked = false;
             for (byte b : dongKhoa) {
                 if (b == i) {

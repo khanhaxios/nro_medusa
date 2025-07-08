@@ -7610,10 +7610,12 @@ public class NpcFactory {
                             Service.gI().sendThongBao(player, "Không tìm thấy pháp bảo này");
                             return;
                         }
-                        ppppapp.khoaDong((byte) select);
+                        if (select == 0) {
+                            ppppapp.showMenuTinhDong();
+                            return;
+                        }
+                        ppppapp.khoaDong((byte) ((byte) select - 1));
                         ppppapp.showMenuKhoaDong();
-                        Service.gI().sendThongBao(player, "Đã khóa dòng " + select + 1);
-                        player.iDMark.typePhapBaoHandling = -1;
                         break;
                     case ConstNpc.MENU_TINH_DONG_PHAP_BAO:
                         PhapBao pppppp = player.phapBaos.get(player.iDMark.typePhapBaoHandling);
@@ -7631,8 +7633,10 @@ public class NpcFactory {
                             case 2:
                                 pppppp.showBaseMenu();
                                 break;
+                            default:
+                                player.iDMark.typePhapBaoHandling = -1;
+                                break;
                         }
-                        player.iDMark.typePhapBaoHandling = -1;
                         break;
                     case ConstNpc.MENU_PHAP_BAO:
                         // get phap bao by type
@@ -7655,10 +7659,9 @@ public class NpcFactory {
                                 player.vutBoPhapBao(player.iDMark.typePhapBaoHandling);
                                 break;
                             default:
-                                // đóng nè
+                                player.iDMark.typePhapBaoHandling = -1;
                                 break;
                         }
-                        player.iDMark.typePhapBaoHandling = -1;
                         break;
                     case ConstNpc.MENU_LUYEN_HON:
                         switch (select) {
@@ -7907,6 +7910,9 @@ public class NpcFactory {
                                 player.tuTien.isAutoUseTienPhap = !player.tuTien.isAutoUseTienPhap;
                                 Service.gI().sendThongBao(player, "Đã " + (player.tuTien.isAutoUseTienPhap ? "Mở" : "Đóng" + " Tự động dùng tiên pháp"));
                                 break;
+                            default:
+                                player.tuTien.getInfoStr();
+                                break;
                         }
                         break;
                     case ConstNpc.MENU_LINH_THUC:
@@ -8022,6 +8028,16 @@ public class NpcFactory {
                             InventoryServiceNew.gI().sendItemBags(player);
                         }
                         break;
+                    case ConstNpc.MENU_TT_TIEN_PHAP:
+                        switch (select) {
+                            default -> player.tuTien.getInfoStr();
+                        }
+                        break;
+                    case ConstNpc.MENU_TT_LINH_CAN:
+                        switch (select) {
+                            default -> player.tuTien.getInfoStr();
+                        }
+                        break;
                     case ConstNpc.MENU_PLAYER_TU_TIEN:
                         switch (select) {
                             case 0:
@@ -8063,6 +8079,9 @@ public class NpcFactory {
                             case 1:
                                 String texta = "|7|Tán công + \n" + "|2|Tán công sẽ giúp bạn tu lại từ đầu tất cả thiên phú căn cốt,buff công pháp đều được giữ lại\n" + "|2|cảnh giới sẽ bị đưa về ban đầu\n" + "|7|Bạn có muốn tán công không?";
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_TAN_CONG, -1, texta, "Tán công", "Từ Chối");
+                                break;
+                            default:
+                                player.tuTien.getInfoStr();
                                 break;
                         }
                         break;
@@ -8183,6 +8202,9 @@ public class NpcFactory {
                                 // thong tin buff ne
                                 String npcSayHi = String.format("|5|TlHP: %s , TlMp: %s , TlDame: %s\n|5|Tl Linh Khí: %s|5|Tl Ăn Cắp Vàng: %s , Hút Dame: %s , Hút HP: %s , Hút Mp: %s\n|5|Tổng Dame hút:%s , Tổng HP hút: %s , Tổng MP hút: %s\nx Linh Khí: %s , Tốc Độ Khôi Phục LK: %s , x Dame Thuộc Tính: %s", player.tuTien.congPhap.tlHpBuff + "%", player.tuTien.congPhap.tlMpBuff + "%", player.tuTien.congPhap.tlDameBuff + "%", player.tuTien.congPhap.tlLinhKhiBuff + "%", player.tuTien.congPhap.tlAnCapVang + "%", player.tuTien.congPhap.hutDame + " Điểm", player.tuTien.congPhap.hutHp + " Điểm", player.tuTien.congPhap.hutMp + " Điểm", player.tuTien.congPhap.totalHutDame + " Điểm", player.tuTien.congPhap.totalHutHp + " Điểm", player.tuTien.congPhap.totalHutMp + " Điểm", player.tuTien.congPhap.xLinhKhiBuff + "x Lần", player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi + "x Lần", player.tuTien.congPhap.xDameThuocTinh + "x Lần");
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_INFO_CONG_PHAP_BUFF, -1, npcSayHi, "Đóng");
+                                break;
+                            default:
+                                player.tuTien.getInfoStr();
                                 break;
                         }
                         break;
