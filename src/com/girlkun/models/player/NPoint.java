@@ -478,6 +478,9 @@ public class NPoint {
         if (player.tuTien != null && player.tuTien.isTuTien()) {
             player.tuTien.calcPoint();
         }
+        if (player.huyet.isKichHoat()) {
+            player.huyet.calcPoint();
+        }
         if (player.tuMa != null && player.tuMa.isTuMa()) {
             player.tuMa.calcPoint();
         }

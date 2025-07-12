@@ -390,6 +390,14 @@ public class Util {
         return name.replace("[SVIP] ", "").replace("[VIP] ", "");
     }
 
+    public static String getHonorialLine(int length) {
+        String s = "\n";
+        for (int i = 0; i < length; i++) {
+            s += "=";
+        }
+        return s + "\n";
+    }
+
     public static boolean kituvip(String text) {
         if (text.contains("[svip]") || text.contains("[vip]") || text.contains("[SVIP]") || text.contains("[VIP]") || text.contains("VIP") || text.contains("vip") || text.contains("SVIP") || text.contains("svip")) {
             return false;

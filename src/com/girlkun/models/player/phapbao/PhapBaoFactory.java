@@ -65,7 +65,7 @@ public class PhapBaoFactory {
         List<Item.ItemOption> options = new ArrayList<>();
         while (options.size() < slOption) {
             int idOption = -1;
-            if (Util.isTrue(1, 100)) {
+            if (Util.isTrue(1, 20000)) {
                 idOption = PhapBao.OPTION_SSS_VIP_CAN_ROLL[Util.nextInt(0, PhapBao.OPTION_SSS_VIP_CAN_ROLL.length - 1)];
             } else if (Util.isTrue(10, 100)) {
                 idOption = PhapBao.OPTION_VIP_CAN_ROLL[Util.nextInt(0, PhapBao.OPTION_VIP_CAN_ROLL.length - 1)];
@@ -94,7 +94,7 @@ public class PhapBaoFactory {
 
     public static Item.ItemOption rollNewOption(int slOption) {
         int idOption;
-        if (Util.isTrue(1, 100)) {
+        if (Util.isTrue(1, 20000)) {
             idOption = PhapBao.OPTION_SSS_VIP_CAN_ROLL[Util.nextInt(0, PhapBao.OPTION_SSS_VIP_CAN_ROLL.length - 1)];
         } else if (Util.isTrue(10, 100)) {
             idOption = PhapBao.OPTION_VIP_CAN_ROLL[Util.nextInt(0, PhapBao.OPTION_VIP_CAN_ROLL.length - 1)];

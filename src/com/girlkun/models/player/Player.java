@@ -30,6 +30,7 @@ import com.girlkun.models.npc.specialnpc.MagicTree;
 import com.girlkun.models.npc.specialnpc.Timedua;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
+import com.girlkun.models.player.huyet_mach.Huyet;
 import com.girlkun.models.player.phapbao.PhapBao;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.khongthisu.KhongThiSu;
@@ -91,6 +92,7 @@ public class Player {
 
     public MySession session;
 
+    public Huyet huyet;
     public boolean beforeDispose;
     public int soluongmuanhieu = 0;
     public int idmuanhieu = -1;
@@ -285,6 +287,7 @@ public class Player {
         fightMabu = new FightMabu(this);
         //----------------------------------------------------------------------
         iDMark = new IDMark();
+        huyet = new Huyet(this);
         combineNew = new CombineNew();
         playerTask = new TaskPlayer();
         friends = new ArrayList<>();

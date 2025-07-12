@@ -91,11 +91,6 @@ public class PhapBao implements Cloneable {
 
     public String getThuocTinhPhapBaoAsString() {
         StringBuilder text = new StringBuilder();
-        options.sort((o1, o2) -> {
-            String name1 = o1.optionTemplate.name != null ? o1.optionTemplate.name : "";
-            String name2 = o2.optionTemplate.name != null ? o2.optionTemplate.name : "";
-            return Integer.compare(name1.length(), name2.length());
-        });
         for (Item.ItemOption option : options) {
             text.append("|5|").append(option.getOptionString()).append("\n");
         }
@@ -542,9 +537,6 @@ public class PhapBao implements Cloneable {
         } else if (dameAdd > 0) {
             player.nPoint.tlDame.add(dameAdd);
         }
-        player.nPoint.hpAdd += player.nPoint.hpMax * player.tienLuc / 100;
-        player.nPoint.mpAdd += player.nPoint.hpMax * player.tienLuc / 100;
-        player.nPoint.dameAdd += player.nPoint.hpMax * player.tienLuc / 100;
     }
 
     public float getTyLeNangCap() {

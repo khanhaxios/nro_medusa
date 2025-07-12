@@ -85,11 +85,12 @@ public class LuyenThe {
         if (isNotLuyenThe()) {
             return ((exp / (maxExp * 1f) * 100) / (level / 3f)) + (timeThatBai * 5);
         } else {
-            return ((exp / (maxExp * 1f) * 100) / (level / 50f)) + (timeThatBai * 1);
+            return ((exp / (maxExp * 1f) * 100) / (level / 50f)) + (timeThatBai);
         }
     }
 
     public boolean isNotLuyenThe() {
+        if (level <= 10) return true;
         return (player.tuTien.isTuTien() || player.tuMa.isTuMa()) && level >= 10;
     }
 
