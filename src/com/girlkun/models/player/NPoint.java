@@ -9,6 +9,7 @@ import com.girlkun.models.item.Item;
 import com.girlkun.models.player.Pet.ConstPet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
+import com.girlkun.models.player.huyet_mach.Huyet;
 import com.girlkun.models.player.phapbao.PhapBao;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.server.Manager;
@@ -710,6 +711,27 @@ public class NPoint {
 
     private void setHpMax() {
         this.hpMax = this.hpg;
+        if (player.huyet.isKichHoat()) {
+            int sl = player.huyet.getLevelTinhHuyetCongDon();
+            int cs1 = 0;
+            switch (player.huyet.type) {
+                case 1:
+                    cs1 = 0;
+                    for (int i = 0; i < sl; i++) {
+                        cs1 += Huyet.TinhHuyetEffect.LEVEL_PARAM_TYPE[player.huyet.type][i][0];
+                    }
+                    tlHp.add(cs1);
+                    break;
+                case 4:
+                    cs1 = 0;
+                    for (int i = 0; i < sl; i++) {
+                        cs1 += Huyet.TinhHuyetEffect.LEVEL_PARAM_TYPE[player.huyet.type][i][1];
+                    }
+                    tlHp.add(cs1);
+                    break;
+            }
+        }
+
         this.hpMax += this.hpAdd;
         //item body
         for (Integer tl : this.tlHp) {
@@ -957,6 +979,26 @@ public class NPoint {
 
     private void setMpMax() {
         this.mpMax = this.mpg;
+        if (player.huyet.isKichHoat()) {
+            int sl = player.huyet.getLevelTinhHuyetCongDon();
+            int cs1 = 0;
+            switch (player.huyet.type) {
+                case 1:
+                    cs1 = 0;
+                    for (int i = 0; i < sl; i++) {
+                        cs1 += Huyet.TinhHuyetEffect.LEVEL_PARAM_TYPE[player.huyet.type][i][1];
+                    }
+                    tlMp.add(cs1);
+                    break;
+                case 4:
+                    cs1 = 0;
+                    for (int i = 0; i < sl; i++) {
+                        cs1 += Huyet.TinhHuyetEffect.LEVEL_PARAM_TYPE[player.huyet.type][i][1];
+                    }
+                    tlMp.add(cs1);
+                    break;
+            }
+        }
         this.mpMax += this.mpAdd;
         for (Integer tl : this.tlMp) {
             this.mpMax += (this.mpMax * tl / 100);
@@ -1163,6 +1205,29 @@ public class NPoint {
 
     private void setDame() {
         this.dame = this.dameg;
+
+        if (player.huyet.isKichHoat()) {
+            int slTrong = player.huyet.getLevelTinhHuyetCongDon();
+            int cs1 = 0;
+            int cs2 = 0;
+            for (int i = 0; i < slTrong; i++) {
+                cs1 += Huyet.TinhHuyetEffect.LEVEL_PARAM_TYPE[player.huyet.type][i][0];
+                cs2 += Huyet.TinhHuyetEffect.LEVEL_PARAM_TYPE[player.huyet.type][i][1];
+            }
+            switch (player.huyet.type) {
+                case 0:
+                    tlDame.add(cs1);
+                    tlDameCrit.add(cs2);
+                    break;
+                case 2, 3:
+                    int dameTurn1 = ((int) (cs1 * 0.81));
+                    int dameTurn2 = ((int) (cs2 * 0.81));
+                    tlDame.add(dameTurn1);
+                    tlDame.add(dameTurn2);
+                    break;
+            }
+        }
+
         this.dame += this.dameAdd;
         // + point luyen the
         //đồ
@@ -1172,13 +1237,13 @@ public class NPoint {
         for (Integer tl : this.tlSDDep) {
             this.dame += ((double) this.dame * tl / 100);
         }
+
         if (this.player.fusion.typeFusion != 0) {
             this.dame += this.player.pet.nPoint.dame;
             if (this.player.khongThiSu.isKhongThi()) {
                 this.dame += this.dame * player.khongThiSu.getDameBuff() / 100;
             }
         }
-
 
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             switch (((Pet) this.player).typePet) {

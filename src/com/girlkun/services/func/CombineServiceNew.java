@@ -262,7 +262,7 @@ public class CombineServiceNew {
                     int star = 0; //sao pha lê đã ép
                     int starEmpty = 0; //lỗ sao pha lê
                     if (trangBi != null && daPhaLe != null) {
-                        for (Item.ItemOption io : trangBi.itemOptions) {
+                        for (ItemOption io : trangBi.itemOptions) {
                             if (io.optionTemplate.id == 102) {
                                 star = io.param;
                             } else if (io.optionTemplate.id == 107) {
@@ -272,13 +272,13 @@ public class CombineServiceNew {
                         if (star < starEmpty) {
                             player.combineNew.gemCombine = getGemEpSao(star);
                             String npcSay = trangBi.template.name + "\n|2|";
-                            for (Item.ItemOption io : trangBi.itemOptions) {
+                            for (ItemOption io : trangBi.itemOptions) {
                                 if (io.optionTemplate.id != 102) {
                                     npcSay += io.getOptionString() + "\n";
                                 }
                             }
                             if (daPhaLe.template.type == 30) {
-                                for (Item.ItemOption io : daPhaLe.itemOptions) {
+                                for (ItemOption io : daPhaLe.itemOptions) {
                                     npcSay += "|7|" + io.getOptionString() + "\n";
                                 }
                             } else {
@@ -363,7 +363,7 @@ public class CombineServiceNew {
                         if (isTrangBiAn(item)) {
                             if (item != null && item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && (dangusac.template.id == 1232 || dangusac.template.id == 1233 || dangusac.template.id == 1234 || dangusac.template.id == 1441 || dangusac.template.id == 1442 || dangusac.template.id == 807 || dangusac.template.id == 1457) && dangusac.quantity >= 99) {
                                 String npcSay = item.template.name + "\n|2|";
-                                for (Item.ItemOption io : item.itemOptions) {
+                                for (ItemOption io : item.itemOptions) {
                                     npcSay += io.getOptionString() + "\n";
                                 }
                                 npcSay += "|1|Con có muốn biến trang bị " + item.template.name + " thành\n" + "trang bị Ấn không?\b|4|Đục là lên\n" + "|7|Cần 99 " + dangusac.template.name;
@@ -414,7 +414,7 @@ public class CombineServiceNew {
                     }
                     if (isCoupleItemNangCapCheck(itemDo, itemDNC)) {
                         int level = 0;
-                        for (Item.ItemOption io : itemDo.itemOptions) {
+                        for (ItemOption io : itemDo.itemOptions) {
                             if (io.optionTemplate.id == 72) {
                                 level = io.param;
                                 break;
@@ -426,14 +426,14 @@ public class CombineServiceNew {
                             player.combineNew.countDaNangCap = getCountDaNangCapDo(level);
                             player.combineNew.countDaBaoVe = (short) getCountDaBaoVe(level);
                             String npcSay = "|2|Hiện tại " + itemDo.template.name + " (+" + level + ")\n|0|";
-                            for (Item.ItemOption io : itemDo.itemOptions) {
+                            for (ItemOption io : itemDo.itemOptions) {
                                 if (io.optionTemplate.id != 72) {
                                     npcSay += io.getOptionString() + "\n";
                                 }
                             }
                             String option = null;
                             int param = 0;
-                            for (Item.ItemOption io : itemDo.itemOptions) {
+                            for (ItemOption io : itemDo.itemOptions) {
                                 if (io.optionTemplate.id == 47 || io.optionTemplate.id == 6 || io.optionTemplate.id == 0 || io.optionTemplate.id == 7 || io.optionTemplate.id == 14 || io.optionTemplate.id == 22 || io.optionTemplate.id == 23) {
                                     option = io.optionTemplate.name;
                                     param = io.param + (io.param * 3 / 100);
@@ -520,7 +520,7 @@ public class CombineServiceNew {
                     player.combineNew.TileNangcap = getTiLeNangcapChanmenh(star);
                     if (bongTai != null && manhVo != null && (bongTai.template.id >= 1300 && bongTai.template.id < 1308)) {
                         String npcSay = bongTai.template.name + "\n|2|";
-                        for (Item.ItemOption io : bongTai.itemOptions) {
+                        for (ItemOption io : bongTai.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
                         npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.TileNangcap + "%" + "\n";
@@ -547,7 +547,7 @@ public class CombineServiceNew {
                         if (isMoKhoa(item)) {
                             if (item != null && item.isNotNullItem() && daMokhoa != null && daMokhoa.isNotNullItem() && daMokhoa.template.id == 1447 && daMokhoa.quantity >= 1) {
                                 String npcSay = item.template.name + "\n|2|";
-                                for (Item.ItemOption io : item.itemOptions) {
+                                for (ItemOption io : item.itemOptions) {
                                     npcSay += io.getOptionString() + "\n";
                                 }
                                 npcSay += "|1|Con có muốn mở khóa giao dịch trang bị " + item.template.name + " không\n" + "|7|Cần " + player.combineNew.DaNangcap + " " + daMokhoa.template.name;
@@ -591,7 +591,7 @@ public class CombineServiceNew {
                         player.combineNew.ratioCombine = 50;
 
                         String npcSay = "Bông tai Porata cấp 2" + "\n|2|";
-                        for (Item.ItemOption io : bongTai.itemOptions) {
+                        for (ItemOption io : bongTai.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
                         npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
@@ -609,7 +609,7 @@ public class CombineServiceNew {
                         player.combineNew.ratioCombine = 20;
 
                         String npcSay = "Bông tai Porata cấp 3" + "\n|2|";
-                        for (Item.ItemOption io : bongTai.itemOptions) {
+                        for (ItemOption io : bongTai.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
                         npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
@@ -627,7 +627,7 @@ public class CombineServiceNew {
                         player.combineNew.ratioCombine = 10;
 
                         String npcSay = "Bông tai Porata cấp 4" + "\n|2|";
-                        for (Item.ItemOption io : bongTai.itemOptions) {
+                        for (ItemOption io : bongTai.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
                         npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
@@ -646,7 +646,7 @@ public class CombineServiceNew {
                         player.combineNew.ratioCombine = 5;
 
                         String npcSay = "Bông tai Porata cấp 5" + "\n|2|";
-                        for (Item.ItemOption io : bongTai.itemOptions) {
+                        for (ItemOption io : bongTai.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
                         npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
@@ -666,7 +666,7 @@ public class CombineServiceNew {
                         player.combineNew.ratioCombine = 3;
 
                         String npcSay = "Bông tai Porata cấp 6" + "\n|2|";
-                        for (Item.ItemOption io : bongTai.itemOptions) {
+                        for (ItemOption io : bongTai.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
                         npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
@@ -706,7 +706,7 @@ public class CombineServiceNew {
                         player.combineNew.ratioCombine = 50;
 
                         String npcSay = "Bông tai Porata cấp 2" + "\n|2|";
-                        for (Item.ItemOption io : bongTai.itemOptions) {
+                        for (ItemOption io : bongTai.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
                         npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
@@ -745,7 +745,7 @@ public class CombineServiceNew {
                         player.combineNew.ratioCombine = 50;
 
                         String npcSay = "Bông tai Porata cấp 3" + "\n|2|";
-                        for (Item.ItemOption io : bongTai.itemOptions) {
+                        for (ItemOption io : bongTai.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
                         npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
@@ -784,7 +784,7 @@ public class CombineServiceNew {
                         player.combineNew.ratioCombine = 50;
 
                         String npcSay = "Bông tai Porata cấp 4" + "\n|2|";
-                        for (Item.ItemOption io : bongTai.itemOptions) {
+                        for (ItemOption io : bongTai.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
                         npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
@@ -824,7 +824,7 @@ public class CombineServiceNew {
                         player.combineNew.ratioCombine = 50;
 
                         String npcSay = "Bông tai Porata cấp 5" + "\n|2|";
-                        for (Item.ItemOption io : bongTai.itemOptions) {
+                        for (ItemOption io : bongTai.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
                         npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
@@ -864,7 +864,7 @@ public class CombineServiceNew {
                         player.combineNew.ratioCombine = 50;
 
                         String npcSay = "Bông tai Porata cấp 6" + "\n|2|";
-                        for (Item.ItemOption io : bongTai.itemOptions) {
+                        for (ItemOption io : bongTai.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
                         npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
@@ -1070,7 +1070,7 @@ public class CombineServiceNew {
                     }
                     String npcSay = "Trang bị được gia hạn \"" + itemGiahan.template.name + "\"";
                     npcSay += itemGiahan.template.name + "\n|2|";
-                    for (Item.ItemOption io : itemGiahan.itemOptions) {
+                    for (ItemOption io : itemGiahan.itemOptions) {
                         npcSay += io.getOptionString() + "\n";
                     }
                     npcSay += "\n|0|Sau khi gia hạn +1 ngày\n";
@@ -1098,7 +1098,7 @@ public class CombineServiceNew {
                         if (isTrangBiPhapsu(item)) {
                             if (item != null && item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && dangusac.template.id == 1235 && dangusac.quantity >= 1) {
                                 String npcSay = item.template.name + "\n|2|";
-                                for (Item.ItemOption io : item.itemOptions) {
+                                for (ItemOption io : item.itemOptions) {
                                     npcSay += io.getOptionString() + "\n";
                                 }
                                 npcSay += "|1|Con có muốn biến trang bị " + item.template.name + " thành\n" + "trang bị Pháp sư hóa không?\n" + "|7|Cần 1 " + dangusac.template.name;
@@ -1125,7 +1125,7 @@ public class CombineServiceNew {
                         if (isTrangBiBongToi(item)) {
                             if (item != null && item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && dangusac.template.id == 1466 && dangusac.quantity >= 1) {
                                 String npcSay = item.template.name + "\n|2|";
-                                for (Item.ItemOption io : item.itemOptions) {
+                                for (ItemOption io : item.itemOptions) {
                                     npcSay += io.getOptionString() + "\n";
                                 }
                                 npcSay += "|1|Con có muốn biến trang bị " + item.template.name + " thành\n" + "trang bị bóng tối hóa không?\n" + "|7|Cần 1 " + dangusac.template.name;
@@ -1151,7 +1151,7 @@ public class CombineServiceNew {
                         if (isTrangBiAnhSang(item)) {
                             if (item != null && item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && dangusac.template.id == 1467 && dangusac.quantity >= 1) {
                                 String npcSay = item.template.name + "\n|2|";
-                                for (Item.ItemOption io : item.itemOptions) {
+                                for (ItemOption io : item.itemOptions) {
                                     npcSay += io.getOptionString() + "\n";
                                 }
                                 npcSay += "|1|Con có muốn biến trang bị " + item.template.name + " thành\n" + "trang bị ánh sáng không?\n" + "|7|Cần 1 " + dangusac.template.name;
@@ -1177,7 +1177,7 @@ public class CombineServiceNew {
                         if (isTrangBiBongToi(item)) {
                             if (item != null && item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && dangusac.template.id == 1468 && dangusac.quantity >= 99) {
                                 String npcSay = item.template.name + "\n|2|";
-                                for (Item.ItemOption io : item.itemOptions) {
+                                for (ItemOption io : item.itemOptions) {
                                     npcSay += io.getOptionString() + "\n";
                                 }
                                 npcSay += "|1|Con có muốn tẩy bóng tối trang bị " + item.template.name + " về\n" + "lúc chưa bóng tối hóa không?\n" + "|7|Cần 99 " + dangusac.template.name;
@@ -1204,7 +1204,7 @@ public class CombineServiceNew {
                         if (isTrangBiAnhSang(item)) {
                             if (item != null && item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && dangusac.template.id == 1469 && dangusac.quantity >= 99) {
                                 String npcSay = item.template.name + "\n|2|";
-                                for (Item.ItemOption io : item.itemOptions) {
+                                for (ItemOption io : item.itemOptions) {
                                     npcSay += io.getOptionString() + "\n";
                                 }
                                 npcSay += "|1|Con có muốn tẩy ánh sáng trang bị " + item.template.name + " về\n" + "lúc chưa ánh sáng hóa không?\n" + "|7|Cần 99 " + dangusac.template.name;
@@ -1231,7 +1231,7 @@ public class CombineServiceNew {
                         if (isTrangBiPhapsu(item)) {
                             if (item != null && item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && dangusac.template.id == 1236 && dangusac.quantity >= 1) {
                                 String npcSay = item.template.name + "\n|2|";
-                                for (Item.ItemOption io : item.itemOptions) {
+                                for (ItemOption io : item.itemOptions) {
                                     npcSay += io.getOptionString() + "\n";
                                 }
                                 npcSay += "|1|Con có muốn tẩy trang bị " + item.template.name + " về\n" + "lúc chưa Pháp sư hóa không?\n" + "|7|Cần 1 " + dangusac.template.name;
@@ -1258,7 +1258,7 @@ public class CombineServiceNew {
                         if (isTrangBiAn(item)) {
                             if (item != null && item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && dangusac.template.id == 808 && dangusac.quantity >= 99) {
                                 String npcSay = item.template.name + "\n|2|";
-                                for (Item.ItemOption io : item.itemOptions) {
+                                for (ItemOption io : item.itemOptions) {
                                     npcSay += io.getOptionString() + "\n";
                                 }
                                 npcSay += "|1|Con có muốn tẩy ấn " + item.template.name + " về\n" + "lúc chưa hóa ấn không?\n" + "|7|Cần 99 " + dangusac.template.name;
@@ -1284,7 +1284,7 @@ public class CombineServiceNew {
                         if (isTrangBiPhaLeHoa(item)) {
                             if (item != null && item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && dangusac.template.id == 1464 && dangusac.quantity >= 99) {
                                 String npcSay = item.template.name + "\n|2|";
-                                for (Item.ItemOption io : item.itemOptions) {
+                                for (ItemOption io : item.itemOptions) {
                                     npcSay += io.getOptionString() + "\n";
                                 }
                                 npcSay += "|1|Con có muốn tẩy Sao Pha lê " + item.template.name + " về\n" + "lúc chưa hóa Sao Pha lê?\n" + "|7|Cần 99 " + dangusac.template.name;
@@ -1741,11 +1741,11 @@ public class CombineServiceNew {
                 if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0) {
                     sendEffectSuccessCombine(player);
                     Item item = ItemService.gI().createNewItem((short) 2018);
-                    item.itemOptions.add(new Item.ItemOption(50, Util.nextInt(9, 15)));
-                    item.itemOptions.add(new Item.ItemOption(77, Util.nextInt(8, 15)));
-                    item.itemOptions.add(new Item.ItemOption(103, Util.nextInt(8, 15)));
+                    item.itemOptions.add(new ItemOption(50, Util.nextInt(9, 15)));
+                    item.itemOptions.add(new ItemOption(77, Util.nextInt(8, 15)));
+                    item.itemOptions.add(new ItemOption(103, Util.nextInt(8, 15)));
                     if (Util.isTrue(80, 100)) {
-                        item.itemOptions.add(new Item.ItemOption(93, Util.nextInt(1, 15)));
+                        item.itemOptions.add(new ItemOption(93, Util.nextInt(1, 15)));
                     }
                     InventoryServiceNew.gI().addItemBag(player, item);
 
@@ -1818,7 +1818,7 @@ public class CombineServiceNew {
                     if (Util.isTrue(tiLe, 100)) {
                         sendEffectSuccessCombine(player);
                         Item item = ItemService.gI().createNewItem((short) 2009);
-                        item.itemOptions.add(new Item.ItemOption(30, 0));
+                        item.itemOptions.add(new ItemOption(30, 0));
                         InventoryServiceNew.gI().addItemBag(player, item);
                     } else {
                         sendEffectFailCombine(player);
@@ -1986,11 +1986,11 @@ public class CombineServiceNew {
             Item item;
             if (new Item(itemId).isDTL()) {
                 item = Util.ratiItemTL(itemId);
-                item.itemOptions.add(new Item.ItemOption(skhId, 1));
-                item.itemOptions.add(new Item.ItemOption(ItemService.gI().optionIdSKH(skhId), 1));
+                item.itemOptions.add(new ItemOption(skhId, 1));
+                item.itemOptions.add(new ItemOption(ItemService.gI().optionIdSKH(skhId), 1));
                 item.itemOptions.remove(item.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst().get());
-                item.itemOptions.add(new Item.ItemOption(21, 15));
-                item.itemOptions.add(new Item.ItemOption(30, 1));
+                item.itemOptions.add(new ItemOption(21, 15));
+                item.itemOptions.add(new ItemOption(30, 1));
             } else {
                 item = ItemService.gI().itemSKH(itemId, skhId);
             }
@@ -2095,7 +2095,7 @@ public class CombineServiceNew {
                 if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0 && player.inventory.gold >= COST_DOI_VE_DOI_DO_HUY_DIET) {
                     player.inventory.gold -= COST_DOI_VE_DOI_DO_HUY_DIET;
                     Item ticket = ItemService.gI().createNewItem((short) (2001 + item.template.type));
-                    ticket.itemOptions.add(new Item.ItemOption(30, 0));
+                    ticket.itemOptions.add(new ItemOption(30, 0));
                     InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
                     InventoryServiceNew.gI().addItemBag(player, ticket);
                     sendEffectOpenItem(player, item.template.iconID, ticket.template.iconID);
@@ -2181,8 +2181,8 @@ public class CombineServiceNew {
             int star = 0; //sao pha lê đã ép
             int starEmpty = 0; //lỗ sao pha lê
             if (trangBi != null && daPhaLe != null) {
-                Item.ItemOption optionStar = null;
-                for (Item.ItemOption io : trangBi.itemOptions) {
+                ItemOption optionStar = null;
+                for (ItemOption io : trangBi.itemOptions) {
                     if (io.optionTemplate.id == 102) {
                         star = io.param;
                         optionStar = io;
@@ -2194,8 +2194,8 @@ public class CombineServiceNew {
                     player.inventory.gem -= gem;
                     int optionId = getOptionDaPhaLe(daPhaLe);
                     int param = getParamDaPhaLe(daPhaLe);
-                    Item.ItemOption option = null;
-                    for (Item.ItemOption io : trangBi.itemOptions) {
+                    ItemOption option = null;
+                    for (ItemOption io : trangBi.itemOptions) {
                         if (io.optionTemplate.id == optionId) {
                             option = io;
                             break;
@@ -2204,12 +2204,12 @@ public class CombineServiceNew {
                     if (option != null) {
                         option.param += param;
                     } else {
-                        trangBi.itemOptions.add(new Item.ItemOption(optionId, param));
+                        trangBi.itemOptions.add(new ItemOption(optionId, param));
                     }
                     if (optionStar != null) {
                         optionStar.param++;
                     } else {
-                        trangBi.itemOptions.add(new Item.ItemOption(102, 1));
+                        trangBi.itemOptions.add(new ItemOption(102, 1));
                     }
 
                     InventoryServiceNew.gI().subQuantityItemsBag(player, daPhaLe, 1);
@@ -2264,7 +2264,7 @@ public class CombineServiceNew {
                             ServerNotify.gI().notify("Chúc mừng " + player.name + " vừa pha lê hóa " + "thành công " + item.template.name + " lên " + optionStar.param + " sao pha lê");
                         }
                         if (optionStar != null && optionStar.param >= 1 && optionStar.param <= 2) {
-                            item.itemOptions.add(new Item.ItemOption(30, 1));
+                            item.itemOptions.add(new ItemOption(30, 1));
                         }
                     } else {
                         sendEffectFailCombine(player);
@@ -2353,8 +2353,8 @@ public class CombineServiceNew {
                 Item item = player.combineNew.itemsCombine.get(0);
                 Item dangusac = player.combineNew.itemsCombine.get(1);
                 int star = 0;
-                Item.ItemOption optionStar = null;
-                for (Item.ItemOption io : item.itemOptions) {
+                ItemOption optionStar = null;
+                for (ItemOption io : item.itemOptions) {
                     if (io.optionTemplate.id == 34 || io.optionTemplate.id == 35 || io.optionTemplate.id == 36 || io.optionTemplate.id == 205 || io.optionTemplate.id == 206 || io.optionTemplate.id == 204 || io.optionTemplate.id == 212) {
                         star = io.param;
                         optionStar = io;
@@ -2364,22 +2364,22 @@ public class CombineServiceNew {
                 if (item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && (dangusac.template.id == 1232 || dangusac.template.id == 1233 || dangusac.template.id == 1234 || dangusac.template.id == 1441 || dangusac.template.id == 1442 || dangusac.template.id == 807 || dangusac.template.id == 1457) && dangusac.quantity >= 99) {
                     if (optionStar == null) {
                         if (dangusac.template.id == 1232) {
-                            item.itemOptions.add(new Item.ItemOption(34, 1));
+                            item.itemOptions.add(new ItemOption(34, 1));
                             sendEffectSuccessCombine(player);
                         } else if (dangusac.template.id == 1233) {
-                            item.itemOptions.add(new Item.ItemOption(35, 1));
+                            item.itemOptions.add(new ItemOption(35, 1));
                             sendEffectSuccessCombine(player);
                         } else if (dangusac.template.id == 1234) {
-                            item.itemOptions.add(new Item.ItemOption(36, 1));
+                            item.itemOptions.add(new ItemOption(36, 1));
                             sendEffectSuccessCombine(player);
                         } else if (dangusac.template.id == 1441) {
-                            item.itemOptions.add(new Item.ItemOption(205, 1));
+                            item.itemOptions.add(new ItemOption(205, 1));
                             sendEffectSuccessCombine(player);
                         } else if (dangusac.template.id == 1442) {
-                            item.itemOptions.add(new Item.ItemOption(206, 1));
+                            item.itemOptions.add(new ItemOption(206, 1));
                             sendEffectSuccessCombine(player);
                         } else if (dangusac.template.id == 807) {
-                            item.itemOptions.add(new Item.ItemOption(204, 1));
+                            item.itemOptions.add(new ItemOption(204, 1));
                             sendEffectSuccessCombine(player);
                         } else {
                             item.itemOptions.add(new ItemOption(212, 1));
@@ -2405,8 +2405,8 @@ public class CombineServiceNew {
             int soluong = player.combineNew.DaNangcap;
             if (item != null && damokhoa != null && damokhoa.quantity >= soluong) {
                 InventoryServiceNew.gI().subQuantityItemsBag(player, damokhoa, soluong);
-                Item.ItemOption optionStar = null;
-                for (Item.ItemOption io : item.itemOptions) {
+                ItemOption optionStar = null;
+                for (ItemOption io : item.itemOptions) {
                     if (io.optionTemplate.id == 30) {
                         optionStar = io;
                         break;
@@ -2425,7 +2425,7 @@ public class CombineServiceNew {
                                 }
                             }
                         }
-                        item.itemOptions.add(new Item.ItemOption(211, 1));
+                        item.itemOptions.add(new ItemOption(211, 1));
                         sendEffectSuccessCombine(player);
                         InventoryServiceNew.gI().subQuantityItemsBag(player, damokhoa, soluong);
                         InventoryServiceNew.gI().sendItemBags(player);
@@ -2469,24 +2469,24 @@ public class CombineServiceNew {
                 InventoryServiceNew.gI().subQuantityItemsBag(player, thucan, 1);
                 if (Util.isTrue(player.combineNew.ratioCombine, 100)) {
                     linhthu.itemOptions.clear();
-                    linhthu.itemOptions.add(new Item.ItemOption(72, 2));
+                    linhthu.itemOptions.add(new ItemOption(72, 2));
                     int rdUp = Util.nextInt(0, 7);
                     if (rdUp == 0) {
-                        linhthu.itemOptions.add(new Item.ItemOption(50, Util.nextInt(5, 15)));
+                        linhthu.itemOptions.add(new ItemOption(50, Util.nextInt(5, 15)));
                     } else if (rdUp == 1) {
-                        linhthu.itemOptions.add(new Item.ItemOption(77, Util.nextInt(5, 15)));
+                        linhthu.itemOptions.add(new ItemOption(77, Util.nextInt(5, 15)));
                     } else if (rdUp == 2) {
-                        linhthu.itemOptions.add(new Item.ItemOption(103, Util.nextInt(5, 15)));
+                        linhthu.itemOptions.add(new ItemOption(103, Util.nextInt(5, 15)));
                     } else if (rdUp == 3) {
-                        linhthu.itemOptions.add(new Item.ItemOption(108, Util.nextInt(5, 15)));
+                        linhthu.itemOptions.add(new ItemOption(108, Util.nextInt(5, 15)));
                     } else if (rdUp == 4) {
-                        linhthu.itemOptions.add(new Item.ItemOption(94, Util.nextInt(5, 10)));
+                        linhthu.itemOptions.add(new ItemOption(94, Util.nextInt(5, 10)));
                     } else if (rdUp == 5) {
-                        linhthu.itemOptions.add(new Item.ItemOption(14, Util.nextInt(5, 10)));
+                        linhthu.itemOptions.add(new ItemOption(14, Util.nextInt(5, 10)));
                     } else if (rdUp == 6) {
-                        linhthu.itemOptions.add(new Item.ItemOption(80, Util.nextInt(5, 15)));
+                        linhthu.itemOptions.add(new ItemOption(80, Util.nextInt(5, 15)));
                     } else if (rdUp == 7) {
-                        linhthu.itemOptions.add(new Item.ItemOption(81, Util.nextInt(5, 15)));
+                        linhthu.itemOptions.add(new ItemOption(81, Util.nextInt(5, 15)));
                     }
                     sendEffectSuccessCombine(player);
                 } else {
@@ -2530,24 +2530,24 @@ public class CombineServiceNew {
                 InventoryServiceNew.gI().subQuantityItemsBag(player, thucan, 1);
                 if (Util.isTrue(player.combineNew.ratioCombine, 100)) {
                     linhthu.itemOptions.clear();
-                    linhthu.itemOptions.add(new Item.ItemOption(72, 2));
+                    linhthu.itemOptions.add(new ItemOption(72, 2));
                     int rdUp = Util.nextInt(0, 7);
                     if (rdUp == 0) {
-                        linhthu.itemOptions.add(new Item.ItemOption(50, Util.nextInt(10, 25)));
+                        linhthu.itemOptions.add(new ItemOption(50, Util.nextInt(10, 25)));
                     } else if (rdUp == 1) {
-                        linhthu.itemOptions.add(new Item.ItemOption(77, Util.nextInt(10, 25)));
+                        linhthu.itemOptions.add(new ItemOption(77, Util.nextInt(10, 25)));
                     } else if (rdUp == 2) {
-                        linhthu.itemOptions.add(new Item.ItemOption(103, Util.nextInt(10, 25)));
+                        linhthu.itemOptions.add(new ItemOption(103, Util.nextInt(10, 25)));
                     } else if (rdUp == 3) {
-                        linhthu.itemOptions.add(new Item.ItemOption(108, Util.nextInt(10, 25)));
+                        linhthu.itemOptions.add(new ItemOption(108, Util.nextInt(10, 25)));
                     } else if (rdUp == 4) {
-                        linhthu.itemOptions.add(new Item.ItemOption(94, Util.nextInt(8, 15)));
+                        linhthu.itemOptions.add(new ItemOption(94, Util.nextInt(8, 15)));
                     } else if (rdUp == 5) {
-                        linhthu.itemOptions.add(new Item.ItemOption(14, Util.nextInt(8, 15)));
+                        linhthu.itemOptions.add(new ItemOption(14, Util.nextInt(8, 15)));
                     } else if (rdUp == 6) {
-                        linhthu.itemOptions.add(new Item.ItemOption(80, Util.nextInt(10, 25)));
+                        linhthu.itemOptions.add(new ItemOption(80, Util.nextInt(10, 25)));
                     } else if (rdUp == 7) {
-                        linhthu.itemOptions.add(new Item.ItemOption(81, Util.nextInt(10, 25)));
+                        linhthu.itemOptions.add(new ItemOption(81, Util.nextInt(10, 25)));
                     }
                     sendEffectSuccessCombine(player);
                 } else {
@@ -2591,24 +2591,24 @@ public class CombineServiceNew {
                 InventoryServiceNew.gI().subQuantityItemsBag(player, thucan, 1);
                 if (Util.isTrue(player.combineNew.ratioCombine, 100)) {
                     linhthu.itemOptions.clear();
-                    linhthu.itemOptions.add(new Item.ItemOption(72, 2));
+                    linhthu.itemOptions.add(new ItemOption(72, 2));
                     int rdUp = Util.nextInt(0, 7);
                     if (rdUp == 0) {
-                        linhthu.itemOptions.add(new Item.ItemOption(50, Util.nextInt(15, 50)));
+                        linhthu.itemOptions.add(new ItemOption(50, Util.nextInt(15, 50)));
                     } else if (rdUp == 1) {
-                        linhthu.itemOptions.add(new Item.ItemOption(77, Util.nextInt(15, 50)));
+                        linhthu.itemOptions.add(new ItemOption(77, Util.nextInt(15, 50)));
                     } else if (rdUp == 2) {
-                        linhthu.itemOptions.add(new Item.ItemOption(103, Util.nextInt(15, 50)));
+                        linhthu.itemOptions.add(new ItemOption(103, Util.nextInt(15, 50)));
                     } else if (rdUp == 3) {
-                        linhthu.itemOptions.add(new Item.ItemOption(108, Util.nextInt(15, 50)));
+                        linhthu.itemOptions.add(new ItemOption(108, Util.nextInt(15, 50)));
                     } else if (rdUp == 4) {
-                        linhthu.itemOptions.add(new Item.ItemOption(94, Util.nextInt(10, 50)));
+                        linhthu.itemOptions.add(new ItemOption(94, Util.nextInt(10, 50)));
                     } else if (rdUp == 5) {
-                        linhthu.itemOptions.add(new Item.ItemOption(14, Util.nextInt(10, 30)));
+                        linhthu.itemOptions.add(new ItemOption(14, Util.nextInt(10, 30)));
                     } else if (rdUp == 6) {
-                        linhthu.itemOptions.add(new Item.ItemOption(80, Util.nextInt(15, 50)));
+                        linhthu.itemOptions.add(new ItemOption(80, Util.nextInt(15, 50)));
                     } else if (rdUp == 7) {
-                        linhthu.itemOptions.add(new Item.ItemOption(81, Util.nextInt(15, 50)));
+                        linhthu.itemOptions.add(new ItemOption(81, Util.nextInt(15, 50)));
                     }
                     sendEffectSuccessCombine(player);
                 } else {
@@ -2653,24 +2653,24 @@ public class CombineServiceNew {
                 InventoryServiceNew.gI().subQuantityItemsBag(player, thucan, 1);
                 if (Util.isTrue(player.combineNew.ratioCombine, 100)) {
                     linhthu.itemOptions.clear();
-                    linhthu.itemOptions.add(new Item.ItemOption(72, 2));
+                    linhthu.itemOptions.add(new ItemOption(72, 2));
                     int rdUp = Util.nextInt(0, 7);
                     if (rdUp == 0) {
-                        linhthu.itemOptions.add(new Item.ItemOption(50, Util.nextInt(15, 100)));
+                        linhthu.itemOptions.add(new ItemOption(50, Util.nextInt(15, 100)));
                     } else if (rdUp == 1) {
-                        linhthu.itemOptions.add(new Item.ItemOption(77, Util.nextInt(15, 100)));
+                        linhthu.itemOptions.add(new ItemOption(77, Util.nextInt(15, 100)));
                     } else if (rdUp == 2) {
-                        linhthu.itemOptions.add(new Item.ItemOption(103, Util.nextInt(15, 100)));
+                        linhthu.itemOptions.add(new ItemOption(103, Util.nextInt(15, 100)));
                     } else if (rdUp == 3) {
-                        linhthu.itemOptions.add(new Item.ItemOption(108, Util.nextInt(15, 100)));
+                        linhthu.itemOptions.add(new ItemOption(108, Util.nextInt(15, 100)));
                     } else if (rdUp == 4) {
-                        linhthu.itemOptions.add(new Item.ItemOption(94, Util.nextInt(10, 100)));
+                        linhthu.itemOptions.add(new ItemOption(94, Util.nextInt(10, 100)));
                     } else if (rdUp == 5) {
-                        linhthu.itemOptions.add(new Item.ItemOption(14, Util.nextInt(10, 30)));
+                        linhthu.itemOptions.add(new ItemOption(14, Util.nextInt(10, 30)));
                     } else if (rdUp == 6) {
-                        linhthu.itemOptions.add(new Item.ItemOption(80, Util.nextInt(15, 60)));
+                        linhthu.itemOptions.add(new ItemOption(80, Util.nextInt(15, 60)));
                     } else if (rdUp == 7) {
-                        linhthu.itemOptions.add(new Item.ItemOption(81, Util.nextInt(15, 60)));
+                        linhthu.itemOptions.add(new ItemOption(81, Util.nextInt(15, 60)));
                     }
                     sendEffectSuccessCombine(player);
                 } else {
@@ -2715,24 +2715,24 @@ public class CombineServiceNew {
                 InventoryServiceNew.gI().subQuantityItemsBag(player, thucan, 1);
                 if (Util.isTrue(player.combineNew.ratioCombine, 100)) {
                     linhthu.itemOptions.clear();
-                    linhthu.itemOptions.add(new Item.ItemOption(72, 2));
+                    linhthu.itemOptions.add(new ItemOption(72, 2));
                     int rdUp = Util.nextInt(0, 7);
                     if (rdUp == 0) {
-                        linhthu.itemOptions.add(new Item.ItemOption(50, Util.nextInt(15, 150)));
+                        linhthu.itemOptions.add(new ItemOption(50, Util.nextInt(15, 150)));
                     } else if (rdUp == 1) {
-                        linhthu.itemOptions.add(new Item.ItemOption(77, Util.nextInt(15, 150)));
+                        linhthu.itemOptions.add(new ItemOption(77, Util.nextInt(15, 150)));
                     } else if (rdUp == 2) {
-                        linhthu.itemOptions.add(new Item.ItemOption(103, Util.nextInt(15, 150)));
+                        linhthu.itemOptions.add(new ItemOption(103, Util.nextInt(15, 150)));
                     } else if (rdUp == 3) {
-                        linhthu.itemOptions.add(new Item.ItemOption(108, Util.nextInt(15, 150)));
+                        linhthu.itemOptions.add(new ItemOption(108, Util.nextInt(15, 150)));
                     } else if (rdUp == 4) {
-                        linhthu.itemOptions.add(new Item.ItemOption(94, Util.nextInt(10, 150)));
+                        linhthu.itemOptions.add(new ItemOption(94, Util.nextInt(10, 150)));
                     } else if (rdUp == 5) {
-                        linhthu.itemOptions.add(new Item.ItemOption(14, Util.nextInt(10, 50)));
+                        linhthu.itemOptions.add(new ItemOption(14, Util.nextInt(10, 50)));
                     } else if (rdUp == 6) {
-                        linhthu.itemOptions.add(new Item.ItemOption(80, Util.nextInt(15, 70)));
+                        linhthu.itemOptions.add(new ItemOption(80, Util.nextInt(15, 70)));
                     } else if (rdUp == 7) {
-                        linhthu.itemOptions.add(new Item.ItemOption(81, Util.nextInt(15, 70)));
+                        linhthu.itemOptions.add(new ItemOption(81, Util.nextInt(15, 70)));
                     }
                     sendEffectSuccessCombine(player);
                 } else {
@@ -2904,10 +2904,10 @@ public class CombineServiceNew {
                         InventoryServiceNew.gI().subQuantityItemsBag(player, dahoangkim, soluongda);
                         chanmenh.template = ItemService.gI().getTemplate(chanmenh.template.id + 1);
                         chanmenh.itemOptions.clear();
-                        chanmenh.itemOptions.add(new Item.ItemOption(50, (5 + capbac * 3)));
-                        chanmenh.itemOptions.add(new Item.ItemOption(77, (7 + capbac * 4)));
-                        chanmenh.itemOptions.add(new Item.ItemOption(103, (7 + capbac * 4)));
-                        chanmenh.itemOptions.add(new Item.ItemOption(30, 1));
+                        chanmenh.itemOptions.add(new ItemOption(50, (5 + capbac * 3)));
+                        chanmenh.itemOptions.add(new ItemOption(77, (7 + capbac * 4)));
+                        chanmenh.itemOptions.add(new ItemOption(103, (7 + capbac * 4)));
+                        chanmenh.itemOptions.add(new ItemOption(30, 1));
                         sendEffectSuccessCombine(player);
                     } else {
                         InventoryServiceNew.gI().subQuantityItemsBag(player, dahoangkim, soluongda);
@@ -2974,8 +2974,8 @@ public class CombineServiceNew {
                 }
 
                 int level = 0;
-                Item.ItemOption optionLevel = null;
-                for (Item.ItemOption io : itemDo.itemOptions) {
+                ItemOption optionLevel = null;
+                for (ItemOption io : itemDo.itemOptions) {
                     if (io.optionTemplate.id == 72) {
                         level = io.param;
                         optionLevel = io;
@@ -3010,10 +3010,10 @@ public class CombineServiceNew {
 
                 if (level < MAX_LEVEL_ITEM) {
                     player.inventory.gold -= gold;
-                    Item.ItemOption option = null;
-                    Item.ItemOption option2 = null;
+                    ItemOption option = null;
+                    ItemOption option2 = null;
 
-                    for (Item.ItemOption io : itemDo.itemOptions) {
+                    for (ItemOption io : itemDo.itemOptions) {
                         if (io.optionTemplate.id == 47 || io.optionTemplate.id == 6 || io.optionTemplate.id == 0 || io.optionTemplate.id == 7 || io.optionTemplate.id == 14 || io.optionTemplate.id == 22 || io.optionTemplate.id == 23) {
                             option = io;
                         } else if (io.optionTemplate.id == 27 || io.optionTemplate.id == 28) {
@@ -3028,7 +3028,7 @@ public class CombineServiceNew {
                             option2.param += (option2.param * 10 / 100);
                         }
                         if (optionLevel == null) {
-                            itemDo.itemOptions.add(new Item.ItemOption(72, 1));
+                            itemDo.itemOptions.add(new ItemOption(72, 1));
                         } else {
                             optionLevel.param++;
                         }
@@ -3105,12 +3105,12 @@ public class CombineServiceNew {
                 byte randomDo = (byte) new Random().nextInt(chiso.length);
                 int lvchiso = 0;
                 int cap = 1;
-                Item.ItemOption optionStar = null;
+                ItemOption optionStar = null;
                 int check = chiso[randomDo];
                 int run = 0;
                 int lvcheck = 0;
 
-                for (Item.ItemOption io : item.itemOptions) {
+                for (ItemOption io : item.itemOptions) {
                     if (io.optionTemplate.id == 194 || io.optionTemplate.id == 195 || io.optionTemplate.id == 196 || io.optionTemplate.id == 197) {
                         star = io.param;
                         optionStar = io;
@@ -3118,7 +3118,7 @@ public class CombineServiceNew {
                     }
                 }
 
-                for (Item.ItemOption io2 : item.itemOptions) {
+                for (ItemOption io2 : item.itemOptions) {
                     if (io2.optionTemplate.id == 198) {
                         lvcheck = io2.param;
                         break;
@@ -3128,11 +3128,11 @@ public class CombineServiceNew {
                 if (item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && dangusac.template.id == 1235 && dangusac.quantity >= 1) {
                     if (lvcheck < 6) {
                         if (optionStar == null) {
-                            item.itemOptions.add(new Item.ItemOption(198, cap));
+                            item.itemOptions.add(new ItemOption(198, cap));
                             if (check == 197) {
-                                item.itemOptions.add(new Item.ItemOption(check, lvchiso + 1));
+                                item.itemOptions.add(new ItemOption(check, lvchiso + 1));
                             } else {
-                                item.itemOptions.add(new Item.ItemOption(check, lvchiso + 2));
+                                item.itemOptions.add(new ItemOption(check, lvchiso + 2));
                             }
                             sendEffectSuccessCombine(player);
                             InventoryServiceNew.gI().subQuantityItemsBag(player, dangusac, 1);
@@ -3140,7 +3140,7 @@ public class CombineServiceNew {
                             reOpenItemCombine(player);
                         } else {
 
-                            for (Item.ItemOption ioo : item.itemOptions) {
+                            for (ItemOption ioo : item.itemOptions) {
                                 if (ioo.optionTemplate.id == 198) {
                                     ioo.param++;
                                 }
@@ -3163,9 +3163,9 @@ public class CombineServiceNew {
 
                             if (run == 2) {
                                 if (check == 197) {
-                                    item.itemOptions.add(new Item.ItemOption(check, lvchiso + 1));
+                                    item.itemOptions.add(new ItemOption(check, lvchiso + 1));
                                 } else {
-                                    item.itemOptions.add(new Item.ItemOption(check, lvchiso + 2));
+                                    item.itemOptions.add(new ItemOption(check, lvchiso + 2));
                                 }
                                 sendEffectSuccessCombine(player);
                                 InventoryServiceNew.gI().subQuantityItemsBag(player, dangusac, 1);
@@ -3192,12 +3192,12 @@ public class CombineServiceNew {
                 byte randomDo = (byte) new Random().nextInt(chiso.length);
                 int lvchiso = Util.nextInt(5, 10);
                 int cap = 1;
-                Item.ItemOption optionStar = null;
+                ItemOption optionStar = null;
                 int check = chiso[randomDo];
                 int run = 0;
                 int lvcheck = 0;
 
-                for (Item.ItemOption io : item.itemOptions) {
+                for (ItemOption io : item.itemOptions) {
                     if (io.optionTemplate.id == 219 || io.optionTemplate.id == 220 || io.optionTemplate.id == 221 || io.optionTemplate.id == 222) {
                         star = io.param;
                         optionStar = io;
@@ -3205,7 +3205,7 @@ public class CombineServiceNew {
                     }
                 }
 
-                for (Item.ItemOption io2 : item.itemOptions) {
+                for (ItemOption io2 : item.itemOptions) {
                     if (io2.optionTemplate.id == 223) {
                         lvcheck = io2.param;
                         break;
@@ -3215,11 +3215,11 @@ public class CombineServiceNew {
                 if (item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && (dangusac.template.id == 1466) && dangusac.quantity >= 1) {
                     if (lvcheck < 10) {
                         if (optionStar == null) {
-                            item.itemOptions.add(new Item.ItemOption(223, cap));
+                            item.itemOptions.add(new ItemOption(223, cap));
                             if (check == 222) {
-                                item.itemOptions.add(new Item.ItemOption(check, lvchiso));
+                                item.itemOptions.add(new ItemOption(check, lvchiso));
                             } else {
-                                item.itemOptions.add(new Item.ItemOption(check, lvchiso * 2));
+                                item.itemOptions.add(new ItemOption(check, lvchiso * 2));
                             }
                             sendEffectSuccessCombine(player);
                             InventoryServiceNew.gI().subQuantityItemsBag(player, dangusac, 1);
@@ -3227,7 +3227,7 @@ public class CombineServiceNew {
                             reOpenItemCombine(player);
                         } else {
 
-                            for (Item.ItemOption ioo : item.itemOptions) {
+                            for (ItemOption ioo : item.itemOptions) {
                                 if (ioo.optionTemplate.id == 223) {
                                     ioo.param++;
                                 }
@@ -3250,9 +3250,9 @@ public class CombineServiceNew {
 
                             if (run == 2) {
                                 if (check == 222) {
-                                    item.itemOptions.add(new Item.ItemOption(check, lvchiso));
+                                    item.itemOptions.add(new ItemOption(check, lvchiso));
                                 } else {
-                                    item.itemOptions.add(new Item.ItemOption(check, lvchiso * 2));
+                                    item.itemOptions.add(new ItemOption(check, lvchiso * 2));
                                 }
                                 sendEffectSuccessCombine(player);
                                 InventoryServiceNew.gI().subQuantityItemsBag(player, dangusac, 1);
@@ -3274,8 +3274,8 @@ public class CombineServiceNew {
             if (!player.combineNew.itemsCombine.isEmpty()) {
                 Item item = player.combineNew.itemsCombine.get(0);
                 Item dangusac = player.combineNew.itemsCombine.get(1);
-                Item.ItemOption optionStar = null;
-                for (Item.ItemOption io : item.itemOptions) {
+                ItemOption optionStar = null;
+                for (ItemOption io : item.itemOptions) {
                     if (io.optionTemplate.id == 219 || io.optionTemplate.id == 220 || io.optionTemplate.id == 221 || io.optionTemplate.id == 222 || io.optionTemplate.id == 223) {
                         optionStar = io;
                         break;
@@ -3324,12 +3324,12 @@ public class CombineServiceNew {
                 byte randomDo = (byte) new Random().nextInt(chiso.length);
                 int lvchiso = Util.nextInt(5, 10);
                 int cap = 1;
-                Item.ItemOption optionStar = null;
+                ItemOption optionStar = null;
                 int check = chiso[randomDo];
                 int run = 0;
                 int lvcheck = 0;
 
-                for (Item.ItemOption io : item.itemOptions) {
+                for (ItemOption io : item.itemOptions) {
                     if (io.optionTemplate.id == 251 || io.optionTemplate.id == 252 || io.optionTemplate.id == 232 || io.optionTemplate.id == 233) {
                         star = io.param;
                         optionStar = io;
@@ -3337,7 +3337,7 @@ public class CombineServiceNew {
                     }
                 }
 
-                for (Item.ItemOption io2 : item.itemOptions) {
+                for (ItemOption io2 : item.itemOptions) {
                     if (io2.optionTemplate.id == 253) {
                         lvcheck = io2.param;
                         break;
@@ -3347,7 +3347,7 @@ public class CombineServiceNew {
                 if (item.isNotNullItem() && dangusac != null && dangusac.isNotNullItem() && (dangusac.template.id == 1467) && dangusac.quantity >= 1) {
                     if (lvcheck < 10) {
                         if (optionStar == null) {
-                            item.itemOptions.add(new Item.ItemOption(253, cap));
+                            item.itemOptions.add(new ItemOption(253, cap));
                             item.itemOptions.add(new ItemOption(check, lvchiso));
                             sendEffectSuccessCombine(player);
                             InventoryServiceNew.gI().subQuantityItemsBag(player, dangusac, 1);
@@ -3355,7 +3355,7 @@ public class CombineServiceNew {
                             reOpenItemCombine(player);
                         } else {
 
-                            for (Item.ItemOption ioo : item.itemOptions) {
+                            for (ItemOption ioo : item.itemOptions) {
                                 if (ioo.optionTemplate.id == 253) {
                                     ioo.param++;
                                 }
@@ -3378,9 +3378,9 @@ public class CombineServiceNew {
 
                             if (run == 2) {
                                 if (check == 252) {
-                                    item.itemOptions.add(new Item.ItemOption(check, lvchiso));
+                                    item.itemOptions.add(new ItemOption(check, lvchiso));
                                 } else {
-                                    item.itemOptions.add(new Item.ItemOption(check, lvchiso * 2));
+                                    item.itemOptions.add(new ItemOption(check, lvchiso * 2));
                                 }
                                 sendEffectSuccessCombine(player);
                                 InventoryServiceNew.gI().subQuantityItemsBag(player, dangusac, 1);
@@ -3403,8 +3403,8 @@ public class CombineServiceNew {
             if (!player.combineNew.itemsCombine.isEmpty()) {
                 Item item = player.combineNew.itemsCombine.get(0);
                 Item dangusac = player.combineNew.itemsCombine.get(1);
-                Item.ItemOption optionStar = null;
-                for (Item.ItemOption io : item.itemOptions) {
+                ItemOption optionStar = null;
+                for (ItemOption io : item.itemOptions) {
                     if (io.optionTemplate.id == 232 || io.optionTemplate.id == 233 || io.optionTemplate.id == 251 || io.optionTemplate.id == 252 || io.optionTemplate.id == 253) {
                         optionStar = io;
                         break;
@@ -3447,8 +3447,8 @@ public class CombineServiceNew {
             if (!player.combineNew.itemsCombine.isEmpty()) {
                 Item item = player.combineNew.itemsCombine.get(0);
                 Item dangusac = player.combineNew.itemsCombine.get(1);
-                Item.ItemOption optionStar = null;
-                for (Item.ItemOption io : item.itemOptions) {
+                ItemOption optionStar = null;
+                for (ItemOption io : item.itemOptions) {
                     if (io.optionTemplate.id == 194 || io.optionTemplate.id == 195 || io.optionTemplate.id == 196 || io.optionTemplate.id == 197 || io.optionTemplate.id == 198) {
                         optionStar = io;
                         break;
@@ -3492,9 +3492,9 @@ public class CombineServiceNew {
             if (!player.combineNew.itemsCombine.isEmpty()) {
                 Item item = player.combineNew.itemsCombine.get(0);
                 Item dangusac = player.combineNew.itemsCombine.get(1);
-                Item.ItemOption optionStar = null;
+                ItemOption optionStar = null;
                 int star = 0;
-                for (Item.ItemOption io : item.itemOptions) {
+                for (ItemOption io : item.itemOptions) {
                     if (io.optionTemplate.id == 34 || io.optionTemplate.id == 35 || io.optionTemplate.id == 36 || io.optionTemplate.id == 205 || io.optionTemplate.id == 206 || io.optionTemplate.id == 204) {
                         star = io.param;
                         optionStar = io;
@@ -3540,9 +3540,9 @@ public class CombineServiceNew {
             if (!player.combineNew.itemsCombine.isEmpty()) {
                 Item item = player.combineNew.itemsCombine.get(0);
                 Item dangusac = player.combineNew.itemsCombine.get(1);
-                Item.ItemOption optionStar = null;
+                ItemOption optionStar = null;
                 int star = 0;
-                for (Item.ItemOption io : item.itemOptions) {
+                for (ItemOption io : item.itemOptions) {
                     if (io.optionTemplate.id == 102 || io.optionTemplate.id == 50) {
                         star = io.param;
                         optionStar = io;
@@ -3650,9 +3650,9 @@ public class CombineServiceNew {
                         }
                         if (doDungHop != null) {
                             doDungHop.itemOptions.remove(doDungHop.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 30).findFirst().get());
-                            doDungHop.itemOptions.add(new Item.ItemOption(optionNoiTai, 1));
-                            doDungHop.itemOptions.add(new Item.ItemOption(ItemService.gI().optionIdSKH(optionNoiTai), 1));
-                            doDungHop.itemOptions.add(new Item.ItemOption(30, 0));
+                            doDungHop.itemOptions.add(new ItemOption(optionNoiTai, 1));
+                            doDungHop.itemOptions.add(new ItemOption(ItemService.gI().optionIdSKH(optionNoiTai), 1));
+                            doDungHop.itemOptions.add(new ItemOption(30, 0));
                             InventoryServiceNew.gI().addItemBag(player, doDungHop);
                         }
                         sendEffectSuccessCombine(player);

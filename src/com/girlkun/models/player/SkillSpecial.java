@@ -7,19 +7,19 @@ package com.girlkun.models.player;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.services.SkillService;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- *
  * @author Admin
  */
 public class SkillSpecial {
 
     public static final int TIME_GONG = 2000;
-    public static final int TIME_END_24_25 = 3000; 
+    public static final int TIME_END_24_25 = 3000;
     public static final int TIME_END_26 = 11000;
 
     private Player player;

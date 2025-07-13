@@ -111,7 +111,7 @@ public class NpcFactory {
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, honLinhThu, 99);
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 2028);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được 1 Trứng Linh thú");
@@ -469,7 +469,7 @@ public class NpcFactory {
                                     Item huvodao = ItemService.gI().createNewItem((short) 1457);
                                     Item phieugg = ItemService.gI().createNewItem((short) 459);
                                     Item thegh = ItemService.gI().createNewItem((short) 1346);
-                                    phieugg.itemOptions.add(new Item.ItemOption(30, 1));
+                                    phieugg.itemOptions.add(new ItemOption(30, 1));
                                     manhthiensu.quantity = 200;
                                     ruongthan.quantity = 50;
                                     hopnguyenthuy.quantity = 1;
@@ -508,7 +508,7 @@ public class NpcFactory {
                                     Item hoptt = ItemService.gI().createNewItem((short) 1342);
                                     Item phieugg = ItemService.gI().createNewItem((short) 459);
                                     Item thegh = ItemService.gI().createNewItem((short) 1346);
-                                    phieugg.itemOptions.add(new Item.ItemOption(30, 1));
+                                    phieugg.itemOptions.add(new ItemOption(30, 1));
                                     manhthiensu.quantity = 200;
                                     ruongthan.quantity = 50;
                                     hopthanhton.quantity = 1;
@@ -657,7 +657,7 @@ public class NpcFactory {
                                     InventoryServiceNew.gI().subQuantityItemsBag(player, thoivang, 10);
                                     Service.getInstance().sendMoney(player);
                                     Item trungLinhThu = ItemService.gI().createNewItem((short) 543);
-                                    trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                    trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                     InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                     InventoryServiceNew.gI().sendItemBags(player);
                                     this.npcChat(player, "|1|Bạn nhận được 1 Vòng kim cô");
@@ -706,7 +706,7 @@ public class NpcFactory {
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, honLinhThu, 1);
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 697);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được 1 con cua");
@@ -849,8 +849,8 @@ public class NpcFactory {
                                     if (!player.receivedWoodChest) {
                                         if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0) {
                                             Item it = ItemService.gI().createNewItem((short) 570);
-                                            it.itemOptions.add(new Item.ItemOption(72, player.levelWoodChest));
-                                            it.itemOptions.add(new Item.ItemOption(30, 0));
+                                            it.itemOptions.add(new ItemOption(72, player.levelWoodChest));
+                                            it.itemOptions.add(new ItemOption(30, 0));
                                             it.createTime = System.currentTimeMillis();
                                             InventoryServiceNew.gI().addItemBag(player, it);
                                             InventoryServiceNew.gI().sendItemBags(player);
@@ -911,7 +911,7 @@ public class NpcFactory {
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, honLinhThu, 99);
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 1083);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được 1 Đá Cầu Vòng");
@@ -1364,8 +1364,8 @@ public class NpcFactory {
         };
     }
 
-    /////////////////////////////////////////// NPC
-    /////////////////////////////////////////// Nami///////////////////////////////////////////
+    /// //////////////////////////////////////// NPC
+    /// //////////////////////////////////////// Nami///////////////////////////////////////////
     public static Npc nami(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
@@ -1392,8 +1392,8 @@ public class NpcFactory {
         };
     }
 
-    /////////////////////////////////////////// NPC
-    /////////////////////////////////////////// Zoro///////////////////////////////////////////
+    /// //////////////////////////////////////// NPC
+    /// //////////////////////////////////////// Zoro///////////////////////////////////////////
     public static Npc roronoaZoro(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
@@ -1424,8 +1424,8 @@ public class NpcFactory {
         };
     }
 
-    /////////////////////////////////////////// NPC
-    /////////////////////////////////////////// Franky///////////////////////////////////////////
+    /// //////////////////////////////////////// NPC
+    /// //////////////////////////////////////// Franky///////////////////////////////////////////
     public static Npc franky(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
@@ -1729,7 +1729,7 @@ public class NpcFactory {
                                         player.pointPvpthuong -= 10;
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 17);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được " + trungLinhThu.template.name);
@@ -1747,7 +1747,7 @@ public class NpcFactory {
                                         player.pointPvpthuong -= 100;
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 16);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được " + trungLinhThu.template.name);
@@ -1765,7 +1765,7 @@ public class NpcFactory {
                                         player.pointPvpthuong -= 200;
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 15);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được " + trungLinhThu.template.name);
@@ -1783,7 +1783,7 @@ public class NpcFactory {
                                         player.pointPvpthuong -= 300;
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 14);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được " + trungLinhThu.template.name);
@@ -1807,13 +1807,13 @@ public class NpcFactory {
                                         Item spl4 = ItemService.gI().createNewItem((short) 445);
                                         Item spl5 = ItemService.gI().createNewItem((short) 446);
                                         Item spl6 = ItemService.gI().createNewItem((short) 447);
-                                        spl.itemOptions.add(new Item.ItemOption(95, 5));
-                                        spl1.itemOptions.add(new Item.ItemOption(96, 5));
-                                        spl2.itemOptions.add(new Item.ItemOption(97, 5));
-                                        spl3.itemOptions.add(new Item.ItemOption(98, 5));
-                                        spl4.itemOptions.add(new Item.ItemOption(99, 5));
-                                        spl5.itemOptions.add(new Item.ItemOption(100, 5));
-                                        spl6.itemOptions.add(new Item.ItemOption(101, 5));
+                                        spl.itemOptions.add(new ItemOption(95, 5));
+                                        spl1.itemOptions.add(new ItemOption(96, 5));
+                                        spl2.itemOptions.add(new ItemOption(97, 5));
+                                        spl3.itemOptions.add(new ItemOption(98, 5));
+                                        spl4.itemOptions.add(new ItemOption(99, 5));
+                                        spl5.itemOptions.add(new ItemOption(100, 5));
+                                        spl6.itemOptions.add(new ItemOption(101, 5));
                                         InventoryServiceNew.gI().addItemBag(player, spl);
                                         InventoryServiceNew.gI().addItemBag(player, spl1);
                                         InventoryServiceNew.gI().addItemBag(player, spl2);
@@ -2056,7 +2056,7 @@ public class NpcFactory {
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, honLinhThu, 1);
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 540);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được x1 Bùa Ấn");
@@ -2086,10 +2086,10 @@ public class NpcFactory {
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, honLinhThu3, 99);
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 1089);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(50, 30));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(77, 20));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(101, 400));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(50, 30));
+                                        trungLinhThu.itemOptions.add(new ItemOption(77, 20));
+                                        trungLinhThu.itemOptions.add(new ItemOption(101, 400));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được Cải trang Inosuke");
@@ -2119,10 +2119,10 @@ public class NpcFactory {
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, honLinhThu3, 99);
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 1090);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(50, 30));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(77, 20));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(101, 400));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(50, 30));
+                                        trungLinhThu.itemOptions.add(new ItemOption(77, 20));
+                                        trungLinhThu.itemOptions.add(new ItemOption(101, 400));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được Cải trang Zenitsu");
@@ -2152,10 +2152,10 @@ public class NpcFactory {
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, honLinhThu3, 99);
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 1091);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(50, 30));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(77, 20));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(101, 400));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(50, 30));
+                                        trungLinhThu.itemOptions.add(new ItemOption(77, 20));
+                                        trungLinhThu.itemOptions.add(new ItemOption(101, 400));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được Cải trang Nezuko");
@@ -2185,10 +2185,10 @@ public class NpcFactory {
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, honLinhThu3, 99);
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 1087);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(50, 30));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(77, 20));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(101, 400));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(50, 30));
+                                        trungLinhThu.itemOptions.add(new ItemOption(77, 20));
+                                        trungLinhThu.itemOptions.add(new ItemOption(101, 400));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được Cải trang Tanjiro");
@@ -2211,12 +2211,12 @@ public class NpcFactory {
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, honLinhThu, 99);
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 1214);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(50, 60));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(77, 40));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(103, 40));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(101, 1000));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(93, 1));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(50, 60));
+                                        trungLinhThu.itemOptions.add(new ItemOption(77, 40));
+                                        trungLinhThu.itemOptions.add(new ItemOption(103, 40));
+                                        trungLinhThu.itemOptions.add(new ItemOption(101, 1000));
+                                        trungLinhThu.itemOptions.add(new ItemOption(93, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được CT Broly Huyền thoại");
@@ -2242,13 +2242,13 @@ public class NpcFactory {
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, honLinhThu, 99);
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 1214);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(50, 60));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(77, 40));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(103, 40));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(95, 5));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(96, 5));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(101, 1000));
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(50, 60));
+                                        trungLinhThu.itemOptions.add(new ItemOption(77, 40));
+                                        trungLinhThu.itemOptions.add(new ItemOption(103, 40));
+                                        trungLinhThu.itemOptions.add(new ItemOption(95, 5));
+                                        trungLinhThu.itemOptions.add(new ItemOption(96, 5));
+                                        trungLinhThu.itemOptions.add(new ItemOption(101, 1000));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được CT Broly Huyền thoại");
@@ -2271,7 +2271,7 @@ public class NpcFactory {
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, honLinhThu, 99);
                                         Service.getInstance().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 674);
-                                        trungLinhThu.itemOptions.add(new Item.ItemOption(30, 1));
+                                        trungLinhThu.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được Đá ngũ sắc");
@@ -2296,7 +2296,7 @@ public class NpcFactory {
                     if (player.tuMa.isTuMa()) {
                         createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ở Đây không tiếp ma tu", "Đóng");
                     } else {
-                        createOtherMenu(player, ConstNpc.MENU_NPC_TU_TIEN, "Tu tiên a , nghèo thì tu cái gì tiên", "Giới Thiệu", "Học Tu \nTiên", "Học Tiên\nPháp", "Học Công Pháp", "Truyền Công", "Bí Kíp\nTu Tiên");
+                        createOtherMenu(player, ConstNpc.MENU_NPC_TU_TIEN, "Tu tiên a , nghèo thì tu cái gì tiên", "Giới Thiệu", "Học Tu \nTiên", "Học Tiên\nPháp", "Học Công Pháp", "Truyền Công", "Bí Kíp\nTu Tiên", "Huyết Mạch");
                     }
                 }
             }
@@ -2340,6 +2340,9 @@ public class NpcFactory {
                             case 4:
                                 createOtherMenu(player, ConstNpc.TRUYEN_CONG_TU_TIEN, "Truyền công là biện pháp nhanh nhất để lên cấp tu tiên", "Truyền Công", "Từ Chối");
 //                                Truyen Công
+                                break;
+                            case 5:
+                                player.huyet.kichHoatHuyetMach();
                                 break;
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.HOC_TIEN_PHAP) {
@@ -2388,7 +2391,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
-                    createOtherMenu(player, ConstNpc.BASE_MENU, "Đi đến đường cùng ?  Nhập ma a", "Tu Ma", "Học\nCông Pháp", "Luyện hồn");
+                    createOtherMenu(player, ConstNpc.BASE_MENU, "Đi đến đường cùng ?  Nhập ma a", "Tu Ma", "Học\nCông Pháp", "Luyện hồn", "Huyết mạch");
                 }
             }
 
@@ -2448,6 +2451,9 @@ public class NpcFactory {
                             PlayerDAO.subvnd(player, 1_000_000);
                             player.tuMa.openLuyenHon();
                             break;
+                        case 3:
+                            player.huyet.kichHoatHuyetMach();
+                            break;
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NHAP_MA) {
                     if (select == 0) {
@@ -2469,7 +2475,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player) && mapId == 5) {
-                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Đóng");
+                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Huyết mạch");
                 }
             }
 
@@ -2483,6 +2489,9 @@ public class NpcFactory {
                         case 1:
                             // truyen cong
                             createOtherMenu(player, ConstNpc.MENU_TRUYEN_CONG_LUYEN_THE, "Dùng 50k điểm truyền công để nhận 10% exp luyện thể", "Truyền\nCông", "Từ chối");
+                            break;
+                        case 2:
+                            player.huyet.kichHoatHuyetMach();
                             break;
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_LUYEN_THE) {
@@ -3642,7 +3651,7 @@ public class NpcFactory {
         };
     }
 
-    ///goku blue
+    /// goku blue
     public static Npc GOKU_SU_KIEN(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
@@ -3723,7 +3732,7 @@ public class NpcFactory {
                                         break;
                                     }
                                     Item hopquaMedusa = ItemService.gI().createNewItem((short) 1498, 1);
-                                    hopquaMedusa.itemOptions.add(new Item.ItemOption(230, 1));
+                                    hopquaMedusa.itemOptions.add(new ItemOption(230, 1));
 //                                    hopquaMedusa.itemOptions.add(new Item.ItemOption(30, 1));
                                     InventoryServiceNew.gI().addItemBag(player, hopquaMedusa);
                                     InventoryServiceNew.gI().subQuantityItemsBag(player, chu_M, 10);
@@ -3833,7 +3842,7 @@ public class NpcFactory {
         };
     }
 
-    ///CAY NEU
+    /// CAY NEU
     public static Npc cayneu(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
@@ -3979,6 +3988,7 @@ public class NpcFactory {
             }
         };
     }
+
     ///
 
     public static Npc uron(int mapId, int status, int cx, int cy, int tempId, int avartar) {
@@ -4068,10 +4078,10 @@ public class NpcFactory {
                                     if (player.inventory.event >= 200) {
                                         player.inventory.event -= 200;
                                         Item chanmenh = ItemService.gI().createNewItem((short) 1300);
-                                        chanmenh.itemOptions.add(new Item.ItemOption(50, 5));
-                                        chanmenh.itemOptions.add(new Item.ItemOption(77, 7));
-                                        chanmenh.itemOptions.add(new Item.ItemOption(103, 7));
-                                        chanmenh.itemOptions.add(new Item.ItemOption(30, 1));
+                                        chanmenh.itemOptions.add(new ItemOption(50, 5));
+                                        chanmenh.itemOptions.add(new ItemOption(77, 7));
+                                        chanmenh.itemOptions.add(new ItemOption(103, 7));
+                                        chanmenh.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, chanmenh);
                                         Service.getInstance().sendMoney(player);
                                         InventoryServiceNew.gI().sendItemBags(player);
@@ -4286,9 +4296,9 @@ public class NpcFactory {
                                 } else {
                                     player.inventory.ruby -= 20000;
                                     Item linhThu = ItemService.gI().createNewItem((short) Util.nextInt(1273, 1295));//vpham sandom gap thường???
-                                    linhThu.itemOptions.add(new Item.ItemOption(50, Util.nextInt(30, 90)));
-                                    linhThu.itemOptions.add(new Item.ItemOption(77, Util.nextInt(30, 90)));
-                                    linhThu.itemOptions.add(new Item.ItemOption(103, Util.nextInt(30, 90)));
+                                    linhThu.itemOptions.add(new ItemOption(50, Util.nextInt(30, 90)));
+                                    linhThu.itemOptions.add(new ItemOption(77, Util.nextInt(30, 90)));
+                                    linhThu.itemOptions.add(new ItemOption(103, Util.nextInt(30, 90)));
                                     InventoryServiceNew.gI().addItemBag(player, linhThu);
                                     Service.getInstance().sendMoney(player);
                                     InventoryServiceNew.gI().sendItemBags(player);
@@ -4312,44 +4322,44 @@ public class NpcFactory {
                                     int randomRac = new Random().nextInt(rac.length);
                                     if (Util.isTrue(1, 100)) {//60% gap ra linh thú
                                         Item chanMenhC10 = ItemService.gI().createNewItem((short) 1427);
-                                        chanMenhC10.itemOptions.add(new Item.ItemOption(230, 1));
-                                        chanMenhC10.itemOptions.add(new Item.ItemOption(50, Util.nextInt(1000, 2000)));
-                                        chanMenhC10.itemOptions.add(new Item.ItemOption(247, 1));
-                                        chanMenhC10.itemOptions.add(new Item.ItemOption(30, 0));
+                                        chanMenhC10.itemOptions.add(new ItemOption(230, 1));
+                                        chanMenhC10.itemOptions.add(new ItemOption(50, Util.nextInt(1000, 2000)));
+                                        chanMenhC10.itemOptions.add(new ItemOption(247, 1));
+                                        chanMenhC10.itemOptions.add(new ItemOption(30, 0));
                                         if (Util.isTrue(40, 100)) {//tile 40% add thêm 100-500% tnsm (id tnsm 101)
-                                            chanMenhC10.itemOptions.add(new Item.ItemOption(101, Util.nextInt(1000, 5000)));
+                                            chanMenhC10.itemOptions.add(new ItemOption(101, Util.nextInt(1000, 5000)));
                                         }
                                         InventoryServiceNew.gI().addItemBag(player, chanMenhC10);
                                         Service.getInstance().sendThongBao(player, "Chúc mừng bạn nhận được " + chanMenhC10.template.name);
                                     } else if (Util.isTrue(60, 100)) {//60% gap ra linh thú
                                         Item linhThu = ItemService.gI().createNewItem((short) pet[randomPet]);
-                                        linhThu.itemOptions.add(new Item.ItemOption(50, Util.nextInt(50, 95)));
-                                        linhThu.itemOptions.add(new Item.ItemOption(77, Util.nextInt(50, 95)));
-                                        linhThu.itemOptions.add(new Item.ItemOption(103, Util.nextInt(50, 95)));
-                                        linhThu.itemOptions.add(new Item.ItemOption(30, 0));
+                                        linhThu.itemOptions.add(new ItemOption(50, Util.nextInt(50, 95)));
+                                        linhThu.itemOptions.add(new ItemOption(77, Util.nextInt(50, 95)));
+                                        linhThu.itemOptions.add(new ItemOption(103, Util.nextInt(50, 95)));
+                                        linhThu.itemOptions.add(new ItemOption(30, 0));
                                         if (Util.isTrue(40, 100)) {//tile 40% add thêm 100-500% tnsm (id tnsm 101)
-                                            linhThu.itemOptions.add(new Item.ItemOption(101, Util.nextInt(1000, 5000)));
+                                            linhThu.itemOptions.add(new ItemOption(101, Util.nextInt(1000, 5000)));
                                         }
                                         InventoryServiceNew.gI().addItemBag(player, linhThu);
                                         Service.getInstance().sendThongBao(player, "Chúc mừng bạn nhận được " + linhThu.template.name);
                                     } else//còn lại 40% ra list item rác
                                         if (rac[randomRac] == 938) {//938 là ctrang cc j đó
                                             Item ctrang938 = ItemService.gI().createNewItem((short) rac[randomRac]);
-                                            ctrang938.itemOptions.add(new Item.ItemOption(50, Util.nextInt(100, 150)));//add chiso sdanh (50) từ 30-100% random
-                                            ctrang938.itemOptions.add(new Item.ItemOption(77, Util.nextInt(100, 150)));
-                                            ctrang938.itemOptions.add(new Item.ItemOption(103, Util.nextInt(100, 150)));
-                                            ctrang938.itemOptions.add(new Item.ItemOption(101, Util.nextInt(2000, 5000)));//add chiso sdanh (50) từ 30-100% random
-                                            ctrang938.itemOptions.add(new Item.ItemOption(95, Util.nextInt(20, 30)));
-                                            ctrang938.itemOptions.add(new Item.ItemOption(96, Util.nextInt(20, 30)));
-                                            ctrang938.itemOptions.add(new Item.ItemOption(33, 0));
-                                            ctrang938.itemOptions.add(new Item.ItemOption(116, 0));
-                                            ctrang938.itemOptions.add(new Item.ItemOption(106, 0));
-                                            ctrang938.itemOptions.add(new Item.ItemOption(30, 0));
+                                            ctrang938.itemOptions.add(new ItemOption(50, Util.nextInt(100, 150)));//add chiso sdanh (50) từ 30-100% random
+                                            ctrang938.itemOptions.add(new ItemOption(77, Util.nextInt(100, 150)));
+                                            ctrang938.itemOptions.add(new ItemOption(103, Util.nextInt(100, 150)));
+                                            ctrang938.itemOptions.add(new ItemOption(101, Util.nextInt(2000, 5000)));//add chiso sdanh (50) từ 30-100% random
+                                            ctrang938.itemOptions.add(new ItemOption(95, Util.nextInt(20, 30)));
+                                            ctrang938.itemOptions.add(new ItemOption(96, Util.nextInt(20, 30)));
+                                            ctrang938.itemOptions.add(new ItemOption(33, 0));
+                                            ctrang938.itemOptions.add(new ItemOption(116, 0));
+                                            ctrang938.itemOptions.add(new ItemOption(106, 0));
+                                            ctrang938.itemOptions.add(new ItemOption(30, 0));
                                             InventoryServiceNew.gI().addItemBag(player, ctrang938);
                                             Service.getInstance().sendThongBao(player, "Chúc mừng bạn nhận được " + ctrang938.template.name);
                                         } else {
                                             Item detu = ItemService.gI().createNewItem((short) rac[randomRac]);
-                                            detu.itemOptions.add(new Item.ItemOption(30, 1));
+                                            detu.itemOptions.add(new ItemOption(30, 1));
                                             InventoryServiceNew.gI().addItemBag(player, detu);
                                             Service.getInstance().sendThongBao(player, "Chúc mừng bạn nhận được " + detu.template.name);
                                         }
@@ -4424,11 +4434,11 @@ public class NpcFactory {
                                     if (player.NguHanhSonPoint >= 500) {
                                         player.NguHanhSonPoint -= 500;
                                         Item item = ItemService.gI().createNewItem((short) (711));
-                                        item.itemOptions.add(new Item.ItemOption(49, 80));
-                                        item.itemOptions.add(new Item.ItemOption(77, 80));
-                                        item.itemOptions.add(new Item.ItemOption(103, 50));
-                                        item.itemOptions.add(new Item.ItemOption(207, 0));
-                                        item.itemOptions.add(new Item.ItemOption(33, 0));
+                                        item.itemOptions.add(new ItemOption(49, 80));
+                                        item.itemOptions.add(new ItemOption(77, 80));
+                                        item.itemOptions.add(new ItemOption(103, 50));
+                                        item.itemOptions.add(new ItemOption(207, 0));
+                                        item.itemOptions.add(new ItemOption(33, 0));
 //
                                         InventoryServiceNew.gI().addItemBag(player, item);
                                         Service.getInstance().sendThongBao(player, "Chúc Mừng Bạn Đổi Vật Phẩm Thành Công !");
@@ -4868,31 +4878,31 @@ public class NpcFactory {
                                     short[] racLvTwo = {702, 703, 704, 705, 706, 707, 708, 14, 15};
                                     if (rand > 90) {
                                         Item rongLanPhunLua = ItemService.gI().createNewItem((short) 1350);
-                                        rongLanPhunLua.itemOptions.add(new Item.ItemOption(230, 1));
-                                        rongLanPhunLua.itemOptions.add(new Item.ItemOption(50, Util.nextInt(1000, 5000)));
-                                        rongLanPhunLua.itemOptions.add(new Item.ItemOption(77, Util.nextInt(1000, 10000)));
-                                        rongLanPhunLua.itemOptions.add(new Item.ItemOption(103, Util.nextInt(1000, 10000)));
-                                        rongLanPhunLua.itemOptions.add(new Item.ItemOption(95, Util.nextInt(100, 200)));
-                                        rongLanPhunLua.itemOptions.add(new Item.ItemOption(96, Util.nextInt(100, 200)));
-                                        rongLanPhunLua.itemOptions.add(new Item.ItemOption(14, Util.nextInt(15, 20)));
+                                        rongLanPhunLua.itemOptions.add(new ItemOption(230, 1));
+                                        rongLanPhunLua.itemOptions.add(new ItemOption(50, Util.nextInt(1000, 5000)));
+                                        rongLanPhunLua.itemOptions.add(new ItemOption(77, Util.nextInt(1000, 10000)));
+                                        rongLanPhunLua.itemOptions.add(new ItemOption(103, Util.nextInt(1000, 10000)));
+                                        rongLanPhunLua.itemOptions.add(new ItemOption(95, Util.nextInt(100, 200)));
+                                        rongLanPhunLua.itemOptions.add(new ItemOption(96, Util.nextInt(100, 200)));
+                                        rongLanPhunLua.itemOptions.add(new ItemOption(14, Util.nextInt(15, 20)));
                                         if (!Util.isTrue(30, 100)) {
-                                            rongLanPhunLua.itemOptions.add(new Item.ItemOption(234, Util.nextInt(1, 3)));
+                                            rongLanPhunLua.itemOptions.add(new ItemOption(234, Util.nextInt(1, 3)));
                                         }
-                                        rongLanPhunLua.itemOptions.add(new Item.ItemOption(30, 1));
+                                        rongLanPhunLua.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, rongLanPhunLua);
                                         Service.gI().sendThongBao(player, "Bạn đã nhận được " + rongLanPhunLua.template.name);
                                     } else if (rand > 45) {
                                         randItem = (byte) new Random().nextInt(itemLvOne.length - 1);
                                         Item lvOne = ItemService.gI().createNewItem((short) itemLvOne[randItem]);
-                                        lvOne.itemOptions.add(new Item.ItemOption(230, 1));
-                                        lvOne.itemOptions.add(new Item.ItemOption(30, 1));
+                                        lvOne.itemOptions.add(new ItemOption(230, 1));
+                                        lvOne.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, lvOne);
                                         Service.gI().sendThongBao(player, "Bạn đã nhận được " + lvOne.template.name);
                                     } else {
                                         randItem = (byte) new Random().nextInt(racLvTwo.length - 1);
                                         Item lvTwo = ItemService.gI().createNewItem((short) racLvTwo[randItem]);
-                                        lvTwo.itemOptions.add(new Item.ItemOption(230, 1));
-                                        lvTwo.itemOptions.add(new Item.ItemOption(30, 1));
+                                        lvTwo.itemOptions.add(new ItemOption(230, 1));
+                                        lvTwo.itemOptions.add(new ItemOption(30, 1));
                                         InventoryServiceNew.gI().addItemBag(player, lvTwo);
                                         Service.gI().sendThongBao(player, "Bạn đã nhận được " + lvTwo.template.name);
                                     }
@@ -6671,7 +6681,7 @@ public class NpcFactory {
         };
     }
 
-    //////////////
+    /// ///////////
     public static Npc YARIROBE(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
@@ -6709,7 +6719,7 @@ public class NpcFactory {
         };
     }
 
-    /////////////NOEL//////////////////////////NOEL
+    /// //////////NOEL//////////////////////////NOEL
     public static Npc ONG_GIA_NOEL(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
@@ -6748,7 +6758,7 @@ public class NpcFactory {
         };
     }
 
-    ///////////////npc Medusa
+    /// ////////////npc Medusa
     public static Npc MEDUSA(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
@@ -7059,10 +7069,10 @@ public class NpcFactory {
                                 player.inventory.ruby -= 100_000;
                                 Service.getInstance().sendMoney(player);
                                 Item yardart = ItemService.gI().createNewItem((short) (player.gender + 592));
-                                yardart.itemOptions.add(new Item.ItemOption(47, 400));
-                                yardart.itemOptions.add(new Item.ItemOption(108, 10));
-                                yardart.itemOptions.add(new Item.ItemOption(33, 1));
-                                yardart.itemOptions.add(new Item.ItemOption(30, 1));
+                                yardart.itemOptions.add(new ItemOption(47, 400));
+                                yardart.itemOptions.add(new ItemOption(108, 10));
+                                yardart.itemOptions.add(new ItemOption(33, 1));
+                                yardart.itemOptions.add(new ItemOption(30, 1));
                                 InventoryServiceNew.gI().addItemBag(player, yardart);
                                 InventoryServiceNew.gI().subQuantityItemsBag(player, biKiep, 10000);
                                 InventoryServiceNew.gI().sendItemBags(player);
@@ -7554,6 +7564,75 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 switch (player.iDMark.getIndexMenu()) {
+                    case ConstNpc.MENU_CHON_HM:
+                        switch (select) {
+                            case 0:
+                                player.huyet.showBaseMenu();
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_TOI_HUYET:
+                        int slSuDung = 0;
+                        switch (select) {
+                            case 0:
+                                slSuDung = 1;
+                                break;
+                            case 1:
+                                slSuDung = 10;
+                                break;
+                            case 2:
+                                slSuDung = 100;
+                                break;
+                            case 3:
+                                slSuDung = 1000;
+                                break;
+                            default:
+                                player.huyet.showBaseMenu();
+                                break;
+                        }
+                        if (slSuDung > 0) {
+                            player.huyet.toiHuyet(slSuDung);
+                        }
+                        break;
+                    case ConstNpc.MENU_TINH_HUYET:
+                        int soDanDung = 0;
+                        switch (select) {
+                            case 0:
+                                soDanDung = 1;
+                                break;
+                            case 1:
+                                soDanDung = 10;
+                                break;
+                            case 2:
+                                soDanDung = 100;
+                                break;
+                            case 3:
+                                soDanDung = 1000;
+                                break;
+                            default:
+                                player.huyet.showBaseMenu();
+                                break;
+                        }
+                        if (soDanDung > 0) {
+                            player.huyet.tinhHuyet(soDanDung);
+                        }
+                        break;
+                    case ConstNpc.BASE_MENU_HUYET:
+                        switch (select) {
+                            case 0:
+                                player.huyet.openMenuTinhHuyet();
+                                break;
+                            case 1:
+                                player.huyet.openMenuToihuyet();
+                                break;
+                            case 2:
+                                player.huyet.nangPham();
+                                break;
+                            default:
+                                player.huyet.showBaseMenu();
+                                break;
+                        }
+                        break;
                     case ConstNpc.CHON_PHAP_BAO_CUONG_HOA:
                         PhapBao paa = player.phapBaos.get(select);
                         if (paa == null) {

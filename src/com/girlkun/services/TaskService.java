@@ -35,11 +35,11 @@ public class TaskService {
      */
     private static final byte NMEMBER_DO_TASK_TOGETHER = 1;
 
-    private static com.girlkun.services.TaskService i;
+    private static TaskService i;
 
-    public static com.girlkun.services.TaskService gI() {
+    public static TaskService gI() {
         if (i == null) {
-            i = new com.girlkun.services.TaskService();
+            i = new TaskService();
         }
         return i;
     }

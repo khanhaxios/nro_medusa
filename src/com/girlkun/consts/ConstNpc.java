@@ -459,7 +459,11 @@ public class ConstNpc {
     public static final int THAY_TRANG_BI = -912873;
     public static final int CHON_PHAP_BAO_CUONG_HOA = -7863434;
     public static final int MENU_TINH_DONG_PHAP_BAO = -1231243343;
-    public static final int MENU_KHOA_DONG_PHAP_BAO =-121826312 ;
+    public static final int MENU_KHOA_DONG_PHAP_BAO = -121826312;
+    public static final int BASE_MENU_HUYET = -2897312;
+    public static final int MENU_TINH_HUYET = -91831823;
+    public static final int MENU_TOI_HUYET = -1827963621;
+    public static final int MENU_CHON_HM = -921736912;
 }
 
 /**

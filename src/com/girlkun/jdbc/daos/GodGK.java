@@ -1277,6 +1277,57 @@ public class GodGK {
                     e.printStackTrace();
                     player.phapBaos = new ArrayList<>(Collections.nCopies(5, null));// fallback nếu lỗi
                 }
+                try {
+                    String dataHuyet = rs.getString("data_huyet");
+                    if (dataHuyet != null && !dataHuyet.isEmpty()) {
+                        // Parse the JSON string into a JSONObject
+                        JSONArray jsonArray = (JSONArray) JSONValue.parse(dataHuyet);
+
+                        if (jsonArray != null && jsonArray.size() > 0) {
+                            // Extract basic attributes from the JSON array and assign them to the player's Huyet object
+                            player.huyet.type = Byte.parseByte(jsonArray.get(0).toString());
+                            player.huyet.pham = Byte.parseByte(jsonArray.get(1).toString());
+                            player.huyet.slTinhHuyet = Integer.parseInt(jsonArray.get(2).toString());
+                            player.huyet.slTinhHuyetDaNuot = Integer.parseInt(jsonArray.get(3).toString());
+                            player.huyet.maxSlTinhHuyetCoTheNuot = Integer.parseInt(jsonArray.get(4).toString());
+                            player.huyet.doTinhKhiet = Integer.parseInt(jsonArray.get(5).toString());
+                            player.huyet.exp = Long.parseLong(jsonArray.get(6).toString());
+                            player.huyet.maxExp = Long.parseLong(jsonArray.get(7).toString());
+                            player.huyet.isOpen = Boolean.parseBoolean(jsonArray.get(8).toString());
+
+                            // Deserialize options
+                            JSONArray jsonOption = (JSONArray) jsonArray.get(9);
+                            if (jsonOption != null) {
+                                for (Object obj : jsonOption) {
+                                    JSONArray pair = (JSONArray) obj;
+                                    int optionId = Integer.parseInt(pair.get(0).toString());
+                                    int param = Integer.parseInt(pair.get(1).toString());
+                                    player.huyet.options.add(new Item.ItemOption(optionId, param));
+                                }
+                            }
+                            // Deserialize optionChiSo
+                            JSONArray jsonOptionB = (JSONArray) jsonArray.get(10);
+                            if (jsonOptionB != null) {
+                                for (Object obj : jsonOptionB) {
+                                    JSONArray pair = (JSONArray) obj;
+                                    int optionId = Integer.parseInt(pair.get(0).toString());
+                                    int param = Integer.parseInt(pair.get(1).toString());
+                                    player.huyet.optionChiSo.add(new Item.ItemOption(optionId, param));
+                                }
+                            }
+                            // Deserialize base stats (chiSoBaseCongThem)
+                            JSONArray jsonBase = (JSONArray) jsonArray.get(11); // Index 11 for base stats array
+                            if (jsonBase != null) {
+                                player.huyet.chiSoBaseCongThem = new int[jsonBase.size()];
+                                for (int i = 0; i < jsonBase.size(); i++) {
+                                    player.huyet.chiSoBaseCongThem[i] = Integer.parseInt(jsonBase.get(i).toString());
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+
+                }
             }
         } catch (Exception e) {
             Logger.error("Lỗi load data tu tiên: " + e.getMessage());

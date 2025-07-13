@@ -1007,7 +1007,8 @@ public class PlayerDAO {
             String dataKT = jsonArray.toJSONString();
             String dataTuMa = jsonArray.toJSONString();
             String dataPhapBao = jsonArray.toJSONString();
-            GirlkunDB.executeUpdate("insert into tu_tien(data_tu_tien,data_luyen_the,data_tran_phap ,data_ngu_thu,data_luyen_dan,data_phu_chu,data_linh_thuc ,data_khong_thi,data_tu_ma,data_phap_bao,player_id) values(?,?,?,?,?,?,?,?,?,?,?)", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, playerId);
+            String dataHuyet = jsonArray.toJSONString();
+            GirlkunDB.executeUpdate("insert into tu_tien(data_tu_tien,data_luyen_the,data_tran_phap ,data_ngu_thu,data_luyen_dan,data_phu_chu,data_linh_thuc ,data_khong_thi,data_tu_ma,data_phap_bao,data_huyet,player_id) values(?,?,?,?,?,?,?,?,?,?,?,?)", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, dataHuyet, playerId);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -1035,6 +1036,7 @@ public class PlayerDAO {
             String dataKT = jsonArray.toJSONString();
             String dataTuMa = jsonArray.toJSONString();
             String dataPhapBao = jsonArray.toJSONString();
+            String dataHuyet = jsonArray.toJSONString();
             try {
                 if (player.tuTien != null && player.tuTien.isTuTien()) {
                     // write base point tu tien
@@ -1277,8 +1279,58 @@ public class PlayerDAO {
                 }
                 dataPhapBao = datapbb.toJSONString();
             }
+            try {
+                if (player.huyet != null && player.huyet.isKichHoat()) {
+                    jsonArray = new JSONArray();
+                    jsonArray.add(player.huyet.type);
+                    jsonArray.add(player.huyet.pham);
+                    jsonArray.add(player.huyet.slTinhHuyet);
+                    jsonArray.add(player.huyet.slTinhHuyetDaNuot);
+                    jsonArray.add(player.huyet.maxSlTinhHuyetCoTheNuot);
+                    jsonArray.add(player.huyet.doTinhKhiet);
+                    jsonArray.add(player.huyet.exp);
+                    jsonArray.add(player.huyet.maxExp);
+                    jsonArray.add(player.huyet.isOpen);
+
+                    // Serialize options - only if not null
+                    JSONArray jsonOption = new JSONArray();
+                    if (player.huyet.options != null) {
+                        for (Item.ItemOption option : player.huyet.options) {
+                            JSONArray js = new JSONArray();
+                            js.add(option.optionTemplate.id);
+                            js.add(option.param);
+                            jsonOption.add(js);
+                        }
+                    }
+                    jsonArray.add(jsonOption);
+
+                    JSONArray jsonOptionB = new JSONArray();
+                    if (player.huyet.optionChiSo != null) {
+                        for (Item.ItemOption option : player.huyet.optionChiSo) {
+                            JSONArray js = new JSONArray();
+                            js.add(option.optionTemplate.id);
+                            js.add(option.param);
+                            jsonOptionB.add(js); // ✅ fixed
+                        }
+                    }
+                    jsonArray.add(jsonOptionB);
+
+                    // Serialize chiSoBaseCongThem array
+                    JSONArray jsonBase = new JSONArray();
+                    if (player.huyet.chiSoBaseCongThem != null) {
+                        for (int i = 0; i < player.huyet.chiSoBaseCongThem.length; i++) {
+                            jsonBase.add(player.huyet.chiSoBaseCongThem[i]);
+                        }
+                    }
+                    jsonArray.add(jsonBase);
+
+                    dataHuyet = jsonArray.toJSONString();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             // save sql
-            int rowEffect = GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?,data_tu_ma = ?,data_phap_bao=?  where player_id=?", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, player.id);
+            int rowEffect = GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?,data_tu_ma = ?,data_phap_bao=?,data_huyet =  ?  where player_id=?", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, dataHuyet, player.id);
             Logger.log(String.valueOf(rowEffect));
         } catch (Exception e) {
             Logger.error("Loi save data tu tien" + e.getMessage());

@@ -1,4 +1,4 @@
-//package com.girlkun.models.pvp_old;
+package com.girlkun.models.pvp_old;//package com.girlkun.models.pvp_old;
 //
 //import com.girlkun.consts.ConstNpc;
 //import com.girlkun.models.map.Zone;

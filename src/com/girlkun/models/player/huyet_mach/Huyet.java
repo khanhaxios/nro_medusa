@@ -1,8 +1,13 @@
 package com.girlkun.models.player.huyet_mach;
 
+import com.girlkun.consts.ConstNpc;
+import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tuma.TuMa;
+import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.services.InventoryServiceNew;
+import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
@@ -14,12 +19,43 @@ public class Huyet {
             "Phàm", "Thanh", "Linh", "Quân", "Vương", "Hoàng", "Đế", "Tiên", "Thần"
     };
 
+    public void openMenuTinhHuyet() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("|7|Tinh huyết huyết mạch\n");
+        stringBuilder.append("|5|Tinh huyết cần huyết đan và mỗi huyết đan tăng 50 exp\n");
+        stringBuilder.append("|5|Sau khi đầy exp ấn đột phá sẽ lên phẩm");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TINH_HUYET, -1, stringBuilder.toString(), "1 lần", "10 lần", "100 lần", "Đóng");
+    }
+
+    public void openMenuToihuyet() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("|7|Thông tin tôi huyết");
+        stringBuilder.append(Util.getHonorialLine(12));
+        stringBuilder.append("|5| DAME : " + getDoTinhKhietBuff() + "%");
+        stringBuilder.append("|5| HP : " + getDoTinhKhietBuff() + "%");
+        stringBuilder.append("|5| KI : " + getDoTinhKhietBuff() + "%");
+        stringBuilder.append("|5|Độ tinh khiết [" + doTinhKhiet + "]\n");
+        stringBuilder.append("|7|Tỷ lệ thành công [" + getTyLeToiHuyetThanhCong() + "]\n");
+        stringBuilder.append(Util.getHonorialLine(12));
+        stringBuilder.append("|2|Tinh huyết cần tốn huyết đan (cái này đi xin ma tu nhé!!!!)\n");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TOI_HUYET, -1, stringBuilder.toString(), "1 lần", "10 lần", "100 lần", "1000 lần", "Đóng");
+    }
+
     public static class TinhHuyetEffect {
-        public static String[] LEVEL_DESC_TYPE_0 = new String[]{"Tăng 50% DAME,50% STCM", "Tăng 75% DAME,75% STCM", "Tăng 160% DAME,160% STCM"};
-        public static String[] LEVEL_DESC_TYPE_1 = new String[]{"Tăng 100% HP,100% KI", "Tăng 150% HP,150% KI", "Tăng 200% HP,200% HP"};
-        public static String[] LEVEL_DESC_TYPE_2 = new String[]{"Tăng 20% DAME SSS,20% DAME ÁNH SÁNG", "Tăng 30% DAME SSS,30% DAME ÁNH SÁNG", "Tăng 40% DAME SSS,50% DAME ÁNH SÁNG"};
-        public static String[] LEVEL_DESC_TYPE_3 = new String[]{"Tăng 20% DAME SSS,20% DAME BÓNG TỐI", "Tăng 30% DAME SSS,20% DAME BÓNG TỐI", "Tăng 40% DAME SSS,20% DAME BÓNG TỐI"};
-        public static String[] LEVEL_DESC_TYPE_4 = new String[]{"Tăng 10% KHÁNG SÁT THƯƠNG,50% HP,KI", "Tăng 20% KHÁNG SÁT THƯƠNG,75% HP,KI", "Tăng 30% KHÁNG SÁT THƯƠNG,160% HP,KI"};
+        public static int[][][] LEVEL_PARAM_TYPE = new int[][][]{
+                {{50, 50}, {75, 75}, {160, 160}},
+                {{100, 100}, {150, 150}, {200, 200}},
+                {{20, 20}, {30, 30}, {40, 40}},
+                {{20, 20}, {30, 30}, {40, 40}},
+                {{10, 50}, {20, 75}, {30, 100}}
+        };
+        public static String[][] LEVEL_DESC_TYPE = new String[][]{
+                {"Tăng 50% DAME,50% STCM", "Tăng 75% DAME,75% STCM", "Tăng 160% DAME,160% STCM"},
+                {"Tăng 100% HP,100% KI", "Tăng 150% HP,150% KI", "Tăng 200% HP,200% HP"},
+                {"Tăng 20% DAME SSS,20% DAME ÁNH SÁNG", "Tăng 30% DAME SSS,30% DAME ÁNH SÁNG", "Tăng 40% DAME SSS,50% DAME ÁNH SÁNG"},
+                {"Tăng 20% DAME SSS,20% DAME BÓNG TỐI", "Tăng 30% DAME SSS,20% DAME BÓNG TỐI", "Tăng 40% DAME SSS,20% DAME BÓNG TỐI"},
+                {"Tăng 10% KHÁNG SÁT THƯƠNG,50% HP,KI", "Tăng 20% KHÁNG SÁT THƯƠNG,75% HP,KI", "Tăng 30% KHÁNG SÁT THƯƠNG,160% HP,KI"}
+        };
 
         public byte type;
         public byte levelRequired;
@@ -39,25 +75,13 @@ public class Huyet {
         }
 
         public String getDescription(byte level) {
-            switch (type) {
-                case 0:
-                    return LEVEL_DESC_TYPE_0[level];
-                case 1:
-                    return LEVEL_DESC_TYPE_1[level];
-                case 2:
-                    return LEVEL_DESC_TYPE_2[level];
-                case 3:
-                    return LEVEL_DESC_TYPE_3[level];
-                case 4:
-                    return LEVEL_DESC_TYPE_4[level];
-            }
-            return "Tạp huyết không có thiên phú tinh huyết";
+            return LEVEL_DESC_TYPE[type][level];
         }
     }
 
     public int slTinhHuyet;
 
-    boolean isOpen = false;
+    public boolean isOpen = false;
     public static int[] OPTION_VIP_CAN_ROLL = new int[]{0, 2, 5, 50, 77, 103, 251, 252};
     public String[] typeName = new String[]{"Thần huyết", "Long huyết", "Ma huyết", "Tiên huyết", "Đế Huyết"};
     public byte pham;
@@ -73,8 +97,6 @@ public class Huyet {
 
     public Player player;
     public byte MAX_PHAM = 8;
-    public byte soLanTinhHuyetCongDon;
-
     public List<Item.ItemOption> options = new ArrayList<>();
 
     public List<Item.ItemOption> optionChiSo = new ArrayList<>();
@@ -84,7 +106,7 @@ public class Huyet {
     }
 
     public int getDoTinhKhietBuff() {
-        return (Math.max(getLevelTinhHuyetCongDon(), 1) * 20) / 100;
+        return slTinhHuyet * 20 / 100;
     }
 
     public void addExp(long exp) {
@@ -92,6 +114,10 @@ public class Huyet {
         if (this.exp > maxExp) {
             this.exp = maxExp;
         }
+    }
+
+    public int calcMaxSlTinhHuyetcoTheNuot() {
+        return pham * 100;
     }
 
     public long calcMaxExp() {
@@ -108,6 +134,20 @@ public class Huyet {
         return Math.max(1, pham) * 100;
     }
 
+    public void tinhHuyet(int slHuyetDan) {
+        // can huyet dan
+        Item item = InventoryServiceNew.gI().findItemBag(player, 2077);
+        if (item == null || item.quantity - slHuyetDan < 0) {
+            Service.gI().sendThongBao(player, "Không đủ huyết đan");
+            return;
+        }
+        InventoryServiceNew.gI().subQuantityItemsBag(player, item, slHuyetDan);
+        InventoryServiceNew.gI().sendItemBags(player);
+        long exp = slHuyetDan * 50L;
+        addExp(exp);
+        Service.gI().sendThongBaoOK(player, "Dùng huyết đan thành công nhận được x" + exp + " Kinh nghiệm huyết mạch");
+    }
+
     public void nuotTinhHuyet() {
         if (slTinhHuyetDaNuot + 1 > maxSlTinhHuyetCoTheNuot) {
             Service.gI().sendThongBao(player, "Đã đạt giới hạn");
@@ -117,10 +157,6 @@ public class Huyet {
         chiSoBaseCongThem[Util.nextInt(0, 2)] += ranDomChiSo;
         slTinhHuyetDaNuot++;
         Service.gI().sendThongBao(player, "Nuốt tinh huyết thành công");
-    }
-
-    public boolean isActiveSpecialEffect() {
-        return pham >= 3 && (soLanTinhHuyetCongDon >= 3);
     }
 
     public int getLevelTinhHuyetCongDon() {
@@ -139,9 +175,10 @@ public class Huyet {
             return;
         }
         pham += 1;
-        soLanTinhHuyetCongDon += 1;
+        slTinhHuyet += 1;
         // roll dong thuoc tinh
         rollDongThuocTinh();
+        calcMaxSlTinhHuyetcoTheNuot();
         restExp();
         resDoTinhKhiet();
         Service.gI().sendThongBao(player, "Đột phá phẩm thành công");
@@ -185,7 +222,38 @@ public class Huyet {
         String menuText = "|7|Thông tin Huyết" +
                 Util.getHonorialLine(12) +
                 "|7|" + getFullName() + "\n"
-                + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n";
+                + getThongTinBuffBase()
+                + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" +
+                rateHuyetMach() + "\n" +
+                Util.getHonorialLine(12) +
+                "|7|Thông tin kích hoạt huyết mạch\n" +
+                getThongTinBuff();
+        NpcService.gI().createMenuConMeo(player, ConstNpc.BASE_MENU_HUYET, -1, menuText, "Tinh huyết", "Tôi huyết", "Nâng phẩm", "Đóng");
+    }
+
+    private String getThongTinBuffBase() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Item.ItemOption option : options) {
+            stringBuilder.append("|5|").append(option.getOptionString()).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    private String getThongTinBuff() {
+        StringBuilder stringBuilder = new StringBuilder();
+        int level = getLevelTinhHuyetCongDon();
+        for (int i = 0; i < 3; i++) {
+            if (i <= level) {
+                stringBuilder.append("\n|7|");
+                stringBuilder.append(TinhHuyetEffect.LEVEL_DESC_TYPE[type][i]);
+                stringBuilder.append("\n");
+            } else {
+                stringBuilder.append("\n|5|");
+                stringBuilder.append(TinhHuyetEffect.LEVEL_DESC_TYPE[type][i]);
+                stringBuilder.append("\n");
+            }
+        }
+        return stringBuilder.toString();
     }
 
     public String getCurrentExpAsString() {
@@ -195,8 +263,32 @@ public class Huyet {
     public void kichHoatHuyetMach() {
         // kich hoat huyet mach
         if (pham > 0) {
+            Service.gI().sendThongBaoOK(player, "Bạn đã kích hoạt huyết mạch rồi mà!");
             return;
         }
+        if (!player.tuTien.isTuTien() && !player.luyenThe.isLuyenTheReal() && !player.tuMa.isTuMa()) {
+            Service.gI().sendThongBao(player, "Bạn cần chức nghiệp để có thể kích hoạt huyết mạch");
+            return;
+        }
+        if (player.tuTien.isTuTien() || player.tuMa.isTuMa() || player.luyenThe.isLuyenTheReal()) {
+            if (player.tuTien.isTuTien() && player.tuTien.level < 10) {
+                Service.gI().sendThongBao(player, "Cần đạt " + TuTien.CANH_GIOI[10] + " Để kích hoạt huyết mạch");
+                return;
+            }
+            if (player.tuMa.isTuMa() && player.tuMa.level < 10) {
+                Service.gI().sendThongBao(player, "Cần đạt " + TuMa.CANH_GIOI[10] + " Để kích hoạt huyết mạch");
+                return;
+            }
+            if (player.luyenThe.isLuyenTheReal() && player.luyenThe.level < 200) {
+                Service.gI().sendThongBao(player, "Cần đạt luyện thể tầng " + 200 + " Để kích hoạt huyết mạch");
+                return;
+            }
+        }
+        if (player.session.vnd - 300_000 < 0) {
+            Service.gI().sendThongBao(player, "Cần 300k điểm để mở");
+            return;
+        }
+        PlayerDAO.subvnd(player, 300_000);
         // kich hoat ne
         ratioTypeHuyetMach();
         ratioChiSoHuyetMach();
@@ -327,10 +419,10 @@ public class Huyet {
                     player.nPoint.mpAdd += io.param * 1000;
                     break;
                 case 108, 73:// fake
-                    player.nPoint.tlNeDon += io.param;
+                    player.nPoint.tlNeDon += (short) io.param;
                     break;
                 case 18: // #% chính xác
-                    player.nPoint.tlchinhxac += io.param;
+                    player.nPoint.tlchinhxac += (short) io.param;
                     break;
                 case 5, 197, 220, 233: //+#% sức đánh chí mạng
                     player.nPoint.tlDameCrit.add(io.param);
@@ -342,7 +434,7 @@ public class Huyet {
                     player.nPoint.mpAdd += io.param;
                     break;
                 case 8: //Hút #% HP, KI xung quanh mỗi 5 giây
-                    player.nPoint.tlHutHpMpXQ += io.param;
+                    player.nPoint.tlHutHpMpXQ += (short) io.param;
                     break;
                 case 14: //Chí mạng+#%
                     player.nPoint.critAdd += io.param;
@@ -400,22 +492,22 @@ public class Huyet {
                     player.nPoint.tlDef.add(io.param);
                     break;
                 case 95: //Biến #% tấn công thành HP
-                    player.nPoint.tlHutHp += io.param;
+                    player.nPoint.tlHutHp += (short) io.param;
                     break;
                 case 96: //Biến #% tấn công thành MP
-                    player.nPoint.tlHutMp += io.param;
+                    player.nPoint.tlHutMp += (short) io.param;
                     break;
                 case 97: //Phản #% sát thương
-                    player.nPoint.tlPST += io.param;
+                    player.nPoint.tlPST += (short) io.param;
                     break;
                 case 100: //+#% vàng từ quái
-                    player.nPoint.tlGold += io.param;
+                    player.nPoint.tlGold += (short) io.param;
                     break;
                 case 103, 195, 222: //KI +#%
                     player.nPoint.tlMp.add(io.param);
                     break;
                 case 104: //Biến #% tấn công quái thành HP
-                    player.nPoint.tlHutHpMob += io.param;
+                    player.nPoint.tlHutHpMob += (short) io.param;
                     break;
                 case 105: //Vô hình khi không đánh quái và boss
                     player.nPoint.wearingVoHinh = true;
@@ -425,7 +517,7 @@ public class Huyet {
                     break;
                 // đối nghịch
                 case 109: //Hôi, giảm #% HP
-                    player.nPoint.tlHpGiamODo += io.param;
+                    player.nPoint.tlHpGiamODo += (short) io.param;
                     break;
                 case 116: //Kháng thái dương hạ san
                     player.nPoint.khangTDHS = true;
@@ -439,14 +531,14 @@ public class Huyet {
                 case 155: //Giảm 50% sức đánh, HP, KI và +#% SM, TN, vàng từ quái
                     player.nPoint.tlSubSD += 50;
                     player.nPoint.tlTNSM.add(io.param);
-                    player.nPoint.tlGold += io.param;
+                    player.nPoint.tlGold += (short) io.param;
                     break;
                 case 162: //Cute hồi #% KI/s bản thân và xung quanh
                     player.nPoint.mpHoiCute += io.param;
                     break;
                 case 173: //Phục hồi #% HP và KI cho đồng đội
-                    player.nPoint.tlHpHoiBanThanVaDongDoi += io.param;
-                    player.nPoint.tlMpHoiBanThanVaDongDoi += io.param;
+                    player.nPoint.tlHpHoiBanThanVaDongDoi += (short) io.param;
+                    player.nPoint.tlMpHoiBanThanVaDongDoi += (short) io.param;
                     break;
             }
         }
@@ -473,19 +565,31 @@ public class Huyet {
         return 100 - (pham * 10) - (doTinhKhiet / 30f);
     }
 
-    public void toiHuyet() {
+    public void toiHuyet(int slTinhHuyet) {
+
+        int slCong = 0;
         Item item = InventoryServiceNew.gI().findItemBag(player, 2077);
         if (item.quantity < (pham * 50)) {
-            Service.gI().sendThongBao(player, "Cần x" + pham * 50 + "Huyết đan cho 1 lần tôi huyết");
+            Service.gI().sendThongBao(player, "Cần x" + (pham * 50) + "Huyết đan cho 1 lần tôi huyết");
             return;
         }
+
+        while (slTinhHuyet > 0) {
+            if (Util.isTrue(getTyLeToiHuyetThanhCong(), 100)) {
+                slCong += 1;
+            }
+            slTinhHuyet--;
+        }
+        // toi huyet
+
+        if (doTinhKhiet + slCong > 100) {
+            doTinhKhiet = 100;
+            Service.gI().sendThongBao(player, "Đã đạt độ tinh khiết tối đa hãy nâng phẩm để có thể tiếp tục");
+        }
+        Service.gI().sendThongBao(player, "Tôi huyết x" + slTinhHuyet + " Lần thành công x" + slCong + "Lần");
+        Service.gI().point(player);
+
         InventoryServiceNew.gI().subQuantityItemsBag(player, item, pham * 50);
         InventoryServiceNew.gI().sendItemBags(player);
-        // toi huyet
-        if (Util.isTrue(getTyLeToiHuyetThanhCong(), 100)) {
-            doTinhKhiet += 1;
-            Service.gI().sendThongBao(player, "Tôi huyết thành công");
-            Service.gI().point(player);
-        }
     }
 }

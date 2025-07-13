@@ -1432,6 +1432,7 @@ public class SkillService {
             }
             plAtt.tuMa.subMaKhi(Util.nextInt(1, 3));
         }
+        // handle for huyet mach
     }
 
     private boolean neDon(Player plInjure, Player plAtt, boolean miss) {

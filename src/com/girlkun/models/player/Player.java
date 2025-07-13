@@ -1190,9 +1190,15 @@ public class Player {
                     case Skill.LIEN_HOAN:
                     case Skill.DE_TRUNG:
                         if (this.nPoint.voHieuChuong > 0 && !isStChuan) {
-                            com.girlkun.services.PlayerService.gI().hoiPhuc(this, 0, Util.DoubleGioihan(damage * this.nPoint.voHieuChuong / 100));
+                            PlayerService.gI().hoiPhuc(this, 0, Util.DoubleGioihan(damage * this.nPoint.voHieuChuong / 100));
                             return 0;
                         }
+                }
+            }
+            if (this.huyet.isKichHoat() && this.huyet.type == 4) {
+                int sl = this.huyet.getLevelTinhHuyetCongDon();
+                for (int i = 0; i < sl; i++) {
+                    damage -= (damage * Huyet.TinhHuyetEffect.LEVEL_PARAM_TYPE[huyet.type][i][0]);
                 }
             }
             if (!isStChuan) {

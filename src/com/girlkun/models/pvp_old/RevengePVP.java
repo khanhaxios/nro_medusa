@@ -1,4 +1,4 @@
-//package com.girlkun.models.pvp_old;
+package com.girlkun.models.pvp_old;//package com.girlkun.models.pvp_old;
 //
 //import com.girlkun.consts.ConstPlayer;
 //import com.girlkun.models.player.Player;

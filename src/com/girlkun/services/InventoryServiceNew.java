@@ -392,7 +392,7 @@ public class InventoryServiceNew {
             return sItem;
         }
         long powerRequire = item.template.strRequire;
-        for (Item.ItemOption io : item.itemOptions) {
+        for (ItemOption io : item.itemOptions) {
             if (io.optionTemplate.id == 21) {
                 powerRequire = io.param * 1000000000L;
                 break;
@@ -589,7 +589,7 @@ public class InventoryServiceNew {
                 if (!itemBody.isNotNullItem()) {
                     if (item.template.gender == player.gender || item.template.gender == 3) {
                         long powerRequire = item.template.strRequire;
-                        for (Item.ItemOption io : item.itemOptions) {
+                        for (ItemOption io : item.itemOptions) {
                             if (io.optionTemplate.id == 21) {
                                 powerRequire = io.param * 1000000000L;
                                 break;
@@ -710,9 +710,9 @@ public class InventoryServiceNew {
                     msg.writer().writeInt(item.quantity);
                     msg.writer().writeUTF(item.getInfo());
                     msg.writer().writeUTF(item.getContent());
-                    List<Item.ItemOption> itemOptions = item.itemOptions;
+                    List<ItemOption> itemOptions = item.itemOptions;
                     msg.writer().writeByte(itemOptions.size());
-                    for (Item.ItemOption itemOption : itemOptions) {
+                    for (ItemOption itemOption : itemOptions) {
                         if (cplSetupPhuKien && itemOption.optionTemplate.id == 247) {
                             msg.writer().writeByte(player.setClothes.getOptionPhuKienKichHoat());
                         } else {
@@ -742,7 +742,7 @@ public class InventoryServiceNew {
                     msg.writer().writeUTF(it.getInfo());
                     msg.writer().writeUTF(it.getContent());
                     msg.writer().writeByte(it.itemOptions.size());
-                    for (Item.ItemOption io : it.itemOptions) {
+                    for (ItemOption io : it.itemOptions) {
                         msg.writer().writeByte(io.optionTemplate.id);
                         msg.writer().writeShort(io.param);
                     }
@@ -871,14 +871,14 @@ public class InventoryServiceNew {
     public boolean addItemList(List<Item> items, Item itemAdd) {
         //nếu item ko có option, add option rỗng vào
         if (itemAdd.itemOptions.isEmpty()) {
-            itemAdd.itemOptions.add(new Item.ItemOption(230, 1));
+            itemAdd.itemOptions.add(new ItemOption(230, 1));
         }
         //item cộng thêm chỉ số param: tự động luyện tập
         int[] idParam = isItemIncrementalOption(itemAdd);
         if (idParam[0] != -1) {
             for (Item it : items) {
                 if (it.isNotNullItem() && it.template.id == itemAdd.template.id) {
-                    for (Item.ItemOption io : it.itemOptions) {
+                    for (ItemOption io : it.itemOptions) {
                         if (io.optionTemplate.id == idParam[0]) {
                             io.param += idParam[1];
                         }
@@ -945,7 +945,7 @@ public class InventoryServiceNew {
     }
 
     public boolean hasOptionTemplateId(Item item, int optionTemplateId) {
-        for (Item.ItemOption option : item.itemOptions) {
+        for (ItemOption option : item.itemOptions) {
             if (option.optionTemplate.id == optionTemplateId) {
                 return true;
             }
@@ -964,7 +964,7 @@ public class InventoryServiceNew {
      * @return id option tăng chỉ số - param
      */
     private int[] isItemIncrementalOption(Item item) {
-        for (Item.ItemOption io : item.itemOptions) {
+        for (ItemOption io : item.itemOptions) {
             switch (io.optionTemplate.id) {
                 case 1:
                     return new int[]{io.optionTemplate.id, io.param};

@@ -1303,6 +1303,10 @@ public class Service {
                 Manager.sanGiaoDichBuaZeno.showInfo(player);
             }
         }
+        if (text.equals("tthm")) {
+            NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHON_HM, -1, "|7|Huyết Mạch\n" + "|5|Huyết mạch giúp bạn tăng mạnh chỉ số và buff đặc biệt", "Huyết", "Mạch");
+            return;
+        }
         if (text.equals("ttlk")) {
             if (player.luyenKhiSu.getLevel() == 0 && !player.isAdmin()) {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện khí\nHãy đến gặp npc Thần Cấp luyện khí sư ở làng aru để học hỏi");

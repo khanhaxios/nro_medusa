@@ -232,7 +232,7 @@ public class Template {
 
     public static class ItemLuckyRound {
 
-        public Template.ItemTemplate temp;
+        public ItemTemplate temp;
         public int ratio;
         public int typeRatio;
         public List<ItemOptionLuckyRound> itemOptions;
