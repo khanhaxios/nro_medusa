@@ -252,22 +252,41 @@ public class Mach {
         return 100f / (Math.max(tang, 2) * Math.max(2, bac));
     }
 
+    public String getBuffByBac() {
+        String nameText = "";
+        switch (bac) {
+            case 0:
+                return " + Tấn công";
+            case 1:
+                return "+  HP";
+            case 2:
+                return "+ KI";
+            case 3:
+                return "+ Tấn công %";
+            case 4:
+                return "+ HP %";
+            case 5:
+                return "+ KI %";
+            case 6:
+                return "+ Linh khí hồi";
+            case 7:
+                return "+ SSS Dame";
+            case 8:
+                return "+ M Dame";
+        }
+        return "+ Không xác định";
+    }
+
     public void showBaseMenu() {
         if (!isOpen) {
             Service.gI().sendThongBao(player, "Bạn cần mở mạch để xem");
             return;
         }
-        int nextTang = tang + 1 <= 99 ? tang + 1 : tang;
         int nextBac = bac + 1 <= 9 ? bac + 1 : 0;
-        String nameNext = "";
-        if (nextBac == 0) {
-            nameNext = getNameByTang(nextTang, nextBac);
-        } else {
-            nameNext = getNameByTang(tang, nextBac);
-        }
+        String nameNext = getNameByBac(nextBac);
         String menuText = "|7|Thông tin mạch\n" + "|7|" + getNameByTang() + "\n" + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" + "|5|Tỷ lệ đột phá " + getTyLeTangBac() + "\n"
-                + "|5|Bậc hiện tại : " + getNameByBac() +
-                "|5|Cấp bậc tiếp theo : " + nameNext + "\n"
+                + "|5|Bậc hiện tại : " + getNameByBac() + "\n"
+                + "|5|Cấp bậc tiếp theo : " + nameNext + "[" + getBuffByBac() + "]" + "\n"
                 + "|7|Khi đầy exp nhấn đột phá bậc , khi đạt bậc 9 hãy đột phá tầng";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MACH, -1, menuText, "Thông tin", "Phá tầng", "Thông mạch", "Đóng");
     }

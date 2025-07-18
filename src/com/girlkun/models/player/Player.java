@@ -15,6 +15,7 @@ import com.girlkun.models.item.ItemTime;
 import com.girlkun.models.item.ItemTimeSieuCap;
 import com.girlkun.models.kygui.ItemKyGui;
 import com.girlkun.models.kygui.ShopKyGuiManager;
+import com.girlkun.models.lucky_pool.LuckyPoolPlayer;
 import com.girlkun.models.map.MapMaBu.MapMaBu;
 import com.girlkun.models.map.TrapMap;
 import com.girlkun.models.map.Zone;
@@ -68,6 +69,7 @@ public class Player {
     public int pointPvpVip;
     public boolean autoUse;
 
+    public LuckyPoolPlayer luckyPoolPlayer;
     public PhapBao phapBaoTamThoi;
     public boolean autoUseNow;
     public TranPhapSu tranPhapSu;
@@ -277,6 +279,7 @@ public class Player {
         lastTimeUseOption = System.currentTimeMillis();
         location = new Location();
         nPoint = new NPoint(this);
+        luckyPoolPlayer = new LuckyPoolPlayer();
         inventory = new Inventory();
         taixiu = new Taixiu(this);
         playerSkill = new PlayerSkill(this);

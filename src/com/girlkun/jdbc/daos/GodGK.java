@@ -1320,6 +1320,9 @@ public class GodGK {
                             JSONArray jsonBase = (JSONArray) jsonArray.get(11); // Index 11 for base stats array
                             if (jsonBase != null) {
                                 player.huyet.chiSoBaseCongThem = new int[jsonBase.size()];
+                                if (jsonBase.size() == 0) {
+                                    player.huyet.chiSoBaseCongThem = new int[]{0, 0, 0};
+                                }
                                 for (int i = 0; i < jsonBase.size(); i++) {
                                     player.huyet.chiSoBaseCongThem[i] = Integer.parseInt(jsonBase.get(i).toString());
                                 }

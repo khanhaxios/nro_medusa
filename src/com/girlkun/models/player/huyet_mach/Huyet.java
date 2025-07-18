@@ -31,11 +31,11 @@ public class Huyet {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("|7|Thông tin tôi huyết");
         stringBuilder.append(Util.getHonorialLine(12));
-        stringBuilder.append("|5| DAME : " + getDoTinhKhietBuff() + "%");
-        stringBuilder.append("|5| HP : " + getDoTinhKhietBuff() + "%");
-        stringBuilder.append("|5| KI : " + getDoTinhKhietBuff() + "%");
-        stringBuilder.append("|5|Độ tinh khiết [" + doTinhKhiet + "]\n");
-        stringBuilder.append("|7|Tỷ lệ thành công [" + getTyLeToiHuyetThanhCong() + "]\n");
+        stringBuilder.append("|5| DAME : ").append(getDoTinhKhietBuff()).append("%").append("\n");
+        stringBuilder.append("|5| HP : ").append(getDoTinhKhietBuff()).append("%").append("\n");
+        stringBuilder.append("|5| KI : ").append(getDoTinhKhietBuff()).append("%").append("\n");
+        stringBuilder.append("|5|Độ tinh khiết [").append(doTinhKhiet).append("]\n");
+        stringBuilder.append("|7|Tỷ lệ thành công [").append(getTyLeToiHuyetThanhCong()).append("]\n");
         stringBuilder.append(Util.getHonorialLine(12));
         stringBuilder.append("|2|Tinh huyết cần tốn huyết đan (cái này đi xin ma tu nhé!!!!)\n");
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TOI_HUYET, -1, stringBuilder.toString(), "1 lần", "10 lần", "100 lần", "1000 lần", "Đóng");
@@ -89,7 +89,7 @@ public class Huyet {
     public long exp;
     public long maxExp;
     public byte type;
-    public int[] chiSoBaseCongThem = new int[]{};
+    public int[] chiSoBaseCongThem = new int[]{0, 0, 0};
 
     public int maxSlTinhHuyetCoTheNuot;
 
@@ -161,17 +161,24 @@ public class Huyet {
 
     public int getLevelTinhHuyetCongDon() {
         if (pham == 8) return 3;
-        return pham / 3;
+
+        if (pham >= 6) {
+            return 2;
+        }
+        if (pham >= 3) {
+            return 1;
+        }
+        return 0;
     }
 
     public boolean canNangPham() {
-        return doTinhKhiet >= 100 && exp == maxExp && pham + 1 <= MAX_PHAM;
+        return doTinhKhiet >= 100 && (exp == maxExp) && (pham + 1 <= MAX_PHAM);
     }
 
     public void nangPham() {
         // try to nang pham
-        if (canNangPham()) {
-            Service.gI().sendThongBaoOK(player, "Bạn không thể nâng phẩm cần\n Đầy độ tinh khiết, Đầy kinh nghiệm  và Phẩm chưa đạt tối đa");
+        if (!canNangPham()) {
+            Service.gI().sendThongBaoOK(player, "Bạn không thể nâng phẩm cần\n Đầy độ tinh khiết, Đầy kinh nghiệm và Phẩm chưa đạt tối đa");
             return;
         }
         pham += 1;
@@ -181,8 +188,7 @@ public class Huyet {
         calcMaxSlTinhHuyetcoTheNuot();
         restExp();
         resDoTinhKhiet();
-        Service.gI().sendThongBao(player, "Đột phá phẩm thành công");
-        showBaseMenu();
+        Service.gI().sendThongBaoOK(player, "Đột phá phẩm thành công");
         Service.gI().point(player);
     }
 
@@ -228,8 +234,8 @@ public class Huyet {
                 "|7|" + getFullName() + "\n"
                 + getThongTinBuffBase()
                 + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" +
+                "|5|Độ tinh khiết : " + doTinhKhiet + "%\n" +
                 rateHuyetMach() + "\n" +
-                Util.getHonorialLine(12) +
                 "|7|Thông tin kích hoạt huyết mạch\n" +
                 getThongTinBuff();
         NpcService.gI().createMenuConMeo(player, ConstNpc.BASE_MENU_HUYET, -1, menuText, "Tinh huyết", "Tôi huyết", "Nâng phẩm", "Đóng");
@@ -246,14 +252,14 @@ public class Huyet {
     private String getThongTinBuff() {
         StringBuilder stringBuilder = new StringBuilder();
         int level = getLevelTinhHuyetCongDon();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 1; i <= 3; i++) {
             if (i <= level) {
                 stringBuilder.append("\n|7|");
-                stringBuilder.append(TinhHuyetEffect.LEVEL_DESC_TYPE[type][i]);
+                stringBuilder.append(TinhHuyetEffect.LEVEL_DESC_TYPE[type][i - 1]);
                 stringBuilder.append("\n");
             } else {
                 stringBuilder.append("\n|5|");
-                stringBuilder.append(TinhHuyetEffect.LEVEL_DESC_TYPE[type][i]);
+                stringBuilder.append(TinhHuyetEffect.LEVEL_DESC_TYPE[type][i - 1]);
                 stringBuilder.append("\n");
             }
         }
@@ -346,7 +352,7 @@ public class Huyet {
     }
 
     public String rateHuyetMach() {
-        int diem = 0;
+        int diem = 1;
         switch (type) {
             case 0:
                 diem += 10;
@@ -364,11 +370,11 @@ public class Huyet {
                 diem += 5;
                 break;
         }
-        diem *= options.size();
-        diem *= optionChiSo.size();
-        diem *= chiSoBaseCongThem.length;
-        diem *= (doTinhKhiet + getDoTinhKhietBuff());
-        diem *= getLevelTinhHuyetCongDon();
+        diem *= Math.max(options.size(), 1);
+        diem *= Math.max(optionChiSo.size(), 1);
+        diem *= Math.max(chiSoBaseCongThem.length, 1);
+        diem *= Math.max((doTinhKhiet + getDoTinhKhietBuff()), 1);
+        diem *= Math.max(getLevelTinhHuyetCongDon(), 1);
         return "Chiến lực huyết mạch [" + diem + "]";
     }
 

@@ -47,6 +47,10 @@ public class ShopServiceNew {
             player.getSession().initItemsReward();
             return;
         }
+        if (tagName.equals("ITEM_LUCKY_POOL")) {
+            openShopType4(player, tagName, player.luckyPoolPlayer.itemBags);
+            return;
+        }
         try {
             Shop shop = this.getShop(tagName);
             shop = this.resolveShop(player, shop, allGender);

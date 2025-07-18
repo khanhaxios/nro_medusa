@@ -391,9 +391,9 @@ public class Util {
     }
 
     public static String getHonorialLine(int length) {
-        String s = "\n";
+        StringBuilder s = new StringBuilder("\n");
         for (int i = 0; i < length; i++) {
-            s += "=";
+            s.append("=");
         }
         return s + "\n";
     }
