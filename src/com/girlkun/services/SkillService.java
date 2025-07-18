@@ -595,11 +595,29 @@ public class SkillService {
                     return;
                 }
             } else if (player.isDaoLu) {
-                // handle exp for dao lu
+                player.nPoint.numAttack++;
+                if (player.nPoint.numAttack == 5) {
+                    player.nPoint.numAttack = 0;
+                    player.nPoint.stamina--;
+                    PlayerService.gI().sendCurrentStamina(player);
+                }
+                // handle stamina for dao lu
             } else if (player.nPoint.stamina > 0) {
                 if (player.charms.tdDeoDai < System.currentTimeMillis()) {
                     player.nPoint.numAttack++;
-                    if (player.nPoint.numAttack == 5) {
+                    if (player.luyenThe.isLuyenTheReal()) {
+                        if (player.nPoint.numAttack == 20) {
+                            player.nPoint.numAttack = 0;
+                            player.nPoint.stamina--;
+                            PlayerService.gI().sendCurrentStamina(player);
+                        }
+                    } else if (player.tuMa.isTuMa()) {
+                        if (player.nPoint.numAttack == 10) {
+                            player.nPoint.numAttack = 0;
+                            player.nPoint.stamina--;
+                            PlayerService.gI().sendCurrentStamina(player);
+                        }
+                    } else if (player.nPoint.numAttack == 5) {
                         player.nPoint.numAttack = 0;
                         player.nPoint.stamina--;
                         PlayerService.gI().sendCurrentStamina(player);
@@ -1185,7 +1203,7 @@ public class SkillService {
 
         if (attLevel < targetLevel) {
             int levelDiff = targetLevel - attLevel;
-            dame -= dame * (30 + 20 * levelDiff) / 100;
+            dame -= dame * (90 * levelDiff) / 100;
         } else {
             int levelDiff = attLevel - targetLevel;
             int subDiff = attSub - targetSub;
@@ -1211,7 +1229,7 @@ public class SkillService {
 
         if (attLevel < targetLevel) {
             int levelDiff = targetLevel - attLevel;
-            dame -= dame * (30 + 20 * levelDiff) / 100;
+            dame -= dame * (90 * levelDiff) / 100;
         } else {
             int levelDiff = attLevel - targetLevel;
             int subDiff = attSub - targetSub;
@@ -1291,7 +1309,7 @@ public class SkillService {
                     break;
                 case 2:
                     // gay sat thuong dua tren max mp
-                    double dameThuy = (plAtt.nPoint.mpMax / 1.2) * paramOfLinhCan / 100;
+                    double dameThuy = (plAtt.nPoint.mpMax / 1.5) * paramOfLinhCan / 100;
                     dameThuy += linhKhiPoint;
                     dameThuy *= (plAtt.tuTien.congPhap.phamchat.id + 1 + plAtt.tuTien.xParam);
                     dameThuy = subDameWithCanhGioi(plAtt, plInjure, dameThuy);
@@ -1317,7 +1335,7 @@ public class SkillService {
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dm, (byte) 1);
                     break;
                 case 4:
-                    double dameTho = (plAtt.nPoint.hpMax / 1.2) * paramOfLinhCan / 100;
+                    double dameTho = (plAtt.nPoint.hpMax / 1.5) * paramOfLinhCan / 100;
                     dameTho += linhKhiPoint;
                     dameTho *= (plAtt.tuTien.congPhap.phamchat.id + 1 + plAtt.tuTien.xParam);
                     dameTho = subDameWithCanhGioi(plAtt, plInjure, dameTho);
@@ -1327,7 +1345,7 @@ public class SkillService {
                 case 5:
                     double damePhong = dameHit * (paramOfLinhCan * Math.max(1, plAtt.tuTien.xParam) * Math.max(1, plAtt.tuTien.congPhap.phamchat.id + 1)) / 100;
                     damePhong += linhKhiPoint;
-                    byte maxTyLeChiMang = (byte) (Math.min(paramOfLinhCan / 3, 100));
+                    byte maxTyLeChiMang = (byte) (Math.min(paramOfLinhCan, 100));
                     if (plAtt.nPoint.numAttackLinhCan + 5 <= maxTyLeChiMang) {
                         plAtt.nPoint.numAttackLinhCan += 5;
                         plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
@@ -1344,7 +1362,7 @@ public class SkillService {
                 case 6:
                     double dameLoi = dameHit * (paramOfLinhCan * Math.max(1, plAtt.tuTien.xParam) * Math.max(1, plAtt.tuTien.congPhap.phamchat.id + 1)) / 100;
                     dameLoi += linhKhiPoint;
-                    byte maxTlChiMang = (byte) (Math.min(paramOfLinhCan / 50, 100));
+                    byte maxTlChiMang = (byte) (Math.min(paramOfLinhCan, 100));
                     if (plAtt.nPoint.numAttackLinhCan + 5 <= maxTlChiMang) {
                         plAtt.nPoint.numAttackLinhCan += 5;
                         plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
@@ -1373,7 +1391,7 @@ public class SkillService {
 //                        double dq = plInjure.injured(plAtt, dameQuang, false, false, true);
 //                        sendMessagePlayerAttackPlayer(plAtt, plInjure, dq, (byte) 1);
 //                    } else {
-                    double dameQuang = plAtt.nPoint.getDameAttack(false) * (paramOfLinhCan * Math.max(1, plAtt.tuTien.xParam)) / 100;
+                    double dameQuang = plAtt.nPoint.getDameAttack(false) * ((paramOfLinhCan / 100f) * Math.max(1, plAtt.tuTien.xParam)) / 100;
                     dameQuang += linhKhiPoint;
                     double dq = plInjure.injured(plAtt, dameQuang, false, false, true);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dq, (byte) 1);
@@ -1568,6 +1586,14 @@ public class SkillService {
                                 mob.effectSkill.startStun(System.currentTimeMillis(), timeStun);
                             }
                         }
+                        double dameM = mob.point.hp * paramOfLinhCan / 100;
+                        mob.injured(plAtt, dameM, false, (byte) 1);
+                        sendPlayerAttackMob(plAtt, mob);
+                        break;
+                    case 2:
+                        double dameThuy = plAtt.nPoint.mpMax * (paramOfLinhCan / 2f) * Math.max(1, plAtt.tuTien.xParam) / 100f;
+                        mob.injured(plAtt, dameThuy, false, (byte) 1);
+                        sendPlayerAttackMob(plAtt, mob);
                         break;
                     case 3:
                         double dameHoa = dameHit * (plAtt.nPoint.numAttackLinhCan * Math.max(1, plAtt.tuTien.xParam)) / 100;
@@ -1579,6 +1605,11 @@ public class SkillService {
                             plAtt.nPoint.lastTimeNumAttackLinhCan = System.currentTimeMillis();
                         }
                         mob.injured(plAtt, dameHoa, false, (byte) 1);
+                        sendPlayerAttackMob(plAtt, mob);
+                        break;
+                    case 4:
+                        double dameTho = plAtt.nPoint.hpMax * (paramOfLinhCan / 2f) * Math.max(1, plAtt.tuTien.xParam) / 100f;
+                        mob.injured(plAtt, dameTho, false, (byte) 1);
                         sendPlayerAttackMob(plAtt, mob);
                         break;
                     case 5:

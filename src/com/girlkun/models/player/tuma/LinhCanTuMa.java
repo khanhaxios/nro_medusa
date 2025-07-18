@@ -7,7 +7,7 @@ import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
 public class LinhCanTuMa {
-    public static float MAX_LINH_CAN_PARAM = 2;
+    public static float MAX_LINH_CAN_PARAM = 9;
     Player player;
     public String tenLinhCan;
     public String moTaLinhCan;

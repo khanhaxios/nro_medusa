@@ -2342,8 +2342,13 @@ public class NpcFactory {
 //                                Truyen Công
                                 break;
                             case 5:
-                                player.huyet.kichHoatHuyetMach();
+                                createOtherMenu(player, ConstNpc.MENU_KH_HM, "Huyết mạch là một phần bổ trợ rất mạch giúp kích phát thêm tiềm năng từ bản thân", "Huyết", "Mạch");
                                 break;
+                        }
+                    } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_KH_HM) {
+                        switch (select) {
+                            case 0 -> player.huyet.kichHoatHuyetMach();
+                            case 1 -> player.mach.kichHoatMach();
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.HOC_TIEN_PHAP) {
                         switch (select) {
@@ -2452,8 +2457,13 @@ public class NpcFactory {
                             player.tuMa.openLuyenHon();
                             break;
                         case 3:
-                            player.huyet.kichHoatHuyetMach();
+                            createOtherMenu(player, ConstNpc.MENU_KH_HM, "Huyết mạch là một phần bổ trợ rất mạch giúp kích phát thêm tiềm năng từ bản thân", "Huyết", "Mạch");
                             break;
+                    }
+                } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_KH_HM) {
+                    switch (select) {
+                        case 0 -> player.huyet.kichHoatHuyetMach();
+                        case 1 -> player.mach.kichHoatMach();
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NHAP_MA) {
                     if (select == 0) {
@@ -2491,8 +2501,13 @@ public class NpcFactory {
                             createOtherMenu(player, ConstNpc.MENU_TRUYEN_CONG_LUYEN_THE, "Dùng 50k điểm truyền công để nhận 10% exp luyện thể", "Truyền\nCông", "Từ chối");
                             break;
                         case 2:
-                            player.huyet.kichHoatHuyetMach();
+                            createOtherMenu(player, ConstNpc.MENU_KH_HM, "Huyết mạch là một phần bổ trợ rất mạch giúp kích phát thêm tiềm năng từ bản thân", "Huyết", "Mạch");
                             break;
+                    }
+                } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_KH_HM) {
+                    switch (select) {
+                        case 0 -> player.huyet.kichHoatHuyetMach();
+                        case 1 -> player.mach.kichHoatMach();
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_LUYEN_THE) {
                     if (select == 0) {
@@ -7568,6 +7583,38 @@ public class NpcFactory {
                         switch (select) {
                             case 0:
                                 player.huyet.showBaseMenu();
+                                break;
+                            case 1:
+                                player.mach.showBaseMenu();
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_TT_MACH:
+                        player.mach.showBaseMenu();
+                        break;
+                    case ConstNpc.MENU_CONFIRM_DOT_PHA_MACH_TANG:
+                        if (select == 0) {
+                            player.mach.dotPhaTang();
+                        }
+                        break;
+                    case ConstNpc.MENU_MACH_NANG_BAC:
+                        if (select == 0) {
+                            player.mach.nangBac();
+                        }
+                        break;
+                    case ConstNpc.MENU_MACH:
+                        switch (select) {
+                            case 0:
+                                player.mach.showMenuThongTin();
+                                break;
+                            case 1:
+                                player.mach.showMenuDotPhaTang();
+                                break;
+                            case 2:
+                                player.mach.showMenuTangBac();
+                                break;
+                            default:
+                                // dong menu
                                 break;
                         }
                         break;

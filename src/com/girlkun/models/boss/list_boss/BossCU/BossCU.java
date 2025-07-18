@@ -34,12 +34,10 @@ public class BossCU extends Boss {
         it.options.add(new Item.ItemOption(30, 0));
         Service.getInstance().dropItemMap(this.zone, it);
         // drop da medusa
-        if (Util.isTrue(5, 100)) {
-            ItemMap daMedusa = new ItemMap(this.zone, 1079, Util.nextInt(1, 3), this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), plKill.id);
-            it.options.add(new Item.ItemOption(30, 0));
-            Service.getInstance().dropItemMap(this.zone, daMedusa);
-        }
+        ItemMap daMedusa = new ItemMap(this.zone, 1079, Util.nextInt(1, 3), this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        it.options.add(new Item.ItemOption(30, 0));
+        Service.getInstance().dropItemMap(this.zone, daMedusa);
         Util.ratioManhPhapBao(zone, 1, this.location.x, this.location.y, plKill.id, 100);
 
         Util.ratioVeNangCap(zone, 1, this.location.x, this.location.y, plKill.id, 100);

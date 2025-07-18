@@ -25,14 +25,14 @@ public class ThuocTinhLinhCan {
     }
 
     public short ratioThuocTinhLinhCan() {
-        if (Util.isTrue(2, 100)) {
-            return (short) Util.nextInt(100, 250);
+        if (Util.isTrue(1, 100)) {
+            return (short) Util.nextInt(50, 80);
         } else if (Util.isTrue(10, 100)) {
-            return (short) Util.nextInt(50, 100);
+            return (short) Util.nextInt(20, 30);
         } else if (Util.isTrue(20, 100)) {
-            return (short) Util.nextInt(10, 50);
+            return (short) Util.nextInt(10, 20);
         } else {
-            return (short) Util.nextInt(5, 25);
+            return (short) Util.nextInt(1, 6);
         }
     }
 }

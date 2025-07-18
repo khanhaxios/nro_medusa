@@ -482,10 +482,13 @@ public class NPoint {
         if (player.huyet.isKichHoat()) {
             player.huyet.calcPoint();
         }
+        if (player.mach != null && player.mach.isOpen) {
+            player.mach.calcPoint();
+        }
         if (player.tuMa != null && player.tuMa.isTuMa()) {
             player.tuMa.calcPoint();
         }
-        if (player.phapBaos.size() > 0) {
+        if (!player.phapBaos.isEmpty()) {
             for (PhapBao phapBao : player.phapBaos) {
                 if (phapBao != null) {
                     phapBao.calcPoint();
@@ -507,13 +510,13 @@ public class NPoint {
                                 this.tlHp.add(io.param);
                                 break;
                             case 18: // #% chính xác
-                                this.tlchinhxac += io.param;// đối nghịch
+                                this.tlchinhxac += (short) io.param;// đối nghịch
                                 break;
                             case 80: //HP+#%/30s
-                                this.tlHpHoi += io.param;
+                                this.tlHpHoi += (short) io.param;
                                 break;
                             case 81: //MP+#%/30s
-                                this.tlMpHoi += io.param;
+                                this.tlMpHoi += (short) io.param;
                                 break;
                             case 94: //Giáp #%
                                 this.tlDef.add(io.param);
@@ -522,7 +525,7 @@ public class NPoint {
                                 this.tlMp.add(io.param);
                                 break;
                             case 108: //#% Né đòn
-                                this.tlNeDon += io.param;
+                                this.tlNeDon += (short) io.param;
                                 break;
                         }
                     }
@@ -574,16 +577,16 @@ public class NPoint {
                     this.tlDame.add(io.param);
                     break;
                 case 18: // #% chính xác
-                    this.tlchinhxac += io.param;// đối nghịch
+                    this.tlchinhxac += (short) io.param;// đối nghịch
                     break;
                 case 77: //HP+#%
                     this.tlHp.add(io.param);
                     break;
                 case 80: //HP+#%/30s
-                    this.tlHpHoi += io.param;
+                    this.tlHpHoi += (short) io.param;
                     break;
                 case 81: //MP+#%/30s
-                    this.tlMpHoi += io.param;
+                    this.tlMpHoi += (short) io.param;
                     break;
                 case 94: //Giáp #%
                     this.tlDef.add(io.param);
@@ -592,7 +595,7 @@ public class NPoint {
                     this.tlMp.add(io.param);
                     break;
                 case 108: //#% Né đòn
-                    this.tlNeDon += io.param;
+                    this.tlNeDon += (short) io.param;
                     break;
             }
         }
@@ -2488,7 +2491,13 @@ public class NPoint {
                 this.lastTimeHoiPhuc = System.currentTimeMillis();
             }
             if (Util.canDoWithTime(lastTimeHoiStamina, 60000) && this.stamina < this.maxStamina) {
-                this.stamina++;
+                if (player.luyenThe.isLuyenTheReal()) {
+                    stamina += 10;
+                } else if (player.tuMa.isTuMa()) {
+                    stamina += 5;
+                } else {
+                    stamina++;
+                }
                 this.lastTimeHoiStamina = System.currentTimeMillis();
                 if (!this.player.isBoss && !this.player.isPet && !this.player.isDaoLu && !this.player.isTrieuhoipet) {
                     PlayerService.gI().sendCurrentStamina(this.player);

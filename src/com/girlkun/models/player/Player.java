@@ -31,6 +31,7 @@ import com.girlkun.models.npc.specialnpc.Timedua;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.huyet_mach.Huyet;
+import com.girlkun.models.player.huyet_mach.Mach;
 import com.girlkun.models.player.phapbao.PhapBao;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.khongthisu.KhongThiSu;
@@ -233,6 +234,7 @@ public class Player {
     public double TrieuHoidamethanmeo;
     public long Autothucan;
     public boolean trangthai = false;
+    public Mach mach;
 
     public long diemdanh;
     public int vnd;
@@ -312,6 +314,7 @@ public class Player {
         tuMa = new TuMa(this);
         // init data phap bao
         phapBaos = new ArrayList<>(Collections.nCopies(5, null));
+        this.mach = new Mach(this);
     }
 
     //--------------------------------------------------------------------------
@@ -398,6 +401,9 @@ public class Player {
                 if (!iDMark.isBan()) {
                     if (tuTien != null) {
                         tuTien.update();
+                    }
+                    if (mach != null) {
+                        mach.update();
                     }
                     if (tranPhapSu != null) {
                         tranPhapSu.update();

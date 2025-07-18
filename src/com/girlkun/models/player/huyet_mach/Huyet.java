@@ -219,6 +219,10 @@ public class Huyet {
     }
 
     public void showBaseMenu() {
+        if (!player.huyet.isOpen) {
+            Service.gI().sendThongBao(player, "Bạn chưa mở huyết mạch");
+            return;
+        }
         String menuText = "|7|Thông tin Huyết" +
                 Util.getHonorialLine(12) +
                 "|7|" + getFullName() + "\n"
@@ -279,7 +283,7 @@ public class Huyet {
                 Service.gI().sendThongBao(player, "Cần đạt " + TuMa.CANH_GIOI[10] + " Để kích hoạt huyết mạch");
                 return;
             }
-            if (player.luyenThe.isLuyenTheReal() && player.luyenThe.level < 200) {
+            if (player.luyenThe.isLuyenTheReal() && player.luyenThe.level < 100) {
                 Service.gI().sendThongBao(player, "Cần đạt luyện thể tầng " + 200 + " Để kích hoạt huyết mạch");
                 return;
             }

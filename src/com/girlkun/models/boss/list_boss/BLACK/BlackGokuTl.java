@@ -27,22 +27,19 @@ public class BlackGokuTl extends Boss {
         if (Util.isTrue(BossManager.ratioReward, 100)) {
             if (Util.isTrue(1, 20)) {
                 Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, 561, 1, this.location.x, this.location.y, plKill.id));
-            }
-            else if (Util.isTrue(10, 20)) {
+            } else if (Util.isTrue(10, 20)) {
                 Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, 722, 2, this.location.x, this.location.y, plKill.id));
-            }
-            else if (Util.isTrue(5, 20)) {
-                 Service.getInstance().dropItemMap(this.zone, new ItemMap (zone, 16, 1, this.location.x, this.location.y, plKill.id));
-            }
-            else {
+            } else if (Util.isTrue(5, 20)) {
+                Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, 16, 1, this.location.x, this.location.y, plKill.id));
+            } else {
                 Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
             }
         } else {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, 16, 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
-                ItemMap it1 = new ItemMap(this.zone, 2030, 2, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24),  plKill.id);
-            Service.getInstance().dropItemMap(this.zone, it1);
+        ItemMap it1 = new ItemMap(this.zone, 2030, 2, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        Service.getInstance().dropItemMap(this.zone, it1);
 
         Util.ratioRoiBuaZeno(zone, 1, this.location.x, this.location.y, plKill.id);
         // ratio
@@ -55,10 +52,11 @@ public class BlackGokuTl extends Boss {
 
         Util.ratioVeNangCap(zone, 1, this.location.x, this.location.y, plKill.id, 100);
     }
+
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack,boolean a) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!a){
+            if (!a) {
                 if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
                     this.chat("Xí hụt");
                     return 0;
@@ -82,6 +80,7 @@ public class BlackGokuTl extends Boss {
             return 0;
         }
     }
+
     @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.

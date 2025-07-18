@@ -2,14 +2,14 @@ package com.girlkun.services;
 
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.player.NewPet;
-import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Pet.ConstPet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
+import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.Thu_TrieuHoi;
+import com.girlkun.models.skill.Skill;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.SkillUtil;
-import com.girlkun.models.skill.Skill;
 import com.girlkun.utils.Util;
 
 public class PetService {
@@ -64,7 +64,7 @@ public class PetService {
         petDaoLu.nPoint.power = typeDaoLu != 1 ? 1500000 : 2000;
         petDaoLu.nPoint.tiemNang = typeDaoLu != 1 ? 1500000 : 2000;
         petDaoLu.nPoint.stamina = 1000;
-        petDaoLu.nPoint.maxStamina = 1000;
+        petDaoLu.nPoint.maxStamina = 10000;
         petDaoLu.nPoint.hpg = data[0];
         petDaoLu.nPoint.mpg = data[1];
         petDaoLu.nPoint.dameg = data[2];
@@ -75,7 +75,7 @@ public class PetService {
         }
         int[] skillsArr = player.gender == 0 ? ConstPlayer.SKILL_TD
                 : petDaoLu.gender == 1 ? ConstPlayer.SKILL_NAMEC
-                        : ConstPlayer.SKILL_XAYDA;
+                : ConstPlayer.SKILL_XAYDA;
         for (int idSkill : skillsArr) {
             Skill skill = SkillUtil.createSkill(idSkill, 1);
             petDaoLu.playerSkill.skills.add(skill);

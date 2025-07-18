@@ -224,7 +224,7 @@ public class TuMa implements IBaseAction {
     }
 
     private float getSubLevelOtherBuff() {
-        return Math.max(2f, (this.level % 10) * 1.2f);
+        return Math.max(2f, (this.level % 10) * 1f);
     }
 
     private float getSubLevelOtherBuff(float pt) {

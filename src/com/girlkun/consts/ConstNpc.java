@@ -464,6 +464,11 @@ public class ConstNpc {
     public static final int MENU_TINH_HUYET = -91831823;
     public static final int MENU_TOI_HUYET = -1827963621;
     public static final int MENU_CHON_HM = -921736912;
+    public static final int MENU_MACH = 123423123;
+    public static final int MENU_TT_MACH = -987312;
+    public static final int MENU_CONFIRM_DOT_PHA_MACH_TANG =  -12387123;
+    public static final int MENU_KH_HM = -18237123;
+    public static final int MENU_MACH_NANG_BAC = -9871232;
 }
 
 /**

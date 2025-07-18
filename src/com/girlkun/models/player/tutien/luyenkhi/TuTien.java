@@ -200,6 +200,9 @@ public class TuTien extends BasePoint implements IBaseAction {
         if (linhKhiPoint < maxLinhKhiPoint) {
             int lv = Math.min(level, BASE_LINH_KHI_HOI_PHUC.length - 1);
             long linhKhiCanHoiPhuc = ((BASE_LINH_KHI_HOI_PHUC[lv] * Math.max(1, congPhap.xTocDoKhoiPhucLinhKhi))) * Math.max(1, xParam);
+            if (player.mach.isOpen) {
+                linhKhiCanHoiPhuc += player.mach.linhKhiBuff;
+            }
             linhKhiCanHoiPhuc *= Util.nextInt(1, 2);
             linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * getXDiemThienPhu();
             linhKhiCanHoiPhuc += maxLinhKhiPoint / 100;
@@ -249,7 +252,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     private float getSubLevelOtherBuff() {
-        return Math.max(.5f, this.subLevel * .5f);
+        return Math.max(.3f, this.subLevel * .3f);
     }
 
     private float getSubLevelOtherBuff(float pt) {
@@ -454,6 +457,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     public void update() {
         if (isTuTien() && player.isPl()) {
             // dau tien la cong exp //
+
             if (exp < maxExp && !player.isDie() && Util.canDoWithTime(lastTimeAddExp, 3000)) {
                 if (player.tuTien.congPhap != null && player.tuTien.congPhap.tenCongPhap != null) {
                     long expAdd = (long) (getXDiemThienPhu() * (BASE_EXP_BUFF[level] + (SUB_LEVEL_EXP[subLevel - 1] / 10))) * Math.max(1, congPhap.phamchat.id + 1);
@@ -723,6 +727,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             return;
         }
         resetLevel();
+        xParam = (byte) Math.max(xParam / 3, 1);
         Service.gI().sendThongBao(player, "Đã Tán Công");
     }
 

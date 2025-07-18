@@ -19,6 +19,7 @@ import com.girlkun.models.player.Fusion;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.huyet_mach.Mach;
 import com.girlkun.models.player.phapbao.PhapBao;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.luyenkhi.PhamChat;
@@ -1327,6 +1328,35 @@ public class GodGK {
                     }
                 } catch (Exception e) {
 
+                }
+                try {
+                    String dataMach = rs.getString("data_mach");
+                    if (dataMach != null && !dataMach.isEmpty()) {
+                        // Parse the JSON string into a JSONObject
+                        JSONArray jsonArray = (JSONArray) JSONValue.parse(dataMach);
+
+                        if (jsonArray != null && jsonArray.size() > 0) {
+                            if (player.mach == null) {
+                                player.mach = new Mach(player); // tạo mới nếu chưa có
+                            }
+                            player.mach.tang = Integer.parseInt(jsonArray.get(0).toString());
+                            player.mach.bac = Byte.parseByte(jsonArray.get(1).toString());
+                            player.mach.atkPercentBuff = Integer.parseInt(jsonArray.get(2).toString());
+                            player.mach.hpPercentBuff = Integer.parseInt(jsonArray.get(3).toString());
+                            player.mach.mpPercentBuff = Integer.parseInt(jsonArray.get(4).toString());
+                            player.mach.dameBuff = Double.parseDouble(jsonArray.get(5).toString());
+                            player.mach.hpBuff = Double.parseDouble(jsonArray.get(6).toString());
+                            player.mach.mpBuff = Double.parseDouble(jsonArray.get(7).toString());
+                            player.mach.exp = Long.parseLong(jsonArray.get(8).toString());
+                            player.mach.maxExp = Long.parseLong(jsonArray.get(9).toString());
+                            player.mach.sssPercentBuff = Integer.parseInt(jsonArray.get(10).toString());
+                            player.mach.mAtkBuff = Integer.parseInt(jsonArray.get(11).toString());
+                            player.mach.linhKhiBuff = Double.parseDouble(jsonArray.get(12).toString());
+                            player.mach.isOpen = Boolean.parseBoolean(jsonArray.get(13).toString());
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         } catch (Exception e) {

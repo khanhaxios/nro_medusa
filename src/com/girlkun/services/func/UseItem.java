@@ -2255,6 +2255,11 @@ public class UseItem {
                 Service.getInstance().chatJustForMe(player, player.TrieuHoipet, "Đa tạ Chủ Thượng");
             }
             if (player.petDaoLu != null && player.zone.equals(player.petDaoLu.zone) && !player.petDaoLu.isDie()) {
+                int statima = 100 * lvPea;
+                player.petDaoLu.nPoint.stamina += statima;
+                if (player.petDaoLu.nPoint.stamina > player.petDaoLu.nPoint.maxStamina) {
+                    player.petDaoLu.nPoint.stamina = player.petDaoLu.nPoint.maxStamina;
+                }
                 player.petDaoLu.nPoint.setHp(player.petDaoLu.nPoint.hp + hpKiHoiPhuc);
                 player.petDaoLu.nPoint.setMp(player.petDaoLu.nPoint.mp + hpKiHoiPhuc);
                 Service.getInstance().sendInfoPlayerEatPea(player.petDaoLu);

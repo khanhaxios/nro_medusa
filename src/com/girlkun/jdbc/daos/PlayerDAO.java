@@ -1008,7 +1008,8 @@ public class PlayerDAO {
             String dataTuMa = jsonArray.toJSONString();
             String dataPhapBao = jsonArray.toJSONString();
             String dataHuyet = jsonArray.toJSONString();
-            GirlkunDB.executeUpdate("insert into tu_tien(data_tu_tien,data_luyen_the,data_tran_phap ,data_ngu_thu,data_luyen_dan,data_phu_chu,data_linh_thuc ,data_khong_thi,data_tu_ma,data_phap_bao,data_huyet,player_id) values(?,?,?,?,?,?,?,?,?,?,?,?)", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, dataHuyet, playerId);
+            String dataMahc = jsonArray.toJSONString();
+            GirlkunDB.executeUpdate("insert into tu_tien(data_tu_tien,data_luyen_the,data_tran_phap ,data_ngu_thu,data_luyen_dan,data_phu_chu,data_linh_thuc ,data_khong_thi,data_tu_ma,data_phap_bao,data_huyet,data_mach,player_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?)", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, dataHuyet, dataMahc, playerId);
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
@@ -1037,6 +1038,7 @@ public class PlayerDAO {
             String dataTuMa = jsonArray.toJSONString();
             String dataPhapBao = jsonArray.toJSONString();
             String dataHuyet = jsonArray.toJSONString();
+            String dataMach = jsonArray.toJSONString();
             try {
                 if (player.tuTien != null && player.tuTien.isTuTien()) {
                     // write base point tu tien
@@ -1323,14 +1325,35 @@ public class PlayerDAO {
                         }
                     }
                     jsonArray.add(jsonBase);
-
                     dataHuyet = jsonArray.toJSONString();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            try {
+                if (player.mach != null && player.mach.isOpen) {
+                    jsonArray = new JSONArray();
+                    jsonArray.add(player.mach.tang);
+                    jsonArray.add(player.mach.bac);
+                    jsonArray.add(player.mach.atkPercentBuff);
+                    jsonArray.add(player.mach.hpPercentBuff);
+                    jsonArray.add(player.mach.mpPercentBuff);
+                    jsonArray.add(player.mach.dameBuff);
+                    jsonArray.add(player.mach.hpBuff);
+                    jsonArray.add(player.mach.mpBuff);
+                    jsonArray.add(player.mach.exp);
+                    jsonArray.add(player.mach.maxExp);
+                    jsonArray.add(player.mach.sssPercentBuff);
+                    jsonArray.add(player.mach.mAtkBuff);
+                    jsonArray.add(player.mach.linhKhiBuff);
+                    jsonArray.add(true);
+                    dataMach = jsonArray.toJSONString();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             // save sql
-            int rowEffect = GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?,data_tu_ma = ?,data_phap_bao=?,data_huyet =  ?  where player_id=?", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, dataHuyet, player.id);
+            int rowEffect = GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?,data_tu_ma = ?,data_phap_bao=?,data_huyet =  ? ,data_mach=? where player_id=?", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, dataHuyet, dataMach, player.id);
             Logger.log(String.valueOf(rowEffect));
         } catch (Exception e) {
             Logger.error("Loi save data tu tien" + e.getMessage());

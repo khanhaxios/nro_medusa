@@ -300,6 +300,10 @@ public class ShopServiceNew {
     }
 
     public void takeItem(Player player, byte type, int tempId) {
+        if (tempId == 211 || tempId == 212) {
+            Service.gI().sendThongBao(player, "Có cái nịt");
+            return;
+        }
         String tagName = player.iDMark.getTagNameShop();
         player.idmuanhieu = tempId;
         if (tagName == null || tagName.length() <= 0) {
