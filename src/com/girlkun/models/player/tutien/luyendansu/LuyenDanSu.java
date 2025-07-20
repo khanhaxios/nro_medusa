@@ -10,16 +10,36 @@ import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.ItemService;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
+import com.girlkun.services.func.Input;
 import com.girlkun.utils.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LuyenDanSu extends BasePoint implements IBaseAction {
     private static byte MAX_LEVEL = 9;
 
+    public TuiNguyenLieu tuiNguyenLieu;
     public int tongDanDuocDaAn;
     public long lastTimeTruDiemKhangTinh = System.currentTimeMillis();
+    public TuiDanDuoc tuiDanDuoc;
+
+    public TuiDanPhuong tuiDanPhuong;
+    public List<DanPhuong> danPhuongs;
+
+    public DanDuocEffect danDuocEffect;
+
+    public int calcMaxDiemKhangTinh() {
+        return level * 100;
+    }
 
     public LuyenDanSu(Player player) {
         super(player);
+        danDuocEffect = new DanDuocEffect();
+        danPhuongs = new ArrayList<>();
+        tuiNguyenLieu = new TuiNguyenLieu(player);
+        tuiDanDuoc = new TuiDanDuoc(player);
+        tuiDanPhuong = new TuiDanPhuong(player);
     }
 
     public int diemKhangTinh = 0;
@@ -35,6 +55,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
         this.level++;
         restExp();
         diemKhangTinh = 0;
+        totalDiemKhangTinh = calcMaxDiemKhangTinh();
         Service.gI().sendThongBao(player, "Bạn đã đột phá luyện đan sư thành công");
     }
 
@@ -47,7 +68,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
 
     @Override
     protected long getNextLevelExp() {
-        return (level + 1) * 10000;
+        return (level + 1) * 1_000_000;
 
     }
 
@@ -90,10 +111,6 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
 
     @Override
     public void openSystem() {
-        if (player.tuTien.level < 3) {
-            Service.gI().sendThongBao(player, "Cần đạt nguyên anh để học luyện đan");
-            return;
-        }
         levelUp();
         // cho it vat lieu
         InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2069, 10));
@@ -160,6 +177,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
 
     public void update() {
         if (isLuyenDan()) {
+            danDuocEffect.update();
             //// handle diem khang tinh cho dan
             if (diemKhangTinh - 1 >= 0 && Util.canDoWithTime(lastTimeTruDiemKhangTinh, 2 * 60 * 60 * 1000)) {
                 diemKhangTinh -= 1;
@@ -185,7 +203,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
 
     public void showBaseMenu() {
         String menuText = "|7|Thông tin luyện đan sư\n" + "|5|Cấp bậc :" + getName() + "\n" + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" + "|7|Tỷ lệ đột phá : " + getLevelUpPercent() + "%\n" + "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" + "|2|Số đan dược đã dùng  : " + tongDanDuocDaAn + " viên\n" + "|5|Đan dược kháng tính : " + diemKhangTinh + "%\n" + "|7|Khi đột phá , đan dược kháng tính sẽ được giảm bớt đi 1 xíu";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_DAN, -1, menuText, "Luyện đan", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_DAN, -1, menuText, "Túi Đan\nPhương", "Túi Nguyên\nLiệu", "Túi Đan", "Luyện đan", "Đóng");
     }
 
     public void luyenToiTheDan() {
@@ -317,5 +335,42 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
         InventoryServiceNew.gI().subQuantityItemsBag(player, it2, 20);
         InventoryServiceNew.gI().subQuantityItemsBag(player, it3, 20);
         InventoryServiceNew.gI().sendItemBags(player);
+    }
+
+    public float getTyLeLuyenDan(DanPhuong danPhuong) {
+        // TODO : lay ty le dua tren cap luyen dan su : cap cang cao thi ty le cang lon , co base ty le random tu 3->5,
+        float baseRate = 3 + (float) Math.random() * 10;
+        float increaseRate = this.level * 2.5f;
+        float finalRate = baseRate + increaseRate;
+        finalRate -= danPhuong.capYeuCauHoc * 0.5f;
+        if (finalRate > 100) {
+            finalRate = 100;
+        }
+        return finalRate;
+    }
+
+    public void showMenuChonDanPhuong() {
+        if (player.luyenDanSu.danPhuongs.size() == 0) {
+            Service.gI().sendThongBao(player, "Bạn chưa học đan phương nào cả");
+            return;
+        }
+        // show input
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("|7|Thông tin đan phương").append("\n");
+        String[] select = new String[danPhuongs.size()];
+        for (int i = 0; i < danPhuongs.size(); i++) {
+            DanPhuong danPhuong = danPhuongs.get(i);
+            stringBuilder.append("|5|").append(danPhuong.tenDanPhuong).append("\n");
+            select[i] = danPhuong.tenDanPhuong;
+        }
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHON_DAN_PHUONG, -1, stringBuilder.toString(), select);
+    }
+
+    public void hocDanPhuong() {
+        Input.gI().createForm(player, Input.HOC_DAN_PHUONG, "Học đan phương", new Input.SubInput("ID đan phương", Input.NUMERIC));
+    }
+
+    public void dungDanDuoc() {
+        Input.gI().createForm(player, Input.USE_DAN_DUOC, "Sử dụng đan dược", new Input.SubInput("ID đan dược", Input.NUMERIC), new Input.SubInput("Số lượng dùng", Input.NUMERIC));
     }
 }

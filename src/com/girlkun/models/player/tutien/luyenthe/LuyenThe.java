@@ -31,7 +31,11 @@ public class LuyenThe {
     }
 
     public long getExpCanGain(Mob targetMob) {
-        return ((long) level * Util.nextInt(1, 3)) * targetMob.level;
+        long exp = ((long) level * Util.nextInt(1, 3)) * targetMob.level;
+        if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffLt()) {
+            exp *= player.luyenDanSu.danDuocEffect.xBuffLt;
+        }
+        return exp;
     }
 
     public void levelUp() {

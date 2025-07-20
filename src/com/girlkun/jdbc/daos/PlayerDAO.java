@@ -8,7 +8,12 @@ import com.girlkun.models.player.Friend;
 import com.girlkun.models.player.Fusion;
 import com.girlkun.models.player.Inventory;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.huyet_mach.Huyet;
 import com.girlkun.models.player.phapbao.PhapBao;
+import com.girlkun.models.player.tutien.luyendansu.DanDuoc;
+import com.girlkun.models.player.tutien.luyendansu.DanDuocEffect;
+import com.girlkun.models.player.tutien.luyendansu.DanPhuong;
+import com.girlkun.models.player.tutien.luyendansu.NguyenLieu;
 import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.result.GirlkunResultSet;
@@ -1120,6 +1125,98 @@ public class PlayerDAO {
                     jsonArray.add(player.luyenDanSu.maxExp);
                     jsonArray.add(player.luyenDanSu.tongDanDuocDaAn);
                     jsonArray.add(player.luyenDanSu.diemKhangTinh);
+
+                    // Thêm thông tin về Tui Dan Duoc
+                    JSONArray tuiDanDuoc = new JSONArray();
+                    for (DanDuoc danDuoc : player.luyenDanSu.tuiDanDuoc.danDuocs) {
+                        JSONArray dd = new JSONArray();
+                        dd.add(danDuoc.id);
+                        dd.add(danDuoc.tenDanDuoc);
+                        dd.add(danDuoc.capDanDuoc);
+                        dd.add(danDuoc.capDoYeuCauDeSuDung);
+                        dd.add(danDuoc.quantity);
+                        tuiDanDuoc.add(dd);
+                    }
+                    jsonArray.add(tuiDanDuoc);
+
+                    // Thêm thông tin về Tui Dan Phuong
+                    JSONArray tuiDanPhuong = new JSONArray();
+                    for (DanPhuong danPhuong : player.luyenDanSu.tuiDanPhuong.danPhuongs) {
+                        JSONArray dd = new JSONArray();
+                        dd.add(danPhuong.id);
+                        dd.add(danPhuong.tenDanPhuong);
+                        dd.add(danPhuong.capYeuCauHoc);
+                        dd.add(danPhuong.mota);
+
+                        // Thêm nguyên liệu của DanPhuong
+                        JSONArray nguyelJson = new JSONArray();
+                        for (NguyenLieu nguyenLieu : danPhuong.nguyenLieu) {
+                            JSONArray nguyeLieuJson = new JSONArray();
+                            nguyeLieuJson.add(nguyenLieu.id);
+                            nguyeLieuJson.add(nguyenLieu.quantity);
+                            nguyelJson.add(nguyeLieuJson);
+                        }
+                        dd.add(nguyelJson);
+                        tuiDanPhuong.add(dd);
+                    }
+                    jsonArray.add(tuiDanPhuong);
+
+                    // Thêm thông tin về Tui Nguyen Lieu
+                    JSONArray tuiNguyenL = new JSONArray();
+                    for (NguyenLieu nguyenLieu : player.luyenDanSu.tuiNguyenLieu.nguyenLieus) {
+                        JSONArray dd = new JSONArray();
+                        dd.add(nguyenLieu.id);
+                        dd.add(nguyenLieu.tenNguyenLieu);
+                        dd.add(nguyenLieu.quantity);
+                        dd.add(nguyenLieu.quality);
+                        tuiNguyenL.add(dd);
+                    }
+                    jsonArray.add(tuiNguyenL);
+
+                    // Thêm thông tin về các DanPhuong
+                    JSONArray danphuongs = new JSONArray();
+                    for (DanPhuong danPhuong : player.luyenDanSu.danPhuongs) {
+                        JSONArray dd = new JSONArray();
+                        dd.add(danPhuong.id);
+                        dd.add(danPhuong.tenDanPhuong);
+                        dd.add(danPhuong.mota);
+                        danphuongs.add(dd);
+                    }
+                    jsonArray.add(danphuongs);
+                    DanDuocEffect effect = player.luyenDanSu.danDuocEffect;
+                    if (effect != null) {
+                        JSONArray effectArray = new JSONArray();
+
+                        effectArray.add(effect.timeBuffLinhKhi);
+                        effectArray.add(effect.lastTimeUseDanBuffLinhKhi);
+                        effectArray.add(effect.xBuffLinhKhi);
+
+                        effectArray.add(effect.timeBuffLt);
+                        effectArray.add(effect.lastTimeUseDanLt);
+                        effectArray.add(effect.xBuffLt);
+
+                        effectArray.add(effect.timeBuffMayMan);
+                        effectArray.add(effect.lastTimeUseMayMan);
+                        effectArray.add(effect.pointMayMan);
+
+                        effectArray.add(effect.timeBuffSTLinhCan);
+                        effectArray.add(effect.lastTimeUseSTLinhCan);
+                        effectArray.add(effect.stLinhCanBuff);
+
+                        effectArray.add(effect.timeBuffCongPhap);
+                        effectArray.add(effect.lastTimeUseCongPhap);
+                        effectArray.add(effect.xBuffCongPhap);
+
+                        effectArray.add(effect.isUseDanTranhTamMa);
+                        effectArray.add(effect.lastTimeUseDanHoiLK);
+                        effectArray.add(effect.tranhTamMaPercent);
+
+                        effectArray.add(effect.percentDotPhaThienDao);
+                        effectArray.add(effect.isUseDanDotPhaThienDao);
+
+                        jsonArray.add(effectArray);
+                    }
+                    // save thong tin effect
                     dataLD = jsonArray.toJSONString();
                     jsonArray.clear();
                 }
@@ -1297,10 +1394,10 @@ public class PlayerDAO {
                     // Serialize options - only if not null
                     JSONArray jsonOption = new JSONArray();
                     if (player.huyet.options != null) {
-                        for (Item.ItemOption option : player.huyet.options) {
+                        for (Huyet.OptionForHuyet optionForHuyet : player.huyet.options) {
                             JSONArray js = new JSONArray();
-                            js.add(option.optionTemplate.id);
-                            js.add(option.param);
+                            js.add(optionForHuyet.optionTemplate.id);
+                            js.add(optionForHuyet.param);
                             jsonOption.add(js);
                         }
                     }
@@ -1308,7 +1405,7 @@ public class PlayerDAO {
 
                     JSONArray jsonOptionB = new JSONArray();
                     if (player.huyet.optionChiSo != null) {
-                        for (Item.ItemOption option : player.huyet.optionChiSo) {
+                        for (Huyet.OptionForHuyet option : player.huyet.optionChiSo) {
                             JSONArray js = new JSONArray();
                             js.add(option.optionTemplate.id);
                             js.add(option.param);

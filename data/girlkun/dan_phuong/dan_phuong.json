@@ -1,0 +1,206 @@
+[
+  {
+    "id": 456,
+    "tenDanPhuong": "Hồi Khí Đan",
+    "moTa": "Dùng để tăng tốc độ hồi linh khí",
+    "capYeuCauHoc": 1,
+    "nguyenLieu": [
+      {
+        "id": 1,
+        "quantity": 2
+      },
+      {
+        "id": 2,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": 789,
+    "tenDanPhuong": "Cường Thể Đan",
+    "moTa": "Dùng để tăng tốc độ luyện thể",
+    "capYeuCauHoc": 1,
+    "nguyenLieu": [
+      {
+        "id": 3,
+        "quantity": 1
+      },
+      {
+        "id": 4,
+        "quantity": 2
+      }
+    ]
+  },
+  {
+    "id": 1010,
+    "tenDanPhuong": "Tụ Linh Đan",
+    "moTa": "Dùng để hồi linh khí ngay lập tức",
+    "capYeuCauHoc": 2,
+    "nguyenLieu": [
+      {
+        "id": 5,
+        "quantity": 3
+      },
+      {
+        "id": 6,
+        "quantity": 1
+      },
+      {
+        "id": 7,
+        "quantity": 2
+      }
+    ]
+  },
+  {
+    "id": 2020,
+    "tenDanPhuong": "Thanh Tâm Đan",
+    "moTa": "Dùng để giảm tỷ lệ gặp tâm ma khi đột phá",
+    "capYeuCauHoc": 3,
+    "nguyenLieu": [
+      {
+        "id": 7,
+        "quantity": 3
+      },
+      {
+        "id": 8,
+        "quantity": 3
+      },
+      {
+        "id": 8,
+        "quantity": 3
+      }
+    ]
+  },
+  {
+    "id": 3030,
+    "tenDanPhuong": "Tẩy Tủy Đan",
+    "moTa": "Dùng để giảm kháng đan và tăng ngộ tính , căn cốt",
+    "capYeuCauHoc": 3,
+    "nguyenLieu": [
+      {
+        "id": 9,
+        "quantity": 2
+      },
+      {
+        "id": 10,
+        "quantity": 1
+      },
+      {
+        "id": 11,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": 4040,
+    "tenDanPhuong": "Luyện Thần Đan",
+    "moTa": "Dùng để tăng ngộ tính",
+    "capYeuCauHoc": 3,
+    "nguyenLieu": [
+      {
+        "id": 12,
+        "quantity": 2
+      },
+      {
+        "id": 13,
+        "quantity": 1
+      },
+      {
+        "id": 14,
+        "quantity": 3
+      }
+    ]
+  },
+  {
+    "id": 5050,
+    "tenDanPhuong": "Vận Khí Đan",
+    "moTa": "Dùng để tăng may mắn",
+    "capYeuCauHoc": 5,
+    "nguyenLieu": [
+      {
+        "id": 15,
+        "quantity": 1
+      },
+      {
+        "id": 16,
+        "quantity": 2
+      },
+      {
+        "id": 21,
+        "quantity": 2
+      }
+    ]
+  },
+  {
+    "id": 6060,
+    "tenDanPhuong": "Thiên Cương Đan",
+    "moTa": "Dùng để tăng sát thương linh căn",
+    "capYeuCauHoc": 4,
+    "nguyenLieu": [
+      {
+        "id": 17,
+        "quantity": 3
+      },
+      {
+        "id": 18,
+        "quantity": 1
+      },
+      {
+        "id": 19,
+        "quantity": 1
+      },
+      {
+        "id": 20,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": 7070,
+    "tenDanPhuong": "Hồn Linh Đan",
+    "moTa": "Dùng để tăng kinh nghiệm công pháp nhận được",
+    "capYeuCauHoc": 1,
+    "nguyenLieu": [
+      {
+        "id": 19,
+        "quantity": 2
+      },
+      {
+        "id": 20,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": 8080,
+    "tenDanPhuong": "Thiên đạo đan",
+    "moTa": "Dùng để tăng tỷ lệ đột phá thiên đạo",
+    "capYeuCauHoc": 8,
+    "nguyenLieu": [
+      {
+        "id": 21,
+        "quantity": 1
+      },
+      {
+        "id": 16,
+        "quantity": 2
+      },
+      {
+        "id": 17,
+        "quantity": 2
+      },
+      {
+        "id": 18,
+        "quantity": 2
+      },
+      {
+        "id": 19,
+        "quantity": 2
+      },
+      {
+        "id": 20,
+        "quantity": 2
+      }
+    ]
+  }
+]

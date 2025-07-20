@@ -13,7 +13,7 @@ import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
 public class LinhThucSu extends BasePoint implements IBaseAction {
-    short[] idsItem1 = new short[]{465, 466, 663, 664, 665, 666, 667, 880, 881, 882};
+    short[] idsItem1 = new short[]{465, 466, 663, 664, 665, 666, 667, 880, 881, 882, 212, 211};
     short[] idsItem2 = new short[]{472, 473, 1317, 1016, 1017};
     short[] idsItem3 = new short[]{579, 466, 1201};
     short[] idsItem4 = new short[]{381, 382, 383, 384};

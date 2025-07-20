@@ -366,7 +366,7 @@ public class CongPhap {
     }
 
     public long getDoThuanThucByPhamChat(PhamChat phamchat) {
-        return DO_TT[phamchat.id];
+        return DO_TT[phamchat.id] * 2;
     }
 
     public String getCurrentExpStr() {

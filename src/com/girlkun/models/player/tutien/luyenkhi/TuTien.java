@@ -203,7 +203,9 @@ public class TuTien extends BasePoint implements IBaseAction {
             if (player.mach.isOpen) {
                 linhKhiCanHoiPhuc += player.mach.linhKhiBuff;
             }
-            linhKhiCanHoiPhuc *= Util.nextInt(1, 2);
+            if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffLinhKhi()) {
+                linhKhiCanHoiPhuc *= player.luyenDanSu.danDuocEffect.xBuffLinhKhi;
+            }
             linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * getXDiemThienPhu();
             linhKhiCanHoiPhuc += maxLinhKhiPoint / 100;
             addLinhKhi(linhKhiCanHoiPhuc);
@@ -873,7 +875,7 @@ public class TuTien extends BasePoint implements IBaseAction {
         boolean isSuccess = Util.isTrue(ngoTinh / 100, tamMaLc);
         String text = "";
         if (isSuccess) {
-            text = "|7|Tâm ma đột kích\n|5|Trong lúc đột phá bạn gặp phải Tâm Ma đột kích nhưng chiến lự bạn mạnh mẽ nên đã đánh bại tâm ma";
+            text = "|7|Tâm ma đột kích\n|5|Trong lúc đột phá bạn gặp phải Tâm Ma đột kích nhưng chiến lực bạn mạnh mẽ nên đã đánh bại tâm ma";
             player.tuTien.ngoTinh += Util.nextInt(1, 2);
         } else {
             text = "|7|Tâm ma đột kích\n|5|Trong lúc đột phá bạn gặp phải Tâm Ma đột kích trong lúc nhất thời bạn bị tâm ma đả thương";

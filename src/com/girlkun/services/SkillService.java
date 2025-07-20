@@ -606,13 +606,13 @@ public class SkillService {
                 if (player.charms.tdDeoDai < System.currentTimeMillis()) {
                     player.nPoint.numAttack++;
                     if (player.luyenThe.isLuyenTheReal()) {
-                        if (player.nPoint.numAttack == 20) {
+                        if (player.nPoint.numAttack == 50) {
                             player.nPoint.numAttack = 0;
                             player.nPoint.stamina--;
                             PlayerService.gI().sendCurrentStamina(player);
                         }
                     } else if (player.tuMa.isTuMa()) {
-                        if (player.nPoint.numAttack == 10) {
+                        if (player.nPoint.numAttack == 20) {
                             player.nPoint.numAttack = 0;
                             player.nPoint.stamina--;
                             PlayerService.gI().sendCurrentStamina(player);
@@ -1278,6 +1278,9 @@ public class SkillService {
                 return;
             }
             short paramOfLinhCan = plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam();
+            if (plAtt.luyenDanSu.isLuyenDan() && plAtt.luyenDanSu.danDuocEffect.isBuffSTLinhCan()) {
+                paramOfLinhCan += plAtt.luyenDanSu.danDuocEffect.stLinhCanBuff;
+            }
             switch (plAtt.tuTien.linhCan.getLinhCanType()) {
                 case 0:
                     // kim

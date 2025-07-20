@@ -590,7 +590,11 @@ public class Mob {
         }
 
         if (player.tuTien.isTuTien() && player.tuTien.congPhap.getTenCongPhap() != null) {
-            player.tuTien.congPhap.addDoThuanThuc(player.tuTien.congPhap.phamchat.id + 1 + Util.nextInt(5));
+            long dtt = player.tuTien.congPhap.phamchat.id + 1 + Util.nextInt(5);
+            if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffCongPhap()) {
+                dtt *= player.luyenDanSu.danDuocEffect.xBuffCongPhap;
+            }
+            player.tuTien.congPhap.addDoThuanThuc(dtt);
         }
         if (player.tuMa.isTuMa()) {
             // roi huyet dan

@@ -39,6 +39,8 @@ public class BossMOI9 extends Boss {
         Util.ratioManhPhapBao(zone, 1, this.location.x, this.location.y, plKill.id, 100);
 
         Util.ratioVeNangCap(zone, 1, this.location.x, this.location.y, plKill.id, 100);
+        Util.ratioDanPhuong(plKill, 5);
+
     }
 
     @Override
@@ -58,9 +60,9 @@ public class BossMOI9 extends Boss {
     private long st;
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack,boolean a) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
-            if (!a){
+            if (!a) {
                 if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
                     this.chat("Xí hụt");
                     return 0;

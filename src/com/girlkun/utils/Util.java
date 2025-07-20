@@ -7,6 +7,8 @@ import com.girlkun.models.map.Zone;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tutien.luyendansu.DanPhuong;
+import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
 import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
 import com.girlkun.services.ItemMapService;
@@ -531,6 +533,23 @@ public class Util {
 
     public static String clearKeywordCanhGioi(String name) {
         return name.substring(0, name.lastIndexOf(']'));
+    }
+
+    public static void ratioDanPhuong(Player plKill, float tyLe) {
+        if (plKill.luyenDanSu.isLuyenDan()) {
+            DanPhuong danPhuong = null;
+            if (Util.isTrue(tyLe, 500)) {
+                danPhuong = DanPhuongFactory.randomizeDanPhuong(plKill.luyenDanSu.level + 5);
+            } else if (Util.isTrue(tyLe, 200)) {
+                danPhuong = DanPhuongFactory.randomizeDanPhuong(plKill.luyenDanSu.level + 3);
+            } else if (Util.isTrue(tyLe, 100)) {
+                danPhuong = DanPhuongFactory.randomizeDanPhuong(plKill.luyenDanSu.level);
+            }
+            if (danPhuong != null) {
+                plKill.luyenDanSu.tuiDanPhuong.addDanPhuong(danPhuong);
+                Service.gI().sendThongBao(plKill, "Bạn nhận được x1 " + danPhuong.tenDanPhuong + " đan phương");
+            }
+        }
     }
 
 

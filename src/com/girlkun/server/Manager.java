@@ -22,6 +22,8 @@ import com.girlkun.models.player.*;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.tuma.TuMaTemplate;
 import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
+import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
+import com.girlkun.models.player.tutien.luyendansu.NguyenLieuFactory;
 import com.girlkun.models.reward.ItemMobReward;
 import com.girlkun.models.reward.ItemOptionMobReward;
 import com.girlkun.models.reward.MobReward;
@@ -244,8 +246,10 @@ public class Manager {
         NpcFactory.createNpcRongSieuCap();
         TuTienTemplate.getI().initTemplate();
         TuMaTemplate.getI().initTuMaTemplate();
-        sanGiaoDichBuaZeno = new SanGiaoDichBuaZeno();
         this.initMap();
+        NguyenLieuFactory.loadNguyenLieu();
+        DanPhuongFactory.getInstance().initTemplate();
+        sanGiaoDichBuaZeno = new SanGiaoDichBuaZeno();
     }
 
     public void loadCaiTrang() {
@@ -1112,36 +1116,36 @@ public class Manager {
             Logger.success("Load radar template thành công (" + RadarService.gI().RADAR_TEMPLATE.size() + ")\n");
 
             topSM = realTop(queryTopSM, con);
-            Logger.success("Load top sm thành công (" + topSM.size() + ")\n");
-            topNV = realTop(queryTopNV, con);
-            Logger.success("Load top nv thành công (" + topNV.size() + ")\n");
-            topSB = realTop(querytopSB, con);
-            Logger.success("Load top săn boss thành công (" + topSB.size() + ")\n");
-            topPVP = realTop(queryTopPVP, con);
-            Logger.success("Load top pvp thành công (" + topSB.size() + ")\n");
-            topNHS = realTop(queryTopNHS, con);
-            Logger.success("Load top NHS thành công (" + topSB.size() + ")\n");
-            topKhiGas = realTop(queryTopKhiGas, con);
-            Logger.success("Load top KhiGas thành công (" + topSB.size() + ")\n");
-            topSK = realTop(querytopSK, con);
-            Logger.success("Load top Sự kiện thành công (" + topSK.size() + ")\n");
-            topSKSanMa = realTop(QUERY_TOP_SK_SAN_MA, con);
-            Logger.success("Load top Sự kiện Săn Ma thành công (" + topSKSanMa.size() + ")\n");
-            topSK2T9 = realTop(QUERY_TOP_SK_2T9, con);
-            Logger.success("Load top Sự kiện 2 Tháng 9 thành công (" + topSK2T9.size() + ")\n");
-            topSKTrungThu = realTop(QUERY_TOP_SK_TRUNG_THU, con);
-            Logger.success("Load top Sự kiện Trung Thu thành công (" + topSKTrungThu.size() + ")\n");
-            topSieuHang = realTopSieuHang(con);
-            Logger.success("Load top Siêu hạng thành công (" + topSieuHang.size() + ")\n");
-            Manager.timeRealTop = System.currentTimeMillis();
-            topSD = realTop(queryTopSD, con);
-            Logger.success("Load top Sức đánh thành công (" + topSD.size() + ")\n");
-            topHP = realTop(queryTopHP, con);
-            Logger.success("Load top HP thành công (" + topHP.size() + ")\n");
-            topVND = realTop(queryTopVND, con);
-            Logger.success("Load top Nạp thành công (" + topVND.size() + ")\n");
-            topDaoLu = realTop(QUERY_TOP_DAO_LU, con);
-            Logger.success("Load top Đạo Lữ thành công (" + topDaoLu.size() + ")\n");
+//            Logger.success("Load top sm thành công (" + topSM.size() + ")\n");
+//            topNV = realTop(queryTopNV, con);
+//            Logger.success("Load top nv thành công (" + topNV.size() + ")\n");
+//            topSB = realTop(querytopSB, con);
+//            Logger.success("Load top săn boss thành công (" + topSB.size() + ")\n");
+//            topPVP = realTop(queryTopPVP, con);
+//            Logger.success("Load top pvp thành công (" + topSB.size() + ")\n");
+//            topNHS = realTop(queryTopNHS, con);
+//            Logger.success("Load top NHS thành công (" + topSB.size() + ")\n");
+//            topKhiGas = realTop(queryTopKhiGas, con);
+//            Logger.success("Load top KhiGas thành công (" + topSB.size() + ")\n");
+//            topSK = realTop(querytopSK, con);
+//            Logger.success("Load top Sự kiện thành công (" + topSK.size() + ")\n");
+//            topSKSanMa = realTop(QUERY_TOP_SK_SAN_MA, con);
+//            Logger.success("Load top Sự kiện Săn Ma thành công (" + topSKSanMa.size() + ")\n");
+//            topSK2T9 = realTop(QUERY_TOP_SK_2T9, con);
+//            Logger.success("Load top Sự kiện 2 Tháng 9 thành công (" + topSK2T9.size() + ")\n");
+//            topSKTrungThu = realTop(QUERY_TOP_SK_TRUNG_THU, con);
+//            Logger.success("Load top Sự kiện Trung Thu thành công (" + topSKTrungThu.size() + ")\n");
+//            topSieuHang = realTopSieuHang(con);
+//            Logger.success("Load top Siêu hạng thành công (" + topSieuHang.size() + ")\n");
+//            Manager.timeRealTop = System.currentTimeMillis();
+//            topSD = realTop(queryTopSD, con);
+//            Logger.success("Load top Sức đánh thành công (" + topSD.size() + ")\n");
+//            topHP = realTop(queryTopHP, con);
+//            Logger.success("Load top HP thành công (" + topHP.size() + ")\n");
+//            topVND = realTop(queryTopVND, con);
+//            Logger.success("Load top Nạp thành công (" + topVND.size() + ")\n");
+//            topDaoLu = realTop(QUERY_TOP_DAO_LU, con);
+//            Logger.success("Load top Đạo Lữ thành công (" + topDaoLu.size() + ")\n");
             try {
                 if (rs != null) {
                     rs.close();

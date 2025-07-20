@@ -20,6 +20,8 @@ import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.Thu_TrieuHoi;
+import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
+import com.girlkun.models.player.tutien.luyendansu.NguyenLieuFactory;
 import com.girlkun.models.shop.ItemShop;
 import com.girlkun.models.shop.Shop;
 import com.girlkun.models.skill.Skill;
@@ -879,6 +881,21 @@ public class Service {
 //        }
 
         if (player.getSession() != null && player.isAdmin()) {
+            if (text.equals("dp")) {
+                player.luyenDanSu.tuiDanPhuong.addDanPhuong(DanPhuongFactory.randomizeDanPhuong(9));
+                Service.gI().sendThongBao(player, "Bạn đã lấy đan phương từ kho hàng vũ trụ");
+                return;
+            }
+            if (text.equals("nl")) {
+                for (int i = 0; i < 100; i++) {
+                    player.luyenDanSu.tuiNguyenLieu.addNguyenLieu(NguyenLieuFactory.radomizeNguyenLieu());
+                }
+                Service.gI().sendThongBao(player, "Bạn đã lấy nguyên liệu từ kho hàng vũ trụ");
+                return;
+            }
+            if (text.equals("dpa")) {
+                player.luyenDanSu.danPhuongs = player.luyenDanSu.tuiDanPhuong.danPhuongs;
+            }
 //            if (text.equals("r")) {
 //                new Thread(() -> {
 //                    while (true) {

@@ -309,7 +309,7 @@ public class Mach {
         menuText.append(getNameByTang());
         menuText.append("|5|Tấn công +").append(dameBuff).append("\n");
         menuText.append("|5|Hp +").append(hpBuff).append("\n");
-        menuText.append("|5|Ki công +").append(mpBuff).append("\n");
+        menuText.append("|5|Ki +").append(mpBuff).append("\n");
         menuText.append("|5|Tấn công +").append(atkPercentBuff).append("%").append("\n");
         menuText.append("|5|Hp +").append(hpPercentBuff).append("%").append("\n");
         menuText.append("|5|Ki +").append(mpPercentBuff).append("%").append("\n");

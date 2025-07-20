@@ -298,27 +298,29 @@ public class UseItem {
                             InventoryServiceNew.gI().sendItemBags(pl);
                             break;
                         case 2078:
-                            // su dung manh phap bao
-                            if (item.quantity - 10 < 0) {
-                                Service.gI().sendThongBao(pl, "Cần 10 mảnh để ghép");
-                                return;
-                            }
-                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 10);
-                            InventoryServiceNew.gI().sendItemBags(pl);
-                            // tao ra phap bao ne
-                            PhapBao phapBao = PhapBaoFactory.createRandomVuKhi(pl);
-                            pl.phapBaoTamThoi = phapBao;
-                            // get phap bao hien tai
-                            PhapBao phapbaoHienTai = pl.phapBaos.get(phapBao.getType());
-                            pl.iDMark.typePhapBaoHandling = phapBao.getType();
-                            if (phapbaoHienTai == null) {
-                                NpcService.gI().createMenuConMeo(pl, ConstNpc.TRANG_BI_PHAP_BAO, -1, phapBao.getBaseThuocTinh(), "Trang bị", "Vứt bỏ");
-                            } else {
-                                // do chien luc
-                                if (phapbaoHienTai.danhGiaLucChienPhapBao() < phapBao.danhGiaLucChienPhapBao()) {
-                                    NpcService.gI().createMenuConMeo(pl, ConstNpc.THAY_TRANG_BI, -1, phapBao.getBaseThuocTinhHon(phapbaoHienTai), "Trang bị", "Nuốt");
+                            if (pl.tuMa.isTuMa() || pl.tuTien.isTuTien()) {
+                                // su dung manh phap bao
+                                if (item.quantity - 10 < 0) {
+                                    Service.gI().sendThongBao(pl, "Cần 10 mảnh để ghép");
+                                    return;
+                                }
+                                InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 10);
+                                InventoryServiceNew.gI().sendItemBags(pl);
+                                // tao ra phap bao ne
+                                PhapBao phapBao = PhapBaoFactory.createRandomVuKhi(pl);
+                                pl.phapBaoTamThoi = phapBao;
+                                // get phap bao hien tai
+                                PhapBao phapbaoHienTai = pl.phapBaos.get(phapBao.getType());
+                                pl.iDMark.typePhapBaoHandling = phapBao.getType();
+                                if (phapbaoHienTai == null) {
+                                    NpcService.gI().createMenuConMeo(pl, ConstNpc.TRANG_BI_PHAP_BAO, -1, phapBao.getBaseThuocTinh(), "Trang bị", "Vứt bỏ");
                                 } else {
-                                    phapbaoHienTai.nuotPhapBao(phapBao);
+                                    // do chien luc
+                                    if (phapbaoHienTai.danhGiaLucChienPhapBao() < phapBao.danhGiaLucChienPhapBao()) {
+                                        NpcService.gI().createMenuConMeo(pl, ConstNpc.THAY_TRANG_BI, -1, phapBao.getBaseThuocTinhHon(phapbaoHienTai), "Trang bị", "Nuốt");
+                                    } else {
+                                        phapbaoHienTai.nuotPhapBao(phapBao);
+                                    }
                                 }
                             }
                             break;

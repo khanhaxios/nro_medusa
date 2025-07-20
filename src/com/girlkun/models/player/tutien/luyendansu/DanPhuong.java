@@ -1,18 +1,24 @@
 package com.girlkun.models.player.tutien.luyendansu;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class DanPhuong {
-    private int id;
-    private byte capDoDan;
+    public int id;
+    public String tenDanPhuong;
+    public int capYeuCauHoc;
+    public String mota;
+    public List<NguyenLieu> nguyenLieu;
 
-    private String tenDanPhuong;
+    public DanPhuong() {
+        nguyenLieu = new ArrayList<>();
+    }
 
-    private short slDanCoTheAn;
-    private short[][] vatLieu;
+    public DanPhuong(int id, String tenDanPhuong, int capYeuCauHoc, List<NguyenLieu> nguyenLieu, String mota) {
+        this.id = id;
+        this.mota = mota;
+        this.tenDanPhuong = tenDanPhuong;
+        this.capYeuCauHoc = capYeuCauHoc;
+        this.nguyenLieu = nguyenLieu;
+    }
 }

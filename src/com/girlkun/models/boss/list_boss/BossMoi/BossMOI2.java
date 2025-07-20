@@ -40,6 +40,8 @@ public class BossMOI2 extends Boss {
         Util.ratioManhPhapBao(zone, 1, this.location.x, this.location.y, plKill.id, 100);
 
         Util.ratioVeNangCap(zone, 1, this.location.x, this.location.y, plKill.id, 100);
+        Util.ratioDanPhuong(plKill, 5);
+
     }
 
     @Override

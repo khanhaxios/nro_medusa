@@ -466,9 +466,15 @@ public class ConstNpc {
     public static final int MENU_CHON_HM = -921736912;
     public static final int MENU_MACH = 123423123;
     public static final int MENU_TT_MACH = -987312;
-    public static final int MENU_CONFIRM_DOT_PHA_MACH_TANG =  -12387123;
+    public static final int MENU_CONFIRM_DOT_PHA_MACH_TANG = -12387123;
     public static final int MENU_KH_HM = -18237123;
     public static final int MENU_MACH_NANG_BAC = -9871232;
+    public static final int MENU_XEM_NGUYEN_LIEU = -98173123;
+    public static final int MENU_XEM_DAN_PHUONG = -9127331;
+    public static final int MENU_XEM_DAN_DUOC = -9127318;
+    public static final int MENU_DAN_PHUONG = -91263981;
+    public static final int MENU_DAN_DUOC = -9102873;
+    public static final int MENU_CONFIRM_CHE_DAN = -678123;
 }
 
 /**

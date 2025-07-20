@@ -2,17 +2,21 @@ package com.girlkun.models.player.huyet_mach;
 
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.jdbc.daos.PlayerDAO;
+import com.girlkun.models.Template;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.services.InventoryServiceNew;
+import com.girlkun.services.ItemService;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Huyet {
     private static final String[] TEN_PHAM = new String[]{
@@ -39,6 +43,50 @@ public class Huyet {
         stringBuilder.append(Util.getHonorialLine(12));
         stringBuilder.append("|2|Tinh huyết cần tốn huyết đan (cái này đi xin ma tu nhé!!!!)\n");
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TOI_HUYET, -1, stringBuilder.toString(), "1 lần", "10 lần", "100 lần", "1000 lần", "Đóng");
+    }
+
+    public static class OptionForHuyet {
+
+        private static Map<String, String> OPTION_STRING = new HashMap<String, String>();
+
+        public double param;
+
+        public Template.ItemOptionTemplate optionTemplate;
+
+        public OptionForHuyet() {
+        }
+
+        public OptionForHuyet(OptionForHuyet io) {
+            this.param = io.param;
+            this.optionTemplate = io.optionTemplate;
+        }
+
+        public OptionForHuyet(int tempId, double param) {
+            this.optionTemplate = ItemService.gI().getItemOptionTemplate(tempId);
+            this.param = param;
+        }
+
+        public OptionForHuyet(Template.ItemOptionTemplate temp, double param) {
+            this.optionTemplate = temp;
+            this.param = param;
+        }
+
+        public String getOptionString() {
+            return Util.replace(this.optionTemplate.name, "#", String.valueOf(this.param));
+        }
+
+        public void dispose() {
+            this.optionTemplate = null;
+        }
+
+        @Override
+        public String toString() {
+            final String n = "\"";
+            return "{"
+                    + n + "id" + n + ":" + n + optionTemplate.id + n + ","
+                    + n + "param" + n + ":" + n + param + n
+                    + "}";
+        }
     }
 
     public static class TinhHuyetEffect {
@@ -97,9 +145,9 @@ public class Huyet {
 
     public Player player;
     public byte MAX_PHAM = 8;
-    public List<Item.ItemOption> options = new ArrayList<>();
+    public List<OptionForHuyet> options = new ArrayList<>();
 
-    public List<Item.ItemOption> optionChiSo = new ArrayList<>();
+    public List<OptionForHuyet> optionChiSo = new ArrayList<>();
 
     public Huyet(Player player) {
         this.player = player;
@@ -201,10 +249,10 @@ public class Huyet {
         } else if (idOption == 2) {
             randomParam = Util.nextInt(200000, 500000);
         } else {
-            randomParam = Util.nextInt(1, 20);
+            randomParam = Util.nextInt(1, 5);
         }
         randomParam *= pham;
-        options.add(new Item.ItemOption(idOption, randomParam));
+        options.add(new OptionForHuyet(idOption, randomParam));
     }
 
     public void restExp() {
@@ -243,7 +291,7 @@ public class Huyet {
 
     private String getThongTinBuffBase() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Item.ItemOption option : options) {
+        for (OptionForHuyet option : options) {
             stringBuilder.append("|5|").append(option.getOptionString()).append("\n");
         }
         return stringBuilder.toString();
@@ -272,7 +320,7 @@ public class Huyet {
 
     public void kichHoatHuyetMach() {
         // kich hoat huyet mach
-        if (pham > 0) {
+        if (pham > 0 || isOpen) {
             Service.gI().sendThongBaoOK(player, "Bạn đã kích hoạt huyết mạch rồi mà!");
             return;
         }
@@ -379,38 +427,38 @@ public class Huyet {
     }
 
     public void ratioChiSoHuyetMach() {
-        List<Item.ItemOption> options1 = new ArrayList<>();
+        List<OptionForHuyet> options1 = new ArrayList<>();
         switch (type) {
             case 0:
-                options1.add(new Item.ItemOption(0, Util.nextInt(200000, 1_000_000)));
-                options1.add(new Item.ItemOption(5, Util.nextInt(5, 50)));
+                options1.add(new OptionForHuyet(0, Util.nextInt(50_000, 250_000)));
+                options1.add(new OptionForHuyet(5, Util.nextInt(5, 50)));
                 break;
             case 1:
-                options1.add(new Item.ItemOption(50, Util.nextInt(5, 20)));
-                options1.add(new Item.ItemOption(77, Util.nextInt(20, 50)));
-                options1.add(new Item.ItemOption(103, Util.nextInt(20, 50)));
+                options1.add(new OptionForHuyet(50, Util.nextInt(5, 20)));
+                options1.add(new OptionForHuyet(77, Util.nextInt(20, 50)));
+                options1.add(new OptionForHuyet(103, Util.nextInt(20, 50)));
                 break;
             case 2:
-                options1.add(new Item.ItemOption(77, Util.nextInt(50, 100)));
-                options1.add(new Item.ItemOption(103, Util.nextInt(50, 100)));
+                options1.add(new OptionForHuyet(77, Util.nextInt(50, 100)));
+                options1.add(new OptionForHuyet(103, Util.nextInt(50, 100)));
                 break;
             case 3:
-                options1.add(new Item.ItemOption(50, Util.nextInt(5, 10)));
-                options1.add(new Item.ItemOption(77, Util.nextInt(20, 50)));
-                options1.add(new Item.ItemOption(103, Util.nextInt(20, 50)));
+                options1.add(new OptionForHuyet(50, Util.nextInt(5, 10)));
+                options1.add(new OptionForHuyet(77, Util.nextInt(20, 50)));
+                options1.add(new OptionForHuyet(103, Util.nextInt(20, 50)));
                 break;
             case 4:
-                options1.add(new Item.ItemOption(50, Util.nextInt(5, 100)));
-                options1.add(new Item.ItemOption(103, Util.nextInt(5, 100)));
+                options1.add(new OptionForHuyet(50, Util.nextInt(5, 100)));
+                options1.add(new OptionForHuyet(103, Util.nextInt(5, 100)));
                 break;
         }
         optionChiSo = options1;
     }
 
-    public void calcPointWithOption(List<Item.ItemOption> options) {
+    public void calcPointWithOption(List<OptionForHuyet> options) {
         int dameAdd = 0;
         int dameSSSAdd = 0;
-        for (Item.ItemOption io : options) {
+        for (OptionForHuyet io : options) {
             switch (io.optionTemplate.id) {
                 case 41:
                     player.setClothes.tienKhi++;
@@ -425,20 +473,20 @@ public class Huyet {
                     player.nPoint.dameAdd += io.param;
                     break;
                 case 2: //HP, KI+#000
-                    player.nPoint.hpAdd += io.param * 1000;
-                    player.nPoint.mpAdd += io.param * 1000;
+                    player.nPoint.hpAdd += Math.abs(io.param * 1000);
+                    player.nPoint.mpAdd += Math.abs(io.param * 1000);
                     break;
                 case 108, 73:// fake
-                    player.nPoint.tlNeDon += (short) io.param;
+                    player.nPoint.tlNeDon += (short) Math.abs(io.param);
                     break;
                 case 18: // #% chính xác
-                    player.nPoint.tlchinhxac += (short) io.param;
+                    player.nPoint.tlchinhxac += (short) Math.abs(io.param);
                     break;
                 case 5, 197, 220, 233: //+#% sức đánh chí mạng
-                    player.nPoint.tlDameCrit.add(io.param);
+                    player.nPoint.tlDameCrit.add((int) Math.abs(io.param));
                     break;
                 case 6: //HP+#
-                    player.nPoint.hpAdd += io.param;
+                    player.nPoint.hpAdd += Math.abs(io.param);
                     break;
                 case 7: //KI+#
                     player.nPoint.mpAdd += io.param;
@@ -450,7 +498,7 @@ public class Huyet {
                     player.nPoint.critAdd += io.param;
                     break;
                 case 19: //Tấn công+#% khi đánh quái
-                    player.nPoint.tlDameAttMob.add(io.param);
+                    player.nPoint.tlDameAttMob.add((int) io.param);
                     break;
                 case 22: //HP+#K
                     player.nPoint.hpAdd += io.param * 1000;
@@ -468,7 +516,7 @@ public class Huyet {
                     player.nPoint.teleport = true;
                     break;
                 case 44: // tien luc
-                    player.tienLuc += io.param;
+                    player.tienLuc += (int) io.param;
                     break;
                 case 45:
                     player.nPoint.dameAdd += io.param * 1_000_000L;
@@ -481,25 +529,25 @@ public class Huyet {
                     player.nPoint.mpAdd += io.param;
                     break;
                 case 49: //Tấn công+#%
-                    dameSSSAdd += io.param;
+                    dameSSSAdd += (int) io.param;
                     break;
                 case 50: //Sức đánh+#%
-                    dameAdd += io.param;
+                    dameAdd += (int) io.param;
                     break;
                 case 77, 194, 221: //HP+#%
-                    player.nPoint.tlHp.add(io.param);
+                    player.nPoint.tlHp.add((int) io.param);
                     break;
                 case 80: //HP+#%/30s
-                    player.nPoint.tlHpHoi += io.param;
+                    player.nPoint.tlHpHoi += (short) io.param;
                     break;
                 case 81: //MP+#%/30s
-                    player.nPoint.tlMpHoi += io.param;
+                    player.nPoint.tlMpHoi += (short) io.param;
                     break;
                 case 88, 101: //Cộng #% exp khi đánh quái
-                    player.nPoint.tlTNSM.add(io.param);
+                    player.nPoint.tlTNSM.add((int) io.param);
                     break;
                 case 94: //Giáp #%
-                    player.nPoint.tlDef.add(io.param);
+                    player.nPoint.tlDef.add((int) io.param);
                     break;
                 case 95: //Biến #% tấn công thành HP
                     player.nPoint.tlHutHp += (short) io.param;
@@ -514,7 +562,7 @@ public class Huyet {
                     player.nPoint.tlGold += (short) io.param;
                     break;
                 case 103, 195, 222: //KI +#%
-                    player.nPoint.tlMp.add(io.param);
+                    player.nPoint.tlMp.add((int) io.param);
                     break;
                 case 104: //Biến #% tấn công quái thành HP
                     player.nPoint.tlHutHpMob += (short) io.param;
@@ -533,18 +581,18 @@ public class Huyet {
                     player.nPoint.khangTDHS = true;
                     break;
                 case 117: //Đẹp +#% SĐ cho mình và người xung quanh
-                    player.nPoint.tlSDDep.add(io.param);
+                    player.nPoint.tlSDDep.add((int) io.param);
                     break;
                 case 147, 196, 219, 232: //+#% sức đánh
-                    player.nPoint.tlDame.add(io.param);
+                    player.nPoint.tlDame.add((int) io.param);
                     break;
                 case 155: //Giảm 50% sức đánh, HP, KI và +#% SM, TN, vàng từ quái
                     player.nPoint.tlSubSD += 50;
-                    player.nPoint.tlTNSM.add(io.param);
+                    player.nPoint.tlTNSM.add((int) io.param);
                     player.nPoint.tlGold += (short) io.param;
                     break;
                 case 162: //Cute hồi #% KI/s bản thân và xung quanh
-                    player.nPoint.mpHoiCute += io.param;
+                    player.nPoint.mpHoiCute += (long) io.param;
                     break;
                 case 173: //Phục hồi #% HP và KI cho đồng đội
                     player.nPoint.tlHpHoiBanThanVaDongDoi += (short) io.param;
@@ -576,7 +624,6 @@ public class Huyet {
     }
 
     public void toiHuyet(int slTinhHuyet) {
-
         int slCong = 0;
         Item item = InventoryServiceNew.gI().findItemBag(player, 2077);
         if (item.quantity < (pham * 50)) {

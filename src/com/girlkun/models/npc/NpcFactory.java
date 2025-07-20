@@ -38,6 +38,7 @@ import com.girlkun.models.player.Thu_TrieuHoi;
 import com.girlkun.models.player.phapbao.PhapBao;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.base_tutien.CoDuyen;
+import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
 import com.girlkun.models.shop.ShopServiceNew;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
@@ -6780,11 +6781,7 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 21 || mapId == 22 || mapId == 23 || mapId == 5) {
-                        if (player.tuMa.isTuMa()) {
-                            this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ở đây không tiếp ma tu", "Đóng");
-                        } else {
-                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "Muốn tu tiên?Tìm đúng người rồi đấy", "Học\nLuyện Phù", "Học\nTrận Pháp", "Học\nLinh Thực", "Học\nNgự Thú", "Học\nKhống Thi", "Học\nLuyện Đan", "Đóng");
-                        }
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Muốn tu tiên?Tìm đúng người rồi đấy", "Học\nLuyện Phù", "Học\nTrận Pháp", "Học\nLinh Thực", "Học\nNgự Thú", "Học\nKhống Thi", "Học\nLuyện Đan", "Đóng");
                     }
                 }
             }
@@ -6840,11 +6837,11 @@ public class NpcFactory {
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_LUYEN_DAN) {
                             if (select == 0) {
                                 if (!player.isAdmin()) {
-                                    if (!player.tuTien.isTuTien() || player.tuTien.level < 3) {
+                                    if (player.tuTien.isTuTien() && player.tuTien.level < 3) {
                                         Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
                                         return;
                                     }
-                                    if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                    if (player.luyenThe.isLuyenThe() && player.luyenThe.level < 10) {
                                         Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
                                         return;
                                     }
@@ -6888,11 +6885,11 @@ public class NpcFactory {
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_LINH_THUC) {
                             if (select == 0) {
                                 if (!player.isAdmin()) {
-                                    if (!player.tuTien.isTuTien() || player.tuTien.level < 3) {
-                                        Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Nguyên Anh");
+                                    if (player.tuTien.isTuTien() && player.tuTien.level < 0) {
+                                        Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Luyện Khí");
                                         return;
                                     }
-                                    if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                    if (player.luyenThe.isLuyenThe() && player.luyenThe.level < 10) {
                                         Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
                                         return;
                                     }
@@ -6969,9 +6966,10 @@ public class NpcFactory {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
             public void openBaseMenu(Player player) {
-                if (canOpenNpc(player)) {
-                    createOtherMenu(player, ConstNpc.BASE_MENU, "|7| BẢNG XẾP HẠNG" + "\n|6|Ta Vừa Hack Map xem Được TOP Của Toàn Server" + "\b|1|Người Muốn Xem TOP Gì?" + "\n|7|Điểm Sự Kiện Trung Thu Hiện Tại Của Ngươi Là: " + player.inventory.eventTrungThu, "Top\nTrung Thu", "Top Sức Đánh", "Top Sức mạnh", "Top Nhiệm vụ", "Top Săn BOSS", "Top Đạo Lữ", "Đóng");
-                }
+                super.openBaseMenu(player);
+//                if (canOpenNpc(player)) {
+//                    createOtherMenu(player, ConstNpc.BASE_MENU, "|7| BẢNG XẾP HẠNG" + "\n|6|Ta Vừa Hack Map xem Được TOP Của Toàn Server" + "\b|1|Người Muốn Xem TOP Gì?" + "\n|7|Điểm Sự Kiện Trung Thu Hiện Tại Của Ngươi Là: " + player.inventory.eventTrungThu, "Top\nTrung Thu", "Top Sức Đánh", "Top Sức mạnh", "Top Nhiệm vụ", "Top Săn BOSS", "Top Đạo Lữ", "Đóng");
+//                }
             }
 
             @Override
@@ -7579,6 +7577,15 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 switch (player.iDMark.getIndexMenu()) {
+                    case ConstNpc.MENU_XEM_NGUYEN_LIEU:
+                        player.luyenDanSu.tuiNguyenLieu.showBaseNguyenLieu(select, 6);
+                        break;
+                    case ConstNpc.MENU_XEM_DAN_DUOC:
+                        player.luyenDanSu.tuiDanDuoc.showBaseNguyenLieu(select, 6);
+                        break;
+                    case ConstNpc.MENU_XEM_DAN_PHUONG:
+                        player.luyenDanSu.tuiDanPhuong.showBaseDanPhuong(select, 6);
+                        break;
                     case ConstNpc.MENU_CHON_HM:
                         switch (select) {
                             case 0:
@@ -7676,7 +7683,6 @@ public class NpcFactory {
                                 player.huyet.nangPham();
                                 break;
                             default:
-                                player.huyet.showBaseMenu();
                                 break;
                         }
                         break;
@@ -7997,26 +8003,44 @@ public class NpcFactory {
                     case ConstNpc.MENU_LUYEN_DAN:
                         switch (select) {
                             case 0:
-                                createOtherMenu(player, ConstNpc.MENU_CHON_DAN_PHUONG, "Hãy chọn đan muốn luyện", "Tôi\nThể đan", "Ngưng\nNguyên đan", "Tẩy\nTủy Đan", "Đóng");
+                                player.luyenDanSu.tuiDanPhuong.showMenuTui();
+                                break;
+                            case 1:
+                                player.luyenDanSu.tuiNguyenLieu.showBaseNguyenLieu(0, 6);
+                                break;
+                            case 2:
+                                player.luyenDanSu.tuiDanDuoc.showMenuTui();
+                                break;
+                            case 3:
+                                player.luyenDanSu.showMenuChonDanPhuong();
                                 break;
                         }
                         break;
-                    case ConstNpc.MENU_CHON_DAN_PHUONG:
+                    case ConstNpc.MENU_DAN_DUOC:
                         switch (select) {
                             case 0:
-                                player.luyenDanSu.luyenToiTheDan();
+                                player.luyenDanSu.dungDanDuoc();
                                 break;
                             case 1:
-                                player.luyenDanSu.luyenNgungNguyenDan();
-                                break;
-                            case 2:
-                                if (player.luyenDanSu.level < 3) {
-                                    Service.gI().sendThongBaoOK(player, "Cần luyện đan sư cấp 3 để luyện");
-                                    return;
-                                }
-                                player.luyenDanSu.luyenTayTuyDan();
+                                player.luyenDanSu.tuiDanDuoc.showBaseNguyenLieu(0, 6);
                                 break;
                         }
+                        break;
+                    case ConstNpc.MENU_DAN_PHUONG:
+                        switch (select) {
+                            case 0:
+                                player.luyenDanSu.hocDanPhuong();
+                                break;
+                            case 1:
+                                player.luyenDanSu.tuiDanPhuong.showBaseDanPhuong(0, 6);
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_CONFIRM_CHE_DAN:
+                        DanPhuongFactory.luyenDan(player, player.iDMark.danPhuongChe);
+                        break;
+                    case ConstNpc.MENU_CHON_DAN_PHUONG:
+                        DanPhuongFactory.prepareForLuyenDan(player, player.luyenDanSu.danPhuongs.get(select));
                         break;
                     case ConstNpc.LINH_KHI_SETTING:
                         switch (select) {
@@ -8224,8 +8248,8 @@ public class NpcFactory {
                             Service.gI().sendThongBao(player, "Đột phá cần " + (player.tuTien.level + 1) * 10_000 + " hồng ngọc");
                             return;
                         }
-                        if (!player.tuTien.canHandleWithLinhKhiPoint(10)) {
-                            Service.gI().sendThongBao(player, "Cần 10 % tổng lượng linh khí");
+                        if (!player.tuTien.canHandleWithLinhKhiPoint(50)) {
+                            Service.gI().sendThongBao(player, "Cần 50% tổng lượng linh khí");
                             return;
                         }
                         if (player.tuTien.subLevel == 10) {
@@ -8240,6 +8264,10 @@ public class NpcFactory {
                                     }
                                     float subPercent = player.luyenDanSu.diemKhangTinh / 10f;
                                     float ratio = (player.tuTien.getLevelUpPercent() / 20f);
+                                    if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isUseDanDotPhaThienDao) {
+                                        ratio += player.luyenDanSu.danDuocEffect.percentDotPhaThienDao;
+                                        player.luyenDanSu.danDuocEffect.resetDanDptd();
+                                    }
                                     if (Util.isTrue(ratio - subPercent, 110)) {
                                         boolean isSuccess = true;
                                         if (player.tuTien.level > 6) {
@@ -8263,13 +8291,22 @@ public class NpcFactory {
                                 case 1:
                                     float subPercent1 = player.luyenDanSu.diemKhangTinh / 10f;
                                     float ratio1 = player.tuTien.getLevelUpPercent() - subPercent1;
+                                    if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffMayMan()) {
+                                        ratio1 += player.luyenDanSu.danDuocEffect.pointMayMan;
+                                    }
                                     if (Util.isTrue(ratio1, 110)) {
                                         boolean isSuccess = true;
-                                        if (player.tuTien.level > 6) {
-                                            if (Util.isTrue(player.tuTien.level + player.tuTien.subLevel, 100)) {
-                                                // gap tam ma
-                                                isSuccess = player.tuTien.gapTamMa();
+                                        int baseGapTamMa = 20 + player.tuTien.level + player.tuTien.subLevel;
+                                        if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isUseDanTranhTamMa) {
+                                            baseGapTamMa -= player.luyenDanSu.danDuocEffect.tranhTamMaPercent;
+                                            if (baseGapTamMa < 0) {
+                                                baseGapTamMa = 0;
                                             }
+                                            player.luyenDanSu.danDuocEffect.resetDanTranhTamMa();
+                                        }
+                                        if (Util.isTrue(baseGapTamMa, 100)) {
+                                            // gap tam ma
+                                            isSuccess = player.tuTien.gapTamMa();
                                         }
                                         if (isSuccess) {
                                             player.tuTien.levelUp();
@@ -8285,10 +8322,21 @@ public class NpcFactory {
                         } else if (select == 0) {
                             float subPercent1 = player.luyenDanSu.diemKhangTinh / 10f;
                             float ratio = player.tuTien.getLevelUpPercent();
+                            if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffMayMan()) {
+                                ratio += player.luyenDanSu.danDuocEffect.pointMayMan;
+                            }
                             if (Util.isTrue(ratio - subPercent1, 110)) {
                                 boolean isSuccess = true;
-                                if (player.tuTien.level > 6) {
-                                    if (Util.isTrue(player.tuTien.level + player.tuTien.subLevel, 100)) {
+                                if (player.tuTien.level > 2) {
+                                    int baseGapTamMa = 20 + player.tuTien.level + player.tuTien.subLevel;
+                                    if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isUseDanTranhTamMa) {
+                                        baseGapTamMa -= player.luyenDanSu.danDuocEffect.tranhTamMaPercent;
+                                        if (baseGapTamMa < 0) {
+                                            baseGapTamMa = 0;
+                                        }
+                                        player.luyenDanSu.danDuocEffect.resetDanTranhTamMa();
+                                    }
+                                    if (Util.isTrue(baseGapTamMa, 100)) {
                                         // gap tam ma
                                         isSuccess = player.tuTien.gapTamMa();
                                     }

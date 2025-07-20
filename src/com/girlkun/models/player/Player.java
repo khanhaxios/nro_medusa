@@ -1207,7 +1207,7 @@ public class Player {
             if (this.huyet.isKichHoat() && this.huyet.type == 4) {
                 int sl = this.huyet.getLevelTinhHuyetCongDon();
                 for (int i = 0; i < sl; i++) {
-                    damage -= (damage * Huyet.TinhHuyetEffect.LEVEL_PARAM_TYPE[huyet.type][i][0]);
+                    damage -= (damage * Huyet.TinhHuyetEffect.LEVEL_PARAM_TYPE[huyet.type][i][0] / 100);
                 }
             }
             if (!isStChuan) {

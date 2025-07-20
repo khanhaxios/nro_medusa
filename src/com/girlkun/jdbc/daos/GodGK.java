@@ -19,9 +19,11 @@ import com.girlkun.models.player.Fusion;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.huyet_mach.Huyet;
 import com.girlkun.models.player.huyet_mach.Mach;
 import com.girlkun.models.player.phapbao.PhapBao;
 import com.girlkun.models.player.tuma.TuMa;
+import com.girlkun.models.player.tutien.luyendansu.*;
 import com.girlkun.models.player.tutien.luyenkhi.PhamChat;
 import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
@@ -1064,18 +1066,118 @@ public class GodGK {
                     String dataLuyenDan = rs.getString("data_luyen_dan");
                     if (dataLuyenDan != null && !dataLuyenDan.isEmpty()) {
                         JSONArray jsonArray = (JSONArray) JSONValue.parse(dataLuyenDan);
-                        if (jsonArray.size() > 0) {
+                        if (!jsonArray.isEmpty()) {
+                            // Lấy các thông tin cơ bản của Luyện Đan
                             player.luyenDanSu.level = Byte.parseByte(jsonArray.get(0).toString());
                             player.luyenDanSu.exp = Long.parseLong(jsonArray.get(1).toString());
                             player.luyenDanSu.maxExp = Long.parseLong(jsonArray.get(2).toString());
                             player.luyenDanSu.tongDanDuocDaAn = Byte.parseByte(jsonArray.get(3).toString());
                             player.luyenDanSu.diemKhangTinh = Integer.parseInt(jsonArray.get(4).toString());
+
+
+                            JSONArray tuiDanDuoc = (JSONArray) jsonArray.get(5);  // Vị trí này có thể thay đổi tùy theo cách lưu trữ trong database
+                            for (Object obj : tuiDanDuoc) {
+                                JSONArray dd = (JSONArray) obj;
+                                int id = Integer.parseInt(dd.get(0).toString());
+                                String tenDanDuoc = dd.get(1).toString();
+                                byte capDanDuoc = Byte.parseByte(dd.get(2).toString());
+                                int capDoYeuCauDeSuDung = Integer.parseInt(dd.get(3).toString());
+                                int quantity = Integer.parseInt(dd.get(4).toString());
+
+                                // Tạo đối tượng DanDuoc và thêm vào Túi Đan Dược
+                                DanDuoc danDuoc = new DanDuoc(id, tenDanDuoc, capDanDuoc, capDoYeuCauDeSuDung);
+                                danDuoc.quantity = quantity;
+                                player.luyenDanSu.tuiDanDuoc.addDanDuoc(danDuoc);
+
+                            }
+
+                            // Lấy dữ liệu về Túi Đan Phương (TuiDanPhuong)
+                            JSONArray tuiDanPhuong = (JSONArray) jsonArray.get(6);  // Vị trí này có thể thay đổi
+                            for (Object obj : tuiDanPhuong) {
+                                JSONArray dd = (JSONArray) obj;
+                                int id = Integer.parseInt(dd.get(0).toString());
+                                String tenDanPhuong = dd.get(1).toString();
+                                int capYeuCauHoc = Integer.parseInt(dd.get(2).toString());
+                                String mota = String.valueOf(dd.get(3));
+                                // Tạo đối tượng DanPhuong và thêm vào Túi Đan Phương
+                                List<NguyenLieu> nguyenLieuList = new ArrayList<>();
+                                JSONArray nguyelJson = (JSONArray) dd.get(4);  // Nguyên liệu trong DanPhuong
+                                for (Object nguyenLieuObj : nguyelJson) {
+                                    JSONArray nguyeLieuJson = (JSONArray) nguyenLieuObj;
+                                    int nguyenLieuId = Integer.parseInt(nguyeLieuJson.get(0).toString());
+                                    int nguyenLieuQuantity = Integer.parseInt(nguyeLieuJson.get(1).toString());
+
+                                    // Tạo đối tượng NguyenLieu và thêm vào danh sách
+                                    NguyenLieu nguyenLieu = NguyenLieuFactory.getByIdAndQuantity(nguyenLieuId, nguyenLieuQuantity);
+                                    nguyenLieuList.add(nguyenLieu);
+                                }
+
+                                DanPhuong danPhuong = new DanPhuong(id, tenDanPhuong, capYeuCauHoc, nguyenLieuList, mota);
+                                player.luyenDanSu.tuiDanPhuong.addDanPhuong(danPhuong);
+                            }
+
+                            // Lấy dữ liệu về Túi Nguyên Liệu (TuiNguyenLieu)
+                            JSONArray tuiNguyenL = (JSONArray) jsonArray.get(7);  // Vị trí này có thể thay đổi
+                            for (Object obj : tuiNguyenL) {
+                                JSONArray dd = (JSONArray) obj;
+                                int id = Integer.parseInt(dd.get(0).toString());
+                                String tenNguyenLieu = dd.get(1).toString();
+                                int quantity = Integer.parseInt(dd.get(2).toString());
+                                int quality = Integer.parseInt(dd.get(3).toString());
+
+                                // Tạo đối tượng NguyenLieu và thêm vào Túi Nguyên Liệu
+                                NguyenLieu nguyenLieu = new NguyenLieu(id, tenNguyenLieu, quantity, quality);
+                                player.luyenDanSu.tuiNguyenLieu.addNguyenLieu(nguyenLieu);
+                            }
+
+                            JSONArray danphuongs = (JSONArray) jsonArray.get(8);  // Vị trí này có thể thay đổi
+                            for (Object obj : danphuongs) {
+                                JSONArray dd = (JSONArray) obj;
+                                int id = Integer.parseInt(dd.get(0).toString());
+                                String tenDanPhuong = dd.get(1).toString();
+                                String mota = dd.get(2).toString();
+                                // Tạo đối tượng DanPhuong và thêm vào danh sách
+                                DanPhuong danPhuong = new DanPhuong(id, tenDanPhuong, 0, new ArrayList<>(), mota);
+                                player.luyenDanSu.danPhuongs.add(danPhuong);
+                            }
+                            // viet ham doc nao
+
+                            JSONArray effectArray = (JSONArray) jsonArray.get(9);  // vị trí tiếp theo sau danphuongs
+                            DanDuocEffect effect = new DanDuocEffect();
+                            effect.timeBuffLinhKhi = Long.parseLong(effectArray.get(0).toString());
+                            effect.lastTimeUseDanBuffLinhKhi = Long.parseLong(effectArray.get(1).toString());
+                            effect.xBuffLinhKhi = Float.parseFloat(effectArray.get(2).toString());
+
+                            effect.timeBuffLt = Long.parseLong(effectArray.get(3).toString());
+                            effect.lastTimeUseDanLt = Long.parseLong(effectArray.get(4).toString());
+                            effect.xBuffLt = Float.parseFloat(effectArray.get(5).toString());
+
+                            effect.timeBuffMayMan = Long.parseLong(effectArray.get(6).toString());
+                            effect.lastTimeUseMayMan = Long.parseLong(effectArray.get(7).toString());
+                            effect.pointMayMan = Float.parseFloat(effectArray.get(8).toString());
+
+                            effect.timeBuffSTLinhCan = Long.parseLong(effectArray.get(9).toString());
+                            effect.lastTimeUseSTLinhCan = Long.parseLong(effectArray.get(10).toString());
+                            effect.stLinhCanBuff = Float.parseFloat(effectArray.get(11).toString());
+
+                            effect.timeBuffCongPhap = Long.parseLong(effectArray.get(12).toString());
+                            effect.lastTimeUseCongPhap = Long.parseLong(effectArray.get(13).toString());
+                            effect.xBuffCongPhap = Float.parseFloat(effectArray.get(14).toString());
+
+                            effect.isUseDanTranhTamMa = Boolean.parseBoolean(effectArray.get(15).toString());
+                            effect.lastTimeUseDanHoiLK = Long.parseLong(effectArray.get(16).toString());
+                            effect.tranhTamMaPercent = Integer.parseInt(effectArray.get(17).toString());
+
+                            effect.percentDotPhaThienDao = Integer.parseInt(effectArray.get(18).toString());
+                            effect.isUseDanDotPhaThienDao = Boolean.parseBoolean(effectArray.get(19).toString());
+
+                            player.luyenDanSu.danDuocEffect = effect;
                         }
                     }
                 } catch (Exception e) {
                     player.luyenDanSu.tongDanDuocDaAn = 0;
                     player.luyenDanSu.diemKhangTinh = 0;
-                    e.printStackTrace();
+                    Logger.error(e.getMessage());
                 }
                 try {
                     String dataLuyenThe = rs.getString("data_luyen_the");
@@ -1302,8 +1404,8 @@ public class GodGK {
                                 for (Object obj : jsonOption) {
                                     JSONArray pair = (JSONArray) obj;
                                     int optionId = Integer.parseInt(pair.get(0).toString());
-                                    int param = Integer.parseInt(pair.get(1).toString());
-                                    player.huyet.options.add(new Item.ItemOption(optionId, param));
+                                    double param = Double.parseDouble(pair.get(1).toString());
+                                    player.huyet.options.add(new Huyet.OptionForHuyet(optionId, param));
                                 }
                             }
                             // Deserialize optionChiSo
@@ -1312,8 +1414,8 @@ public class GodGK {
                                 for (Object obj : jsonOptionB) {
                                     JSONArray pair = (JSONArray) obj;
                                     int optionId = Integer.parseInt(pair.get(0).toString());
-                                    int param = Integer.parseInt(pair.get(1).toString());
-                                    player.huyet.optionChiSo.add(new Item.ItemOption(optionId, param));
+                                    double param = Double.parseDouble(pair.get(1).toString());
+                                    player.huyet.optionChiSo.add(new Huyet.OptionForHuyet(optionId, param));
                                 }
                             }
                             // Deserialize base stats (chiSoBaseCongThem)

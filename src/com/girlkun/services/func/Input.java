@@ -10,6 +10,10 @@ import com.girlkun.models.npc.NpcManager;
 import com.girlkun.models.player.GiftcodeViet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tutien.luyendansu.DanDuoc;
+import com.girlkun.models.player.tutien.luyendansu.DanDuocFactory;
+import com.girlkun.models.player.tutien.luyendansu.DanPhuong;
+import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
 import com.girlkun.models.shop.ShopServiceNew;
 import com.girlkun.network.io.Message;
 import com.girlkun.network.session.ISession;
@@ -25,8 +29,10 @@ import java.util.*;
 public class Input {
 
     public static final int MUA_BUA = -12312323;
+    public static final int USE_DAN_DUOC = -987123;
     private static final Map<Integer, Object> PLAYER_ID_OBJECT = new HashMap<Integer, Object>();
 
+    public static final int HOC_DAN_PHUONG = 1313123;
     public static final int RUT_BUA = 21312;
     public static final int NAP_BUA = 213123;
     public static final int LEN_BUA = 123123;
@@ -80,6 +86,30 @@ public class Input {
                 text[i] = msg.reader().readUTF();
             }
             switch (player.iDMark.getTypeInput()) {
+                case USE_DAN_DUOC:
+                    // get dan duoc trong tui
+                    int idDanDuoc = Integer.parseInt(text[0]);
+                    int quantity = Integer.parseInt(text[1]);
+                    DanDuoc danDuoc = player.luyenDanSu.tuiDanDuoc.takeDanDuoc(idDanDuoc, quantity);
+                    if (danDuoc == null) {
+                        Service.gI().sendThongBaoOK(player, "Không tìm thấy đan dược hoặc không đủ số lượng sử dụng");
+                        return;
+                    }
+                    if (danDuoc.quantity < quantity) {
+                        Service.gI().sendThongBaoOK(player, "Không đủ số lượng sử dụng");
+                        return;
+                    }
+                    DanDuocFactory.useDanDuoc(player, danDuoc, quantity);
+                    break;
+                case HOC_DAN_PHUONG:
+                    int idDanPhuong = Integer.parseInt(text[0]);
+                    DanPhuong danPhuong = player.luyenDanSu.tuiDanPhuong.takeDanPhuong(idDanPhuong);
+                    if (danPhuong == null) {
+                        Service.gI().sendThongBaoOK(player, "Không tìm thấy đan phương");
+                        return;
+                    }
+                    DanPhuongFactory.hocDanPhuong(player, danPhuong);
+                    break;
                 case RUT_BUA:
                     int soluong = Integer.parseInt(text[0]);
                     Manager.sanGiaoDichBuaZeno.rutBuaPlayer(player, soluong);
@@ -986,6 +1016,7 @@ public class Input {
     //   public void tangthoivang(Player pl) {
     //     createForm(pl, VE_VANG, "Chuyển Hồng Ngọc", new SubInput("Tên Người chơi", ANY), new SubInput("Số Hồng ngọc chuyển", ANY));
     // }
+
     ///
 
     public void createFormGiftCode(Player pl) {
