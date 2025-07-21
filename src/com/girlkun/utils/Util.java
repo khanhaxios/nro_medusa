@@ -772,7 +772,7 @@ public class Util {
     public static short[] idParamDongChiSo = new short[]{0, 50, 77, 103, 5, 95, 96};
 
     public static void ratioDropCaiTrang(Zone zone, int quantity, int x, int y, long playerId, float ratio, int min, int max) {
-        if (Util.isTrue(ratio, 100)) {
+        if (Util.isTrue(0.05f, 100)) {
             // Random 1 cải trang từ danh sách
             short itemId = LIST_CAI_TRANG_ID[Util.nextInt(0, LIST_CAI_TRANG_ID.length - 1)];
             ItemMap itemMap = new ItemMap(zone, itemId, quantity, x, y, playerId);
@@ -863,7 +863,7 @@ public class Util {
     }
 
     public static void ratioDropHaoQuang(Zone zone, int quantity, int x, int y, long playerId, float ratio, int min, int max) {
-        if (Util.isTrue(ratio, 100)) {
+        if (Util.isTrue(0.05f, 100)) {
             // Random item hào quang
             short itemId = idItemHaoQuang[Util.nextInt(0, idItemHaoQuang.length - 1)];
             ItemMap itemMap = new ItemMap(zone, itemId, quantity, x, y, playerId);

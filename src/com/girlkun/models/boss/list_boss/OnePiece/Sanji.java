@@ -42,9 +42,9 @@ public class Sanji extends Boss {
             itemReward.options.add(new Item.ItemOption(93, Util.nextInt(1, 3)));
         } else {
             itemReward.options.add(new Item.ItemOption(230, 1));
-            itemReward.options.add(new Item.ItemOption(50, 200));
-            itemReward.options.add(new Item.ItemOption(77, 250));
-            itemReward.options.add(new Item.ItemOption(103, 250));
+            itemReward.options.add(new Item.ItemOption(50, 75));
+            itemReward.options.add(new Item.ItemOption(77, 150));
+            itemReward.options.add(new Item.ItemOption(103, 150));
 
         }
         Service.getInstance().dropItemMap(this.zone, itemReward);

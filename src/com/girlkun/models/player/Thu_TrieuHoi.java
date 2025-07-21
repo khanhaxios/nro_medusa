@@ -240,7 +240,7 @@ public class Thu_TrieuHoi extends Player {
             } else {
                 Service.gI().sendThongBao(masterr,
                         "|2|Thức ăn Chiến Thần: " + masterr.TrieuHoiThucAn
-                        + "%\n|1|Bạn đã cho Chiến Thần ăn\nLưu ý: khi cho quá 1000% Chiến Thần sẽ no quá mà chết");
+                                + "%\n|1|Bạn đã cho Chiến Thần ăn\nLưu ý: khi cho quá 1000% Chiến Thần sẽ no quá mà chết");
             }
         }
         if (Util.canDoWithTime(masterr.TrieuHoilastTimeThucan, 600000)) {

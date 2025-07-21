@@ -86,8 +86,8 @@ public class LuyenThe {
 
     public float getLevelUpPercent() {
         if (exp == 0) return 0;
-        if (isNotLuyenThe()) {
-            return ((exp / (maxExp * 1f) * 100) / (level / 3f)) + (timeThatBai * 5);
+        if (!isLuyenTheReal()) {
+            return ((exp / (maxExp * 1f) * 100) / (level / 5f)) + (timeThatBai * 3);
         } else {
             return ((exp / (maxExp * 1f) * 100) / (level / 50f)) + (timeThatBai);
         }

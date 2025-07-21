@@ -41,9 +41,9 @@ public class Black extends Boss {
         }
         Util.ratioRoiBuaZeno(zone, 1, this.location.x, this.location.y, plKill.id);
         // ratio
-        Util.ratioDropCaiTrang(zone, 1, this.location.x, this.location.y, plKill.id, 2f, 100, 150);
+        Util.ratioDropCaiTrang(zone, 1, this.location.x, this.location.y, plKill.id, 2f, 10, 150);
 
-        Util.ratioDropHaoQuang(zone, 1, this.location.x, this.location.y, plKill.id, .5f, 100, 150);
+        Util.ratioDropHaoQuang(zone, 1, this.location.x, this.location.y, plKill.id, .5f, 10, 150);
 
         Util.ratioManhPhapBao(zone, 1, this.location.x, this.location.y, plKill.id, 100);
 

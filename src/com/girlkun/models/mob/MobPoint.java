@@ -9,8 +9,8 @@ public class MobPoint {
     public double hp;
     public double maxHp;
     public double dame;
-    
-    public MobPoint(Mob mob){
+
+    public MobPoint(Mob mob) {
         this.mob = mob;
     }
 
@@ -37,6 +37,6 @@ public class MobPoint {
     public double getDameAttack() {
         return this.dame != 0 ? this.dame + Util.GioiHannextdame(-(this.dame / 100d), (this.dame / 100d))
                 : this.getHpFull() * Util.GioiHannextdame(mob.pDame - 1, mob.pDame + 1) / 100d
-                + Util.GioiHannextdame(-(mob.level * 10d), mob.level * 10d);
+                + Util.GioiHannextdame(-(mob.level * 15d), mob.level * 15d);
     }
 }

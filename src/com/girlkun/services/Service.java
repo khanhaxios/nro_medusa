@@ -1370,17 +1370,19 @@ public class Service {
         }
         if (text.equals("hoisinhct")) {
             if (player.session.vnd - 1_000_000 > 0) {
-                if (player.TrieuHoipet != null || player.TrieuHoiCapBac == -1) {
+                if (player.chienthan != null && player.chienthan.donechienthan > 0) {
                     PlayerDAO.subvnd(player, 1_000_000);
                     player.TrieuHoiCapBac = -1;
                     String oldName = player.TenThuTrieuHoi;
-                    ChangeMapService.gI().exitMap(player.TrieuHoipet);
-                    player.TrieuHoipet.dispose();
-                    player.TrieuHoipet = null;
+                    if (player.TrieuHoipet != null) {
+                        ChangeMapService.gI().exitMap(player.TrieuHoipet);
+                        player.TrieuHoipet.dispose();
+                        player.TrieuHoipet = null;
+                    }
                     player.CreatePet(oldName);
                     Service.gI().sendThongBao(player, "Đã hồi sinh chiến thần");
                 } else {
-                    Service.gI().sendThongBao(player, "M có chiến thần đâu ma hồi sinh");
+                    Service.gI().sendThongBao(player, "M có chiến thần đâu mà hồi sinh");
                 }
             } else {
                 Service.gI().sendThongBao(player, "Cần 1 triệu điểm");

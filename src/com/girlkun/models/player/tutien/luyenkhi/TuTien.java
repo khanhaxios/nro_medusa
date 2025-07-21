@@ -254,7 +254,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     private float getSubLevelOtherBuff() {
-        return Math.max(.3f, this.subLevel * .3f);
+        return Math.max(.1f, this.subLevel * .1f);
     }
 
     private float getSubLevelOtherBuff(float pt) {
@@ -459,7 +459,6 @@ public class TuTien extends BasePoint implements IBaseAction {
     public void update() {
         if (isTuTien() && player.isPl()) {
             // dau tien la cong exp //
-
             if (exp < maxExp && !player.isDie() && Util.canDoWithTime(lastTimeAddExp, 3000)) {
                 if (player.tuTien.congPhap != null && player.tuTien.congPhap.tenCongPhap != null) {
                     long expAdd = (long) (getXDiemThienPhu() * (BASE_EXP_BUFF[level] + (SUB_LEVEL_EXP[subLevel - 1] / 10))) * Math.max(1, congPhap.phamchat.id + 1);

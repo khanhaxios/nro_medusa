@@ -26,13 +26,13 @@ public class ThuocTinhLinhCan {
 
     public short ratioThuocTinhLinhCan() {
         if (Util.isTrue(1, 100)) {
-            return (short) Util.nextInt(50, 80);
+            return (short) Util.nextInt(25, 35);
         } else if (Util.isTrue(10, 100)) {
-            return (short) Util.nextInt(20, 30);
+            return (short) Util.nextInt(15, 20);
         } else if (Util.isTrue(20, 100)) {
-            return (short) Util.nextInt(10, 20);
+            return (short) Util.nextInt(5, 10);
         } else {
-            return (short) Util.nextInt(1, 6);
+            return (short) Util.nextInt(1, 3);
         }
     }
 }

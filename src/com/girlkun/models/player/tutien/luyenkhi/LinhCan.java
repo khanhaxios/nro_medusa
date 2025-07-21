@@ -52,13 +52,13 @@ public class LinhCan {
         String text = "";
         switch (linhCanType) {
             case 0:
-                text = String.format("Đòn đánh thường tăng một Kim Quang\nKhi tích được 3 Kim Quang sẽ gây sát thương bùng nổ bằng\n %s Sát thương linh căn", Math.max(1, thuocTinhLinhCan.getParam() / 100) * (tuTien.congPhap.phamchat.id + 1 + tuTien.xParam) + "%");
+                text = String.format("Đòn đánh thường gây sát thương bùng nổ bằng\n %s Sát thương linh căn", Math.max(1, thuocTinhLinhCan.getParam() / 100) * (tuTien.congPhap.phamchat.id + 1 + tuTien.xParam) + "%");
                 break;
             case 1:
                 text = String.format("Tăng %s khả năng hút máu\n-Đòn đánh thường có %s tỷ lệ gây choáng\nĐòn đánh thường gây %s sát thương chuẩn", thuocTinhLinhCan.getParam() * 3 + "%", (thuocTinhLinhCan.getParam() / 10) + "%", thuocTinhLinhCan.getParam() / 10 * (tuTien.congPhap.phamchat.id + 1 + tuTien.xParam) + "%");
                 break;
             case 2:
-                text = String.format("Tăng %s né tránh và %s phản sát thương\nĐòn đánh thường gây Sát thương bằng %s KI", thuocTinhLinhCan.getParam() / 5 + "%", thuocTinhLinhCan.getParam() / 5 + "%", thuocTinhLinhCan.getParam() + 100 * (tuTien.congPhap.phamchat.id + 1 + tuTien.xParam) + "%");
+                text = String.format("Tăng %s né tránh và %s phản sát thương\nĐòn đánh thường gây Sát thương bằng %s KI", thuocTinhLinhCan.getParam() / 5 + "%", thuocTinhLinhCan.getParam() / 5 + "%", thuocTinhLinhCan.getParam() * (tuTien.congPhap.phamchat.id + 1 + tuTien.xParam) + "%");
                 break;
             case 3:
                 text = String.format("Sát thương cộng dồn mỗi đòn đánh(tối đa lên đến %s)", thuocTinhLinhCan.getParam() + "%");

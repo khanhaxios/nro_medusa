@@ -2204,25 +2204,25 @@ public class NPoint {
             return 12000;
         }
         if (limitPower == 2) {
-            return 15555;
+            return 15000;
         }
         if (limitPower == 3) {
-            return 18888;
+            return 18000;
         }
         if (limitPower == 4) {
             return 20000;
         }
         if (limitPower == 5) {
-            return 23333;
+            return 22000;
         }
         if (limitPower == 6) {
-            return 24555;
+            return 25000;
         }
         if (limitPower == 7) {
-            return 26888;
+            return 28888;
         }
         if (limitPower == 8) {
-            return 28111;
+            return 29999;
         }
         if (limitPower == 9) {
             return 31666;
@@ -2231,13 +2231,13 @@ public class NPoint {
             return 33000;
         }
         if (limitPower == 11) {
-            return 36666;
+            return 35000;
         }
         if (limitPower == 12) {
-            return 40888;
+            return 36000;
         }
         if (limitPower == 13) {
-            return 48888;
+            return 38888;
         }
         return 0;
     }

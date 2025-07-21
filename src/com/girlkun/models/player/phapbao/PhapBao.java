@@ -161,7 +161,7 @@ public class PhapBao implements Cloneable {
             } else if (optionId == 17 || optionId == 18) {
                 pointToAdd = originParam * 5L / 100;
             } else {
-                pointToAdd = Math.max(1, Util.nextInt(1, pham));
+                pointToAdd = Math.max(1, Util.nextInt(1, 2));
             }
         } else if (pham >= 4 && pham < 8) {
             if (optionId == 0) {
@@ -754,7 +754,7 @@ public class PhapBao implements Cloneable {
     }
 
     public String getBaseThuocTinhHonNoTitle() {
-        return Util.getHonorialLine(12) +  "|" +  getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + getThuocTinhPhapBaoAsString() + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n";
+        return Util.getHonorialLine(12) + "|" + getColorPhapBaoByPhamChat() + "|" + "\n" + getFullName() + "\n" + getThuocTinhPhapBaoAsString() + "|7|Chiến lực : " + Util.powerToString(danhGiaLucChienPhapBao()) + "\n";
     }
 
     public String getBaseThuocTinhHon(PhapBao cu) {

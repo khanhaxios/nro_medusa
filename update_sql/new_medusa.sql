@@ -46,12 +46,12 @@ CREATE TABLE IF NOT EXISTS `account` (
   `device_id` text NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `username` (`username`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2557 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table medusa.account: ~1 rows (approximately)
+-- Dumping data for table medusa.account: ~0 rows (approximately)
 DELETE FROM `account`;
 INSERT INTO `account` (`id`, `username`, `password`, `create_time`, `update_time`, `ban`, `point_post`, `last_post`, `role`, `is_admin`, `last_time_login`, `last_time_logout`, `ip_address`, `active`, `thoi_vang`, `server_login`, `bd_player`, `is_gift_box`, `gift_time`, `reward`, `vnd`, `tongnap`, `device_id`) VALUES
-	(3, 'admin', 'admindeptrai', '2024-06-03 21:37:11', '2024-06-03 21:37:11', 0, 0, 0, -1, 1, '1999-12-31 17:00:00', '2000-12-31 17:00:00', '127.0.0.1', 1, 0, -1, 1, 0, '0', NULL, 10000000000, 0, '0');
+	(1, 'admin', 'admin1312', '2025-07-21 13:17:47', '2025-07-21 13:17:47', 0, 0, 0, -1, 0, '1999-12-31 17:00:00', '2000-12-31 17:00:00', '127.0.0.1', 0, 0, -1, 1, 0, '0', NULL, 100035, 0, 'a0dd167c-532e-42d2-9a7f-ebf5cc2ac17a');
 
 -- Dumping structure for table medusa.achievement
 CREATE TABLE IF NOT EXISTS `achievement` (
@@ -94,8 +94,50 @@ CREATE TABLE IF NOT EXISTS `admin_follow` (
   `time_buff` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='Theo dỗi lệnh buff admin';
 
--- Dumping data for table medusa.admin_follow: ~0 rows (approximately)
+-- Dumping data for table medusa.admin_follow: ~36 rows (approximately)
 DELETE FROM `admin_follow`;
+INSERT INTO `admin_follow` (`user_admin`, `user_target`, `type_buff`, `name_item`, `id_option`, `qty_buff`, `time_buff`) VALUES
+	('admin', 'admin', 'Buff Đồ lệnh i', 'Máy dò BOSS', '', 1, '2025-05-31 22:59:36'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Bản đồ Kho Báu', '', 1, '2025-06-07 15:33:35'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Bản đồ Kho Báu', '', 1, '2025-06-07 15:37:41'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Quần Hủy Diệt', '', 1, '2025-06-11 15:59:12'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Găng Thần Linh', '', 1, '2025-06-11 15:59:39'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Áo Hủy Diệt', '', 1, '2025-06-11 15:59:48'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Hộp đồ hủy diệt Namec', '', 1, '2025-06-11 15:59:57'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Hộp đồ hủy diệt Namec', '', 1, '2025-06-11 16:00:19'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Hộp đồ hủy diệt Namec', '', 1, '2025-06-11 16:00:34'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Hộp đồ hủy diệt Namec', '', 1, '2025-06-11 16:00:36'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Hòm tiếp tế Xayda', '', 1, '2025-06-11 16:00:40'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Hộp đồ hủy diệt Namec', '', 1, '2025-06-11 16:00:44'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Hộp đồ hủy diệt Namec', '', 1, '2025-06-11 16:00:46'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Đá MEDUSA', '', 1, '2025-06-11 17:04:08'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Đá MEDUSA VIP', '', 1, '2025-06-11 17:04:19'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Đế Vương Thạch', '', 1, '2025-06-11 17:05:23'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Đế Vương Thạch', '', 1, '2025-06-11 17:05:30'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Đá nâng cấp cấp 3', '', 1, '2025-06-17 16:44:46'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Đá nâng cấp cấp 4', '', 1, '2025-06-17 16:44:51'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Ngưng nguyên đan', '', 1, '2025-06-17 16:45:05'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Tố Linh Đan', '', 1, '2025-06-17 16:45:09'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Tố Linh Đan', '', 1, '2025-06-17 16:45:15'),
+	('130425', '130425', 'Buff Đồ Không Chỉ Số', 'Tố Linh Đan', '', 1000, '2025-06-17 16:45:35'),
+	('130425', '130425', 'Buff Đồ Không Chỉ Số', 'Tố Linh Đan', '', 100, '2025-06-17 16:51:08'),
+	('130425', '130425', 'Buff Đồ Không Chỉ Số', 'Tôi thể đan', '', 1000, '2025-06-17 17:17:37'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Danh hiệu Winther', '', 1, '2025-06-17 17:40:40'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Nhẫn Thông Thiên', '', 1, '2025-06-17 17:40:48'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Hồn Đạo Lữ', '', 1, '2025-06-20 09:59:04'),
+	('130425', '130425', 'Buff Đồ lệnh i', '', '', 1, '2025-06-20 09:59:19'),
+	('admin', 'admin', 'Buff Đồ lệnh i', 'Hồn Đạo Lữ', '', 1, '2025-06-20 10:00:39'),
+	('admin', 'admin', 'Buff Đồ lệnh i', 'Hồn Đạo Lữ', '', 1, '2025-06-20 10:00:55'),
+	('admin', 'admin', 'Buff Đồ lệnh i', 'Đá nâng cấp cấp 3', '', 1, '2025-06-20 10:02:48'),
+	('admin', 'admin', 'Buff Đồ lệnh i', 'Đan tăng phẩm Đạo Lữ', '', 1, '2025-06-20 10:02:52'),
+	('admin', 'admin', 'Buff Đồ Không Chỉ Số', 'Đan tăng phẩm Đạo Lữ', '', 100, '2025-06-20 10:03:38'),
+	('admin', 'admin', 'Buff Đồ Không Chỉ Số', 'Thiên Nguyệt thạch', '', 100, '2025-06-20 10:33:25'),
+	('admin', 'admin', 'Buff Đồ Không Chỉ Số', 'Đá MEDUSA VIP', '', 100, '2025-06-20 10:37:00'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Áo vàng Goku', '', 1, '2025-07-04 20:29:23'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Phiếu pháp bảo', '', 1, '2025-07-04 20:29:28'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Phiếu pháp bảo', '', 1, '2025-07-04 20:29:33'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Phiếu pháp bảo', '', 1, '2025-07-04 20:29:43'),
+	('130425', '130425', 'Buff Đồ lệnh i', 'Phiếu pháp bảo', '', 1, '2025-07-04 20:51:15');
 
 -- Dumping structure for table medusa.bg_item_template
 CREATE TABLE IF NOT EXISTS `bg_item_template` (
@@ -672,6 +714,8 @@ CREATE TABLE IF NOT EXISTS `clan_sv1` (
 
 -- Dumping data for table medusa.clan_sv1: ~0 rows (approximately)
 DELETE FROM `clan_sv1`;
+INSERT INTO `clan_sv1` (`id`, `NAME`, `slogan`, `img_id`, `power_point`, `max_member`, `clan_point`, `LEVEL`, `members`, `doanh_trai`, `create_time`) VALUES
+	(0, 'cc', '', 0, 0, 20, 0, 0, '["{\\"role\\":0,\\"receive_donate\\":0,\\"member_point\\":0,\\"body\\":392,\\"join_time\\":1749284854,\\"leg\\":393,\\"head\\":391,\\"ask_pea_time\\":0,\\"name\\":\\"bluepla\\",\\"clan_point\\":0,\\"id\\":42,\\"donate\\":0,\\"power\\":7439590341596}"]', '[1749284854801,"Việt"]', '2025-06-07 08:27:34');
 
 -- Dumping structure for table medusa.clan_sv2
 CREATE TABLE IF NOT EXISTS `clan_sv2` (
@@ -700,10 +744,12 @@ CREATE TABLE IF NOT EXISTS `devices` (
   `created_at` bigint(20) DEFAULT NULL,
   `note` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table medusa.devices: ~0 rows (approximately)
 DELETE FROM `devices`;
+INSERT INTO `devices` (`id`, `device_id`, `ip_address`, `platform`, `created_at`, `note`) VALUES
+	(1, 'a0dd167c-532e-42d2-9a7f-ebf5cc2ac17a', '127.0.0.1', 'Windows Editor', 1749012270189, '');
 
 -- Dumping structure for table medusa.dhvt_template
 CREATE TABLE IF NOT EXISTS `dhvt_template` (
@@ -885,10 +931,15 @@ CREATE TABLE IF NOT EXISTS `gidtcode_history` (
   `code` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Lịch sử nhận gift code';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Lịch sử nhận gift code';
 
--- Dumping data for table medusa.gidtcode_history: ~0 rows (approximately)
+-- Dumping data for table medusa.gidtcode_history: ~2 rows (approximately)
 DELETE FROM `gidtcode_history`;
+INSERT INTO `gidtcode_history` (`id`, `player_id`, `code`, `time`) VALUES
+	(1, 3, 'nrorise', '2025-05-31 22:53:30'),
+	(2, 3, 'bosss', '2025-05-31 22:54:15'),
+	(3, 3, 'tutien', '2025-05-31 23:06:48'),
+	(4, 3, 'tolinhdan', '2025-06-05 13:38:01');
 
 -- Dumping structure for table medusa.giftcodeviet
 CREATE TABLE IF NOT EXISTS `giftcodeviet` (
@@ -897,16 +948,16 @@ CREATE TABLE IF NOT EXISTS `giftcodeviet` (
   `Luot` int(11) NOT NULL,
   `Item` text NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table medusa.giftcodeviet: ~4 rows (approximately)
+-- Dumping data for table medusa.giftcodeviet: ~5 rows (approximately)
 DELETE FROM `giftcodeviet`;
 INSERT INTO `giftcodeviet` (`id`, `Code`, `Luot`, `Item`) VALUES
-	(1, 'nrorise', 999, '[{"item":1332,"soluong":1,"Option":[{"option":50,"chiso":30},{"option":77,"chiso":40},{"option":103,"chiso":40},{"option":14,"chiso":5},{"option":101,"chiso":100},{"option":100,"chiso":100},{"option":30,"chiso":0}]},{"item":2067,"soluong":1,"Option":[{"option":50,"chiso":35},{"option":77,"chiso":50},{"option":103,"chiso":50},{"option":101,"chiso":100},{"option":30,"chiso":0}]},{"item":457,"soluong":100,"Option":[{"option":30,"chiso":0}]},{"item":861,"soluong":100000,"Option":[{"option":30,"chiso":0}]},\r\n{"item":671,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"item":672,"soluong":5,"Option":[{"option":30,"chiso":0}]},\r\n{"522":672,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"522":219,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"522":213,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"522":214,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"522":215,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"522":216,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"522":218,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"522":217,"soluong":10,"Option":[{"option":30,"chiso":0}]}\r\n]'),
-	(2, 'tutien', 999, '[{"item":1260,"soluong":99,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1262,"soluong":99,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1263,"soluong":99,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1264,"soluong":99,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1265,"soluong":99,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1266,"soluong":99,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1261,"soluong":99,"Option":[{"option":30,"chiso":0}]}\r\n]'),
-	(4, 'bosss', 999, '[{"item":1296,"soluong":999,"Option":[{"option":30,"chiso":0}]}\r\n]'),
+	(1, 'nrorise', 998, '[{"item":1332,"soluong":1,"Option":[{"option":50,"chiso":30},{"option":77,"chiso":40},{"option":103,"chiso":40},{"option":14,"chiso":5},{"option":101,"chiso":100},{"option":100,"chiso":100},{"option":30,"chiso":0}]},{"item":2067,"soluong":1,"Option":[{"option":50,"chiso":35},{"option":77,"chiso":50},{"option":103,"chiso":50},{"option":101,"chiso":100},{"option":30,"chiso":0}]},{"item":457,"soluong":100,"Option":[{"option":30,"chiso":0}]},{"item":861,"soluong":100000,"Option":[{"option":30,"chiso":0}]},\r\n{"item":671,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"item":672,"soluong":5,"Option":[{"option":30,"chiso":0}]},\r\n{"item":672,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"item":219,"soluong":30,"Option":[{"option":30,"chiso":0}]},\r\n{"item":213,"soluong":30,"Option":[{"option":30,"chiso":0}]},\r\n{"item":214,"soluong":30,"Option":[{"option":30,"chiso":0}]},\r\n{"item":215,"soluong":30,"Option":[{"option":30,"chiso":0}]},\r\n{"item":216,"soluong":30,"Option":[{"option":30,"chiso":0}]},\r\n{"item":218,"soluong":30,"Option":[{"option":30,"chiso":0}]},\r\n{"item":217,"soluong":30,"Option":[{"option":30,"chiso":0}]}\r\n]'),
+	(2, 'tutien', 998, '[{"item":1260,"soluong":999,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1262,"soluong":999,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1263,"soluong":999,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1264,"soluong":999,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1265,"soluong":999,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1266,"soluong":999,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1261,"soluong":999,"Option":[{"option":30,"chiso":0}]}\r\n]'),
+	(4, 'bosss', 998, '[{"item":1296,"soluong":999,"Option":[{"option":30,"chiso":0}]}\r\n]'),
 	(5, 'dovip', 20, '[{"item":1079,"soluong":9,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1081,"soluong":9,"Option":[{"option":30,"chiso":0}]}\r\n]'),
-	(6, 'admindeptrai', 3, '[{"item":1532,"soluong":9,"Option":[{"option":30,"chiso":0}]}\r\n]');
+	(7, 'tolinhdan', 998, '[{"item":2068,"soluong":10,"Option":[{"option":30,"chiso":0}]}\r\n]');
 
 -- Dumping structure for table medusa.head_avatar
 CREATE TABLE IF NOT EXISTS `head_avatar` (
@@ -1833,7 +1884,7 @@ CREATE TABLE IF NOT EXISTS `item_shop` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `tab_id` (`tab_id`) USING BTREE,
   KEY `temp_id` (`temp_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1094 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1095 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table medusa.item_shop: ~804 rows (approximately)
 DELETE FROM `item_shop`;
@@ -2659,7 +2710,7 @@ INSERT INTO `item_shop` (`id`, `tab_id`, `temp_id`, `is_new`, `is_sell`, `type_s
 	(1079, 77, 1565, 1, 1, 3, 200000, 7743, '2025-05-21 02:02:49', 0),
 	(1080, 77, 1566, 1, 1, 3, 300000, 7743, '2025-05-21 02:05:47', 0),
 	(1081, 77, 1567, 1, 1, 3, 400000, 7743, '2025-05-21 02:06:09', 0),
-	(1082, 77, 1568, 1, 0, 3, 500000, 7743, '2025-05-21 02:06:35', 0),
+	(1082, 77, 1568, 1, 1, 3, 500000, 7743, '2025-05-21 02:06:35', 0),
 	(1083, 77, 1569, 1, 1, 3, 600000, 7743, '2025-05-21 02:06:52', 0),
 	(1084, 75, 1570, 1, 1, 3, 200000, 7743, '2025-05-21 02:07:28', 0),
 	(1085, 75, 1571, 1, 1, 3, 300000, 7743, '2025-05-21 02:07:57', 0),
@@ -2670,7 +2721,8 @@ INSERT INTO `item_shop` (`id`, `tab_id`, `temp_id`, `is_new`, `is_sell`, `type_s
 	(1090, 76, 1576, 1, 1, 3, 300000, 7743, '2025-05-21 02:09:27', 0),
 	(1091, 76, 1577, 1, 1, 3, 400000, 7743, '2025-05-21 02:09:46', 0),
 	(1092, 76, 1578, 1, 1, 3, 500000, 7743, '2025-05-21 02:10:00', 0),
-	(1093, 76, 1579, 1, 1, 1, 600000, 7743, '2025-05-21 02:10:13', 0);
+	(1093, 76, 1579, 1, 1, 1, 600000, 7743, '2025-05-21 02:10:13', 0),
+	(1094, 32, 1296, 1, 1, 1, 10000, 7743, '2025-06-07 08:08:14', 0);
 
 -- Dumping structure for table medusa.item_shop_option
 CREATE TABLE IF NOT EXISTS `item_shop_option` (
@@ -2683,7 +2735,7 @@ CREATE TABLE IF NOT EXISTS `item_shop_option` (
   KEY `option_id` (`option_id`) USING BTREE,
   CONSTRAINT `item_shop_option_ibfk_1` FOREIGN KEY (`item_shop_id`) REFERENCES `item_shop` (`id`) ON DELETE CASCADE,
   CONSTRAINT `item_shop_option_ibfk_2` FOREIGN KEY (`option_id`) REFERENCES `item_option_template` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2700 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2701 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table medusa.item_shop_option: ~2,132 rows (approximately)
 DELETE FROM `item_shop_option`;
@@ -4819,7 +4871,8 @@ INSERT INTO `item_shop_option` (`id`, `item_shop_id`, `option_id`, `param`) VALU
 	(2696, 520, 77, 50),
 	(2697, 520, 103, 50),
 	(2698, 855, 5, 100),
-	(2699, 856, 5, 100);
+	(2699, 856, 5, 100),
+	(2700, 1094, 30, 0);
 
 -- Dumping structure for table medusa.item_template
 CREATE TABLE IF NOT EXISTS `item_template` (
@@ -6455,7 +6508,7 @@ INSERT INTO `item_template` (`id`, `TYPE`, `gender`, `NAME`, `description`, `ico
 	(1609, 27, 3, 'Vô Thượng Thánh Đan', 'Đan Dược chuyên dùng cho Đạo Lữ cấp bậc Đấu Thánh', 11969, -1, 1, 0, 0, 0, -1, -1, -1),
 	(1610, 27, 3, 'Mảnh Đà Xá Cổ Đế Ngọc', 'Thu Thập Đủ 4 Mảnh Để Đột Phá Đạo Lữ Lên Cấp Bậc Cao Nhất - Cấp Bậc Đấu Đế!', 11970, -1, 1, 0, 0, 0, -1, -1, -1),
 	(1611, 27, 3, 'Đan Thăng Nhị Phẩm', 'Thăng phẩm Đạo Lữ từ Nhất Phẩm lên Nhị Phẩm', 11971, -1, 1, 0, 0, 0, -1, -1, -1),
-	(1612, 27, 3, 'Đan Thăng Tam Phẩm', 'Thăng phẩm Đạo Lữ từ Nhị Phẩm lên Tam Phẩm', 11972, -1, 1, 0, 0, 0, -1, -1, -1),
+	(1612, 27, 3, 'Đan thăng phẩm VIP', 'Dùng có tỷ lệ tăng phẩm đạo lữ', 11972, -1, 1, 0, 0, 0, -1, -1, -1),
 	(1613, 75, 3, '', '', 0, 0, 1, 0, 0, 0, -1, -1, -1),
 	(1614, 75, 3, '', '', 0, 0, 1, 0, 0, 0, -1, -1, -1),
 	(1615, 75, 3, '', '', 0, 0, 1, 0, 0, 0, -1, -1, -1),
@@ -6874,7 +6927,7 @@ INSERT INTO `item_template` (`id`, `TYPE`, `gender`, `NAME`, `description`, `ico
 	(2028, 73, 3, 'Quả trứng thiên thần', 'Bên trong có chứa Linh thú Thường', 15072, -1, 1, 0, 0, 0, -1, -1, -1),
 	(2029, 27, 3, 'Hồn linh thú', 'Tới gặp Bulma để được hỗ trợ', 15075, -1, 1, 0, 500000000, 0, -1, -1, -1),
 	(2030, 27, 3, 'Đá ma thuật', 'Dùng để mở khóa chỉ số ẩn', 15076, -1, 1, 0, 0, 0, -1, -1, -1),
-	(2031, 27, 3, 'Thăng tinh thạch', 'Bảo thạch hiếm, dùng để đổi PET', 15077, -1, 1, 0, 500000000, 0, -1, -1, -1),
+	(2031, 27, 3, 'Thăng tinh thạch', 'Bảo thạch hiếm, dùng để đột phá thiên đạo luyện khí', 15077, -1, 1, 0, 500000000, 0, -1, -1, -1),
 	(2032, 5, 3, 'Cải trang', 'Cải trang thành Granola', 15202, -1, 0, 15000000, 0, 0, 2018, 2019, 2020),
 	(2033, 72, 3, 'Linh thú lửa chùa', 'Linh thú lửa', 15245, -1, 0, 0, 0, 0, -1, -1, -1),
 	(2034, 72, 3, 'kiếm vip', 'trang bị vip', 14003, -1, 0, 0, 0, 0, -1, -1, -1),
@@ -6910,7 +6963,19 @@ INSERT INTO `item_template` (`id`, `TYPE`, `gender`, `NAME`, `description`, `ico
 	(2064, 2, 2, 'Hoàng Long Trảo', 'Trang bị tiên dành cho xayda', 10516, -1, 0, 0, 0, 0, -1, -1, -1),
 	(2065, 3, 2, 'Viêm Bộ', 'Trang bị tiên dành cho xayda', 10513, -1, 0, 0, 0, 0, -1, -1, -1),
 	(2066, 5, 3, 'Super Broly', 'Cải trang Super Broly Hủy Diệt', 14712, -1, 0, 0, 0, 0, 2043, 2044, 2045),
-	(2067, 5, 3, 'Super Broly Rose', 'Cải Trang SuperBroly Hồng Hủy Diệt', 14736, -1, 0, 0, 0, 0, 2048, 2049, 2050);
+	(2067, 5, 3, 'Super Broly Rose', 'Cải Trang SuperBroly Hồng Hủy Diệt', 14736, -1, 0, 0, 0, 0, 2048, 2049, 2050),
+	(2068, 27, 3, 'Tố Linh Đan', 'Dùng để tẩy thuộc tính linh căn', 11972, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2069, 66, 3, 'Mầm đậu thần', 'Dùng để luyện chế đan dược', 84, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2070, 66, 3, 'Khúc liên', 'Dùng để luyện chế đan dược', 11756, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2071, 66, 3, 'Cam ngọc', 'Dùng để luyện chế đan dược', 12056, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2072, 77, 3, 'Tôi thể đan', 'Dùng tăng một chút căn cốt', 11964, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2073, 77, 3, 'Ngưng nguyên đan', 'Dùng tăng một chút ngộ tính', 11968, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2074, 77, 3, 'Tẩy tủy đan', 'Dùng để tẩy kháng tính và tăng tư chất', 10741, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2075, 77, 3, 'Thiên phú đan', 'Dùng để tẩy tư chất', 11969, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2076, 27, 3, 'Đan tăng phẩm Đạo Lữ', 'Dùng để tăng phẩm đạo lữ', 12056, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2077, 27, 3, 'Huyết Đan', 'Đân ngưng từ quái dùng tăng một chút chỉ số', 16125, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2078, 27, 3, 'Phiếu pháp bảo', '10 cái ghép thành một pháp bảo', 7390, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2079, 27, 3, 'Phiếu cường hóa', 'Dùng để cường hóa pháp bảo', 7389, -1, 1, 0, 0, 0, -1, -1, -1);
 
 -- Dumping structure for table medusa.map_template
 CREATE TABLE IF NOT EXISTS `map_template` (
@@ -6938,7 +7003,7 @@ INSERT INTO `map_template` (`id`, `NAME`, `zones`, `max_player`, `data`, `type`,
 	(2, 'Thung lũng tre', 12, 12, '[0,0,0,1,0]', 0, 0, 0, 1, 0, '["["Đồi hoa cúc",0,336,24,360,0,0,1,1476,360]","["Rừng nấm",1224,264,1248,288,0,0,3,60,408]","["Trạm tàu vũ trụ",552,360,624,384,1,0,24,235,336]"]', '["[4,3,500,348,408]","[1,2,200,996,288]","[1,2,200,876,336]","[4,3,500,756,336]"]', '[[6,180,360]]'),
 	(3, 'Rừng nấm', 12, 12, '[0,0,0,2,1]', 0, 0, 0, 2, 1, '["["Thung lũng tre",0,384,24,408,0,0,2,1188,288]","["Rừng xương",1608,312,1632,336,0,0,4,60,312]","["Rừng Bamboo",1344,312,1416,336,1,0,27,60,192]"]', '["[1,2,200,372,408]","[1,2,200,540,408]","[1,2,200,732,408]","[4,3,500,1140,336]","[7,4,600,444,288]","[7,4,600,708,288]","[7,4,600,924,240]","[7,4,600,1188,240]"]', '[[6,204,408]]'),
 	(4, 'Rừng xương', 12, 12, '[0,0,0,2,1]', 0, 0, 0, 2, 1, '["["Rừng nấm",0,288,24,312,0,0,3,1572,336]","["Đảo Kamê",1608,312,1632,336,0,0,5,35,288]"]', '["[4,3,500,1044,360]","[4,3,500,684,360]","[7,4,600,444,264]","[7,4,600,852,240]","[7,4,600,1260,288]","[10,5,1000,612,144]","[10,5,1000,1092,144]"]', '[[6,180,312]]'),
-	(5, 'Đảo Kamê', 12, 20, '[0,0,0,3,2]', 0, 0, 0, 3, 2, '["["Rừng xương",0,264,24,288,0,0,4,1572,336]","["Đông Karin",1704,264,1728,288,0,0,6,60,336]","["Nam Kamê",792,384,864,408,1,0,29,732,360]"]', '[]', '[[39,931,408],[13,1108,408],[6,324,278],[58,241,288],[76,500,390],[83,409,288],[65,1182,408],[86,1318,408],[54,879,408],[124,855,192],[88,1592,408],[90,154,288],[66,1180,192],[92,1120,192],[98,1352,192],[21,1438,192],[89,777,192]]'),
+	(5, 'Đảo Kamê', 12, 20, '[0,0,0,3,2]', 0, 0, 0, 3, 2, '["["Rừng xương",0,264,24,288,0,0,4,1572,336]","["Đông Karin",1704,264,1728,288,0,0,6,60,336]","["Nam Kamê",792,384,864,408,1,0,29,732,360]"]', '[]', '[[39,931,408],[13,1108,408],[6,324,278],[58,241,288],[83,409,288],[65,1182,408],[86,1318,408],[54,879,408],[124,870,192],[88,1592,408],[90,154,288],[21,1438,192],[89,790,192]]'),
 	(6, 'Đông Karin', 12, 12, '[0,0,0,4,3]', 0, 0, 0, 4, 3, '["["Đảo Kamê",0,312,24,336,0,0,5,1693,288]"]', '["[19,8,12000,228,336]","[19,8,12000,396,336]","[19,8,12000,564,336]","[25,8,20000,780,168]"]', '[[6,1092,336]]'),
 	(7, 'Làng Mori', 12, 12, '[0,1,4,5,0]', 0, 1, 4, 5, 0, '["["Đồi nấm tím",1224,408,1248,432,0,0,8,60,432]","["Nhà Moori",384,408,456,432,1,1,22,207,336]","["Vách núi Moori",0,384,24,408,0,0,43,1380,432]"]', '[[0,1,100,708,410],[0,1,100,804,410],[0,1,100,900,410],[0,1,100,996,410]]', '[[6,564,432],[8,300,432],[64,550,432]]'),
 	(8, 'Đồi nấm tím', 12, 12, '[0,1,4,5,0]', 0, 1, 4, 5, 0, '["["Làng Mori",0,408,24,432,0,0,7,1188,432]","["Thị trấn Moori",1224,384,1248,408,0,0,9,60,216]"]', '["[2,2,200,276,384]","[2,2,200,444,336]","[2,2,200,636,288]","[2,2,200,852,360]"]', '[[6,1020,408]]'),
@@ -6953,7 +7018,7 @@ INSERT INTO `map_template` (`id`, `NAME`, `zones`, `max_player`, `data`, `type`,
 	(17, 'Rừng nguyên sinh', 12, 12, '[0,2,0,10,9]', 0, 2, 0, 10, 9, '["["Làng Plant",0,288,24,312,0,0,16,1188,240]","["Rừng thông Xayda",1560,288,1584,312,0,0,18,60,408]","["Rừng cọ",1320,288,1392,312,1,0,35,60,216]"]', '["[3,2,200,588,432]","[3,2,200,1212,360]","[6,3,500,828,432]","[3,2,200,1020,408]","[9,4,600,612,336]","[9,4,600,396,288]","[9,4,600,924,312]","[9,4,600,1188,240]"]', '[[6,204,312]]'),
 	(18, 'Rừng thông Xayda', 12, 12, '[0,2,0,10,9]', 0, 2, 0, 10, 9, '["["Rừng nguyên sinh",0,384,24,408,0,0,17,1524,312]","["Vách núi đen",1560,408,1584,432,0,0,20,60,288]"]', '["[6,3,500,1044,288]","[6,3,500,468,288]","[9,4,600,852,312]","[9,4,600,1236,312]","[9,4,600,660,312]","[12,5,1000,612,144]","[12,5,1000,1188,144]"]', '[[6,180,408]]'),
 	(19, 'Thành phố Vegeta', 12, 12, '[0,2,0,11,10]', 0, 2, 0, 11, 10, '["["Vách núi đen",0,336,24,360,0,0,20,1620,288]"]', '["[27,8,20000,876,360]","[21,8,12000,276,288]","[21,8,12000,684,288]","[21,8,12000,468,288]"]', '[[12,1140,360],[53,1064,360]]'),
-	(20, 'Vách núi đen', 20, 12, '[0,2,0,12,11]', 0, 2, 0, 12, 11, '["["Rừng thông Xayda",0,264,24,288,0,0,18,1524,432]","["Thành phố Vegeta",1656,264,1680,288,0,0,19,60,360]","["Thung lũng đen",1200,336,1272,360,1,0,37,735,384]"]', '[[15,1,3000,705,360],[15,1,3000,276,360],[15,1,3000,631,360],[15,1,3000,415,360],[15,1,3000,1531,360],[15,1,3000,1471,360],[15,1,3000,131,360],[15,1,3000,1345,360],[15,1,3000,1307,360],[15,1,3000,1158,360],[15,1,3000,101,360],[15,1,3000,774,360]]', '[[39,916,360],[6,180,288],[15,996,360],[98,843,360]]'),
+	(20, 'Vách núi đen', 20, 12, '[0,2,0,12,11]', 0, 2, 0, 12, 11, '["["Rừng thông Xayda",0,264,24,288,0,0,18,1524,432]","["Thành phố Vegeta",1656,264,1680,288,0,0,19,60,360]","["Thung lũng đen",1200,336,1272,360,1,0,37,735,384]"]', '[[15,1,3000,705,360],[15,1,3000,276,360],[15,1,3000,631,360],[15,1,3000,415,360],[15,1,3000,1531,360],[15,1,3000,1471,360],[15,1,3000,131,360],[15,1,3000,1345,360],[15,1,3000,1307,360],[15,1,3000,1158,360],[15,1,3000,101,360],[15,1,3000,774,360]]', '[[39,916,360],[6,180,288],[15,996,360],[106,843,360]]'),
 	(21, 'Nhà Gôhan', 50, 50, '[1,0,0,1,0]', 1, 0, 0, 1, 0, '["["Làng Aru",456,312,528,336,1,1,0,332,432]"]', '[]', '[[4,348,336],[3,84,336],[0,228,336],[50,700,336],[89,152,336]]'),
 	(22, 'Nhà Moori', 50, 50, '[1,1,4,5,0]', 1, 1, 4, 5, 0, '["["Làng Mori",168,312,240,336,1,1,7,425,432]"]', '[]', '[[4,372,336],[2,516,336],[3,636,336],[50,700,336],[89,448,336]]'),
 	(23, 'Nhà Broly', 50, 50, '[1,2,0,9,8]', 1, 2, 0, 9, 8, '["["Làng Kakarot",432,312,504,336,1,1,14,547,408]"]', '[]', '[[3,84,336],[1,228,336],[4,348,336],[50,700,336],[89,288,336]]'),
@@ -7051,7 +7116,7 @@ INSERT INTO `map_template` (`id`, `NAME`, `zones`, `max_player`, `data`, `type`,
 	(119, 'Cửa Ải 3', 10, 12, '[0,2,2,12,11]', 0, 2, 2, 12, 11, '[]', '[]', '[[44,231,330],[46,480,330]]'),
 	(120, 'Phòng chỉ huy', 10, 12, '[0,2,0,12,0]', 0, 2, 0, 12, 0, '[]', '[]', '[[44,231,330],[46,480,330]]'),
 	(122, 'Ngũ hành sơn 3', 15, 15, '[0,2,0,1,0]', 0, 2, 0, 1, 0, '[]', '["[78,10,100000000,577,408]","[78,10,100000000,784,408]","[78,10,410400,1033,360]","[78,10,100000000,1277,360]"]', '[]'),
-	(123, 'Ngũ hành sơn 1', 15, 15, '[0,2,0,1,0]', 0, 2, 0, 1, 0, '[]', '["[78,99,100000000,577,408]","[78,99,100000000,784,408]","[78,99,410400,1033,360]","[78,99,100000000,1277,360]"]', '[[49,298,384]]'),
+	(123, 'Ngũ hành sơn 1', 15, 15, '[0,2,0,1,0]', 0, 2, 0, 1, 0, '[]', '["[78,50,2500000,577,408]","[78,50,2500000,677,408]","[78,50,2500000,784,408]","[78,50,2500000,800,408]","[78,50,2500000,1033,360]","[78,50,2500000,1122,360]","[78,50,2500000,1277,360]","[78,50,2500000,1377,360]","[78,50,2500000,1477,360]"]', '[[49,298,384]]'),
 	(124, 'Ngũ hành sơn 2', 15, 15, '[0,2,0,1,0]', 0, 2, 0, 1, 0, '[]', '["[78,10,100000000,577,408]","[78,10,100000000,784,408]","[78,10,410400,1033,360]","[78,10,100000000,1277,360]"]', '[]'),
 	(126, 'Thành phố Santa', 10, 12, '[0,2,0,11,10]', 0, 2, 0, 11, 10, '[]', '["[70,23,40000000,400,360]","[50,12,180000,228,240]","[50,12,180000,540,240]","[50,12,180000,708,240]","[50,12,180000,1020,240]","[50,12,180000,372,168]","[50,12,180000,876,168]"]', '[[53,137,360]]'),
 	(127, 'Cổng phi thuyền', 10, 12, '[0,2,2,12,11]', 0, 2, 2, 12, 11, '[]', '[]', '[[44,108,312]]'),
@@ -7066,10 +7131,10 @@ INSERT INTO `map_template` (`id`, `NAME`, `zones`, `max_player`, `data`, `type`,
 	(138, 'Cảng hải tặc', 61, 15, '[0,0,0,28,0]', 4, 0, 0, 28, 0, '["["Động hải tặc",0,312,24,336,0,0,135,1120,1032]","["Hang Bạch Tuộc",696,312,720,336,0,0,136,60,192]"]', '["[37,8,40732,156,240]","[37,8,40732,276,168]","[37,8,40732,372,240]","[37,8,40732,492,168]","[72,8,400000,550,336]"]', '[]'),
 	(139, 'Hành tinh Potaufeu', 26, 12, '[0,2,0,9,8]', 0, 2, 0, 9, 8, '[["Hang động Potaufeu",600,384,672,408,1,0,140,60,336]]', '[]', '[[63,134,408]]'),
 	(140, 'Hang động Potaufeu', 26, 12, '[0,2,0,9,8]', 0, 2, 0, 9, 8, '[["Hành tinh Potaufeu",12,312,35,336,0,0,139,636,408]]', '[]', '[[62,434,336]]'),
-	(141, 'Con đường rắn độc 1', 26, 12, '[0,0,5,14,0]', 0, 0, 5, 14, 0, '["["Con đường rắn độc 2",1176,312,1200,336,0,0,142,60,336]"]', '["[74,8,10000000,444,336]","[73,8,10000000,684,336]","[74,8,10000000,924,336]","[75,8,10000000,324,192]","[75,8,10000000,588,216]","[75,8,10000000,828,192]"]', '[[19,250,336]]'),
-	(142, 'Con đường rắn độc 2', 26, 12, '[0,0,5,14,0]', 0, 0, 5, 14, 0, '["["Con đường rắn độc 1",0,312,24,336,0,0,141,1140,336]","["Khu BOSS VIP",1176,312,1200,336,0,0,143,60,336]"]', '["[74,8,10000000,444,336]","[73,8,10000000,684,336]","[74,8,10000000,924,336]","[75,8,10000000,324,192]","[75,8,10000000,588,216]","[75,8,10000000,828,192]"]', '[]'),
+	(141, 'Con đường rắn độc 1', 26, 12, '[0,0,5,14,0]', 0, 0, 5, 14, 0, '["["Con đường rắn độc 2",1176,312,1200,336,0,0,142,60,336]"]', '["[74,8,10000000,444,336]","[74,8,10000000,520,336]","[74,8,10000000,560,336]","[74,8,10000000,620,336]","[73,8,10000000,684,336]","[73,8,10000000,720,336]","[73,8,10000000,800,336]","[73,8,10000000,860,336]","[74,8,10000000,924,336]","[75,8,10000000,324,192]","[75,8,10000000,588,216]","[75,8,10000000,828,192]"]', '[[19,250,336]]'),
+	(142, 'Con đường rắn độc 2', 26, 12, '[0,0,5,14,0]', 0, 0, 5, 14, 0, '["["Con đường rắn độc 1",0,312,24,336,0,0,141,1140,336]","["Khu BOSS VIP",1176,312,1200,336,0,0,143,60,336]"]', '["[74,8,10000000,444,336]","[74,8,10000000,520,336]","[74,8,10000000,560,336]","[74,8,10000000,620,336]","[73,8,10000000,684,336]","[73,8,10000000,720,336]","[73,8,10000000,800,336]","[73,8,10000000,860,336]","[74,8,10000000,924,336]","[75,8,10000000,324,192]","[75,8,10000000,588,216]","[75,8,10000000,828,192]"]', '[]'),
 	(143, 'Khu BOSS VIP', 26, 12, '[0,0,5,14,0]', 0, 0, 5, 14, 0, '["["Con đường rắn độc 2",0,312,24,336,0,0,142,1140,336]","["Khu Úp Hồng ngọc",1176,312,1200,336,0,0,144,60,312]"]', '[]', '[]'),
-	(144, 'Khu Up Hồng ngọc', 26, 12, '[0,2,2,12,11]', 0, 2, 2, 12, 11, '["["Khu BOSS VIP",0,275,24,336,0,0,143,1140,336]"]', '["[77,11,150000000,204,312]","[77,11,150000000,444,312]","[77,11,150000000,660,312]","[77,11,150000000,924,312]"]', '[]'),
+	(144, 'Khu Up Hồng ngọc', 26, 12, '[0,2,2,12,11]', 0, 2, 2, 12, 11, '["["Khu BOSS VIP",0,275,24,336,0,0,143,1140,336]"]', '["[56,11,500000,204,312]","[56,11,500000,260,312]","[56,11,500000,350,312]","[56,11,500000,444,312]","[56,11,500000,500,312]","[56,11,500000,660,312]","[56,11,500000,750,312]","[56,11,500000,924,312]","[56,11,500000,1000,312]"]', '[]'),
 	(145, 'Võ Đài Siêu Cấp', 26, 12, '[0,2,0,13,10]', 0, 2, 0, 13, 10, '[]', '["[6,3,600730,300,336]","[25,8,1501827,650,200]","[26,8,901096,1000,336]"]', '[[64,754,160]]'),
 	(146, 'Vùng Đất Hủy Diệt', 26, 12, '[0,0,0,29,16]', 0, 0, 0, 29, 16, '[]', '["[80,21,100000000,312,96]","[80,21,30000000,674,216]"]', '["[64,103,144]"]'),
 	(147, 'Sa Mạc', 15, 15, '[0,0,0,3,2]', 6, 0, 2, 3, 2, '[["Hành tinh băng giá",1224,288,1248,312,0,0,152,1565,168],["Thành phố Satan",0,312,48,336,0,0,149,1329,336]]', '[[73,1,752002,125,336],[73,1,752002,249,168],[73,1,752002,353,336],[73,1,752002,627,216],[73,1,752002,738,288],[73,1,752002,825,288],[73,1,752002,1156,312],[75,1,752002,785,192],[75,1,752002,945,72],[75,1,752002,601,72],[75,1,752002,347,216],[75,1,752002,229,96],[75,1,752002,122,216],[76,1,752002,483,96],[76,1,752002,1002,144]]', '[]'),
@@ -7093,7 +7158,7 @@ INSERT INTO `map_template` (`id`, `NAME`, `zones`, `max_player`, `data`, `type`,
 	(169, 'Chiến trường', 15, 30, '[0,0,2,18,8]', 0, 0, 2, 18, 8, '[]', '[]', '[]'),
 	(170, 'Khu Test Dame', 55, 12, '[0,0,2,17,8]', 0, 0, 2, 17, 8, '[]', '[]', '[[44,181,336]]'),
 	(171, 'Ngoại Môn', 20, 15, '[0,0,2,13,12]', 0, 0, 2, 13, 12, '[["Cổng Tiên Môn",816,312,840,336,0,0,172,70,336]]', '[[81,21,20000000000,156,336],[81,21,20000000000,288,336],[81,21,20000000000,420,336],[81,21,20000000000,565,336],[81,21,20000000000,719,336],[50,21,1500000000,642,186],[50,21,1500000000,504,186],[50,21,1500000000,254,186]]', '[]'),
-	(172, 'Cổng Tiên Môn', 20, 15, '[0,0,2,13,12]', 0, 0, 2, 13, 12, '[["Ngoại Môn",0,312,24,336,0,0,171,764,336], ["Tiên Môn",-80,290,864,408,1,0,173,400,384]]', '[[88,21,20000000000,615,336],[89,21,20000000000,718,336],[85,21,20000000000,425,336],[94,21,20000000000,310,336]]', '[[63,537,336]]'),
+	(172, 'Cổng Tiên Môn', 20, 15, '[0,0,2,13,12]', 0, 0, 2, 13, 12, '[["Ngoại Môn",0,312,24,336,0,0,171,764,336], ["Tiên Môn",-80,290,864,408,1,0,173,400,384]]', '[]', '[[63,537,336]]'),
 	(173, 'Tiên Môn', 20, 15, '[0,0,2,11,12]', 0, 0, 2, 11, 12, '["["Cổng Tiên Môn",-80,330,864,408,1,0,172,400,336]"]', '[]', '[]'),
 	(174, 'Đảo Câu Cá', 3, 15, '[0,0,0,3,2]', 0, 0, 0, 3, 2, '[]', '[]', '[[86,293,408]]'),
 	(175, 'Chiến trường Thường', 5, 15, '[0,0,2,18,8]', 0, 0, 2, 18, 8, '[]', '[]', '[]'),
@@ -7106,7 +7171,7 @@ INSERT INTO `map_template` (`id`, `NAME`, `zones`, `max_player`, `data`, `type`,
 	(182, 'Đông Nam SkyPiea', 20, 12, '[0,0,0,3,2]', 7, 0, 0, 3, 12, '[["Nam Đảo SkyPiea",0,336,24,360,0,0,180,1608,312]]', '[]', '[[119,1002,192]]'),
 	(183, 'Đấu trường SkyPiea', 20, 12, '[0,2,0,3,2]', 7, 2, 0, 3, 12, '[]', '[]', '[[115,267,312]]'),
 	(202, 'Cung Trăng', 25, 15, '[0,1,0,32,31]', 0, 1, 0, 32, 31, '[]', '[]', '[]'),
-	(210, 'Titan SSS', 25, 15, '[0,1,0,35,28]', 0, 1, 0, 35, 28, '[]', '[]', '[]'),
+	(210, 'Titan SSS', 25, 15, '[0,1,0,35,28]', 0, 1, 0, 35, 28, '[]', '[[94,1,200,277,432],[94,1,200,454,432],[94,1,200,454,432]]', '[]'),
 	(211, 'Cold SSS', 25, 15, '[0,1,0,38,24]', 0, 1, 0, 38, 24, '[]', '[]', '[]'),
 	(212, 'Steal SSS', 25, 15, '[0,1,0,33,87]', 0, 1, 0, 33, 87, '[]', '[[54,1,752002,77,480],[54,1,752002,196,480],[54,1,752002,342,480],[54,1,752002,503,480],[54,1,752002,713,384],[54,1,752002,861,480],[54,1,752002,1000,480]]', '[]'),
 	(213, 'Dung Nham SSS', 25, 15, '[0,1,0,33,86]', 0, 1, 0, 33, 86, '[]', '[[52,1,752002,64,480],[52,1,752002,202,480],[52,1,752002,300,384],[52,1,752002,410,384],[52,1,752002,505,480],[52,1,752002,638,480],[52,1,752002,795,480],[52,1,752002,925,480]]', '[]'),
@@ -7379,7 +7444,7 @@ INSERT INTO `npc_template` (`id`, `NAME`, `head`, `body`, `leg`, `avatar`) VALUE
 	(103, '', -1, -1, 0, 0),
 	(104, '', -1, -1, 0, 0),
 	(105, '', -1, -1, 0, 0),
-	(106, '', -1, -1, 0, 0),
+	(106, 'Medusa Tu Ma', 1475, 1476, 1477, 21517),
 	(107, '', -1, -1, 0, 0),
 	(108, '', -1, -1, 0, 0),
 	(109, '', -1, -1, 0, 0),
@@ -9525,13 +9590,16 @@ CREATE TABLE IF NOT EXISTS `player` (
   `ket_hon` varchar(100) NOT NULL DEFAULT '[0,0]',
   `data_lks` text,
   `tien_luc` int(11) DEFAULT '0',
+  `tl_dl` float DEFAULT '1',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `account_id` (`account_id`) USING BTREE,
   CONSTRAINT `player_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table medusa.player: ~0 rows (approximately)
 DELETE FROM `player`;
+INSERT INTO `player` (`id`, `account_id`, `name`, `head`, `gender`, `have_tennis_space_ship`, `clan_id_sv1`, `clan_id_sv2`, `data_inventory`, `data_location`, `data_point`, `data_magic_tree`, `items_body`, `items_bag`, `items_box`, `items_box_lucky_round`, `friends`, `enemies`, `data_intrinsic`, `data_item_time`, `data_item_time_sieucap`, `data_task`, `data_mabu_egg`, `data_dua`, `Tai_xiu`, `data_charm`, `skills`, `skills_shortcut`, `pet`, `dao_lu`, `data_black_ball`, `data_side_task`, `create_time`, `violate`, `pointPvp`, `info_phoban`, `info_achievement`, `Thu_TrieuHoi`, `nhiemvu_chienthan`, `NguHanhSonPoint`, `data_card`, `vndd`, `dhieu`, `dhtime`, `dhtime2`, `dhtime3`, `dk_tutien`, `Tu_tien`, `dk_kethon`, `ket_hon`, `data_lks`, `tien_luc`, `tl_dl`) VALUES
+	(1, 1, 'cascasc', 31, 0, 0, -1, -1, '[100000,1000000000,100000,0,0,0,0,0,0,0]', '[0,760,432]', '[0,12550,502550,999,1000,200.0,100.0,10,0,0,0,202.0,89.0]', '[10,23,0,1753103882020,1753103882020]', '["[0,1,\\"[\\\\\\"[47,2]\\\\\\"]\\",1753103882020]","[6,1,\\"[\\\\\\"[6,30]\\\\\\"]\\",1753103882020]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]"]', '["[457,100,\\"[\\\\\\"[30,1]\\\\\\"]\\",1753103882020]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]"]', '["[12,1,\\"[\\\\\\"[14,1]\\\\\\"]\\",1753103882020]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]"]', '[]', '[]', '[]', '[0,0,0,0]', '[0,0,0,0,0,0,0,0,0,0,0]', '[0,0,0,0,0,0,0,0,0,0,0,0,0,0]', '[1,0,1]', '[]', '[]', '[0,0,0,0,0,0]', '[1753103882020,1753103882020,1753103882020,1753103882020,1753103882020,1753103882020,1753103882020,1753103882020,1753103882020,1753103882020]', '["[0,1,1753103896516,0]","[1,0,0,0]","[6,0,0,0]","[9,0,0,0]","[10,0,0,0]","[20,0,0,0]","[22,0,0,0]","[24,0,0,0]","[19,0,0,0]","[27,0,0,0]"]', '[0,-1,-1,-1,-1]', '[]', '[]', '["[0,0,0]","[0,0,0]","[0,0,0]","[0,0,0]","[0,0,0]","[0,0,0]","[0,0,0]"]', '[-1,0,0,0,20,0]', '2025-07-21 13:18:02', 0, '[0,0]', '[0,0]', '{"numPayMoney":0,"numHoiSinh":0,"numSkillChuong":0,"numSellItem":0,"numSkillDacBiet":0,"numKillNguoiRom":1,"numHourOnline":15,"listReceiveGem":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],"numPickGem":1,"numKillSieuQuai":0,"numFly":0,"numKillMobFly":0,"numPvpWin":0,"numGivePea":0}', '[-1]', '[0,0,0,10,0]', 0, '[]', 0, '[1,1]', '[0,0]', '[0,0]', '[0,0]', '[0,0,0,0]', '[0]', '[0,0]', '[0,0]', '["[0,0,99]","[0,0,99]"]', 0, 1);
 
 -- Dumping structure for table medusa.radar
 CREATE TABLE IF NOT EXISTS `radar` (
@@ -9593,6 +9661,33 @@ CREATE TABLE IF NOT EXISTS `recharge_card` (
 
 -- Dumping data for table medusa.recharge_card: ~0 rows (approximately)
 DELETE FROM `recharge_card`;
+
+-- Dumping structure for table medusa.san_giao_dich_bua_zeno
+CREATE TABLE IF NOT EXISTS `san_giao_dich_bua_zeno` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `total` int(11) DEFAULT NULL,
+  `in_stock` int(11) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `last_time_update` datetime DEFAULT NULL,
+  `final_price` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table medusa.san_giao_dich_bua_zeno: ~1 rows (approximately)
+DELETE FROM `san_giao_dich_bua_zeno`;
+INSERT INTO `san_giao_dich_bua_zeno` (`id`, `total`, `in_stock`, `price`, `last_time_update`, `final_price`) VALUES
+	(1, 1000, 1000, 20000, '2025-06-11 19:26:24', 19100);
+
+-- Dumping structure for table medusa.san_giao_dich_player
+CREATE TABLE IF NOT EXISTS `san_giao_dich_player` (
+  `player_id` int(11) NOT NULL,
+  `total_hold` int(11) DEFAULT NULL,
+  `last_time_update` datetime DEFAULT NULL,
+  PRIMARY KEY (`player_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table medusa.san_giao_dich_player: ~0 rows (approximately)
+DELETE FROM `san_giao_dich_player`;
 
 -- Dumping structure for table medusa.setting
 CREATE TABLE IF NOT EXISTS `setting` (
@@ -41135,7 +41230,7 @@ CREATE TABLE IF NOT EXISTS `tab_shop` (
   CONSTRAINT `tab_shop_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table medusa.tab_shop: ~62 rows (approximately)
+-- Dumping data for table medusa.tab_shop: ~60 rows (approximately)
 DELETE FROM `tab_shop`;
 INSERT INTO `tab_shop` (`id`, `shop_id`, `NAME`) VALUES
 	(1, 1, 'Áo<>Quần'),
@@ -41421,11 +41516,18 @@ CREATE TABLE IF NOT EXISTS `tu_tien` (
   `data_linh_thuc` mediumtext COLLATE utf8mb4_unicode_ci,
   `data_khong_thi` mediumtext COLLATE utf8mb4_unicode_ci,
   `player_id` int(11) DEFAULT NULL,
+  `rs` int(11) DEFAULT '0',
+  `data_tu_ma` text COLLATE utf8mb4_unicode_ci,
+  `data_phap_bao` text COLLATE utf8mb4_unicode_ci,
+  `data_huyet` text COLLATE utf8mb4_unicode_ci,
+  `data_mach` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table medusa.tu_tien: ~0 rows (approximately)
+-- Dumping data for table medusa.tu_tien: ~1 rows (approximately)
 DELETE FROM `tu_tien`;
+INSERT INTO `tu_tien` (`id`, `data_tu_tien`, `data_luyen_the`, `data_tran_phap`, `data_ngu_thu`, `data_luyen_dan`, `data_phu_chu`, `data_linh_thuc`, `data_khong_thi`, `player_id`, `rs`, `data_tu_ma`, `data_phap_bao`, `data_huyet`, `data_mach`) VALUES
+	(1, '[]', '[]', '[]', '[]', '[]', '[]', '[]', '[]', 1, 0, '[]', '[[],[],[],[],[]]', '[]', '[5, 7, 120, 150, 80, 1.25, 500.0, 300.0, 300000, 300000, 10, 75, 1.10, true]\r\n');
 
 -- Dumping structure for table medusa.type_item
 CREATE TABLE IF NOT EXISTS `type_item` (

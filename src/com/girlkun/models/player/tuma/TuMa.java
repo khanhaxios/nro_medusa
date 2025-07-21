@@ -207,14 +207,14 @@ public class TuMa implements IBaseAction {
 
     @Override
     public float getDameBuff() {
-        float percentBuff = (getBaseBuffByLevel(2) + (getSubLevelOtherBuff()));
+        float percentBuff = (getBaseBuffByLevel(1) + (getSubLevelOtherBuff()));
         percentBuff *= (congPhapTuMa.phamChat + 1 + maTinh);
         return percentBuff;
     }
 
     @Override
     public float getHPMPBuff() {
-        float percentBuff = (getBaseBuffByLevel(6) + (getSubLevelHpMpBuff()));
+        float percentBuff = (getBaseBuffByLevel(3) + (getSubLevelHpMpBuff()));
         percentBuff *= (congPhapTuMa.phamChat + 1 + maTinh);
         return percentBuff;
     }
@@ -224,7 +224,7 @@ public class TuMa implements IBaseAction {
     }
 
     private float getSubLevelOtherBuff() {
-        return Math.max(2f, (this.level % 10) * 1f);
+        return Math.max(1f, (this.level % 10) * 1f);
     }
 
     private float getSubLevelOtherBuff(float pt) {
