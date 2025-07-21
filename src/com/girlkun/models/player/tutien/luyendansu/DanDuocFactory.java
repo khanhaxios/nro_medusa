@@ -1,13 +1,16 @@
 package com.girlkun.models.player.tutien.luyendansu;
 
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
 public class DanDuocFactory {
-    public static DanDuoc createDanDuoc(Player player, DanPhuong danPhuong, byte cap) {
-        return new DanDuoc(danPhuong.id + cap, danPhuong.tenDanPhuong, cap, 5 + cap);
+    public static DanDuoc createDanDuoc(Player player, DanPhuong danPhuong, byte cap, int quanity) {
+        DanDuoc danDuoc = new DanDuoc(danPhuong.id + cap, danPhuong.tenDanPhuong, cap, 5 + cap);
+        danDuoc.quantity = quanity;
+        return danDuoc;
     }
 
     public static void useDanDuoc(Player player, DanDuoc danDuoc, int quantity) {
@@ -15,8 +18,8 @@ public class DanDuocFactory {
             Service.gI().sendThongBao(player, "Bạn cần học luyện đan để có thể sử dụng đan dược");
             return;
         }
-        if (player.luyenDanSu.level < danDuoc.capDoYeuCauDeSuDung) {
-            Service.gI().sendThongBao(player, "Bạn cần đạt luyện đan sư cấp " + danDuoc.capDoYeuCauDeSuDung + " để sử dụng");
+        if (player.tuTien.level < danDuoc.capDoYeuCauDeSuDung) {
+            Service.gI().sendThongBao(player, "Bạn cần đạt tu tiên cấp " + TuTien.CANH_GIOI[danDuoc.capDoYeuCauDeSuDung] + " để sử dụng");
             return;
         }
         danDuoc.quantity -= quantity;

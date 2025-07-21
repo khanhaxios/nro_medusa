@@ -92,21 +92,29 @@ public class TuiNguyenLieu {
     }
 
     public List<NguyenLieu> takeNguyenLieu(DanPhuong danPhuong) {
-        List<NguyenLieu> nguyenLieuList = new ArrayList<>();
-        for (NguyenLieu lieus : nguyenLieus) {
-            NguyenLieu nl = lieus;
-            for (NguyenLieu nguyenLieu : danPhuong.nguyenLieu) {
-                if (lieus.id == nguyenLieu.id) {
-                    if (nguyenLieu.quality > nl.quality) {
-                        nl = nguyenLieu;
+        List<NguyenLieu> takenList = new ArrayList<>();
+
+        for (NguyenLieu required : danPhuong.nguyenLieu) {
+            NguyenLieu bestMatch = null;
+
+            for (NguyenLieu owned : nguyenLieus) {
+                if (owned.id == required.id && owned.quantity >= required.quantity) {
+                    // Nếu chưa chọn hoặc chất lượng cao hơn thì chọn
+                    if (bestMatch == null || owned.quality > bestMatch.quality) {
+                        bestMatch = owned;
                     }
                 }
             }
-            if (nl != null) {
-                nguyenLieuList.add(nl);
+
+            if (bestMatch != null) {
+                takenList.add(bestMatch);
+            } else {
+                // Không đủ nguyên liệu => trả về danh sách rỗng để báo lỗi
+                return new ArrayList<>();
             }
         }
-        return nguyenLieuList;
+
+        return takenList;
     }
 
     public void showMenuTui() {

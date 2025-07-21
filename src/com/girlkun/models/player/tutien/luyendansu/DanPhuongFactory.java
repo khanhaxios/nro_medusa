@@ -124,24 +124,30 @@ public class DanPhuongFactory {
         deductUsedNguyenLieu(danPhuong, player);
 
         // Tính tỷ lệ thành công của luyện đan
-        float ratioThanhCong = player.luyenDanSu.getTyLeLuyenDan(danPhuong);
+        float ratioThanhCong = player.luyenDanSu.getTyLeLuyenDan(danPhuong) + nlPlus;
 
         // Xác định cấp độ DanDuoc dựa trên tỷ lệ thành công
         byte levelDanDuoc = getDanDuocLevel(ratioThanhCong);
-
+        long exp = 0;
         // Nếu tỷ lệ thành công hợp lệ (tức là có cấp độ DanDuoc hợp lệ)
         if (levelDanDuoc >= 0) {
             // Tạo DanDuoc mới dựa trên cấp độ
-            DanDuoc danDuoc = DanDuocFactory.createDanDuoc(player, danPhuong, levelDanDuoc);
+            DanDuoc danDuoc = DanDuocFactory.createDanDuoc(player, danPhuong, levelDanDuoc, Util.nextInt(1, 5));
             player.luyenDanSu.tuiDanDuoc.addDanDuoc(danDuoc);
 
+            //handle exp
+            exp = (long) Util.nextInt(50, 100) * Math.max(levelDanDuoc, 1);
             // Tạo thông báo cho người chơi về kết quả luyện đan
             String danDuocMessage = getDanDuocMessage(levelDanDuoc, danDuoc);
             Service.gI().sendThongBao(player, "Bạn đã luyện thành công " + danDuocMessage);
+
         } else {
-            // Nếu luyện đan thất bại
+            exp = (long) Util.nextInt(20, 50) * Math.max(levelDanDuoc, 1);
             Service.gI().sendThongBao(player, "Luyện đan thất bại");
         }
+        // tang exp
+        player.luyenDanSu.addExp(exp);
+        Service.gI().sendThongBaoOK(player, "Lần luyện đan này bạn nhận được x" + Util.powerToString(exp) + " Kinh nghiệm luyện đan");
     }
 
     private static void deductUsedNguyenLieu(DanPhuong danPhuong, Player player) {
@@ -178,6 +184,7 @@ public class DanPhuongFactory {
         player.luyenDanSu.danPhuongs.add(danPhuong);
         // remove dan phuong trong tui dan phuong
         player.luyenDanSu.tuiDanPhuong.removeDanPhuong(danPhuong);
+        Service.gI().sendThongBao(player, "Bạn đã học được " + danPhuong.tenDanPhuong + " đan phương");
     }
 
     private static byte getDanDuocLevel(float ratioThanhCong) {

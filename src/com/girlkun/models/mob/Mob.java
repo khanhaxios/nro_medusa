@@ -9,6 +9,8 @@ import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Location;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tutien.luyendansu.NguyenLieu;
+import com.girlkun.models.player.tutien.luyendansu.NguyenLieuFactory;
 import com.girlkun.models.reward.ItemMobReward;
 import com.girlkun.models.reward.MobReward;
 import com.girlkun.models.skill.PlayerSkill;
@@ -608,19 +610,12 @@ public class Mob {
                 }
             }
         }
-        if (zone.map.mapId == 215) {
+        if (zone.map.mapId == 215 && player.luyenDanSu.isLuyenDan()) {
             // roi nguyen lieu luyen dan
-            if (Util.isTrue(1, 10000)) {
-                list.add(new ItemMap(zone, 2072, 1, this.location.x, yEnd, player.id));
-            }
-            if (Util.isTrue(1, 10000)) {
-                list.add(new ItemMap(zone, 2073, 1, this.location.x, yEnd, player.id));
-            }
-            if (Util.isTrue(5, 100)) {
-                list.add(new ItemMap(zone, Util.nextInt(2069, 2071), 1, this.location.x, yEnd, player.id));
-            }
-            if (Util.isTrue(1, 100000)) {
-                list.add(new ItemMap(zone, 2074, 1, this.location.x, yEnd, player.id));
+            if (Util.isTrue(1, 200)) {
+                NguyenLieu nguyenLieu = NguyenLieuFactory.radomizeNguyenLieu();
+                player.luyenDanSu.tuiNguyenLieu.addNguyenLieu(nguyenLieu);
+                Service.gI().sendThongBao(player, "Bạn nhận được " + nguyenLieu.tenNguyenLieu);
             }
         }
         if (zone.map.mapId == 144) {

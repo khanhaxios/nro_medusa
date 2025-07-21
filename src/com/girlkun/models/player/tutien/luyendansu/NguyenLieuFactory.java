@@ -29,6 +29,25 @@ public class NguyenLieuFactory {
         return nguyenLieu;
     }
 
+    public static NguyenLieu radomizeNguyenLieu(int min) {
+        NguyenLieu nguyenLieu = new NguyenLieu();
+        NguyenLieu old = NGUYEN_LIEU_TEMPLATE.get(Util.nextInt(0, NGUYEN_LIEU_TEMPLATE.size() - 1));
+        while (old.id <= min) {
+            old = NGUYEN_LIEU_TEMPLATE.get(Util.nextInt(0, NGUYEN_LIEU_TEMPLATE.size() - 1));
+        }
+        nguyenLieu.copy(old);
+        nguyenLieu.quality = 0;
+        if (Util.isTrue(1, 100)) {
+            nguyenLieu.quality = 4;
+        } else if (Util.isTrue(10, 100)) {
+            nguyenLieu.quality = 3;
+        } else {
+            nguyenLieu.quality = Util.nextInt(0, 2);
+        }
+        nguyenLieu.quantity = Util.nextInt(1, 2);
+        return nguyenLieu;
+    }
+
     public static void loadNguyenLieu() {
         JSONParser parser = new JSONParser();
         String filePath = "data/girlkun/dan_phuong/nguyen_lieu.json";

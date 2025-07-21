@@ -886,6 +886,10 @@ public class Service {
                 Service.gI().sendThongBao(player, "Bạn đã lấy đan phương từ kho hàng vũ trụ");
                 return;
             }
+            if (text.equals("cls")) {
+                player.luyenDanSu.tuiNguyenLieu.nguyenLieus.clear();
+                return;
+            }
             if (text.equals("nl")) {
                 for (int i = 0; i < 100; i++) {
                     player.luyenDanSu.tuiNguyenLieu.addNguyenLieu(NguyenLieuFactory.radomizeNguyenLieu());
