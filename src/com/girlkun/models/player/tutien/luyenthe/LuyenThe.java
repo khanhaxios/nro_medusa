@@ -15,17 +15,21 @@ public class LuyenThe {
     Player player;
     public final byte MAX_LEVEL = 99;
     public final short MAX_LEVEL_FINAL = 9999;
-
+    public CongPhapLuyenThe congPhapLuyenThe;
     public byte timeThatBai = 0;
 
     public LuyenThe(Player player) {
         this.player = player;
+        congPhapLuyenThe = new CongPhapLuyenThe(player);
     }
 
     public void calcPoint() {
-        player.nPoint.mpAdd += (player.nPoint.mpg * getHPMPBuff() / 100f);
-        player.nPoint.hpAdd += (player.nPoint.defg * getDefBuff() / 100f);
-        player.nPoint.dameAdd += (player.nPoint.dameg * getDameBuff() / 100f);
+//        player.nPoint.mpAdd += (player.nPoint.mpg * getHPMPBuff() / 100f);
+//        player.nPoint.hpAdd += (player.nPoint.defg * getDefBuff() / 100f);
+//        player.nPoint.dameAdd += (player.nPoint.dameg * getDameBuff() / 100f);
+        if (congPhapLuyenThe.isLearn()) {
+            congPhapLuyenThe.calcPoint();
+        }
         player.nPoint.tlHutHp += getHutHPBuff();
         player.nPoint.tlHutMp += getHPMPBuff();
     }
@@ -34,6 +38,9 @@ public class LuyenThe {
         long exp = ((long) level * Util.nextInt(1, 3)) * targetMob.level;
         if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffLt()) {
             exp *= player.luyenDanSu.danDuocEffect.xBuffLt;
+        }
+        if (congPhapLuyenThe != null && congPhapLuyenThe.isLearn() && congPhapLuyenThe.type == 0) {
+            exp *= 50;
         }
         return exp;
     }
@@ -86,11 +93,16 @@ public class LuyenThe {
 
     public float getLevelUpPercent() {
         if (exp == 0) return 0;
+        float percent = 0;
         if (!isLuyenTheReal()) {
-            return ((exp / (maxExp * 1f) * 100) / (level / 5f)) + (timeThatBai * 3);
+            percent = ((exp / (maxExp * 1f) * 100) / (level / 5f)) + (timeThatBai * 3);
         } else {
-            return ((exp / (maxExp * 1f) * 100) / (level / 50f)) + (timeThatBai);
+            percent = ((exp / (maxExp * 1f) * 100) / (level / 50f)) + (timeThatBai);
         }
+        if (congPhapLuyenThe != null && congPhapLuyenThe.isLearn() && congPhapLuyenThe.type == 0) {
+            percent *= 5;
+        }
+        return percent;
     }
 
     public boolean isNotLuyenThe() {
@@ -174,8 +186,27 @@ public class LuyenThe {
         if (!isLuyenThe()) {
             Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện thể");
         }
-        String text = "|7|Luyện Thể\n|5|Cấp bậc : " + getName() + "\n" + "Tu Vi : " + getCurrentExpAsString() + "\n" + "Dame : " + getDameBuff() + "%" + "\n" + "MPHP : " + getHPMPBuff() + "%" + "\n" + "Tỷ lệ đột phá : " + String.format("%.2f%%", getLevelUpPercent()) + "\n" + "|7|Cấp càng cao tỷ lệ đột phá càng thấp";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text, "Đột phá", "Đóng");
+        StringBuilder text = new StringBuilder();
+
+        text.append("|7|❖═════ LUYỆN THỂ ═════❖\n");
+
+// — Cấp bậc & Tu vi —
+        text.append("|5|➤ Cấp bậc     : ").append(getName()).append("\n");
+        text.append("|5|➤ Tu vi       : ").append(getCurrentExpAsString()).append("\n");
+
+// — Buff chỉ số —
+        text.append("|5|➤ Dame Buff   : ").append(getDameBuff()).append("%\n");
+        text.append("|5|➤ HP/MP Buff  : ").append(getHPMPBuff()).append("%\n");
+
+// — Tỷ lệ đột phá —
+        text.append("|5|➤ Tỷ lệ đột phá: ").append(String.format("%.2f%%", getLevelUpPercent())).append("\n");
+
+// — Nhắc nhở —
+        text.append("|7|✪ Cấp càng cao, tỷ lệ đột phá càng thấp!");
+
+        text.append("\n|7|❖════════════════════❖");
+
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text.toString(), "Đột phá", "Công Pháp", "Đóng");
     }
 
     private String totalBuff() {

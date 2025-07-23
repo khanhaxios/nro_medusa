@@ -21,7 +21,7 @@ public class LuyenHon {
     }
 
     public int getTongSoHonCanLuyen() {
-        return Math.max(1,soTangDaLuyen) * 1_000_000;
+        return Math.max(1, soTangDaLuyen) * 1_000_000;
     }
 
     public void tangBac() {
@@ -78,21 +78,59 @@ public class LuyenHon {
     }
 
     public void showBaseMenu() {
-        String text = "|7|Luyện hồn\n|5|Luyện hồn  " + soTangDaLuyen + " Tầng\n" + "|5|Hư hồn : " + soHonChuaLuyen + " Hồn\n" +
-                "|5|Tinh hồn : " + soHonDaLuyen + "/" + tongSoHonCanLuyen + "\n" + "|5|Dame Buff : " + getDameBuff() + "%\n" + "|5| HPMP  BUFF : " + getHPMPBuff() + "%\n" + "|5|Ma khí X " + getMaKhiBuff() + "Lần" + "\n|7|Luyện hồn càng cao chỉ số buff càng mạnh";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_HON, -1, text, "Chú hồn", "Luyện hồn", "Đóng");
+        StringBuilder text = new StringBuilder();
+
+        text.append("|7|❖═════ LUYỆN HỒN ═════❖\n");
+
+// — Tầng luyện hồn —
+        text.append("|5|➤ Tầng đã luyện  : ").append(soTangDaLuyen).append(" tầng\n");
+
+// — Số lượng hồn —
+        text.append("|5|➤ Hư Hồn         : ").append(soHonChuaLuyen).append(" Hồn\n");
+        text.append("|5|➤ Tinh Hồn       : ").append(soHonDaLuyen).append(" / ").append(tongSoHonCanLuyen).append("\n");
+
+// — Buff chỉ số —
+        text.append("|5|➤ Dame Buff      : ").append(getDameBuff()).append("%\n");
+        text.append("|5|➤ HP/MP Buff     : ").append(getHPMPBuff()).append("%\n");
+        text.append("|5|➤ Ma Khí x       : ").append(getMaKhiBuff()).append(" lần\n");
+
+// — Lưu ý / khuyến khích —
+        text.append("|7|✪ Luyện Hồn càng cao, chỉ số buff càng mạnh!");
+
+        text.append("\n|7|❖══════════════════════❖");
+
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_HON, -1, text.toString(), "Chú hồn", "Luyện hồn", "Đóng");
     }
 
     public void showMenuChuHon() {
-        String text = "|7|Chú hồn\n|5|Hư hồn : " + soHonChuaLuyen + " Hồn\n" +
-                "|5|Tinh hồn : " + soHonDaLuyen + "/" + tongSoHonCanLuyen + "|7|Bạn muốn chú hồn?";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHU_HON, -1, text, "1 Lần", "100 Lần", "1000 Lần", "Đóng");
+        StringBuilder text = new StringBuilder();
+
+        text.append("|7|❖═════ CHÚ HỒN ═════❖\n");
+
+// — Hồn hiện tại —
+        text.append("|5|➤ Hư Hồn   : ").append(soHonChuaLuyen).append(" Hồn\n");
+        text.append("|5|➤ Tinh Hồn : ").append(soHonDaLuyen).append(" / ").append(tongSoHonCanLuyen).append("\n");
+
+// — Gợi mở hành động —
+        text.append("|7|✦ Bạn muốn Chú Hồn?");
+
+        text.append("\n|7|❖════════════════════❖");
+
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHU_HON, -1, text.toString(), "1 Lần", "100 Lần", "1000 Lần", "Đóng");
     }
 
     public void showMenuLuyenHon() {
-        String text = "|7|Luyện hồn\n" +
-                "|5|Tinh hồn : " + soHonDaLuyen + "/" + tongSoHonCanLuyen + "|7|Bạn muốn?";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONFIRM_LH, -1, text, "Luyện hồn", "Đóng");
+        StringBuilder text = new StringBuilder();
+
+        text.append("|7|❖════ LUYỆN HỒN ════❖\n");
+
+        text.append("|5|➤ Tinh Hồn : ").append(soHonDaLuyen).append(" / ").append(tongSoHonCanLuyen).append("\n");
+
+        text.append("|7|✦ Bạn muốn tiếp tục luyện hồn?\n");
+
+        text.append("|7|❖══════════════════❖");
+
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONFIRM_LH, -1, text.toString(), "Luyện hồn", "Đóng");
     }
 
     public boolean isLuyenHon() {

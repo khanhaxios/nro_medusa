@@ -282,9 +282,23 @@ public class TuMa implements IBaseAction {
     }
 
     public void showBaseMenu() {
-        String text = "|7|Thông Tin Ma Tu\n" + "|5|" + getName() + "\n" + "|5|Tu vi :" + getCurrentExpAsString() + "\n" + "Ma khí :" + getMaKhiAsString() + "\n" + "|5|SL Huyết Đan : " + (congPhapTuMa.ten != null ? congPhapTuMa.totalHuyetDan : 0) + "/" + congPhapTuMa.getMaxHuyetDan() +
-                " \n" + "|7|" + getMaTinhDanhGia() + "\n|5| Đã tu ma " + getYearOpened() + "\n" + "|1|Khi đầy exp ấn đột phá";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_TU_MA, -1, text, "Thông Tin\nTu Ma", "Thông Tin\nCông Pháp", "Thông Tin\nLinh Căn", "Thông tin\nLuyện Hồn", "Pháp bảo", "Đóng");
+        StringBuilder text = new StringBuilder();
+        text.append("|7|❖═════ THÔNG TIN MA TU ═════❖\n");
+//— Cấp độ & kinh nghiệm —
+        text.append("|5|➤ Cấp Ma Tu       : ").append(getName()).append("/").append("\n");
+        text.append("|5|➤ Kinh nghiệm     : ").append(getCurrentExpAsString()).append("\n");
+//— Ma Khí —
+        text.append("|5|➤ Ma Khí          : ").append(getMaKhiAsString()).append("\n");
+        text.append("|5|➤ Ma Tính  : ").append(getMaTinhDanhGia()).append("\n");
+
+//— Thời gian tu luyện —
+        long timeTu = (System.currentTimeMillis() - timeTuMa) / 1000;
+        text.append("|5|➤ Đã tu luyện     : ").append(getYearOpened()).append("\n");
+//— Dòng đặc biệt Ma Đạo —
+        text.append("|7|✪ Ma Tu không có bình cảnh – phá giới vô tận!\n");
+
+        text.append("|7|❖══════════════════════════════❖");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_TU_MA, -1, text.toString(), "Thông Tin\nTu Ma", "Thông Tin\nCông Pháp", "Thông Tin\nLinh Căn", "Thông tin\nLuyện Hồn", "Pháp bảo", "Đóng");
     }
 
     private String getMaKhiAsString() {
@@ -314,8 +328,21 @@ public class TuMa implements IBaseAction {
     }
 
     public void showMenuTuMa() {
-        String text = "|7|Thông Tin Ma Tu\n" + "|5|Dame Buff : " + getDameBuff() + "%\n" + "|5| HpMp Buff : " + getHPMPBuff() + "%\n|7|Ma tu không có bình cảnh";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MA_TU_DOT_PHA, -1, text, "Đột phá", "Đóng");
+        StringBuilder text = new StringBuilder();
+
+        text.append("|7|❖═════ THÔNG TIN MA TU ═════❖\n");
+
+        text.append("|5|➤ Dame Buff     : ").append(getDameBuff()).append("%\n");
+        text.append("|5|➤ HP/MP Buff    : ").append(getHPMPBuff()).append("%\n");
+
+        text.append("|5|➤ Ma Khí        : ").append(getMaKhiAsString()).append("\n");
+        text.append("|5|➤ Tu vi         : ").append(getCurrentExpAsString()).append("\n");
+
+        text.append("|7|✪ Ma Tu không có bình cảnh – phá giới vô hạn!\n");
+
+        text.append("|7|❖══════════════════════════❖");
+
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MA_TU_DOT_PHA, -1, text.toString(), "Đột phá", "Đóng");
     }
 
     public void dotPha() {
@@ -340,6 +367,7 @@ public class TuMa implements IBaseAction {
 
     public void openLuyenHon() {
         player.tuMa.luyenHon.isOpen = true;
+        player.tuMa.luyenHon.open();
         player.tuMa.luyenHon.open();
         Service.gI().sendThongBao(player, "Đã mở luyện hồn");
     }

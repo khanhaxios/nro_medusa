@@ -300,8 +300,27 @@ public class CongPhapTuMa {
     }
 
     public void showCOngChiSoMenu() {
-        String text = "|7|Cộng chỉ số\n" + "|5|Bạn có thể tự cộng chỉ số ở đây hoặc bật auto cộng chỉ số";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONG_CHI_SO, -1, text, "Cộng\nChỉ Số", "Auto\nCộng CS");
+        StringBuilder text = new StringBuilder();
+
+        text.append("|7|❖════ THÔNG TIN CÔNG PHÁP ════❖\n");
+
+// — Tên công pháp —
+        text.append("|5|").append(getTenCongPhap()).append("\n");
+
+// — Buff chỉ số —
+        text.append("|5|➤ Dame Buff : ").append(Util.powerToString(dameBuff)).append("\n");
+        text.append("|5|➤ HP Buff   : ").append(Util.powerToString(hpBuff)).append("\n");
+        text.append("|5|➤ MP Buff   : ").append(mpBuff).append("\n");
+
+// — Tỷ lệ lĩnh ngộ (Chú ma) —
+        text.append("|1|✦ Chú Ma     : ").append(tyLeLinhNgo).append("% / ").append(getBaseDiemLinhNgoMax()).append("%\n");
+
+// — Gợi ý nâng cấp —
+        text.append("|7|✪ Phẩm cấp càng cao, giới hạn buff càng lớn!");
+
+        text.append("\n|7|❖══════════════════════════════❖");
+
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONG_CHI_SO, -1, text.toString(), "Cộng\nChỉ Số", "Auto\nCộng CS");
     }
 
     public void calcPoint() {
@@ -395,13 +414,30 @@ public class CongPhapTuMa {
     }
 
     public void showMenuChuMa() {
-        String text = "|7|Chú ma\n" + "|5|Chú ma để tăng tỷ lệ lĩnh ngộ công pháp" + "\n|7|Tiến độ [" + tyLeLinhNgo + "/ + " + getBaseDiemLinhNgoMax() + "%]";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHU_MA, -1, text, "1 lần", "10 lần", "100 lần", "Đóng");
+        StringBuilder text = new StringBuilder();
+
+        text.append("|7|❖═════ CHÚ MA ═════❖\n");
+
+        text.append("|5|➤ Chú ma giúp tăng tỷ lệ lĩnh ngộ công pháp.\n");
+        text.append("|5|➤ Mỗi lần chú, điểm lĩnh ngộ tăng theo giới hạn phẩm cấp.\n");
+
+        text.append("|7|✦ Tiến độ: [").append(tyLeLinhNgo).append("% / +").append(getBaseDiemLinhNgoMax()).append("%]\n");
+
+        text.append("|7|❖══════════════════❖");
+
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHU_MA, -1, text.toString(), "1 lần", "10 lần", "100 lần", "Đóng");
     }
 
     public void showMemuLinhNgo() {
-        String text = "|7|Lĩnh ngộ công pháp\n" + "|5|Khi bạn chú ma đầy hãy lĩnh ngộ công pháp" + "\n|7|Chú ma [" + tyLeLinhNgo + "%]";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LINH_NGO_TU_MA, -1, text, "Lĩnh ngộ", "Đóng");
+        StringBuilder text = new StringBuilder();
+
+        text.append("|7|❖════ LĨNH NGỘ CÔNG PHÁP ════❖\n");
+
+        text.append("|5|➤ Khi Chú Ma đạt giới hạn, bạn có thể lĩnh ngộ công pháp.\n");
+        text.append("|7|✦ Chú Ma hiện tại: ").append("[").append(tyLeLinhNgo).append("%]\n");
+
+        text.append("|7|❖═══════════════════════════❖");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LINH_NGO_TU_MA, -1, text.toString(), "Lĩnh ngộ", "Đóng");
     }
 
     public void toggleAutoCs(int select) {
@@ -460,7 +496,16 @@ public class CongPhapTuMa {
     }
 
     public void showThongTinHuyetDan() {
-        String text = "|7|Thông tin huyết đan\n|5|Dame Buff : " + totalBuffDameHuyetDan + "\n" + "|5|Hp Buff : " + totalBuffHpHuyetDan + "\n" + "|5| MpBuff : " + totalBuffMpHuyetDan;
-        NpcService.gI().createMenuConMeo(player, ConstNpc.IGNORE_MENU, -1, text, "Đóng");
+        StringBuilder text = new StringBuilder();
+
+        text.append("|7|❖════ THÔNG TIN HUYẾT ĐAN ════❖\n");
+
+        text.append("|5|➤ Dame Buff : ").append(totalBuffDameHuyetDan).append("\n");
+        text.append("|5|➤ HP Buff   : ").append(totalBuffHpHuyetDan).append("\n");
+        text.append("|5|➤ MP Buff   : ").append(totalBuffMpHuyetDan).append("\n");
+
+        text.append("|7|❖════════════════════════════❖");
+
+        NpcService.gI().createMenuConMeo(player, ConstNpc.IGNORE_MENU, -1, text.toString(), "Đóng");
     }
 }

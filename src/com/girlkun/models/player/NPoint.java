@@ -476,6 +476,9 @@ public class NPoint {
 
             }
         }
+        if (player.luyenThe != null && player.luyenThe.isLuyenTheReal()) {
+            player.luyenThe.calcPoint();
+        }
         if (player.tuTien != null && player.tuTien.isTuTien()) {
             player.tuTien.calcPoint();
         }

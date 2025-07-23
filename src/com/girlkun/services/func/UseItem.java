@@ -47,10 +47,7 @@ public class UseItem {
     public static final int[][][] LIST_ITEM_CLOTHES = {
             // áo , quần , găng ,giày,rada
             //td -> nm -> xd
-            {{0, 33, 3, 34, 136, 137, 138, 139, 230, 231, 232, 233, 555}, {6, 35, 9, 36, 140, 141, 142, 143, 242, 243, 244, 245, 556}, {21, 24, 37, 38, 144, 145, 146, 147, 254, 255, 256, 257, 562}, {27, 30, 39, 40, 148, 149, 150, 151, 266, 267, 268, 269, 563}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}},
-            {{1, 41, 4, 42, 152, 153, 154, 155, 234, 235, 236, 237, 557}, {7, 43, 10, 44, 156, 157, 158, 159, 246, 247, 248, 249, 558}, {22, 46, 25, 45, 160, 161, 162, 163, 258, 259, 260, 261, 564}, {28, 47, 31, 48, 164, 165, 166, 167, 270, 271, 272, 273, 565}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}},
-            {{2, 49, 5, 50, 168, 169, 170, 171, 238, 239, 240, 241, 559}, {8, 51, 11, 52, 172, 173, 174, 175, 250, 251, 252, 253, 560}, {23, 53, 26, 54, 176, 177, 178, 179, 262, 263, 264, 265, 566}, {29, 55, 32, 56, 180, 181, 182, 183, 274, 275, 276, 277, 567}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}}
-    };
+            {{0, 33, 3, 34, 136, 137, 138, 139, 230, 231, 232, 233, 555}, {6, 35, 9, 36, 140, 141, 142, 143, 242, 243, 244, 245, 556}, {21, 24, 37, 38, 144, 145, 146, 147, 254, 255, 256, 257, 562}, {27, 30, 39, 40, 148, 149, 150, 151, 266, 267, 268, 269, 563}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}}, {{1, 41, 4, 42, 152, 153, 154, 155, 234, 235, 236, 237, 557}, {7, 43, 10, 44, 156, 157, 158, 159, 246, 247, 248, 249, 558}, {22, 46, 25, 45, 160, 161, 162, 163, 258, 259, 260, 261, 564}, {28, 47, 31, 48, 164, 165, 166, 167, 270, 271, 272, 273, 565}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}}, {{2, 49, 5, 50, 168, 169, 170, 171, 238, 239, 240, 241, 559}, {8, 51, 11, 52, 172, 173, 174, 175, 250, 251, 252, 253, 560}, {23, 53, 26, 54, 176, 177, 178, 179, 262, 263, 264, 265, 566}, {29, 55, 32, 56, 180, 181, 182, 183, 274, 275, 276, 277, 567}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}}};
 
     private static UseItem instance;
 
@@ -198,6 +195,9 @@ public class UseItem {
     }
 
     private void useItem(Player pl, Item item, int indexBag) {
+        if (!InventoryServiceNew.checkTuTienCondition(item, pl)) {
+            return;
+        }
         if (item.template.strRequire <= pl.nPoint.power) {
             switch (item.template.type) {
                 case 21:
@@ -735,21 +735,18 @@ public class UseItem {
     }
 
     public void UseCard(Player pl, Item item) {
-        RadarCard radarTemplate = RadarService.gI().RADAR_TEMPLATE.stream().filter(c -> c.Id == item.template.id)
-                .findFirst().orElse(null);
+        RadarCard radarTemplate = RadarService.gI().RADAR_TEMPLATE.stream().filter(c -> c.Id == item.template.id).findFirst().orElse(null);
         if (radarTemplate == null) {
             return;
         }
         if (radarTemplate.Require != -1) {
-            RadarCard radarRequireTemplate = RadarService.gI().RADAR_TEMPLATE.stream()
-                    .filter(r -> r.Id == radarTemplate.Require).findFirst().orElse(null);
+            RadarCard radarRequireTemplate = RadarService.gI().RADAR_TEMPLATE.stream().filter(r -> r.Id == radarTemplate.Require).findFirst().orElse(null);
             if (radarRequireTemplate == null) {
                 return;
             }
             Card cardRequire = pl.Cards.stream().filter(r -> r.Id == radarRequireTemplate.Id).findFirst().orElse(null);
             if (cardRequire == null || cardRequire.Level < radarTemplate.RequireLevel) {
-                Service.gI().sendThongBao(pl, "Bạn cần sưu tầm " + radarRequireTemplate.Name + " ở cấp độ "
-                        + radarTemplate.RequireLevel + " mới có thể sử dụng thẻ này");
+                Service.gI().sendThongBao(pl, "Bạn cần sưu tầm " + radarRequireTemplate.Name + " ở cấp độ " + radarTemplate.RequireLevel + " mới có thể sử dụng thẻ này");
                 return;
             }
         }
@@ -1705,8 +1702,7 @@ public class UseItem {
                         ChangeMapService.gI().goToMap(player.petDaoLu, player.zone);
                         player.petDaoLu.zone.load_Me_To_Another(player.petDaoLu);
                         Service.gI().lightSky();
-                        Service.getInstance().sendThongBao(player,
-                                "|1|Chúc mừng đạo lữ đã thăng lên \n|7|" + player.petDaoLu.getTypeString());
+                        Service.getInstance().sendThongBao(player, "|1|Chúc mừng đạo lữ đã thăng lên \n|7|" + player.petDaoLu.getTypeString());
                         Thread.sleep(2000);
                     } catch (Exception e) {
                         Logger.logException(UseItem.class, e, "Lỗi hiệu ứng tăng phẩm tại pl: " + player.name);
@@ -1742,8 +1738,7 @@ public class UseItem {
                         ChangeMapService.gI().goToMap(pl.petDaoLu, pl.zone);
                         pl.petDaoLu.zone.load_Me_To_Another(pl.petDaoLu);
                         Service.gI().lightSky();
-                        Service.getInstance().sendThongBao(pl,
-                                "|1|Chúc mừng đạo lữ đã thăng lên \n|7|" + pl.petDaoLu.getTypeString());
+                        Service.getInstance().sendThongBao(pl, "|1|Chúc mừng đạo lữ đã thăng lên \n|7|" + pl.petDaoLu.getTypeString());
                         Thread.sleep(2000);
                     } catch (Exception e) {
                         Logger.logException(UseItem.class, e, "Lỗi hiệu ứng tăng phẩm tại pl: " + pl.name);
@@ -1755,8 +1750,7 @@ public class UseItem {
             InventoryServiceNew.gI().sendItemBags(pl);
         } else {
             if (lvPhamDan == phamHienTai) {
-                Service.getInstance().sendThongBao(pl,
-                        "Không thể dùng đan bởi vì phẩm hiện tại đã là " + pl.petDaoLu.getTypeString());
+                Service.getInstance().sendThongBao(pl, "Không thể dùng đan bởi vì phẩm hiện tại đã là " + pl.petDaoLu.getTypeString());
             } else if (lvPhamDan < phamHienTai) {
                 Service.getInstance().sendThongBao(pl, "Đan hiện tại thấp phẩm hơn Đạo Lữ, không thể thăng Phẩm");
             } else if (lvPhamDan > phamHienTai) {
@@ -1964,8 +1958,7 @@ public class UseItem {
                     SummonDragon.gI().openMenuSummonShenron(pl, (byte) (tempId - 13));
                     break;
                 default:
-                    NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_SUMMON_DRAGON,
-                            -1, "Bạn chỉ có thể gọi rồng từ ngọc 2 sao, 1 sao", "Hướng\ndẫn thêm\n(mới)", "OK");
+                    NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_SUMMON_DRAGON, -1, "Bạn chỉ có thể gọi rồng từ ngọc 2 sao, 1 sao", "Hướng\ndẫn thêm\n(mới)", "OK");
                     break;
             }
         }
@@ -1975,8 +1968,7 @@ public class UseItem {
                     GoiRongXuong.gI().openMenuRongXuong(pl, (byte) (tempId - 701));
                     break;
                 default:
-                    NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_RONG_XUONG,
-                            -1, "Bạn chỉ có thể gọi rồng từ ngọc 1 sao", "Hướng\ndẫn thêm\n(mới)", "OK");
+                    NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_RONG_XUONG, -1, "Bạn chỉ có thể gọi rồng từ ngọc 1 sao", "Hướng\ndẫn thêm\n(mới)", "OK");
                     break;
             }
         }
@@ -1986,8 +1978,7 @@ public class UseItem {
                     SummonSieuCap.gI().openMenuSieuCap(pl, (byte) 1);
                     break;
                 default:
-                    NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_RONG_SUPER,
-                            -1, "Bạn chỉ có thể gọi rồng từ Ngọc rồng Siêu cấp", "Hướng\ndẫn thêm\n(mới)", "OK");
+                    NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_RONG_SUPER, -1, "Bạn chỉ có thể gọi rồng từ Ngọc rồng Siêu cấp", "Hướng\ndẫn thêm\n(mới)", "OK");
                     break;
             }
         }
@@ -2125,8 +2116,7 @@ public class UseItem {
             Service.getInstance().sendThongBao(pl, "Hành trang cần ít nhất 2 ô trống");
             return;
         }
-        short[] quaRandom = new short[]{1436, 1455, 1519, 1520, 1521, 1522, 1523, 1527, 1528, 1529, 1530, 1531, 861, 457, 1461, 1402
-        };
+        short[] quaRandom = new short[]{1436, 1455, 1519, 1520, 1521, 1522, 1523, 1527, 1528, 1529, 1530, 1531, 861, 457, 1461, 1402};
         int randomDo = new Random().nextInt(quaRandom.length);
         switch (quaRandom[randomDo]) {
             case 1436, 1455, 1461, 1402:
@@ -2194,18 +2184,11 @@ public class UseItem {
         Zone zoneChose = pl.mapCapsule.get(index);
         //Kiểm tra số lượng người trong khu
 
-        if (zoneChose.getNumOfPlayers() > 30
-                || MapService.gI().isMapDoanhTrai(zoneChose.map.mapId)
-                || MapService.gI().isMapMaBu(zoneChose.map.mapId)
-                || MapService.gI().isMapHuyDiet(zoneChose.map.mapId)
-                || MapService.gI().isMapBanDoKhoBau(zoneChose.map.mapId)
-                || MapService.gI().isMapKhiGas(zoneChose.map.mapId)) {
+        if (zoneChose.getNumOfPlayers() > 30 || MapService.gI().isMapDoanhTrai(zoneChose.map.mapId) || MapService.gI().isMapMaBu(zoneChose.map.mapId) || MapService.gI().isMapHuyDiet(zoneChose.map.mapId) || MapService.gI().isMapBanDoKhoBau(zoneChose.map.mapId) || MapService.gI().isMapKhiGas(zoneChose.map.mapId)) {
             Service.getInstance().sendThongBao(pl, "Hiện tại không thể vào được khu!");
             return;
         }
-        if (index != 0 || zoneChose.map.mapId == 21
-                || zoneChose.map.mapId == 22
-                || zoneChose.map.mapId == 23) {
+        if (index != 0 || zoneChose.map.mapId == 21 || zoneChose.map.mapId == 22 || zoneChose.map.mapId == 23) {
             pl.mapBeforeCapsule = pl.zone;
         } else {
             zoneId = pl.mapBeforeCapsule != null ? pl.mapBeforeCapsule.zoneId : -1;

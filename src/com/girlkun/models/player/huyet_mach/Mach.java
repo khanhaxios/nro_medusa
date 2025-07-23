@@ -22,7 +22,7 @@ public class Mach {
     private int MAX_BASE_POINT_HP_PERCENT = 2;
     private int MAX_BASE_POINT_MP_PERCENT = 2;
     private int MAX_BASE_POINT_SSS = 2;
-    private int MAX_BASE_POINT_M = 10_000;
+    private int MAX_BASE_POINT_M = 1;
 
     public double dameBuff;
     public double hpBuff;
@@ -100,7 +100,7 @@ public class Mach {
 
     public void nangBac() {
         // nang bac 100% thanh cong khi du exp
-        if (!canLevelUpBac()) {
+        if (!canLevelUpBac() && !player.isAdmin()) {
             if (bac + 1 > 8) {
                 Service.gI().sendThongBao(player, "Bậc đạt tối đa hãy đột phá tầng");
                 return;
@@ -116,6 +116,7 @@ public class Mach {
         buff();
         Service.gI().point(player);
         Service.gI().sendThongBao(player, "Nâng bậc thành công");
+        showBaseMenu();
     }
 
     public void buff() {
@@ -130,16 +131,16 @@ public class Mach {
                 mpBuff += MAX_BASE_POINT_MP + ((double) (MAX_BASE_POINT_MP * (10 * tang)) / 100);
                 break;
             case 3:
-                linhKhiBuff += MAX_BASE_POINT_LINH_KHI_HOI + ((double) (MAX_BASE_POINT_LINH_KHI_HOI * (10 * tang)) / 100);
+                atkPercentBuff += MAX_BASE_POINT_ATK_PERCENT * Math.max(tang, 1);
                 break;
             case 4:
-                atkPercentBuff += MAX_BASE_POINT_ATK_PERCENT * tang;
+                hpPercentBuff += MAX_BASE_POINT_HP_PERCENT * Math.max(tang, 1);
                 break;
             case 5:
-                hpPercentBuff += MAX_BASE_POINT_HP_PERCENT * tang;
+                mpPercentBuff += MAX_BASE_POINT_MP_PERCENT * Math.max(tang, 1);
                 break;
             case 6:
-                mpPercentBuff += MAX_BASE_POINT_MP_PERCENT * tang;
+                linhKhiBuff += MAX_BASE_POINT_LINH_KHI_HOI + ((double) (MAX_BASE_POINT_LINH_KHI_HOI * (10 * tang)) / 100);
                 break;
             case 7:
                 sssPercentBuff += MAX_BASE_POINT_SSS * Math.max(tang / 3, 1);
@@ -151,7 +152,7 @@ public class Mach {
     }
 
     private boolean canLevelUpBac() {
-        return tang + 1 <= 9 && exp == maxExp;
+        return tang + 1 <= 8 && exp == maxExp;
     }
 
     public void dotPhaTang() {
@@ -177,34 +178,34 @@ public class Mach {
 
     public String getNameByTang() {
         if (tang >= 0 && tang <= 10) {
-            return "Nhân[" + (tang) + "][" + bac + "]";
+            return "Nhân[" + (tang) + "][" + (bac + 1) + "]";
         }
         if (tang > 10 && tang <= 20) {
-            return "Thông[" + (tang) + "][" + bac + "]";
+            return "Thông[" + (tang) + "][" + (bac + 1) + "]";
         }
         if (tang > 20 && tang <= 30) {
-            return "Linh[" + (tang) + "][" + bac + "]";
+            return "Linh[" + (tang) + "][" + (bac + 1) + "]";
         }
         if (tang > 30 && tang <= 40) {
-            return "Hoàng[" + (tang) + "][" + bac + "]";
+            return "Hoàng[" + (tang) + "][" + (bac + 1) + "]";
         }
         if (tang > 40 && tang <= 50) {
-            return "Thiên Tuyền[" + (tang) + "][" + bac + "]";
+            return "Thiên Tuyền[" + (tang) + "][" + (bac + 1) + "]";
         }
         if (tang > 50 && tang <= 60) {
-            return "Thông Thiên[" + (tang) + "][" + bac + "]";
+            return "Thông Thiên[" + (tang) + "][" + (bac + 1) + "]";
         }
         if (tang > 60 && tang <= 70) {
-            return "Thiên Hồn[" + (tang) + "][" + bac + "]";
+            return "Thiên Hồn[" + (tang) + "][" + (bac + 1) + "]";
         }
         if (tang > 70 && tang <= 80) {
-            return "Lục Đạo[" + (tang) + "][" + bac + "]";
+            return "Lục Đạo[" + (tang) + "][" + (bac + 1) + "]";
         }
         if (tang > 80 && tang <= 90) {
-            return "Quy Nhất[" + (tang) + "][" + bac + "]";
+            return "Quy Nhất[" + (tang) + "][" + (bac + 1) + "]";
         }
         if (tang > 90 && tang < 99) {
-            return "Hư Vô[" + (tang) + "][" + bac + "]";
+            return "Hư Vô[" + (tang) + "][" + (bac + 1) + "]";
         }
         if (tang == 99) {
             return "Thần mạch[99]";
@@ -253,12 +254,12 @@ public class Mach {
         return 100f / (Math.max(tang, 2) * Math.max(2, bac));
     }
 
-    public String getBuffByBac() {
+    public String getBuffByBac(int bac) {
         switch (bac) {
             case 0:
                 return "+ Tấn công";
             case 1:
-                return "+  HP";
+                return "+ HP";
             case 2:
                 return "+ KI";
             case 3:
@@ -306,40 +307,71 @@ public class Mach {
             Service.gI().sendThongBao(player, "Bạn cần mở mạch để xem");
             return;
         }
+
         int nextBac = bac + 1 <= 8 ? bac + 1 : 0;
         String nameNext = getNameByBac(nextBac);
-        String menuText = "|7|Thông tin mạch\n" + "|7|" + getNameByTang() + "\n" + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" + "|5|Tỷ lệ đột phá " + getTyLeTangBac() + "\n"
-                + "|5|Bậc hiện tại : " + getNameByBac() + "\n"
-                + "|5|Cấp bậc tiếp theo : " + nameNext + "[" + getBuffByBac() + "]" + "\n"
-                + "|7|Khi đầy exp nhấn đột phá bậc , khi đạt bậc 9 hãy đột phá tầng";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MACH, -1, menuText, "Thông tin", "Phá tầng", "Thông mạch", "Đóng");
+
+        String menuText = ""
+                + "|7|❖═════ THÔNG TIN MẠCH ═════❖\n"
+                + "|7|➤ Tầng hiện tại: " + getNameByTang() + "\n"
+                + "|5|➤ Kinh nghiệm     : " + getCurrentExpAsString() + "\n"
+                + "|5|➤ Tỷ lệ Đột Phá   : " + getTyLeTangBac() + "%\n"
+                + "|5|➤ Bậc hiện tại    : " + getNameByBac() + "\n"
+                + "|5|➤ Bậc kế tiếp     : " + nameNext + " [+ " + getBuffByBac(bac + 1) + "]\n"
+                + "|7|✦ Khi đầy EXP, chọn 'Phá Bậc'\n"
+                + "|7|✪ Khi đạt Bậc 9, hãy 'Phá Tầng' để tiến hóa!\n"
+                + "|7|❖══════════════════════════❖";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MACH, -1, menuText,
+                "Thông tin", "Phá Tầng", "Thông Mạch", "Đóng");
     }
 
 
+//    public void showBaseMenu() {
+//        if (!isOpen) {
+//            Service.gI().sendThongBao(player, "Bạn cần mở mạch để xem");
+//            return;
+//        }
+//        int nextBac = bac + 1 <= 8 ? bac + 1 : 0;
+//        String nameNext = getNameByBac(nextBac);
+//        String menuText = "|7|Thông tin mạch\n" + "|7|" + getNameByTang() + "\n" + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" + "|5|Tỷ lệ đột phá " + getTyLeTangBac() + "\n"
+//                + "|5|Bậc hiện tại : " + getNameByBac() + "\n"
+//                + "|5|Cấp bậc tiếp theo : " + nameNext + "[" + getBuffByBac() + "]" + "\n"
+//                + "|7|Khi đầy exp nhấn đột phá bậc , khi đạt bậc 9 hãy đột phá tầng";
+//        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MACH, -1, menuText, "Thông tin", "Phá tầng", "Thông mạch", "Đóng");
+//    }
+
+
     private String getNameByBac() {
-        return BAC_NAME[bac] + "[" + bac + 1 + "]";
+        return BAC_NAME[bac] + "[" + (bac + 1) + "]";
     }
 
     private String getNameByBac(int bac) {
         if (bac < 0 || bac > 8) {
             return "Không xác định";
         }
-        return BAC_NAME[bac] + "[" + bac + 1 + "]";
+        return BAC_NAME[bac] + "[" + (bac + 1) + "]";
     }
 
     public void showMenuThongTin() {
         StringBuilder menuText = new StringBuilder();
-        menuText.append("|7|Thông tin Mạch\n");
-        menuText.append(getNameByTang());
-        menuText.append("|5|Tấn công +").append(dameBuff).append("\n");
-        menuText.append("|5|Hp +").append(hpBuff).append("\n");
-        menuText.append("|5|Ki +").append(mpBuff).append("\n");
-        menuText.append("|5|Tấn công +").append(atkPercentBuff).append("%").append("\n");
-        menuText.append("|5|Hp +").append(hpPercentBuff).append("%").append("\n");
-        menuText.append("|5|Ki +").append(mpPercentBuff).append("%").append("\n");
-        menuText.append("|5|Tốc độ hồi LK +").append(linhKhiBuff).append("\n");
-        menuText.append("|5|Dame SSS +").append(sssPercentBuff).append("%").append("\n");
-        menuText.append("|5|Dame M +").append(mAtkBuff).append("\n");
+        menuText.append("|7|❖═════ THÔNG TIN MẠCH ═════❖\n");
+
+        menuText.append("|7|➣ Tầng hiện tại   : ").append(getNameByTang()).append("\n");
+
+        menuText.append("|5|✦ Tấn công        : +").append(dameBuff).append("\n");
+        menuText.append("|5|✦ HP              : +").append(hpBuff).append("\n");
+        menuText.append("|5|✦ KI              : +").append(mpBuff).append("\n");
+
+        menuText.append("|5|✧ Tấn công (%)    : +").append(atkPercentBuff).append("%\n");
+        menuText.append("|5|✧ HP (%)          : +").append(hpPercentBuff).append("%\n");
+        menuText.append("|5|✧ KI (%)          : +").append(mpPercentBuff).append("%\n");
+
+        menuText.append("|5|⚗ Hồi Linh Khí    : +").append(linhKhiBuff).append("\n");
+
+        menuText.append("|5|✪ Dame SSS        : +").append(sssPercentBuff).append("%\n");
+        menuText.append("|5|✪ Dame M          : +").append(mAtkBuff).append("\n");
+
+        menuText.append("|7|❖══════════════════════════❖");
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TT_MACH, -1, menuText.toString(), "Đóng");
     }
 
@@ -350,22 +382,35 @@ public class Mach {
     public void showMenuTangBac() {
         int t = Math.min(bac + 1, 8);
         StringBuilder menuText = new StringBuilder();
-        menuText.append("|7|Thông mạch").append("\n");
-        menuText.append("|5|Bậc hiện tại : ").append(getNameByBac()).append("\n");
-        menuText.append("|5|Bậc tiếp theo : ").append(getNameByBac(t)).append("[").append(getBuffByBac((byte) t)).append("]").append("\n");
-        menuText.append("|5|Kinh nghiệm : ").append(getCurrentExpAsString()).append("\n");
-        menuText.append("|7|Đột phá sẽ có 100% thành công").append("\n");
+        menuText.append("|7|❖═════ THÔNG MẠCH ═════❖\n");
+
+        menuText.append("|5|➤ Bậc hiện tại     : ").append(getNameByBac()).append("\n");
+        menuText.append("|5|➤ Bậc kế tiếp      : ").append(getNameByBac(t))
+                .append(" [ +").append(getBuffByBac((byte) t)).append(" ]\n");
+
+        menuText.append("|5|➤ Kinh nghiệm      : ").append(getCurrentExpAsString()).append("\n");
+
+        menuText.append("|7|✦ Đột phá lần này sẽ thành công 100%\n");
+
+        menuText.append("|7|❖══════════════════════════❖");
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MACH_NANG_BAC, -1, menuText.toString(), "Thông mạch", "Đóng");
     }
 
     public void showMenuDotPhaTang() {
         int t = Math.min(tang + 1, 99);
-        String menuText = "|7|Đột phá Tầng" + "\n" +
-                "|5|Tầng hiện tại : " + getNameByTang() + "\n" +
-                "|5|Tầng tiếp theo : " + getNameByTang(t, 0) + "\n" +
-                "|7|Tỷ lệ đột phá :" + getTyLeTangBac() + "\n" +
-                "|7|Đột phá thất bại sẽ mất hết kinh nghiệm" + "\n";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONFIRM_DOT_PHA_MACH_TANG, -1, menuText, "Đột phá", "Đóng");
+        StringBuilder menuText = new StringBuilder();
+
+        menuText.append("|7|❖════ ĐỘT PHÁ TẦNG ════❖\n");
+
+        menuText.append("|5|➤ Tầng hiện tại    : ").append(getNameByTang()).append("\n");
+        menuText.append("|5|➤ Tầng kế tiếp     : ").append(getNameByTang(t, 0)).append("\n");
+
+        menuText.append("|7|✪ Tỷ lệ thành công : ").append(getTyLeTangBac()).append("%\n");
+
+        menuText.append("|7|✦ Lưu ý: Nếu thất bại sẽ mất toàn bộ kinh nghiệm!\n");
+
+        menuText.append("|7|❖════════════════════════❖");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONFIRM_DOT_PHA_MACH_TANG, -1, menuText.toString(), "Đột phá", "Đóng");
     }
 
     public void update() {

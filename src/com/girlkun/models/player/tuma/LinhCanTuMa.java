@@ -71,8 +71,24 @@ public class LinhCanTuMa {
     }
 
     public void showBaseMenu() {
-        String text = "|7|Thông tin Ma Linh Căn\n|5|" + tenLinhCan + "\n|5|" + getMoTaLinhCan();
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MA_TU_LINH_CAN, -1, text, "Dưỡng\nLinh Căn", "STLC\n" + (player.tuMa.isAttackWithLinhCan ? "Mở" : "Đóng"), "Đóng");
+        StringBuilder text = new StringBuilder();
+
+        text.append("|7|❖════ THÔNG TIN MA LINH CĂN ════❖\n");
+// — In trực tiếp tên & mô tả, không có tiền tố —
+        text.append("|5|").append(tenLinhCan).append("\n");
+        text.append("|5|").append(moTaLinhCan).append("\n");
+// — Hệ số buff —
+        text.append("|5|➤ Hệ số buff : x").append(xParam).append(" lần\n");
+// — Ma Khí hấp thụ —
+        text.append("|5|➤ Ma Khí đã nuốt : ").append(maKhiDaNuot).append(" điểm\n");
+        text.append("|5|➤ Ma Khí cần nuốt: ").append(maKhiCanNuot).append(" điểm\n");
+// — Phẩm chất —
+        text.append("|5|➤ Phẩm chất  : ").append(phamChat).append("\n");
+
+// — Lời kết/khung —
+        text.append("|7|❖══════════════════════════════❖");
+
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MA_TU_LINH_CAN, -1, text.toString(), "Dưỡng\nLinh Căn", "STLC\n" + (player.tuMa.isAttackWithLinhCan ? "Mở" : "Đóng"), "Đóng");
     }
 
     public void toggleSTLC() {
@@ -80,8 +96,19 @@ public class LinhCanTuMa {
     }
 
     public void duongLinhCan() {
-        String text = "|7|Bồi dưỡng linh căn\n|5|" + tenLinhCan + "[" + getPercentMakhi() + "]\n" + "|5|Linh chú [ " + getMaKhiString() + "]" + "\n|1|Bạn muốn dưỡng mấy lần?";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_DUONG_LINH_CAN, -1, text, "1 lần", "10 lần", "100 lần", "Đóng");
+        StringBuilder text = new StringBuilder();
+        text.append("|7|❖═════ BỒI DƯỠNG LINH CĂN ═════❖\n");
+// — Tên linh căn + phần trăm hấp thụ —
+        text.append("|5|➤ ").append(tenLinhCan).append(" [").append(getPercentMakhi()).append("]\n");
+
+// — Ma khí cần/đang nuốt —
+        text.append("|5|➤ Linh chú      : ").append(getMaKhiString()).append("\n");
+
+// — Câu hỏi lựa chọn —
+        text.append("|1|✦ Bạn muốn dưỡng mấy lần?");
+
+        text.append("\n|7|❖══════════════════════════════❖");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_DUONG_LINH_CAN, -1, text.toString(), "1 lần", "10 lần", "100 lần", "Đóng");
     }
 
     private String getMaKhiString() {

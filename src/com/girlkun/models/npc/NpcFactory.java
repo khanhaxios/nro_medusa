@@ -2486,7 +2486,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player) && mapId == 5) {
-                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Huyết mạch");
+                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Huyết mạch", "Công Pháp");
                 }
             }
 
@@ -2504,7 +2504,24 @@ public class NpcFactory {
                         case 2:
                             createOtherMenu(player, ConstNpc.MENU_KH_HM, "Huyết mạch là một phần bổ trợ rất mạch giúp kích phát thêm tiềm năng từ bản thân", "Huyết", "Mạch");
                             break;
+                        case 3:
+                            createOtherMenu(player, ConstNpc.MENU_H_CP_LT, "Công pháp giúp tăng cường sức mạnh của luyện thể", "Học\nCông Pháp", "Đóng");
+                            break;
                     }
+                } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_H_CP_LT) {
+                    Service.gI().sendThongBaoOK(player, "Tính năng đang được phát triển");
+                    return;
+//                    if (select == 0) {
+//                        if (player.session.vnd - 300_000 < 0) {
+//                            Service.gI().sendThongBao(player, "Cần 300k điểm nạp để mở");
+//                            return;
+//                        }
+//                        if (!player.luyenThe.isLuyenTheReal()) {
+//                            Service.gI().sendThongBao(player, "Bạn đã tu nghề phụ khác không thể học công pháp luyện thể");
+//                            return;
+//                        }
+//                        player.luyenThe.congPhapLuyenThe.hocCongPhap((byte) Util.nextInt(0, 1));
+//                    }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_KH_HM) {
                     switch (select) {
                         case 0 -> player.huyet.kichHoatHuyetMach();
@@ -2546,7 +2563,7 @@ public class NpcFactory {
                             return;
                         }
                         PlayerDAO.subvnd(player, 50_000);
-                        long exp = player.luyenThe.maxExp * 10 / 100;
+                        long exp = player.luyenThe.maxExp;
                         player.luyenThe.addExp(exp);
                         Service.gI().sendThongBao(player, "Truyền công hoàn tất bạn nhận được " + Util.powerToString(exp) + " exp");
                     }
@@ -7577,6 +7594,21 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 switch (player.iDMark.getIndexMenu()) {
+                    case ConstNpc.MENU_CP_LT:
+                        switch (select) {
+                            case 0:
+                                player.luyenThe.congPhapLuyenThe.levelUp();
+                                break;
+                            case 1:
+                                player.luyenThe.congPhapLuyenThe.showMenuPhaGiai();
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_CP_PG:
+                        if (select == 0) {
+                            player.luyenThe.congPhapLuyenThe.dotPhaGiaiDoan();
+                        }
+                        break;
                     case ConstNpc.MENU_XEM_NGUYEN_LIEU:
                         player.luyenDanSu.tuiNguyenLieu.showBaseNguyenLieu(select, 6);
                         break;
@@ -8132,6 +8164,9 @@ public class NpcFactory {
                             String text = "|7|Đột phá luyện thể\n" + "|5|Cấp hiện tại : " + player.luyenThe.getName() + "\n" + "|2|Cấp tiếp theo : " + "Luyện thể tầng " + (player.luyenThe.level + 1) + "\n" + "|7|Tỷ lệ đột phá : " + player.luyenThe.getLevelUpPercent() + "%" + "(Thất bại " + player.luyenThe.timeThatBai + " lần)\n" + "|1|Đột phá cần : " + player.luyenThe.getItemNeed(idsItemNeed);
                             NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_DOT_PHA_LUYEN_THE, -1, text, "Đột phá", "Đóng");
                         }
+                        if (select == 1) {
+                            player.luyenThe.congPhapLuyenThe.showBaseMenu();
+                        }
                         break;
                     case ConstNpc.CONFIRM_DOT_PHA_LUYEN_THE:
                         if (select == 0) {
@@ -8219,7 +8254,7 @@ public class NpcFactory {
                             case 0:
                                 boolean isDotPhaCao = player.tuTien.subLevel == 10;
                                 // dot pha
-                                String text = "|7|Đột phá\n" + "|5|Cảnh Giới hiện tại : " + player.tuTien.getFormatName() + "\n" + "|2|Cảnh Giới tiếp theo : " + player.tuTien.getNextLevelStr() + "\n" + "|2|Tu vi : " + player.tuTien.getCurrentExpAsString() + "\n" + "|7|Tỷ lệ thành công : " + player.tuTien.getLevelUpPercent() + "%" + "\n" + "|7|Tỷ lệ thành công thiên đạo: " + player.tuTien.getLevelUpPercent() / 5 + "%" + "\n" + "|5|Bạn có thể ăn dan dược để tăng tỷ lệ thành công -.-";
+                                String text = "|7|❖ ĐỘT PHÁ CẢNH GIỚI ❖\n" + "|5|🌟 Cảnh giới hiện tại: |2|" + player.tuTien.getFormatName() + "\n" + "|5|🌠 Cảnh giới kế tiếp: |2|" + player.tuTien.getNextLevelStr() + "\n" + "|1|🔮 Tu vi: |5|" + player.tuTien.getCurrentExpAsString() + "\n" + "|1|🎯 Tỷ lệ đột phá: |2|" + player.tuTien.getLevelUpPercent() + "%\n" + "|1|⚡ Thiên đạo (hiếm): |2|" + (player.tuTien.getLevelUpPercent() / 5) + "%\n" + "|7|🧪 Dùng đan dược để tăng tỷ lệ thành công!";
                                 if (isDotPhaCao) {
                                     NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_DOT_PHA, -1, text, "Đột phá\nThiên đạo", "Đột phá thường", "Từ Chối");
                                 } else {
@@ -8364,17 +8399,24 @@ public class NpcFactory {
                         switch (select) {
                             case 0:
                                 // tang pham
-                                String npcSay = "|7|Tăng phẩm công pháp\n" + "|5|Phẩm giai hiện tại : " + player.tuTien.congPhap.phamchat.name + " Phẩm\n" + "|2|Phẩm giai tiếp theo  : " + player.tuTien.congPhap.phamchat.getNext().name + " Phẩm\n" + "|1|Tỷ lệ lĩnh ngộ :" + player.tuTien.congPhap.getTyLeLinhNgo() + "%\n" + "|7|Bạn muốn?";
+                                String npcSay = "|7|❖═══ TĂNG PHẨM CÔNG PHÁP ═══❖\n" + "|5|➤ Phẩm hiện tại   : " + player.tuTien.congPhap.phamchat.name + " Phẩm\n" + "|2|➤ Phẩm kế tiếp    : " + player.tuTien.congPhap.phamchat.getNext().name + " Phẩm\n" + "|1|✪ Tỷ lệ lĩnh ngộ  : " + player.tuTien.congPhap.getTyLeLinhNgo() + "%\n" + "|7|✦ Bạn muốn...?";
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.CONG_PHAP_LINH_NGO, -1, npcSay, "Tự Thân\nLĩnh ngộ", "Sư phụ\nChỉ Dẫn", "Đóng");
                                 break;
                             case 1:
                                 // linh ngo cong phap
-                                String npcSat = "|7|Lĩnh ngộ công pháp\n" + "|5|Lĩnh ngộ công pháp sẽ giúp bạn lĩnh ngộ ra những thuộc tính \nmới hoặc tăng cường những thuộc tính đã có";
+                                String npcSat = "|7|❖═══ LĨNH NGỘ CÔNG PHÁP ═══❖\n" + "|5|✦ Lĩnh ngộ công pháp sẽ giúp bạn:\n" + "|5|➤ Khai mở thuộc tính mới\n" + "|5|➤ Tăng cường thuộc tính đã có\n" + "|7|✪ Hãy chuẩn bị tinh thần... Linh cảm chỉ đến với người hữu duyên!";
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LINH_NGO_CONG_PHAP, -1, npcSat, "Lĩnh ngộ", "Đóng");
                                 break;
                             case 2:
-                                // thong tin buff ne
-                                String npcSayHi = String.format("|5|TlHP: %s , TlMp: %s , TlDame: %s\n|5|Tl Linh Khí: %s|5|Tl Ăn Cắp Vàng: %s , Hút Dame: %s , Hút HP: %s , Hút Mp: %s\n|5|Tổng Dame hút:%s , Tổng HP hút: %s , Tổng MP hút: %s\nx Linh Khí: %s , Tốc Độ Khôi Phục LK: %s , x Dame Thuộc Tính: %s", player.tuTien.congPhap.tlHpBuff + "%", player.tuTien.congPhap.tlMpBuff + "%", player.tuTien.congPhap.tlDameBuff + "%", player.tuTien.congPhap.tlLinhKhiBuff + "%", player.tuTien.congPhap.tlAnCapVang + "%", player.tuTien.congPhap.hutDame + " Điểm", player.tuTien.congPhap.hutHp + " Điểm", player.tuTien.congPhap.hutMp + " Điểm", player.tuTien.congPhap.totalHutDame + " Điểm", player.tuTien.congPhap.totalHutHp + " Điểm", player.tuTien.congPhap.totalHutMp + " Điểm", player.tuTien.congPhap.xLinhKhiBuff + "x Lần", player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi + "x Lần", player.tuTien.congPhap.xDameThuocTinh + "x Lần");
+                                String npcSayHi = "|7|❖═══ BUFF CÔNG PHÁP CHI TIẾT ═══❖\n" +
+// — Nhóm buff cơ bản —
+                                        "|5|➤ TL HP       : " + player.tuTien.congPhap.tlHpBuff + "%\n" + "|5|➤ TL MP       : " + player.tuTien.congPhap.tlMpBuff + "%\n" + "|5|➤ TL Dame     : " + player.tuTien.congPhap.tlDameBuff + "%\n" + "|5|➤ TL Linh Khí : " + player.tuTien.congPhap.tlLinhKhiBuff + "%\n" +
+// — Nhóm tổng cộng —
+                                        "|5|➤ Tổng Dame Hút : " + player.tuTien.congPhap.totalHutDame + " điểm\n" + "|5|➤ Tổng HP Hút   : " + player.tuTien.congPhap.totalHutHp + " điểm\n" + "|5|➤ Tổng MP Hút   : " + player.tuTien.congPhap.totalHutMp + " điểm\n" +
+
+// — Nhóm hệ số nhân —
+                                        "|5|➤ x Linh Khí             : " + player.tuTien.congPhap.xLinhKhiBuff + "x\n" + "|5|➤ Tốc độ hồi LK          : " + player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi + "x\n" + "|5|➤ x Dame Thuộc Tính      : " + player.tuTien.congPhap.xDameThuocTinh + "x\n" + "|7|❖═════════════════════════════❖";
+
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_INFO_CONG_PHAP_BUFF, -1, npcSayHi, "Đóng");
                                 break;
                             default:

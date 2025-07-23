@@ -881,6 +881,10 @@ public class Service {
 //        }
 
         if (player.getSession() != null && player.isAdmin()) {
+            if (text.equals("tut")) {
+                player.tuTien.openSystem();
+                return;
+            }
             if (text.equals("dp")) {
                 player.luyenDanSu.tuiDanPhuong.addDanPhuong(DanPhuongFactory.randomizeDanPhuong(9));
                 Service.gI().sendThongBao(player, "Bạn đã lấy đan phương từ kho hàng vũ trụ");

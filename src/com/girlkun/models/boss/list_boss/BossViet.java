@@ -66,7 +66,7 @@ public class BossViet extends Boss {
                 this.chat("Xí hụt");
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(Util.nextInt(50, 1000));
+            damage = this.nPoint.subDameInjureWithDeff(Util.nextInt(1000, 50000));
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);

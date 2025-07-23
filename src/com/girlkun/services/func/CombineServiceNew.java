@@ -1526,6 +1526,7 @@ public class CombineServiceNew {
             Item bongTai = ItemService.gI().createNewItem(getIdBongTaiByLevel(player.iDMark.capCheBongTai + 1));
             // ratio bong tai
             bongTai.itemOptions.add(new ItemOption(30, 0));
+            bongTai.itemOptions.add(new ItemOption(261, player.iDMark.capCheBongTai + 1));
             InventoryServiceNew.gI().addItemBag(player, bongTai);
             Service.gI().sendThongBao(player, "Chế tạo thành công bạn nhận được x1 " + bongTai.template.name);
         } else {

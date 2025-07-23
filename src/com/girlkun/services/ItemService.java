@@ -416,6 +416,7 @@ public class ItemService {
         short itemId;
         itemId = Manager.DoThongKho[Util.nextInt(0, Manager.DoThongKho.length - 1)];
         item = Util.ratiItemThongKho(itemId);
+        item.itemOptions.add(new ItemOption(260, 8));
         return randomOption(item);
     }
 
@@ -424,6 +425,7 @@ public class ItemService {
         short itemId;
         itemId = Manager.setJiren[Util.nextInt(0, 4)];
         item = Util.ratiItemSKHJiren(itemId);
+        item.itemOptions.add(new ItemOption(260, 10));
         return randomOption(item);
     }
 
@@ -432,6 +434,7 @@ public class ItemService {
         short itemId;
         itemId = Manager.setGokuUI[Util.nextInt(0, 4)];
         item = Util.ratiItemSKHGokuUI(itemId);
+        item.itemOptions.add(new ItemOption(260, 12));
         return randomOption(item);
     }
 
@@ -1514,6 +1517,7 @@ public class ItemService {
                 Util.nextInt(5, 14);
                 break;
         }
+        item.itemOptions.add(new ItemOption(260, 2));
         return randommOptionForCheDo(item, param, paramID);
     }
 
@@ -1545,6 +1549,7 @@ public class ItemService {
                 Util.nextInt(6, 18);
                 break;
         }
+        item.itemOptions.add(new ItemOption(260, 2));
         return randommOptionForCheDo(item, param, paramID);
     }
 
@@ -1593,6 +1598,8 @@ public class ItemService {
                 Util.nextInt(9, 25);
                 break;
         }
+        item.itemOptions.add(new ItemOption(260, 2));
+
         return randommOptionForCheDo(item, param, paramID);
     }
 
@@ -1619,6 +1626,8 @@ public class ItemService {
                 Util.nextInt(12, 20);
                 break;
         }
+        item.itemOptions.add(new ItemOption(260, 4));
+
         return randommOptionForCheDo(item, param, paramID);
     }
 
@@ -1645,6 +1654,8 @@ public class ItemService {
                 Util.nextInt(20, 40);
                 break;
         }
+        item.itemOptions.add(new ItemOption(260, 4));
+
         return randommOptionForCheDo(item, param, paramID);
     }
 
@@ -1671,6 +1682,8 @@ public class ItemService {
                 Util.nextInt(15, 18);
                 break;
         }
+        item.itemOptions.add(new ItemOption(260, 6));
+
         return randommOptionForCheDo(item, param, paramID);
     }
 
@@ -1681,5 +1694,14 @@ public class ItemService {
             }
         }
         return false;
+    }
+
+    public ItemOption getOptionById(Item item, int i) {
+        for (ItemOption itemOption : item.itemOptions) {
+            if (itemOption.optionTemplate.id == i) {
+                return itemOption;
+            }
+        }
+        return null;
     }
 }

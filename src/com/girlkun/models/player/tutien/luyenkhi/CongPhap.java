@@ -407,8 +407,19 @@ public class CongPhap {
             Service.gI().sendThongBao(tuTien.player, "Bạn chưa học công pháp");
             return;
         }
-        String npcSay = "|7|Công Pháp+\n" + "|5|" + getFullName() + "\n" + "|5|Độ thuần thục : " + getCurrentExpStr() + "\n" + "|2|Số lượng thuộc tính : " + slThuocTinh + " thuộc tính\n" + "|1|Phẩm chất : " + phamchat.name + "\n" + "|5|Thuộc tính công pháp : " + getThuocTinhName() + "\n" + "|7|Bạn muốn ? ";
-        NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_CONG_PHAP, -1, npcSay, "Tăng Phẩm", "Lĩnh ngộ", "Xem Thuộc\nTính", "Đóng");
+        StringBuilder npcSay = new StringBuilder();
+
+        npcSay.append("|7|❖═════ CÔNG PHÁP ═════❖\n");
+        npcSay.append("|5|➤ Tên          : ").append(getFullName()).append("\n");
+        npcSay.append("|5|➤ Thuần thục   : ").append(getCurrentExpStr()).append("\n");
+
+        npcSay.append("|2|➤ Số thuộc tính: ").append(slThuocTinh).append(" thuộc tính\n");
+        npcSay.append("|1|➤ Phẩm chất    : ").append(phamchat.name).append("\n");
+
+        npcSay.append("|5|➤ Thuộc tính   : ").append(getThuocTinhName()).append("\n");
+
+        npcSay.append("|7|✦ Bạn muốn...?");
+        NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_CONG_PHAP, -1, npcSay.toString(), "Tăng Phẩm", "Lĩnh ngộ", "Xem Thuộc\nTính", "Đóng");
     }
 
     public boolean canLevelUp() {

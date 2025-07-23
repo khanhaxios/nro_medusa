@@ -553,6 +553,14 @@ public class Mob {
                 player.luyenThe.addExp(exp);
                 // send data kn luyen the
                 PlayerService.gI().sendOtherOrigan(player, (byte) 1, exp);
+                // add exp cong phap
+                if (player.luyenThe.congPhapLuyenThe.isLearn()) {
+                    if (player.luyenThe.congPhapLuyenThe.giaiDoan == 8) {
+                        player.luyenThe.congPhapLuyenThe.addExp(player.luyenThe.congPhapLuyenThe.getExpCanGain());
+                    } else {
+                        player.luyenThe.congPhapLuyenThe.addExpGiaiDoan(player.luyenThe.congPhapLuyenThe.getExpCanGain());
+                    }
+                }
             }
             if (player.tuMa != null && player.tuMa.isTuMa()) {
                 long exp = player.tuMa.getExpCanGain(this);

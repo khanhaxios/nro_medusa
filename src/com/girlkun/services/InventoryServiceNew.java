@@ -9,6 +9,7 @@ import com.girlkun.models.npc.specialnpc.Timedua;
 import com.girlkun.models.player.Inventory;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.network.io.Message;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Util;
@@ -444,6 +445,26 @@ public class InventoryServiceNew {
         return sItem;
     }
 
+    public static boolean checkTuTienCondition(Item item, Player player) {
+        if (ItemService.gI().hasOption(260, item)) {
+            // check level luyen khi
+            ItemOption itemOption = ItemService.gI().getOptionById(item, 260);
+            if (player.tuTien.isTuTien() && player.tuTien.level < itemOption.param) {
+                Service.gI().sendThongBaoOK(player, "Bạn cần đạt tu tiên cấp " + TuTien.CANH_GIOI[itemOption.param] + " để trang bị vật phẩm này");
+                return false;
+            }
+        }
+        if (ItemService.gI().hasOption(261, item)) {
+            // check level luyen khi
+            ItemOption itemOption = ItemService.gI().getOptionById(item, 261);
+            if (player.luyenKhiSu.isLuyenKhiSu() && player.luyenKhiSu.getLevel() < itemOption.param) {
+                Service.gI().sendThongBaoOK(player, "Bạn cần đạt luyện khí sư cấp " + itemOption.param + " để trang bị vật phẩm này");
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void itemBagToBody(Player player, int index) {
         if (player.petDaoLu != null && player.petDaoLu.isMacDo) {
             InventoryServiceNew.gI().itemBagToPetDaoLuBody(player, index);
@@ -451,12 +472,16 @@ public class InventoryServiceNew {
             Item item = player.inventory.itemsBag.get(index);
             Item pettt = player.inventory.itemsBody.get(7);
             if (item.isNotNullItem()) {
+                if (!checkTuTienCondition(item, player)) {
+                    return;
+                }
                 if (item.template.type == 23 || item.template.type == 24 || item.template.type == 72 || item.template.type == 21) {
                     if (!player.tuMa.isTuMa() && (player.nguThuSu == null || !player.nguThuSu.isNguThu())) {
                         Service.gI().sendThongBaoOK(player, "Bạn cần học ngự thú sư để trang bị thú cưỡi,pet,linh thú");
                         return;
                     }
                 }
+
                 player.inventory.itemsBag.set(index, putItemBody(player, item));
                 if (item.template.id > 1299 && item.template.id < 1309) {
                     Service.gI().removeTitle(player);

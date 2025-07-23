@@ -475,6 +475,9 @@ public class ConstNpc {
     public static final int MENU_DAN_PHUONG = -91263981;
     public static final int MENU_DAN_DUOC = -9102873;
     public static final int MENU_CONFIRM_CHE_DAN = -678123;
+    public static final int MENU_CP_LT = -981231892;
+    public static final int MENU_CP_PG = -4319822;
+    public static final int MENU_H_CP_LT = -6428764;
 }
 
 /**

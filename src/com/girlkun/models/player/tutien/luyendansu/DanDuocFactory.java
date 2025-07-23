@@ -58,7 +58,7 @@ public class DanDuocFactory {
                 player.luyenDanSu.diemKhangTinh -= player.luyenDanSu.calcMaxDiemKhangTinh() * (5 * Math.max(danDuoc.capDanDuoc + 1, 1)) / 100;
             } else {
                 int diemCong = Util.nextInt(3, 5);
-                if (player.tuTien.getXDiemThienPhu() > danDuoc.capDanDuoc + 1) {
+                if (player.tuTien.getXDiemThienPhu() > danDuoc.capDanDuoc + 2) {
                     Service.gI().sendThongBao(player, "Do thiên phú của bạn quá cao nên đan được không có tác dụng");
                     return;
                 }
@@ -103,6 +103,8 @@ public class DanDuocFactory {
             Service.gI().sendThongBao(player, "Tỷ lệ đột phá thiên đạo của bạn sẽ tăng một chút");
         }
         //xoa dan duoc trong tui sau khi dung
+        // tang khang dan
+        player.luyenDanSu.diemKhangTinh += (5 - danDuoc.capDanDuoc);
         player.luyenDanSu.tuiDanDuoc.subDanDuocQuantity(danDuoc.id, quantity, danDuoc.capDanDuoc);
     }
 }

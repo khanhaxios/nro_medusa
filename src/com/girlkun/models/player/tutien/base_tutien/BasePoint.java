@@ -46,11 +46,11 @@ public abstract class BasePoint {
     }
 
     public float getXDiemNgoTinh() {
-        return ngoTinh / 100f;
+        return ngoTinh / 2400f;
     }
 
     public float getXDiemCanCot() {
-        return canCot / 200f;
+        return canCot / 2400f;
     }
 
     public float getXDiemThienPhu() {
@@ -155,28 +155,28 @@ public abstract class BasePoint {
 
     public String getThienPhu() {
         int xDiem = canCot + ngoTinh;
-        if (xDiem == 1998) {
+        if (xDiem >= 9996) {
             return "Vạn cổ yêu nghiệt";
         }
-        if (xDiem > 1800) {
-            return "Vạn cổ thiên kiêu";
-        }
-        if (xDiem > 1700) {
+        if (xDiem > 8888) {
             return "Yêu nghiệt";
         }
-        if (xDiem > 1200) {
+        if (xDiem > 7800) {
+            return "Vạn cổ thiên kiêu";
+        }
+        if (xDiem > 6800) {
             return "Siêu cấp thiên kiêu";
         }
-        if (xDiem > 800) {
+        if (xDiem > 5600) {
             return "Thiên kiêu";
         }
-        if (xDiem > 600) {
+        if (xDiem > 3400) {
             return "Thiên tài";
         }
-        if (xDiem > 400) {
+        if (xDiem > 2400) {
             return "Tiểu thiên tài";
         }
-        if (xDiem > 200) {
+        if (xDiem > 1200) {
             return "Có chút thiên phú";
         }
         return "Phế vật";
