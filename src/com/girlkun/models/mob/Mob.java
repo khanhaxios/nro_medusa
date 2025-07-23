@@ -551,6 +551,9 @@ public class Mob {
             if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
                 long exp = player.luyenThe.getExpCanGain(this);
                 player.luyenThe.addExp(exp);
+                if (player.luyenThe.isLuyenTheReal()) {
+                    player.luyenThe.addChanKhi(exp);
+                }
                 // send data kn luyen the
                 PlayerService.gI().sendOtherOrigan(player, (byte) 1, exp);
                 // add exp cong phap

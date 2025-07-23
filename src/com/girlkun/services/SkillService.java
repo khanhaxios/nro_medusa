@@ -601,18 +601,17 @@ public class SkillService {
                     player.nPoint.stamina--;
                     PlayerService.gI().sendCurrentStamina(player);
                 }
-                // handle stamina for dao lu
             } else if (player.nPoint.stamina > 0) {
                 if (player.charms.tdDeoDai < System.currentTimeMillis()) {
                     player.nPoint.numAttack++;
                     if (player.luyenThe.isLuyenTheReal()) {
-                        if (player.nPoint.numAttack == 50) {
+                        if (player.nPoint.numAttack == 20) {
                             player.nPoint.numAttack = 0;
                             player.nPoint.stamina--;
                             PlayerService.gI().sendCurrentStamina(player);
                         }
                     } else if (player.tuMa.isTuMa()) {
-                        if (player.nPoint.numAttack == 20) {
+                        if (player.nPoint.numAttack == 10) {
                             player.nPoint.numAttack = 0;
                             player.nPoint.stamina--;
                             PlayerService.gI().sendCurrentStamina(player);

@@ -735,16 +735,16 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     public void showMenuTuTien() {
         String npcSay = "|7|❖ Thông Tin Thuộc Tính Tu Tiên ❖\n"
-                + "|2|➤ HP & MP: |5|+" + getHPMPBuff() + "%\n"
-                + "|2|➤ Sát Thương: |5|+" + getDameBuff() + "%\n"
-                + "|1|➤ Phòng Thủ: |5|+" + getDefBuff() + "%\n"
-                + "|1|➤ Né Tránh: |5|+" + getNeBuff() + "%\n"
-                + "|1|➤ Chính Xác: |5|+" + getChinhXacBuff() + "%\n"
-                + "|5|➤ Đột Phá Thiên Đạo: |2|" + (xParam - 1) + " lần\n"
+                + "|2|➤ HP & MP: " + getHPMPBuff() + "%\n"
+                + "|2|➤ Sát Thương: +" + getDameBuff() + "%\n"
+                + "|1|➤ Phòng Thủ: +" + getDefBuff() + "%\n"
+                + "|1|➤ Né Tránh: +" + getNeBuff() + "%\n"
+                + "|1|➤ Chính Xác: +" + getChinhXacBuff() + "%\n"
+                + "|5|➤ Đột Phá Thiên Đạo:" + (xParam - 1) + " lần\n"
                 + "|7|✧ Cảnh giới càng cao, thuộc tính càng mạnh!";
 
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN_F, -1, npcSay,
-                "💥 Đột Phá\nCảnh Giới", "🌀 Tán Công", "❌ Đóng");
+                "Đột Phá\nCảnh Giới", "Tán Công", "Đóng");
     }
 
 //    public void showMenuTuTien() {
@@ -834,7 +834,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     public void rewnewLinhCanEffect() {
         if (player.isAdmin()) {
-            linhCan = ratioLinhCan(false);
+            linhCan = ratioLinhCan(true);
             congPhap = new CongPhap(player.tuTien);
             Service.gI().sendThongBao(player, "Đã tẩy linh căn thành công");
             return;

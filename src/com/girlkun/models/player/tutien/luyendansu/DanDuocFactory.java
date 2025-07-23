@@ -18,11 +18,10 @@ public class DanDuocFactory {
             Service.gI().sendThongBao(player, "Bạn cần học luyện đan để có thể sử dụng đan dược");
             return;
         }
-        if (player.tuTien.level < danDuoc.capDoYeuCauDeSuDung) {
+        if (!player.isAdmin() && player.tuTien.level < danDuoc.capDoYeuCauDeSuDung) {
             Service.gI().sendThongBao(player, "Bạn cần đạt tu tiên cấp " + TuTien.CANH_GIOI[danDuoc.capDoYeuCauDeSuDung] + " để sử dụng");
             return;
         }
-        danDuoc.quantity -= quantity;
         if (danDuoc.id >= 456 && danDuoc.id <= 456 + 5) {
             //hoi khi dan
             player.luyenDanSu.danDuocEffect.xBuffLinhKhi = Math.max(danDuoc.capDanDuoc + 1, 1);

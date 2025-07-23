@@ -65,26 +65,26 @@ public class DanDuocEffect {
     }
 
     public boolean isBuffLinhKhi() {
-        return Util.canDoWithTime(System.currentTimeMillis(), lastTimeUseDanBuffLinhKhi + timeBuffLinhKhi);
+        return !Util.canDoWithTime(lastTimeUseDanBuffLinhKhi, timeBuffLinhKhi);
     }
 
     public boolean isBuffLt() {
-        return Util.canDoWithTime(System.currentTimeMillis(), lastTimeUseDanLt + timeBuffLt);
+        return !Util.canDoWithTime(lastTimeUseDanLt, timeBuffLt);
     }
 
     // Kiểm tra xem buff May Mắn có còn hiệu lực hay không
     public boolean isBuffMayMan() {
-        return Util.canDoWithTime(System.currentTimeMillis(), lastTimeUseMayMan + timeBuffMayMan) && pointMayMan > 0;
+        return !Util.canDoWithTime(lastTimeUseMayMan, timeBuffMayMan) && pointMayMan > 0;
     }
 
     // Kiểm tra xem buff Sự Tinh Linh Cần có còn hiệu lực hay không
     public boolean isBuffSTLinhCan() {
-        return Util.canDoWithTime(System.currentTimeMillis(), lastTimeUseSTLinhCan + timeBuffSTLinhCan) && stLinhCanBuff > 0;
+        return !Util.canDoWithTime(lastTimeUseSTLinhCan, timeBuffSTLinhCan) && stLinhCanBuff > 0;
     }
 
     // Kiểm tra xem buff Công Pháp có còn hiệu lực hay không
     public boolean isBuffCongPhap() {
-        return Util.canDoWithTime(System.currentTimeMillis(), lastTimeUseCongPhap + timeBuffCongPhap) && xBuffCongPhap > 0;
+        return !Util.canDoWithTime(lastTimeUseCongPhap, timeBuffCongPhap) && xBuffCongPhap > 0;
     }
 
     public void resetDanTranhTamMa() {

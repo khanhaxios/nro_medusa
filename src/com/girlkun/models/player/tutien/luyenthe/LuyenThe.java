@@ -12,6 +12,8 @@ public class LuyenThe {
     public short level;
     public long exp;
     public long maxExp;
+    public long chanKhi;
+    public long maxChanKhi;
     Player player;
     public final byte MAX_LEVEL = 99;
     public final short MAX_LEVEL_FINAL = 9999;
@@ -43,6 +45,22 @@ public class LuyenThe {
             exp *= 50;
         }
         return exp;
+    }
+
+    public long calcMaxChanKhi() {
+        return level * 100_000L;
+    }
+
+    public void restChanKhi() {
+        this.chanKhi = 0;
+        this.maxChanKhi = calcMaxChanKhi();
+    }
+
+    public void addChanKhi(long ckk) {
+        this.chanKhi += ckk;
+        if (this.chanKhi > maxChanKhi) {
+            this.chanKhi = maxChanKhi;
+        }
     }
 
     public void levelUp() {
@@ -88,7 +106,7 @@ public class LuyenThe {
     }
 
     protected long getNextLevelExp() {
-        return level * 1000;
+        return level * 10000;
     }
 
     public float getLevelUpPercent() {
@@ -193,7 +211,7 @@ public class LuyenThe {
 // — Cấp bậc & Tu vi —
         text.append("|5|➤ Cấp bậc     : ").append(getName()).append("\n");
         text.append("|5|➤ Tu vi       : ").append(getCurrentExpAsString()).append("\n");
-
+        text.append("|5|➤ Chân khí       : ").append(getCurrentChanKhiAsString()).append("\n");
 // — Buff chỉ số —
         text.append("|5|➤ Dame Buff   : ").append(getDameBuff()).append("%\n");
         text.append("|5|➤ HP/MP Buff  : ").append(getHPMPBuff()).append("%\n");
@@ -207,6 +225,10 @@ public class LuyenThe {
         text.append("\n|7|❖════════════════════❖");
 
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text.toString(), "Đột phá", "Công Pháp", "Đóng");
+    }
+
+    private String getCurrentChanKhiAsString() {
+        return Util.powerToString(chanKhi) + "/" + Util.powerToString(maxChanKhi);
     }
 
     private String totalBuff() {
@@ -227,5 +249,9 @@ public class LuyenThe {
     public void subExp(long l) {
         exp -= l;
         if (exp < 0) exp = 0;
+    }
+
+    public boolean canHandleWithChanKhi(int i) {
+        return (this.chanKhi - (maxChanKhi * i / 100)) >= 0;
     }
 }

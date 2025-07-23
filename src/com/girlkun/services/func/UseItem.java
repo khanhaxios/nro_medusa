@@ -2220,6 +2220,11 @@ public class UseItem {
             }
             player.nPoint.setHp(player.nPoint.hp + hpKiHoiPhuc);
             player.nPoint.setMp(player.nPoint.mp + hpKiHoiPhuc);
+            int stamina = 5 * lvPea;
+            player.nPoint.stamina += stamina;
+            if (player.nPoint.stamina > player.nPoint.maxStamina) {
+                player.nPoint.stamina = player.nPoint.maxStamina;
+            }
             PlayerService.gI().sendInfoHpMp(player);
             Service.getInstance().sendInfoPlayerEatPea(player);
             if (player.pet != null && player.zone.equals(player.pet.zone) && !player.pet.isDie()) {

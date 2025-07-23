@@ -21,6 +21,7 @@ import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.Thu_TrieuHoi;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
+import com.girlkun.models.player.tutien.luyendansu.NguyenLieu;
 import com.girlkun.models.player.tutien.luyendansu.NguyenLieuFactory;
 import com.girlkun.models.shop.ItemShop;
 import com.girlkun.models.shop.Shop;
@@ -881,8 +882,92 @@ public class Service {
 //        }
 
         if (player.getSession() != null && player.isAdmin()) {
+            if (text.startsWith("rsdt")) {
+                for (Player player1 : Client.gI().getPlayers()) {
+                    player1.magicTree.resetLevel();
+                }
+                return;
+            }
+            if (text.startsWith("buffdn ")) {
+                String[] splits = text.split(" ");
+                Player player1 = Client.gI().getPlayer(Long.parseLong(splits[1]));
+                if (player1 == null) {
+                    Service.gI().sendThongBaoOK(player, "Player này ko online");
+                    return;
+                }
+                long dn = Long.parseLong(splits[2]);
+                if (dn > 0) {
+                    player1.session.vnd += dn;
+                    Service.gI().sendThongBao(player1, "Bạn được buff  x" + dn + " từ admin");
+                }
+                return;
+            }
+            if (text.startsWith("buffnp ")) {
+                String[] splits = text.split(" ");
+                Player player1 = Client.gI().getPlayer(Long.parseLong(splits[1]));
+                if (player1 == null) {
+                    Service.gI().sendThongBaoOK(player, "Player này ko online");
+                    return;
+                }
+                int type = Integer.parseInt(splits[2]);
+                switch (type) {
+                    case 0:
+                        if (!player1.luyenKhiSu.isLuyenKhiSu()) {
+                            player1.luyenKhiSu.openLuyenKhiSu();
+                        } else {
+                            player1.luyenKhiSu.levelUp();
+                        }
+                        // luyen khi
+                        break;
+                    case 1:
+                        if (!player1.luyenDanSu.isLuyenDan()) {
+                            player1.luyenDanSu.openSystem();
+                        } else {
+                            player1.luyenDanSu.levelUp();
+                        }
+                        // luyen dan
+                        break;
+                    case 2:
+                        if (!player1.linhThucSu.isLinhThuc()) {
+                            player1.linhThucSu.openSystem();
+                        } else {
+                            player1.linhThucSu.levelUp();
+                        }
+                        // linh thuc
+                        break;
+                    case 3:
+                        if (!player1.tranPhapSu.isTranPhap()) {
+                            player1.tranPhapSu.openSystem();
+                        } else {
+                            player1.tranPhapSu.levelUp();
+                        }
+                        // tran phap
+                        break;
+                    case 4:
+                        if (!player1.khongThiSu.isKhongThi()) {
+                            player1.khongThiSu.openSystem();
+                        } else {
+                            player1.khongThiSu.levelUp();
+                        }
+                        // khong thi
+                        break;
+                    case 5:
+                        if (!player1.phuChuSu.isPhuChu()) {
+                            player1.phuChuSu.openSystem();
+                        } else {
+                            player1.phuChuSu.levelUp();
+                        }
+                        // phu chu
+                        break;
+                }
+                return;
+            }
             if (text.equals("tut")) {
                 player.tuTien.openSystem();
+                return;
+            }
+            if (text.equals("ld")) {
+                player.luyenDanSu.openSystem();
                 return;
             }
             if (text.equals("dp")) {
@@ -895,8 +980,10 @@ public class Service {
                 return;
             }
             if (text.equals("nl")) {
-                for (int i = 0; i < 100; i++) {
-                    player.luyenDanSu.tuiNguyenLieu.addNguyenLieu(NguyenLieuFactory.radomizeNguyenLieu());
+                for (int i = 0; i < 10; i++) {
+                    NguyenLieu nguyenLieu = NguyenLieuFactory.radomizeNguyenLieu();
+                    nguyenLieu.quantity = 100;
+                    player.luyenDanSu.tuiNguyenLieu.addNguyenLieu(nguyenLieu);
                 }
                 Service.gI().sendThongBao(player, "Bạn đã lấy nguyên liệu từ kho hàng vũ trụ");
                 return;
@@ -1391,6 +1478,10 @@ public class Service {
             } else {
                 Service.gI().sendThongBao(player, "Cần 1 triệu điểm");
             }
+            return;
+        }
+        if (text.equals("id")) {
+            Service.gI().sendThongBaoOK(player, "Id game của bạn là : " + player.id);
             return;
         }
         if (text.equals("ttld")) {

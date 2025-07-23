@@ -7778,7 +7778,8 @@ public class NpcFactory {
                             ppppapp.showMenuTinhDong();
                             return;
                         }
-                        ppppapp.khoaDong((byte) ((byte) select - 1));
+                        Item.ItemOption itemOption = ppppapp.options.get(select - 1);
+                        ppppapp.khoaDong(itemOption);
                         ppppapp.showMenuKhoaDong();
                         break;
                     case ConstNpc.MENU_TINH_DONG_PHAP_BAO:
@@ -8069,7 +8070,9 @@ public class NpcFactory {
                         }
                         break;
                     case ConstNpc.MENU_CONFIRM_CHE_DAN:
-                        DanPhuongFactory.luyenDan(player, player.iDMark.danPhuongChe);
+                        if (select == 0) {
+                            DanPhuongFactory.luyenDan(player, player.iDMark.danPhuongChe);
+                        }
                         break;
                     case ConstNpc.MENU_CHON_DAN_PHUONG:
                         DanPhuongFactory.prepareForLuyenDan(player, player.luyenDanSu.danPhuongs.get(select));

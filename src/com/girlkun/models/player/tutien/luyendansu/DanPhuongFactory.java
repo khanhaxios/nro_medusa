@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DanPhuongFactory {
     private static DanPhuongFactory instance;
@@ -29,8 +30,9 @@ public class DanPhuongFactory {
     private static final Map<Integer, DanPhuong> DAN_PHUONG_TEMPLATE = new HashMap<>();
 
     public static String getNguyenLieuDetail(DanPhuong danPhuong) {
+        DanPhuong danPhuong1 = DAN_PHUONG_TEMPLATE.get(danPhuong.id);
         StringBuilder stringBuilder = new StringBuilder();
-        for (NguyenLieu nguyenLieu : danPhuong.nguyenLieu) {
+        for (NguyenLieu nguyenLieu : danPhuong1.nguyenLieu) {
             stringBuilder.append("|5|").append(nguyenLieu.tenNguyenLieu).append(" x").append(nguyenLieu.quantity).append("\n");
         }
         return stringBuilder.toString();
@@ -101,7 +103,8 @@ public class DanPhuongFactory {
     }
 
     //
-    public static void luyenDan(Player player, DanPhuong danPhuong) {
+    public static void luyenDan(Player player, DanPhuong dp) {
+        DanPhuong danPhuong = DAN_PHUONG_TEMPLATE.get(dp.id);
         if (danPhuong == null) {
             Service.gI().sendThongBao(player, "Không tìm thấy đan phương");
             return;
@@ -119,10 +122,7 @@ public class DanPhuongFactory {
             Service.gI().sendThongBao(player, "Không đủ nguyên liệu");
             return;
         }
-
-        // Trừ nguyên liệu sau khi luyện đan
-        deductUsedNguyenLieu(danPhuong, player);
-
+        deductUsedNguyenLieu(nguyenLieuList, danPhuong.nguyenLieu, player);
         // Tính tỷ lệ thành công của luyện đan
         float ratioThanhCong = player.luyenDanSu.getTyLeLuyenDan(danPhuong) + nlPlus;
 
@@ -134,7 +134,6 @@ public class DanPhuongFactory {
             // Tạo DanDuoc mới dựa trên cấp độ
             DanDuoc danDuoc = DanDuocFactory.createDanDuoc(player, danPhuong, levelDanDuoc, Util.nextInt(1, 5));
             player.luyenDanSu.tuiDanDuoc.addDanDuoc(danDuoc);
-
             //handle exp
             exp = (long) Util.nextInt(50, 100) * Math.max(levelDanDuoc, 1);
             // Tạo thông báo cho người chơi về kết quả luyện đan
@@ -150,9 +149,17 @@ public class DanPhuongFactory {
         Service.gI().sendThongBaoOK(player, "Lần luyện đan này bạn nhận được x" + Util.powerToString(exp) + " Kinh nghiệm luyện đan");
     }
 
-    private static void deductUsedNguyenLieu(DanPhuong danPhuong, Player player) {
-        for (NguyenLieu required : danPhuong.nguyenLieu) {
-            player.luyenDanSu.tuiNguyenLieu.subNguyenLieuQuantity(required.id, required.quantity, required.quality);
+    private static void deductUsedNguyenLieu(List<NguyenLieu> nguyenLieuList, List<NguyenLieu> req, Player player) {
+        // B1: Map nguyenLieuList theo id để tra nhanh
+        Map<Integer, NguyenLieu> availableMap = nguyenLieuList.stream()
+                .collect(Collectors.toMap(nl -> nl.id, nl -> nl));
+
+        // B2: Duyệt qua nguyên liệu cần thiết, lấy info từ cả 2 list và trừ
+        for (NguyenLieu required : req) {
+            NguyenLieu available = availableMap.get(required.id);
+            if (available != null) {
+                player.luyenDanSu.tuiNguyenLieu.subNguyenLieuQuantity(required.id, required.quantity, available.quality);
+            }
         }
     }
 

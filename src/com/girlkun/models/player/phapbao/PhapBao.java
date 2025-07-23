@@ -17,7 +17,7 @@ import static com.girlkun.models.player.phapbao.PhapBaoFactory.vuKhiNames;
 
 public class PhapBao implements Cloneable {
 
-    public List<Byte> dongKhoa = new ArrayList<>();
+    public List<Item.ItemOption> dongKhoa = new ArrayList<>();
     private static final byte MAX_LEVEL = 18;
     private static final int MAX_PHAM = 12;
     public static int[] OPTION_SSS_VIP_CAN_ROLL = new int[]{41, 42, 43, 45, 49, 44};
@@ -331,8 +331,8 @@ public class PhapBao implements Cloneable {
         });
         for (byte i = 0; i < options.size(); i++) {
             boolean isLocked = false;
-            for (byte b : dongKhoa) {
-                if (i == b) {
+            for (Item.ItemOption b : dongKhoa) {
+                if (options.get(i).optionTemplate.id == b.optionTemplate.id && options.get(i).param == b.param) {
                     isLocked = true;
                     break;
                 }
@@ -350,21 +350,21 @@ public class PhapBao implements Cloneable {
         Service.gI().sendThongBao(player, "Tinh dòng thành công");
     }
 
-    public void khoaDong(byte index) {
-        if (dongKhoa.stream().filter(t -> t == index).toList().size() > 0) {
-            dongKhoa.removeIf(f -> f == index);
-            Service.gI().sendThongBao(player, "Đã mở khóa dòng " + index);
+    public void khoaDong(Item.ItemOption itemOption) {
+        if (dongKhoa.stream().filter(t -> (t.optionTemplate.id == itemOption.optionTemplate.id && t.param == itemOption.param)).toList().size() > 0) {
+            dongKhoa.removeIf(f -> (f.optionTemplate.id == itemOption.optionTemplate.id && f.param == itemOption.param));
+            Service.gI().sendThongBao(player, "Đã mở khóa dòng " + itemOption.getOptionString());
         } else {
-            dongKhoa.add(index);
-            Service.gI().sendThongBao(player, "Đã khóa dòng " + index);
+            dongKhoa.add(itemOption);
+            Service.gI().sendThongBao(player, "Đã khóa dòng " + itemOption.getOptionString());
         }
     }
 
     private int getRubyNeed() {
         int quantity = 1000;
-        for (byte b : dongKhoa) {
+        for (Item.ItemOption itemOption : dongKhoa) {
             for (byte i = 0; i < options.size(); i++) {
-                if (b == i) {
+                if (itemOption.optionTemplate.id == options.get(i).optionTemplate.id) {
                     quantity *= 1.5;
                 }
             }
@@ -374,9 +374,9 @@ public class PhapBao implements Cloneable {
 
     public int getItemNeedQuantity() {
         byte quantity = 10;
-        for (byte b : dongKhoa) {
+        for (Item.ItemOption itemOption : dongKhoa) {
             for (byte i = 0; i < options.size(); i++) {
-                if (b == i) {
+                if (itemOption.optionTemplate.id == options.get(i).optionTemplate.id) {
                     quantity *= 2;
                 }
             }
@@ -781,8 +781,8 @@ public class PhapBao implements Cloneable {
         for (int i = 0; i < options.size(); i++) {
             String t = "Dòng " + (i + 1) + "\n";
             boolean isLocked = false;
-            for (byte b : dongKhoa) {
-                if (b == i) {
+            for (Item.ItemOption itemOption : dongKhoa) {
+                if (itemOption.optionTemplate.id == options.get(i).optionTemplate.id) {
                     isLocked = true;
                     break;
                 }

@@ -333,8 +333,8 @@ public class Huyet {
                 Service.gI().sendThongBao(player, "Cần đạt " + TuTien.CANH_GIOI[10] + " Để kích hoạt huyết mạch");
                 return;
             }
-            if (player.tuMa.isTuMa() && player.tuMa.level < 10) {
-                Service.gI().sendThongBao(player, "Cần đạt " + TuMa.CANH_GIOI[10] + " Để kích hoạt huyết mạch");
+            if (player.tuMa.isTuMa() && player.tuMa.level < 100) {
+                Service.gI().sendThongBao(player, "Cần đạt " + TuMa.CANH_GIOI[100 / 10] + " Để kích hoạt huyết mạch");
                 return;
             }
             if (player.luyenThe.isLuyenTheReal() && player.luyenThe.level < 100) {

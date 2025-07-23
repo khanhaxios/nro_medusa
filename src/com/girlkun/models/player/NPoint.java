@@ -2493,11 +2493,11 @@ public class NPoint {
                 PlayerService.gI().hoiPhuc(this.player, hpHoi, mpHoi);
                 this.lastTimeHoiPhuc = System.currentTimeMillis();
             }
-            if (Util.canDoWithTime(lastTimeHoiStamina, 60000) && this.stamina < this.maxStamina) {
+            if (Util.canDoWithTime(lastTimeHoiStamina, 30000) && this.stamina < this.maxStamina) {
                 if (player.luyenThe.isLuyenTheReal()) {
-                    stamina += 10;
-                } else if (player.tuMa.isTuMa()) {
                     stamina += 5;
+                } else if (player.tuMa.isTuMa()) {
+                    stamina += 2;
                 } else {
                     stamina++;
                 }
