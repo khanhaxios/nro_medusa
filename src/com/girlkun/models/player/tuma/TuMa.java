@@ -285,18 +285,17 @@ public class TuMa implements IBaseAction {
         StringBuilder text = new StringBuilder();
         text.append("|7|❖═════ THÔNG TIN MA TU ═════❖\n");
 //— Cấp độ & kinh nghiệm —
-        text.append("|5|➤ Cấp Ma Tu       : ").append(getName()).append("/").append("\n");
-        text.append("|5|➤ Kinh nghiệm     : ").append(getCurrentExpAsString()).append("\n");
+        text.append("|5|➤").append(getName()).append("/").append("\n");
+        text.append("|5|➤ Kinh nghiệm:").append(getCurrentExpAsString()).append("\n");
 //— Ma Khí —
-        text.append("|5|➤ Ma Khí          : ").append(getMaKhiAsString()).append("\n");
-        text.append("|5|➤ Ma Tính  : ").append(getMaTinhDanhGia()).append("\n");
+        text.append("|5|➤ Ma Khí:").append(getMaKhiAsString()).append("\n");
+        text.append("|5|➤ Ma Tính:").append(getMaTinhDanhGia()).append("\n");
 
 //— Thời gian tu luyện —
         long timeTu = (System.currentTimeMillis() - timeTuMa) / 1000;
-        text.append("|5|➤ Đã tu luyện     : ").append(getYearOpened()).append("\n");
+        text.append("|5|➤ Đã tu luyện:").append(getYearOpened()).append("\n");
 //— Dòng đặc biệt Ma Đạo —
         text.append("|7|✪ Ma Tu không có bình cảnh – phá giới vô tận!\n");
-
         text.append("|7|❖══════════════════════════════❖");
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_TU_MA, -1, text.toString(), "Thông Tin\nTu Ma", "Thông Tin\nCông Pháp", "Thông Tin\nLinh Căn", "Thông tin\nLuyện Hồn", "Pháp bảo", "Đóng");
     }
@@ -331,12 +330,11 @@ public class TuMa implements IBaseAction {
         StringBuilder text = new StringBuilder();
 
         text.append("|7|❖═════ THÔNG TIN MA TU ═════❖\n");
+        text.append("|5|➤ Dame Buff:").append(getDameBuff()).append("%\n");
+        text.append("|5|➤ HP/MP Buff:").append(getHPMPBuff()).append("%\n");
 
-        text.append("|5|➤ Dame Buff     : ").append(getDameBuff()).append("%\n");
-        text.append("|5|➤ HP/MP Buff    : ").append(getHPMPBuff()).append("%\n");
-
-        text.append("|5|➤ Ma Khí        : ").append(getMaKhiAsString()).append("\n");
-        text.append("|5|➤ Tu vi         : ").append(getCurrentExpAsString()).append("\n");
+        text.append("|5|➤ Ma Khí:").append(getMaKhiAsString()).append("\n");
+        text.append("|5|➤ Tu vi:").append(getCurrentExpAsString()).append("\n");
 
         text.append("|7|✪ Ma Tu không có bình cảnh – phá giới vô hạn!\n");
 

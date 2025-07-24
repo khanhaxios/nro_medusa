@@ -76,7 +76,7 @@ public class LinhCanTuMa {
         text.append("|7|❖════ THÔNG TIN MA LINH CĂN ════❖\n");
 // — In trực tiếp tên & mô tả, không có tiền tố —
         text.append("|5|").append(tenLinhCan).append("\n");
-        text.append("|5|").append(moTaLinhCan).append("\n");
+        text.append("|5|").append(getMoTaLinhCan()).append("\n");
 // — Hệ số buff —
         text.append("|5|➤ Hệ số buff : x").append(xParam).append(" lần\n");
 // — Ma Khí hấp thụ —

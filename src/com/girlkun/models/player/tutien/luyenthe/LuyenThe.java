@@ -209,21 +209,17 @@ public class LuyenThe {
         text.append("|7|❖═════ LUYỆN THỂ ═════❖\n");
 
 // — Cấp bậc & Tu vi —
-        text.append("|5|➤ Cấp bậc     : ").append(getName()).append("\n");
-        text.append("|5|➤ Tu vi       : ").append(getCurrentExpAsString()).append("\n");
-        text.append("|5|➤ Chân khí       : ").append(getCurrentChanKhiAsString()).append("\n");
+        text.append("|5|➤").append(getName()).append("\n");
+        text.append("|5|➤ Tu vi:").append(getCurrentExpAsString()).append("\n");
+        text.append("|5|➤ Chân khí:").append(getCurrentChanKhiAsString()).append("\n");
 // — Buff chỉ số —
-        text.append("|5|➤ Dame Buff   : ").append(getDameBuff()).append("%\n");
-        text.append("|5|➤ HP/MP Buff  : ").append(getHPMPBuff()).append("%\n");
-
+        text.append("|5|➤ Dame Buff:").append(getDameBuff()).append("%\n");
+        text.append("|5|➤ HP/MP Buff:").append(getHPMPBuff()).append("%\n");
 // — Tỷ lệ đột phá —
-        text.append("|5|➤ Tỷ lệ đột phá: ").append(String.format("%.2f%%", getLevelUpPercent())).append("\n");
-
+        text.append("|5|➤ Tỷ lệ đột phá:").append(String.format("%.2f%%", getLevelUpPercent())).append("\n");
 // — Nhắc nhở —
         text.append("|7|✪ Cấp càng cao, tỷ lệ đột phá càng thấp!");
-
         text.append("\n|7|❖════════════════════❖");
-
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text.toString(), "Đột phá", "Công Pháp", "Đóng");
     }
 

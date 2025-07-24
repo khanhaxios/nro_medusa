@@ -254,7 +254,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     private float getSubLevelOtherBuff() {
-        return Math.max(.3f, this.subLevel * .3f);
+        return Math.max(1f, this.subLevel * 1f);
     }
 
     private float getSubLevelOtherBuff(float pt) {

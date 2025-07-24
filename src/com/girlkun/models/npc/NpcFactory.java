@@ -8402,7 +8402,7 @@ public class NpcFactory {
                         switch (select) {
                             case 0:
                                 // tang pham
-                                String npcSay = "|7|❖═══ TĂNG PHẨM CÔNG PHÁP ═══❖\n" + "|5|➤ Phẩm hiện tại   : " + player.tuTien.congPhap.phamchat.name + " Phẩm\n" + "|2|➤ Phẩm kế tiếp    : " + player.tuTien.congPhap.phamchat.getNext().name + " Phẩm\n" + "|1|✪ Tỷ lệ lĩnh ngộ  : " + player.tuTien.congPhap.getTyLeLinhNgo() + "%\n" + "|7|✦ Bạn muốn...?";
+                                String npcSay = "|7|❖═══ TĂNG PHẨM CÔNG PHÁP ═══❖\n" + "|5|➤ Phẩm hiện tại:" + player.tuTien.congPhap.phamchat.name + " Phẩm\n" + "|2|➤ Phẩm kế tiếp:" + player.tuTien.congPhap.phamchat.getNext().name + " Phẩm\n" + "|1|✪ Tỷ lệ lĩnh ngộ:" + player.tuTien.congPhap.getTyLeLinhNgo() + "%\n" + "|7|✦ Bạn muốn...?";
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.CONG_PHAP_LINH_NGO, -1, npcSay, "Tự Thân\nLĩnh ngộ", "Sư phụ\nChỉ Dẫn", "Đóng");
                                 break;
                             case 1:
@@ -8413,12 +8413,9 @@ public class NpcFactory {
                             case 2:
                                 String npcSayHi = "|7|❖═══ BUFF CÔNG PHÁP CHI TIẾT ═══❖\n" +
 // — Nhóm buff cơ bản —
-                                        "|5|➤ TL HP       : " + player.tuTien.congPhap.tlHpBuff + "%\n" + "|5|➤ TL MP       : " + player.tuTien.congPhap.tlMpBuff + "%\n" + "|5|➤ TL Dame     : " + player.tuTien.congPhap.tlDameBuff + "%\n" + "|5|➤ TL Linh Khí : " + player.tuTien.congPhap.tlLinhKhiBuff + "%\n" +
-// — Nhóm tổng cộng —
-                                        "|5|➤ Tổng Dame Hút : " + player.tuTien.congPhap.totalHutDame + " điểm\n" + "|5|➤ Tổng HP Hút   : " + player.tuTien.congPhap.totalHutHp + " điểm\n" + "|5|➤ Tổng MP Hút   : " + player.tuTien.congPhap.totalHutMp + " điểm\n" +
-
-// — Nhóm hệ số nhân —
-                                        "|5|➤ x Linh Khí             : " + player.tuTien.congPhap.xLinhKhiBuff + "x\n" + "|5|➤ Tốc độ hồi LK          : " + player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi + "x\n" + "|5|➤ x Dame Thuộc Tính      : " + player.tuTien.congPhap.xDameThuocTinh + "x\n" + "|7|❖═════════════════════════════❖";
+                                        "|5|➤ TL HP:" + player.tuTien.congPhap.tlHpBuff + "%\n" + "|5|➤ TL MP:" + player.tuTien.congPhap.tlMpBuff + "%\n" + "|5|➤ TL Dame     : " + player.tuTien.congPhap.tlDameBuff + "%\n" + "|5|➤ TL Linh Khí:" + player.tuTien.congPhap.tlLinhKhiBuff + "%\n" +
+                                        "|5|➤ Tổng Dame Hút:" + player.tuTien.congPhap.totalHutDame + " điểm\n" + "|5|➤ Tổng HP Hút:" + player.tuTien.congPhap.totalHutHp + " điểm\n" + "|5|➤ Tổng MP Hút:" + player.tuTien.congPhap.totalHutMp + " điểm\n" +
+                                        "|5|➤ x Linh Khí:" + player.tuTien.congPhap.xLinhKhiBuff + "x\n" + "|5|➤ Tốc độ hồi LK:" + player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi + "x\n" + "|5|➤ x Dame Thuộc Tính:" + player.tuTien.congPhap.xDameThuocTinh + "x\n" + "|7|❖═════════════════════════════❖";
 
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_INFO_CONG_PHAP_BUFF, -1, npcSayHi, "Đóng");
                                 break;

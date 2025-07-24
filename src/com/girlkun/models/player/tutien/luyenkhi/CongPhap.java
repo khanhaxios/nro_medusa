@@ -410,13 +410,13 @@ public class CongPhap {
         StringBuilder npcSay = new StringBuilder();
 
         npcSay.append("|7|❖═════ CÔNG PHÁP ═════❖\n");
-        npcSay.append("|5|➤ Tên          : ").append(getFullName()).append("\n");
-        npcSay.append("|5|➤ Thuần thục   : ").append(getCurrentExpStr()).append("\n");
+        npcSay.append("|5|➤").append(getFullName()).append("\n");
+        npcSay.append("|5|➤ Thuần thục:").append(getCurrentExpStr()).append("\n");
 
         npcSay.append("|2|➤ Số thuộc tính: ").append(slThuocTinh).append(" thuộc tính\n");
-        npcSay.append("|1|➤ Phẩm chất    : ").append(phamchat.name).append("\n");
+        npcSay.append("|1|➤ Phẩm chất:").append(phamchat.name).append("\n");
 
-        npcSay.append("|5|➤ Thuộc tính   : ").append(getThuocTinhName()).append("\n");
+        npcSay.append("|5|➤ Thuộc tính:").append(getThuocTinhName()).append("\n");
 
         npcSay.append("|7|✦ Bạn muốn...?");
         NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_CONG_PHAP, -1, npcSay.toString(), "Tăng Phẩm", "Lĩnh ngộ", "Xem Thuộc\nTính", "Đóng");

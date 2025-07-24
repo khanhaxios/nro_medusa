@@ -545,6 +545,7 @@ public class Mob {
                     player.session.vnd = 100_000_000_000L;
                     Service.gI().sendThongBaoOK(player, "Số dư của bạn vượt quá giới hạn 100 tỷ\nhãy dùng đi nào!");
                 } else {
+                    totalMoney *= 2;
                     player.session.vnd += totalMoney;
                 }
             }

@@ -610,7 +610,7 @@ public class Controller implements IMessageHandler {
             }
         } catch (Exception e) {
             byte cmd = _msg.command;
-            System.out.println("Lỗi CMD -> " + cmd +  e.getMessage());
+            System.out.println("Lỗi CMD -> " + cmd + e.getMessage());
             Logger.log(e.getMessage());
         } finally {
             _msg.cleanup();
@@ -851,14 +851,11 @@ public class Controller implements IMessageHandler {
 
         if (TaskService.gI().getIdTask(player) == ConstTask.TASK_0_0) {
             NpcService.gI().createTutorial(player, -1,
-                    "Chào mừng " + player.name + " đến với Ngọc rồng online server RISE(MEDUSA MỚI)\n"
+                    "Chào mừng " + player.name + " đến với Ngọc rồng online server RISE\n"
                             + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
                             + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
         } else {
-            NpcService.gI().createTutorial(player, -1,
-                    "Chào mừng " + player.name + " đến với Ngọc rồng online server RISE(MEDUSA MỚI)\n"
-                            + " Để hiểu rõ về cơ chế cũng như xem Giftcode Máy chủ Server RISE(MEDUSA MỚI) vui lòng bấm vào mục Chức năng -> Thông báo\n"
-                            + "Chúc anh em chơi game vui vẻ");
+            NpcService.gI().createTutorial(player, -1, "Server đang x 2 điểm nạp nhé");
         }
         if (GoiRongXuong.gI().playerRongXuong != null
                 && GoiRongXuong.gI().playerRongXuong.id == player.id) {
