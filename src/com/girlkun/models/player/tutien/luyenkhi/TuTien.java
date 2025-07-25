@@ -228,15 +228,11 @@ public class TuTien extends BasePoint implements IBaseAction {
         if (subLevel > 1) {
             subLevel--;
             Service.gI().sendThongBao(player, "Bạn đã lui bước xuống " + getFormatName());
-        } else if (level > 0) {
-            level--;
-            subLevel = 10;
-            Service.gI().sendThongBao(player, "Bạn đã lui bước xuống " + getFormatName());
+            restExp();
+            Service.gI().point(player);
         } else {
-            Service.gI().sendThongBao(player, "Bạn đã bị phế");
+            return;
         }
-        restExp();
-        Service.gI().point(player);
     }
 
     @Override
@@ -919,8 +915,6 @@ public class TuTien extends BasePoint implements IBaseAction {
         } else {
             text = "|7|Tâm ma đột kích\n|5|Trong lúc đột phá bạn gặp phải Tâm Ma đột kích trong lúc nhất thời bạn bị tâm ma đả thương";
             levelDown();
-            // - ngo tinh
-            player.tuTien.ngoTinh -= Util.nextInt(1, 2);
         }
         NpcService.gI().createMenuConMeo(player, 13912783, -1, text, "Đóng");
         return isSuccess;

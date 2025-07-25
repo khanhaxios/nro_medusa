@@ -24,6 +24,7 @@ import com.girlkun.models.player.tuma.TuMaTemplate;
 import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
 import com.girlkun.models.player.tutien.luyendansu.NguyenLieuFactory;
+import com.girlkun.models.player.tutien.luyenthe.VoKyFactory;
 import com.girlkun.models.reward.ItemMobReward;
 import com.girlkun.models.reward.ItemOptionMobReward;
 import com.girlkun.models.reward.MobReward;
@@ -249,6 +250,7 @@ public class Manager {
         this.initMap();
         NguyenLieuFactory.loadNguyenLieu();
         DanPhuongFactory.getInstance().initTemplate();
+        VoKyFactory.initTemplate();
         sanGiaoDichBuaZeno = new SanGiaoDichBuaZeno();
     }
 

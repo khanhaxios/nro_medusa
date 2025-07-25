@@ -102,7 +102,7 @@ public class LinhCanTuMa {
         text.append("|5|➤ ").append(tenLinhCan).append(" [").append(getPercentMakhi()).append("]\n");
 
 // — Ma khí cần/đang nuốt —
-        text.append("|5|➤ Linh chú      : ").append(getMaKhiString()).append("\n");
+        text.append("|5|➤ Linh chú:").append(getMaKhiString()).append("\n");
 
 // — Câu hỏi lựa chọn —
         text.append("|1|✦ Bạn muốn dưỡng mấy lần?");

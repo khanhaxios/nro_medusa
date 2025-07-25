@@ -15,6 +15,7 @@ import com.girlkun.models.player.tutien.luyendansu.DanDuocEffect;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuong;
 import com.girlkun.models.player.tutien.luyendansu.NguyenLieu;
 import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
+import com.girlkun.models.player.tutien.luyenthe.VoKy;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.server.Manager;
@@ -1229,11 +1230,46 @@ public class PlayerDAO {
                     jsonArray.add(player.luyenThe.exp);
                     jsonArray.add(player.luyenThe.maxExp);
                     jsonArray.add(player.luyenThe.timeThatBai);
+
+                    // add cong phap
+                    jsonArray.add(player.luyenThe.chanKhi);
+                    jsonArray.add(player.luyenThe.maxChanKhi);
+
+                    JSONArray arrayCongPhap = new JSONArray();
+                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.type);
+                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.tang);
+                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.tenCongPhap);
+                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.exp);
+                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.maxExp);
+                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.expGiaiDoan);
+                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.maxExpGiaiDoan);
+                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.giaiDoan);
+                    jsonArray.add(arrayCongPhap);
+                    JSONArray voKyArrr = new JSONArray();
+                    for (VoKy voKy : player.luyenThe.voKyList) {
+                        JSONArray vkList = new JSONArray();
+                        vkList.add(voKy.type);
+                        vkList.add(voKy.bac);
+                        vkList.add(voKy.doThuanThuc);
+                        vkList.add(voKy.maxDoThuanThuc);
+                        vkList.add(voKy.id);
+                        vkList.add(voKy.tenVoKy);
+                        vkList.add(voKy.moTaVoKy);
+                        vkList.add(voKy.lastTimeCoolDown);
+                        vkList.add(voKy.timeCoolDown);
+                        JSONArray buffArr = new JSONArray();
+                        for (int i = 0; i < voKy.buff.length; i++) {
+                            buffArr.add(voKy.buff[i]);
+                        }
+                        vkList.add(buffArr);
+                        voKyArrr.add(vkList);
+                    }
+                    jsonArray.add(voKyArrr);
                     dataLT = jsonArray.toJSONString();
                     jsonArray.clear();
                 }
             } catch (Exception e) {
-
+                Logger.log(e.getMessage());
             }
 
             try {

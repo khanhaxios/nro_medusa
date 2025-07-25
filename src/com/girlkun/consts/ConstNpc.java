@@ -478,6 +478,12 @@ public class ConstNpc {
     public static final int MENU_CP_LT = -981231892;
     public static final int MENU_CP_PG = -4319822;
     public static final int MENU_H_CP_LT = -6428764;
+    public static final int MENU_VO_KY = -8716321;
+    public static final int MENU_DOT_PHA_VK = -931387;
+    public static final int MENU_TP_VK = -687912;
+    public static final int VK_SHOW_BASE = -898721;
+    public static final int MENU_HOC_VK = -897123;
+    public static final int MENU_TANG_KNVK = -512239;
 }
 
 /**

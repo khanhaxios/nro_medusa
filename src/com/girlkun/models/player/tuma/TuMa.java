@@ -61,7 +61,7 @@ public class TuMa implements IBaseAction {
 
     @Override
     public long getExpCanGain(Mob targetMob) {
-        return Math.max((long) (targetMob.point.maxHp / 100_000), Util.nextInt(10, 50));
+        return Math.max((long) (targetMob.point.maxHp / 100_000_0), Util.nextInt(10, 50));
     }
 
     @Override

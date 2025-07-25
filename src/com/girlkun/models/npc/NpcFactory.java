@@ -39,6 +39,7 @@ import com.girlkun.models.player.phapbao.PhapBao;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.base_tutien.CoDuyen;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
+import com.girlkun.models.player.tutien.luyenthe.VoKy;
 import com.girlkun.models.shop.ShopServiceNew;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
@@ -2509,19 +2510,17 @@ public class NpcFactory {
                             break;
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_H_CP_LT) {
-                    Service.gI().sendThongBaoOK(player, "Tính năng đang được phát triển");
-                    return;
-//                    if (select == 0) {
-//                        if (player.session.vnd - 300_000 < 0) {
-//                            Service.gI().sendThongBao(player, "Cần 300k điểm nạp để mở");
-//                            return;
-//                        }
-//                        if (!player.luyenThe.isLuyenTheReal()) {
-//                            Service.gI().sendThongBao(player, "Bạn đã tu nghề phụ khác không thể học công pháp luyện thể");
-//                            return;
-//                        }
-//                        player.luyenThe.congPhapLuyenThe.hocCongPhap((byte) Util.nextInt(0, 1));
-//                    }
+                    if (select == 0) {
+                        if (player.session.vnd - 300_000 < 0) {
+                            Service.gI().sendThongBao(player, "Cần 300k điểm nạp để mở");
+                            return;
+                        }
+                        if (!player.luyenThe.isLuyenTheReal()) {
+                            Service.gI().sendThongBao(player, "Bạn đã tu nghề phụ khác không thể học công pháp luyện thể");
+                            return;
+                        }
+                        player.luyenThe.congPhapLuyenThe.hocCongPhap((byte) Util.nextInt(0, 1));
+                    }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_KH_HM) {
                     switch (select) {
                         case 0 -> player.huyet.kichHoatHuyetMach();
@@ -8170,6 +8169,46 @@ public class NpcFactory {
                         if (select == 1) {
                             player.luyenThe.congPhapLuyenThe.showBaseMenu();
                         }
+                        if (select == 2) {
+                            player.luyenThe.showVoKy();
+                        }
+                        break;
+                    case ConstNpc.VK_SHOW_BASE:
+                        if (select == player.luyenThe.voKyList.size()) {
+                            return;
+                        }
+                        player.luyenThe.voKyList.get(select).showBaseMenu();
+                        break;
+                    case ConstNpc.MENU_VO_KY:
+                        if (player.iDMark.voKySelected != null) {
+                            if (select == 0) {
+                                player.iDMark.voKySelected.showMenuDotPha();
+                            }
+                            if (select == 1) {
+                                player.iDMark.voKySelected.showMenuThongTinBuff();
+                            }
+                        }
+                        break;
+                    case ConstNpc.MENU_TANG_KNVK:
+                        VoKy voKy = player.luyenThe.voKyList.get(select);
+                        if (voKy == null) {
+                            Service.gI().sendThongBao(player, "Không tìm thấy võ kỹ");
+                            return;
+                        }
+                        voKy.addDoThuanThuc(voKy.getExpCanGain());
+                        break;
+                    case ConstNpc.MENU_HOC_VK:
+                        if (player.iDMark.vokytamthoi != null) {
+                            player.luyenThe.hocVoKy(player.iDMark.vokytamthoi);
+                        }
+                        break;
+                    case ConstNpc.MENU_DOT_PHA_VK:
+                        if (player.iDMark.voKySelected != null) {
+                            player.iDMark.voKySelected.tangBac();
+                        }
+                        break;
+                    case ConstNpc.MENU_TP_VK:
+                        player.luyenThe.showVoKy();
                         break;
                     case ConstNpc.CONFIRM_DOT_PHA_LUYEN_THE:
                         if (select == 0) {

@@ -17,6 +17,8 @@ import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.phapbao.PhapBao;
 import com.girlkun.models.player.phapbao.PhapBaoFactory;
+import com.girlkun.models.player.tutien.luyenthe.VoKy;
+import com.girlkun.models.player.tutien.luyenthe.VoKyFactory;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
 import com.girlkun.server.Manager;
@@ -323,6 +325,23 @@ public class UseItem {
                                     }
                                 }
                             }
+                            break;
+                        case 2081:
+                            // dung tang kinh nghiem
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                            InventoryServiceNew.gI().sendItemBags(pl);
+                            pl.luyenThe.showMenuTangKNVK();
+                            break;
+                        case 2080:
+                            // ghep thanh cong phap
+                            if (item.quantity - 10 < 0) {
+                                Service.gI().sendThongBao(pl, "Cần 99 mảnh để ghép");
+                                return;
+                            }
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 99);
+                            InventoryServiceNew.gI().sendItemBags(pl);
+                            VoKy voKy = VoKyFactory.randomizedVoKy();
+                            pl.luyenThe.showMenuHocVoKy(voKy);
                             break;
                         case 2079:
                             // cuong hoa cho phap bao nao
@@ -2221,7 +2240,7 @@ public class UseItem {
             player.nPoint.setHp(player.nPoint.hp + hpKiHoiPhuc);
             player.nPoint.setMp(player.nPoint.mp + hpKiHoiPhuc);
             int stamina = 5 * lvPea;
-            player.nPoint.stamina += stamina;
+            player.nPoint.stamina += player.nPoint.maxStamina * stamina / 100;
             if (player.nPoint.stamina > player.nPoint.maxStamina) {
                 player.nPoint.stamina = player.nPoint.maxStamina;
             }

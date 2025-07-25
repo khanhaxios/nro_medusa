@@ -8,12 +8,16 @@ import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LuyenThe {
     public short level;
     public long exp;
     public long maxExp;
     public long chanKhi;
     public long maxChanKhi;
+    public List<VoKy> voKyList = new ArrayList<>();
     Player player;
     public final byte MAX_LEVEL = 99;
     public final short MAX_LEVEL_FINAL = 9999;
@@ -26,14 +30,23 @@ public class LuyenThe {
     }
 
     public void calcPoint() {
-//        player.nPoint.mpAdd += (player.nPoint.mpg * getHPMPBuff() / 100f);
-//        player.nPoint.hpAdd += (player.nPoint.defg * getDefBuff() / 100f);
-//        player.nPoint.dameAdd += (player.nPoint.dameg * getDameBuff() / 100f);
         if (congPhapLuyenThe.isLearn()) {
             congPhapLuyenThe.calcPoint();
         }
+        if (voKyList.size() > 0) {
+            for (VoKy voKy : voKyList) {
+                voKy.calcPoint();
+            }
+        }
         player.nPoint.tlHutHp += getHutHPBuff();
         player.nPoint.tlHutMp += getHPMPBuff();
+    }
+
+    public int getMaxSlVK() {
+        if (congPhapLuyenThe.isLearn()) {
+            return Math.max(congPhapLuyenThe.tang, 1);
+        }
+        return 0;
     }
 
     public long getExpCanGain(Mob targetMob) {
@@ -207,8 +220,6 @@ public class LuyenThe {
         StringBuilder text = new StringBuilder();
 
         text.append("|7|❖═════ LUYỆN THỂ ═════❖\n");
-
-// — Cấp bậc & Tu vi —
         text.append("|5|➤").append(getName()).append("\n");
         text.append("|5|➤ Tu vi:").append(getCurrentExpAsString()).append("\n");
         text.append("|5|➤ Chân khí:").append(getCurrentChanKhiAsString()).append("\n");
@@ -220,7 +231,7 @@ public class LuyenThe {
 // — Nhắc nhở —
         text.append("|7|✪ Cấp càng cao, tỷ lệ đột phá càng thấp!");
         text.append("\n|7|❖════════════════════❖");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text.toString(), "Đột phá", "Công Pháp", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text.toString(), "Đột phá", "Công Pháp", "Võ Kỹ", "Đóng");
     }
 
     private String getCurrentChanKhiAsString() {
@@ -249,5 +260,84 @@ public class LuyenThe {
 
     public boolean canHandleWithChanKhi(int i) {
         return (this.chanKhi - (maxChanKhi * i / 100)) >= 0;
+    }
+
+    public String getAllVoKy() {
+        StringBuilder vks = new StringBuilder();
+        if (voKyList.size() == 0) {
+            vks = new StringBuilder("|1|Không có võ kỹ nào");
+            return vks.toString();
+        }
+        for (VoKy voKy : voKyList) {
+            vks.append("|5|").append(voKy.tenVoKy).append("[").append(voKy.getDoThuanThucVoKy()).append("]").append("[").append(voKy.getCurrentPercent()).append("]").append("\n");
+        }
+        return vks.toString();
+    }
+
+    public String[] getAllVoKySelect() {
+        String[] strings = new String[voKyList.size() + 1];
+        if (voKyList.size() == 0) {
+            return new String[]{"Đóng"};
+        }
+        for (int i = 0; i < voKyList.size(); i++) {
+            strings[i] = getFirstLetters(voKyList.get(i).tenVoKy);
+        }
+        strings[voKyList.size()] = "Đóng";
+        return strings;
+    }
+
+    public String[] getAllVoKySelectt() {
+        String[] strings = new String[voKyList.size()];
+        for (int i = 0; i < voKyList.size(); i++) {
+            strings[i] = getFirstLetters(voKyList.get(i).tenVoKy);
+        }
+        return strings;
+    }
+
+    private String getFirstLetters(String input) {
+        String[] words = input.trim().split("\\s+");
+        StringBuilder sb = new StringBuilder();
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                sb.append(word.charAt(0));
+            }
+        }
+        return sb.toString().toUpperCase(); // Viết hoa cho ngầu
+    }
+
+    public void showVoKy() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("|7|Túi võ kỹ").append("\n");
+        stringBuilder.append(getAllVoKy());
+        stringBuilder.append("|7|Bạn muốn").append("\n");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.VK_SHOW_BASE, -1, stringBuilder.toString(), getAllVoKySelect());
+    }
+
+    public void showMenuHocVoKy(VoKy voKy) {
+        player.iDMark.vokytamthoi = voKy;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(voKy.getBaseMenuText());
+        stringBuilder.append("|7|Bạn muốn");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_HOC_VK, -1, stringBuilder.toString(), "Học", "Bỏ");
+    }
+
+    public void hocVoKy(VoKy vokytamthoi) {
+        if (voKyList.size() + 1 <= getMaxSlVK()) {
+            vokytamthoi.init();
+            voKyList.add(vokytamthoi);
+            player.iDMark.vokytamthoi = null;
+            Service.gI().sendThongBao(player, "Đã học võ kỹ " + vokytamthoi.tenVoKy);
+            showInfo();
+        } else {
+            Service.gI().sendThongBao(player, "Bạn đã đạt số lượng võ kỹ tối đa");
+            showMenuHocVoKy(vokytamthoi);
+        }
+    }
+
+    public void showMenuTangKNVK() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("|7|Thông tin võ kỹ").append("\n");
+        stringBuilder.append(getAllVoKy());
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TANG_KNVK, -1, stringBuilder.toString(), getAllVoKySelectt());
     }
 }

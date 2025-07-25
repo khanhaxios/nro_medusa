@@ -3,6 +3,7 @@ package com.girlkun.models.player;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuong;
+import com.girlkun.models.player.tutien.luyenthe.VoKy;
 import com.girlkun.models.shop.Shop;
 import lombok.Data;
 
@@ -10,11 +11,13 @@ import lombok.Data;
 @Data
 public class IDMark {
 
+    public VoKy vokytamthoi;
     public int idItemUpTop;
     public boolean dotPhaThienDao;
     public int typePlusChiSoMaCong;
     public byte typePhapBaoHandling = -1;
     public DanPhuong danPhuongChe;
+    public VoKy voKySelected;
     private int typeChangeMap; //capsule, ngọc rồng đen...
     private int indexMenu; //menu npc
     private int typeInput; //input

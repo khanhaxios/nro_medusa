@@ -565,6 +565,14 @@ public class Mob {
                         player.luyenThe.congPhapLuyenThe.addExpGiaiDoan(player.luyenThe.congPhapLuyenThe.getExpCanGain());
                     }
                 }
+                // roi manh bi tich
+                if (Util.isTrue(1, 500)) {
+                    // rơi cong phap chan giai
+                    itemReward.add(new ItemMap(zone, 2081, Util.nextInt(1, 2), this.location.x, physicalTop(this), player.id));
+                }
+                if (Util.isTrue(1, 20_000)) {
+                    itemReward.add(new ItemMap(zone, 2080, Util.nextInt(1, 2), this.location.x, physicalTop(this), player.id));
+                }
             }
             if (player.tuMa != null && player.tuMa.isTuMa()) {
                 long exp = player.tuMa.getExpCanGain(this);
@@ -576,7 +584,7 @@ public class Mob {
                 }
             }
 
-            itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10), physicalTop(this));
+            itemReward.addAll(this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10), physicalTop(this)));
             if (itemTask != null) {
                 itemReward.add(itemTask);
             }

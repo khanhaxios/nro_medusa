@@ -1263,7 +1263,7 @@ public class SkillService {
         }
         // handle for dame bosss
         double damGoc = subDameWithCanhGioi(plAtt, plInjure);
-        miss = neDon(plInjure, plAtt, miss);
+        miss = neDon(plInjure, miss);
         double dameHit = plInjure.injured(plAtt, miss ? 0 : damGoc, false, false, false);
         phanSatThuong(plAtt, plInjure, Util.DoubleGioihan(dameHit));
         hutHPMP(plAtt, dameHit, false);
@@ -1417,7 +1417,7 @@ public class SkillService {
             float paramOfLinhCan = plAtt.tuMa.linhCanTuMa.xParam;
             switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
                 case 0:
-                    double hp = plInjure.injured(plAtt, plInjure.nPoint.hpMax * (paramOfLinhCan / 10), false, false, true);
+                    double hp = plInjure.injured(plAtt, plInjure.nPoint.hpMax * (paramOfLinhCan / 50), false, false, true);
                     plAtt.nPoint.hutMauTamThoi += hp;
                     plAtt.nPoint.hpMax += plAtt.nPoint.hutMauTamThoi;
                     plAtt.nPoint.lastTimeHutMau = System.currentTimeMillis();
@@ -1428,7 +1428,7 @@ public class SkillService {
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameA, (byte) 0);
                     break;
                 case 2:
-                    double dameB = (plInjure.nPoint.hpMax * paramOfLinhCan / 10) * Util.nextInt(2, 4);
+                    double dameB = (plInjure.nPoint.hpMax * paramOfLinhCan / 50) * Util.nextInt(2, 4);
                     dameB = plInjure.injured(plAtt, dameB, false, false, false);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameB, (byte) 0);
                     break;
@@ -1445,16 +1445,16 @@ public class SkillService {
                     // - hp cua ban than
                     double dame = plAtt.nPoint.hpMax * (paramOfLinhCan);
                     plAtt.nPoint.subHP(dame);
-                    double dameD = plInjure.injured(plAtt, dame, false, false, false);
+                    double dameD = plInjure.injured(plAtt, dame, false, false, true);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameD, (byte) 0);
                     break;
             }
-            plAtt.tuMa.subMaKhi(Util.nextInt(1, 3));
+            plAtt.tuMa.subMaKhi(Util.nextInt(10, 30));
         }
         // handle for huyet mach
     }
 
-    private boolean neDon(Player plInjure, Player plAtt, boolean miss) {
+    private boolean neDon(Player plInjure, boolean miss) {
         if (plInjure.tuTien.isTuTien()) {
             short xParam = plInjure.tuTien.linhCan.getThuocTinhLinhCan().getParam();
             if (plInjure.tuTien.linhCan.getLinhCanType() == 2 || plInjure.tuTien.linhCan.getLinhCanType() == 5 || plInjure.tuTien.linhCan.getLinhCanType() == 8) {

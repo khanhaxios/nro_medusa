@@ -1,19 +1,40 @@
 package com.girlkun.models.player.tutien.luyenthe;
 
+import com.girlkun.consts.ConstNpc;
+import com.girlkun.models.player.Player;
+import com.girlkun.services.NpcService;
+import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
+import java.util.Arrays;
+
 public class VoKy {
+    public int id;
+    private static final int MAX_BAC = 5;
     public long doThuanThuc;
     public long maxDoThuanThuc;
+    public String tenVoKy;
+    public Player player;
+    public String moTaVoKy;
     public int bac;
     public int type;
+    public int[] buff = new int[]{};
+    public long lastTimeCoolDown;
 
-    public int[] TYPE_BUFF_0 = new int[]{20, 50, 80, 120, 150, 200}; //  buff sat thuong
-    public int[] TYPE_BUFF_1 = new int[]{50, 100, 150, 200, 250, 300}; //  buff HP,MP
-    public int[] TYPE_BUFF_2 = new int[]{20, 30, 50, 80, 100, 120}; //  buff phan sat thuong
+    public long timeCoolDown;
 
     public long calcMaxDoThuanThuc() {
         return bac * 100_000L;
+    }
+
+    public VoKy() {
+    }
+
+    public VoKy(int id, String tenVoKy, String moTaVoKy, int type) {
+        this.id = id;
+        this.tenVoKy = tenVoKy;
+        this.moTaVoKy = moTaVoKy;
+        this.type = type;
     }
 
     public long getExpCanGain() {
@@ -21,11 +42,151 @@ public class VoKy {
     }
 
     public void addDoThuanThuc(long doThuanThuc) {
+        this.doThuanThuc += doThuanThuc;
+        if (this.doThuanThuc > maxDoThuanThuc) {
+            this.doThuanThuc = maxDoThuanThuc;
+        }
+    }
 
+    public String getBaseMenuText() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("|7|Thông tin võ kỹ").append("\n");
+        stringBuilder.append("|5|").append(tenVoKy).append("[").append(getDoThuanThucVoKy()).append("\n");
+        stringBuilder.append("|5|").append(moTaVoKy.replace("#", "?")).append("\n");
+        return stringBuilder.toString();
+    }
+
+    public void addNewBuff() {
+        int[] newBuff = Arrays.copyOf(buff, buff.length + 1);
+        switch (type) {
+            case 0:
+                newBuff[newBuff.length - 1] = Util.nextInt(1, 10) * bac;
+                break;
+            case 1:
+                newBuff[newBuff.length - 1] = Util.nextInt(1, 15) * bac;
+                break;
+            case 2:
+                newBuff[newBuff.length - 1] = Util.nextInt(1, 6) * bac;
+                break;
+            case 3:
+                newBuff[newBuff.length - 1] = Util.nextInt(1, 3) * bac;
+                break;
+        }
+        this.buff = newBuff;
+    }
+
+    public void init() {
+        bac = 0;
+        restDoTT();
     }
 
     public void tangBac() {
+        if (!canNangBac()) {
+            Service.gI().sendThongBaoOK(player, "Độ thuần thục chưa đủ hoặc bạn đã đạt bậc tối đa");
+            return;
+        }
+        float ratio = getTyLeDotPha();
+        if (Util.isTrue(ratio, 100)) {
+            bac += 1;
+            restDoTT();
+            addNewBuff();
+            Service.gI().point(player);
+            Service.gI().sendThongBao(player, "Đột phá võ kỹ thành công");
+        } else {
+            subDoTTPercent(20);
+            Service.gI().sendThongBao(player, "Đột phá võ kỹ thất bại bạn bị tổn thương căn cơ");
+            this.lastTimeCoolDown = System.currentTimeMillis();
+            this.timeCoolDown = 60 * 60 * 1000;
+        }
+    }
 
+    private void subDoTTPercent(int i) {
+        doThuanThuc -= maxDoThuanThuc * i / 100;
+        if (doThuanThuc < 0) {
+            doThuanThuc = 0;
+        }
+    }
+
+    private void restDoTT() {
+        doThuanThuc = 0;
+        this.maxDoThuanThuc = calcMaxDoThuanThuc();
+    }
+
+    private boolean canNangBac() {
+        return doThuanThuc == maxDoThuanThuc && bac + 1 <= MAX_BAC;
+    }
+
+    public void showBaseMenu() {
+        player.iDMark.voKySelected = this;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("|7|Thông tin võ kỹ").append("\n");
+        stringBuilder.append("|5|").append(tenVoKy).append("[").append(getDoThuanThucVoKy()).append("\n");
+        stringBuilder.append("|5|").append(moTaVoKy.replace("#", "")).append("\n");
+        stringBuilder.append("|5|Độ thuần thục : ").append(getCurrentExpAsString()).append("\n");
+        stringBuilder.append("|7|Tỷ lệ đột phá : ").append(getTyLeDotPha()).append("%").append("\n");
+        stringBuilder.append("|7|Võ kỹ thuần thục càng cao thì càng buff nhiều").append("\n");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_VO_KY, -1, stringBuilder.toString(), "Đột phá", "Xem\nThông Tin");
+    }
+
+    public void showMenuDotPha() {
+        if (bac + 1 > MAX_BAC) {
+            Service.gI().sendThongBao(player, "Bạn đã đạt bậc tối đa");
+            return;
+        }
+        player.iDMark.voKySelected = this;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("|7|Đột phá võ kỹ").append("\n");
+        stringBuilder.append("|5|Hiện tại : ").append(tenVoKy).append("[").append(bac).append("]").append("\n");
+        stringBuilder.append("|5|Bậc kế : ").append(tenVoKy).append("[").append(bac + 1).append("]").append("\n");
+        stringBuilder.append("|7|Tỷ lệ thành công : ").append(getTyLeDotPha()).append("\n");
+        stringBuilder.append("|7|Thất bại sẽ giảm 50% độ thuần thục , thành công sẽ reset độ thuần thục");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_DOT_PHA_VK, -1, stringBuilder.toString(), "Đột phá");
+    }
+
+    public void calcPoint() {
+        for (int i = 0; i < bac; i++) {
+            switch (type) {
+                case 0:
+                    player.nPoint.tlDame.add(buff[i]);
+                    // cong suc danh
+                    break;
+                case 1:
+                    player.nPoint.tlDameCrit.add(buff[i]);
+                    // cong sat thuong chi mang
+                    break;
+                case 2:
+                    player.nPoint.tyLeGiamDame += buff[i];
+                    // cong khang dame
+                    break;
+                case 3:
+                    player.nPoint.tlNeDon += buff[i];
+                    break;
+            }
+        }
+
+    }
+
+    private float getTyLeDotPha() {
+        return switch (bac) {
+            case 0 -> 100f;
+            case 1 -> 50f;
+            case 2 -> 10f;
+            case 3 -> 1f;
+            case 4 -> .5f;
+            case 5 -> .3f;
+            default -> .1f;
+        };
+    }
+
+    public void showMenuThongTinBuff() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("|7|Thông tin tăng phúc võ kỹ").append("\n");
+        stringBuilder.append(getBuff());
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TP_VK, -1, stringBuilder.toString(), "Đóng");
+    }
+
+    private String getCurrentExpAsString() {
+        return Util.powerToString(doThuanThuc) + "/" + Util.powerToString(maxDoThuanThuc);
     }
 
     public String getDoThuanThucVoKy() {
@@ -46,15 +207,15 @@ public class VoKy {
         return "Chưa nhập môn";
     }
 
-    public float getBuff() {
-        switch (type) {
-            case 0:
-                return TYPE_BUFF_0[bac];
-            case 1:
-                return TYPE_BUFF_1[bac];
-            case 2:
-                return TYPE_BUFF_2[bac];
+    public String getBuff() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < bac; i++) {
+            stringBuilder.append("|5|").append(moTaVoKy.replace('#', (char) buff[i])).append("%").append("\n");
         }
-        return 1;
+        return stringBuilder.toString();
+    }
+
+    public float getCurrentPercent() {
+        return 100f * doThuanThuc / maxDoThuanThuc;
     }
 }

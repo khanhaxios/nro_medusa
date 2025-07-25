@@ -1,0 +1,62 @@
+[
+  {
+    "tenVoKy": "Hàng Long Thập Bát Chưởng",
+    "moTaVoKy": "Đòn đánh thường giúp tăng sát thương chí mạng bằng #%",
+    "type": 1,
+    "id": 0
+  },
+  {
+    "tenVoKy": "Cửu Âm Bạch Cốt Trảo",
+    "moTaVoKy": "Tăng #% Sát thương",
+    "type": 0,
+    "id": 1
+  },
+  {
+    "tenVoKy": "Thiên Sơn Lục Dương Chưởng",
+    "moTaVoKy": "Tăng #% Sát thương",
+    "type": 0,
+    "id": 2
+  },
+  {
+    "tenVoKy": "Lăng Ba Vi Bộ",
+    "moTaVoKy": "Tăng #% Né Tránh",
+    "type": 3,
+    "id": 3
+  },
+  {
+    "tenVoKy": "Càn Khôn Đại Na Di",
+    "moTaVoKy": "Tăng #% Né Tránh",
+    "type": 3,
+    "id": 4
+  },
+  {
+    "tenVoKy": "Đả Cẩu Bổng Pháp",
+    "moTaVoKy": "Đòn đánh thường giúp tăng sát thương chí mạng bằng #%",
+    "type": 1,
+    "id": 5
+  },
+  {
+    "tenVoKy": "Thái Cực Kiếm Pháp",
+    "moTaVoKy": "Tăng #% Sát thương",
+    "type": 0,
+    "id": 6
+  },
+  {
+    "tenVoKy": "Phá Thiên Nhất Kiếm",
+    "moTaVoKy": "Đòn đánh thường giúp tăng sát thương chí mạng bằng #%",
+    "type": 1,
+    "id": 7
+  },
+  {
+    "tenVoKy": "Băng Tâm Tuyết Ảnh",
+    "moTaVoKy": "Giảm #% sát thương nhận vào",
+    "type": 2,
+    "id": 8
+  },
+  {
+    "tenVoKy": "Vô Ảnh Cước",
+    "moTaVoKy": "Đòn đánh thường giúp tăng sát thương chí mạng bằng #%",
+    "type": 1,
+    "id": 9
+  }
+]

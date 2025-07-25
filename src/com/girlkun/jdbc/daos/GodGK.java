@@ -27,6 +27,8 @@ import com.girlkun.models.player.tutien.luyendansu.*;
 import com.girlkun.models.player.tutien.luyenkhi.PhamChat;
 import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
+import com.girlkun.models.player.tutien.luyenthe.CongPhapLuyenThe;
+import com.girlkun.models.player.tutien.luyenthe.VoKy;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.models.task.TaskMain;
 import com.girlkun.result.GirlkunResultSet;
@@ -1188,6 +1190,48 @@ public class GodGK {
                             player.luyenThe.exp = Long.parseLong(jsonArray.get(1).toString());
                             player.luyenThe.maxExp = Long.parseLong(jsonArray.get(2).toString());
                             player.luyenThe.timeThatBai = Byte.parseByte(jsonArray.get(3).toString());
+                            player.luyenThe.chanKhi = Integer.parseInt(jsonArray.get(4).toString());
+                            player.luyenThe.maxChanKhi = Integer.parseInt(jsonArray.get(5).toString());
+                            JSONArray cpObj = (JSONArray) JSONValue.parse(String.valueOf(jsonArray.get(6)));
+                            if (cpObj != null && cpObj.size() > 0) {
+                                if (player.luyenThe.congPhapLuyenThe == null) {
+                                    player.luyenThe.congPhapLuyenThe = new CongPhapLuyenThe(player);
+                                }
+                                player.luyenThe.congPhapLuyenThe.type = Byte.parseByte(cpObj.get(0).toString());
+                                player.luyenThe.congPhapLuyenThe.tang = Byte.parseByte(cpObj.get(1).toString());
+                                player.luyenThe.congPhapLuyenThe.tenCongPhap = cpObj.get(2).toString();
+                                player.luyenThe.congPhapLuyenThe.exp = Long.parseLong(cpObj.get(3).toString());
+                                player.luyenThe.congPhapLuyenThe.maxExp = Long.parseLong(cpObj.get(4).toString());
+                                player.luyenThe.congPhapLuyenThe.expGiaiDoan = Long.parseLong(cpObj.get(5).toString());
+                                player.luyenThe.congPhapLuyenThe.maxExpGiaiDoan = Long.parseLong(cpObj.get(6).toString());
+                                player.luyenThe.congPhapLuyenThe.giaiDoan = Byte.parseByte(cpObj.get(7).toString());
+                            }
+                            JSONArray voKyObj = (JSONArray) JSONValue.parse(jsonArray.get(7).toString());
+                            if (voKyObj != null && voKyObj.size() > 0) {
+                                player.luyenThe.voKyList.clear();  // Xóa cũ nếu có
+
+                                for (Object vkObj : voKyObj) {
+                                    JSONArray vkList = (JSONArray) vkObj;
+                                    VoKy voKy = new VoKy();
+                                    voKy.type = Byte.parseByte(vkList.get(0).toString());
+                                    voKy.bac = Byte.parseByte(vkList.get(1).toString());
+                                    voKy.doThuanThuc = Integer.parseInt(vkList.get(2).toString());
+                                    voKy.maxDoThuanThuc = Integer.parseInt(vkList.get(3).toString());
+                                    voKy.id = Short.parseShort(vkList.get(4).toString());
+                                    voKy.tenVoKy = vkList.get(5).toString();
+                                    voKy.moTaVoKy = vkList.get(6).toString();
+                                    voKy.lastTimeCoolDown = Long.parseLong(vkList.get(7).toString());
+                                    voKy.timeCoolDown = Long.parseLong(vkList.get(8).toString());
+
+                                    // buff
+                                    JSONArray buffArr = (JSONArray) vkList.get(9);
+                                    voKy.buff = new int[buffArr.size()];
+                                    for (int i = 0; i < buffArr.size(); i++) {
+                                        voKy.buff[i] = Integer.parseInt(buffArr.get(i).toString());
+                                    }
+                                    player.luyenThe.voKyList.add(voKy);
+                                }
+                            }
                         }
                     }
                 } catch (Exception e) {
