@@ -100,15 +100,13 @@ public class Mach {
 
     public void nangBac() {
         // nang bac 100% thanh cong khi du exp
-        if (!canLevelUpBac()) {
-            if (bac + 1 > 8) {
-                Service.gI().sendThongBao(player, "Bậc đạt tối đa hãy đột phá tầng");
-                return;
-            }
-            if (exp != maxExp) {
-                Service.gI().sendThongBao(player, "Chưa đủ kinh nghiệm");
-                return;
-            }
+        if (bac + 1 > 8) {
+            Service.gI().sendThongBao(player, "Bậc đạt tối đa hãy đột phá tầng");
+            return;
+        }
+        if (exp < maxExp) {
+            Service.gI().sendThongBao(player, "Chưa đủ kinh nghiệm");
+            return;
         }
         bac += 1;
         restExp();
@@ -122,13 +120,13 @@ public class Mach {
     public void buff() {
         switch (bac) {
             case 0:
-                dameBuff += MAX_BASE_POINT_ATK + ((double) (MAX_BASE_POINT_ATK * (10 * tang)) / 100);
+                dameBuff += MAX_BASE_POINT_ATK + ((double) (MAX_BASE_POINT_ATK * (10 * Math.max(tang, 1))) / 100);
                 break;
             case 1:
-                hpBuff += MAX_BASE_POINT_HP + ((double) (MAX_BASE_POINT_HP * (10 * tang)) / 100);
+                hpBuff += MAX_BASE_POINT_HP + ((double) (MAX_BASE_POINT_HP * (10 * Math.max(tang, 1))) / 100);
                 break;
             case 2:
-                mpBuff += MAX_BASE_POINT_MP + ((double) (MAX_BASE_POINT_MP * (10 * tang)) / 100);
+                mpBuff += MAX_BASE_POINT_MP + ((double) (MAX_BASE_POINT_MP * (10 * Math.max(tang, 1))) / 100);
                 break;
             case 3:
                 atkPercentBuff += MAX_BASE_POINT_ATK_PERCENT * Math.max(tang, 1);
@@ -140,7 +138,7 @@ public class Mach {
                 mpPercentBuff += MAX_BASE_POINT_MP_PERCENT * Math.max(tang, 1);
                 break;
             case 6:
-                linhKhiBuff += MAX_BASE_POINT_LINH_KHI_HOI + ((double) (MAX_BASE_POINT_LINH_KHI_HOI * (10 * tang)) / 100);
+                linhKhiBuff += MAX_BASE_POINT_LINH_KHI_HOI + ((double) (MAX_BASE_POINT_LINH_KHI_HOI * (10 * Math.max(tang, 1))) / 100);
                 break;
             case 7:
                 sssPercentBuff += MAX_BASE_POINT_SSS * Math.max(tang / 3, 1);
@@ -172,10 +170,10 @@ public class Mach {
             tang += 1;
             bac = 0;
             buff();
-            Service.gI().sendThongBao(player, "Nâng bậc thành công");
+            Service.gI().sendThongBao(player, "Nâng Tầng thành công");
             // calc buff 0 tang
         } else {
-            Service.gI().sendThongBao(player, "Nâng bậc thất bại");
+            Service.gI().sendThongBao(player, "Nâng Tầng thất bại");
         }
         restExp();
     }
@@ -255,7 +253,7 @@ public class Mach {
     }
 
     public float getTyLeTangBac() {
-        return 100f / (Math.max(tang, 2) * Math.max(2, bac));
+        return 100f / (Math.max(tang, 2) * Math.max(2, tang * 2));
     }
 
     public String getBuffByBac(int bac) {
@@ -283,6 +281,9 @@ public class Mach {
     }
 
     public String getBuffByBac(byte bac) {
+        if (bac > 8 || bac < 0) {
+            bac = 0;
+        }
         switch (bac) {
             case 0:
                 return "+ Tấn công";
@@ -351,7 +352,7 @@ public class Mach {
 
     private String getNameByBac(int bac) {
         if (bac < 0 || bac > 8) {
-            return "Không xác định";
+            return BAC_NAME[0] + "[" + (1) + "]";
         }
         return BAC_NAME[bac] + "[" + (bac + 1) + "]";
     }
@@ -360,20 +361,20 @@ public class Mach {
         StringBuilder menuText = new StringBuilder();
         menuText.append("|7|❖═════ THÔNG TIN MẠCH ═════❖\n");
 
-        menuText.append("|7|➣ Tầng hiện tại   : ").append(getNameByTang()).append("\n");
+        menuText.append("|7|➣ Tầng hiện tại: ").append(getNameByTang()).append("\n");
 
-        menuText.append("|5|✦ Tấn công        : +").append(dameBuff).append("\n");
-        menuText.append("|5|✦ HP              : +").append(hpBuff).append("\n");
-        menuText.append("|5|✦ KI              : +").append(mpBuff).append("\n");
+        menuText.append("|5|✦ Tấn công +").append(dameBuff).append("\n");
+        menuText.append("|5|✦ HP +").append(hpBuff).append("\n");
+        menuText.append("|5|✦ KI +").append(mpBuff).append("\n");
 
-        menuText.append("|5|✧ Tấn công (%)    : +").append(atkPercentBuff).append("%\n");
-        menuText.append("|5|✧ HP (%)          : +").append(hpPercentBuff).append("%\n");
-        menuText.append("|5|✧ KI (%)          : +").append(mpPercentBuff).append("%\n");
+        menuText.append("|5|✧ Tấn công (%) +").append(atkPercentBuff).append("%\n");
+        menuText.append("|5|✧ HP (%) +").append(hpPercentBuff).append("%\n");
+        menuText.append("|5|✧ KI (%) +").append(mpPercentBuff).append("%\n");
 
-        menuText.append("|5|⚗ Hồi Linh Khí    : +").append(linhKhiBuff).append("\n");
+        menuText.append("|5|⚗ Hồi Linh Khí +").append(linhKhiBuff).append("\n");
 
-        menuText.append("|5|✪ Dame SSS        : +").append(sssPercentBuff).append("%\n");
-        menuText.append("|5|✪ Dame M          : +").append(mAtkBuff).append("\n");
+        menuText.append("|5|✪ Dame SSS +").append(sssPercentBuff).append("%\n");
+        menuText.append("|5|✪ Dame M +").append(mAtkBuff).append("\n");
 
         menuText.append("|7|❖══════════════════════════❖");
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TT_MACH, -1, menuText.toString(), "Đóng");
@@ -388,11 +389,11 @@ public class Mach {
         StringBuilder menuText = new StringBuilder();
         menuText.append("|7|❖═════ THÔNG MẠCH ═════❖\n");
 
-        menuText.append("|5|➤ Bậc hiện tại     : ").append(getNameByBac()).append("\n");
-        menuText.append("|5|➤ Bậc kế tiếp      : ").append(getNameByBac(t))
+        menuText.append("|5|➤ Bậc hiện tại: ").append(getNameByBac()).append("\n");
+        menuText.append("|5|➤ Bậc kế tiếp: ").append(getNameByBac(t))
                 .append(" [ +").append(getBuffByBac((byte) t)).append(" ]\n");
 
-        menuText.append("|5|➤ Kinh nghiệm      : ").append(getCurrentExpAsString()).append("\n");
+        menuText.append("|5|➤ Kinh nghiệm: ").append(getCurrentExpAsString()).append("\n");
 
         menuText.append("|7|✦ Đột phá lần này sẽ thành công 100%\n");
 
@@ -420,7 +421,7 @@ public class Mach {
     public void update() {
         if (isOpen) {
             if (exp < maxExp) {
-                long expToAdd = (long) tang * Util.nextInt(1, 3) + (long) bac * Util.nextInt(1, 2);
+                long expToAdd = (long) Math.max(tang, 1) * Util.nextInt(1, 3) + (long) Math.max(1, bac) * Util.nextInt(1, 2);
                 addExp(expToAdd);
             }
         }

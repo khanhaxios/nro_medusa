@@ -89,7 +89,6 @@ public class LuckyPool {
             Service.gI().sendThongBao(player, "Rương phụ đã đầy hãy nhận thưởng trước đi nào");
             return;
         }
-        List<Item> itemsRolled = new ArrayList<>();
         float tyLeRoll = player.luckyPoolPlayer.totalLuckyPoint;
         // roll nè
         for (int i = 0; i < timeToRoll; i++) {

@@ -285,6 +285,12 @@ public class InventoryServiceNew {
         subQuantityItem(player.inventory.itemsBag, item, quantity);
     }
 
+    public void subQuantityItemsBag(Player player, List<Item> items, int quantity) {
+        for (Item item : items) {
+            subQuantityItem(player.inventory.itemsBag, item, quantity);
+        }
+    }
+
     public void subQuantityItemsBody(Player player, Item item, int quantity) {
         subQuantityItem(player.inventory.itemsBody, item, quantity);
     }
@@ -1068,5 +1074,15 @@ public class InventoryServiceNew {
             }
         }
         return item;
+    }
+
+    public List<Item> takeItemToiThe(Player player) {
+        List<Item> items = new ArrayList<>();
+        for (Item item : player.inventory.itemsBag) {
+            if (item.template.id >= 1260 && item.template.id <= 1266) {
+                items.add(item);
+            }
+        }
+        return items;
     }
 }

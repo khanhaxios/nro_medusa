@@ -78,7 +78,8 @@ public class TaiXiu implements Runnable {
     public void run() {
         while (true) {
             try {
-                if (((TaiXiu.gI().lastTimeEnd - System.currentTimeMillis()) / 1000) == 0) {
+                long timeLeft = TaiXiu.gI().lastTimeEnd - System.currentTimeMillis();
+                if (timeLeft <= 0) {
                     int x, y, z;
                     // Thực hiện các hành động sau khi chờ 10 giây
                     if (TaiXiu.gI().goldTai >= TaiXiu.gI().goldXiu) {

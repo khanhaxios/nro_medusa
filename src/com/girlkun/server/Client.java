@@ -2,37 +2,24 @@ package com.girlkun.server;
 
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.jdbc.daos.PlayerDAO;
-import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
+import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
+import com.girlkun.models.matches.pvp.DaiHoiVoThuatService;
 import com.girlkun.models.player.Player;
 import com.girlkun.network.server.GirlkunSessionManager;
 import com.girlkun.network.session.ISession;
 import com.girlkun.server.io.MySession;
-import com.girlkun.services.ItemTimeService;
-import com.girlkun.services.Service;
-import com.girlkun.services.func.ChangeMapService;
-import com.girlkun.services.func.SummonDragon;
-import com.girlkun.services.func.TransactionService;
-import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.NgocRongNamecService;
+import com.girlkun.services.Service;
+import com.girlkun.services.func.*;
 import com.girlkun.utils.Logger;
+import com.girlkun.utils.Util;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
-import com.girlkun.models.matches.pvp.DaiHoiVoThuatService;
-import com.girlkun.models.player.TimeReset;
-
-import static com.girlkun.models.player.TimeReset.CLOSE_RESET;
-import static com.girlkun.models.player.TimeReset.TIME_RESET;
-
-import com.girlkun.services.func.GoiRongXuong;
-import com.girlkun.services.func.SummonSieuCap;
-import com.girlkun.utils.Util;
 
 public class Client implements Runnable {
 
@@ -43,8 +30,6 @@ public class Client implements Runnable {
     private final Map<String, Player> players_name = new HashMap<String, Player>();
     private final Map<String, Player> players_name_origin = new HashMap<String, Player>();
     private final List<Player> players = new ArrayList<>();
-
-    private boolean running = true;
 
     private Client() {
         new Thread(this).start();
@@ -211,19 +196,24 @@ public class Client implements Runnable {
     }
 
     public void close() {
-        Logger.error("BEGIN KICK OUT SESSION.............................." + players.size() + "\n");
-        while (!GirlkunSessionManager.gI().getSessions().isEmpty()) {
-            Logger.error("LEFT PLAYER: " + this.players.size() + ".........................\n");
-            // save before kick session
-            this.kickSession((MySession) GirlkunSessionManager.gI().getSessions().remove(0));
+        Logger.error("BEGIN KICK OUT SESSION.............................." + players.size());
+
+        // Backup: clone danh sách sessions để không bị lỗi ConcurrentModification
+        List<MySession> sessionList = new ArrayList<>();
+
+        for (MySession session : sessionList) {
+            this.kickSession(session);
         }
 
+        // Xử lý nốt danh sách players chưa rõ session
         while (!players.isEmpty()) {
-            Player currentPlayer = Client.gI().getLastPlayer();
-            PlayerDAO.updatePlayer(currentPlayer);
-            this.kickSession((MySession) players.remove(0).getSession());
+            Player pl = players.remove(0);
+            if (pl != null) {
+                this.kickSession(pl.getSession());
+            }
         }
-        Logger.error("...........................................SUCCESSFUL\n");
+
+        Logger.error("...........................................SUCCESSFUL");
     }
 
     public void cloneMySessionNotConnect() {
@@ -252,6 +242,7 @@ public class Client implements Runnable {
                 }
             }
         } catch (Exception e) {
+            Logger.log(e.getMessage());
         }
     }
 
@@ -259,17 +250,14 @@ public class Client implements Runnable {
     public void run() {
         while (ServerManager.isRunning) {
             try {
-                long st = System.currentTimeMillis();
-                update();
-                if ((st > TIME_RESET && st < CLOSE_RESET)) {
-                    GirlkunDB.executeUpdate("UPDATE player SET Tai_xiu = JSON_REPLACE(JSON_REPLACE(JSON_REPLACE(Tai_xiu, '$[0]', 0), '$[4]', 0), '$[5]', 0)");
-                    System.out.println("==================RESET DAY THANH CONG===============");
-                    Thread.sleep(800);
-                }
-                long delayTime = 800 - (System.currentTimeMillis() - st);
-                if (delayTime > 0) {
-                    Thread.sleep(delayTime);
-                }
+                long start = System.currentTimeMillis();
+
+                update(); // hàm xử lý logic
+
+                long elapsed = System.currentTimeMillis() - start;
+                long sleepTime = Math.max(0, 800 - elapsed);
+
+                Thread.sleep(sleepTime);
             } catch (Exception e) {
                 Logger.logException(Client.class, e, "Lỗi Update Client");
             }

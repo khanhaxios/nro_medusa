@@ -22,11 +22,13 @@ public class LuyenThe {
     public final byte MAX_LEVEL = 99;
     public final short MAX_LEVEL_FINAL = 9999;
     public CongPhapLuyenThe congPhapLuyenThe;
+    public ToiThe toiThe;
     public byte timeThatBai = 0;
 
     public LuyenThe(Player player) {
         this.player = player;
         congPhapLuyenThe = new CongPhapLuyenThe(player);
+        toiThe = new ToiThe(player);
     }
 
     public void calcPoint() {
@@ -37,6 +39,9 @@ public class LuyenThe {
             for (VoKy voKy : voKyList) {
                 voKy.calcPoint();
             }
+        }
+        if (toiThe != null && toiThe.isOpen()) {
+            toiThe.calcPoint();
         }
         player.nPoint.tlHutHp += getHutHPBuff();
         player.nPoint.tlHutMp += getHPMPBuff();
@@ -231,7 +236,7 @@ public class LuyenThe {
 // — Nhắc nhở —
         text.append("|7|✪ Cấp càng cao, tỷ lệ đột phá càng thấp!");
         text.append("\n|7|❖════════════════════❖");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text.toString(), "Đột phá", "Công Pháp", "Võ Kỹ", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text.toString(), "Đột phá", "Công Pháp", "Võ Kỹ", "Tôi Thể", "Đóng");
     }
 
     private String getCurrentChanKhiAsString() {

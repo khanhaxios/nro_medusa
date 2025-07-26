@@ -987,10 +987,31 @@ public class PlayerDAO {
                 dataArray.add(player.chienthan.maxtask);
                 dataArray.add(player.chienthan.donechienthan);
                 String chienthan = dataArray.toJSONString();
+
+                // SAVE DATA LUCKY POOL
+                JSONArray dataLuckyPool = new JSONArray();
+                dataLuckyPool.add(player.luckyPoolPlayer.totalLuckyPoint);
+                JSONArray dataItemLkPool = new JSONArray();
+                for (Item itemBag : player.luckyPoolPlayer.itemBags) {
+                    JSONArray dtItem = new JSONArray();
+                    dtItem.add(itemBag.template.id);
+                    dtItem.add(itemBag.quantity);
+                    JSONArray dtOptions = new JSONArray();
+                    for (Item.ItemOption itemOption : itemBag.itemOptions) {
+                        JSONArray dtOption = new JSONArray();
+                        dtOption.add(itemOption.optionTemplate.id);
+                        dtOption.add(itemOption.param);
+                        dtOptions.add(dtOption);
+                    }
+                    dtItem.add(dtOptions);
+                    dataItemLkPool.add(dtItem);
+                }
+                dataLuckyPool.add(dataItemLkPool);
+                String dataLuckyP = dataLuckyPool.toJSONString();
                 dataArray.clear();
 
-                String query = "update player set dk_kethon = ?, ket_hon = ?,dk_tutien = ?, Tu_tien = ?,dhtime = ?, dhtime2 = ?, dhtime3 = ?, dhieu = ?,head = ?, gender = ?, have_tennis_space_ship = ?," + "clan_id_sv" + Manager.SERVER + " = ?, data_inventory = ?, data_location = ?, data_point = ?, data_magic_tree = ?," + "items_body = ?, items_bag = ?, items_box = ?, items_box_lucky_round = ?, friends = ?," + "enemies = ?, data_intrinsic = ?, data_item_time = ?,data_item_time_sieucap = ?, data_task = ?, data_mabu_egg = ?, data_dua = ?, Tai_xiu = ?, pet = ?, dao_lu = ?," + "data_black_ball = ?, data_side_task = ?, data_charm = ?, skills = ?, skills_shortcut = ?, violate=?, pointPvp=?,info_phoban =?, info_achievement =?," + " Thu_TrieuHoi= ?,  nhiemvu_chienthan= ?, NguHanhSonPoint=?, data_card=?, data_lks=? ,tien_luc=? , tl_dl=? where id = ?";
-                GirlkunDB.executeUpdate(query, dk_kethon, kethon, dk_tutien, TuTien, dhtime, dhtime2, dhtime3, title, player.head, player.gender, player.haveTennisSpaceShip, (player.clan != null ? player.clan.id : -1), inventory, location, point, magicTree, itemsBody, itemsBag, itemsBox, itemsBoxLuckyRound, friend, enemy, intrinsic, itemTime, itemTimesieucap, task, mabuEgg, timedua, taixiu, pet, petDaoLu, dataBlackBall, sideTask, charm, skills, skillShortcut, player.diemdanh, pointPvp, info_phoban, info_achive, Thu_TrieuHoi, chienthan, player.NguHanhSonPoint, JSONValue.toJSONString(player.Cards), luyenKhiSu, player.tienLuc, player.tyLeTangPhamDaoLu, player.id);
+                String query = "update player set dk_kethon = ?, ket_hon = ?,dk_tutien = ?, Tu_tien = ?,dhtime = ?, dhtime2 = ?, dhtime3 = ?, dhieu = ?,head = ?, gender = ?, have_tennis_space_ship = ?," + "clan_id_sv" + Manager.SERVER + " = ?, data_inventory = ?, data_location = ?, data_point = ?, data_magic_tree = ?," + "items_body = ?, items_bag = ?, items_box = ?, items_box_lucky_round = ?, friends = ?," + "enemies = ?, data_intrinsic = ?, data_item_time = ?,data_item_time_sieucap = ?, data_task = ?, data_mabu_egg = ?, data_dua = ?, Tai_xiu = ?, pet = ?, dao_lu = ?," + "data_black_ball = ?, data_side_task = ?, data_charm = ?, skills = ?, skills_shortcut = ?, violate=?, pointPvp=?,info_phoban =?, info_achievement =?," + " Thu_TrieuHoi= ?,  nhiemvu_chienthan= ?, NguHanhSonPoint=?, data_card=?, data_lks=? ,tien_luc=? , tl_dl=?,lucky_pool=? where id = ?";
+                GirlkunDB.executeUpdate(query, dk_kethon, kethon, dk_tutien, TuTien, dhtime, dhtime2, dhtime3, title, player.head, player.gender, player.haveTennisSpaceShip, (player.clan != null ? player.clan.id : -1), inventory, location, point, magicTree, itemsBody, itemsBag, itemsBox, itemsBoxLuckyRound, friend, enemy, intrinsic, itemTime, itemTimesieucap, task, mabuEgg, timedua, taixiu, pet, petDaoLu, dataBlackBall, sideTask, charm, skills, skillShortcut, player.diemdanh, pointPvp, info_phoban, info_achive, Thu_TrieuHoi, chienthan, player.NguHanhSonPoint, JSONValue.toJSONString(player.Cards), luyenKhiSu, player.tienLuc, player.tyLeTangPhamDaoLu, dataLuckyP, player.id);
                 PlayerDAO.subvnd(player, 0);
                 handleSaveDataTuTien(player);
                 Logger.success("Total time save player " + player.name + " thành công! " + (System.currentTimeMillis() - st) + "\n");
@@ -1265,6 +1286,10 @@ public class PlayerDAO {
                         voKyArrr.add(vkList);
                     }
                     jsonArray.add(voKyArrr);
+
+                    JSONArray dataToiThe = new JSONArray();
+                    dataToiThe.add(player.luyenThe.toiThe.tier);
+                    jsonArray.add(dataToiThe);
                     dataLT = jsonArray.toJSONString();
                     jsonArray.clear();
                 }

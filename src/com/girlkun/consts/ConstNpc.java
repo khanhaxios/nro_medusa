@@ -484,6 +484,9 @@ public class ConstNpc {
     public static final int VK_SHOW_BASE = -898721;
     public static final int MENU_HOC_VK = -897123;
     public static final int MENU_TANG_KNVK = -512239;
+    public static final int MENU_TOI_THE = -87262;
+    public static final int MENU_CONFIRM_TT = -761938;
+    public static final int MENU_KH_TT = -98122;
 }
 
 /**

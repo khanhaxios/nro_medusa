@@ -8174,6 +8174,41 @@ public class NpcFactory {
                         if (select == 2) {
                             player.luyenThe.showVoKy();
                         }
+                        if (select == 3) {
+                            if (player.luyenThe.level < 100) {
+                                Service.gI().sendThongBao(player, "Bạn cần đạt level 100 để tôi thể");
+                                return;
+                            }
+                            if (!player.luyenThe.toiThe.isOpen()) {
+                                String mx = "|7|Kích hoạt tôi thể" + "\n" + "|5|Bạn cần kích hoạt tôi thể để dùng chức năng này";
+                                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_KH_TT, -1, mx, "Kích hoạt", "Đóng");
+                            } else {
+                                player.luyenThe.toiThe.showBaseMenu();
+                            }
+
+                        }
+                        break;
+                    case ConstNpc.MENU_KH_TT:
+                        if (select == 0) {
+                            int tienCan = 300_000;
+                            if (player.session.vnd - tienCan < 0) {
+                                Service.gI().sendThongBao(player, "Cần " + tienCan + " điểm nạp");
+                                return;
+                            }
+                            PlayerDAO.subvnd(player, tienCan);
+                            player.luyenThe.toiThe.openSystem();
+                        }
+                        break;
+                    case ConstNpc.MENU_TOI_THE:
+                        if (select == 0) {
+                            player.luyenThe.toiThe.showMenuToiThe();
+                        }
+                        break;
+
+                    case ConstNpc.MENU_CONFIRM_TT:
+                        if (select == 0) {
+                            player.luyenThe.toiThe.toiLuyen();
+                        }
                         break;
                     case ConstNpc.VK_SHOW_BASE:
                         if (select == player.luyenThe.voKyList.size()) {
@@ -8456,9 +8491,7 @@ public class NpcFactory {
                             case 2:
                                 String npcSayHi = "|7|❖═══ BUFF CÔNG PHÁP CHI TIẾT ═══❖\n" +
 // — Nhóm buff cơ bản —
-                                        "|5|➤ TL HP:" + player.tuTien.congPhap.tlHpBuff + "%\n" + "|5|➤ TL MP:" + player.tuTien.congPhap.tlMpBuff + "%\n" + "|5|➤ TL Dame     : " + player.tuTien.congPhap.tlDameBuff + "%\n" + "|5|➤ TL Linh Khí:" + player.tuTien.congPhap.tlLinhKhiBuff + "%\n" +
-                                        "|5|➤ Tổng Dame Hút:" + player.tuTien.congPhap.totalHutDame + " điểm\n" + "|5|➤ Tổng HP Hút:" + player.tuTien.congPhap.totalHutHp + " điểm\n" + "|5|➤ Tổng MP Hút:" + player.tuTien.congPhap.totalHutMp + " điểm\n" +
-                                        "|5|➤ x Linh Khí:" + player.tuTien.congPhap.xLinhKhiBuff + "x\n" + "|5|➤ Tốc độ hồi LK:" + player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi + "x\n" + "|5|➤ x Dame Thuộc Tính:" + player.tuTien.congPhap.xDameThuocTinh + "x\n" + "|7|❖═════════════════════════════❖";
+                                        "|5|➤ TL HP:" + player.tuTien.congPhap.tlHpBuff + "%\n" + "|5|➤ TL MP:" + player.tuTien.congPhap.tlMpBuff + "%\n" + "|5|➤ TL Dame     : " + player.tuTien.congPhap.tlDameBuff + "%\n" + "|5|➤ TL Linh Khí:" + player.tuTien.congPhap.tlLinhKhiBuff + "%\n" + "|5|➤ Tổng Dame Hút:" + player.tuTien.congPhap.totalHutDame + " điểm\n" + "|5|➤ Tổng HP Hút:" + player.tuTien.congPhap.totalHutHp + " điểm\n" + "|5|➤ Tổng MP Hút:" + player.tuTien.congPhap.totalHutMp + " điểm\n" + "|5|➤ x Linh Khí:" + player.tuTien.congPhap.xLinhKhiBuff + "x\n" + "|5|➤ Tốc độ hồi LK:" + player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi + "x\n" + "|5|➤ x Dame Thuộc Tính:" + player.tuTien.congPhap.xDameThuocTinh + "x\n" + "|7|❖═════════════════════════════❖";
 
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_INFO_CONG_PHAP_BUFF, -1, npcSayHi, "Đóng");
                                 break;

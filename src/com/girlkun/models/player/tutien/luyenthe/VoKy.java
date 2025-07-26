@@ -146,7 +146,7 @@ public class VoKy {
     }
 
     public void calcPoint() {
-        for (int i = 0; i < bac; i++) {
+        for (int i = 0; i < buff.length; i++) {
             switch (type) {
                 case 0:
                     player.nPoint.tlDame.add(buff[i]);
