@@ -936,35 +936,38 @@ public class GodGK {
                             dataArray.clear();
                             //handle data lucky pool
                             dataArray = (JSONArray) JSONValue.parse(rs.getString("lucky_pool"));
-                            player.luckyPoolPlayer.totalLuckyPoint = Integer.parseInt(String.valueOf(dataArray.get(0)));
-                            // Lấy danh sách item
-                            JSONArray itemList = (JSONArray) dataArray.get(1);
-                            player.luckyPoolPlayer.itemBags.clear();
+                            if (dataArray.size() > 0) {
+                                player.luckyPoolPlayer.totalLuckyPoint = Integer.parseInt(String.valueOf(dataArray.get(0)));
+                                // Lấy danh sách item
+                                JSONArray itemList = (JSONArray) dataArray.get(1);
+                                player.luckyPoolPlayer.itemBags.clear();
 
-                            for (Object obj : itemList) {
-                                JSONArray itemData = (JSONArray) obj;
-                                int itemId = Integer.parseInt(String.valueOf(itemData.get(0)));
-                                int quantity = Integer.parseInt(String.valueOf(itemData.get(1)));
+                                for (Object obj : itemList) {
+                                    JSONArray itemData = (JSONArray) obj;
+                                    int itemId = Integer.parseInt(String.valueOf(itemData.get(0)));
+                                    int quantity = Integer.parseInt(String.valueOf(itemData.get(1)));
 
-                                // Tạo Item mới
-                                Item item = ItemService.gI().createNewItem((short) itemId, quantity);
-                                // Parse các option
-                                JSONArray options = (JSONArray) itemData.get(2);
-                                for (Object o : options) {
-                                    JSONArray opt = (JSONArray) o;
-                                    int optionId = Integer.parseInt(String.valueOf(opt.get(0)));
-                                    int param = Integer.parseInt(String.valueOf(opt.get(1)));
+                                    // Tạo Item mới
+                                    Item item = ItemService.gI().createNewItem((short) itemId, quantity);
+                                    // Parse các option
+                                    JSONArray options = (JSONArray) itemData.get(2);
+                                    for (Object o : options) {
+                                        JSONArray opt = (JSONArray) o;
+                                        int optionId = Integer.parseInt(String.valueOf(opt.get(0)));
+                                        int param = Integer.parseInt(String.valueOf(opt.get(1)));
 
-                                    Item.ItemOption itemOption = new Item.ItemOption();
-                                    itemOption.optionTemplate = ItemService.gI().getItemOptionTemplate(optionId);
-                                    itemOption.param = param;
+                                        Item.ItemOption itemOption = new Item.ItemOption();
+                                        itemOption.optionTemplate = ItemService.gI().getItemOptionTemplate(optionId);
+                                        itemOption.param = param;
 
-                                    item.itemOptions.add(itemOption);
+                                        item.itemOptions.add(itemOption);
+                                    }
+
+                                    // Thêm item vào pool
+                                    player.luckyPoolPlayer.itemBags.add(item);
                                 }
-
-                                // Thêm item vào pool
-                                player.luckyPoolPlayer.itemBags.add(item);
                             }
+
                             // handle data tu tien
                             player.bdkb_isJoinBdkb = false;
                             if ((new java.sql.Date(player.bdkb_lastTimeJoin)).getDay() != (new java.sql.Date(System.currentTimeMillis())).getDay()) {
