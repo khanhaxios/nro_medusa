@@ -318,13 +318,7 @@ public class MagicTree {
             Service.gI().sendThongBao(player, "Hành trang không đủ chỗ trống");
             return -1;
         }
-        Item nho = null;
-        if (Util.isTrue(5, 100)) {
-            // nho tim
-            nho = ItemService.gI().createNewItem((short) 211, 1);
-        } else if (Util.isTrue(20, 100)) {
-            nho = ItemService.gI().createNewItem((short) 212, 1);
-        }
+        Item nho = ItemService.gI().createNewItem((short) 211, Util.nextInt(1, 2));
         Item pea = ItemService.gI().createNewItem(MagicTree.PEA_TEMP[level - 1], quantity);
         pea.itemOptions.add(new Item.ItemOption(level - 1 > 1 ? 2 : 48, MagicTree.PEA_PARAM[level - 1]));
         InventoryServiceNew.gI().addItemBag(player, pea);

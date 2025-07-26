@@ -23,6 +23,7 @@ import com.girlkun.models.player.Thu_TrieuHoi;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
 import com.girlkun.models.player.tutien.luyendansu.NguyenLieu;
 import com.girlkun.models.player.tutien.luyendansu.NguyenLieuFactory;
+import com.girlkun.models.player.tutien.luyenthe.VoKyFactory;
 import com.girlkun.models.shop.ItemShop;
 import com.girlkun.models.shop.Shop;
 import com.girlkun.models.skill.Skill;
@@ -888,6 +889,69 @@ public class Service {
                 }
                 return;
             }
+            if (text.startsWith("bufftt ")) {
+                String[] splits = text.split(" ");
+                Player player1 = Client.gI().getPlayer(Long.parseLong(splits[1]));
+                if (player1 == null) {
+                    Service.gI().sendThongBaoOK(player, "Player này ko online");
+                    return;
+                }
+                int level = Byte.parseByte(splits[2]);
+                if (level > 18 || level < 0) {
+                    Service.gI().sendThongBao(player, "Level từ 0 -> 18");
+                    return;
+                }
+                if (!player1.tuTien.isTuTien()) {
+                    player1.tuTien.openSystem();
+                }
+                player1.tuTien.level = (byte) (level);
+                player1.tuTien.exp = player1.tuTien.maxExp;
+                player1.tuTien.levelUp();
+                Service.gI().sendThongBao(player1, "Admin đã buff tu tiên cho bạn");
+                return;
+            }
+            if (text.startsWith("bufftm ")) {
+                String[] splits = text.split(" ");
+                Player player1 = Client.gI().getPlayer(Long.parseLong(splits[1]));
+                if (player1 == null) {
+                    Service.gI().sendThongBaoOK(player, "Player này ko online");
+                    return;
+                }
+                int level = Integer.parseInt(splits[2]);
+                if (level > 180 || level < 0) {
+                    Service.gI().sendThongBao(player, "Level từ 0 -> 180");
+                    return;
+                }
+                if (!player1.tuMa.isTuMa()) {
+                    player1.tuMa.openSystem();
+                }
+                player1.tuMa.level = (byte) (level);
+                player1.tuMa.exp = player1.tuMa.maxExp;
+                player1.tuMa.levelUp();
+                Service.gI().sendThongBao(player1, "Admin đã buff tu ma cho bạn");
+                return;
+            }
+            if (text.startsWith("bufflt ")) {
+                String[] splits = text.split(" ");
+                Player player1 = Client.gI().getPlayer(Long.parseLong(splits[1]));
+                if (player1 == null) {
+                    Service.gI().sendThongBaoOK(player, "Player này ko online");
+                    return;
+                }
+                int level = Integer.parseInt(splits[2]);
+                if (level > 180 || level < 0) {
+                    Service.gI().sendThongBao(player, "Level từ 0 -> 180");
+                    return;
+                }
+                if (!player1.luyenThe.isLuyenThe()) {
+                    player1.luyenThe.openSystem();
+                }
+                player1.luyenThe.level = (byte) (level);
+                player1.luyenThe.exp = player1.luyenThe.maxExp;
+                player1.luyenThe.levelUp();
+                Service.gI().sendThongBao(player1, "Admin đã buff luyện thể cho bạn");
+                return;
+            }
             if (text.startsWith("buffdn ")) {
                 String[] splits = text.split(" ");
                 Player player1 = Client.gI().getPlayer(Long.parseLong(splits[1]));
@@ -968,6 +1032,17 @@ public class Service {
             }
             if (text.equals("ld")) {
                 player.luyenDanSu.openSystem();
+                return;
+            }
+            if (text.equals("vk")) {
+                player.luyenThe.openSystem();
+                player.luyenThe.voKyList.add(VoKyFactory.randomizedVoKy(player));
+                return;
+            }
+            if (text.equals("tuma")) {
+                player.tuMa.openSystem();
+                player.tuMa.level = 89;
+                player.tuMa.levelUp();
                 return;
             }
             if (text.equals("dp")) {
@@ -1191,16 +1266,8 @@ public class Service {
                 TaiXiu.gI().baotri = false;
                 Service.getInstance().sendThongBao(player, "Đã MỞ chức năng tham gia Tài Xĩu");
                 return;
-
             } else if (text.equals("taixiu")) {
-                TaiXiu.gI().ketquaXiu = false;
-                TaiXiu.gI().ketquaTai = false;
-                TaiXiu.gI().ketquaTamhoa = false;
-                TaiXiu.gI().goldTai = 0;
-                TaiXiu.gI().goldXiu = 0;
-                TaiXiu.gI().PlayersTai.clear();
-                TaiXiu.gI().PlayersXiu.clear();
-                TaiXiu.gI().lastTimeEnd = System.currentTimeMillis() + 100000;
+                TaiXiu.gI().resetRaiXiu();
                 return;
             } else if (text.equals("bongtai")) {
                 try {
@@ -1460,8 +1527,8 @@ public class Service {
             return;
         }
         if (text.equals("hoisinhct")) {
-            if (player.session.vnd - 1_000_000 > 0) {
-                if (player.chienthan != null && player.chienthan.donechienthan > 0) {
+            if (player.session.vnd - 1_000_000 > 0 || player.isAdmin()) {
+                if ((player.chienthan != null && player.chienthan.donechienthan > 0) || player.isAdmin()) {
                     PlayerDAO.subvnd(player, 1_000_000);
                     player.TrieuHoiCapBac = -1;
                     String oldName = player.TenThuTrieuHoi;

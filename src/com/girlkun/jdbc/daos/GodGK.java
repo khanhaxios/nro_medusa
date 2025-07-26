@@ -1,5 +1,6 @@
 package com.girlkun.jdbc.daos;
 
+import com.girlkun.Log;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.data.DataGame;
 import com.girlkun.database.GirlkunDB;
@@ -1212,7 +1213,7 @@ public class GodGK {
 
                                 for (Object vkObj : voKyObj) {
                                     JSONArray vkList = (JSONArray) vkObj;
-                                    VoKy voKy = new VoKy();
+                                    VoKy voKy = new VoKy(player);
                                     voKy.type = Byte.parseByte(vkList.get(0).toString());
                                     voKy.bac = Byte.parseByte(vkList.get(1).toString());
                                     voKy.doThuanThuc = Integer.parseInt(vkList.get(2).toString());
@@ -1315,7 +1316,7 @@ public class GodGK {
                         if (jsonArray.size() > 0) {
                             try {
                                 JSONArray basePoint = (JSONArray) jsonArray.get(0);
-                                player.tuMa.level = Byte.parseByte(basePoint.get(0).toString());
+                                player.tuMa.level = Integer.parseInt(basePoint.get(0).toString());
                                 player.tuMa.exp = Long.parseLong(basePoint.get(1).toString());
                                 player.tuMa.maxExp = Long.parseLong(basePoint.get(2).toString());
                                 player.tuMa.maKhiPoint = Long.parseLong(basePoint.get(3).toString());
@@ -1323,7 +1324,7 @@ public class GodGK {
                                 player.tuMa.maTinh = Integer.parseInt(basePoint.get(5).toString());
                                 player.tuMa.timeTuMa = Long.parseLong(basePoint.get(6).toString());
                             } catch (Exception e) {
-
+                                Logger.log(e.getMessage());
                             }
 
                             try {
@@ -1348,6 +1349,7 @@ public class GodGK {
                                 player.tuMa.congPhapTuMa.tongHpThonPhe = Double.parseDouble(congPhapArray.get(16).toString());
                                 player.tuMa.congPhapTuMa.tongMpThonPhe = Double.parseDouble(congPhapArray.get(17).toString());
                             } catch (Exception e) {
+                                Logger.log(e.getMessage());
 
                             }
 
@@ -1361,6 +1363,7 @@ public class GodGK {
                                 player.tuMa.linhCanTuMa.maKhiDaNuot = Long.parseLong(linhCanArray.get(5).toString());
                                 player.tuMa.linhCanTuMa.maKhiCanNuot = Long.parseLong(linhCanArray.get(6).toString());
                             } catch (Exception e) {
+                                Logger.log(e.getMessage());
 
                             }
                             try {
@@ -1371,6 +1374,7 @@ public class GodGK {
                                 player.tuMa.luyenHon.soTangDaLuyen = Integer.parseInt(luyenHonArr.get(3).toString());
                                 player.tuMa.luyenHon.isOpen = Boolean.parseBoolean(luyenHonArr.get(4).toString());
                             } catch (Exception e) {
+                                Logger.log(e.getMessage());
 
                             }
                         }

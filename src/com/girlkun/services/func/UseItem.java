@@ -340,7 +340,7 @@ public class UseItem {
                             }
                             InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 99);
                             InventoryServiceNew.gI().sendItemBags(pl);
-                            VoKy voKy = VoKyFactory.randomizedVoKy();
+                            VoKy voKy = VoKyFactory.randomizedVoKy(pl);
                             pl.luyenThe.showMenuHocVoKy(voKy);
                             break;
                         case 2079:

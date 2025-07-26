@@ -1417,23 +1417,23 @@ public class SkillService {
             float paramOfLinhCan = plAtt.tuMa.linhCanTuMa.xParam;
             switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
                 case 0:
-                    double hp = plInjure.injured(plAtt, plInjure.nPoint.hpMax * (paramOfLinhCan / 50), false, false, true);
+                    double hp = plInjure.injured(plAtt, plInjure.nPoint.hpMax * (paramOfLinhCan / 10), false, false, true);
                     plAtt.nPoint.hutMauTamThoi += hp;
                     plAtt.nPoint.hpMax += plAtt.nPoint.hutMauTamThoi;
                     plAtt.nPoint.lastTimeHutMau = System.currentTimeMillis();
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, hp, (byte) 0);
                     break;
                 case 1:
-                    double dameA = plInjure.injured(plAtt, dameHit * paramOfLinhCan, false, false, true);
+                    double dameA = plInjure.injured(plAtt, (dameHit * 3) * paramOfLinhCan, false, false, true);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameA, (byte) 0);
                     break;
                 case 2:
-                    double dameB = (plInjure.nPoint.hpMax * paramOfLinhCan / 50) * Util.nextInt(2, 4);
+                    double dameB = ((plInjure.nPoint.hpMax / 5) * paramOfLinhCan) * Util.nextInt(2, 4);
                     dameB = plInjure.injured(plAtt, dameB, false, false, false);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameB, (byte) 0);
                     break;
                 case 3:
-                    double dameC = plInjure.injured(plAtt, dameHit * paramOfLinhCan, false, false, true);
+                    double dameC = plInjure.injured(plAtt, (dameHit * 3) * paramOfLinhCan, false, false, true);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameC, (byte) 0);
                     if (Util.isTrue(paramOfLinhCan * Util.nextInt(2, 3), Util.nextInt(100, 120))) {
                         if (!plInjure.effectSkill.isStun) {

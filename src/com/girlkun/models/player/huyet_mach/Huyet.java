@@ -362,17 +362,18 @@ public class Huyet {
     }
 
     public void ratioTypeHuyetMach() {
-        if (Util.isTrue(1, 100)) {
-            type = 0;
-        } else if (Util.isTrue(5, 100)) {
-            type = 1;
-        } else if (Util.isTrue(10, 100)) {
-            type = 2;
-        } else if (Util.isTrue(20, 100)) {
-            type = 3;
-        } else {
-            type = 4;
-        }
+//        if (Util.isTrue(1, 100)) {
+//            type = 0;
+//        } else if (Util.isTrue(5, 100)) {
+//            type = 1;
+//        } else if (Util.isTrue(10, 100)) {
+//            type = 2;
+//        } else if (Util.isTrue(20, 100)) {
+//            type = 3;
+//        } else {
+//            type = 4;
+//        }
+        type = (byte) Util.nextInt(0, 4);
     }
 
     public int getBaseOptionBuff(int type) {

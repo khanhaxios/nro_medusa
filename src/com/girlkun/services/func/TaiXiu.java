@@ -63,29 +63,21 @@ public class TaiXiu implements Runnable {
         }
     }
 
+    public void resetRaiXiu() {
+        ketquaXiu = false;
+        ketquaTai = false;
+        ketquaTamhoa = false;
+        TaiXiu.gI().goldTai = 0;
+        TaiXiu.gI().goldXiu = 0;
+        TaiXiu.gI().PlayersTai.clear();
+        TaiXiu.gI().PlayersXiu.clear();
+        TaiXiu.gI().lastTimeEnd = System.currentTimeMillis() + 100000;
+    }
+
     @Override
     public void run() {
         while (true) {
             try {
-                if (TaiXiu.gI().lastTimeEnd - System.currentTimeMillis() / 1000 < 0) {
-                    TaiXiu.gI().PlayersTai.forEach(pl -> {
-                        pl.inventory.ruby += goldTai / 100;
-                        Service.gI().sendMoney(pl);
-                    });
-                    TaiXiu.gI().PlayersXiu.forEach(pl -> {
-                        pl.inventory.ruby += goldXiu / 100;
-                        Service.gI().sendMoney(pl);
-                    });
-                    TaiXiu.gI().ketquaXiu = false;
-                    TaiXiu.gI().ketquaTai = false;
-                    TaiXiu.gI().ketquaTamhoa = false;
-                    TaiXiu.gI().goldTai = 0;
-                    TaiXiu.gI().goldXiu = 0;
-                    TaiXiu.gI().PlayersTai.clear();
-                    TaiXiu.gI().PlayersXiu.clear();
-                    TaiXiu.gI().lastTimeEnd = System.currentTimeMillis() + 100000;
-                    Service.gI().sendThongBaoAllPlayer("Lỗi tài xỉu đã tự động làm mới , hồng ngọc sẽ được tra về cho mọi người");
-                }
                 if (((TaiXiu.gI().lastTimeEnd - System.currentTimeMillis()) / 1000) == 0) {
                     int x, y, z;
                     // Thực hiện các hành động sau khi chờ 10 giây
@@ -214,17 +206,9 @@ public class TaiXiu implements Runnable {
                             pl.goldXiu = 0;
                         }
                     }
-                    ketquaXiu = false;
-                    ketquaTai = false;
-                    ketquaTamhoa = false;
-                    TaiXiu.gI().goldTai = 0;
-                    TaiXiu.gI().goldXiu = 0;
-                    TaiXiu.gI().PlayersTai.clear();
-                    TaiXiu.gI().PlayersXiu.clear();
-                    TaiXiu.gI().lastTimeEnd = System.currentTimeMillis() + 100000;
-//                    GirlkunDB.executeUpdate("UPDATE player SET Tai_xiu = JSON_REPLACE(JSON_REPLACE(Tai_xiu, '$[0]', 0), '$[1]', 0)");
+                    resetRaiXiu();
                 }
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (Exception e) {
                 e.printStackTrace();
             }

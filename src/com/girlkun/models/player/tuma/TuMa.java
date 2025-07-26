@@ -61,7 +61,7 @@ public class TuMa implements IBaseAction {
 
     @Override
     public long getExpCanGain(Mob targetMob) {
-        return Math.max((long) (targetMob.point.maxHp / 100_000_0), Util.nextInt(10, 50));
+        return Math.max((long) (targetMob.point.maxHp / 100_000_0) * Math.max(player.tuMa.congPhapTuMa.phamChat, 2), Util.nextInt(10, 50));
     }
 
     @Override
@@ -286,14 +286,12 @@ public class TuMa implements IBaseAction {
         text.append("|7|❖═════ THÔNG TIN MA TU ═════❖\n");
 //— Cấp độ & kinh nghiệm —
         text.append("|5|➤").append(getName()).append("/").append("\n");
-        text.append("|5|➤ Kinh nghiệm:").append(getCurrentExpAsString()).append("\n");
+        text.append("|5|➤ Kinh nghiệm ").append(getCurrentExpAsString()).append("\n");
 //— Ma Khí —
-        text.append("|5|➤ Ma Khí:").append(getMaKhiAsString()).append("\n");
-        text.append("|5|➤ Ma Tính:").append(getMaTinhDanhGia()).append("\n");
-
+        text.append("|5|➤ Ma Khí ").append(getMaKhiAsString()).append("\n");
+        text.append("|5|➤ Ma Tính ").append(getMaTinhDanhGia()).append("\n");
 //— Thời gian tu luyện —
-        long timeTu = (System.currentTimeMillis() - timeTuMa) / 1000;
-        text.append("|5|➤ Đã tu luyện:").append(getYearOpened()).append("\n");
+        text.append("|5|➤ Đã tu luyện ").append(getYearOpened()).append("\n");
 //— Dòng đặc biệt Ma Đạo —
         text.append("|7|✪ Ma Tu không có bình cảnh – phá giới vô tận!\n");
         text.append("|7|❖══════════════════════════════❖");

@@ -91,7 +91,7 @@ public class Mach {
         }
         PlayerDAO.subvnd(player, 300_000);
         isOpen = true;
-        bac += 1;
+        bac = 0;
         tang = 0;
         restExp();
         Service.gI().point(player);
@@ -100,7 +100,7 @@ public class Mach {
 
     public void nangBac() {
         // nang bac 100% thanh cong khi du exp
-        if (!canLevelUpBac() && !player.isAdmin()) {
+        if (!canLevelUpBac()) {
             if (bac + 1 > 8) {
                 Service.gI().sendThongBao(player, "Bậc đạt tối đa hãy đột phá tầng");
                 return;
@@ -162,6 +162,10 @@ public class Mach {
         }
         if (tang + 1 > 99) {
             Service.gI().sendThongBao(player, "Đã đạt số tầng tối đa");
+            return;
+        }
+        if (exp != maxExp) {
+            Service.gI().sendThongBao(player, "Chưa đủ kinh nghiệm");
             return;
         }
         if (Util.isTrue(getTyLeTangBac(), 100)) {
@@ -313,11 +317,11 @@ public class Mach {
 
         String menuText = ""
                 + "|7|❖═════ THÔNG TIN MẠCH ═════❖\n"
-                + "|7|➤ Tầng hiện tại: " + getNameByTang() + "\n"
-                + "|5|➤ Kinh nghiệm     : " + getCurrentExpAsString() + "\n"
-                + "|5|➤ Tỷ lệ Đột Phá   : " + getTyLeTangBac() + "%\n"
-                + "|5|➤ Bậc hiện tại    : " + getNameByBac() + "\n"
-                + "|5|➤ Bậc kế tiếp     : " + nameNext + " [+ " + getBuffByBac(bac + 1) + "]\n"
+                + "|7|➤ Tầng hiện tại " + getNameByTang() + "\n"
+                + "|5|➤ Kinh nghiệm " + getCurrentExpAsString() + "\n"
+                + "|5|➤ Tỷ lệ Đột Phá " + getTyLeTangBac() + "%\n"
+                + "|5|➤ Bậc hiện tại " + getNameByBac() + "\n"
+                + "|5|➤ Bậc kế tiếp " + nameNext + " [+ " + getBuffByBac(bac + 1) + "]\n"
                 + "|7|✦ Khi đầy EXP, chọn 'Phá Bậc'\n"
                 + "|7|✪ Khi đạt Bậc 9, hãy 'Phá Tầng' để tiến hóa!\n"
                 + "|7|❖══════════════════════════❖";

@@ -70,8 +70,8 @@ public class PlayerDAO {
             String point = dataArray.toJSONString();
             dataArray.clear();
             // đậu thần
-            dataArray.add(10); //level
-            dataArray.add(23); //curent pea
+            dataArray.add(1); //level
+            dataArray.add(5); //curent pea
             dataArray.add(0); //is upgrade
             dataArray.add(new Date().getTime()); //last time harvest
             dataArray.add(new Date().getTime()); //last time upgrade

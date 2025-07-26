@@ -24,10 +24,11 @@ public class VoKy {
     public long timeCoolDown;
 
     public long calcMaxDoThuanThuc() {
-        return bac * 100_000L;
+        return Math.max(1, bac) * 100_000L;
     }
 
-    public VoKy() {
+    public VoKy(Player player) {
+        this.player = player;
     }
 
     public VoKy(int id, String tenVoKy, String moTaVoKy, int type) {
@@ -38,7 +39,7 @@ public class VoKy {
     }
 
     public long getExpCanGain() {
-        return 2L * Util.nextInt(1, 2) * bac;
+        return 2L * Util.nextInt(1, 2) * Math.max(bac, 1);
     }
 
     public void addDoThuanThuc(long doThuanThuc) {
@@ -60,16 +61,16 @@ public class VoKy {
         int[] newBuff = Arrays.copyOf(buff, buff.length + 1);
         switch (type) {
             case 0:
-                newBuff[newBuff.length - 1] = Util.nextInt(1, 10) * bac;
+                newBuff[newBuff.length - 1] = Util.nextInt(1, 10) * Math.max(bac, 1);
                 break;
             case 1:
-                newBuff[newBuff.length - 1] = Util.nextInt(1, 15) * bac;
+                newBuff[newBuff.length - 1] = Util.nextInt(1, 15) * Math.max(bac, 1);
                 break;
             case 2:
-                newBuff[newBuff.length - 1] = Util.nextInt(1, 6) * bac;
+                newBuff[newBuff.length - 1] = Util.nextInt(1, 6) * Math.max(bac, 1);
                 break;
             case 3:
-                newBuff[newBuff.length - 1] = Util.nextInt(1, 3) * bac;
+                newBuff[newBuff.length - 1] = Util.nextInt(1, 3) * Math.max(bac, 1);
                 break;
         }
         this.buff = newBuff;
@@ -78,6 +79,7 @@ public class VoKy {
     public void init() {
         bac = 0;
         restDoTT();
+        addNewBuff();
     }
 
     public void tangBac() {
@@ -120,10 +122,10 @@ public class VoKy {
         player.iDMark.voKySelected = this;
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("|7|Thông tin võ kỹ").append("\n");
-        stringBuilder.append("|5|").append(tenVoKy).append("[").append(getDoThuanThucVoKy()).append("\n");
-        stringBuilder.append("|5|").append(moTaVoKy.replace("#", "")).append("\n");
-        stringBuilder.append("|5|Độ thuần thục : ").append(getCurrentExpAsString()).append("\n");
-        stringBuilder.append("|7|Tỷ lệ đột phá : ").append(getTyLeDotPha()).append("%").append("\n");
+        stringBuilder.append("|5|").append(tenVoKy).append("[").append(getDoThuanThucVoKy()).append("]").append("\n");
+        stringBuilder.append("|5|").append(moTaVoKy.replace("#", "?")).append("\n");
+        stringBuilder.append("|5|Độ thuần thục ").append(getCurrentExpAsString()).append("\n");
+        stringBuilder.append("|7|Tỷ lệ đột phá ").append(getTyLeDotPha()).append("%").append("\n");
         stringBuilder.append("|7|Võ kỹ thuần thục càng cao thì càng buff nhiều").append("\n");
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_VO_KY, -1, stringBuilder.toString(), "Đột phá", "Xem\nThông Tin");
     }
@@ -209,8 +211,8 @@ public class VoKy {
 
     public String getBuff() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < bac; i++) {
-            stringBuilder.append("|5|").append(moTaVoKy.replace('#', (char) buff[i])).append("%").append("\n");
+        for (int i = 0; i < buff.length; i++) {
+            stringBuilder.append("|5|").append(moTaVoKy.replace("#", String.valueOf(buff[i]))).append("\n");
         }
         return stringBuilder.toString();
     }

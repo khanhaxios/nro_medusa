@@ -7963,6 +7963,8 @@ public class NpcFactory {
                     case ConstNpc.MENU_MA_TU_DOT_PHA:
                         if (select == 0) {
                             player.tuMa.dotPha();
+                        } else {
+                            player.tuMa.showBaseMenu();
                         }
                         break;
                     case ConstNpc.MENU_MA_TU_LINH_CAN:
@@ -8198,8 +8200,10 @@ public class NpcFactory {
                         voKy.addDoThuanThuc(voKy.getExpCanGain());
                         break;
                     case ConstNpc.MENU_HOC_VK:
-                        if (player.iDMark.vokytamthoi != null) {
-                            player.luyenThe.hocVoKy(player.iDMark.vokytamthoi);
+                        if (select == 0) {
+                            if (player.iDMark.vokytamthoi != null) {
+                                player.luyenThe.hocVoKy(player.iDMark.vokytamthoi);
+                            }
                         }
                         break;
                     case ConstNpc.MENU_DOT_PHA_VK:

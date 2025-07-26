@@ -211,6 +211,10 @@ public class CongPhapLuyenThe {
     }
 
     public void showBaseMenu() {
+        if (!this.isLearn()) {
+            Service.gI().sendThongBao(player, "Bạn chưa học công pháp");
+            return;
+        }
         StringBuilder sb = new StringBuilder();
 
         sb.append("|7|❖════ THÔNG TIN CÔNG PHÁP LUYỆN THỂ ❖\n");
@@ -219,18 +223,18 @@ public class CongPhapLuyenThe {
         sb.append("|7|").append(tenCongPhap).append("\n");
 
 // — Tầng + Giai đoạn —
-        sb.append("|5|➤ Tầng hiện tại      : ").append(tang).append(" / ").append(MAX_TANG).append("\n");
-        sb.append("|5|➤ Giai đoạn         : ").append(giaiDoan).append(" / 8\n");
+        sb.append("|5|➤ Tầng hiện tại ").append(tang).append(" / ").append(MAX_TANG).append("\n");
+        sb.append("|5|➤ Giai đoạn ").append(giaiDoan).append(" / 8\n");
 
 // — EXP các loại —
-        sb.append("|5|➤ EXP Giai đoạn     : ").append(Util.numberToMoney(expGiaiDoan)).append(" / ").append(Util.numberToMoney(maxExpGiaiDoan)).append("\n");
+        sb.append("|5|➤ EXP Giai đoạn ").append(Util.numberToMoney(expGiaiDoan)).append(" / ").append(Util.numberToMoney(maxExpGiaiDoan)).append("\n");
 
-        sb.append("|5|➤ EXP Công pháp     : ").append(Util.numberToMoney(exp)).append(" / ").append(Util.numberToMoney(maxExp)).append("\n");
+        sb.append("|5|➤ EXP Công pháp ").append(Util.numberToMoney(exp)).append(" / ").append(Util.numberToMoney(maxExp)).append("\n");
 
 // — Buff các chỉ số —
-        sb.append("|5|➤ Buff Dame         : +").append((int) getDameBuff()).append("%\n");
-        sb.append("|5|➤ Buff HP           : +").append((int) getHPBuff()).append("%\n");
-        sb.append("|5|➤ Buff MP           : +").append((int) getMpBuff()).append("%\n");
+        sb.append("|5|➤ Buff Dame  +").append((int) getDameBuff()).append("%\n");
+        sb.append("|5|➤ Buff HP  +").append((int) getHPBuff()).append("%\n");
+        sb.append("|5|➤ Buff MP  +").append((int) getMpBuff()).append("%\n");
 
 // — Tỷ lệ nâng giai đoạn —
         sb.append("|5|➤ Tỷ lệ nâng giai đoạn: ").append(String.format("%.1f", getPercentLevelGiaiDoanUp())).append("%\n");

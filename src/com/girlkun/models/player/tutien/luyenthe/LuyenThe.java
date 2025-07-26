@@ -323,7 +323,6 @@ public class LuyenThe {
 
     public void hocVoKy(VoKy vokytamthoi) {
         if (voKyList.size() + 1 <= getMaxSlVK()) {
-            vokytamthoi.init();
             voKyList.add(vokytamthoi);
             player.iDMark.vokytamthoi = null;
             Service.gI().sendThongBao(player, "Đã học võ kỹ " + vokytamthoi.tenVoKy);
@@ -336,6 +335,10 @@ public class LuyenThe {
 
     public void showMenuTangKNVK() {
         StringBuilder stringBuilder = new StringBuilder();
+        if (voKyList.size() <= 0) {
+            Service.gI().sendThongBao(player, "Bạn không có võ kỹ nào");
+            return;
+        }
         stringBuilder.append("|7|Thông tin võ kỹ").append("\n");
         stringBuilder.append(getAllVoKy());
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TANG_KNVK, -1, stringBuilder.toString(), getAllVoKySelectt());

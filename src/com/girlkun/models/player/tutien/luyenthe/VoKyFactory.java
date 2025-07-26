@@ -1,5 +1,6 @@
 package com.girlkun.models.player.tutien.luyenthe;
 
+import com.girlkun.models.player.Player;
 import com.girlkun.utils.Util;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -12,9 +13,13 @@ import java.util.List;
 public class VoKyFactory {
     public static List<VoKy> VO_KY_TEMPLATE = new ArrayList<>();
 
-    public static VoKy randomizedVoKy() {
-        return VO_KY_TEMPLATE.get(Util.nextInt(0, VO_KY_TEMPLATE.size() - 1));
+    public static VoKy randomizedVoKy(Player player) {
+        VoKy voKy = VO_KY_TEMPLATE.get(Util.nextInt(0, VO_KY_TEMPLATE.size() - 1));
+        voKy.init();
+        voKy.player = player;
+        return voKy;
     }
+
 
     public static void initTemplate() {
         // load from file vo_ky.json
