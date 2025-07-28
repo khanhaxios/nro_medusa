@@ -25,7 +25,7 @@ public class LuyenCot {
     }
 
     public long calcMaxSlManhCot() {
-        return (long) soTang * 1000 * 360;
+        return (long) Math.max(soTang, 1) * 1000 * 360;
     }
 
     public float getDameBuff() {
