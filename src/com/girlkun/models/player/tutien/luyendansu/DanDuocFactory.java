@@ -24,12 +24,12 @@ public class DanDuocFactory {
         }
         if (danDuoc.id >= 456 && danDuoc.id <= 456 + 5) {
             //hoi khi dan
-            player.luyenDanSu.danDuocEffect.xBuffLinhKhi = Math.max(danDuoc.capDanDuoc + 1, 1);
+            player.luyenDanSu.danDuocEffect.xBuffLinhKhi = Math.max(danDuoc.capDanDuoc + 1, 2);
             player.luyenDanSu.danDuocEffect.timeBuffLinhKhi += (3 * (60 * 1000)) * Math.max(danDuoc.capDanDuoc + 1, 1);
             player.luyenDanSu.danDuocEffect.lastTimeUseDanBuffLinhKhi = System.currentTimeMillis();
         }
         if (danDuoc.id >= 789 && danDuoc.id <= 789 + 5) {
-            player.luyenDanSu.danDuocEffect.xBuffLinhKhi = Math.max(danDuoc.capDanDuoc + 1, 1);
+            player.luyenDanSu.danDuocEffect.xBuffLinhKhi = Math.max(danDuoc.capDanDuoc + 1, 2);
             player.luyenDanSu.danDuocEffect.timeBuffLt += (3 * (60 * 1000)) * Math.max(danDuoc.capDanDuoc + 1, 1);
             player.luyenDanSu.danDuocEffect.lastTimeUseDanLt = System.currentTimeMillis();
         }
@@ -39,14 +39,14 @@ public class DanDuocFactory {
                 return;
             }
             // hoi linh khi ngay lap tuc
-            int percentHoi = 20 * Math.max(danDuoc.capDanDuoc + 1, 1);
+            int percentHoi = 20 * Math.max(danDuoc.capDanDuoc + 1, 2);
             long lkHoi = player.tuTien.maxLinhKhiPoint * percentHoi / 100;
             player.luyenDanSu.danDuocEffect.lastTimeUseDanHoiLK = System.currentTimeMillis();
             player.tuTien.addLinhKhi(lkHoi);
             PlayerService.gI().sendHoiPhucLinhKhi(player, lkHoi);
         }
         if (danDuoc.id > 2020 && danDuoc.id <= 2020 + 5) {
-            int percentGiam = 10 * Math.max(1, danDuoc.capDanDuoc + 1);
+            int percentGiam = 10 * Math.max(2, danDuoc.capDanDuoc + 1);
             player.luyenDanSu.danDuocEffect.isUseDanTranhTamMa = true;
             player.luyenDanSu.danDuocEffect.tranhTamMaPercent = percentGiam;
             Service.gI().sendThongBao(player, "Bạn sẽ được giảm tỷ lệ gặp tâm ma trong lần đột phá tới");
@@ -57,7 +57,7 @@ public class DanDuocFactory {
                 player.luyenDanSu.diemKhangTinh -= player.luyenDanSu.calcMaxDiemKhangTinh() * (5 * Math.max(danDuoc.capDanDuoc + 1, 1)) / 100;
             } else {
                 int diemCong = Util.nextInt(3, 5);
-                if (player.tuTien.getXDiemThienPhu() > danDuoc.capDanDuoc + 2) {
+                if (player.tuTien.getXDiemThienPhu() > danDuoc.capDanDuoc + 5) {
                     Service.gI().sendThongBao(player, "Do thiên phú của bạn quá cao nên đan được không có tác dụng");
                     return;
                 }
@@ -68,7 +68,7 @@ public class DanDuocFactory {
         }
         if (danDuoc.id >= 4040 && danDuoc.id <= 4040 + 5) {
             int diemCong = Util.nextInt(3, 5);
-            if (player.tuTien.getXDiemThienPhu() > danDuoc.capDanDuoc + 1) {
+            if (player.tuTien.getXDiemThienPhu() > danDuoc.capDanDuoc + 5) {
                 Service.gI().sendThongBao(player, "Do thiên phú của bạn quá cao nên đan được không có tác dụng");
                 return;
             }
@@ -83,14 +83,13 @@ public class DanDuocFactory {
             Service.gI().sendThongBao(player, "Dùng vận khí đan thành công may mắn của bạn tăng lên một chút");
         }
         if (danDuoc.id >= 6060 && danDuoc.id <= 6060 + 5) {
-            player.luyenDanSu.danDuocEffect.stLinhCanBuff = Math.max(danDuoc.capDanDuoc, 1) * 10f;
+            player.luyenDanSu.danDuocEffect.stLinhCanBuff = Math.max(danDuoc.capDanDuoc, 2) * 20;
             player.luyenDanSu.danDuocEffect.timeBuffSTLinhCan += 3 * (60 * 1000) * Math.max(danDuoc.capDanDuoc + 1, 1);
             player.luyenDanSu.danDuocEffect.lastTimeUseSTLinhCan = System.currentTimeMillis();
             Service.gI().sendThongBao(player, "Sát thương linh căn của bạn đã tăng mạnh");
         }
-
         if (danDuoc.id >= 7070 && danDuoc.id <= 7070 + 5) {
-            player.luyenDanSu.danDuocEffect.xBuffCongPhap = Math.max(danDuoc.capDanDuoc, 1);
+            player.luyenDanSu.danDuocEffect.xBuffCongPhap = Math.max(danDuoc.capDanDuoc, 2);
             player.luyenDanSu.danDuocEffect.timeBuffCongPhap += 5 * (60 * 1000) * Math.max(danDuoc.capDanDuoc + 1, 1);
             player.luyenDanSu.danDuocEffect.lastTimeUseCongPhap = System.currentTimeMillis();
             Service.gI().sendThongBao(player, "Kinh nghiệm công pháp nhận được sẽ tăng mạnh");
@@ -101,9 +100,6 @@ public class DanDuocFactory {
             player.luyenDanSu.danDuocEffect.isUseDanDotPhaThienDao = true;
             Service.gI().sendThongBao(player, "Tỷ lệ đột phá thiên đạo của bạn sẽ tăng một chút");
         }
-        //xoa dan duoc trong tui sau khi dung
-        // tang khang dan
-        player.luyenDanSu.diemKhangTinh += (5 - danDuoc.capDanDuoc);
         player.luyenDanSu.tuiDanDuoc.subDanDuocQuantity(danDuoc.id, quantity, danDuoc.capDanDuoc);
     }
 }

@@ -141,7 +141,7 @@ public class CongPhap {
         return phamchat.name;
     }
 
-    public void tangPham(long percent) {
+    public void tangPham(int percent) {
         if (Util.isTrue(percent, 100)) {
             // success linh ngo
             this.phamchat = phamchat.getNext();
@@ -214,7 +214,9 @@ public class CongPhap {
 
         if (hutMp > 0) hutMp += Math.min(hutMp + Util.nextInt(1, 3), MAX_BUFF);
 
-        if (xDameThuocTinh > 0) xDameThuocTinh += (byte) Math.min(xDameThuocTinh + Util.nextInt(1, 2), 100);
+        if (Util.isTrue(1, 100)) {
+            if (xDameThuocTinh > 0) xDameThuocTinh += (byte) Math.min(xDameThuocTinh + Util.nextInt(1, 2), 100);
+        }
 
         if (xLinhKhiBuff > 0) xLinhKhiBuff += (byte) Math.min(xLinhKhiBuff + Util.nextInt(1), 100);
 
@@ -382,7 +384,6 @@ public class CongPhap {
         player.nPoint.dameAdd += (long) ((player.nPoint.dameg + player.nPoint.dameAdd) * tlDameBuff / 100f);
         player.nPoint.hpAdd += (long) ((player.nPoint.hpg + player.nPoint.hpAdd) * tlHpBuff / 100f);
         player.nPoint.mpAdd += (long) ((player.nPoint.mpg + player.nPoint.mpAdd) * tlMpBuff / 100f);
-        player.nPoint.tlDameCrit.add(xDameThuocTinh * 5);
         player.nPoint.tlHutHp += tlHutHPBuff;
         player.nPoint.tlHutMp += tlHutMPBuff;
         player.nPoint.dameAdd += totalHutDame;
@@ -428,5 +429,9 @@ public class CongPhap {
 
     public boolean canLinhNgo() {
         return canLevelUp();
+    }
+
+    public boolean isLearn() {
+        return phamchat.id >= 0 && tenCongPhap != null;
     }
 }

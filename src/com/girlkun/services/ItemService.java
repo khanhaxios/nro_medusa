@@ -1704,4 +1704,12 @@ public class ItemService {
         }
         return null;
     }
+
+    public List<Item> createListItemLuyenThe() {
+        List<Item> items = new ArrayList<>();
+        for (int i = 1260; i <= 1266; i++) {
+            items.add(ItemService.gI().createNewItem((short) i, 9999));
+        }
+        return items;
+    }
 }

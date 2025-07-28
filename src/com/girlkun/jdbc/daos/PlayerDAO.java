@@ -348,8 +348,12 @@ public class PlayerDAO {
 
             String chienthan = dataArray.toJSONString();
             dataArray.clear();
+            dataArray.add(0);
+            dataArray.add(new JSONArray());
+            String dataLyckuPool = dataArray.toJSONString();
+            dataArray.clear();
 
-            GirlkunDB.executeUpdate("insert into player" + "(account_id, name, head, gender, have_tennis_space_ship, clan_id_sv" + Manager.SERVER + ", " + "data_inventory, data_location, data_point, data_magic_tree, items_body, " + "items_bag, items_box, items_box_lucky_round, friends, enemies, " + "data_intrinsic, data_item_time, data_item_time_sieucap," + "data_task, data_mabu_egg, data_dua, Tai_xiu, data_charm, skills, skills_shortcut, pet, dao_lu," + "data_black_ball, data_side_task, violate, pointPvp, info_phoban, info_achievement, data_card, Thu_TrieuHoi, nhiemvu_chienthan) " + "values ()", userId, name, hair, gender, 0, -1, inventory, location, point, magicTree, itemsBody, itemsBag, itemsBox, itemsBoxLuckyRound, friends, enemies, intrinsic, itemTime, itemTimeSieuCap, task, mabuEgg, timedua, taixiu, charms, skills, skillsShortcut, petData, dao_lu, dataBlackBall, dataSideTask, 0, pointPvp, info_phoban, info_achive, data_card, trieuhoithu, chienthan);
+            GirlkunDB.executeUpdate("insert into player" + "(account_id, name, head, gender, have_tennis_space_ship, clan_id_sv" + Manager.SERVER + ", " + "data_inventory, data_location, data_point, data_magic_tree, items_body, " + "items_bag, items_box, items_box_lucky_round, friends, enemies, " + "data_intrinsic, data_item_time, data_item_time_sieucap," + "data_task, data_mabu_egg, data_dua, Tai_xiu, data_charm, skills, skills_shortcut, pet, dao_lu," + "data_black_ball, data_side_task, violate, pointPvp, info_phoban, info_achievement, data_card, Thu_TrieuHoi, nhiemvu_chienthan,lucky_pool) " + "values ()", userId, name, hair, gender, 0, -1, inventory, location, point, magicTree, itemsBody, itemsBag, itemsBox, itemsBoxLuckyRound, friends, enemies, intrinsic, itemTime, itemTimeSieuCap, task, mabuEgg, timedua, taixiu, charms, skills, skillsShortcut, petData, dao_lu, dataBlackBall, dataSideTask, 0, pointPvp, info_phoban, info_achive, data_card, trieuhoithu, chienthan, dataLyckuPool);
             Logger.success("Tạo player mới thành công!");
             // get player
             GirlkunResultSet girlkunResultSet = GirlkunDB.executeQuery("select id from player where account_id=?", userId);
@@ -1082,6 +1086,7 @@ public class PlayerDAO {
                     dataBasePoint.add(player.tuTien.timeTuTien);
                     dataBasePoint.add(player.tuTien.xParam);
                     dataBasePoint.add(player.tuTien.lastimeCoDuyen);
+                    dataBasePoint.add(player.tuTien.stackTlDotPha);
                     jsonArray.add(dataBasePoint);
                     dataBasePoint = new JSONArray();
                     // write linh can
@@ -1257,14 +1262,17 @@ public class PlayerDAO {
                     jsonArray.add(player.luyenThe.maxChanKhi);
 
                     JSONArray arrayCongPhap = new JSONArray();
-                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.type);
-                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.tang);
-                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.tenCongPhap);
-                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.exp);
-                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.maxExp);
-                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.expGiaiDoan);
-                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.maxExpGiaiDoan);
-                    arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.giaiDoan);
+                    if (player.luyenThe.congPhapLuyenThe.isLearn()) {
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.type);
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.tang);
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.tenCongPhap);
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.exp);
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.maxExp);
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.expGiaiDoan);
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.maxExpGiaiDoan);
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.giaiDoan);
+                    }
+
                     jsonArray.add(arrayCongPhap);
                     JSONArray voKyArrr = new JSONArray();
                     for (VoKy voKy : player.luyenThe.voKyList) {
@@ -1405,6 +1413,16 @@ public class PlayerDAO {
                     dataBasePoint.add(player.tuMa.luyenHon.soTangDaLuyen);
                     dataBasePoint.add(player.tuMa.luyenHon.isOpen);
                     jsonArray.add(dataBasePoint);
+                    // luyen cot
+                    if (player.tuMa.luyenCot.isOpen) {
+                        dataBasePoint = new JSONArray();
+                        dataBasePoint.add(player.tuMa.luyenCot.giaiDoan);
+                        dataBasePoint.add(player.tuMa.luyenCot.soTang);
+                        dataBasePoint.add(player.tuMa.luyenCot.slManhCot);
+                        dataBasePoint.add(player.tuMa.luyenCot.maxSlManhCot);
+                        dataBasePoint.add(player.tuMa.luyenCot.isOpen);
+                        jsonArray.add(dataBasePoint);
+                    }
                     dataTuMa = jsonArray.toJSONString();
                     jsonArray.clear();
                 }

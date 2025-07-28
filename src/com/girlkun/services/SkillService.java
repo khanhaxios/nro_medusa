@@ -1280,6 +1280,11 @@ public class SkillService {
             if (plAtt.luyenDanSu.isLuyenDan() && plAtt.luyenDanSu.danDuocEffect.isBuffSTLinhCan()) {
                 paramOfLinhCan += plAtt.luyenDanSu.danDuocEffect.stLinhCanBuff;
             }
+            if (plAtt.tuTien.congPhap.isLearn()) {
+                if (plAtt.tuTien.congPhap.xDameThuocTinh > 0) {
+                    paramOfLinhCan *= plAtt.tuTien.congPhap.xDameThuocTinh;
+                }
+            }
             switch (plAtt.tuTien.linhCan.getLinhCanType()) {
                 case 0:
                     // kim
@@ -1417,7 +1422,7 @@ public class SkillService {
             float paramOfLinhCan = plAtt.tuMa.linhCanTuMa.xParam;
             switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
                 case 0:
-                    double hp = plInjure.injured(plAtt, (plInjure.nPoint.hpMax / 25) * (paramOfLinhCan), false, false, true);
+                    double hp = plInjure.injured(plAtt, (plInjure.nPoint.hpMax / 75) * (paramOfLinhCan), false, false, true);
                     plAtt.nPoint.hutMauTamThoi += hp;
                     plAtt.nPoint.hpMax += plAtt.nPoint.hutMauTamThoi;
                     plAtt.nPoint.lastTimeHutMau = System.currentTimeMillis();
@@ -1428,7 +1433,7 @@ public class SkillService {
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameA, (byte) 0);
                     break;
                 case 2:
-                    double dameB = ((plInjure.nPoint.hpMax / 25) * paramOfLinhCan) * Util.nextInt(2, 4);
+                    double dameB = ((plInjure.nPoint.hpMax / 75) * paramOfLinhCan) * Util.nextInt(2, 4);
                     dameB = plInjure.injured(plAtt, dameB, false, false, false);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameB, (byte) 0);
                     break;

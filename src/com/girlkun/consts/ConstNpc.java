@@ -487,6 +487,9 @@ public class ConstNpc {
     public static final int MENU_TOI_THE = -87262;
     public static final int MENU_CONFIRM_TT = -761938;
     public static final int MENU_KH_TT = -98122;
+    public static final int MENU_LUYEN_COT = -9127321;
+    public static final int MENU_CONFIRM_LUYEN_COT = -182653;
+    public static final int MENU_DOT_PHA_TANG = -107322;
 }
 
 /**

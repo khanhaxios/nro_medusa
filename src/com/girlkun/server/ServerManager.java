@@ -162,39 +162,21 @@ public class ServerManager {
     }
 
     public void run() {
-        long delay = 500;
         delaylogin = System.currentTimeMillis();
         isRunning = true;
         activeServerSocket();
         new Thread(DaiHoiVoThuat.gI(), "Thread DHVT").start();
 //        ChonAiDay.gI().lastTimeEnd = System.currentTimeMillis() + 300000;
 //        new Thread(ChonAiDay.gI() , "Thread ChonAiDay").start();
-        TaiXiu.gI().lastTimeEnd = System.currentTimeMillis() + 50000;
-//        new Thread(TaiXiu.gI(), "Thread TaiXiu").start();
+        TaiXiu.gI().lastTimeEnd = System.currentTimeMillis() + TaiXiu.gI().TIME_TAI_XIU;
+        new Thread(TaiXiu.gI(), "Thread TaiXiu").start();
         NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
 
         new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
 
         new Thread(TopService.gI(), "Thread TOP").start();
-
-//        new Thread(() -> {
-//            while (isRunning) {
-//                try {
-//                    long start = System.currentTimeMillis();
-//                    MartialCongressManager.gI().update();
-//                    ShopKyGuiManager.gI().save();
-//                    long timeUpdate = System.currentTimeMillis() - start;
-//                    if (timeUpdate < delay) {
-//                        Thread.sleep(delay - timeUpdate);
-//                    }
-//                } catch (Exception e) {
-//                    System.out.println("qwert");
-//                }
-//            }
-//        }, "Update dai hoi vo thuat").start();
         new Thread(Manager.sanGiaoDichBuaZeno, "SGD").start();
         try {
-//            Thread.sleep(1000);
             BossManager.gI().loadBoss();
             Manager.MAPS.forEach(com.girlkun.models.map.Map::initBoss);
         } catch (Exception ex) {

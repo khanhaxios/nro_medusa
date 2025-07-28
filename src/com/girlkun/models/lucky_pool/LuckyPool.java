@@ -106,7 +106,7 @@ public class LuckyPool {
                 player.luckyPoolPlayer.addItemToBag(item);
                 continue;
             }
-            if (Util.isTrue(tyLeRoll, 1000)) {
+            if (Util.isTrue(tyLeRoll, 100000)) {
                 // item league
                 // khi roll ra league se tu dong reset point
                 player.luckyPoolPlayer.totalLuckyPoint = 0;
@@ -117,7 +117,7 @@ public class LuckyPool {
                 player.luckyPoolPlayer.addItemToBag(item);
                 continue;
             }
-            if (Util.isTrue(tyLeRoll, 500)) {
+            if (Util.isTrue(tyLeRoll, 10000)) {
                 Item item = ItemService.gI().createNewItem(luckyPoolEpicItems.get(Util.nextInt(0, luckyPoolEpicItems.size() - 1)), 1);
                 // ratio option for this
                 ratioEpicItemOption(item);

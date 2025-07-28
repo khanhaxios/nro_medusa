@@ -372,6 +372,14 @@ public class Util {
         return false;
     }
 
+    public static boolean isTrue(long ratio, long typeRatio) {
+        long num = Util.nextLong(typeRatio);
+        if (num < ratio) {
+            return true;
+        }
+        return false;
+    }
+
     public static boolean isTrue(float ratio, int typeRatio) {
         if (ratio < 1) {
             ratio *= 10;

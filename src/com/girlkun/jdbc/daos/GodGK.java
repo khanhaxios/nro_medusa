@@ -936,7 +936,7 @@ public class GodGK {
                             dataArray.clear();
                             //handle data lucky pool
                             dataArray = (JSONArray) JSONValue.parse(rs.getString("lucky_pool"));
-                            if (dataArray.size() > 0) {
+                            if (dataArray != null && dataArray.size() > 0) {
                                 player.luckyPoolPlayer.totalLuckyPoint = Integer.parseInt(String.valueOf(dataArray.get(0)));
                                 // Lấy danh sách item
                                 JSONArray itemList = (JSONArray) dataArray.get(1);
@@ -1028,7 +1028,7 @@ public class GodGK {
                                 player.tuTien.timeTuTien = Long.parseLong(basePointArray.get(9).toString());
                                 player.tuTien.xParam = Byte.parseByte(basePointArray.get(10).toString());
                                 player.tuTien.lastimeCoDuyen = Long.parseLong(basePointArray.get(11).toString());
-
+                                player.tuTien.lastimeCoDuyen = Integer.parseInt(basePointArray.get(12).toString());
                             }
 
                             // index 1: linh can
@@ -1409,6 +1409,17 @@ public class GodGK {
                                 player.tuMa.luyenHon.tongSoHonCanLuyen = Integer.parseInt(luyenHonArr.get(2).toString());
                                 player.tuMa.luyenHon.soTangDaLuyen = Integer.parseInt(luyenHonArr.get(3).toString());
                                 player.tuMa.luyenHon.isOpen = Boolean.parseBoolean(luyenHonArr.get(4).toString());
+                            } catch (Exception e) {
+                                Logger.log(e.getMessage());
+
+                            }
+                            try {
+                                JSONArray luyenCotArr = (JSONArray) jsonArray.get(4);
+                                player.tuMa.luyenCot.giaiDoan = Integer.parseInt(luyenCotArr.get(0).toString());
+                                player.tuMa.luyenCot.soTang = Integer.parseInt(luyenCotArr.get(1).toString());
+                                player.tuMa.luyenCot.slManhCot = Long.parseLong(luyenCotArr.get(2).toString());
+                                player.tuMa.luyenCot.maxSlManhCot = Long.parseLong(luyenCotArr.get(3).toString());
+                                player.tuMa.luyenCot.isOpen = Boolean.parseBoolean(luyenCotArr.get(4).toString());
                             } catch (Exception e) {
                                 Logger.log(e.getMessage());
 

@@ -842,6 +842,14 @@ public class InventoryServiceNew {
         return false;
     }
 
+    public void addItemsBag(Player player, List<Item> items) {
+        if (InventoryServiceNew.gI().getCountEmptyBag(player) < items.size()) {
+            Service.gI().sendThongBao(player, "Hành trang đầy");
+            return;
+        }
+        items.forEach(p -> InventoryServiceNew.gI().addItemBag(player, p));
+    }
+
     public boolean addItemBag(Player player, Item item) {
         //ngọc rồng đen
         if (ItemMapService.gI().isBlackBall(item.template.id)) {
@@ -1079,7 +1087,7 @@ public class InventoryServiceNew {
     public List<Item> takeItemToiThe(Player player) {
         List<Item> items = new ArrayList<>();
         for (Item item : player.inventory.itemsBag) {
-            if (item.template.id >= 1260 && item.template.id <= 1266) {
+            if (item.isNotNullItem() && item.template.id >= 1260 && item.template.id <= 1266) {
                 items.add(item);
             }
         }

@@ -535,22 +535,22 @@ public class Input {
                     int sotvxiu1 = Integer.valueOf(text[0]);
                     try {
                         if (sotvxiu1 >= TaiXiu.MIN_HN && sotvxiu1 <= TaiXiu.MAX_HN) {
-                            if (player.inventory.ruby >= sotvxiu1) {
-                                player.inventory.ruby -= sotvxiu1;
+                            if (player.session.vnd >= sotvxiu1) {
+                                PlayerDAO.subvnd(player, sotvxiu1);
                                 player.goldTai += sotvxiu1;
                                 player.taixiu.toptaixiu += sotvxiu1;
                                 TaiXiu.gI().goldTai += sotvxiu1;
                                 Logger.logTaiXiu(player, 6, player.goldTai, 0);
-                                Service.gI().sendThongBao(player, "Bạn đã đặt " + Util.format(sotvxiu1) + " Hồng ngọc vào TÀI");
+                                Service.gI().sendThongBao(player, "Bạn đã đặt " + Util.format(sotvxiu1) + " Điểm nạp vào TÀI");
                                 TaiXiu.gI().addPlayerTai(player);
                                 InventoryServiceNew.gI().sendItemBags(player);
                                 Service.getInstance().sendMoney(player);
                                 PlayerDAO.updatePlayer(player);
                             } else {
-                                Service.gI().sendThongBao(player, "Bạn không đủ Hồng ngọc để chơi.");
+                                Service.gI().sendThongBao(player, "Bạn không đủ Điểm nạp để chơi.");
                             }
                         } else {
-                            Service.gI().sendThongBao(player, "Cược ít nhất " + Util.powerToStringnew(TaiXiu.MIN_HN) + " Hồng ngọc.");
+                            Service.gI().sendThongBao(player, "Cược ít nhất " + Util.powerToStringnew(TaiXiu.MIN_HN) + "Điểm nạp.");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -563,22 +563,22 @@ public class Input {
                     int sotvxiu2 = Integer.valueOf(text[0]);
                     try {
                         if (sotvxiu2 >= TaiXiu.MIN_HN && sotvxiu2 <= TaiXiu.MAX_HN) {
-                            if (player.inventory.ruby >= sotvxiu2) {
-                                player.inventory.ruby -= sotvxiu2;
+                            if (player.session.vnd >= sotvxiu2) {
+                                PlayerDAO.subvnd(player, sotvxiu2);
                                 player.goldXiu += sotvxiu2;
                                 player.taixiu.toptaixiu += sotvxiu2;
                                 TaiXiu.gI().goldXiu += sotvxiu2;
                                 Logger.logTaiXiu(player, 7, player.goldXiu, 0);
-                                Service.gI().sendThongBao(player, "Bạn đã đặt " + Util.format(sotvxiu2) + " Hồng ngọc vào XỈU");
+                                Service.gI().sendThongBao(player, "Bạn đã đặt " + Util.format(sotvxiu2) + " Điểm nạp vào XỈU");
                                 TaiXiu.gI().addPlayerXiu(player);
                                 InventoryServiceNew.gI().sendItemBags(player);
                                 Service.getInstance().sendMoney(player);
                                 PlayerDAO.updatePlayer(player);
                             } else {
-                                Service.gI().sendThongBao(player, "Bạn không đủ Hồng ngọc để chơi.");
+                                Service.gI().sendThongBao(player, "Bạn không đủ Điểm nạp để chơi.");
                             }
                         } else {
-                            Service.gI().sendThongBao(player, "Cược ít nhất " + Util.powerToStringnew(TaiXiu.MIN_HN) + " Hồng ngọc.");
+                            Service.gI().sendThongBao(player, "Cược ít nhất " + Util.powerToStringnew(TaiXiu.MIN_HN) + " Điểm nạp.");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

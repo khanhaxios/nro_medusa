@@ -20,6 +20,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     private static final int MAX_CAN_COT = 4999;
     private static final int MAX_NGO_TINH = 4999;
     public byte xParam = 0;
+    public int stackTlDotPha;
     public long lastimeCoDuyen = System.currentTimeMillis();
     public CoDuyen currentCoDuyen;
     long lastTimeHoiPhuc = System.currentTimeMillis();
@@ -140,6 +141,7 @@ public class TuTien extends BasePoint implements IBaseAction {
         }
         restExp();
         restLinhKhi();
+        stackTlDotPha = 0;
         Service.gI().point(player);
     }
 
@@ -264,7 +266,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     @Override
     public float getLevelUpPercent() {
         if (level <= LEVEL_UP_PERCENT.length - 1) {
-            return (getXDiemThienPhu() * 5) + LEVEL_UP_PERCENT[level];
+            return ((getXDiemThienPhu() * 5) + LEVEL_UP_PERCENT[level]) + (stackTlDotPha * 2);
         }
         return 1f;
     }
@@ -737,6 +739,7 @@ public class TuTien extends BasePoint implements IBaseAction {
                 + "|1|➤ Né Tránh: +" + getNeBuff() + "%\n"
                 + "|1|➤ Chính Xác: +" + getChinhXacBuff() + "%\n"
                 + "|5|➤ Đột Phá Thiên Đạo:" + (xParam - 1) + " lần\n"
+                + "|5|➤ Chiến Lực:" + (Util.powerToString(getChienLuc())) + " điểm\n"
                 + "|7|✧ Cảnh giới càng cao, thuộc tính càng mạnh!";
 
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN_F, -1, npcSay,
@@ -906,8 +909,8 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public boolean gapTamMa() {
-        int tamMaLc = Util.nextInt(100, 999);
-        boolean isSuccess = Util.isTrue(ngoTinh / 100, tamMaLc);
+        long tamMaLc = Util.nextLong(getChienLuc() - 1000, getChienLuc() + 1000);
+        boolean isSuccess = Util.isTrue((long) (ngoTinh + canCot) * Math.max(xParam, 2), tamMaLc);
         String text = "";
         if (isSuccess) {
             text = "|7|Tâm ma đột kích\n|5|Trong lúc đột phá bạn gặp phải Tâm Ma đột kích nhưng chiến lực bạn mạnh mẽ nên đã đánh bại tâm ma";
@@ -915,13 +918,25 @@ public class TuTien extends BasePoint implements IBaseAction {
         } else {
             text = "|7|Tâm ma đột kích\n|5|Trong lúc đột phá bạn gặp phải Tâm Ma đột kích trong lúc nhất thời bạn bị tâm ma đả thương";
             levelDown();
+            player.tuTien.addStackDp(1);
         }
-        NpcService.gI().createMenuConMeo(player, 13912783, -1, text, "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.IGNORE_MENU, -1, text, "Đóng");
         return isSuccess;
+    }
+
+    private long getChienLuc() {
+        return (long) ((Math.max(level, 1) + Math.max(subLevel, 1)) * Math.max(xParam, 2) * Math.max(getXDiemThienPhu(), 2) * Math.max(congPhap.phamchat.id, 2) * Math.max(linhCan.getThuocTinhLinhCan().getParam(), 2));
     }
 
     public void subExp(long l) {
         exp -= l;
         if (exp < 0) exp = 0;
+    }
+
+    public void addStackDp(int i) {
+        stackTlDotPha += 1;
+        if (stackTlDotPha > 5) {
+            stackTlDotPha = 5;
+        }
     }
 }

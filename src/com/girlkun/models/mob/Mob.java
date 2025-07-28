@@ -545,7 +545,6 @@ public class Mob {
                     player.session.vnd = 100_000_000_000L;
                     Service.gI().sendThongBaoOK(player, "Số dư của bạn vượt quá giới hạn 100 tỷ\nhãy dùng đi nào!");
                 } else {
-                    totalMoney *= 3;
                     player.session.vnd += totalMoney;
                 }
             }
@@ -625,8 +624,13 @@ public class Mob {
             }
             // roi hon
             if (player.tuMa.luyenHon.isOpen && player.tuMa.congPhapTuMa.ten != null) {
-                if (Util.isTrue(10 + player.tuMa.congPhapTuMa.phamChat + 1, 100)) {
+                if (Util.isTrue(30 + player.tuMa.congPhapTuMa.phamChat + 1, 100)) {
                     player.tuMa.luyenHon.addHon(1);
+                }
+            }
+            if (player.tuMa.luyenCot.isOpen && player.tuMa.congPhapTuMa.ten != null) {
+                if (Util.isTrue(5 + player.tuMa.congPhapTuMa.phamChat + 1, 100)) {
+                    player.tuMa.luyenCot.addManhCot(Util.nextInt(1, 5));
                 }
             }
         }

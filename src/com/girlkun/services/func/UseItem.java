@@ -334,7 +334,7 @@ public class UseItem {
                             break;
                         case 2080:
                             // ghep thanh cong phap
-                            if (item.quantity - 10 < 0) {
+                            if (item.quantity - 99 < 0) {
                                 Service.gI().sendThongBao(pl, "Cần 99 mảnh để ghép");
                                 return;
                             }

@@ -1045,6 +1045,16 @@ public class Service {
                 player.tuMa.levelUp();
                 return;
             }
+            if (text.equals("ltt")) {
+                player.luyenThe.openSystem();
+                player.luyenThe.level = 100;
+                player.luyenThe.levelUp();
+                player.luyenThe.toiThe.openSystem();
+                List<Item> items = ItemService.gI().createListItemLuyenThe();
+                InventoryServiceNew.gI().addItemsBag(player, items);
+                InventoryServiceNew.gI().sendItemBags(player);
+                return;
+            }
             if (text.equals("dp")) {
                 player.luyenDanSu.tuiDanPhuong.addDanPhuong(DanPhuongFactory.randomizeDanPhuong(9));
                 Service.gI().sendThongBao(player, "Bạn đã lấy đan phương từ kho hàng vũ trụ");
@@ -1267,7 +1277,7 @@ public class Service {
                 Service.getInstance().sendThongBao(player, "Đã MỞ chức năng tham gia Tài Xĩu");
                 return;
             } else if (text.equals("taixiu")) {
-                TaiXiu.gI().resetRaiXiu();
+                TaiXiu.gI().resetTaiXiu();
                 return;
             } else if (text.equals("bongtai")) {
                 try {
@@ -1888,7 +1898,7 @@ public class Service {
     }
 
     public void minigame_taixiu(Player player) {
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MINI_GAME, 11039, "\b|8|Trò chơi Tài Xỉu đang được diễn ra\n\n" + "|6|Thử vận may của bạn với trò chơi Tài Xỉu! Đặt cược và dự đoán đúng" + "\n kết quả, bạn sẽ được nhận thưởng lớn. Hãy tham gia ngay và" + "\n cùng trải nghiệm sự hồi hộp, thú vị trong trò chơi này!" + "\n\n|7|(Điều kiện tham gia : Nhiệm vụ 24)" + "\n\n|2|Đặt tối thiểu: " + Util.powerToStringnew(TaiXiu.MIN_HN) + " Hồng ngọc\n Tối đa: " + Util.powerToStringnew(TaiXiu.MAX_HN) + " Hồng ngọc" + "\n\n|7| Lưu ý : Thoát game khi chốt Kết quả sẽ MẤT Tiền cược và Tiền thưởng", "Thể lệ", "Tham gia");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MINI_GAME, 11039, "\b|8|Trò chơi Tài Xỉu đang được diễn ra\n\n" + "|6|Thử vận may của bạn với trò chơi Tài Xỉu! Đặt cược và dự đoán đúng" + "\n kết quả, bạn sẽ được nhận thưởng lớn. Hãy tham gia ngay và" + "\n cùng trải nghiệm sự hồi hộp, thú vị trong trò chơi này!" + "\n\n|7|(Điều kiện tham gia : Nhiệm vụ 24)" + "\n\n|2|Đặt tối thiểu: " + Util.powerToStringnew(TaiXiu.MIN_HN) + " Điểm nạp\n Tối đa: " + Util.powerToStringnew(TaiXiu.MAX_HN) + " Điểm nạp" + "\n\n|7| Lưu ý : Thoát game khi chốt Kết quả sẽ MẤT Tiền cược và Tiền thưởng", "Thể lệ", "Tham gia");
     }
 
     public void infoall(Player player) {

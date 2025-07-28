@@ -46,11 +46,11 @@ public abstract class BasePoint {
     }
 
     public float getXDiemNgoTinh() {
-        return ngoTinh / 2400f;
+        return ngoTinh / 1400f;
     }
 
     public float getXDiemCanCot() {
-        return canCot / 2400f;
+        return canCot / 1400f;
     }
 
     public float getXDiemThienPhu() {

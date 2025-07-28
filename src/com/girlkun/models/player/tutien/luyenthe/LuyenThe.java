@@ -330,6 +330,7 @@ public class LuyenThe {
         if (voKyList.size() + 1 <= getMaxSlVK()) {
             voKyList.add(vokytamthoi);
             player.iDMark.vokytamthoi = null;
+            Service.gI().point(player);
             Service.gI().sendThongBao(player, "Đã học võ kỹ " + vokytamthoi.tenVoKy);
             showInfo();
         } else {

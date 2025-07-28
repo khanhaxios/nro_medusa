@@ -21,7 +21,7 @@ public class LuyenHon {
     }
 
     public int getTongSoHonCanLuyen() {
-        return Math.max(1, soTangDaLuyen) * 1_000_000;
+        return Math.max(1, soTangDaLuyen) * 100_000;
     }
 
     public void tangBac() {
@@ -83,16 +83,16 @@ public class LuyenHon {
         text.append("|7|❖═════ LUYỆN HỒN ═════❖\n");
 
 // — Tầng luyện hồn —
-        text.append("|5|➤ Tầng đã luyện  : ").append(soTangDaLuyen).append(" tầng\n");
+        text.append("|5|➤ Tầng đã luyện: ").append(soTangDaLuyen).append(" tầng\n");
 
 // — Số lượng hồn —
-        text.append("|5|➤ Hư Hồn         : ").append(soHonChuaLuyen).append(" Hồn\n");
-        text.append("|5|➤ Tinh Hồn       : ").append(soHonDaLuyen).append(" / ").append(tongSoHonCanLuyen).append("\n");
+        text.append("|5|➤ Hư Hồn : ").append(soHonChuaLuyen).append(" Hồn\n");
+        text.append("|5|➤ Tinh Hồn: ").append(soHonDaLuyen).append(" / ").append(tongSoHonCanLuyen).append("\n");
 
 // — Buff chỉ số —
-        text.append("|5|➤ Dame Buff      : ").append(getDameBuff()).append("%\n");
-        text.append("|5|➤ HP/MP Buff     : ").append(getHPMPBuff()).append("%\n");
-        text.append("|5|➤ Ma Khí x       : ").append(getMaKhiBuff()).append(" lần\n");
+        text.append("|5|➤ Dame Buff: ").append(getDameBuff()).append("%\n");
+        text.append("|5|➤ HP/MP Buff: ").append(getHPMPBuff()).append("%\n");
+        text.append("|5|➤ Ma Khí x: ").append(getMaKhiBuff()).append(" lần\n");
 
 // — Lưu ý / khuyến khích —
         text.append("|7|✪ Luyện Hồn càng cao, chỉ số buff càng mạnh!");

@@ -10,20 +10,18 @@ import com.girlkun.utils.Util;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author DEV Ăn Trộm
- */
 public class TaiXiu implements Runnable {
 
+    public static final long TIME_TAI_XIU = (3) * (60 * 1000);
     public int goldTai;
     public int goldXiu;
     public boolean ketquaTai = false;
     public boolean ketquaXiu = false;
     public boolean ketquaTamhoa = false;
 
-    public static int MIN_HN = 1_000_000;
-    public static int MAX_HN = 100_000_000;
-    public static int TILE_AN_THUA = 80;
+    public static int MIN_HN = 1000;
+    public static int MAX_HN = 10_000_000;
+    public static int TILE_AN_THUA = 60;
 
     public boolean baotri = false;
     public long lastTimeEnd;
@@ -63,7 +61,7 @@ public class TaiXiu implements Runnable {
         }
     }
 
-    public void resetRaiXiu() {
+    public void resetTaiXiu() {
         ketquaXiu = false;
         ketquaTai = false;
         ketquaTamhoa = false;
@@ -71,7 +69,7 @@ public class TaiXiu implements Runnable {
         TaiXiu.gI().goldXiu = 0;
         TaiXiu.gI().PlayersTai.clear();
         TaiXiu.gI().PlayersXiu.clear();
-        TaiXiu.gI().lastTimeEnd = System.currentTimeMillis() + 100000;
+        TaiXiu.gI().lastTimeEnd = System.currentTimeMillis() + TIME_TAI_XIU;
     }
 
     @Override
@@ -81,7 +79,6 @@ public class TaiXiu implements Runnable {
                 long timeLeft = TaiXiu.gI().lastTimeEnd - System.currentTimeMillis();
                 if (timeLeft <= 0) {
                     int x, y, z;
-                    // Thực hiện các hành động sau khi chờ 10 giây
                     if (TaiXiu.gI().goldTai >= TaiXiu.gI().goldXiu) {
                         if (Util.isTrue(60, 100)) {
                             x = Util.nextInt(1, 2);
@@ -140,9 +137,9 @@ public class TaiXiu implements Runnable {
                                     int goldC = pl.goldTai + (pl.goldTai / 100 * TILE_AN_THUA);
                                     Service.getInstance().sendThongBao(pl, "Số hệ thống quay ra\n" + x + " : "
                                             + y + " : " + z + "\n|5|Tổng là : " + tong + "\n(TÀI)\n\n|1|Bạn đã chiến thắng!!");
-                                    Service.getInstance().sendThongBao(pl, "Chúc mừng bạn đã dành chiến thắng và nhận được " + Util.format(goldC) + " Hồng ngọc");
+                                    Service.getInstance().sendThongBao(pl, "Chúc mừng bạn đã dành chiến thắng và nhận được " + Util.format(goldC) + " Điểm nạp");
                                     Logger.logTaiXiu(pl, 0, pl.goldTai, goldC);
-                                    pl.inventory.ruby += goldC;
+                                    pl.session.vnd += goldC;
                                     pl.taixiu.win += pl.goldTai * TILE_AN_THUA / 100;
                                     Service.getInstance().sendMoney(pl);
                                     InventoryServiceNew.gI().sendItemBags(pl);
@@ -163,9 +160,9 @@ public class TaiXiu implements Runnable {
                                     int goldC = pl.goldXiu + (pl.goldXiu / 100 * TILE_AN_THUA);
                                     Service.getInstance().sendThongBao(pl, "Số hệ thống quay ra\n" + x + " : "
                                             + y + " : " + z + "\n|5|Tổng là : " + tong + "\n(XỈU)\n\n|1|Bạn đã chiến thắng!!");
-                                    Service.getInstance().sendThongBao(pl, "Chúc mừng bạn đã dành chiến thắng và nhận được " + Util.format(goldC) + " Hồng ngọc");
+                                    Service.getInstance().sendThongBao(pl, "Chúc mừng bạn đã dành chiến thắng và nhận được " + Util.format(goldC) + " Điểm nạp");
                                     Logger.logTaiXiu(pl, 1, pl.goldXiu, goldC);
-                                    pl.inventory.ruby += goldC;
+                                    pl.session.vnd += goldC;
                                     pl.taixiu.win += pl.goldXiu * TILE_AN_THUA / 100;
                                     Service.getInstance().sendMoney(pl);
                                     InventoryServiceNew.gI().sendItemBags(pl);
@@ -207,7 +204,7 @@ public class TaiXiu implements Runnable {
                             pl.goldXiu = 0;
                         }
                     }
-                    resetRaiXiu();
+                    resetTaiXiu();
                 }
                 Thread.sleep(1000);
             } catch (Exception e) {

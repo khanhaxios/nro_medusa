@@ -631,6 +631,8 @@ public class Huyet {
             Service.gI().sendThongBao(player, "Cần x" + (pham * 50) + "Huyết đan cho 1 lần tôi huyết");
             return;
         }
+        InventoryServiceNew.gI().subQuantityItemsBag(player, item, pham * 50);
+        InventoryServiceNew.gI().sendItemBags(player);
 
         while (slTinhHuyet > 0) {
             if (Util.isTrue(getTyLeToiHuyetThanhCong(), 100)) {
@@ -646,8 +648,5 @@ public class Huyet {
         }
         Service.gI().sendThongBao(player, "Tôi huyết x" + slTinhHuyet + " Lần thành công x" + slCong + "Lần");
         Service.gI().point(player);
-
-        InventoryServiceNew.gI().subQuantityItemsBag(player, item, pham * 50);
-        InventoryServiceNew.gI().sendItemBags(player);
     }
 }

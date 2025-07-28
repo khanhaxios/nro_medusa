@@ -1,10 +1,11 @@
 package com.girlkun.models.skill;
 
+import com.girlkun.models.player.Player;
+import com.girlkun.network.io.Message;
+import com.girlkun.services.Service;
+
 import java.util.ArrayList;
 import java.util.List;
-import com.girlkun.models.player.Player;
-import com.girlkun.services.Service;
-import com.girlkun.network.io.Message;
 
 
 public class PlayerSkill {
@@ -12,7 +13,7 @@ public class PlayerSkill {
     private Player player;
     public List<Skill> skills;
     public Skill skillSelect;
-    
+
     public static final int TIME_MUTIL_CHUONG = 60000;
 
     public PlayerSkill(Player player) {
@@ -29,7 +30,7 @@ public class PlayerSkill {
         return null;
     }
 
-    public byte[] skillShortCut = new byte[5];
+    public byte[] skillShortCut = new byte[10];
 
     public void sendSkillShortCut() {
         Message msg;
@@ -49,13 +50,12 @@ public class PlayerSkill {
         } catch (Exception e) {
         }
     }
-    
-    
+
 
     public boolean prepareQCKK;
     public boolean prepareTuSat;
     public boolean prepareLaze;
-    
+
     public long lastTimePrepareQCKK;
     public long lastTimePrepareTuSat;
     public long lastTimePrepareLaze;
@@ -86,13 +86,13 @@ public class PlayerSkill {
         }
         return size;
     }
-    
-    public void dispose(){
-        if(this.skillSelect != null){
+
+    public void dispose() {
+        if (this.skillSelect != null) {
             this.skillSelect.dispose();
         }
-        if(this.skills != null){
-            for(Skill skill : this.skills){
+        if (this.skills != null) {
+            for (Skill skill : this.skills) {
                 skill.dispose();
             }
             this.skills.clear();

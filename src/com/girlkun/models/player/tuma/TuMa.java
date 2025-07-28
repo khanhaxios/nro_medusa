@@ -18,6 +18,7 @@ public class TuMa implements IBaseAction {
     Player player;
     public LuyenHon luyenHon;
     public long maKhiPoint;
+    public LuyenCot luyenCot;
     public long maxMaKhiPoint;
     public int level;
     public long exp;
@@ -41,6 +42,7 @@ public class TuMa implements IBaseAction {
         congPhapTuMa = new CongPhapTuMa(player);
         linhCanTuMa = new LinhCanTuMa(player);
         luyenHon = new LuyenHon(player);
+        luyenCot = new LuyenCot(player);
     }
 
     public boolean canHandleWithMaKhiPoint(long maKhi) {
@@ -295,7 +297,7 @@ public class TuMa implements IBaseAction {
 //— Dòng đặc biệt Ma Đạo —
         text.append("|7|✪ Ma Tu không có bình cảnh – phá giới vô tận!\n");
         text.append("|7|❖══════════════════════════════❖");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_TU_MA, -1, text.toString(), "Thông Tin\nTu Ma", "Thông Tin\nCông Pháp", "Thông Tin\nLinh Căn", "Thông tin\nLuyện Hồn", "Pháp bảo", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_TU_MA, -1, text.toString(), "Thông Tin\nTu Ma", "Thông Tin\nCông Pháp", "Thông Tin\nLinh Căn", "Thông tin\nLuyện Hồn", "Pháp bảo", "Luyện Cốt", "Đóng");
     }
 
     private String getMaKhiAsString() {
@@ -321,6 +323,9 @@ public class TuMa implements IBaseAction {
         }
         if (luyenHon != null && luyenHon.isOpen) {
             luyenHon.calcPoint();
+        }
+        if (luyenCot.isOpen()) {
+            luyenCot.calcPoint();
         }
     }
 

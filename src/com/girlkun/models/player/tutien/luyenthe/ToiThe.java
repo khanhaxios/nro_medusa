@@ -59,7 +59,7 @@ public class ToiThe {
     private String getNguyenLieuCan() {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 1260; i <= 1266; i++) {
-            stringBuilder.append("|7|Cần x").append(tier * 1000).append(ItemService.gI().getTemplate(i).name).append("\n");
+            stringBuilder.append("|7|Cần x").append(Math.max(tier + 1, 1) * 1000).append(ItemService.gI().getTemplate(i).name).append("\n");
         }
         return stringBuilder.toString();
     }
