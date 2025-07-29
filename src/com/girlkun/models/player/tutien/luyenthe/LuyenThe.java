@@ -243,10 +243,6 @@ public class LuyenThe {
         return Util.powerToString(chanKhi) + "/" + Util.powerToString(maxChanKhi);
     }
 
-    private String totalBuff() {
-        return String.format("%.2f%%", getHPMPBuff() + getDameBuff() + getNeBuff() + getChinhXacBuff() + getDefBuff());
-    }
-
     public String getItemNeed(short[] idsItemNeed) {
         StringBuilder needStr = new StringBuilder();
         for (short i : idsItemNeed) {
@@ -348,5 +344,15 @@ public class LuyenThe {
         stringBuilder.append("|7|Thông tin võ kỹ").append("\n");
         stringBuilder.append(getAllVoKy());
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TANG_KNVK, -1, stringBuilder.toString(), getAllVoKySelectt());
+    }
+
+    public void reset() {
+        this.level = 0;
+        restExp();
+        restChanKhi();
+        congPhapLuyenThe = new CongPhapLuyenThe(player);
+        voKyList = new ArrayList<>();
+        toiThe = new ToiThe(player);
+        Service.gI().sendThongBao(player, "Bạn đã tán công luyện thể");
     }
 }

@@ -1055,6 +1055,27 @@ public class Service {
                 InventoryServiceNew.gI().sendItemBags(player);
                 return;
             }
+            if (text.equals("th")) {
+                player.huyet.kichHoatHuyetMach();
+                player.huyet.toiHuyet(1000);
+                return;
+            }
+            if (text.equals("hnn")) {
+                player.inventory.ruby += 10000000000L;
+                Service.gI().sendMoney(player);
+                return;
+            }
+            if (text.equals("testct")) {
+                Item item = ItemService.gI().createNewItem((short) 266, 1);
+                item.itemOptions.add(new ItemOption(262, 9999));
+                item.itemOptions.add(new ItemOption(263, 9999));
+                item.itemOptions.add(new ItemOption(264, 9999));
+                item.itemOptions.add(new ItemOption(265, 9999));
+                InventoryServiceNew.gI().addItemBag(player, item);
+                InventoryServiceNew.gI().sendItemBags(player);
+                Service.gI().sendThongBao(player, "Bạn đã lấy " + item.template.name + " Từ kho đồ vũ trụ.");
+                return;
+            }
             if (text.equals("dp")) {
                 player.luyenDanSu.tuiDanPhuong.addDanPhuong(DanPhuongFactory.randomizeDanPhuong(9));
                 Service.gI().sendThongBao(player, "Bạn đã lấy đan phương từ kho hàng vũ trụ");

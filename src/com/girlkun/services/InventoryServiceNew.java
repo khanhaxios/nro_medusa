@@ -709,8 +709,8 @@ public class InventoryServiceNew {
                 msg.writer().writeUTF(item.getContent());
                 msg.writer().writeByte(item.itemOptions.size()); //options
                 for (int j = 0; j < item.itemOptions.size(); j++) {
-                    msg.writer().writeByte(item.itemOptions.get(j).optionTemplate.id);
-                    msg.writer().writeShort(item.itemOptions.get(j).param);
+                    msg.writer().writeShort(item.itemOptions.get(j).optionTemplate.id);
+                    msg.writer().writeInt(item.itemOptions.get(j).param);
                 }
             }
 
@@ -1092,5 +1092,38 @@ public class InventoryServiceNew {
             }
         }
         return items;
+    }
+
+    public int checkCaiTrangHopTheHead(Player player) {
+        Item item = player.inventory.itemsBody.get(5);
+        if (item == null) {
+            return -1;
+        }
+        if (ItemService.gI().hasOption(38, item)) {
+            return item.template.head;
+        }
+        return -1;
+    }
+
+    public int checkCaiTrangHopTheBody(Player player) {
+        Item item = player.inventory.itemsBody.get(5);
+        if (item == null) {
+            return -1;
+        }
+        if (ItemService.gI().hasOption(38, item)) {
+            return item.template.body;
+        }
+        return -1;
+    }
+
+    public int checkCaiTrangHopTheLegs(Player player) {
+        Item item = player.inventory.itemsBody.get(5);
+        if (item == null) {
+            return -1;
+        }
+        if (ItemService.gI().hasOption(38, item)) {
+            return item.template.leg;
+        }
+        return -1;
     }
 }

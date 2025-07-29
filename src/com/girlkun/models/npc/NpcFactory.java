@@ -2298,7 +2298,7 @@ public class NpcFactory {
                     if (player.tuMa.isTuMa()) {
                         createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ở Đây không tiếp ma tu", "Đóng");
                     } else {
-                        createOtherMenu(player, ConstNpc.MENU_NPC_TU_TIEN, "Tu tiên a , nghèo thì tu cái gì tiên", "Giới Thiệu", "Học Tu \nTiên", "Học Tiên\nPháp", "Học Công Pháp", "Truyền Công", "Bí Kíp\nTu Tiên", "Huyết Mạch");
+                        createOtherMenu(player, ConstNpc.MENU_NPC_TU_TIEN, "Tu tiên a , nghèo thì tu cái gì tiên", "Giới Thiệu", "Học Tu \nTiên", "Học Tiên\nPháp", "Học Công Pháp", "Truyền Công", "Bí Kíp\nTu Tiên", "Huyết Mạch", "Tán Công");
                     }
                 }
             }
@@ -2345,6 +2345,9 @@ public class NpcFactory {
                                 break;
                             case 5:
                                 createOtherMenu(player, ConstNpc.MENU_KH_HM, "Huyết mạch là một phần bổ trợ rất mạch giúp kích phát thêm tiềm năng từ bản thân", "Huyết", "Mạch");
+                                break;
+                            case 6:
+                                player.tuTien.reset();
                                 break;
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_KH_HM) {
@@ -2398,7 +2401,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
-                    createOtherMenu(player, ConstNpc.BASE_MENU, "Đi đến đường cùng ?  Nhập ma a", "Tu Ma", "Học\nCông Pháp", "Luyện hồn", "Huyết mạch", "Luyện cốt");
+                    createOtherMenu(player, ConstNpc.BASE_MENU, "Đi đến đường cùng ?  Nhập ma a", "Tu Ma", "Học\nCông Pháp", "Luyện hồn", "Huyết mạch", "Luyện cốt","Tán Công");
                 }
             }
 
@@ -2472,6 +2475,9 @@ public class NpcFactory {
                             PlayerDAO.subvnd(player, 300_000);
                             player.tuMa.luyenCot.openSystem();
                             break;
+                        case 5:
+                            player.tuMa.reset();
+                            break;
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_KH_HM) {
                     switch (select) {
@@ -2498,7 +2504,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player) && mapId == 5) {
-                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Huyết mạch", "Công Pháp");
+                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Huyết mạch", "Công Pháp","Tán Công");
                 }
             }
 
@@ -2518,6 +2524,9 @@ public class NpcFactory {
                             break;
                         case 3:
                             createOtherMenu(player, ConstNpc.MENU_H_CP_LT, "Công pháp giúp tăng cường sức mạnh của luyện thể", "Học\nCông Pháp", "Đóng");
+                            break;
+                        case 4:
+                            player.luyenThe.reset();
                             break;
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_H_CP_LT) {

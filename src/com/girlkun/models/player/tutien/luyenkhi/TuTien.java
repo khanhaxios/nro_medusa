@@ -209,7 +209,7 @@ public class TuTien extends BasePoint implements IBaseAction {
                 linhKhiCanHoiPhuc *= player.luyenDanSu.danDuocEffect.xBuffLinhKhi;
             }
             linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * getXDiemThienPhu();
-            linhKhiCanHoiPhuc += maxLinhKhiPoint / 100;
+            linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * player.nPoint.xHoiLinhKhi / 100;
             addLinhKhi(linhKhiCanHoiPhuc);
             lastTimeHoiPhuc = System.currentTimeMillis();
             // send effect to server
@@ -222,6 +222,7 @@ public class TuTien extends BasePoint implements IBaseAction {
         long la = BASE_LINH_KHI[level] + (BASE_LINH_KHI[level] * (Math.max(1, congPhap.xLinhKhiBuff))) + BASE_SUB_LINH_KHI[subLevel - 1];
         la += (la * xParam);
         la += (la * getXDiemThienPhu());
+        la += la * player.nPoint.xLinhKhi / 100;
         return (la + (la * congPhap.tlLinhKhiBuff / 100)) * Math.max(1, congPhap.xLinhKhiBuff);
     }
 
@@ -460,6 +461,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             if (exp < maxExp && !player.isDie() && Util.canDoWithTime(lastTimeAddExp, 3000)) {
                 if (player.tuTien.congPhap != null && player.tuTien.congPhap.tenCongPhap != null) {
                     long expAdd = (long) (getXDiemThienPhu() * (BASE_EXP_BUFF[level] + (SUB_LEVEL_EXP[subLevel - 1] / 10))) * Math.max(1, congPhap.phamchat.id + 1);
+                    expAdd += expAdd * player.nPoint.xTuVi / 100;
                     addExp(expAdd * Math.max(1, xParam) * Util.nextInt(2, 8));
                     PlayerService.gI().sendTuTienAddTuVi(player, expAdd);
                     PlayerService.gI().sendTuTienTuVi(player);
@@ -725,10 +727,8 @@ public class TuTien extends BasePoint implements IBaseAction {
     public boolean isTuTien() {
         if (level == 0) {
             return subLevel > 0;
-        } else if (level > 0) {
-            return true;
         }
-        return false;
+        return level > 0;
     }
 
     public void showMenuTuTien() {
@@ -938,5 +938,19 @@ public class TuTien extends BasePoint implements IBaseAction {
         if (stackTlDotPha > 5) {
             stackTlDotPha = 5;
         }
+    }
+
+    public void reset() {
+        level = 0;
+        subLevel = 0;
+        exp = 0;
+        maxExp = getMaxExp();
+        congPhap = new CongPhap(this);
+        linhCan = new LinhCan(this);
+        tienPhaps = new ArrayList<>();
+        xParam = 0;
+        canCot = 0;
+        ngoTinh = 0;
+        Service.gI().sendThongBao(player, "Bạn đã tán công tu tiên");
     }
 }

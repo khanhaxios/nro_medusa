@@ -320,33 +320,35 @@ public class Huyet {
 
     public void kichHoatHuyetMach() {
         // kich hoat huyet mach
-        if (pham > 0 || isOpen) {
-            Service.gI().sendThongBaoOK(player, "Bạn đã kích hoạt huyết mạch rồi mà!");
-            return;
-        }
-        if (!player.tuTien.isTuTien() && !player.luyenThe.isLuyenTheReal() && !player.tuMa.isTuMa()) {
-            Service.gI().sendThongBao(player, "Bạn cần chức nghiệp để có thể kích hoạt huyết mạch");
-            return;
-        }
-        if (player.tuTien.isTuTien() || player.tuMa.isTuMa() || player.luyenThe.isLuyenTheReal()) {
-            if (player.tuTien.isTuTien() && player.tuTien.level < 10) {
-                Service.gI().sendThongBao(player, "Cần đạt " + TuTien.CANH_GIOI[10] + " Để kích hoạt huyết mạch");
+        if (!player.isAdmin()) {
+            if (pham > 0 || isOpen) {
+                Service.gI().sendThongBaoOK(player, "Bạn đã kích hoạt huyết mạch rồi mà!");
                 return;
             }
-            if (player.tuMa.isTuMa() && player.tuMa.level < 100) {
-                Service.gI().sendThongBao(player, "Cần đạt " + TuMa.CANH_GIOI[100 / 10] + " Để kích hoạt huyết mạch");
+            if (!player.tuTien.isTuTien() && !player.luyenThe.isLuyenTheReal() && !player.tuMa.isTuMa()) {
+                Service.gI().sendThongBao(player, "Bạn cần chức nghiệp để có thể kích hoạt huyết mạch");
                 return;
             }
-            if (player.luyenThe.isLuyenTheReal() && player.luyenThe.level < 100) {
-                Service.gI().sendThongBao(player, "Cần đạt luyện thể tầng " + 200 + " Để kích hoạt huyết mạch");
+            if (player.tuTien.isTuTien() || player.tuMa.isTuMa() || player.luyenThe.isLuyenTheReal()) {
+                if (player.tuTien.isTuTien() && player.tuTien.level < 10) {
+                    Service.gI().sendThongBao(player, "Cần đạt " + TuTien.CANH_GIOI[10] + " Để kích hoạt huyết mạch");
+                    return;
+                }
+                if (player.tuMa.isTuMa() && player.tuMa.level < 100) {
+                    Service.gI().sendThongBao(player, "Cần đạt " + TuMa.CANH_GIOI[100 / 10] + " Để kích hoạt huyết mạch");
+                    return;
+                }
+                if (player.luyenThe.isLuyenTheReal() && player.luyenThe.level < 100) {
+                    Service.gI().sendThongBao(player, "Cần đạt luyện thể tầng " + 200 + " Để kích hoạt huyết mạch");
+                    return;
+                }
+            }
+            if (player.session.vnd - 300_000 < 0) {
+                Service.gI().sendThongBao(player, "Cần 300k điểm để mở");
                 return;
             }
+            PlayerDAO.subvnd(player, 300_000);
         }
-        if (player.session.vnd - 300_000 < 0) {
-            Service.gI().sendThongBao(player, "Cần 300k điểm để mở");
-            return;
-        }
-        PlayerDAO.subvnd(player, 300_000);
         // kich hoat ne
         ratioTypeHuyetMach();
         ratioChiSoHuyetMach();
@@ -627,11 +629,15 @@ public class Huyet {
     public void toiHuyet(int slTinhHuyet) {
         int slCong = 0;
         Item item = InventoryServiceNew.gI().findItemBag(player, 2077);
-        if (item.quantity < (pham * 50)) {
-            Service.gI().sendThongBao(player, "Cần x" + (pham * 50) + "Huyết đan cho 1 lần tôi huyết");
+        if (item == null) {
+            Service.gI().sendThongBao(player, "Không tìm thấy huyết đan");
             return;
         }
-        InventoryServiceNew.gI().subQuantityItemsBag(player, item, pham * 50);
+        if (item.quantity < (Math.max(pham, 1) * 50)) {
+            Service.gI().sendThongBao(player, "Cần x" + (Math.max(pham, 1) * 50) + "Huyết đan cho 1 lần tôi huyết");
+            return;
+        }
+        InventoryServiceNew.gI().subQuantityItemsBag(player, item, Math.max(pham, 1) * 50);
         InventoryServiceNew.gI().sendItemBags(player);
 
         while (slTinhHuyet > 0) {

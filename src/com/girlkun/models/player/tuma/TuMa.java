@@ -377,4 +377,19 @@ public class TuMa implements IBaseAction {
         exp -= l;
         if (exp < 0) exp = 0;
     }
+
+    public void reset() {
+        level = 0;
+        congPhapTuMa = new CongPhapTuMa(player);
+        linhCanTuMa = new LinhCanTuMa(player);
+        luyenHon = new LuyenHon(player);
+        luyenCot = new LuyenCot(player);
+        exp = 0;
+        maxExp = getNextLevelExp();
+        maKhiPoint = 0;
+        maKhiPoint = calcMaxMaKhi();
+        maTinh = 0;
+        timeTuMa = System.currentTimeMillis();
+        Service.gI().sendThongBao(player, "Bạn đã tán công tu ma");
+    }
 }

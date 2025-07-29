@@ -1,12 +1,12 @@
 package com.girlkun.utils;
 
-import java.util.List;
-
+import com.girlkun.models.Template.SkillTemplate;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.NClass;
 import com.girlkun.models.skill.Skill;
-import com.girlkun.models.Template.SkillTemplate;
 import com.girlkun.server.Manager;
+
+import java.util.List;
 
 
 public class SkillUtil {
@@ -73,8 +73,8 @@ public class SkillUtil {
         return (level + 5) * 10000;
     }
 
-    public static int getPercentHpMonkey(int level) { //tỉ lệ máu khỉ cộng thêm v
-        return (level + 3) * 2;
+    public static int getPercentHpMonkey(int level) {
+        return (level + 3) * 20;
     }
 
     public static int getPercentDameMonkey(int level) { //tỉ lệ dam khỉ cộng thêm v
@@ -82,7 +82,7 @@ public class SkillUtil {
     }
 
     public static int getTimeStun(int level) { //thời gian choáng thái dương hạ san v
-        return (level + 2) * 1000;
+        return (level + 3) * 1000;
     }
 
     public static int getTimeSocola() {
@@ -123,8 +123,8 @@ public class SkillUtil {
         return 350 + level * 30;
     }
 
-    public static long getPercentHPHuytSao(int level) { //tỉ lệ máu huýt sáo cộng thêm v
-        return (level + 3) * 10;
+    public static int getPercentHPHuytSao(int level) { //tỉ lệ máu huýt sáo cộng thêm v
+        return (level + 3) * 30;
     }
 
     public static int getPercentTriThuong(int level) { //tỉ lệ máu hồi phục trị thương v
@@ -320,5 +320,12 @@ public class SkillUtil {
             default:
                 return 0;
         }
+    }
+
+    public static boolean containXaydaSkill(Skill skillSelect) {
+        if (skillSelect.template.id == Skill.GALICK || skillSelect.template.id == Skill.ANTOMIC) {
+            return true;
+        }
+        return false;
     }
 }

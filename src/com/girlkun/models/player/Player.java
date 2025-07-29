@@ -328,6 +328,10 @@ public class Player {
         return true;
     }
 
+    public short[][] outfitTutien = new short[][]{
+            {2080, 2081, 2082}, {2075, 2076, 2077}, {2070, 2071, 2072}
+    };
+
     //--------------------------------------------------------------------------
     public void setSession(MySession session) {
         this.session = session;
@@ -663,7 +667,6 @@ public class Player {
     }
 
     public short getHead() {
-        /// Remake By ndq (Zalo - 0372475179) ====================
         if (effectSkill != null && effectSkill.isBienHinh) {
             return (short) ConstPlayer.HEAD_BIEN_HINH[this.gender][effectSkill.levelBienHinh - 1];
         }
@@ -678,6 +681,11 @@ public class Player {
         } else if (effectSkill != null && effectSkill.isBinh) {
             return 1321;
         } else if (fusion != null && fusion.typeFusion != ConstPlayer.NON_FUSION) {
+            // check cai trang neu co dong hop the
+            int headd = InventoryServiceNew.gI().checkCaiTrangHopTheHead(this);
+            if (headd != -1) {
+                return (short) headd;
+            }
             if (fusion.typeFusion == ConstPlayer.LUONG_LONG_NHAT_THE) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 0][0];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
@@ -699,18 +707,14 @@ public class Player {
                 return (short) headd;
             }
         }
-//        } else if (this.gender == 0 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-//            return 1231;
-//        } else if (this.gender == 1 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-//            return 913;
-//        } else if (this.gender == 2 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-//            return 1430;
-//        }
         if (inventory != null && inventory.itemsBody.get(4).isNotNullItem()) {
             int headd = inventory.itemsBody.get(4).template.part;
             if (headd != -1) {
                 return (short) headd;
             }
+        }
+        if (tuTien != null && tuTien.level > 10) {
+            return outfitTutien[gender][0];
         }
         return this.head;
     }
@@ -730,6 +734,10 @@ public class Player {
         } else if (effectSkill != null && effectSkill.isBinh) {
             return 1322;
         } else if (fusion != null && fusion.typeFusion != ConstPlayer.NON_FUSION) {
+            int bodyyy = InventoryServiceNew.gI().checkCaiTrangHopTheBody(this);
+            if (bodyyy != -1) {
+                return (short) bodyyy;
+            }
             if (fusion.typeFusion == ConstPlayer.LUONG_LONG_NHAT_THE) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 0][1];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
@@ -751,15 +759,11 @@ public class Player {
                 return (short) body;
             }
         }
-//        else if (this.gender == 0 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-//            return 1232;
-//        } else if (this.gender == 1 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-//            return 914;
-//        } else if (this.gender == 2 && this.CapTuTien >= 19 && this.haveTuTien == true && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-//            return 1431;
-//        }
         if (inventory != null && inventory.itemsBody.get(0).isNotNullItem()) {
             return inventory.itemsBody.get(0).template.part;
+        }
+        if (tuTien != null && tuTien.level > 10) {
+            return outfitTutien[gender][1];
         }
         return (short) (gender == ConstPlayer.NAMEC ? 59 : 57);
     }
@@ -780,6 +784,10 @@ public class Player {
         } else if (effectSkill != null && effectSkill.isBinh) {
             return 1323;
         } else if (fusion != null && fusion.typeFusion != ConstPlayer.NON_FUSION) {
+            int legsss = InventoryServiceNew.gI().checkCaiTrangHopTheLegs(this);
+            if (legsss != -1) {
+                return (short) legsss;
+            }
             if (fusion.typeFusion == ConstPlayer.LUONG_LONG_NHAT_THE) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 0][2];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
@@ -801,15 +809,11 @@ public class Player {
                 return (short) leg;
             }
         }
-//        else if (this.gender == 0 && this.CapTuTien >= 19 && this.haveTuTien && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-//            return 1233;
-//        } else if (this.gender == 1 && this.CapTuTien >= 19 && this.haveTuTien && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-//            return 915;
-//        } else if (this.gender == 2 && this.CapTuTien >= 19 && this.haveTuTien && !this.itemTimesieucap.isBienhinh1 && !this.itemTimesieucap.isBienhinh) {
-//            return 1432;
-//        }
         if (inventory != null && inventory.itemsBody.get(1).isNotNullItem()) {
             return inventory.itemsBody.get(1).template.part;
+        }
+        if (tuTien != null && tuTien.level > 10) {
+            return outfitTutien[gender][2];
         }
         return (short) (gender == 1 ? 60 : 58);
     }

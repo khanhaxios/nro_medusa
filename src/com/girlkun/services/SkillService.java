@@ -897,7 +897,7 @@ public class SkillService {
                 affterUseSkill(player, player.playerSkill.skillSelect.template.id);
                 break;
             case Skill.HUYT_SAO:
-                long tileHP = SkillUtil.getPercentHPHuytSao(player.playerSkill.skillSelect.point);
+                int tileHP = SkillUtil.getPercentHPHuytSao(player.playerSkill.skillSelect.point);
                 if (player.zone != null) {
                     if (!MapService.gI().isMapOffline(player.zone.map.mapId)) {
                         List<Player> playersMap = player.zone.getHumanoids();
@@ -951,7 +951,7 @@ public class SkillService {
                     }
                     //nổ
                     player.playerSkill.prepareTuSat = !player.playerSkill.prepareTuSat;
-                    double dame = player.nPoint.hpMax;
+                    double dame = player.nPoint.hpMax * 3;
                     player.tusat = true;
                     for (Mob mob : player.zone.mobs) {
                         mob.injured(player, dame, true, (byte) 0);
@@ -965,14 +965,14 @@ public class SkillService {
                     if (!MapService.gI().isMapOffline(player.zone.map.mapId)) {
                         for (Player pl : playersMap) {
                             if (!player.equals(pl) && canAttackPlayer(player, pl)) {
-                                pl.injured(player, pl.isBoss ? dame / 2 : dame, false, false, false);
+                                pl.injured(player, dame, false, false, true);
                                 PlayerService.gI().sendInfoHpMpMoney(pl);
                                 Service.getInstance().Send_Info_NV(pl);
                             }
                         }
                     }
                     affterUseSkill(player, player.playerSkill.skillSelect.template.id);
-                    player.injured(null, 2100000000, true, false, false);
+                    player.injured(null, player.nPoint.hpMax + 10000, true, false, true);
                     if (player.effectSkill.tiLeHPHuytSao != 0) {
                         player.effectSkill.tiLeHPHuytSao = 0;
                         EffectSkillService.gI().removeHuytSao(player);
@@ -1264,7 +1264,12 @@ public class SkillService {
         // handle for dame bosss
         double damGoc = subDameWithCanhGioi(plAtt, plInjure);
         miss = neDon(plInjure, miss);
-        double dameHit = plInjure.injured(plAtt, miss ? 0 : damGoc, false, false, false);
+        double dameHit = 0;
+        if (SkillUtil.containXaydaSkill(plAtt.playerSkill.skillSelect)) {
+            dameHit = plInjure.injured(plAtt, miss ? 0 : plAtt.nPoint.getDameAttack(false), false, false, true);
+        } else {
+            dameHit = plInjure.injured(plAtt, miss ? 0 : damGoc, false, false, false);
+        }
         phanSatThuong(plAtt, plInjure, Util.DoubleGioihan(dameHit));
         hutHPMP(plAtt, dameHit, false);
         hutLinhKhi(plAtt);
@@ -1285,6 +1290,7 @@ public class SkillService {
                     paramOfLinhCan *= plAtt.tuTien.congPhap.xDameThuocTinh;
                 }
             }
+            paramOfLinhCan += plAtt.nPoint.xDameLinhCan;
             switch (plAtt.tuTien.linhCan.getLinhCanType()) {
                 case 0:
                     // kim
@@ -1422,7 +1428,7 @@ public class SkillService {
             float paramOfLinhCan = plAtt.tuMa.linhCanTuMa.xParam;
             switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
                 case 0:
-                    double hp = plInjure.injured(plAtt, (plInjure.nPoint.hpMax / 75) * (paramOfLinhCan), false, false, true);
+                    double hp = plInjure.injured(plAtt, (plInjure.nPoint.hpMax / 80) * (paramOfLinhCan), false, false, true);
                     plAtt.nPoint.hutMauTamThoi += hp;
                     plAtt.nPoint.hpMax += plAtt.nPoint.hutMauTamThoi;
                     plAtt.nPoint.lastTimeHutMau = System.currentTimeMillis();
@@ -1433,7 +1439,7 @@ public class SkillService {
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameA, (byte) 0);
                     break;
                 case 2:
-                    double dameB = ((plInjure.nPoint.hpMax / 75) * paramOfLinhCan) * Util.nextInt(2, 4);
+                    double dameB = ((plInjure.nPoint.hpMax / 80) * paramOfLinhCan) * Util.nextInt(2, 4);
                     dameB = plInjure.injured(plAtt, dameB, false, false, false);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameB, (byte) 0);
                     break;

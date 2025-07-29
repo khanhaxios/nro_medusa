@@ -43,6 +43,11 @@ public class NPoint {
     public boolean isCrit;
     public boolean isCrit100;
 
+    public int xLinhKhi;
+    public int xDameLinhCan;
+    public int xTuVi;
+
+    public int xHoiLinhKhi;
     private Intrinsic intrinsic;
     private int percentDameIntrinsic;
     public int dameAfter;
@@ -462,6 +467,18 @@ public class NPoint {
                         case 173: //Phục hồi #% HP và KI cho đồng đội
                             this.tlHpHoiBanThanVaDongDoi += io.param;
                             this.tlMpHoiBanThanVaDongDoi += io.param;
+                            break;
+                        case 262:
+                            xLinhKhi += io.param;
+                            break;
+                        case 263:
+                            xDameLinhCan += io.param;
+                            break;
+                        case 264:
+                            xHoiLinhKhi += io.param;
+                            break;
+                        case 265:
+                            xTuVi += io.param;
                             break;
                     }
                 }
@@ -1651,6 +1668,10 @@ public class NPoint {
         this.tlSDDep.clear();
         this.tlSubSD = 0;
         this.tlHpGiamODo = 0;
+        this.xLinhKhi = 0;
+        this.xHoiLinhKhi = 0;
+        this.xDameLinhCan = 0;
+        this.xTuVi = 0;
         this.teleport = false;
 
         this.wearingVoHinh = false;
@@ -1773,11 +1794,14 @@ public class NPoint {
                 if (this.player.setClothes.setTienXayda == 5) {
                     percentXDame = 300;
                 }
+                dameAttack = this.hpMax / 20;
                 break;
             case Skill.ANTOMIC:
+                percentDameSkill = skillSelect.damage;
                 if (intrinsic.id == 17) {
                     percentDameIntrinsic = intrinsic.param1;
                 }
+                dameAttack = this.hpMax / 5;
                 break;
             case Skill.DEMON:
                 if (intrinsic.id == 8) {
@@ -1898,7 +1922,7 @@ public class NPoint {
                 dameAttack += dameAttack * integer / 150;
             }
         }
-        dameAttack += dameAttack * percentXDame / 80;
+        dameAttack += dameAttack * percentXDame / 100;
         dameAttack = Util.GioiHannextdame(dameAttack - (dameAttack * 5 / 100), dameAttack + (dameAttack * 5 / 100));
         if (player.isPl()) {
             if (player.inventory.haveOption(player.inventory.itemsBody, 5, 159)) {
