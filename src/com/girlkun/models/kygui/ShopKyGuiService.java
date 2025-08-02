@@ -3,14 +3,13 @@ package com.girlkun.models.kygui;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.item.Item.ItemOption;
-import com.girlkun.models.npc.NpcFactory;
 import com.girlkun.models.player.Player;
 import com.girlkun.network.io.Message;
 import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.ItemService;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
-import com.girlkun.utils.Logger;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -99,7 +98,7 @@ public class ShopKyGuiService {
             }
         } else if (it.gemSell > 0) {
             if (pl.inventory.ruby >= it.gemSell) {
-                pl.inventory.ruby-= it.gemSell;
+                pl.inventory.ruby -= it.gemSell;
                 isBuy = true;
             } else {
                 Service.getInstance().sendThongBao(pl, "Bạn không đủ hồng ngọc để mua vật phẩm này!");
@@ -176,8 +175,8 @@ public class ShopKyGuiService {
                 msg.writer().writeByte(itk.player_sell == pl.id ? 1 : 0); // isMe
                 msg.writer().writeByte(it.itemOptions.size());
                 for (int a = 0; a < it.itemOptions.size(); a++) {
-                    msg.writer().writeByte(it.itemOptions.get(a).optionTemplate.id);
-                    msg.writer().writeShort(it.itemOptions.get(a).param);
+                    msg.writer().writeShort(it.itemOptions.get(a).optionTemplate.id);
+                    msg.writer().writeInt(it.itemOptions.get(a).param);
                 }
                 msg.writer().writeByte(0);
                 msg.writer().writeByte(0);
@@ -209,7 +208,7 @@ public class ShopKyGuiService {
         NpcService.gI().createMenuConMeo(pl, ConstNpc.UP_TOP_ITEM, -1, "Bạn có muốn đưa vật phẩm ['" + ItemService.gI().createNewItem(it.itemId).template.name + "'] của bản thân lên trang đầu?\nYêu cầu 50 hồng ngọc.", "Đồng ý", "Từ Chối");
     }
 
-    
+
     public void claimOrDel(Player pl, byte action, int id) {
         ItemKyGui it = getItemBuy(pl, id);
         switch (action) {
@@ -257,7 +256,7 @@ public class ShopKyGuiService {
                     openShopKyGui(pl);
                 }
                 break;
-                
+
         }
     }
 
@@ -266,7 +265,7 @@ public class ShopKyGuiService {
         ShopKyGuiManager.gI().listItem.stream().filter((it) -> (it != null && it.player_sell == pl.id)).forEachOrdered((it) -> {
             its.add(it);
         });
-        pl.inventory.itemsBag.stream().filter((it) -> (it.isNotNullItem() && (InventoryServiceNew.gI().hasOptionTemplateId(it,86) || InventoryServiceNew.gI().hasOptionTemplateId(it,87)))).forEachOrdered((it) -> {
+        pl.inventory.itemsBag.stream().filter((it) -> (it.isNotNullItem() && (InventoryServiceNew.gI().hasOptionTemplateId(it, 86) || InventoryServiceNew.gI().hasOptionTemplateId(it, 87)))).forEachOrdered((it) -> {
             its.add(new ItemKyGui(InventoryServiceNew.gI().getIndexBag(pl, it), it.template.id, (int) pl.id, (byte) 4, -1, -1, it.quantity, (byte) -1, it.itemOptions, false, System.currentTimeMillis()));
         });
         return its;
@@ -280,7 +279,7 @@ public class ShopKyGuiService {
             });
             return Collections.max(id);
         } catch (Exception e) {
-                System.out.println("        loi maxid");
+            System.out.println("        loi maxid");
             return 0;
         }
     }
@@ -385,8 +384,8 @@ public class ShopKyGuiService {
                         msg.writer().writeByte(1); // isMe
                         msg.writer().writeByte(it.itemOptions.size());
                         for (int a = 0; a < it.itemOptions.size(); a++) {
-                            msg.writer().writeByte(it.itemOptions.get(a).optionTemplate.id);
-                            msg.writer().writeShort(it.itemOptions.get(a).param);
+                            msg.writer().writeShort(it.itemOptions.get(a).optionTemplate.id);
+                            msg.writer().writeInt(it.itemOptions.get(a).param);
                         }
                         msg.writer().writeByte(0);
                         msg.writer().writeByte(0);
@@ -420,8 +419,8 @@ public class ShopKyGuiService {
                         msg.writer().writeByte(itk.player_sell == pl.id ? 1 : 0); // isMe
                         msg.writer().writeByte(it.itemOptions.size());
                         for (int a = 0; a < it.itemOptions.size(); a++) {
-                            msg.writer().writeByte(it.itemOptions.get(a).optionTemplate.id);
-                            msg.writer().writeShort(it.itemOptions.get(a).param);
+                            msg.writer().writeShort(it.itemOptions.get(a).optionTemplate.id);
+                            msg.writer().writeInt(it.itemOptions.get(a).param);
                         }
                         msg.writer().writeByte(0);
                         msg.writer().writeByte(0);

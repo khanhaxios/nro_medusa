@@ -88,13 +88,7 @@ public class GodGK {
                 int secondsPass1 = (int) ((System.currentTimeMillis() - lastTimeLogin) / 1000);
                 long lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
                 int secondsPass = (int) ((System.currentTimeMillis() - lastTimeLogout) / 1000);
-//                if (!session.isAdmin) {
-//                    Service.getInstance().sendThongBaoOK(session, "Chi danh cho admin");
-//                }else
-//                if (session.version < 200) {
-//                    Service.getInstance().sendThongBaoOK(session, "Vui lòng vào Game bằng Bản Version 225 Trở lên");
-//                    return null;
-//                }
+
                 if (rs.getBoolean("ban")) {
                     Service.getInstance().sendThongBaoOK(session, "Tài khoản của bạn đã bị khóa. Lý do : Clone trên 5 acc !!!");
                 } else if (baotri && !session.isAdmin) {
@@ -967,7 +961,6 @@ public class GodGK {
                                     player.luckyPoolPlayer.itemBags.add(item);
                                 }
                             }
-
                             // handle data tu tien
                             player.bdkb_isJoinBdkb = false;
                             if ((new java.sql.Date(player.bdkb_lastTimeJoin)).getDay() != (new java.sql.Date(System.currentTimeMillis())).getDay()) {
@@ -990,12 +983,11 @@ public class GodGK {
                 al.wrong();
             }
         } catch (Exception e) {
-            Logger.error(session.uu);
             if (player != null) {
                 player.dispose();
             }
             player = null;
-            Logger.logException(GodGK.class, e);
+            e.printStackTrace();
         } finally {
             if (rs != null) {
                 rs.dispose();
@@ -1028,7 +1020,7 @@ public class GodGK {
                                 player.tuTien.timeTuTien = Long.parseLong(basePointArray.get(9).toString());
                                 player.tuTien.xParam = Byte.parseByte(basePointArray.get(10).toString());
                                 player.tuTien.lastimeCoDuyen = Long.parseLong(basePointArray.get(11).toString());
-                                player.tuTien.lastimeCoDuyen = Integer.parseInt(basePointArray.get(12).toString());
+                                player.tuTien.stackTlDotPha = Integer.parseInt(basePointArray.get(12).toString());
                             }
 
                             // index 1: linh can
@@ -1109,7 +1101,6 @@ public class GodGK {
                             player.luyenDanSu.maxExp = Long.parseLong(jsonArray.get(2).toString());
                             player.luyenDanSu.tongDanDuocDaAn = Byte.parseByte(jsonArray.get(3).toString());
                             player.luyenDanSu.diemKhangTinh = Integer.parseInt(jsonArray.get(4).toString());
-
 
                             JSONArray tuiDanDuoc = (JSONArray) jsonArray.get(5);  // Vị trí này có thể thay đổi tùy theo cách lưu trữ trong database
                             for (Object obj : tuiDanDuoc) {
@@ -1213,7 +1204,7 @@ public class GodGK {
                 } catch (Exception e) {
                     player.luyenDanSu.tongDanDuocDaAn = 0;
                     player.luyenDanSu.diemKhangTinh = 0;
-                    Logger.error(e.getMessage());
+                    e.printStackTrace();
                 }
                 try {
                     String dataLuyenThe = rs.getString("data_luyen_the");
@@ -1527,7 +1518,7 @@ public class GodGK {
                         }
                     }
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
                 try {
                     String dataMach = rs.getString("data_mach");
@@ -2446,13 +2437,12 @@ public class GodGK {
                     player.TrieuHoiCapBac = -1;
                 }
                 dataArray.clear();
-
+                handleDataTutTien(player);
                 player.nPoint.hp = plHp;
                 player.nPoint.mp = plMp;
                 player.iDMark.setLoadedAllDataPlayer(true);
             }
         } catch (Exception e) {
-            System.out.println("yyy");
             player.dispose();
             player = null;
             Logger.logException(GodGK.class, e);
@@ -2461,7 +2451,6 @@ public class GodGK {
                 rs.dispose();
             }
         }
-        Logger.log("ruby ::: " + player.inventory.ruby);
         return player;
     }
 }

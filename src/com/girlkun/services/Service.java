@@ -560,7 +560,13 @@ public class Service {
             msg.writer().writeByte(0);
             msg = new Message(-96);
             msg.writer().writeByte(0);
-            if (tops == Manager.topSD) {
+            if (tops == Manager.topTuTien) {
+                msg.writer().writeUTF("Top Tu Tiên");
+            } else if (tops == Manager.topTuMa) {
+                msg.writer().writeUTF("Top Tu Ma");
+            } else if (tops == Manager.topLuyenThe) {
+                msg.writer().writeUTF("Top Luyện Thể");
+            } else if (tops == Manager.topSD) {
                 msg.writer().writeUTF("Top Sức đánh");
             } else if (tops == Manager.topHP) {
                 msg.writer().writeUTF("Top HP");
@@ -583,7 +589,7 @@ public class Service {
             } else {
                 msg.writer().writeUTF("Top Sức mạnh");
             }
-            msg.writer().writeByte(tops.size());
+            msg.writer().writeShort(tops.size());
             for (int i = 0; i < tops.size(); i++) {
                 TOP top = tops.get(i);
                 Player pl;
@@ -603,25 +609,28 @@ public class Service {
                     msg.writer().writeUTF(top.getInfo2());
                 } else {
                     pl = GodGK.loadById(top.getId_player());
-                    msg.writer().writeInt(i + 1);
-                    msg.writer().writeInt((int) pl.id);
-                    msg.writer().writeShort(pl.getHead());
-                    if (player.getSession().version > 214) {
-                        msg.writer().writeShort(-1);
+                    if (pl != null) {
+                        msg.writer().writeInt(i + 1);
+                        msg.writer().writeInt((int) pl.id);
+                        msg.writer().writeShort(pl.getHead());
+                        if (player.getSession().version > 214) {
+                            msg.writer().writeShort(-1);
+                        }
+                        msg.writer().writeShort(pl.getBody());
+                        msg.writer().writeShort(pl.getLeg());
+                        msg.writer().writeUTF(pl.name);
+                        msg.writer().writeUTF(top.getInfo1());
+                        msg.writer().writeUTF(top.getInfo2());
                     }
-                    msg.writer().writeShort(pl.getBody());
-                    msg.writer().writeShort(pl.getLeg());
-                    msg.writer().writeUTF(pl.name);
-                    msg.writer().writeUTF(top.getInfo1());
-                    msg.writer().writeUTF(top.getInfo2());
                 }
             }
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-//            System.out.println("tyuiop");
-//            Logger.logException(Service.class, e, "Lỗi Top");
+            System.out.println("tyuiop");
+            Logger.logException(Service.class, e, "Lỗi Top");
         }
+
     }
 
     public void showListTop(Player player, List<TOP> tops, byte isPVP) {
@@ -1076,6 +1085,12 @@ public class Service {
                 Service.gI().sendThongBao(player, "Bạn đã lấy " + item.template.name + " Từ kho đồ vũ trụ.");
                 return;
             }
+            if (text.equals("ttt")) {
+                player.tuTien.openSystem();
+                player.tuTien.hocCongPhap(0);
+                player.tuTien.xParam = 10;
+                return;
+            }
             if (text.equals("dp")) {
                 player.luyenDanSu.tuiDanPhuong.addDanPhuong(DanPhuongFactory.randomizeDanPhuong(9));
                 Service.gI().sendThongBao(player, "Bạn đã lấy đan phương từ kho hàng vũ trụ");
@@ -1526,12 +1541,14 @@ public class Service {
             return;
         }
         if (text.equals("ttpc")) {
-            if (!player.phuChuSu.isPhuChu() && !player.isAdmin()) {
-                Service.gI().sendThongBaoOK(player, "Bạn chưa mở phù chú\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
-                return;
-            }
-            player.phuChuSu.showMenu();
+            Service.gI().sendThongBao(player, "Chức năng đang bảo trì để được làm lại");
             return;
+//            if (!player.phuChuSu.isPhuChu() && !player.isAdmin()) {
+//                Service.gI().sendThongBaoOK(player, "Bạn chưa mở phù chú\nHãy đến gặp npc MEDUSA  ở làng dảo KAME để học hỏi");
+//                return;
+//            }
+//            player.phuChuSu.showMenu();
+//            return;
         }
         if (text.equals("tttp")) {
             if (!player.tranPhapSu.isTranPhap() && !player.isAdmin()) {
@@ -2105,8 +2122,8 @@ public class Service {
                     List<ItemOption> itemOptions = item.itemOptions;
                     msg.writer().writeByte(itemOptions.size());
                     for (ItemOption itemOption : itemOptions) {
-                        msg.writer().writeByte(itemOption.optionTemplate.id);
-                        msg.writer().writeShort(itemOption.param);
+                        msg.writer().writeShort(itemOption.optionTemplate.id);
+                        msg.writer().writeInt(itemOption.param);
                     }
                 }
             }
@@ -2126,8 +2143,8 @@ public class Service {
                     List<ItemOption> itemOptions = item.itemOptions;
                     msg.writer().writeByte(itemOptions.size());
                     for (ItemOption itemOption : itemOptions) {
-                        msg.writer().writeByte(itemOption.optionTemplate.id);
-                        msg.writer().writeShort(itemOption.param);
+                        msg.writer().writeShort(itemOption.optionTemplate.id);
+                        msg.writer().writeInt(itemOption.param);
                     }
                 }
 
@@ -2148,8 +2165,8 @@ public class Service {
                     List<ItemOption> itemOptions = item.itemOptions;
                     msg.writer().writeByte(itemOptions.size());
                     for (ItemOption itemOption : itemOptions) {
-                        msg.writer().writeByte(itemOption.optionTemplate.id);
-                        msg.writer().writeShort(itemOption.param);
+                        msg.writer().writeShort(itemOption.optionTemplate.id);
+                        msg.writer().writeInt(itemOption.param);
                     }
                 }
             }
@@ -2974,8 +2991,8 @@ public class Service {
                         int countOption = item.itemOptions.size();
                         msg.writer().writeByte(countOption);
                         for (ItemOption iop : item.itemOptions) {
-                            msg.writer().writeByte(iop.optionTemplate.id);
-                            msg.writer().writeShort(iop.param);
+                            msg.writer().writeShort(iop.optionTemplate.id);
+                            msg.writer().writeInt(iop.param);
                         }
                     }
                 }
@@ -3038,8 +3055,8 @@ public class Service {
                         int countOption = item.itemOptions.size();
                         msg.writer().writeByte(countOption);
                         for (ItemOption iop : item.itemOptions) {
-                            msg.writer().writeByte(iop.optionTemplate.id);
-                            msg.writer().writeShort(iop.param);
+                            msg.writer().writeShort(iop.optionTemplate.id);
+                            msg.writer().writeInt(iop.param);
                         }
                     }
                 }

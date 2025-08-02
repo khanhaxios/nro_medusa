@@ -32,6 +32,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class DataGame {
 
@@ -138,7 +141,7 @@ public class DataGame {
             for (MobTemplate temp : Manager.MOB_TEMPLATES) {
                 msg.writer().writeByte(temp.type);
                 msg.writer().writeUTF(temp.name);
-                msg.writer().writeInt(temp.hp);
+                msg.writer().writeDouble(temp.hp);
                 msg.writer().writeByte(temp.rangeMove);
                 msg.writer().writeByte(temp.speed);
                 msg.writer().writeByte(temp.dartType);
@@ -559,31 +562,75 @@ public class DataGame {
     }
 
     public static void sendRes(MySession session) {
-        Message msg;
-        try {
-            for (final File fileEntry : new File("data/girlkun/res/x" + session.zoomLevel).listFiles()) {
-                String original = fileEntry.getName();
-                byte[] res = FileIO.readFile(fileEntry.getAbsolutePath());
-                msg = new Message(-74);
-                msg.writer().writeByte(2);
-                msg.writer().writeUTF(original);
-                msg.writer().writeInt(res.length);
-                msg.writer().write(res);
-                session.sendMessage(msg);
-                msg.cleanup();
-                Thread.sleep(10);
-            }
+        File folder = new File("data/girlkun/res/x" + session.zoomLevel);
+        File[] files = folder.listFiles();
+        if (files == null) return;
 
-            msg = new Message(-74);
+        ExecutorService executor = Executors.newFixedThreadPool(4); // 4 luồng gửi song song
+
+        for (final File fileEntry : files) {
+            executor.submit(() -> {
+                try {
+                    String original = fileEntry.getName();
+                    byte[] res = FileIO.readFile(fileEntry.getAbsolutePath());
+
+                    Message msg = new Message(-74);
+                    msg.writer().writeByte(2);
+                    msg.writer().writeUTF(original);
+                    msg.writer().writeInt(res.length);
+                    msg.writer().write(res);
+
+                    session.sendMessage(msg);
+                    msg.cleanup();
+                } catch (Exception e) {
+                    System.out.println("Lỗi gửi file: " + fileEntry.getName());
+                }
+            });
+        }
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(10, TimeUnit.SECONDS); // Chờ tất cả task hoàn thành
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Message msg = new Message(-74);
             msg.writer().writeByte(3);
-            msg.writer().writeInt(vsRes);
+            msg.writer().writeInt(vsRes); // Gửi tín hiệu hoàn tất
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-//            Logger.logException(DataGame.class, e);
-            System.out.println("Lỗi khi send Res (Có thể bỏ qua) -> IP: " + session.ipAddress);
+            System.out.println("Lỗi gửi vsRes");
         }
     }
+//    public static void sendRes(MySession session) {
+//        Message msg;
+//        try {
+//            for (final File fileEntry : new File("data/girlkun/res/x" + session.zoomLevel).listFiles()) {
+//                String original = fileEntry.getName();
+//                byte[] res = FileIO.readFile(fileEntry.getAbsolutePath());
+//                msg = new Message(-74);
+//                msg.writer().writeByte(2);
+//                msg.writer().writeUTF(original);
+//                msg.writer().writeInt(res.length);
+//                msg.writer().write(res);
+//                session.sendMessage(msg);
+//                msg.cleanup();
+////                Thread.sleep(10);
+//            }
+//
+//            msg = new Message(-74);
+//            msg.writer().writeByte(3);
+//            msg.writer().writeInt(vsRes);
+//            session.sendMessage(msg);
+//            msg.cleanup();
+//        } catch (Exception e) {
+////            Logger.logException(DataGame.class, e);
+//            System.out.println("Lỗi khi send Res (Có thể bỏ qua) -> IP: " + session.ipAddress);
+//        }
+//    }
 
     public static void sendLinkIP(MySession session) {
         Message msg;

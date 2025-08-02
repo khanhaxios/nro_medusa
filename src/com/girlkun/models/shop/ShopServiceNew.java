@@ -180,8 +180,8 @@ public class ShopServiceNew {
                         }
                         msg.writer().writeByte(itemShop.options.size());
                         for (Item.ItemOption option : itemShop.options) {
-                            msg.writer().writeByte(option.optionTemplate.id);
-                            msg.writer().writeShort(option.param);
+                            msg.writer().writeShort(option.optionTemplate.id);
+                            msg.writer().writeInt(option.param);
                         }
                         msg.writer().writeByte(itemShop.isNew ? 1 : 0);
                         if (itemShop.temp.type == 5) {
@@ -223,8 +223,8 @@ public class ShopServiceNew {
                         msg.writer().writeInt(giaItem);
                         msg.writer().writeByte(itemShop.options.size());
                         for (Item.ItemOption option : itemShop.options) {
-                            msg.writer().writeByte(option.optionTemplate.id);
-                            msg.writer().writeShort(option.param);
+                            msg.writer().writeShort(option.optionTemplate.id);
+                            msg.writer().writeInt(option.param);
                         }
                         msg.writer().writeByte(itemShop.isNew ? 1 : 0);
                         if (itemShop.temp.type == 5) {
@@ -268,8 +268,8 @@ public class ShopServiceNew {
                 msg.writer().writeUTF("\n|7|Chào mừng đến với Ngọc Rồng RISE (MEDUSA MỚI)");
                 msg.writer().writeByte(item.itemOptions.size() + 1);
                 for (Item.ItemOption io : item.itemOptions) {
-                    msg.writer().writeByte(io.optionTemplate.id);
-                    msg.writer().writeShort(io.param);
+                    msg.writer().writeShort(io.optionTemplate.id);
+                    msg.writer().writeInt(io.param);
                 }
                 //số lượng
                 msg.writer().writeByte(31);
@@ -319,6 +319,10 @@ public class ShopServiceNew {
         } else if (tagName.equals("ITEMS_REWARD")) {
             return;
         }
+        if (tagName.equals("ITEM_LUCKY_POOL")) {
+            getItemSideBoxLuckyPool(player, player.luckyPoolPlayer.itemBags, type, tempId);
+            return;
+        }
         if (player.iDMark.getShopOpen() == null) {
             Service.getInstance().sendThongBao(player, "Không thể thực hiện");
             return;
@@ -331,6 +335,48 @@ public class ShopServiceNew {
             buyItem(player, tempId);
         }
         Service.getInstance().sendMoney(player);
+    }
+
+    private void getItemSideBoxLuckyPool(Player player, List<Item> itemBags, byte type, int tempId) {
+        if (itemBags == null) {
+            return;
+        }
+        Item item = itemBags.get(tempId);
+        switch (type) {
+            case 0: //nhận
+                if (item.isNotNullItem()) {
+                    if (InventoryServiceNew.gI().getCountEmptyBag(player) != 0) {
+                        InventoryServiceNew.gI().addItemBag(player, item);
+                        Service.getInstance().sendThongBao(player,
+                                "Bạn nhận được " + (item.template.id == 189
+                                        ? Util.numberToMoney(item.quantity) + " vàng" : item.template.name));
+                        InventoryServiceNew.gI().sendItemBags(player);
+                        itemBags.remove(tempId);
+                    } else {
+                        Service.getInstance().sendThongBao(player, "Hành trang đã đầy");
+                    }
+                } else {
+                    Service.getInstance().sendThongBao(player, "Không thể thực hiện");
+                }
+                break;
+            case 1: //xóa
+                itemBags.remove(tempId);
+                Service.getInstance().sendThongBao(player, "Xóa vật phẩm thành công");
+                break;
+            case 2: //nhận hết
+                for (int i = itemBags.size() - 1; i >= 0; i--) {
+                    item = itemBags.get(i);
+                    if (InventoryServiceNew.gI().addItemBag(player, item)) {
+                        Service.getInstance().sendThongBao(player,
+                                "Bạn nhận được " + (item.template.id == 189
+                                        ? Util.numberToMoney(item.quantity) + " vàng" : item.template.name));
+                        itemBags.remove(i);
+                    }
+                }
+                InventoryServiceNew.gI().sendItemBags(player);
+                break;
+        }
+        openShopType4(player, player.iDMark.getTagNameShop(), itemBags);
     }
 
     //    private boolean subMoneyByItemShop(Player player, ItemShop is) {

@@ -1,7 +1,6 @@
 package com.girlkun.models.player.tutien.luyenkhi;
 
-import com.girlkun.services.Service;
-import com.girlkun.utils.Logger;
+import com.girlkun.models.player.Player;
 import com.girlkun.utils.Util;
 import lombok.Data;
 
@@ -38,16 +37,6 @@ public class TienPhap {
         return this.mota.replace("#", String.valueOf(xParam));
     }
 
-    public void restTienCoolDown() {
-        this.setCoolDown(30 * 1000);
-        this.setLastTimeUsed(System.currentTimeMillis());
-    }
-
-    private void dispose() {
-        lastTimeUsed = System.currentTimeMillis();
-        timeDuration = 0;
-    }
-
 
     public void randomParam(byte baseXParam) {
         byte randomParam = TienPhap.PARAM_TO_BUFF[Util.nextInt(TienPhap.PARAM_TO_BUFF.length)];
@@ -74,51 +63,26 @@ public class TienPhap {
         this.tuTien = tuTien;
     }
 
-    public void useTienPhap() {
-        if (tuTien.linhKhiPoint - percentLinhKhiUse >= 0) {
-            restTienCoolDown();
-            tuTien.subLinhKhiPercent(percentLinhKhiUse);
-            Service.gI().chat(tuTien.player, ten);
-        }
-    }
-
     public void update() {
-        try {
-            if (tuTien == null) {
-                dispose();
-            }
-            switch (param) {
-                case 1:
-                    if (!hasEffect && isActive()) {
-                        tuTien.player.nPoint.addHp(tuTien.player.nPoint.hpMax);
-                        hasEffect = true;
-                    }
-                    break;
-                case 3:
-                    if (isActive()) {
-                        tuTien.player.nPoint.addHp(tuTien.player.nPoint.hpMax / 100 * xParam);
-                    }
-                    break;
-                case 4:
-                    if (!hasEffect && isActive()) {
-                        tuTien.player.nPoint.tyLeGiamDame += xParam;
-                        hasEffect = true;
-                    }
-                    break;
-            }
-            if (coolDown - 1000 >= 0) {
-                coolDown -= 1000;
-            }
-        } catch (Exception e) {
-            Logger.error(e.getMessage());
+        if (Util.canDoWithTime(lastTimeUsed, 10_000)) {
+            tuTien.subLinhKhi(getPercentLinhKhiUse());
         }
     }
 
-    public boolean isActive() {
-        return (System.currentTimeMillis() - this.lastTimeUsed + timeDuration) > 0;
-    }
-
-    public boolean isCoolDown() {
-        return coolDown > 0;
+    public void calcPoint(Player player) {
+        switch (param) {
+            case 0:
+                player.nPoint.xDameLinhCan += xParam;
+                break;
+            case 1, 3:
+                player.nPoint.hpAdd += player.nPoint.hpAdd * xParam / 100;
+                break;
+            case 2:
+                player.nPoint.dameAfter += xParam;
+                break;
+            case 4:
+                player.nPoint.tlSubSD += xParam;
+                break;
+        }
     }
 }

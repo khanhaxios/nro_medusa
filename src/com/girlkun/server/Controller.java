@@ -611,7 +611,6 @@ public class Controller implements IMessageHandler {
         } catch (Exception e) {
             byte cmd = _msg.command;
             System.out.println("Lỗi CMD -> " + cmd + e.getMessage());
-            Logger.log(e.getMessage());
         } finally {
             _msg.cleanup();
             _msg.dispose();

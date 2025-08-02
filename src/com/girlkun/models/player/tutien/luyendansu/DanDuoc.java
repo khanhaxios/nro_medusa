@@ -1,6 +1,6 @@
 package com.girlkun.models.player.tutien.luyendansu;
 
-public class DanDuoc {
+public class DanDuoc implements ITransaction {
     public String tenDanDuoc;
     public byte capDanDuoc;
     public int capDoYeuCauDeSuDung;
@@ -9,7 +9,7 @@ public class DanDuoc {
     public int quantity;
 
     public DanDuoc() {
-
+        
     }
 
     public DanDuoc(int id, String tenDanDuoc, byte capDanDuoc, int capDoYeuCauDeSuDung) {

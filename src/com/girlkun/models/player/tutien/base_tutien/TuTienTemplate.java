@@ -283,7 +283,7 @@ public class TuTienTemplate {
         TIEN_PHAP.add(new TienPhap((byte) 10, "Ma Thần Kích Hoạt", "Sau khi dùng chiêu, tăng sát thương lên #%", 0L, (byte) 2, LINH_CAN.get("P")));
 
         for (TienPhap tp : TIEN_PHAP) {
-            tp.randomParam((byte) 120);
+            tp.randomParam((byte) 60);
             tp.setCoolDown(0);
             tp.setLastTimeUsed(0);
         }

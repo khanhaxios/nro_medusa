@@ -35,6 +35,7 @@ public class CongPhap {
     public int totalHutHp = 0;
     public int totalHutMp = 0;
     public int totalHutDame = 0;
+    public int slLinhNgo = 0;
     public byte thuoctinh;
     public byte xDameThuocTinh = 0;
     public PhamChat phamchat = PhamChat.HOANG;
@@ -47,7 +48,7 @@ public class CongPhap {
     public String tenCongPhap;
     byte maxThuocTinh;
     byte slThuocTinh;
-    public static byte MAX_THUOC_TINH = 13;
+    public static byte MAX_THUOC_TINH = 7;
 
     public CongPhap(TuTien tuTien) {
         this.tuTien = tuTien;
@@ -65,14 +66,14 @@ public class CongPhap {
         byte quan = 0;
         if (tlHpBuff > 0) quan += 1;
         if (tlMpBuff > 0) quan += 1;
-        if (tlAnCapVang > 0) quan += 1;
+//        if (tlAnCapVang > 0) quan += 1;
         if (tlDameBuff > 0) quan += 1;
-        if (tlHutHPBuff > 0) quan += 1;
-        if (tlHutMPBuff > 0) quan += 1;
+//        if (tlHutHPBuff > 0) quan += 1;
+//        if (tlHutMPBuff > 0) quan += 1;
         if (tlLinhKhiBuff > 0) quan += 1;
-        if (hutDame > 0) quan += 1;
-        if (hutHp > 0) quan += 1;
-        if (hutMp > 0) quan += 1;
+//        if (hutDame > 0) quan += 1;
+//        if (hutHp > 0) quan += 1;
+//        if (hutMp > 0) quan += 1;
         if (xDameThuocTinh > 0) quan += 1;
         if (xLinhKhiBuff > 0) quan += 1;
         if (xTocDoKhoiPhucLinhKhi > 0) quan += 1;
@@ -116,25 +117,7 @@ public class CongPhap {
     }
 
     public byte getMaxThuocTinhByPhamChat() {
-        switch (phamchat.id) {
-            case 0:
-                return 1;
-            case 1:
-                return 2;
-            case 2:
-                return 4;
-            case 3:
-                return 6;
-            case 4:
-                return 7;
-            case 5:
-                return 9;
-            case 6:
-                return 12;
-            case 7:
-                return MAX_THUOC_TINH;
-        }
-        return 0;
+        return MAX_THUOC_TINH;
     }
 
     public String getNameByPhamChat() {
@@ -169,9 +152,10 @@ public class CongPhap {
             int nextId = this.phamchat.id + 1;
             this.phamchat = PhamChat.fromId(nextId);
             this.maxThuocTinh = getMaxThuocTinhByPhamChat();
-            randomNewBuff(3);
+            randomNewBuff(2);
             upOldBuff();
             restDoTT();
+            slLinhNgo = 0;
         } else {
             restDoTT();
             Service.gI().sendThongBao(tuTien.player, "Lĩnh ngộ thất bại bạn mất hết độ thuần thục");
@@ -198,21 +182,21 @@ public class CongPhap {
     }
 
     public void upOldBuff() {
-        if (tlHpBuff > 0) tlHpBuff += Math.min(tlHpBuff + Util.nextInt(1, 5), MAX_BUFF);
+        if (tlHpBuff > 0) tlHpBuff += Math.min(tlHpBuff + Util.nextInt(1, 50), MAX_BUFF);
 
-        if (tlMpBuff > 0) tlMpBuff += Math.min(tlMpBuff + Util.nextInt(1, 5), MAX_BUFF);
+        if (tlMpBuff > 0) tlMpBuff += Math.min(tlMpBuff + Util.nextInt(1, 50), MAX_BUFF);
 
-        if (tlAnCapVang > 0) tlAnCapVang += Math.min(tlAnCapVang + Util.nextInt(1, 3), MAX_BUFF);
+//        if (tlAnCapVang > 0) tlAnCapVang += Math.min(tlAnCapVang + Util.nextInt(1, 3), MAX_BUFF);
 
-        if (tlDameBuff > 0) tlDameBuff += Math.min(tlDameBuff + Util.nextInt(1, 2), MAX_BUFF);
+        if (tlDameBuff > 0) tlDameBuff += Math.min(tlDameBuff + Util.nextInt(1, 50), MAX_BUFF);
 
-        if (tlLinhKhiBuff > 0) tlLinhKhiBuff += Math.min(tlLinhKhiBuff + Util.nextInt(1), MAX_BUFF);
+        if (tlLinhKhiBuff > 0) tlLinhKhiBuff += Math.min(tlLinhKhiBuff + Util.nextInt(1, 3), MAX_BUFF);
 
-        if (hutDame > 0) hutDame += Math.min(hutDame + Util.nextInt(1, 3), MAX_BUFF);
-
-        if (hutHp > 0) hutHp += Math.min(hutHp + Util.nextInt(1, 3), MAX_BUFF);
-
-        if (hutMp > 0) hutMp += Math.min(hutMp + Util.nextInt(1, 3), MAX_BUFF);
+//        if (hutDame > 0) hutDame += Math.min(hutDame + Util.nextInt(1, 3), MAX_BUFF);
+//
+//        if (hutHp > 0) hutHp += Math.min(hutHp + Util.nextInt(1, 3), MAX_BUFF);
+//
+//        if (hutMp > 0) hutMp += Math.min(hutMp + Util.nextInt(1, 3), MAX_BUFF);
 
         if (Util.isTrue(1, 100)) {
             if (xDameThuocTinh > 0) xDameThuocTinh += (byte) Math.min(xDameThuocTinh + Util.nextInt(1, 2), 100);
@@ -239,10 +223,10 @@ public class CongPhap {
         if (tlMpBuff == 0) thuocTinhList.add(() -> tlMpBuff = Util.nextInt(5, 12));
         if (tlDameBuff == 0) thuocTinhList.add(() -> tlDameBuff = Util.nextInt(5, 12));
         if (tlLinhKhiBuff == 0) thuocTinhList.add(() -> tlLinhKhiBuff = Util.nextInt(5, 12));
-        if (tlAnCapVang == 0) thuocTinhList.add(() -> tlAnCapVang = Util.nextInt(5, 12));
-        if (hutDame == 0) thuocTinhList.add(() -> hutDame = Util.nextInt(5, 12));
-        if (hutHp == 0) thuocTinhList.add(() -> hutHp = Util.nextInt(5, 12));
-        if (hutMp == 0) thuocTinhList.add(() -> hutMp = Util.nextInt(5, 12));
+//        if (tlAnCapVang == 0) thuocTinhList.add(() -> tlAnCapVang = Util.nextInt(5, 12));
+//        if (hutDame == 0) thuocTinhList.add(() -> hutDame = Util.nextInt(5, 12));
+//        if (hutHp == 0) thuocTinhList.add(() -> hutHp = Util.nextInt(5, 12));
+//        if (hutMp == 0) thuocTinhList.add(() -> hutMp = Util.nextInt(5, 12));
         if (xDameThuocTinh == 0) thuocTinhList.add(() -> xDameThuocTinh = (byte) Util.nextInt(1, 4));
         if (xLinhKhiBuff == 0) thuocTinhList.add(() -> xLinhKhiBuff = (byte) Util.nextInt(1, 4));
         if (xTocDoKhoiPhucLinhKhi == 0) thuocTinhList.add(() -> xTocDoKhoiPhucLinhKhi = (byte) Util.nextInt(1, 4));
@@ -258,7 +242,6 @@ public class CongPhap {
 
     public int randomNewBuffA(int soLuongMuonRandom) {
         if (this.slThuocTinh >= maxThuocTinh) return 0;
-
         boolean isAdd = Util.isTrue(getBaseTyLeLinhNgo(), 100);
         if (!isAdd) return -1;
         thuocTinhList.clear();
@@ -266,10 +249,10 @@ public class CongPhap {
         if (tlMpBuff == 0) thuocTinhList.add(() -> tlMpBuff = Util.nextInt(5, 12));
         if (tlDameBuff == 0) thuocTinhList.add(() -> tlDameBuff = Util.nextInt(5, 12));
         if (tlLinhKhiBuff == 0) thuocTinhList.add(() -> tlLinhKhiBuff = Util.nextInt(5, 12));
-        if (tlAnCapVang == 0) thuocTinhList.add(() -> tlAnCapVang = Util.nextInt(5, 12));
-        if (hutDame == 0) thuocTinhList.add(() -> hutDame = Util.nextInt(5, 12));
-        if (hutHp == 0) thuocTinhList.add(() -> hutHp = Util.nextInt(5, 12));
-        if (hutMp == 0) thuocTinhList.add(() -> hutMp = Util.nextInt(5, 12));
+//        if (tlAnCapVang == 0) thuocTinhList.add(() -> tlAnCapVang = Util.nextInt(5, 12));
+//        if (hutDame == 0) thuocTinhList.add(() -> hutDame = Util.nextInt(5, 12));
+//        if (hutHp == 0) thuocTinhList.add(() -> hutHp = Util.nextInt(5, 12));
+//        if (hutMp == 0) thuocTinhList.add(() -> hutMp = Util.nextInt(5, 12));
         if (xDameThuocTinh == 0) thuocTinhList.add(() -> xDameThuocTinh = (byte) Util.nextInt(1, 4));
         if (xLinhKhiBuff == 0) thuocTinhList.add(() -> xLinhKhiBuff = (byte) Util.nextInt(1, 4));
         if (xTocDoKhoiPhucLinhKhi == 0) thuocTinhList.add(() -> xTocDoKhoiPhucLinhKhi = (byte) Util.nextInt(1, 4));
@@ -336,7 +319,7 @@ public class CongPhap {
     }
 
     public float getBaseTyLeLinhNgo() {
-        return tuTien.getXDiemNgoTinh() + 1;
+        return tuTien.getXDiemNgoTinh() + 10 + phamchat.id;
     }
 
     public String getFullName() {
@@ -384,11 +367,11 @@ public class CongPhap {
         player.nPoint.dameAdd += (long) ((player.nPoint.dameg + player.nPoint.dameAdd) * tlDameBuff / 100f);
         player.nPoint.hpAdd += (long) ((player.nPoint.hpg + player.nPoint.hpAdd) * tlHpBuff / 100f);
         player.nPoint.mpAdd += (long) ((player.nPoint.mpg + player.nPoint.mpAdd) * tlMpBuff / 100f);
-        player.nPoint.tlHutHp += tlHutHPBuff;
-        player.nPoint.tlHutMp += tlHutMPBuff;
-        player.nPoint.dameAdd += totalHutDame;
-        player.nPoint.hpAdd += totalHutHp;
-        player.nPoint.mpAdd += totalHutMp;
+//        player.nPoint.tlHutHp += tlHutHPBuff;
+//        player.nPoint.tlHutMp += tlHutMPBuff;
+//        player.nPoint.dameAdd += totalHutDame;
+//        player.nPoint.hpAdd += totalHutHp;
+//        player.nPoint.mpAdd += totalHutMp;
     }
 
     public void autoAddDoTT() {
@@ -428,10 +411,24 @@ public class CongPhap {
     }
 
     public boolean canLinhNgo() {
-        return canLevelUp();
+        return canLevelUp() && slLinhNgo + 1 <= 3;
     }
 
     public boolean isLearn() {
         return phamchat.id >= 0 && tenCongPhap != null;
+    }
+
+    public void linhNgo() {
+        restDoTT();
+        int buffAdd = randomNewBuffA(1);
+        if (buffAdd == -1) {
+            Service.gI().sendThongBao(tuTien.player, "Lĩnh ngộ thất bại");
+            return;
+        }
+        if (buffAdd == 0) {
+            upOldBuff();
+        }
+        slLinhNgo += 1;
+        Service.gI().sendThongBao(tuTien.player, "Lĩnh ngộ thành công");
     }
 }

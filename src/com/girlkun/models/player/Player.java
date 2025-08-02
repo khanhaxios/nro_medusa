@@ -1254,9 +1254,9 @@ public class Player {
             }
             this.nPoint.subHP(damage);
             // healing hp after get dame
-            if (tuTien != null && tuTien.isAutoUseTienPhap && (nPoint.hp / nPoint.hpMax * 100) < 20) {
-                tuTien.useBestHealingTienPhap();
-            }
+//            if (tuTien != null && tuTien.isAutoUseTienPhap && (nPoint.hp / nPoint.hpMax * 100) < 20) {
+//                tuTien.useBestHealingTienPhap();
+//            }
             if (isDie()) {
                 if (this.isPl()) {
                     if (plAtt != null && this.zone.map.mapId == 175) {
@@ -1300,7 +1300,7 @@ public class Player {
             tuTien.subExp(tuTien.maxExp / 100);
         }
         if (tuMa != null && tuMa.isTuMa()) {
-            tuMa.subExp(tuMa.maxExp / 100);
+            tuMa.subExp(tuMa.maxExp / 1000);
         }
         if (luyenThe.isLuyenTheReal()) {
             luyenThe.subExp(luyenThe.maxExp / 100);

@@ -1,14 +1,13 @@
 package com.girlkun.services.func;
 
-import com.girlkun.jdbc.daos.HistoryTransactionDAO;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.player.Inventory;
 import com.girlkun.models.player.Player;
 import com.girlkun.network.io.Message;
+import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.ItemService;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
-import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
@@ -262,8 +261,8 @@ public class Trade {
                     }
                     msg.writer().writeByte(item.itemOptions.size());
                     for (Item.ItemOption io : item.itemOptions) {
-                        msg.writer().writeByte(io.optionTemplate.id);
-                        msg.writer().writeShort(io.param);
+                        msg.writer().writeShort(io.optionTemplate.id);
+                        msg.writer().writeInt(io.param);
                     }
                 }
                 player2.sendMessage(msg);
@@ -279,8 +278,8 @@ public class Trade {
                     }
                     msg.writer().writeByte(item.itemOptions.size());
                     for (Item.ItemOption io : item.itemOptions) {
-                        msg.writer().writeByte(io.optionTemplate.id);
-                        msg.writer().writeShort(io.param);
+                        msg.writer().writeShort(io.optionTemplate.id);
+                        msg.writer().writeInt(io.param);
                     }
                 }
                 player1.sendMessage(msg);

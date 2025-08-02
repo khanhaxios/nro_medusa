@@ -132,7 +132,7 @@ public class DanPhuongFactory {
         // Nếu tỷ lệ thành công hợp lệ (tức là có cấp độ DanDuoc hợp lệ)
         if (levelDanDuoc >= 0) {
             // Tạo DanDuoc mới dựa trên cấp độ
-            DanDuoc danDuoc = DanDuocFactory.createDanDuoc(player, danPhuong, levelDanDuoc, Util.nextInt(1, 5));
+            DanDuoc danDuoc = DanDuocFactory.createDanDuoc(danPhuong, levelDanDuoc, Util.nextInt(1, 5));
             player.luyenDanSu.tuiDanDuoc.addDanDuoc(danDuoc);
             //handle exp
             exp = (long) Util.nextInt(300, 600) * Math.max(levelDanDuoc, 1);

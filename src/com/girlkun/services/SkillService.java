@@ -656,7 +656,7 @@ public class SkillService {
                     playerAttackPlayer(player, plTarget, miss, true);
                 }
                 if (mobTarget != null) {
-                    playerAttackMob(player, mobTarget, miss, false);
+                    playerAttackMob(player, mobTarget, miss, player.gender == 2);
                 }
                 if (player.mobMe != null) {
                     player.mobMe.attack(plTarget, mobTarget);
@@ -814,9 +814,9 @@ public class SkillService {
         }
         // handle auto use linh ky tan cong
         // chose better tan cong linh ky
-        if (player.tuTien.isAutoUseTienPhap && player.isPl()) {
-            player.tuTien.useBestAttackTienPhap();
-        }
+//        if (player.tuTien.isAutoUseTienPhap && player.isPl()) {
+//            player.tuTien.useBestAttackTienPhap();
+//        }
         if (!player.isBoss) {
             player.effectSkin.lastTimeAttack = System.currentTimeMillis();
         }

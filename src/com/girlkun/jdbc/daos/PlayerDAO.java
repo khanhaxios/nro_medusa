@@ -1743,4 +1743,13 @@ public class PlayerDAO {
         }
     }
 
+    public static boolean checkHasExit(int idNhanVat) {
+        try {
+            GirlkunResultSet girlkunResultSet = GirlkunDB.executeQuery("select count(id) from player where id = ?", idNhanVat);
+            return girlkunResultSet.getRows() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

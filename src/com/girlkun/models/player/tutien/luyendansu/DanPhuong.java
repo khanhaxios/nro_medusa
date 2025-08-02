@@ -3,7 +3,7 @@ package com.girlkun.models.player.tutien.luyendansu;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DanPhuong {
+public class DanPhuong implements ITransaction {
     public int id;
     public String tenDanPhuong;
     public int capYeuCauHoc;

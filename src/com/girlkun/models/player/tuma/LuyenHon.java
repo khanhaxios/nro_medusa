@@ -64,9 +64,9 @@ public class LuyenHon {
     }
 
     public void calcPoint() {
-        player.nPoint.dameAdd *= ((double) getDameBuff() / 100);
-        player.nPoint.hpAdd *= ((double) getHPMPBuff() / 100);
-        player.nPoint.mpAdd *= ((double) getHPMPBuff() / 100);
+        player.nPoint.dameAdd += player.nPoint.dameAdd * getDameBuff() / 100;
+        player.nPoint.hpAdd += player.nPoint.hpAdd * getHPMPBuff() / 100;
+        player.nPoint.mpAdd += player.nPoint.mpAdd * getHPMPBuff() / 100;
     }
 
     public void restHon() {
@@ -79,26 +79,15 @@ public class LuyenHon {
 
     public void showBaseMenu() {
         StringBuilder text = new StringBuilder();
-
         text.append("|7|❖═════ LUYỆN HỒN ═════❖\n");
-
-// — Tầng luyện hồn —
         text.append("|5|➤ Tầng đã luyện: ").append(soTangDaLuyen).append(" tầng\n");
-
-// — Số lượng hồn —
         text.append("|5|➤ Hư Hồn : ").append(soHonChuaLuyen).append(" Hồn\n");
         text.append("|5|➤ Tinh Hồn: ").append(soHonDaLuyen).append(" / ").append(tongSoHonCanLuyen).append("\n");
-
-// — Buff chỉ số —
         text.append("|5|➤ Dame Buff: ").append(getDameBuff()).append("%\n");
         text.append("|5|➤ HP/MP Buff: ").append(getHPMPBuff()).append("%\n");
         text.append("|5|➤ Ma Khí x: ").append(getMaKhiBuff()).append(" lần\n");
-
-// — Lưu ý / khuyến khích —
         text.append("|7|✪ Luyện Hồn càng cao, chỉ số buff càng mạnh!");
-
         text.append("\n|7|❖══════════════════════❖");
-
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_HON, -1, text.toString(), "Chú hồn", "Luyện hồn", "Đóng");
     }
 

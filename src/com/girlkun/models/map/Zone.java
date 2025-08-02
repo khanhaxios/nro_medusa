@@ -2,6 +2,7 @@ package com.girlkun.models.map;
 
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.consts.ConstTask;
+import com.girlkun.models.Template;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.dhvt.BossDHVT;
 import com.girlkun.models.item.Item;
@@ -10,6 +11,8 @@ import com.girlkun.models.npc.Npc;
 import com.girlkun.models.npc.NpcManager;
 import com.girlkun.models.player.*;
 import com.girlkun.network.io.Message;
+import com.girlkun.server.Manager;
+import com.girlkun.server.ServerNotify;
 import com.girlkun.services.*;
 import com.girlkun.utils.FileIO;
 import com.girlkun.utils.Logger;
@@ -24,7 +27,8 @@ import static com.girlkun.services.NgocRongNamecService.TIME_BL;
 import static com.girlkun.services.NgocRongNamecService.TIME_OP;
 
 public class Zone {
-
+    public static long lastTimeChangeMap;
+    public static int currentMap;
     public static final byte PLAYERS_TIEU_CHUAN_TRONG_MAP = 7;
 
     public int countItemAppeaerd = 0;
@@ -68,6 +72,17 @@ public class Zone {
     public boolean isbulon14Alive;
 
     private void udMob() {
+        if (Util.canDoWithTime(lastTimeChangeMap, 3_600_000) && Util.isTrue(50, 100)) {
+            int idMap = Util.nextInt(5, 131);
+            while (Mob.isCantJoinMap(idMap)) {
+                idMap = Util.nextInt(5, 131);
+            }
+            lastTimeChangeMap = System.currentTimeMillis();
+            Template.MapTemplate mapTemplate = Manager.getMapTemById(idMap);
+            if (mapTemplate != null) {
+                ServerNotify.gI().notify("Cơ duyên đã xuất hiện tại map " + mapTemplate.name + " các đạo hữu hãy đến nào");
+            }
+        }
         synchronized (this.mobs) {
             for (Mob mob : this.mobs) {
                 mob.update();
@@ -632,9 +647,9 @@ public class Zone {
                 msg.writer().writeBoolean(false); //is wind
                 msg.writer().writeByte(mob.tempId);
                 msg.writer().writeByte(0);
-                msg.writer().writeInt(Util.DoubleGioihana(mob.point.gethp()));
+                msg.writer().writeDouble(Util.DoubleGioihang(mob.point.gethp()));
                 msg.writer().writeByte(mob.level);
-                msg.writer().writeInt((Util.DoubleGioihana(mob.point.getHpFull())));
+                msg.writer().writeDouble((Util.DoubleGioihang(mob.point.getHpFull())));
                 msg.writer().writeShort(mob.location.x);
                 msg.writer().writeShort(mob.location.y);
                 msg.writer().writeByte(mob.status);

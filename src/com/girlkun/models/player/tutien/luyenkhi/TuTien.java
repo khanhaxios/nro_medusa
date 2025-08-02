@@ -116,14 +116,12 @@ public class TuTien extends BasePoint implements IBaseAction {
                 subLevel = 1;
                 if (player.iDMark.dotPhaThienDao) {
                     // check level
-                    if (level == 6 || level == 12 || level == 14 || level == 15 || level == 16) {
-                        float basePointPlus = 60;
-                        byte tyLeCanCot = (byte) Util.nextInt(3, 7);
-                        float pointCanCot = (basePointPlus / 100f) * (tyLeCanCot * 10);
-                        canCot += pointCanCot;
-                        ngoTinh += basePointPlus - pointCanCot;
-                        Service.gI().sendThongBaoOK(player, "Đột phá  " + CANH_GIOI[level] + " bạn được tẩy tủy căn cốt +" + pointCanCot + ",Ngộ tính + " + (basePointPlus - pointCanCot));
-                    }
+                    float basePointPlus = 100;
+                    byte tyLeCanCot = (byte) Util.nextInt(3, 7);
+                    float pointCanCot = (basePointPlus / 100f) * (tyLeCanCot * 10);
+                    canCot += pointCanCot;
+                    ngoTinh += basePointPlus - pointCanCot;
+                    Service.gI().sendThongBaoOK(player, "Đột phá  " + CANH_GIOI[level] + " bạn được tẩy tủy căn cốt +" + pointCanCot + ",Ngộ tính + " + (basePointPlus - pointCanCot));
                     if (xParam <= 1) {
                         xParam = 2;
                     } else {
@@ -155,6 +153,11 @@ public class TuTien extends BasePoint implements IBaseAction {
         }
         if (congPhap != null) {
             congPhap.calcPoint(player);
+        }
+        if (tienPhaps.size() > 0) {
+            for (TienPhap tienPhap : tienPhaps) {
+                tienPhap.calcPoint(player);
+            }
         }
     }
 
@@ -267,7 +270,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     @Override
     public float getLevelUpPercent() {
         if (level <= LEVEL_UP_PERCENT.length - 1) {
-            return ((getXDiemThienPhu() * 5) + LEVEL_UP_PERCENT[level]) + (stackTlDotPha * 2);
+            return ((getXDiemThienPhu() * 5) + LEVEL_UP_PERCENT[level]) + (stackTlDotPha * 2) + (congPhap.phamchat.id);
         }
         return 1f;
     }
@@ -480,27 +483,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 //            if (!player.isDie()) {
 //                randomizedCoDuyen();
 //            }
-            tienPhaps.forEach(TienPhap::update);
-        }
-    }
-
-    public void useBestHealingTienPhap() {
-        if (tienPhaps.size() == 0) return;
-        if (tienPhapsUsed.size() + 1 > MAX_USE_TP) return;
-        TienPhap best = null;
-        for (TienPhap tienPhap : tienPhaps) {
-            boolean isUsed = tienPhapsUsed.stream().anyMatch(tp -> tp.getId() == tienPhap.getId());
-            boolean isAttackType = tienPhap.getParam() == 1 || tienPhap.getParam() == 3 || tienPhap.getParam() == 4;
-            boolean isCooldownReady = tienPhap.getCoolDown() <= 0;
-
-            if (!isUsed && isAttackType && isCooldownReady) {
-                if (best == null || tienPhap.getXParam() > best.getXParam()) {
-                    best = tienPhap;
-                }
-            }
-            if (best != null) {
-                best.useTienPhap();
-            }
+//            tienPhaps.forEach(TienPhap::update);
         }
     }
 
@@ -858,26 +841,26 @@ public class TuTien extends BasePoint implements IBaseAction {
         }
     }
 
-    public void useBestAttackTienPhap() {
-        if (this.tienPhaps.size() == 0) return;
-        if (tienPhapsUsed.size() + 1 > MAX_USE_TP) return;
-        TienPhap best = null;
-        for (TienPhap tienPhap : tienPhaps) {
-            if (!tienPhap.isActive()) {
-                boolean isAttackType = tienPhap.getParam() == 0 || tienPhap.getParam() == 2;
-                boolean isCooldownReady = !tienPhap.isCoolDown();
-
-                if (isAttackType && isCooldownReady) {
-                    if (best == null || tienPhap.getXParam() > best.getXParam()) {
-                        best = tienPhap;
-                    }
-                }
-                if (best != null) {
-                    best.useTienPhap();
-                }
-            }
-        }
-    }
+//    public void useBestAttackTienPhap() {
+//        if (this.tienPhaps.size() == 0) return;
+//        if (tienPhapsUsed.size() + 1 > MAX_USE_TP) return;
+//        TienPhap best = null;
+//        for (TienPhap tienPhap : tienPhaps) {
+//            if (!tienPhap.isActive()) {
+//                boolean isAttackType = tienPhap.getParam() == 0 || tienPhap.getParam() == 2;
+//                boolean isCooldownReady = !tienPhap.isCoolDown();
+//
+//                if (isAttackType && isCooldownReady) {
+//                    if (best == null || tienPhap.getXParam() > best.getXParam()) {
+//                        best = tienPhap;
+//                    }
+//                }
+//                if (best != null) {
+//                    best.useTienPhap();
+//                }
+//            }
+//        }
+//    }
 
     public void showMenuAutoNghePhu() {
         String text = "|7|Cài đặt auto đột phá nghề phụ\n|5|Bạn có thể lưa chọn tắt bật tự động đột phá nghề phụ ở đây";

@@ -23,12 +23,11 @@ import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Mob {
+
 
     public int id;
     public Zone zone;
@@ -48,7 +47,8 @@ public class Mob {
     public long lastTimeDie;
     public int lvMob = 0;
     public int status = 5;
-
+    public static int[] MAP_CAN_NOT_JOIN = new int[]{21, 22, 23, 45, 48, 49, 50, 46, 47, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 67, 85, 86, 87, 88, 89, 90, 91, 112, 113, 114, 115, 116, 117, 118, 119, 120, 127, 128};
+    public static final Set<Integer> MAP_CANT_JOIN_SET = Arrays.stream(MAP_CAN_NOT_JOIN).boxed().collect(Collectors.toSet());
     public boolean isMobMe;
 
     public Mob(Mob mob) {
@@ -84,6 +84,11 @@ public class Mob {
     public static void initMopbbdkb(Mob mob, byte level) {
         mob.point.dame = (level * 3250 * mob.level * 4) * 5;
         mob.point.maxHp = (level * 12472 * mob.point.hp + level * 7263 * mob.tempId) / 2;
+    }
+
+    public static boolean isCantJoinMap(int idMap) {
+        return Mob.MAP_CANT_JOIN_SET.contains(idMap);
+
     }
 
     public void setTiemNang() {
@@ -217,11 +222,6 @@ public class Mob {
     }
 
     public void update() {
-        try {
-
-        } catch (Exception e) {
-
-        }
         if (this.isDie() && !Maintenance.isRuning) {
             switch (zone.map.type) {
                 case ConstMap.MAP_DOANH_TRAI:
@@ -438,7 +438,7 @@ public class Mob {
             msg.writer().writeByte(this.id);
             msg.writer().writeByte(this.tempId);
             msg.writer().writeByte(lvMob);
-            msg.writer().writeInt(Util.DoubleGioihana(this.point.hp));
+            msg.writer().writeDouble(Util.DoubleGioihang(this.point.hp));
             Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
         } catch (IOException e) {
@@ -533,20 +533,22 @@ public class Mob {
         try {
             if (player.session != null) {
                 // add point reward
-                int totalMoney = 1;
-                if (Util.isTrue(10, 100)) {
-                    totalMoney += Util.nextInt(10, 50);
+                int totalMoney = player.taixiu.chuyensinh + 1;
+                if (Util.isTrue(1, 10000)) {
+                    totalMoney += 1000;
+                    Service.gI().sendThongBao(player, "Bạn vừa nổ hủ lớn");
                 }
-                if (Util.isTrue(2, 100)) {
-                    totalMoney += Util.nextInt(100, 200);
-                    Service.gI().sendThongBao(player, "Nổ hũ " + Util.format(totalMoney) + " Điểm");
+                if (Util.isTrue(5, 100)) {
+                    totalMoney += 100;
+                    Service.gI().sendThongBao(player, "Bạn vừa nổ hủ nhỏ");
                 }
-                if (player.session.vnd + totalMoney > 100_000_000_000L) {
-                    player.session.vnd = 100_000_000_000L;
-                    Service.gI().sendThongBaoOK(player, "Số dư của bạn vượt quá giới hạn 100 tỷ\nhãy dùng đi nào!");
-                } else {
-                    player.session.vnd += totalMoney;
+                if (zone.map.mapId == Zone.currentMap) {
+                    totalMoney *= Util.nextInt(2, 3);
                 }
+                if (player.charms.tdThuHut > System.currentTimeMillis()) {
+                    totalMoney *= 2;
+                }
+                player.session.vnd += totalMoney;
             }
             if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
                 long exp = player.luyenThe.getExpCanGain(this);
@@ -569,7 +571,7 @@ public class Mob {
                     // rơi cong phap chan giai
                     itemReward.add(new ItemMap(zone, 2081, Util.nextInt(1, 2), this.location.x, physicalTop(this), player.id));
                 }
-                if (Util.isTrue(1, 20_000)) {
+                if (Util.isTrue(1, 50_000)) {
                     itemReward.add(new ItemMap(zone, 2080, Util.nextInt(1, 2), this.location.x, physicalTop(this), player.id));
                 }
             }
@@ -767,9 +769,7 @@ public class Mob {
             int vang = (Util.nextInt(30000, 50000) + Util.nextInt(30000, 50000) * Math.max(1, tileVang));
             list.add(new ItemMap(zone, 190, vang, this.location.x, yEnd, player.id));
         }
-        if (Util.isTrue(1, 100) && (this.zone.map.mapId == 1 || this.zone.map.mapId == 2
-                || this.zone.map.mapId == 15 || this.zone.map.mapId == 16
-                || this.zone.map.mapId == 8 || this.zone.map.mapId == 9)) {
+        if (Util.isTrue(1, 100) && (this.zone.map.mapId == 1 || this.zone.map.mapId == 2 || this.zone.map.mapId == 15 || this.zone.map.mapId == 16 || this.zone.map.mapId == 8 || this.zone.map.mapId == 9)) {
             switch (player.gender) {
                 case 0:
                     list.add(Util.kogd(zone, 2000, 1, this.location.x, yEnd, player.id));
@@ -932,7 +932,7 @@ public class Mob {
             if (type == 1) {
                 msg.writer().writeByte(player.tuTien.linhCan.getLinhCanType());
             }
-            msg.writer().writeInt(Util.DoubleGioihana(this.point.gethp()));
+            msg.writer().writeDouble(Util.DoubleGioihang(this.point.gethp()));
             msg.writer().writeDouble(Util.DoubleGioihang(dameHit));
             msg.writer().writeBoolean(crit); // chí mạng
             msg.writer().writeInt(-1);

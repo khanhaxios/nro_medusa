@@ -14,6 +14,7 @@ import com.girlkun.models.player.tutien.luyendansu.DanDuoc;
 import com.girlkun.models.player.tutien.luyendansu.DanDuocFactory;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuong;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
+import com.girlkun.models.sangiaodich.danduoc.SanGiaoDichService;
 import com.girlkun.models.shop.ShopServiceNew;
 import com.girlkun.network.io.Message;
 import com.girlkun.network.session.ISession;
@@ -30,6 +31,10 @@ public class Input {
 
     public static final int MUA_BUA = -12312323;
     public static final int USE_DAN_DUOC = -987123;
+    public static final int CREATE_GIAO_DICH = -5812876;
+    public static final int HUY_GD = -86213;
+    public static final int XEM_INFO = -9123872;
+    public static final int DAT_VAT_PHAM_VAO_GD = -561289;
     private static final Map<Integer, Object> PLAYER_ID_OBJECT = new HashMap<Integer, Object>();
 
     public static final int HOC_DAN_PHUONG = 1313123;
@@ -86,6 +91,34 @@ public class Input {
                 text[i] = msg.reader().readUTF();
             }
             switch (player.iDMark.getTypeInput()) {
+
+                case Input.CREATE_GIAO_DICH:
+                    try {
+                        String maGiaoDich = text[0];
+                        int idNhanVat = Integer.parseInt(text[1]);
+                        int idItem = Integer.parseInt(text[2]);
+                        int slItem = Integer.parseInt(text[3]);
+                        int diemNap = Integer.parseInt(text[4]);
+                        SanGiaoDichService.getI().createGiaoDich(maGiaoDich, idNhanVat, idItem, slItem, diemNap, player);
+                    } catch (Exception e) {
+                        Service.gI().sendThongBao(player, "Dữ liệu nhập vào không hợp lệ");
+                        SanGiaoDichService.getI().createGiaoDichForm(player);
+                    }
+                    break;
+                case HUY_GD:
+                    String maGiaoDich = text[0];
+                    SanGiaoDichService.getI().huyGD(maGiaoDich, player);
+                    break;
+                case XEM_INFO:
+                    String mgd = text[0];
+                    SanGiaoDichService.getI().xemInfo(mgd, player);
+                    break;
+                case DAT_VAT_PHAM_VAO_GD:
+                    String gdd = text[0];
+                    int idItem = Integer.parseInt(text[2]);
+                    int slItem = Integer.parseInt(text[3]);
+                    SanGiaoDichService.getI().datVatPhamVaoGiaoDich(gdd, idItem, slItem, player);
+                    break;
                 case USE_DAN_DUOC:
                     // get dan duoc trong tui
                     int idDanDuoc = Integer.parseInt(text[0]);

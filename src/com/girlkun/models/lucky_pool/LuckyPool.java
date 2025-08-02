@@ -1,9 +1,13 @@
 package com.girlkun.models.lucky_pool;
 
+import com.girlkun.consts.ConstNpc;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.shop.ShopServiceNew;
 import com.girlkun.server.Manager;
+import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.ItemService;
+import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
@@ -23,6 +27,72 @@ public class LuckyPool {
 
     public LuckyPool() {
         initLuckyItem();
+    }
+
+    private static LuckyPool I;
+
+    public static LuckyPool getI() {
+        if (I == null) {
+            I = new LuckyPool();
+        }
+        return I;
+    }
+
+    public static void showBaseMenu(Player player) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("|7|========= Vòng Quay May Mắn =========").append("\n");
+        stringBuilder.append("|5|Điểm may mắn của bạn là : ").append(player.luckyPoolPlayer.totalLuckyPoint).append("\n");
+        stringBuilder.append("|7|Tỷ lệ ra dòng Sử Thi : ").append((player.luckyPoolPlayer.totalLuckyPoint / 10000) * 100).append("%").append("\n");
+        stringBuilder.append("|7|Tỷ lệ ra dòng Huyền Thoại : ").append((player.luckyPoolPlayer.totalLuckyPoint / 100000) * 100).append("%").append("\n");
+        stringBuilder.append("|5|Mỗi lần quay sẽ tăng tỷ lệ ra dòng hiếm,vật phẩm quay được sẽ nằm trong túi tạm thời").append("\n");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_QSMM, -1, stringBuilder.toString(), "Quay Số", "Túi\nTạm Thời", "Xóa\nTúi");
+    }
+
+    public static void showMenuQuaySo(Player player) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("|7|========= Vòng Quay May Mắn =========").append("\n");
+        stringBuilder.append("|5|Điểm may mắn của bạn là : ").append(player.luckyPoolPlayer.totalLuckyPoint).append("\n");
+        stringBuilder.append("|7|Tỷ lệ ra dòng Sử Thi : ").append((player.luckyPoolPlayer.totalLuckyPoint / 10000) * 100).append("%").append("\n");
+        stringBuilder.append("|7|Tỷ lệ ra dòng Huyền Thoại : ").append((player.luckyPoolPlayer.totalLuckyPoint / 100000) * 100).append("%").append("\n");
+        stringBuilder.append("|5|Mỗi lần quay sẽ tăng tỷ lệ ra dòng hiếm,vật phẩm quay được sẽ nằm trong túi tạm thời").append("\n");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONFRM_QSMM, -1, stringBuilder.toString(), "Quay\n 1 lần", "Quay\n 10 lần");
+    }
+
+    public static void showTuiTamThoi(Player player) {
+        if (player.luckyPoolPlayer.itemBags.size() == 0) {
+            Service.gI().sendThongBao(player, "Không có vật phẩm nào trong rương");
+            return;
+        }
+        ShopServiceNew.gI().opendShop(player, "ITEM_LUCKY_POOL", true);
+    }
+
+    public static void removeAllItemInBag(Player player) {
+        int size = player.luckyPoolPlayer.itemBags.size();
+        for (int i = 0; i < size; i++) {
+            player.luckyPoolPlayer.itemBags.set(i, ItemService.gI().createItemNull());
+        }
+        player.luckyPoolPlayer.itemBags.clear();
+        Service.gI().sendThongBaoOK(player, "Đã xóa hết vật phẩm trong túi");
+    }
+
+    public static void prepeareForRoll(int time, Player player) {
+        Item item = InventoryServiceNew.gI().findItemBag(player, 1378);
+        if (item == null) {
+            Service.gI().sendThongBao(player, "Không tìm thấy bùa zeno trong túi");
+            return;
+        }
+        if (item.quantity < time) {
+            Service.gI().sendThongBao(player, "Không đủ số lượng bùa trong túi");
+            return;
+        }
+        // auto add to ruong phu
+        if (player.luckyPoolPlayer.itemBags.size() + time > LuckyPoolPlayer.MAX_COUNT_ITEM) {
+            Service.gI().sendThongBao(player, "Rương phụ đã đầy hãy nhận thưởng trước đi nào");
+            return;
+        }
+        InventoryServiceNew.gI().subQuantityItemsBag(player, item, time);
+        InventoryServiceNew.gI().sendItemBags(player);
+        LuckyPool.getI().rollInPool(player, time);
     }
 
     public void initLuckyItem() {
@@ -84,11 +154,6 @@ public class LuckyPool {
     }
 
     public void rollInPool(Player player, int timeToRoll) {
-        // auto add to ruong phu
-        if (player.luckyPoolPlayer.itemBags.size() + timeToRoll > LuckyPoolPlayer.MAX_COUNT_ITEM) {
-            Service.gI().sendThongBao(player, "Rương phụ đã đầy hãy nhận thưởng trước đi nào");
-            return;
-        }
         float tyLeRoll = player.luckyPoolPlayer.totalLuckyPoint;
         // roll nè
         for (int i = 0; i < timeToRoll; i++) {
@@ -131,12 +196,15 @@ public class LuckyPool {
             }
             Item item = ItemService.gI().createNewItem(luckyPoolRareItems.get(Util.nextInt(0, luckyPoolRareItems.size() - 1)), 1);
             // add to bag and continue
+            item.itemOptions.add(new Item.ItemOption(30, 0));
             player.luckyPoolPlayer.addItemToBag(item);
             player.luckyPoolPlayer.totalLuckyPoint += 1;
             if (player.luckyPoolPlayer.totalLuckyPoint > 1000) {
                 player.luckyPoolPlayer.totalLuckyPoint = 1000;
             }
+            Service.gI().sendThongBao(player, "Chúc mừng bạn nhận được x1" + item.template.name);
         }
+        Service.gI().sendThongBao(player, "Quay số hoàn thành");
     }
 
     private void ratioEpicItemOption(Item item) {

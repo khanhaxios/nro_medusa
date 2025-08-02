@@ -745,11 +745,11 @@ public class InventoryServiceNew {
                     msg.writer().writeByte(itemOptions.size());
                     for (ItemOption itemOption : itemOptions) {
                         if (cplSetupPhuKien && itemOption.optionTemplate.id == 247) {
-                            msg.writer().writeByte(player.setClothes.getOptionPhuKienKichHoat());
+                            msg.writer().writeShort(player.setClothes.getOptionPhuKienKichHoat());
                         } else {
-                            msg.writer().writeByte(itemOption.optionTemplate.id);
+                            msg.writer().writeShort(itemOption.optionTemplate.id);
                         }
-                        msg.writer().writeShort(itemOption.param);
+                        msg.writer().writeInt(itemOption.param);
                     }
                 }
             }
@@ -774,8 +774,8 @@ public class InventoryServiceNew {
                     msg.writer().writeUTF(it.getContent());
                     msg.writer().writeByte(it.itemOptions.size());
                     for (ItemOption io : it.itemOptions) {
-                        msg.writer().writeByte(io.optionTemplate.id);
-                        msg.writer().writeShort(io.param);
+                        msg.writer().writeShort(io.optionTemplate.id);
+                        msg.writer().writeInt(io.param);
                     }
                 }
             }

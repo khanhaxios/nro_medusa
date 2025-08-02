@@ -2,10 +2,10 @@ package com.girlkun.models.mob;
 
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
-import com.girlkun.utils.SkillUtil;
-import com.girlkun.services.Service;
-import com.girlkun.utils.Util;
 import com.girlkun.network.io.Message;
+import com.girlkun.services.Service;
+import com.girlkun.utils.SkillUtil;
+import com.girlkun.utils.Util;
 
 public final class MobMe extends Mob {
 
@@ -80,11 +80,11 @@ public final class MobMe extends Mob {
                     if (mob.tempId == 0) {
                         tnsm = 1;
                         mob.point.sethp(mob.point.gethp() - 10);
-                        msg.writer().writeInt(Util.DoubleGioihana(mob.point.gethp()));
+                        msg.writer().writeDouble(Util.DoubleGioihang(mob.point.gethp()));
                         msg.writer().writeDouble(10);
                     } else {
-                        mob.point.sethp(Util.DoubleGioihan(mob.point.gethp() - dame));
-                        msg.writer().writeInt(Util.DoubleGioihana(mob.point.gethp()));
+                        mob.point.sethp(Util.DoubleGioihang(mob.point.gethp() - dame));
+                        msg.writer().writeDouble(Util.DoubleGioihang(mob.point.gethp()));
                         msg.writer().writeDouble(Util.DoubleGioihang(dame));
                     }
                     Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
@@ -111,7 +111,7 @@ public final class MobMe extends Mob {
             msg.writer().writeByte(0);//type
             msg.writer().writeInt((int) player.id);
             msg.writer().writeShort(this.tempId);
-            msg.writer().writeInt(Util.DoubleGioihana(this.point.hp));// hp mob
+            msg.writer().writeDouble(Util.DoubleGioihang(this.point.hp));// hp mob
             Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
         } catch (Exception e) {

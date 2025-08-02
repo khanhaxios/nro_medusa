@@ -7,8 +7,8 @@ import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
 public class DanDuocFactory {
-    public static DanDuoc createDanDuoc(Player player, DanPhuong danPhuong, byte cap, int quanity) {
-        DanDuoc danDuoc = new DanDuoc(danPhuong.id + cap, danPhuong.tenDanPhuong, cap, 5 + cap);
+    public static DanDuoc createDanDuoc(DanPhuong danPhuong, byte cap, int quanity) {
+        DanDuoc danDuoc = new DanDuoc(danPhuong.id + cap + 1, danPhuong.tenDanPhuong, cap, 5 + cap);
         danDuoc.quantity = quanity;
         return danDuoc;
     }

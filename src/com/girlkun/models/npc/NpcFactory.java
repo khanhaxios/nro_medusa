@@ -16,6 +16,7 @@ import com.girlkun.models.clan.Clan;
 import com.girlkun.models.clan.ClanMember;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.item.Item.ItemOption;
+import com.girlkun.models.lucky_pool.LuckyPool;
 import com.girlkun.models.map.Map;
 import com.girlkun.models.map.MapMaBu.MapMaBu;
 import com.girlkun.models.map.Zone;
@@ -40,6 +41,8 @@ import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.base_tutien.CoDuyen;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
 import com.girlkun.models.player.tutien.luyenthe.VoKy;
+import com.girlkun.models.sangiaodich.danduoc.SanGiaoDichDanDuoc;
+import com.girlkun.models.sangiaodich.danduoc.SanGiaoDichService;
 import com.girlkun.models.shop.ShopServiceNew;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
@@ -2401,7 +2404,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
-                    createOtherMenu(player, ConstNpc.BASE_MENU, "Đi đến đường cùng ?  Nhập ma a", "Tu Ma", "Học\nCông Pháp", "Luyện hồn", "Huyết mạch", "Luyện cốt","Tán Công");
+                    createOtherMenu(player, ConstNpc.BASE_MENU, "Đi đến đường cùng ?  Nhập ma a", "Tu Ma", "Học\nCông Pháp", "Luyện hồn", "Huyết mạch", "Luyện cốt", "Tán Công");
                 }
             }
 
@@ -2504,7 +2507,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player) && mapId == 5) {
-                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Huyết mạch", "Công Pháp","Tán Công");
+                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Huyết mạch", "Công Pháp", "Tán Công");
                 }
             }
 
@@ -6476,7 +6479,7 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 47 || this.mapId == 84) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Xin chào, cậu muốn tôi giúp gì?", "Nhiệm vụ\nhàng ngày", "Nhiệm vụ\n tích lũy", "Danh hiệu", "Từ chối");
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Xin chào, cậu muốn tôi giúp gì?", "Nhiệm vụ\nhàng ngày", "Nhiệm vụ\n tích lũy", "Danh hiệu", "Sàn DG", "Từ chối");
                     }
 //                    if (this.mapId == 47) {
 //                        this.createOtherMenu(player, ConstNpc.BASE_MENU,
@@ -6504,6 +6507,9 @@ public class NpcFactory {
                                     break;
                                 case 2:
                                     this.createOtherMenu(player, 888, "|7|CHỨC NĂNG DANH HIỆU" + "\n\n|2|Đây là danh hiệu mà ngươi có" + (player.lastTimeTitle1 > 0 ? "\n\n|4|Danh hiệu Đại Thần: " + Util.msToTime(player.lastTimeTitle1) : "") + (player.lastTimeTitle2 > 0 ? "\n Danh hiệu Trùm Cuối: " + Util.msToTime(player.lastTimeTitle2) : "") + (player.lastTimeTitle3 > 0 ? "\n Danh hiệu Tuổi Thơ: " + Util.msToTime(player.lastTimeTitle3) : ""), ("Đại Thần\n" + (player.isTitleUse1 == true ? "'ON'" : "'OFF'")), ("Trùm Cuối\n" + (player.isTitleUse2 == true ? "'ON'" : "'OFF'") + "\n"), ("Tuổi Thơ\n" + (player.isTitleUse3 == true ? "'ON'" : "'OFF'") + "\n"));
+                                    break;
+                                case 3:
+                                    SanGiaoDichDanDuoc.getI().showBaseMenu(player);
                                     break;
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_OPTION_LEVEL_SIDE_TASK) {
@@ -6581,10 +6587,10 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 102) {
                         if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cậu bé muốn mua gì nào?", "Cửa hàng", "Đóng");
+                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cậu bé muốn mua gì nào?", "Cửa hàng", "Quay Số", "Đóng");
                         }
                     } else if (this.mapId == 46 || this.mapId == 5) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Kính chào VIP!", "Cửa hàng", "Đóng");
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Kính chào VIP!", "Cửa hàng", "Quay Số", "Đóng");
                     }
                 }
             }
@@ -6602,7 +6608,8 @@ public class NpcFactory {
                         if (player.iDMark.isBaseMenu()) {
                             if (select == 0) {
                                 ShopServiceNew.gI().opendShop(player, "KARIN", true);
-
+                            } else if (select == 1) {
+                                LuckyPool.showBaseMenu(player);
                             }
                         }
                     }
@@ -6880,10 +6887,9 @@ public class NpcFactory {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
             public void openBaseMenu(Player player) {
-                super.openBaseMenu(player);
-//                if (canOpenNpc(player)) {
-//                    createOtherMenu(player, ConstNpc.BASE_MENU, "|7| BẢNG XẾP HẠNG" + "\n|6|Ta Vừa Hack Map xem Được TOP Của Toàn Server" + "\b|1|Người Muốn Xem TOP Gì?" + "\n|7|Điểm Sự Kiện Trung Thu Hiện Tại Của Ngươi Là: " + player.inventory.eventTrungThu, "Top\nTrung Thu", "Top Sức Đánh", "Top Sức mạnh", "Top Nhiệm vụ", "Top Săn BOSS", "Top Đạo Lữ", "Đóng");
-//                }
+                if (canOpenNpc(player)) {
+                    createOtherMenu(player, ConstNpc.BASE_MENU, "|7| BẢNG XẾP HẠNG" + "\n|6|Ta Vừa Hack Map xem Được TOP Của Toàn Server" + "\b|1|Người Muốn Xem TOP Gì?", "Top\nTu Tiên", "Top\nTu Ma", "Top\nLuyện Thể", "Đóng");
+                }
             }
 
             @Override
@@ -6894,30 +6900,17 @@ public class NpcFactory {
                             switch (player.iDMark.getIndexMenu()) {
                                 case ConstNpc.BASE_MENU:
                                     if (select == 0) {
-                                        Service.gI().showListTop(player, Manager.topSKTrungThu);
+                                        Service.gI().showListTop(player, Manager.topTuTien);
                                         break;
                                     }
                                     if (select == 1) {
-                                        Service.gI().showListTop(player, Manager.topSD);
+                                        Service.gI().showListTop(player, Manager.topTuMa);
                                         break;
                                     }
                                     if (select == 2) {
-                                        Service.gI().showListTop(player, Manager.topSM);
+                                        Service.gI().showListTop(player, Manager.topLuyenThe);
                                         break;
                                     }
-                                    if (select == 3) {
-                                        Service.gI().showListTop(player, Manager.topNV);
-                                        break;
-                                    }
-                                    if (select == 4) {
-                                        Service.gI().showListTop(player, Manager.topSB);
-                                        break;
-                                    }
-                                    if (select == 5) {
-                                        Service.gI().showListTop(player, Manager.topDaoLu);
-                                        break;
-                                    }
-                                    break;
                             }
                             break;
                     }
@@ -7491,6 +7484,28 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 switch (player.iDMark.getIndexMenu()) {
+                    case ConstNpc.MENU_CONFRM_QSMM:
+                        int timeaa = 0;
+                        if (select == 0) {
+                            timeaa = 1;
+                        } else if (select == 1) {
+                            timeaa = 10;
+                        }
+                        LuckyPool.prepeareForRoll(timeaa, player);
+                        break;
+                    case ConstNpc.MENU_QSMM:
+                        switch (select) {
+                            case 0:
+                                LuckyPool.showMenuQuaySo(player);
+                                break;
+                            case 1:
+                                LuckyPool.showTuiTamThoi(player);
+                                break;
+                            case 2:
+                                LuckyPool.removeAllItemInBag(player);
+                                break;
+                        }
+                        break;
                     case ConstNpc.MENU_CP_LT:
                         switch (select) {
                             case 0:
@@ -8406,6 +8421,52 @@ public class NpcFactory {
                             player.tuTien.tanCong();
                         }
                         break;
+                    case ConstNpc.MENU_BASE_GIAO_DICH:
+                        switch (select) {
+                            case 0:
+                                if (player.iDMark.gdMenuType == 0) {
+                                    // dat vat pham
+                                    SanGiaoDichService.getI().createDatVatPhamGiaoDichForm(player);
+                                } else {
+                                    // khoa diao dich
+                                    SanGiaoDichService.getI().khoaGd(player);
+                                }
+                                break;
+                            case 1:
+                                if (player.iDMark.gdMenuType == 0) {
+                                    // dat vat pham
+                                    SanGiaoDichService.getI().khoaGd(player);
+                                } else {
+                                    player.iDMark.currentGiaoDich.huyGiaoDich(player);
+                                }
+                                break;
+                            case 2:
+                                if (player.iDMark.gdMenuType == 0) {
+                                    // dat vat pham
+                                    player.iDMark.currentGiaoDich.huyGiaoDich(player);
+                                } else {
+                                    player.iDMark.currentGiaoDich.takeItem(player);
+                                }
+                                break;
+                            case 3:
+                                player.iDMark.currentGiaoDich.takeItem(player);
+                                break;
+                        }
+                        break;
+                    case ConstNpc.BASE_MENU_GD:
+                        switch (select) {
+                            case 0:
+                                SanGiaoDichService.getI().createGiaoDichForm(player);
+                                // mở menu tạo giao dịch mới
+                                break;
+                            case 1:
+                                SanGiaoDichService.getI().createHuyGiaoDichForm(player);
+                                break;
+                            case 2:
+                                SanGiaoDichService.getI().createInfoGiaoDichForm(player);
+                                break;
+                        }
+                        break;
                     case ConstNpc.MENU_CONG_PHAP:
                         switch (select) {
                             case 0:
@@ -8415,14 +8476,11 @@ public class NpcFactory {
                                 break;
                             case 1:
                                 // linh ngo cong phap
-                                String npcSat = "|7|❖═══ LĨNH NGỘ CÔNG PHÁP ═══❖\n" + "|5|✦ Lĩnh ngộ công pháp sẽ giúp bạn:\n" + "|5|➤ Khai mở thuộc tính mới\n" + "|5|➤ Tăng cường thuộc tính đã có\n" + "|7|✪ Hãy chuẩn bị tinh thần... Linh cảm chỉ đến với người hữu duyên!";
+                                String npcSat = "|7|❖═══ LĨNH NGỘ CÔNG PHÁP ═══❖\n" + "|5|✦ Lĩnh ngộ công pháp sẽ giúp bạn:\n" + "|5|➤ Khai mở thuộc tính mới\n" + "|5|➤ Tăng cường thuộc tính đã có\n" + "|7|Tỷ lệ lĩnh ngộ : " + player.tuTien.congPhap.getBaseTyLeLinhNgo() + "%" + "\n" + "|7|✪ Hãy chuẩn bị tinh thần... Linh cảm chỉ đến với người hữu duyên!";
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LINH_NGO_CONG_PHAP, -1, npcSat, "Lĩnh ngộ", "Đóng");
                                 break;
                             case 2:
-                                String npcSayHi = "|7|❖═══ BUFF CÔNG PHÁP CHI TIẾT ═══❖\n" +
-// — Nhóm buff cơ bản —
-                                        "|5|➤ TL HP:" + player.tuTien.congPhap.tlHpBuff + "%\n" + "|5|➤ TL MP:" + player.tuTien.congPhap.tlMpBuff + "%\n" + "|5|➤ TL Dame     : " + player.tuTien.congPhap.tlDameBuff + "%\n" + "|5|➤ TL Linh Khí:" + player.tuTien.congPhap.tlLinhKhiBuff + "%\n" + "|5|➤ Tổng Dame Hút:" + player.tuTien.congPhap.totalHutDame + " điểm\n" + "|5|➤ Tổng HP Hút:" + player.tuTien.congPhap.totalHutHp + " điểm\n" + "|5|➤ Tổng MP Hút:" + player.tuTien.congPhap.totalHutMp + " điểm\n" + "|5|➤ x Linh Khí:" + player.tuTien.congPhap.xLinhKhiBuff + "x\n" + "|5|➤ Tốc độ hồi LK:" + player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi + "x\n" + "|5|➤ x Dame Thuộc Tính:" + player.tuTien.congPhap.xDameThuocTinh + "x\n" + "|7|❖═════════════════════════════❖";
-
+                                String npcSayHi = "|7|❖═══ BUFF CÔNG PHÁP CHI TIẾT ═══❖\n" + "|5|➤ TL HP:" + player.tuTien.congPhap.tlHpBuff + "%\n" + "|5|➤ TL MP:" + player.tuTien.congPhap.tlMpBuff + "%\n" + "|5|➤ TL Dame     : " + player.tuTien.congPhap.tlDameBuff + "%\n" + "|5|➤ TL Linh Khí:" + player.tuTien.congPhap.tlLinhKhiBuff + "%\n" + "|5|➤ x Linh Khí:" + player.tuTien.congPhap.xLinhKhiBuff + "x\n" + "|5|➤ Tốc độ hồi LK:" + player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi + "x\n" + "|5|➤ x Dame Thuộc Tính:" + player.tuTien.congPhap.xDameThuocTinh + "x\n" + "|7|❖═════════════════════════════❖";
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_INFO_CONG_PHAP_BUFF, -1, npcSayHi, "Đóng");
                                 break;
                             default:
@@ -8434,19 +8492,15 @@ public class NpcFactory {
                         if (select == 0) {
 //                            // linh ngo cong phap
                             if (!player.tuTien.congPhap.canLinhNgo()) {
-                                Service.gI().sendThongBao(player, "Bạn cần đầy độ thuần thục để lĩnh ngộ");
+                                if (player.tuTien.congPhap.doThuanThuc < player.tuTien.congPhap.maxDoThuanThuc) {
+                                    Service.gI().sendThongBao(player, "Bạn cần đầy độ thuần thục để lĩnh ngộ");
+                                } else {
+                                    Service.gI().sendThongBao(player, "Đột phá tầng để có thể tiếp tục lĩnh ngộ");
+                                }
                                 return;
                             }
                             // tru do thuan thuc
-                            player.tuTien.congPhap.doThuanThuc = 0;
-                            int buffAdd = player.tuTien.congPhap.randomNewBuffA(1);
-                            if (buffAdd >= 0) {
-                                player.tuTien.congPhap.upOldBuff();
-                            } else if (buffAdd == -1) {
-                                Service.gI().sendThongBao(player, "Lĩnh ngộ thất bại");
-                                return;
-                            }
-                            Service.gI().sendThongBao(player, "Lĩnh ngộ thành công");
+                            player.tuTien.congPhap.linhNgo();
                         }
                         break;
                     case ConstNpc.CONG_PHAP_LINH_NGO:

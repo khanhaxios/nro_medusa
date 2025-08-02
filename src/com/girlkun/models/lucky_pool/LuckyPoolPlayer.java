@@ -10,7 +10,7 @@ import java.util.Optional;
 public class LuckyPoolPlayer {
     public static int MAX_COUNT_ITEM = 100;
     public Player player;
-    public int totalLuckyPoint;
+    public int totalLuckyPoint = 0;
     public List<Item> itemBags = new ArrayList<>();
 
     public void addItemToBag(Item item) {

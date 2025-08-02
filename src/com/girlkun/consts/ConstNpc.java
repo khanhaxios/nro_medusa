@@ -490,6 +490,10 @@ public class ConstNpc {
     public static final int MENU_LUYEN_COT = -9127321;
     public static final int MENU_CONFIRM_LUYEN_COT = -182653;
     public static final int MENU_DOT_PHA_TANG = -107322;
+    public static final int MENU_QSMM = -912739;
+    public static final int MENU_CONFRM_QSMM = -198732;
+    public static final int MENU_BASE_GIAO_DICH = -91273552;
+    public static final int BASE_MENU_GD = -5123562;
 }
 
 /**

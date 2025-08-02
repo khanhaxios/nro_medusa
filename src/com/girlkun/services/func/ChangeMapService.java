@@ -3,30 +3,21 @@ package com.girlkun.services.func;
 import com.girlkun.consts.ConstMap;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.consts.ConstTask;
-import com.girlkun.models.boss.list_boss.AnTrom;
-import com.girlkun.models.boss.list_boss.MiNuong;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.Map;
 import com.girlkun.models.map.MapMaBu.MapMaBu;
 import com.girlkun.models.map.WayPoint;
 import com.girlkun.models.map.Zone;
-import com.girlkun.models.map.bdkb.BanDoKhoBauService;
 import com.girlkun.models.map.blackball.BlackBallWar;
-import com.girlkun.models.map.challenge.MartialCongress;
-import com.girlkun.services.MapService;
+import com.girlkun.models.matches.TYPE_LOSE_PVP;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
-import com.girlkun.models.matches.TYPE_LOSE_PVP;
-import com.girlkun.services.Service;
-import com.girlkun.utils.Util;
 import com.girlkun.network.io.Message;
 import com.girlkun.server.Manager;
-import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.NgocRongNamecService;
-import com.girlkun.services.PlayerService;
-import com.girlkun.services.TaskService;
+import com.girlkun.services.*;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
+import com.girlkun.utils.Util;
 
 import java.util.List;
 
@@ -403,6 +394,7 @@ public class ChangeMapService {
                     Service.getInstance().Send_Info_NV(pl);
                 }
             }
+            checkJoinMapCoDuyen(pl);
             checkJoinSpecialMap(pl);
             checkJoinMapMaBu(pl);
         } else {
@@ -414,6 +406,14 @@ public class ChangeMapService {
             }
             Service.getInstance().resetPoint(pl, plX, pl.location.y);
             Service.getInstance().sendThongBaoOK(pl, "Không thể đến khu vực này");
+        }
+    }
+
+    private void checkJoinMapCoDuyen(Player player) {
+        Map map = player.zone.map;
+        if (map.mapId == Zone.currentMap) {
+            Service.gI().sendThongBao(player, "Bạn đã vào map cơ duyên mọi thứ ở đây sẽ được buff nhiều hơn");
+            return;
         }
     }
 
@@ -511,7 +511,7 @@ public class ChangeMapService {
                 msg.writer().writeByte(0);//type
                 msg.writer().writeInt((int) player.id);
                 msg.writer().writeShort(player.mobMe.tempId);
-                msg.writer().writeInt(Util.DoubleGioihana(player.mobMe.point.gethp()));// hp mob
+                msg.writer().writeDouble(Util.DoubleGioihang(player.mobMe.point.gethp()));// hp mob
                 Service.getInstance().sendMessAnotherNotMeInMap(player, msg);
                 msg.cleanup();
             }
@@ -520,7 +520,7 @@ public class ChangeMapService {
                 msg.writer().writeByte(0);//type
                 msg.writer().writeInt((int) player.pet.mobMe.id);
                 msg.writer().writeShort(player.pet.mobMe.tempId);
-                msg.writer().writeInt(Util.DoubleGioihana(player.pet.mobMe.point.gethp()));// hp mob
+                msg.writer().writeDouble(Util.DoubleGioihang(player.pet.mobMe.point.gethp()));// hp mob
                 Service.getInstance().sendMessAnotherNotMeInMap(player, msg);
                 msg.cleanup();
             }
@@ -635,7 +635,7 @@ public class ChangeMapService {
                         msg.writer().writeByte(0);//type
                         msg.writer().writeInt((int) pl.id);
                         msg.writer().writeShort(pl.mobMe.tempId);
-                        msg.writer().writeInt(Util.DoubleGioihana(pl.mobMe.point.gethp()));// hp mob
+                        msg.writer().writeDouble(Util.DoubleGioihang(pl.mobMe.point.gethp()));// hp mob
                         player.sendMessage(msg);
                         msg.cleanup();
                     }
@@ -760,7 +760,7 @@ public class ChangeMapService {
         }
     }
 
-//    kiểm tra map có thể vào với nhiệm vụ hiện tại
+    //    kiểm tra map có thể vào với nhiệm vụ hiện tại
     public Zone checkMapCanJoin(Player player, Zone zoneJoin) {
         //dong map 
 //        if (zoneJoin.map.mapId == 154 || zoneJoin.map.mapId == 160) {

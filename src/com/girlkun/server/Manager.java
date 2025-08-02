@@ -20,10 +20,12 @@ import com.girlkun.models.npc.Npc;
 import com.girlkun.models.npc.NpcFactory;
 import com.girlkun.models.player.*;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
+import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tuma.TuMaTemplate;
 import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
 import com.girlkun.models.player.tutien.luyendansu.NguyenLieuFactory;
+import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.models.player.tutien.luyenthe.VoKyFactory;
 import com.girlkun.models.reward.ItemMobReward;
 import com.girlkun.models.reward.ItemOptionMobReward;
@@ -140,6 +142,49 @@ public class Manager {
     public static final String queryTopVND = "SELECT id, CAST( vndd AS UNSIGNED) AS vndd FROM player WHERE id NOT IN (SELECT id FROM account WHERE is_admin = 1) ORDER BY CAST( vndd AS UNSIGNED) DESC LIMIT 20;";
     public static final String QUERY_TOP_DAO_LU = "SELECT id, canh_gioi, canh_tinh, time_thang, pham FROM (SELECT player.id, CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(JSON_EXTRACT(player.dao_lu, '$[0]'), ',', 9), ',', -1) AS UNSIGNED) AS canh_gioi, CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(JSON_EXTRACT(player.dao_lu, '$[0]'), ',', 8), ',', -1) AS UNSIGNED) AS canh_tinh, CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(JSON_EXTRACT(player.dao_lu, '$[0]'), ',', 10), ',', -1) AS UNSIGNED) AS time_thang, CAST(SPLIT_STR(SUBSTRING_INDEX(SUBSTRING_INDEX(JSON_EXTRACT(player.dao_lu, '$[0]'), ',', 1), ',', -1), '[', 2) AS UNSIGNED) AS pham FROM player JOIN account ON player.account_id = account.id WHERE account.id NOT IN (SELECT id FROM account WHERE is_admin = 1) ) AS subquery WHERE canh_gioi IS NOT NULL AND canh_tinh IS NOT NULL AND time_thang IS NOT NULL AND pham IS NOT NULL ORDER BY canh_gioi DESC, canh_tinh DESC, pham DESC, time_thang ASC;";
 
+    public static final String QUERY_TOP_LUYEN_THE = "SELECT id,player_id, CAST(TRIM(BOTH '[' FROM SUBSTRING_INDEX(data_luyen_the, ',', 1)) AS UNSIGNED) AS sm FROM tu_tien WHERE player_id NOT IN (SELECT p.id FROM player p JOIN account a ON p.account_id = a.id WHERE a.is_admin = 1) ORDER BY sm DESC LIMIT 20";
+
+    public static final String QUERY_TOP_TU_TIEN = "SELECT \n" +
+            "    id,player_id,\n" +
+            "    CAST(\n" +
+            "        SUBSTRING_INDEX(\n" +
+            "            SUBSTRING_INDEX(data_tu_tien, ',', 1),\n" +
+            "            '[[',\n" +
+            "            -1\n" +
+            "        ) AS UNSIGNED\n" +
+            "    ) AS sm\n" +
+            "FROM tu_tien\n" +
+            "WHERE player_id NOT IN (\n" +
+            "    SELECT p.id\n" +
+            "    FROM player p\n" +
+            "    JOIN account a ON p.account_id = a.id\n" +
+            "    WHERE a.is_admin = 1\n" +
+            ")\n" +
+            "ORDER BY sm DESC\n" +
+            "LIMIT 20;\n";
+
+    public static final String QUERY_TOP_TU_MA = "SELECT \n" +
+            "    id,player_id,\n" +
+            "    CAST(\n" +
+            "        SUBSTRING_INDEX(\n" +
+            "            SUBSTRING_INDEX(data_tu_ma, ',', 1),\n" +
+            "            '[[',\n" +
+            "            -1\n" +
+            "        ) AS UNSIGNED\n" +
+            "    ) AS sm\n" +
+            "FROM tu_tien\n" +
+            "WHERE player_id NOT IN (\n" +
+            "    SELECT p.id\n" +
+            "    FROM player p\n" +
+            "    JOIN account a ON p.account_id = a.id\n" +
+            "    WHERE a.is_admin = 1\n" +
+            ")\n" +
+            "ORDER BY sm DESC\n" +
+            "LIMIT 20;\n";
+
+    public static List<TOP> topTuTien;
+    public static List<TOP> topTuMa;
+    public static List<TOP> topLuyenThe;
     public static List<TOP> topSM;
     public static List<TOP> topSD;
     public static List<TOP> topHP;
@@ -216,6 +261,15 @@ public class Manager {
             i = new Manager();
         }
         return i;
+    }
+
+    public static MapTemplate getMapTemById(int mapId) {
+        for (MapTemplate mapTemplate : MAP_TEMPLATES) {
+            if (mapTemplate.id == mapId) {
+                return mapTemplate;
+            }
+        }
+        return null;
     }
 
     private void loadServerSettings() {
@@ -927,7 +981,7 @@ public class Manager {
             rs = ps.executeQuery();
             while (rs.next()) {
                 // check hard
-                int hp = Math.min(rs.getInt("hp") * LEVEL_HARD, 2_000_000_000);
+                double hp = rs.getDouble("hp") * LEVEL_HARD;
                 byte percentDame = (byte) Math.min(rs.getByte("percent_dame"), 124);
                 byte percentTN = (byte) Math.min(rs.getByte("percent_tiem_nang") + (LEVEL_HARD * 2), 124);
 
@@ -1051,9 +1105,9 @@ public class Manager {
                         mapTemplate.mobTemp[j] = Byte.parseByte(String.valueOf(dtm.get(0)));
                         mapTemplate.mobLevel[j] = Byte.parseByte(String.valueOf(dtm.get(1)));
                         if (mapTemplate.mobTemp[j] == 0) {
-                            mapTemplate.mobHp[j] = Math.min(Double.parseDouble(String.valueOf(dtm.get(2))), 2_000_000_000);
+                            mapTemplate.mobHp[j] = Double.parseDouble(String.valueOf(dtm.get(2)));
                         } else {
-                            mapTemplate.mobHp[j] = Math.min(Double.parseDouble(String.valueOf(dtm.get(2))) * LEVEL_HARD, 2_000_000_000);
+                            mapTemplate.mobHp[j] = Double.parseDouble(String.valueOf(dtm.get(2))) * LEVEL_HARD;
                         }
                         mapTemplate.mobX[j] = Short.parseShort(String.valueOf(dtm.get(3)));
                         mapTemplate.mobY[j] = Short.parseShort(String.valueOf(dtm.get(4)));
@@ -1116,8 +1170,13 @@ public class Manager {
                 RadarService.gI().RADAR_TEMPLATE.add(rd);
             }
             Logger.success("Load radar template thành công (" + RadarService.gI().RADAR_TEMPLATE.size() + ")\n");
-
-            topSM = realTop(queryTopSM, con);
+            topTuTien = realTop(QUERY_TOP_TU_TIEN, con);
+            Logger.log("Load top tu tiên thành công (" + topTuTien.size() + ")\n");
+            topTuMa = realTop(QUERY_TOP_TU_MA, con);
+            Logger.log("Load top tu ma thành công (" + topTuMa.size() + ")\n");
+            topLuyenThe = realTop(QUERY_TOP_LUYEN_THE, con);
+            Logger.log("Load top luyện thể thành công (" + topLuyenThe.size() + ")\n");
+//            topSM = realTop(queryTopSM, con);
 //            Logger.success("Load top sm thành công (" + topSM.size() + ")\n");
 //            topNV = realTop(queryTopNV, con);
 //            Logger.success("Load top nv thành công (" + topNV.size() + ")\n");
@@ -1180,8 +1239,20 @@ public class Manager {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                TOP top = TOP.builder().id_player(rs.getInt("id")).build();
+                TOP top = TOP.builder().id_player(rs.getInt("player_id")).build();
                 switch (query) {
+                    case QUERY_TOP_TU_TIEN:
+                        top.setInfo1(TuTien.CANH_GIOI[rs.getByte("sm")]);
+                        top.setInfo2(TuTien.CANH_GIOI[rs.getByte("sm")]);
+                        break;
+                    case QUERY_TOP_TU_MA:
+                        top.setInfo1(TuMa.CANH_GIOI[rs.getInt("sm") / 10]);
+                        top.setInfo2(TuMa.CANH_GIOI[rs.getInt("sm") / 10]);
+                        break;
+                    case QUERY_TOP_LUYEN_THE:
+                        top.setInfo1("Luyện thể " + rs.getInt("sm") + " Tầng");
+                        top.setInfo2("Luyện thể " + rs.getInt("sm") + " Tầng");
+                        break;
                     case queryTopSM:
                         top.setInfo1(Util.powerToString(rs.getLong("sm")) + " Sức Mạnh");
                         top.setInfo2(Util.format(rs.getLong("sm")) + " Sức Mạnh");
@@ -1198,23 +1269,11 @@ public class Manager {
                         top.setInfo1(Util.powerToString(rs.getInt("hp")) + " HP");
                         top.setInfo2(Util.format(rs.getInt("hp")) + " HP");
                         break;
-                    case querytopSB:
+                    case querytopSB, querytopSK:
                         top.setInfo1(rs.getInt("event") + " điểm");
                         top.setInfo2(rs.getInt("event") + " điểm");
                         break;
-                    case querytopSK:
-                        top.setInfo1(rs.getInt("event") + " điểm");
-                        top.setInfo2(rs.getInt("event") + " điểm");
-                        break;
-                    case QUERY_TOP_SK_SAN_MA:
-                        top.setInfo1(rs.getInt("eventColumn") + " điểm");
-                        top.setInfo2(rs.getInt("eventColumn") + " điểm");
-                        break;
-                    case QUERY_TOP_SK_2T9:
-                        top.setInfo1(rs.getInt("eventColumn") + " điểm");
-                        top.setInfo2(rs.getInt("eventColumn") + " điểm");
-                        break;
-                    case QUERY_TOP_SK_TRUNG_THU:
+                    case QUERY_TOP_SK_SAN_MA, QUERY_TOP_SK_2T9, QUERY_TOP_SK_TRUNG_THU:
                         top.setInfo1(rs.getInt("eventColumn") + " điểm");
                         top.setInfo2(rs.getInt("eventColumn") + " điểm");
                         break;
@@ -1242,7 +1301,7 @@ public class Manager {
                 tops.add(top);
             }
         } catch (Exception e) {
-
+            Logger.log(e.getMessage());
         }
         return tops;
     }
