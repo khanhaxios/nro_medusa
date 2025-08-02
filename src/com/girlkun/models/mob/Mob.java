@@ -651,11 +651,10 @@ public class Mob {
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
             int sl = Util.nextInt(1, 2);
             if (player.luyenThe.isLuyenTheReal()) {
-                sl += Util.nextInt(1, 10);
+                sl += Util.nextInt(1, 3);
             }
             // roi con duong ran doc
-            if (zone.map.mapId == 141 && Util.isTrue(30f, 100)) {
-
+            if (zone.map.mapId == 141 && Util.isTrue(15f, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
                 list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
@@ -665,7 +664,7 @@ public class Mob {
                 list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
             // roi nhs
-            if (zone.map.mapId == 123 && Util.isTrue(8f, 100)) {
+            if (zone.map.mapId == 123 && Util.isTrue(6f, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
                 list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }

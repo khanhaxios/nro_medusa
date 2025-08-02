@@ -1121,7 +1121,7 @@ public class BossesData {
             new String[]{"|-1|Chúng ta sẽ gặp lại nhau sớm thôi",
                     "|-2|Ngươi nói gì chứ?"}, //text chat 3
             REST_30_M,
-            (byte) 6,
+            (byte) 8,
             (byte) 10//type appear
     );
 
@@ -1154,7 +1154,7 @@ public class BossesData {
                     "|-2|Không tiễn"}, //text chat 3
             REST_15_M, //second rest
             new int[]{BossID.ZAMASZIN},
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
 
@@ -1194,7 +1194,7 @@ public class BossesData {
             new String[]{"|-1|Chỉ còn một cách duy nhất mà thôi",
                     "|-1|Bông tai Porata!"}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER,
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
     //-------------------------------------------------------------------
@@ -1222,7 +1222,7 @@ public class BossesData {
             }, //text chat 2
             new String[]{}, //text chat 3
             REST_15_M,
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
 
@@ -1381,7 +1381,7 @@ public class BossesData {
             new String[]{"|-1|Ta đi về đây!Cảm ơn vì món ăn"}, //text chat 3
             REST_5_M, //second rest
             new int[]{BossID.THAN_HUY_DIET},
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
     public static final BossData THAN_HUY_DIET = new BossData(
@@ -1404,7 +1404,7 @@ public class BossesData {
                     "|-2|Hắn ta không cần phòng thủ luôn!",}, //text chat 2
             new String[]{"|-1|Ta buồn ngủ quá!"}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER,
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
     public static final BossData THIEN_SU_VADOS = new BossData(
@@ -1436,7 +1436,7 @@ public class BossesData {
             new String[]{"|-1|Hẹn gặp lại,ta rất hài lòng về cuộc chiến"}, //text chat 3
             REST_5_M, //second rest
             new int[]{BossID.THAN_HUY_DIET_CHAMPA},
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
     public static final BossData THAN_HUY_DIET_CHAMPA = new BossData(
@@ -1461,7 +1461,7 @@ public class BossesData {
                     "|-2|Hắn ta không cần phòng thủ luôn!",}, //text chat 2
             new String[]{"|-1|Chết tiệt!"}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER,
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
     //**************************************************************************
@@ -1492,7 +1492,7 @@ public class BossesData {
             }, //text chat 2
             new String[]{"|-2|Mau nghỉ ngơi nào chú Goku"}, //text chat 3
             REST_5_M,
-            (byte) 6,
+            (byte) 8,
             (byte) 10//second rest
     );
 
@@ -1912,7 +1912,7 @@ public class BossesData {
             new String[]{"|-1|Anh đã trở lại với mấy em đây",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_5_M,
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
     public static final BossData BOSS_ADMIN2 = new BossData(
@@ -2010,7 +2010,7 @@ public class BossesData {
                     "|-1|Mấy con gà !!!!!",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_10_M,
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
     /////////////////
@@ -2847,7 +2847,7 @@ public class BossesData {
                     "|-1|Mấy con gà !!!!!",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_5_M,
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
     public static final BossData GOKU_ROSE_S = new BossData(
@@ -2871,7 +2871,7 @@ public class BossesData {
                     "|-1|Mấy con gà !!!!!",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_5_M,
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
     public static final BossData GOKU_ROSE_NT = new BossData(
@@ -2895,7 +2895,7 @@ public class BossesData {
                     "|-1|Mấy con gà !!!!!",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_5_M,
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
     //BOSS MAP VIP
@@ -2920,7 +2920,7 @@ public class BossesData {
                     "|-1|Mấy con gà !!!!!",}, //text chat 2
             new String[]{"|-1|Đen lắm em trai !"}, //text chat 3
             REST_5_M,
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
     ////
@@ -3046,8 +3046,6 @@ public class BossesData {
             (byte) 3,
             (byte) 10
     );
-    //
-    ///
     public static final BossData BOSS_VANG1 = new BossData(
             "100 Thỏi Vàng", //name
             ConstPlayer.TRAI_DAT, //gender
@@ -3665,7 +3663,7 @@ public class BossesData {
                     "|-3|Ta không thể nằm xuống..!",}, //text chat 2
             new String[]{}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER,
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
 
@@ -3693,7 +3691,7 @@ public class BossesData {
             new String[]{}, //text chat 3
             REST_30_M,
             new int[]{BossID.KAIDO},
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
 
@@ -3723,7 +3721,7 @@ public class BossesData {
                     "|-2|Ta có thể cảm nhận được tiếng trống tự do trong cậu ấy",}, //text chat 2
             new String[]{}, //text chat 3
             REST_30_M,
-            (byte) 6,
+            (byte) 8,
             (byte) 10
     );
 

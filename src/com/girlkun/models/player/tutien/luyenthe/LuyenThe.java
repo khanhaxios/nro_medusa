@@ -131,12 +131,12 @@ public class LuyenThe {
         if (exp == 0) return 0;
         float percent = 0;
         if (!isLuyenTheReal()) {
-            percent = ((exp / (maxExp * 1f) * 100) / (level / 5f)) + (timeThatBai * 3);
+            percent = ((exp / (maxExp * 1f) * 100) / (level / 3f)) + (timeThatBai * 3);
         } else {
-            percent = ((exp / (maxExp * 1f) * 100) / (level / 50f)) + (timeThatBai);
+            percent = ((exp / (maxExp * 1f) * 100) / (level / 20f)) + (timeThatBai);
         }
         if (congPhapLuyenThe != null && congPhapLuyenThe.isLearn() && congPhapLuyenThe.type == 0) {
-            percent *= 5;
+            percent *= 2.5f;
         }
         return percent;
     }

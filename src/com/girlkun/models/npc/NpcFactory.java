@@ -7904,6 +7904,13 @@ public class NpcFactory {
                         break;
                     case ConstNpc.MENU_MA_TU_DOT_PHA:
                         if (select == 0) {
+                            long rubyNeed = 3_000L * player.tuMa.level;
+                            if (player.inventory.ruby - rubyNeed < 0) {
+                                Service.gI().sendThongBao(player, "Cần x" + rubyNeed + " hồng ngọc để đột phá");
+                                return;
+                            }
+                            player.inventory.ruby -= rubyNeed;
+                            Service.gI().sendMoney(player);
                             player.tuMa.dotPha();
                         } else {
                             player.tuMa.showBaseMenu();
