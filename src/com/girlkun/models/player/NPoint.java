@@ -991,6 +991,16 @@ public class NPoint {
             pointAdd += pointBase * player.tuMa.getHPMPBuff() / 100;
         }
         this.hpMax += pointAdd;
+        // diem the chat
+        if ((player.tuTien != null && player.tuTien.isTuTien())) {
+            this.hpMax += this.hpMax * (player.tuTien.theChat * 20) / 100;
+        }
+        if (player.tuMa != null && player.tuMa.isTuMa()) {
+            this.hpMax += this.hpMax * (player.tuMa.theChat * 5) / 100;
+        }
+        if (player.luyenThe != null && player.luyenThe.isLuyenTheReal()) {
+            this.hpMax += this.hpMax * (player.luyenThe.sucManh * 30) / 100;
+        }
         mauGoc = this.hpMax;
     }
 
@@ -1218,6 +1228,15 @@ public class NPoint {
             pointAdd += pointBase * player.tuMa.getHPMPBuff() / 100;
         }
         this.mpMax += pointAdd;
+        if ((player.tuTien != null && player.tuTien.isTuTien())) {
+            this.mpMax += this.mpMax * (player.tuTien.theChat * 20) / 100;
+        }
+        if (player.tuMa != null && player.tuMa.isTuMa()) {
+            this.mpMax += this.mpMax * (player.tuMa.theChat * 5) / 100;
+        }
+        if (player.luyenThe != null && player.luyenThe.isLuyenTheReal()) {
+            this.mpMax += this.mpMax * (player.luyenThe.sucManh * 30) / 100;
+        }
     }
 
     private void setMp() {
@@ -1228,7 +1247,6 @@ public class NPoint {
 
     private void setDame() {
         this.dame = this.dameg;
-
         if (player.huyet.isKichHoat()) {
             int slTrong = player.huyet.getLevelTinhHuyetCongDon();
             int cs1 = 0;
@@ -1343,7 +1361,6 @@ public class NPoint {
             this.dame += ((double) this.dame * 12 / 100);
         }
         //hợp thể
-
         //cuồng nộ
         if (this.player.itemTime != null && this.player.itemTime.isUseCuongNo) {
             this.dame *= 2;
@@ -1553,6 +1570,16 @@ public class NPoint {
             pointAdd += pointBase * player.tuMa.getDameBuff() / 100;
         }
         this.dame += pointAdd;
+        // diem the chat
+        if ((player.tuTien != null && player.tuTien.isTuTien())) {
+            this.dame += this.dame * (player.tuTien.sucManh * 15) / 100;
+        }
+        if (player.tuMa != null && player.tuMa.isTuMa()) {
+            this.dame += this.dame * (player.tuMa.sucManh * 20) / 100;
+        }
+        if (player.luyenThe != null && player.luyenThe.isLuyenTheReal()) {
+            this.dame += this.dame * (player.luyenThe.sucManh * 5) / 100;
+        }
     }
 
     private void setDef() {

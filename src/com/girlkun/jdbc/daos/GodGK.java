@@ -1021,6 +1021,10 @@ public class GodGK {
                                 player.tuTien.xParam = Byte.parseByte(basePointArray.get(10).toString());
                                 player.tuTien.lastimeCoDuyen = Long.parseLong(basePointArray.get(11).toString());
                                 player.tuTien.stackTlDotPha = Integer.parseInt(basePointArray.get(12).toString());
+                                player.tuTien.theChat = Integer.parseInt(basePointArray.get(13).toString());
+                                player.tuTien.tinhThan = Integer.parseInt(basePointArray.get(14).toString());
+                                player.tuTien.sucManh = Integer.parseInt(basePointArray.get(15).toString());
+                                player.tuTien.nhanhNhen = Integer.parseInt(basePointArray.get(16).toString());
                             }
 
                             // index 1: linh can
@@ -1217,7 +1221,11 @@ public class GodGK {
                             player.luyenThe.timeThatBai = Byte.parseByte(jsonArray.get(3).toString());
                             player.luyenThe.chanKhi = Integer.parseInt(jsonArray.get(4).toString());
                             player.luyenThe.maxChanKhi = Integer.parseInt(jsonArray.get(5).toString());
-                            JSONArray cpObj = (JSONArray) JSONValue.parse(String.valueOf(jsonArray.get(6)));
+                            player.luyenThe.theChat = Integer.parseInt(jsonArray.get(6).toString());
+                            player.luyenThe.tinhThan = Integer.parseInt(jsonArray.get(7).toString());
+                            player.luyenThe.sucManh = Integer.parseInt(jsonArray.get(8).toString());
+                            player.luyenThe.nhanhNhen = Integer.parseInt(jsonArray.get(9).toString());
+                            JSONArray cpObj = (JSONArray) JSONValue.parse(String.valueOf(jsonArray.get(10)));
                             if (cpObj != null && cpObj.size() > 0) {
                                 if (player.luyenThe.congPhapLuyenThe == null) {
                                     player.luyenThe.congPhapLuyenThe = new CongPhapLuyenThe(player);
@@ -1231,7 +1239,7 @@ public class GodGK {
                                 player.luyenThe.congPhapLuyenThe.maxExpGiaiDoan = Long.parseLong(cpObj.get(6).toString());
                                 player.luyenThe.congPhapLuyenThe.giaiDoan = Byte.parseByte(cpObj.get(7).toString());
                             }
-                            JSONArray voKyObj = (JSONArray) JSONValue.parse(jsonArray.get(7).toString());
+                            JSONArray voKyObj = (JSONArray) JSONValue.parse(jsonArray.get(11).toString());
                             if (voKyObj != null && voKyObj.size() > 0) {
                                 player.luyenThe.voKyList.clear();  // Xóa cũ nếu có
                                 for (Object vkObj : voKyObj) {
@@ -1256,7 +1264,7 @@ public class GodGK {
                                     player.luyenThe.voKyList.add(voKy);
                                 }
                             }
-                            JSONArray toiThe = (JSONArray) JSONValue.parse(jsonArray.get(8).toString());
+                            JSONArray toiThe = (JSONArray) JSONValue.parse(jsonArray.get(12).toString());
                             if (toiThe.size() > 0) {
                                 player.luyenThe.toiThe.tier = Integer.parseInt(toiThe.get(0).toString());
                             }
@@ -1350,6 +1358,10 @@ public class GodGK {
                                 player.tuMa.maxMaKhiPoint = Long.parseLong(basePoint.get(4).toString());
                                 player.tuMa.maTinh = Integer.parseInt(basePoint.get(5).toString());
                                 player.tuMa.timeTuMa = Long.parseLong(basePoint.get(6).toString());
+                                player.tuMa.theChat = Integer.parseInt(basePoint.get(7).toString());
+                                player.tuMa.tinhThan = Integer.parseInt(basePoint.get(8).toString());
+                                player.tuMa.sucManh = Integer.parseInt(basePoint.get(9).toString());
+                                player.tuMa.nhanhNhen = Integer.parseInt(basePoint.get(10).toString());
                             } catch (Exception e) {
                                 Logger.log(e.getMessage());
                             }

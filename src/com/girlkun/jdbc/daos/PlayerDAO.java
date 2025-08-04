@@ -1087,6 +1087,10 @@ public class PlayerDAO {
                     dataBasePoint.add(player.tuTien.xParam);
                     dataBasePoint.add(player.tuTien.lastimeCoDuyen);
                     dataBasePoint.add(player.tuTien.stackTlDotPha);
+                    dataBasePoint.add(player.tuTien.theChat);
+                    dataBasePoint.add(player.tuTien.tinhThan);
+                    dataBasePoint.add(player.tuTien.sucManh);
+                    dataBasePoint.add(player.tuTien.nhanhNhen);
                     jsonArray.add(dataBasePoint);
                     dataBasePoint = new JSONArray();
                     // write linh can
@@ -1256,10 +1260,13 @@ public class PlayerDAO {
                     jsonArray.add(player.luyenThe.exp);
                     jsonArray.add(player.luyenThe.maxExp);
                     jsonArray.add(player.luyenThe.timeThatBai);
-
                     // add cong phap
                     jsonArray.add(player.luyenThe.chanKhi);
                     jsonArray.add(player.luyenThe.maxChanKhi);
+                    jsonArray.add(player.luyenThe.theChat);
+                    jsonArray.add(player.luyenThe.tinhThan);
+                    jsonArray.add(player.luyenThe.sucManh);
+                    jsonArray.add(player.luyenThe.nhanhNhen);
 
                     JSONArray arrayCongPhap = new JSONArray();
                     if (player.luyenThe.congPhapLuyenThe.isLearn()) {
@@ -1376,6 +1383,10 @@ public class PlayerDAO {
                     dataBasePoint.add(player.tuMa.maxMaKhiPoint);
                     dataBasePoint.add(player.tuMa.maTinh);
                     dataBasePoint.add(player.tuMa.timeTuMa);
+                    dataBasePoint.add(player.tuMa.theChat);
+                    dataBasePoint.add(player.tuMa.tinhThan);
+                    dataBasePoint.add(player.tuMa.sucManh);
+                    dataBasePoint.add(player.tuMa.nhanhNhen);
                     jsonArray.add(dataBasePoint);
                     dataBasePoint = new JSONArray();
                     dataBasePoint.add(player.tuMa.congPhapTuMa.ten);

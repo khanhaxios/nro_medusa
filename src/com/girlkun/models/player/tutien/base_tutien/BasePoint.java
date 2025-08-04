@@ -3,7 +3,7 @@ package com.girlkun.models.player.tutien.base_tutien;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.PlayerService;
 
-public abstract class BasePoint {
+public abstract class BasePoint extends BaseTuDuy {
     public Player player;
     public boolean isOpenSystem;
     public byte level;

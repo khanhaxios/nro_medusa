@@ -3,6 +3,7 @@ package com.girlkun.models.player.tuma;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tutien.base_tutien.BaseTuDuy;
 import com.girlkun.models.player.tutien.base_tutien.IBaseAction;
 import com.girlkun.models.player.tutien.khongthisu.KhongThiSu;
 import com.girlkun.models.player.tutien.luyendansu.LuyenDanSu;
@@ -12,7 +13,7 @@ import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
-public class TuMa implements IBaseAction {
+public class TuMa extends BaseTuDuy implements IBaseAction {
     public static final int MAX_LEVEL = 180;
     public boolean isAttackWithLinhCan = false;
     Player player;
@@ -321,6 +322,8 @@ public class TuMa implements IBaseAction {
     }
 
     public void calcPoint() {
+        player.nPoint.xDameLinhCan += tinhThan;
+        player.nPoint.tlDameCrit.add(nhanhNhen * 100);
         if (congPhapTuMa != null && congPhapTuMa.ten != null) {
             congPhapTuMa.calcPoint();
             player.nPoint.tlHutHp += getHutHPBuff();
@@ -338,18 +341,20 @@ public class TuMa implements IBaseAction {
         StringBuilder text = new StringBuilder();
 
         text.append("|7|❖═════ THÔNG TIN MA TU ═════❖\n");
-        text.append("|5|➤ Dame Buff:").append(getDameBuff()).append("%\n");
-        text.append("|5|➤ HP/MP Buff:").append(getHPMPBuff()).append("%\n");
-
-        text.append("|5|➤ Ma Khí:").append(getMaKhiAsString()).append("\n");
-        text.append("|5|➤ Tu vi:").append(getCurrentExpAsString()).append("\n");
-
+        text.append("|5|➤ Dame Buff: ").append(getDameBuff()).append("%\n");
+        text.append("|5|➤ HP/MP Buff: ").append(getHPMPBuff()).append("%\n");
+        text.append("|1|➤ Thể Chất: +").append(theChat).append(" Điểm\n");
+        text.append("|1|➤ Sức Mạnh: +").append(sucManh).append(" Điểm\n");
+        text.append("|1|➤ Tốc Độ: +").append(nhanhNhen).append(" Điểm\n");
+        text.append("|1|➤ Tinh Thần: +").append(tinhThan).append(" Điểm\n");
+        text.append("|5|➤ Ma Khí: ").append(getMaKhiAsString()).append("\n");
+        text.append("|5|➤ Tu vi: ").append(getCurrentExpAsString()).append("\n");
         text.append("|7|✪ Ma Tu không có bình cảnh – phá giới vô hạn!\n");
-
         text.append("|7|❖══════════════════════════❖");
 
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MA_TU_DOT_PHA, -1, text.toString(), "Đột phá", "Đóng");
     }
+
 
     public void dotPha() {
         if (canLevelUp()) {

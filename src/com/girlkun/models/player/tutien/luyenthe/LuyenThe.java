@@ -3,6 +3,7 @@ package com.girlkun.models.player.tutien.luyenthe;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tutien.base_tutien.BaseTuDuy;
 import com.girlkun.server.Manager;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
@@ -11,7 +12,7 @@ import com.girlkun.utils.Util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LuyenThe {
+public class LuyenThe extends BaseTuDuy {
     public short level;
     public long exp;
     public long maxExp;
@@ -45,6 +46,8 @@ public class LuyenThe {
         }
         player.nPoint.tlHutHp += getHutHPBuff();
         player.nPoint.tlHutMp += getHPMPBuff();
+        player.nPoint.xDameLinhCan += tinhThan;
+        player.nPoint.tlDameCrit.add(nhanhNhen * 100);
         if (player.nPoint.xDameLinhCan > 0) {
             player.nPoint.tlDameCrit.add(player.nPoint.xDameLinhCan * 2);
         }
@@ -230,27 +233,40 @@ public class LuyenThe {
     public boolean isLuyenTheReal() {
         return level > 10 && (!player.tuMa.isTuMa() && !player.tuTien.isTuTien());
     }
-
     public void showInfo() {
         if (!isLuyenThe()) {
             Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện thể");
+            return;
         }
+
         StringBuilder text = new StringBuilder();
 
         text.append("|7|❖═════ LUYỆN THỂ ═════❖\n");
-        text.append("|5|➤").append(getName()).append("\n");
-        text.append("|5|➤ Tu vi:").append(getCurrentExpAsString()).append("\n");
-        text.append("|5|➤ Chân khí:").append(getCurrentChanKhiAsString()).append("\n");
-// — Buff chỉ số —
-        text.append("|5|➤ Dame Buff:").append(getDameBuff()).append("%\n");
-        text.append("|5|➤ HP/MP Buff:").append(getHPMPBuff()).append("%\n");
-// — Tỷ lệ đột phá —
-        text.append("|5|➤ Tỷ lệ đột phá:").append(String.format("%.2f%%", getLevelUpPercent())).append("\n");
-// — Nhắc nhở —
+        text.append("|5|➤ ").append(getName()).append("\n");
+        text.append("|5|➤ Tu vi: ").append(getCurrentExpAsString()).append("\n");
+        text.append("|5|➤ Chân khí: ").append(getCurrentChanKhiAsString()).append("\n");
+
+        // --- Buff chỉ số ---
+        text.append("|5|➤ Dame Buff: ").append(getDameBuff()).append("%\n");
+        text.append("|5|➤ HP/MP Buff: ").append(getHPMPBuff()).append("%\n");
+
+        // --- Thuộc tính luyện thể ---
+        text.append("|1|➤ Thể Chất: +").append(theChat).append(" Điểm\n");
+        text.append("|1|➤ Sức Mạnh: +").append(sucManh).append(" Điểm\n");
+        text.append("|1|➤ Tốc Độ: +").append(nhanhNhen).append(" Điểm\n");
+        text.append("|1|➤ Tinh Thần: +").append(tinhThan).append(" Điểm\n");
+
+        // --- Tỷ lệ đột phá ---
+        text.append("|5|➤ Tỷ lệ đột phá: ").append(String.format("%.2f%%", getLevelUpPercent())).append("\n");
+
+        // --- Nhắc nhở ---
         text.append("|7|✪ Cấp càng cao, tỷ lệ đột phá càng thấp!");
         text.append("\n|7|❖════════════════════❖");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text.toString(), "Đột phá", "Công Pháp", "Võ Kỹ", "Tôi Thể", "Đóng");
+
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text.toString(),
+                "Đột phá", "Công Pháp", "Võ Kỹ", "Tôi Thể", "Đóng");
     }
+
 
     private String getCurrentChanKhiAsString() {
         return Util.powerToString(chanKhi) + "/" + Util.powerToString(maxChanKhi);

@@ -152,6 +152,8 @@ public class TuTien extends BasePoint implements IBaseAction {
         player.nPoint.tlNeDon += player.nPoint.tlNeDon * getNeBuff() / 100;
         player.nPoint.tlHutHp += getHutHPBuff();
         player.nPoint.tlHutMp += getHutMPBuff();
+        player.nPoint.xDameLinhCan += tinhThan;
+        player.nPoint.tlDameCrit.add(nhanhNhen * 100);
         if (linhCan != null) {
             player.nPoint.tlDameCrit.add((int) linhCan.getThuocTinhLinhCan().getParam());
         }
@@ -553,15 +555,15 @@ public class TuTien extends BasePoint implements IBaseAction {
             Service.gI().sendThongBao(player, "Bạn cần mở tu tiên trước");
             return;
         }
-//        if (congPhap.tenCongPhap != null) {
-//            Service.gI().sendThongBao(player, "Bạn đã học công pháp rồi mà.");
-//            return;
-//        }
-        CongPhap cpTem = getCongPhapByLinhCan(select);
-        if (cpTem.thuoctinh != linhCan.getLinhCanType()) {
-            Service.gI().sendThongBao(player, "Công pháp không phù hợp với linh căn của bạn");
+        if (congPhap.tenCongPhap != null) {
+            Service.gI().sendThongBao(player, "Bạn đã học công pháp rồi mà.");
             return;
         }
+        CongPhap cpTem = getCongPhapByLinhCan(select);
+//        if (cpTem.thuoctinh != linhCan.getLinhCanType()) {
+//            Service.gI().sendThongBao(player, "Công pháp không phù hợp với linh căn của bạn");
+//            return;
+//        }
         cpTem.tuTien = this;
         congPhap = cpTem;
         congPhap.ratioNewCongPhap();
@@ -725,6 +727,10 @@ public class TuTien extends BasePoint implements IBaseAction {
                 + "|1|➤ Phòng Thủ: +" + getDefBuff() + "%\n"
                 + "|1|➤ Né Tránh: +" + getNeBuff() + "%\n"
                 + "|1|➤ Chính Xác: +" + getChinhXacBuff() + "%\n"
+                + "|1|➤ Thể Chất: +" + theChat + " Điểm\n"
+                + "|1|➤ Sức Mạnh: +" + sucManh + " Điểm\n"
+                + "|1|➤ Tốc Độ: +" + nhanhNhen + " Điểm\n"
+                + "|1|➤ Tinh Thần: +" + tinhThan + " Điểm\n"
                 + "|5|➤ Đột Phá Thiên Đạo:" + (xParam - 1) + " lần\n"
                 + "|5|➤ Chiến Lực:" + (Util.powerToString(getChienLuc())) + " điểm\n"
                 + "|7|✧ Cảnh giới càng cao, thuộc tính càng mạnh!";

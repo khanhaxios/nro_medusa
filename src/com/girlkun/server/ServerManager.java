@@ -171,10 +171,8 @@ public class ServerManager {
         TaiXiu.gI().lastTimeEnd = System.currentTimeMillis() + TaiXiu.gI().TIME_TAI_XIU;
         new Thread(TaiXiu.gI(), "Thread TaiXiu").start();
         NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
-
         new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
-
-        new Thread(TopService.gI(), "Thread TOP").start();
+//        new Thread(TopService.gI(), "Thread TOP").start();
         new Thread(Manager.sanGiaoDichBuaZeno, "SGD").start();
         try {
             BossManager.gI().loadBoss();

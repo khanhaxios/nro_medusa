@@ -271,6 +271,22 @@ public class UseItem {
                     }
                     pl.luyenDanSu.useDanDuoc(item);
                     break;
+                case 66:
+                    // dung linh thach thuoc tinh
+                    if (pl.tuTien.isTuTien()) {
+                        pl.tuTien.increasePoint(pl, item);
+                        return;
+                    }
+                    if (pl.tuMa.isTuMa()) {
+                        pl.tuMa.increasePoint(pl, item);
+                        return;
+                    }
+                    if (pl.luyenThe.isLuyenTheReal()) {
+                        pl.tuMa.increasePoint(pl, item);
+                        return;
+                    }
+                    Service.gI().sendThongBao(pl, "Bạn cần học nghề để có thể dùng vật phẩm này");
+                    break;
                 case 13: {
                     // random thời gian có tác dụng của bùa
                     int min = 10;

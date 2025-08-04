@@ -112,7 +112,7 @@ public class SanGiaoDichBuaZeno implements Runnable {
         if (holder == null) {
             initDataFromDataBase();
             loadAllDataSanGiaoDichPlayer();
-            Logger.log("Load data sàn giao dịch thành công");
+            Logger.log("Load data sàn giao dịch thành công\n");
         }
         random = new Random();
         while (IS_OPEN) {
