@@ -70,7 +70,6 @@ public class NinjaTim extends Boss {
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-        this.calledNinja = false;
         st = System.currentTimeMillis();
     }
 
