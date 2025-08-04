@@ -178,7 +178,7 @@ public class CongPhap {
 
     public void calcSlThuocTinh() {
         this.maxThuocTinh = getMaxThuocTinhByPhamChat();
-        this.slThuocTinh = getSlThuocTinh();
+        this.slThuocTinh = getSlThuocTinhHienTai();
     }
 
     public void upOldBuff() {
@@ -198,9 +198,7 @@ public class CongPhap {
 //
 //        if (hutMp > 0) hutMp += Math.min(hutMp + Util.nextInt(1, 3), MAX_BUFF);
 
-        if (Util.isTrue(1, 100)) {
-            if (xDameThuocTinh > 0) xDameThuocTinh += (byte) Math.min(xDameThuocTinh + Util.nextInt(1, 2), 100);
-        }
+        if (xDameThuocTinh > 0) xDameThuocTinh += (byte) Math.min(xDameThuocTinh + Util.nextInt(1, 2), 100);
 
         if (xLinhKhiBuff > 0) xLinhKhiBuff += (byte) Math.min(xLinhKhiBuff + Util.nextInt(1), 100);
 

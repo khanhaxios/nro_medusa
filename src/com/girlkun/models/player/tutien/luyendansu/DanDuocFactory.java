@@ -83,7 +83,7 @@ public class DanDuocFactory {
             Service.gI().sendThongBao(player, "Dùng vận khí đan thành công may mắn của bạn tăng lên một chút");
         }
         if (danDuoc.id >= 6060 && danDuoc.id <= 6060 + 5) {
-            player.luyenDanSu.danDuocEffect.stLinhCanBuff = Math.max(danDuoc.capDanDuoc, 2) * 20;
+            player.luyenDanSu.danDuocEffect.stLinhCanBuff = Math.max(danDuoc.capDanDuoc, 2) * 5;
             player.luyenDanSu.danDuocEffect.timeBuffSTLinhCan += 3 * (60 * 1000) * Math.max(danDuoc.capDanDuoc + 1, 1);
             player.luyenDanSu.danDuocEffect.lastTimeUseSTLinhCan = System.currentTimeMillis();
             Service.gI().sendThongBao(player, "Sát thương linh căn của bạn đã tăng mạnh");

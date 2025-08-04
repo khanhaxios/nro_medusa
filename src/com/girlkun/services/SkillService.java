@@ -1282,15 +1282,18 @@ public class SkillService {
                 return;
             }
             short paramOfLinhCan = plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam();
+
+            if (plAtt.tuTien.congPhap.isLearn()) {
+                if (plAtt.tuTien.congPhap.xDameThuocTinh > 0) {
+                    paramOfLinhCan += paramOfLinhCan * plAtt.tuTien.congPhap.xDameThuocTinh / 100;
+                }
+            }
+
             if (plAtt.luyenDanSu.isLuyenDan() && plAtt.luyenDanSu.danDuocEffect.isBuffSTLinhCan()) {
                 paramOfLinhCan += plAtt.luyenDanSu.danDuocEffect.stLinhCanBuff;
             }
-            if (plAtt.tuTien.congPhap.isLearn()) {
-                if (plAtt.tuTien.congPhap.xDameThuocTinh > 0) {
-                    paramOfLinhCan += paramOfLinhCan * plAtt.tuTien.congPhap.xDameThuocTinh / 10;
-                }
-            }
-            paramOfLinhCan += plAtt.nPoint.xDameLinhCan;
+
+            paramOfLinhCan += paramOfLinhCan * plAtt.nPoint.xDameLinhCan / 100;
             switch (plAtt.tuTien.linhCan.getLinhCanType()) {
                 case 0:
                     // kim
