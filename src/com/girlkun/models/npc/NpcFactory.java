@@ -57,6 +57,9 @@ import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -3020,7 +3023,7 @@ public class NpcFactory {
                                     player.chienthan.dalamduoc++;
                                 }
                                 player.dk_bdkb++;
-                                BanDoKhoBauService.gI().openBanDoKhoBau(player, Byte.parseByte(String.valueOf(PLAYERID_OBJECT.get(player.id))));
+                                BanDoKhoBauService.gI().openBanDoKhoBau(player, player.iDMark.choseLevelBdkb);
                                 break;
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.QUY_DOI_HN) {
@@ -5469,21 +5472,6 @@ public class NpcFactory {
                             flag = false;
                         }
                     }
-
-//                    if (flag) {
-//                        player.clan.doanhTrai_haveGone = true;
-//                        player.clan.doanhTrai.setLastTimeOpen(System.currentTimeMillis() + 290_000);
-//                        player.clan.doanhTrai.DropNgocRong();
-//                        for (Player pl : player.clan.membersInGame) {
-//                            ItemTimeService.gI().sendTextTime(pl, (byte) 0, "Doanh trại độc nhãn sắp kết thúc : ", 300);
-//                        }
-//                        player.clan.doanhTrai.timePickDragonBall = true;
-//                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
-//                                "Ta đã thả ngọc rồng ở tất cả các map,mau đi nhặt đi. Hẹn ngươi quay lại vào ngày mai", "OK");
-//                    } else {
-//                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
-//                                "Hãy tiêu diệt hết quái và boss trong map", "OK");
-//                    }
                 }
             }
 
@@ -5518,46 +5506,39 @@ public class NpcFactory {
                         this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Chỉ tiếp các bang hội, miễn tiếp khách vãng lai", "Đóng");
                         return;
                     }
-//                    if (player.clan.getMembers().size() < DoanhTrai.N_PLAYER_CLAN) {
-//                        this.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-//                                "Bang hội phải có ít nhất 5 thành viên mới có thể mở", "Đóng");
-//                        return;
-//                    }
                     if (player.clan.doanhTrai != null && player.clanMember.getNumDateFromJoinTimeToToday() >= 2 && !player.clan.doanhTrai_haveGone) {
                         createOtherMenu(player, ConstNpc.MENU_JOIN_DOANH_TRAI, "Bang hội của ngươi đang đánh trại độc nhãn\n" + "Thời gian còn lại là " + TimeUtil.getMinLeft(player.clan.doanhTrai.getLastTimeOpen(), DoanhTrai.TIME_DOANH_TRAI / 1000) + " Phút" + ". Ngươi có muốn tham gia không?", "Tham gia", "Không", "Hướng\ndẫn\nthêm");
                         return;
                     }
-//                    int nPlSameClan = 0;
-//                    for (Player pl : player.zone.getPlayers()) {
-//                        if (!pl.equals(player) && pl.clan != null
-//                                && pl.clan.equals(player.clan) && pl.location.x >= 1285
-//                                && pl.location.x <= 1645) {
-//                            nPlSameClan++;
-//                        }
-//                    }
-//                    if (nPlSameClan < DoanhTrai.N_PLAYER_MAP) {
-//                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
-//                                "Ngươi phải có ít nhất " + DoanhTrai.N_PLAYER_MAP + " đồng đội cùng bang đứng gần mới có thể\nvào\n"
-//                                + "tuy nhiên ta khuyên ngươi nên đi cùng với 3-4 người để khỏi chết.\n"
-//                                + "Hahaha.", "OK", "Hướng\ndẫn\nthêm");
-//                        return;
-//                    }
-//                    if (player.clanMember.getNumDateFromJoinTimeToToday() < 2 || (player.clan.doanhTrai != null && player.clanMember.getNumDateFromJoinTimeToToday() < 2)) {
-//                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
-//                                "Doanh trại chỉ cho phép những người ở trong bang trên 2 ngày. Hẹn ngươi quay lại vào lúc khác",
-//                                "OK", "Hướng\ndẫn\nthêm");
-//                        return;
-//                    }
+                    int nPlSameClan = 0;
+                    for (Player pl : player.zone.getPlayers()) {
+                        if (!pl.equals(player) && pl.clan != null
+                                && pl.clan.equals(player.clan) && pl.location.x >= 1285
+                                && pl.location.x <= 1645) {
+                            nPlSameClan++;
+                        }
+                    }
+                    if (nPlSameClan < DoanhTrai.N_PLAYER_MAP) {
+                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Ngươi phải có ít nhất " + DoanhTrai.N_PLAYER_MAP + " đồng đội cùng bang đứng gần mới có thể\nvào\n"
+                                        + "tuy nhiên ta khuyên ngươi nên đi cùng với 3-4 người để khỏi chết.\n"
+                                        + "Hahaha.", "OK", "Hướng\ndẫn\nthêm");
+                        return;
+                    }
 
                     if (!player.clan.doanhTrai_haveGone) {
+                        LocalDate lastOpen = Instant.ofEpochMilli(player.clan.doanhTrai_lastTimeOpen)
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDate();
+                        LocalDate today = LocalDate.now();
                         player.clan.doanhTrai_haveGone = (new java.sql.Date(player.clan.doanhTrai_lastTimeOpen)).getDay() == (new java.sql.Date(System.currentTimeMillis())).getDay();
                     }
-//                    if (player.clan.doanhTrai_haveGone) {
-//                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
-//                                "Bang hội của ngươi đã đi trại lúc " + TimeUtil.formatTime(player.clan.doanhTrai_lastTimeOpen, "HH:mm:ss") + " hôm nay. Người mở\n"
-//                                + "(" + player.clan.doanhTrai_playerOpen + "). Hẹn ngươi quay lại vào ngày mai", "OK", "Hướng\ndẫn\nthêm");
-//                        return;
-//                    }
+                    if (player.clan.doanhTrai_haveGone) {
+                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Bang hội của ngươi đã đi trại lúc " + TimeUtil.formatTime(player.clan.doanhTrai_lastTimeOpen, "HH:mm:ss") + " hôm nay. Người mở\n"
+                                        + "(" + player.clan.doanhTrai_playerOpen + "). Hẹn ngươi quay lại vào ngày mai", "OK", "Hướng\ndẫn\nthêm");
+                        return;
+                    }
                     createOtherMenu(player, ConstNpc.MENU_JOIN_DOANH_TRAI, "Hôm nay bang hội của ngươi chưa vào trại lần nào. Ngươi có muốn vào\n" + "không?\nĐể vào, ta khuyên ngươi nên có 3-4 người cùng bang đi cùng", "Vào\n(miễn phí)", "Không", "Hướng\ndẫn\nthêm");
                 }
             }
@@ -5572,10 +5553,9 @@ public class NpcFactory {
                                     Service.getInstance().sendThongBao(player, "Hết 30p gòi, đợi mai đê !!!!");
                                 } else if (player.clan.doanhTrai == null) {
                                     DoanhTraiService.gI().joinDoanhTrai(player);
-                                } else if (player.clan.doanhTrai != null && TimeUtil.getMinLeft(player.clan.doanhTrai.getLastTimeOpen(), DoanhTrai.TIME_DOANH_TRAI / 1000) > 0) {
+                                } else if (TimeUtil.getMinLeft(player.clan.doanhTrai.getLastTimeOpen(), DoanhTrai.TIME_DOANH_TRAI / 1000) > 0) {
                                     ChangeMapService.gI().changeMapInYard(player, 53, -1, 60);
                                     ItemTimeService.gI().sendTextDoanhTrai(player);
-
                                 }
                             } else if (select == 2) {
                                 NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_DOANH_TRAI);
@@ -8284,7 +8264,7 @@ public class NpcFactory {
                             case 0:
                                 boolean isDotPhaCao = player.tuTien.subLevel == 10;
                                 // dot pha
-                                String text = "|7|❖ ĐỘT PHÁ CẢNH GIỚI ❖\n" + "|5|🌟 Cảnh giới hiện tại: |2|" + player.tuTien.getFormatName() + "\n" + "|5|🌠 Cảnh giới kế tiếp: |2|" + player.tuTien.getNextLevelStr() + "\n" + "|1|🔮 Tu vi: |5|" + player.tuTien.getCurrentExpAsString() + "\n" + "|1|🎯 Tỷ lệ đột phá: |2|" + player.tuTien.getLevelUpPercent() + "%\n" + "|1|⚡ Thiên đạo (hiếm): |2|" + (player.tuTien.getLevelUpPercent() / 5) + "%\n" + "|7|🧪 Dùng đan dược để tăng tỷ lệ thành công!";
+                                String text = "|7|❖ ĐỘT PHÁ CẢNH GIỚI ❖\n" + "|5| Cảnh giới hiện tại: |2|" + player.tuTien.getFormatName() + "\n" + "|5| Cảnh giới kế tiếp: |2|" + player.tuTien.getNextLevelStr() + "\n" + "|1|🔮 Tu vi: |5|" + player.tuTien.getCurrentExpAsString() + "\n" + "|1|Tỷ lệ đột phá: |2|" + player.tuTien.getLevelUpPercent() + "%\n" + "|1|⚡ Thiên đạo (hiếm): |2|" + (player.tuTien.getLevelUpPercent() / 5) + "%\n" + "|7| Dùng đan dược để tăng tỷ lệ thành công!";
                                 if (isDotPhaCao) {
                                     NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_DOT_PHA, -1, text, "Đột phá\nThiên đạo", "Đột phá thường", "Từ Chối");
                                 } else {
@@ -8320,15 +8300,23 @@ public class NpcFactory {
                         if (player.tuTien.subLevel == 10) {
                             switch (select) {
                                 case 0:
-                                    player.iDMark.dotPhaThienDao = true;
-                                    // dot pha thien dao
-                                    Item item = InventoryServiceNew.gI().findItemBag(player, 2031);
-                                    if (item == null || item.quantity < player.tuTien.level * 10) {
-                                        Service.gI().sendThongBao(player, "Cần x" + player.tuTien.level * 10 + " thăng tinh thạch để dột phá");
+                                    Item thangTinhThach = InventoryServiceNew.gI().findItemBag(player, 2031); // thăng tinh thạch
+                                    Item nguHanhThach = InventoryServiceNew.gI().findItemBag(player, 2082);   // ngũ hành thạch
+                                    int level = player.tuTien.level;
+                                    if (nguHanhThach != null && nguHanhThach.quantity >= level) {
+                                        player.iDMark.typeDotPhaThienDao = 0; // Dùng ngũ hành thạch
+                                    } else if (thangTinhThach != null && thangTinhThach.quantity >= level * 10) {
+                                        player.iDMark.typeDotPhaThienDao = 1; // Dùng thăng tinh thạch
+                                    } else {
+                                        String msg = "Cần x" + level + " ngũ hành thạch hoặc x" + (level * 10) + " thăng tinh thạch để đột phá";
+                                        Service.gI().sendThongBao(player, msg);
                                         return;
                                     }
+
+                                    player.iDMark.dotPhaThienDao = true;
                                     float subPercent = player.luyenDanSu.diemKhangTinh / 10f;
-                                    float ratio = (player.tuTien.getLevelUpPercent() / 20f);
+                                    float ratio = player.tuTien.getLevelUpPercent() / 20f;
+
                                     if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isUseDanDotPhaThienDao) {
                                         ratio += player.luyenDanSu.danDuocEffect.percentDotPhaThienDao;
                                         player.luyenDanSu.danDuocEffect.resetDanDptd();
@@ -8350,7 +8338,11 @@ public class NpcFactory {
                                     player.tuTien.restLinhKhi();
                                     Service.gI().sendThongBao(player, "Bạn đã đột phá thất bại , mất hết tu vi và linh khí hiện tại");
                                     player.tuTien.addStackDp(1);
-                                    InventoryServiceNew.gI().subQuantityItemsBag(player, item, 10 * player.tuTien.level);
+                                    if (player.iDMark.typeDotPhaThienDao == 0) {
+                                        InventoryServiceNew.gI().subQuantityItemsBag(player, nguHanhThach, player.tuTien.level);
+                                    } else {
+                                        InventoryServiceNew.gI().subQuantityItemsBag(player, thangTinhThach, 10 * player.tuTien.level);
+                                    }
                                     InventoryServiceNew.gI().sendItemBags(player);
                                     player.iDMark.dotPhaThienDao = false;
                                     break;
@@ -8848,6 +8840,23 @@ public class NpcFactory {
                                 break;
                             case 2:
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHON_CAP_BT, -1, "Chọn cấp độ bông tai", "Cấp 1", "Cấp 2", "Cấp 3", "Cấp 4", "Cấp 5", "Cấp 6");
+                                break;
+                            case 3:
+
+                                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TIEN_HOA, -1, "Tiên hóa trang bị giúp bạn mạnh hơn", "Tiên hóa", "Cố hóa", "Tinh hóa");
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_TIEN_HOA:
+                        switch (select) {
+                            case 0:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.TIEN_HOA_TRANG_BI);
+                                break;
+                            case 1:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.CO_HOA_TRANG_BI);
+                                break;
+                            case 2:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.TINH_HOA_TRANG_BI);
                                 break;
                         }
                         break;

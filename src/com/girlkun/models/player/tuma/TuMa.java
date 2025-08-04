@@ -63,7 +63,11 @@ public class TuMa implements IBaseAction {
 
     @Override
     public long getExpCanGain(Mob targetMob) {
-        return Math.max((long) (targetMob.point.maxHp / 100_000_0) * Math.max(player.tuMa.congPhapTuMa.phamChat, 2), Util.nextInt(10, 50));
+        long exp = Math.max((long) (targetMob.point.maxHp / 100_000_0) * Math.max(player.tuMa.congPhapTuMa.phamChat, 2), Util.nextInt(10, 50));
+        if (player.nPoint.xTuVi > 0) {
+            exp += exp * Math.max(player.nPoint.xTuVi, 1) / 100;
+        }
+        return exp;
     }
 
     @Override
@@ -83,6 +87,7 @@ public class TuMa implements IBaseAction {
 
     private long calcMaxMaKhi() {
         long m = (BASE_LINH_KHI[level / 10] + BASE_SUB_LINH_KHI[level % 10]) * (congPhapTuMa.phamChat + 1 + maTinh);
+        m += m * player.nPoint.xLinhKhi / 100;
         return m;
     }
 

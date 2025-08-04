@@ -11,14 +11,8 @@ import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
 public class NinjaTim extends Boss {
-
-    private static final int[][] FULL_DEMON = new int[][]{{Skill.DEMON, 1}, {Skill.DEMON, 2}, {Skill.DEMON, 3}, {Skill.DEMON, 4}, {Skill.DEMON, 5}, {Skill.DEMON, 6}, {Skill.DEMON, 7}};
-    private long lastTimeHapThu;
-    private int timeHapThu;
-    private int initSuper = 0;
     protected Player playerAtt;
-    private int timeLive = 10;
-    private boolean calledNinja;
+    private long lastTimeCallNinja;
 
     public NinjaTim(Zone zone, double dame, double hp) throws Exception {
         super(BossID.NINJA_AO_TIM, new BossData(
@@ -54,6 +48,9 @@ public class NinjaTim extends Boss {
                     this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it);
         }
+        ItemMap it = new ItemMap(this.zone, 2083,1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        Service.getInstance().dropItemMap(this.zone, it);
     }
 
     @Override
@@ -95,20 +92,21 @@ public class NinjaTim extends Boss {
                     damage = damage / 2;
                 }
             }
+            if (!canCallNinja()) {
+                damage = 1;
+                this.chat("Hahaaaa các ngươi ko thể gây sát thương cho ta đâu");
+            }
             this.nPoint.subHP(damage);
-            if (this.calledNinja == false && this.zone.map.mapId == 54) {
-                if (this.nPoint.hp <= 150000000) {
-                    try {
-                        System.out.println("  this zone  " + this.zone.map.mapId);
-                        new NinjaClone(this.zone, 2, Util.nextInt(1000, 10000), BossID.NINJA_AO_TIM1);
-                        new NinjaClone(this.zone, 2, Util.nextInt(1000, 10000), BossID.NINJA_AO_TIM2);
-                        new NinjaClone(this.zone, 2, Util.nextInt(1000, 10000), BossID.NINJA_AO_TIM3);
-                        new NinjaClone(this.zone, 2, Util.nextInt(1000, 10000), BossID.NINJA_AO_TIM4);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    this.calledNinja = true;
+            if (Util.canDoWithTime(lastTimeCallNinja, 60000) && canCallNinja() && this.zone.map.mapId == 54 && Util.isTrue(50, 100)) {
+                try {
+                    new NinjaClone(this.zone, 2, Util.nextInt(1000, 10000), BossID.NINJA_AO_TIM1);
+                    new NinjaClone(this.zone, 2, Util.nextInt(1000, 10000), BossID.NINJA_AO_TIM2);
+                    new NinjaClone(this.zone, 2, Util.nextInt(1000, 10000), BossID.NINJA_AO_TIM3);
+                    new NinjaClone(this.zone, 2, Util.nextInt(1000, 10000), BossID.NINJA_AO_TIM4);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
+                lastTimeCallNinja = System.currentTimeMillis();
             }
             if (isDie()) {
                 this.setDie(plAtt);
@@ -118,6 +116,16 @@ public class NinjaTim extends Boss {
         } else {
             return 0;
         }
+    }
+
+    private boolean canCallNinja() {
+        int slNinja = 0;
+        for (Player boss : zone.getBosses()) {
+            if (boss.id == BossID.NINJA_AO_TIM1 || boss.id == BossID.NINJA_AO_TIM2 || boss.id == BossID.NINJA_AO_TIM3 || boss.id == BossID.NINJA_AO_TIM4) {
+                slNinja += 1;
+            }
+        }
+        return slNinja == 0;
     }
 
 }

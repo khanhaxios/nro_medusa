@@ -1,22 +1,2 @@
-- use item charms in inventory
-- chinh lai roi do cua map
-- chinh lai map sss
-- chinh lai boss
-- chinh lai shop ho tong(ban nguyen lieu che tao buff)
-- chinh lai nhan ban(roi nguyen lieu che tao buff sieu cap)
-- mod lai client
-
-*todo boss,item
-- cân bằng chỉ số hp , dame
-- hiện tại dame trung tầm giữa lên nếu max sẽ khoảng tầm > 2 tỷ sức đánh nhưng chỉ dừng ở tỷ thôi
-- bùa zeno sẽ ko bán nữa mà phải cày boss rơi( tỷ lệ 1/200) cái này m quyết định xem boss nào rơi
-- nguyên liệu luyện khí sẽ bao gồm các loại đá  : thiên mệnh thạch , đế vương thạch vv, nhắm cho rơi ở map nào đó
-- điểm nạp h chỉ đổi được thỏi vàng và dùng cho việc tu tiên
-- rảnh thì thêm 1 cái item( icon kiếm trong res ) đặt tên là tiên thạch, sau này sẽ dùng đến
-
-
-- todo :  30/5/2025
-- can update them item roi cho tinh nang tu tien
-
--todo : 31 / 5/ 2025
-- cho roi da ngu sac va da medusa de kich hoat trang bi ( roi tu boss )
+note : phai chinh lai item vong quay may man ,phai chinh lai item vong quay may man,phai chinh lai item vong quay may man
+viec quan trong noi 3 lan

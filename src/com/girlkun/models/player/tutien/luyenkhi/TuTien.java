@@ -125,7 +125,11 @@ public class TuTien extends BasePoint implements IBaseAction {
                     if (xParam <= 1) {
                         xParam = 2;
                     } else {
-                        xParam++;
+                        if (player.iDMark.typeDotPhaThienDao == 0) {
+                            xParam += 2;
+                        } else {
+                            xParam++;
+                        }
                     }
                     player.iDMark.dotPhaThienDao = false;
                 }

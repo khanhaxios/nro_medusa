@@ -21,6 +21,8 @@ public class IDMark {
     public VoKy voKySelected;
     public Transaction currentGiaoDich;
     public int gdMenuType;
+    public int typeDotPhaThienDao;
+    public int choseLevelBdkb;
     private int typeChangeMap; //capsule, ngọc rồng đen...
     private int indexMenu; //menu npc
     private int typeInput; //input

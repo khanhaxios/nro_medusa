@@ -121,7 +121,6 @@ public class DoanhTraiService {
     }
 
     public void joinDoanhTrai(Player player) {
-
         if (player.clan == null) {
             Service.getInstance().sendThongBao(player, "Không thể thực hiện");
             return;

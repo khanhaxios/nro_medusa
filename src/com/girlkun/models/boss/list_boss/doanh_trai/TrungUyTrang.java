@@ -1,10 +1,12 @@
 package com.girlkun.models.boss.list_boss.doanh_trai;
 
 import com.girlkun.consts.ConstPlayer;
-import com.girlkun.models.boss.*;
+import com.girlkun.models.boss.Boss;
+import com.girlkun.models.boss.BossData;
+import com.girlkun.models.boss.BossID;
+import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.Zone;
-import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.services.EffectSkillService;
@@ -15,7 +17,6 @@ import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
 
 public class TrungUyTrang extends Boss {
-
     protected Player playerAtt;
 
     public TrungUyTrang(Zone zone, double dame, double hp) throws Exception {
@@ -27,11 +28,11 @@ public class TrungUyTrang extends Boss {
                 new double[]{((200 * dame))}, //hp
                 new int[]{62}, //map join
                 new int[][]{
-                    {Skill.DEMON, 3, 1}, {Skill.DEMON, 6, 2}, {Skill.DRAGON, 7, 3}, {Skill.DRAGON, 1, 4}, {Skill.GALICK, 5, 5},
-                    {Skill.KAMEJOKO, 7, 6}, {Skill.KAMEJOKO, 6, 7}, {Skill.KAMEJOKO, 5, 8}, {Skill.KAMEJOKO, 4, 9}, {Skill.KAMEJOKO, 3, 10}, {Skill.KAMEJOKO, 2, 11}, {Skill.KAMEJOKO, 1, 12},
-                    {Skill.ANTOMIC, 1, 13}, {Skill.ANTOMIC, 2, 14}, {Skill.ANTOMIC, 3, 15}, {Skill.ANTOMIC, 4, 16}, {Skill.ANTOMIC, 5, 17}, {Skill.ANTOMIC, 6, 19}, {Skill.ANTOMIC, 7, 20},
-                    {Skill.MASENKO, 1, 21}, {Skill.MASENKO, 5, 22}, {Skill.MASENKO, 6, 23},
-                    {Skill.KAMEJOKO, 7, 1000},},
+                        {Skill.DEMON, 3, 1}, {Skill.DEMON, 6, 2}, {Skill.DRAGON, 7, 3}, {Skill.DRAGON, 1, 4}, {Skill.GALICK, 5, 5},
+                        {Skill.KAMEJOKO, 7, 6}, {Skill.KAMEJOKO, 6, 7}, {Skill.KAMEJOKO, 5, 8}, {Skill.KAMEJOKO, 4, 9}, {Skill.KAMEJOKO, 3, 10}, {Skill.KAMEJOKO, 2, 11}, {Skill.KAMEJOKO, 1, 12},
+                        {Skill.ANTOMIC, 1, 13}, {Skill.ANTOMIC, 2, 14}, {Skill.ANTOMIC, 3, 15}, {Skill.ANTOMIC, 4, 16}, {Skill.ANTOMIC, 5, 17}, {Skill.ANTOMIC, 6, 19}, {Skill.ANTOMIC, 7, 20},
+                        {Skill.MASENKO, 1, 21}, {Skill.MASENKO, 5, 22}, {Skill.MASENKO, 6, 23},
+                        {Skill.KAMEJOKO, 7, 1000},},
                 new String[]{}, //text chat 1
                 new String[]{"|-1|Nhóc con"}, //text chat 2
                 new String[]{}, //text chat 3
@@ -51,6 +52,9 @@ public class TrungUyTrang extends Boss {
                     this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it);
         }
+        ItemMap it = new ItemMap(this.zone, 2083, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        Service.getInstance().dropItemMap(this.zone, it);
         this.zone.isTrungUyTrangAlive = false;
     }
 
@@ -58,6 +62,7 @@ public class TrungUyTrang extends Boss {
     public void active() {
         super.active();
     }
+
     private long lastTimeFindPlayerToChangeFlag;
 
     @Override
@@ -151,11 +156,12 @@ public class TrungUyTrang extends Boss {
         this.zone.isbulon13Alive = true;
         this.zone.isbulon14Alive = true;
     }
+
     private long st;
     private long lastTimeBlame;
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack,boolean a) {
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
         if (!this.isDie()) {
             if (this.zone.isbulon14Alive) {
                 if (System.currentTimeMillis() - lastTimeBlame > 3000) {

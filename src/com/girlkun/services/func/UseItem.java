@@ -29,7 +29,6 @@ import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 
-import java.util.Date;
 import java.util.Random;
 
 public class UseItem {
@@ -290,6 +289,32 @@ public class UseItem {
                 }
                 default:
                     switch (item.template.id) {
+                        case 571:
+                            // ruong bac
+                            if (!Util.canDoWithTime(item.createTime, 86_400_000)) {
+                                int timeTargetInSec = 86_400; // 24 tiếng
+                                String timeLeft = TimeUtil.getTimeLeft(item.createTime, timeTargetInSec);
+                                Service.gI().sendThongBao(pl, "Cần đợi " + timeLeft + " để sử dụng lại");
+                                return;
+                            }
+                            openRuongBac(pl, item);
+                            break;
+                        case 572:
+                            if (!Util.canDoWithTime(item.createTime, 86_400_000L * 2)) {
+                                int timeTargetInSec = 86_400 * 2; // 2 ngày
+                                String timeLeft = TimeUtil.getTimeLeft(item.createTime, timeTargetInSec);
+                                Service.gI().sendThongBao(pl, "Cần đợi " + timeLeft + " để sử dụng lại");
+                                return;
+                            }
+                            openRuongVang(pl, item);
+                            // ruong vang
+                            break;
+                        case 573:
+                            openCapsuleBac(pl, item);
+                            break;
+                        case 574:
+                            openCapsuleVang(pl, item);
+                            break;
                         case 1442:
                             if (!pl.huyet.isKichHoat()) {
                                 Service.gI().sendThongBao(pl, "Bạn cần mở huyết mạch để dùng vật phẩm này");
@@ -462,6 +487,12 @@ public class UseItem {
                             openCSH(pl, item);
                             break;
                         case 570: //cskb
+                            if (!Util.canDoWithTime(item.createTime, (10) * 1000)) {
+                                int timeTargetInSec = (10) * 1000; // 2
+                                String timeLeft = TimeUtil.getTimeLeft(item.createTime, timeTargetInSec);
+                                Service.gI().sendThongBao(pl, "Cần đợi " + timeLeft + " để sử dụng lại");
+                                return;
+                            }
                             openWoodChest(pl, item);
                             break;
                         case 381: //cuồng nộ
@@ -710,6 +741,124 @@ public class UseItem {
         } else {
             Service.getInstance().sendThongBaoOK(pl, "Sức mạnh không đủ yêu cầu");
         }
+    }
+
+    private void openCapsuleVang(Player player, Item item) {
+        // item có thể nhận
+        // hồng ngọc , item buff , thang tinh thach , da luyen the , ngu hanh thach
+        long ruby = Util.nextInt(10_000, 100_000);
+        long dn = Util.nextInt(10_000, 50_000);
+        int thangTinhThach = Util.nextInt(10, 50);
+        int slDaLuyenThe = Util.nextInt(50, 250);
+        int itemBuffQuantity = Util.nextInt(1, 5);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Mở rương vàng thành công bạn nhận được").append("\n");
+        stringBuilder.append("Hồng ngọc x").append(ruby).append("\n");
+        stringBuilder.append("Điểm nạp x").append(dn).append("\n");
+        stringBuilder.append("Thăng tinh thạch x").append(thangTinhThach).append("\n");
+        stringBuilder.append("Đá luyện thể x").append(slDaLuyenThe).append("\n");
+        //buff for player
+        InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2031, thangTinhThach));
+        for (int j = 1260; j <= 1266; j++) {
+            InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) j, slDaLuyenThe));
+        }
+        for (int i = 0; i < 5; i++) {
+            Item itemBuff = ItemService.gI().createItemFromTemplate(Manager.ITEM__BUFFS.get(Util.nextInt(0, Manager.ITEM__BUFFS.size() - 1)), itemBuffQuantity);
+            stringBuilder.append(itemBuff.template.name).append("x").append(itemBuffQuantity).append(itemBuffQuantity).append("\n");
+            InventoryServiceNew.gI().addItemBag(player, itemBuff);
+        }
+        player.inventory.ruby += ruby;
+        player.session.vnd += dn;
+        InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
+        InventoryServiceNew.gI().sendItemBags(player);
+        Service.gI().sendThongBaoOK(player, stringBuilder.toString());
+    }
+
+    private void openCapsuleBac(Player player, Item item) {
+        // item có thể nhận
+        // hồng ngọc , item buff , thang tinh thach , da luyen the , ngu hanh thach
+        long ruby = Util.nextInt(10_000, 20_000);
+        int slDaLuyenThe = Util.nextInt(50, 100);
+        int itemBuffQuantity = Util.nextInt(1, 5);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Mở rương vàng thành công bạn nhận được").append("\n");
+        stringBuilder.append("Hồng ngọc x").append(ruby).append("\n");
+        stringBuilder.append("Đá luyện thể x").append(slDaLuyenThe).append("\n");
+        //buff for player
+        for (int j = 1260; j <= 1266; j++) {
+            InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) j, slDaLuyenThe));
+        }
+        for (int i = 0; i < 5; i++) {
+            Item itemBuff = ItemService.gI().createItemFromTemplate(Manager.ITEM__BUFFS.get(Util.nextInt(0, Manager.ITEM__BUFFS.size() - 1)), itemBuffQuantity);
+            stringBuilder.append(itemBuff.template.name).append("x").append(itemBuffQuantity).append(itemBuffQuantity).append("\n");
+            InventoryServiceNew.gI().addItemBag(player, itemBuff);
+        }
+        player.inventory.ruby += ruby;
+        InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
+        InventoryServiceNew.gI().sendItemBags(player);
+        Service.gI().sendThongBaoOK(player, stringBuilder.toString());
+    }
+
+    private void openRuongVang(Player pl, Item item) {
+        // item có thể nhận
+        // hồng ngọc , item buff , thang tinh thach , da luyen the , ngu hanh thach
+        long ruby = Util.nextInt(100_000, 10_000_000);
+        long dn = Util.nextInt(10_000, 1_000_000);
+        int thangTinhThach = Util.nextInt(50, 5000);
+        int slDaLuyenThe = Util.nextInt(100, 6666);
+        int daNguHanh = Util.nextInt(1, 5);
+        int itemBuffQuantity = Util.nextInt(1, 5);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Mở rương vàng thành công bạn nhận được").append("\n");
+        stringBuilder.append("Hồng ngọc x").append(ruby).append("\n");
+        stringBuilder.append("Điểm nạp x").append(dn).append("\n");
+        stringBuilder.append("Thăng tinh thạch x").append(thangTinhThach).append("\n");
+        stringBuilder.append("Đá luyện thể x").append(slDaLuyenThe).append("\n");
+        stringBuilder.append("Ngũ hành thạch x").append(daNguHanh).append("\n");
+        //buff for player
+        InventoryServiceNew.gI().addItemBag(pl, ItemService.gI().createNewItem((short) 2031, thangTinhThach));
+        InventoryServiceNew.gI().addItemBag(pl, ItemService.gI().createNewItem((short) 2082, daNguHanh));
+        for (int j = 1260; j <= 1266; j++) {
+            InventoryServiceNew.gI().addItemBag(pl, ItemService.gI().createNewItem((short) j, slDaLuyenThe));
+        }
+        for (int i = 0; i < 5; i++) {
+            Item itemBuff = ItemService.gI().createItemFromTemplate(Manager.ITEM__BUFFS.get(Util.nextInt(0, Manager.ITEM__BUFFS.size() - 1)), itemBuffQuantity);
+            stringBuilder.append(itemBuff.template.name).append("x").append(itemBuffQuantity).append(itemBuffQuantity).append("\n");
+            InventoryServiceNew.gI().addItemBag(pl, itemBuff);
+        }
+        pl.inventory.ruby += ruby;
+        pl.session.vnd += dn;
+        InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+        InventoryServiceNew.gI().sendItemBags(pl);
+        Service.gI().sendThongBaoOK(pl, stringBuilder.toString());
+    }
+
+    private void openRuongBac(Player pl, Item item) {
+        // item có thể nhận
+        // hồng ngọc , item buff , thang tinh thach , da luyen the , ngu hanh thach
+        long ruby = Util.nextInt(10_000, 1_000_000);
+        long dn = Util.nextInt(10_000, 100_000);
+        int slDaLuyenThe = Util.nextInt(100, 1666);
+        int itemBuffQuantity = Util.nextInt(1, 10);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Mở rương bạc thành công bạn nhận được").append("\n");
+        stringBuilder.append("Hồng ngọc x").append(ruby).append("\n");
+        stringBuilder.append("Điểm nạp x").append(dn).append("\n");
+        stringBuilder.append("Đá luyện thể x").append(slDaLuyenThe).append(slDaLuyenThe).append("\n");
+        //buff for player
+        for (int j = 1260; j <= 1266; j++) {
+            InventoryServiceNew.gI().addItemBag(pl, ItemService.gI().createNewItem((short) j, slDaLuyenThe));
+        }
+        for (int i = 0; i < 5; i++) {
+            Item itemBuff = ItemService.gI().createItemFromTemplate(Manager.ITEM__BUFFS.get(Util.nextInt(0, Manager.ITEM__BUFFS.size() - 1)), itemBuffQuantity);
+            stringBuilder.append(itemBuff.template.name).append("x").append(itemBuffQuantity).append(itemBuffQuantity).append("\n");
+            InventoryServiceNew.gI().addItemBag(pl, itemBuff);
+        }
+        pl.inventory.ruby += ruby;
+        pl.session.vnd += dn;
+        InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+        InventoryServiceNew.gI().sendItemBags(pl);
+        Service.gI().sendThongBaoOK(pl, stringBuilder.toString());
     }
 
     private void useItemChangeFlagBag(Player player, Item item) {
@@ -1800,44 +1949,28 @@ public class UseItem {
     }
 
     private void openWoodChest(Player pl, Item item) {
-        int time = (int) TimeUtil.diffDate(new Date(), new Date(item.createTime), TimeUtil.DAY);
-        if (time != 0) {
-            Item itemReward = null;
-            int param = pl.inventory.getParam(item, 72);
-            short[] temp = {722};
-            int[][] gold = {{1000, 2000}};
-            byte index = (byte) Util.nextInt(0, temp.length - 1);
-            short[] icon = new short[2];
-            icon[0] = item.template.iconID;
-            if (param < 9) {
-                pl.inventory.ruby += Util.nextInt(gold[0][0], gold[0][1]);
-//                if (pl.inventory.ruby > 2000000000) {
-//                    pl.inventory.ruby = 2000000000;
-//                }
-                PlayerService.gI().sendInfoHpMpMoney(pl);
-                icon[1] = 7743;
-            } else if (param == 9 || param == 10) {
-                itemReward = ItemService.gI().createNewItem((short) 861);
-                itemReward.quantity = Util.nextInt(2000, 5000);
-                InventoryServiceNew.gI().addItemBag(pl, itemReward);
-                icon[1] = itemReward.template.iconID;
-            }
-            if (param == 11) {
-                Item it = ItemService.gI().createNewItem(temp[index]);
-                it.quantity = Util.nextInt(50, 100);
-                it.itemOptions.add(new ItemOption(230, 0));
-                InventoryServiceNew.gI().addItemBag(pl, it);
-                icon[1] = it.template.iconID;
-            }
-            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
-//        pl.inventory.addGold(gold);
-//        InventoryServiceNew.gI().sendItemBags(pl);
-            PlayerService.gI().sendInfoHpMpMoney(pl);
-            CombineServiceNew.gI().sendEffectOpenItem(pl, icon[0], icon[1]);
-
-        } else {
-            Service.getInstance().sendThongBao(pl, "Vui lòng đợi 24h");
+        // item có thể nhận
+        // hồng ngọc , item buff , thang tinh thach , da luyen the , ngu hanh thach
+        long ruby = Util.nextInt(5_000, 100_000);
+        int slDaLuyenThe = Util.nextInt(10, 1666);
+        int itemBuffQuantity = Util.nextInt(1, 5);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Mở rương gỗ thành công bạn nhận được").append("\n");
+        stringBuilder.append("Hồng ngọc x").append(ruby).append("\n");
+        stringBuilder.append("Đá luyện thể x").append(slDaLuyenThe).append(slDaLuyenThe).append("\n");
+        //buff for player
+        for (int j = 1260; j <= 1266; j++) {
+            InventoryServiceNew.gI().addItemBag(pl, ItemService.gI().createNewItem((short) j, slDaLuyenThe));
         }
+        for (int i = 0; i < 5; i++) {
+            Item itemBuff = ItemService.gI().createItemFromTemplate(Manager.ITEM__BUFFS.get(Util.nextInt(0, Manager.ITEM__BUFFS.size() - 1)), itemBuffQuantity);
+            stringBuilder.append(itemBuff.template.name).append("x").append(itemBuffQuantity).append(itemBuffQuantity).append("\n");
+            InventoryServiceNew.gI().addItemBag(pl, itemBuff);
+        }
+        pl.inventory.ruby += ruby;
+        InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+        InventoryServiceNew.gI().sendItemBags(pl);
+        Service.gI().sendThongBaoOK(pl, stringBuilder.toString());
     }
 
     private int randClothes(int level) {

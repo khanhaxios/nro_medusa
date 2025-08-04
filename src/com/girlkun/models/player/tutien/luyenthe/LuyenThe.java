@@ -45,6 +45,9 @@ public class LuyenThe {
         }
         player.nPoint.tlHutHp += getHutHPBuff();
         player.nPoint.tlHutMp += getHPMPBuff();
+        if (player.nPoint.xDameLinhCan > 0) {
+            player.nPoint.tlDameCrit.add(player.nPoint.xDameLinhCan * 2);
+        }
     }
 
     public int getMaxSlVK() {
@@ -60,13 +63,23 @@ public class LuyenThe {
             exp *= player.luyenDanSu.danDuocEffect.xBuffLt;
         }
         if (congPhapLuyenThe != null && congPhapLuyenThe.isLearn() && congPhapLuyenThe.type == 0) {
-            exp *= 50;
+            exp *= 20;
+        }
+        if (player.nPoint.xTuVi > 0) {
+            exp += exp * player.nPoint.xTuVi / 100;
         }
         return exp;
     }
 
     public long calcMaxChanKhi() {
-        return level * 100_000L;
+        long chanKhi = level * 100_000L;
+        if (congPhapLuyenThe.isLearn()) {
+            if (congPhapLuyenThe.type == 1) {
+                chanKhi *= 5;
+            }
+        }
+        chanKhi += chanKhi * player.nPoint.xLinhKhi / 100;
+        return chanKhi;
     }
 
     public void restChanKhi() {

@@ -22,6 +22,9 @@ public class CombineServiceNew {
 
     public static final int CHE_TAO_BT = -12312;
     public static final int PHAN_RA_TRANG_BI = -1231321;
+    public static final int TIEN_HOA_TRANG_BI = -89721;
+    public static final int CO_HOA_TRANG_BI = -1827632;
+    public static final int TINH_HOA_TRANG_BI = -1298732;
     private static final int[] TIEN_KHI_OPTIONS_ID = new int[]{254, 255, 256};
     private static final int COST_DOI_VE_DOI_DO_HUY_DIET = 500000000;
     private static final int COST_DAP_DO_KICH_HOAT = 500000000;
@@ -211,6 +214,91 @@ public class CombineServiceNew {
                     NpcService.gI().createMenuConMeo(player, MENU_START_COMBINE_NEW, -1, "Cấp luyện khí càng cao tỷ lệ thành công càng cao", "Chế tạo", "Đóng");
                 } else {
                     Service.gI().sendThongBaoOK(player, "ĐÁ MEDUSA VIP và Đế Vương Thạch,Thiên Mệnh Thạch ,Thiên Nguyệt Thạch");
+                }
+                break;
+            case TIEN_HOA_TRANG_BI:
+                if (player.combineNew.itemsCombine.size() == 2) {
+                    Item nhlt = null;
+                    Item trangbi = null;
+                    for (Item item : player.combineNew.itemsCombine) {
+                        if (item.template.id == 2083) {
+                            nhlt = item;
+                        } else {
+                            trangbi = item;
+                        }
+                    }
+                    if (nhlt == null) {
+                        Service.gI().sendThongBao(player, "Thiếu ngũ hành tinh thạch");
+                        return;
+                    }
+                    if (trangbi == null || trangbi.template.type > 5) {
+                        Service.gI().sendThongBao(player, "Hãy đặt vào trang bị");
+                        return;
+                    }
+                    NpcService.gI().createMenuConMeo(player, MENU_START_COMBINE_NEW, -1, "Bạn có muốn tiên hóa trang bị này", "Tiên hóa", "Đóng");
+
+                } else {
+                    Service.gI().sendThongBao(player, "Cần đặt vào trang bị và ngũ hành tinh thạch");
+                }
+                break;
+            case CO_HOA_TRANG_BI:
+                if (player.combineNew.itemsCombine.size() == 3) {
+                    Item nhlt = null;
+                    Item trangbi = null;
+                    Item thanhgTinhThach = null;
+                    for (Item item : player.combineNew.itemsCombine) {
+                        if (item.template.id == 2083) {
+                            nhlt = item;
+                        } else if (item.template.id == 2031) {
+                            thanhgTinhThach = item;
+                        } else {
+                            trangbi = item;
+                        }
+                    }
+
+                    if (trangbi == null || trangbi.template.type > 5) {
+                        Service.gI().sendThongBao(player, "Hãy đặt vào trang bị");
+                        return;
+                    }
+                    if (thanhgTinhThach == null || thanhgTinhThach.quantity < 1000) {
+                        Service.gI().sendThongBao(player, "Cần x1000 thăng tinh thạch");
+                        return;
+                    }
+                    int slNhttCan = getCountNguHanhTinhThachCoHoa(trangbi);
+
+                    if (nhlt == null || nhlt.quantity < slNhttCan * 2) {
+                        Service.gI().sendThongBao(player, "Cần x" + slNhttCan * 2 + "ngũ hành tinh thạch");
+                        return;
+                    }
+                    NpcService.gI().createMenuConMeo(player, MENU_START_COMBINE_NEW, -1, "Bạn có muốn Cố hóa trang bị này", "Cố hóa", "Đóng");
+                } else {
+                    Service.gI().sendThongBao(player, "Cần đặt vào trang bị , ngũ hành tinh thạch và thăng tinh thạch");
+                }
+                break;
+            case TINH_HOA_TRANG_BI:
+                if (player.combineNew.itemsCombine.size() == 2) {
+                    Item nhlt = null;
+                    Item trangbi = null;
+                    for (Item item : player.combineNew.itemsCombine) {
+                        if (item.template.id == 2083) {
+                            nhlt = item;
+                        } else {
+                            trangbi = item;
+                        }
+                    }
+
+                    if (trangbi == null || trangbi.template.type > 5) {
+                        Service.gI().sendThongBao(player, "Hãy đặt vào trang bị");
+                        return;
+                    }
+
+                    if (nhlt == null) {
+                        Service.gI().sendThongBao(player, "Cần ngũ hành tinh thạch");
+                        return;
+                    }
+                    NpcService.gI().createMenuConMeo(player, MENU_START_COMBINE_NEW, -1, "Bạn có muốn Tinh hóa trang bị này", "Tinh hóa", "Đóng");
+                } else {
+                    Service.gI().sendThongBao(player, "Cần đặt vào trang bị và ngũ hành tinh thạch");
                 }
                 break;
             case KICH_HOAT_TRANG_BI:
@@ -1360,6 +1448,16 @@ public class CombineServiceNew {
                 break;
         }
     }
+
+    private int getCountNguHanhTinhThachCoHoa(Item trangbi) {
+        int count = 0;
+        for (Item.ItemOption option : trangbi.itemOptions) {
+            if (idsOptionTienHoa.contains(option.optionTemplate.id)) {
+                count++;
+            }
+        }
+        return count;
+    }
 //
 
     /**
@@ -1371,6 +1469,15 @@ public class CombineServiceNew {
         switch (player.combineNew.typeCombine) {
             case PHAN_RA_TRANG_BI:
                 phanratrangbi(player);
+                break;
+            case CO_HOA_TRANG_BI:
+                coHoaTrangBi(player);
+                break;
+            case TINH_HOA_TRANG_BI:
+                tinhHoaTrangBi(player);
+                break;
+            case TIEN_HOA_TRANG_BI:
+                tienHoaTrangBi(player);
                 break;
             case CHE_TAO_BT:
                 chetaoBongTai(player);
@@ -1480,7 +1587,185 @@ public class CombineServiceNew {
         player.iDMark.setIndexMenu(ConstNpc.IGNORE_MENU);
         player.combineNew.clearParamCombine();
         player.combineNew.lastTimeCombine = System.currentTimeMillis();
+    }
 
+    private static final int TYLE_THANH_CONG_CO_HOA = 70; // 70% thành công
+
+    private void tinhHoaTrangBi(Player player) {
+        Item nhtt = null;
+        Item trangBi = null;
+        int MAX_TIEN_OPTION_PARAM = 50;
+
+        if (player.combineNew.itemsCombine.size() < 2) {
+            Service.gI().sendThongBao(player, "Cần trang bị và ngũ hành tinh thạch");
+            return;
+        }
+
+        for (Item item : player.combineNew.itemsCombine) {
+            if (item.template.id == 2083) {
+                nhtt = item;
+            } else {
+                trangBi = item;
+            }
+        }
+
+        if (trangBi == null || nhtt == null) {
+            Service.gI().sendThongBao(player, "Thiếu nguyên liệu");
+            return;
+        }
+
+        // Lọc tất cả option tiên hóa đang có
+        List<ItemOption> optionsTienHoa = new ArrayList<>();
+        for (ItemOption itemOption : trangBi.itemOptions) {
+            if (idsOptionTienHoa.contains(itemOption.optionTemplate.id)) {
+                if (itemOption.param < MAX_TIEN_OPTION_PARAM) {
+                    optionsTienHoa.add(itemOption);
+                }
+            }
+        }
+
+        if (optionsTienHoa.isEmpty()) {
+            Service.gI().sendThongBao(player, "Không còn dòng nào có thể cố hóa (đã đạt tối đa hoặc chưa tiến hóa)");
+            return;
+        }
+
+        // Random 1 dòng trong các dòng tiên hóa chưa max
+        ItemOption targetOption = optionsTienHoa.get(Util.nextInt(optionsTienHoa.size()));
+
+        // Trừ nguyên liệu
+        InventoryServiceNew.gI().subQuantityItemsBag(player, nhtt, 1);
+        InventoryServiceNew.gI().sendItemBags(player);
+
+        // Check tỉ lệ thành công
+        if (Util.nextInt(100) < TYLE_THANH_CONG_CO_HOA) {
+            int increase = Util.nextInt(1, 3); // tăng 1–3%
+            int before = targetOption.param;
+            targetOption.param = Math.min(50, before + increase);
+            Service.gI().sendThongBao(player,
+                    "Tinh hóa thành công!\nDòng " + targetOption.optionTemplate.name + " tăng " +
+                            (targetOption.param - before) + "% (" + targetOption.param + "% tổng)");
+        } else {
+            Service.gI().sendThongBao(player, "Tinh hóa thất bại! Nhưng tinh thạch đã bị mất...");
+        }
+    }
+
+    private void coHoaTrangBi(Player player) {
+        Item nhtt = null;
+        Item trangBi = null;
+        Item tth = null;
+        if (player.combineNew.itemsCombine.size() < 3) {
+            Service.gI().sendThongBao(player, "Cần trang bị , ngũ hành tinh thạch và thăng tinh thạch");
+            return;
+        }
+        for (Item item : player.combineNew.itemsCombine) {
+            if (item.template.id == 2083) {
+                nhtt = item;
+            } else if (item.template.id == 2031) {
+                tth = item;
+            } else {
+                trangBi = item;
+            }
+        }
+        if (trangBi == null || nhtt == null || tth == null) {
+            Service.gI().sendThongBao(player, "Thiếu nguyên liệu");
+            return;
+        }
+        int slNhttCan = getCountNguHanhTinhThachCoHoa(trangBi);
+
+        // co hoa
+        boolean exits = false;
+        for (ItemOption itemOption : trangBi.itemOptions) {
+            if (itemOption.optionTemplate.id == 266) {
+                itemOption.param += 1;
+                exits = true;
+            }
+        }
+        if (!exits) {
+            trangBi.itemOptions.add(new ItemOption(266, 1));
+        }
+        InventoryServiceNew.gI().subQuantityItemsBag(player, nhtt, slNhttCan);
+        InventoryServiceNew.gI().subQuantityItemsBag(player, tth, 1000);
+        InventoryServiceNew.gI().sendItemBags(player);
+        Service.gI().sendThongBao(player, "Cố hóa thành công");
+    }
+
+    private void tienHoaTrangBi(Player player) {
+        Item trangBi = null;
+        Item nhtt = null;
+        if (player.combineNew.itemsCombine.size() < 2) {
+            Service.gI().sendThongBao(player, "Cần trang bị và ngũ hành tinh thạch");
+            return;
+        }
+        for (Item item : player.combineNew.itemsCombine) {
+            if (item.template.id == 2083) {
+                nhtt = item;
+            } else {
+                trangBi = item;
+            }
+        }
+        if (nhtt == null) {
+            Service.gI().sendThongBao(player, "Cần ngũ hành tinh thạch");
+            return;
+        }
+        if (trangBi == null || trangBi.template.type > 5) {
+            Service.gI().sendThongBao(player, "Cần trang bị");
+            return;
+        }
+        // tien hoa
+        // get tien hoa
+        List<Item.ItemOption> itemOptions = trangBi.itemOptions;
+        if (!canTienHoa(trangBi)) {
+            Service.gI().sendThongBaoOK(player, "Không thể tiên hóa trang bị, có thể do bạn đã \n tiên hóa tối đa số lượng thuộc tính hoặc bạn chưa cố hóa thuộc tính");
+            return;
+        }
+        ItemOption optionCanTienHoa = getDongTienHoa(itemOptions);
+        if (optionCanTienHoa != null) {
+            if (Util.isTrue(player.luyenKhiSu.getPercentBounce() + 20, 100)) {
+                // tien hoa thanh cong random param
+                optionCanTienHoa.param = 20 + Util.nextInt(10, 30);
+                trangBi.itemOptions.add(optionCanTienHoa);
+                Service.gI().sendThongBao(player, "Tiên hóa thành công");
+            } else {
+                Service.gI().sendThongBao(player, "Tiên hóa thất bại");
+            }
+        }
+        InventoryServiceNew.gI().subQuantityItemsBag(player, nhtt, 1);
+        InventoryServiceNew.gI().sendItemBags(player);
+    }
+
+    List<Integer> idsOptionTienHoa = List.of(262, 263, 264, 265);
+
+    public boolean canTienHoa(Item item) {
+        int countTienHoa = 0;
+        int maxTienHoa = 1;
+
+        for (ItemOption opt : item.itemOptions) {
+            if (opt.optionTemplate.id == 266) {
+                maxTienHoa += opt.param; // tăng số lần tiến hóa tối đa
+            }
+            if (idsOptionTienHoa.contains(opt.optionTemplate.id)) {
+                countTienHoa++;
+            }
+        }
+
+        // Nếu thêm 1 option tiến hóa nữa mà vượt giới hạn => không thể tiến hóa
+        return (countTienHoa + 1 <= maxTienHoa) && (countTienHoa + 1 <= idsOptionTienHoa.size());
+    }
+
+    public Item.ItemOption getDongTienHoa(List<Item.ItemOption> itemOptions) {
+        for (int id : idsOptionTienHoa) {
+            boolean exists = false;
+            for (Item.ItemOption option : itemOptions) {
+                if (option.optionTemplate.id == id) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) {
+                return new ItemOption(id, 0);
+            }
+        }
+        return null; // Nếu tất cả đã tồn tại thì return null
     }
 
     private void phanratrangbi(Player player) {
@@ -4686,6 +4971,12 @@ public class CombineServiceNew {
         switch (type) {
             case PHAN_RA_TRANG_BI:
                 return "Phân ra trang bị giúp kiếm kinh nghiệm\nluyện khí và linh hỏa";
+            case TIEN_HOA_TRANG_BI:
+                return "Tiên hóa trang bị giúp trang bị của bạn mạnh hơn";
+            case CO_HOA_TRANG_BI:
+                return "Cố hóa trang bị giúp bạn có thể mở thêm tiên dòng trên trang bị";
+            case TINH_HOA_TRANG_BI:
+                return "Tinh hóa trang bị giúp tăng chỉ số các đòng tiên";
             case CHE_TAO_BT:
                 return "Bông tai giúp m hợp thể với đệ tử";
             case KICH_HOAT_TRANG_BI:
@@ -4755,6 +5046,12 @@ public class CombineServiceNew {
         switch (type) {
             case PHAN_RA_TRANG_BI:
                 return "Đặt trang bị bất kỳ vào và chọn phân rã";
+            case TIEN_HOA_TRANG_BI:
+                return "Đặt vào trang bị bất kỳ và ngũ hành tinh thạch\n sau đó ấn tiên hóa";
+            case CO_HOA_TRANG_BI:
+                return "Hãy đặt vào trang bị , ngũ hành tinh thạch và thăng tinh thạch sau đó ấn cố hóa";
+            case TINH_HOA_TRANG_BI:
+                return "Đặt vào trang bị bất kỳ và ngũ hành tinh thạch\n sau đó ấn tinh hóa";
             case CHE_TAO_BT:
                 return "Cho vào đây số lượng Đế Vương thạch , Thiên mệnh thạch,\n Thiên nguyệt thạch , ĐÁ MEDUSA VIP đầy đủ";
             case KICH_HOAT_TRANG_BI:

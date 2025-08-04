@@ -1712,4 +1712,8 @@ public class ItemService {
         }
         return items;
     }
+
+    public Item createItemFromTemplate(Template.ItemTemplate itemTemplate, int quantity) {
+        return createNewItem(itemTemplate.id, quantity);
+    }
 }

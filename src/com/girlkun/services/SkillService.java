@@ -1287,7 +1287,7 @@ public class SkillService {
             }
             if (plAtt.tuTien.congPhap.isLearn()) {
                 if (plAtt.tuTien.congPhap.xDameThuocTinh > 0) {
-                    paramOfLinhCan *= plAtt.tuTien.congPhap.xDameThuocTinh;
+                    paramOfLinhCan += paramOfLinhCan * plAtt.tuTien.congPhap.xDameThuocTinh / 10;
                 }
             }
             paramOfLinhCan += plAtt.nPoint.xDameLinhCan;
@@ -1426,6 +1426,9 @@ public class SkillService {
                 return;
             }
             float paramOfLinhCan = plAtt.tuMa.linhCanTuMa.xParam;
+            if (plAtt.nPoint.xDameLinhCan > 0) {
+                paramOfLinhCan += plAtt.nPoint.xDameLinhCan / 100f;
+            }
             switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
                 case 0:
                     double hp = plInjure.injured(plAtt, (plInjure.nPoint.hpMax / 80) * (paramOfLinhCan), false, false, true);

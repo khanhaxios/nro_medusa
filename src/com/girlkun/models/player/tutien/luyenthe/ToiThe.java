@@ -12,7 +12,6 @@ import com.girlkun.utils.Util;
 import java.util.List;
 
 public class ToiThe {
-    // ====== TUNABLES ======
     Player player;
     public static final int BASE_COST_PER_MAT = 1000;
     public static final int MAX_TIER = 99;

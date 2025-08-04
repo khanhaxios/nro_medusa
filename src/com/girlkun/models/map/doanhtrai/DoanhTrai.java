@@ -3,33 +3,29 @@ package com.girlkun.models.map.doanhtrai;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossManager;
-import com.girlkun.models.boss.BossStatus;
-import com.girlkun.models.boss.list_boss.doanh_trai.NinjaTim;
-import com.girlkun.models.boss.list_boss.doanh_trai.RobotVeSi;
-import com.girlkun.models.boss.list_boss.doanh_trai.TrungUyThep;
-import com.girlkun.models.boss.list_boss.doanh_trai.TrungUyTrang;
-import com.girlkun.models.boss.list_boss.doanh_trai.TrungUyXanhLo;
 import com.girlkun.models.clan.Clan;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.ItemTimeService;
 import com.girlkun.services.func.ChangeMapService;
+import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import lombok.Data;
 
 @Data
 public class DoanhTrai {
 
     //bang hội đủ số người mới đc mở
     public static final List<DoanhTrai> DOANH_TRAI;
-    public static final int N_PLAYER_CLAN = 5;
+    public static final int N_PLAYER_CLAN = 10;
     //số người đứng cùng khu
-    public static final int N_PLAYER_MAP = 2;
-    public static final int AVAILABLE = 150;
+    public static final int N_PLAYER_MAP = 3;
+    public static final int AVAILABLE = 10;
     public static final int TIME_DOANH_TRAI = 1800000;
 
     List<Integer> listMap = Arrays.asList(53, 58, 59, 60, 61, 62, 55, 56, 54, 57);
@@ -95,11 +91,13 @@ public class DoanhTrai {
             totalDame += pl.nPoint.dame;
             totalHp += pl.nPoint.hpMax;
         }
+        totalHp *= 2;
+        totalDame *= 2;
         //Hồi sinh quái
         for (Zone zone : this.zones) {
             for (Mob mob : zone.mobs) {
-                mob.point.dame = Util.DoubleGioihan(totalHp / 20);
-                mob.point.maxHp = Util.DoubleGioihan(totalDame * 20);
+                mob.point.dame = Util.DoubleGioihang(totalHp / 20f);
+                mob.point.maxHp = Util.DoubleGioihang(totalDame * 20);
                 mob.hoiSinh();
             }
         }
@@ -112,11 +110,12 @@ public class DoanhTrai {
                 totalHp1 += play.nPoint.hpMax;
             }
             long dame = (totalHp1 / 20) * 5;
-            long hp = (totalDame1 * 4) * 5;
+            long hp = (totalDame1 * 40) * 5;
             for (int i = 0; i < 8; i++) {
                 bossDoanhTrai.add(BossManager.gI().createBossDoanhTrai(this.clan.doanhTrai.getMapById(getIdMap(BossID.TRUNG_UY_TRANG - i)), BossID.TRUNG_UY_TRANG - i, (long) dame, (long) hp));
             }
         } catch (Exception e) {
+            Logger.error("Lỗi khởi tạo quái doanh trại : " + e.getMessage());
         }
     }
 

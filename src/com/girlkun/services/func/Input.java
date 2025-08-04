@@ -741,9 +741,10 @@ public class Input {
                     break;
                 case CHOOSE_LEVEL_BDKB:
                     int level = Integer.parseInt(text[0]);
-                    if (level >= 1 && level <= 110) {
+                    if (level >= 1 && level <= 500) {
                         Npc npc = NpcManager.getByIdAndMap(ConstNpc.QUY_LAO_KAME, player.zone.map.mapId);
                         if (npc != null) {
+                            player.iDMark.choseLevelBdkb = level;
                             npc.createOtherMenu(player, ConstNpc.MENU_ACCPET_GO_TO_BDKB, "Con có chắc chắn muốn tới bản đồ kho báu cấp độ " + level + "?", new String[]{"Đồng ý", "Từ chối"}, level);
                         }
                     } else {

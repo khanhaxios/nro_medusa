@@ -59,6 +59,7 @@ import java.util.stream.Collectors;
 public class Manager {
     public static SanGiaoDichBuaZeno sanGiaoDichBuaZeno;
     public static byte LEVEL_HARD = 8;
+    public static List<ItemTemplate> ITEM__BUFFS = new ArrayList<>();
     public static final int GIA_QUY_DOI_BUA_ZENO = 2222;
     public static short[] LIST_CAI_TRANG_ID = new short[]{};
     public static short[] LIST_LINH_THU_ID = new short[]{};
@@ -800,6 +801,7 @@ public class Manager {
                 itemTemp.leg = rs.getInt("leg");
                 ITEM_TEMPLATES.add(itemTemp);
             }
+            ITEM__BUFFS = ITEM_TEMPLATES.stream().filter(it -> it.type == 29).collect(Collectors.toList());
             Logger.success("Load map item template thành công (" + ITEM_TEMPLATES.size() + ")\n");
 
             //load item option template

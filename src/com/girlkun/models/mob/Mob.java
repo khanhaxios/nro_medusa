@@ -81,9 +81,9 @@ public class Mob {
         //code by Việt Nguyễn
     }
 
-    public static void initMopbbdkb(Mob mob, byte level) {
-        mob.point.dame = (level * 3250 * mob.level * 4) * 5;
-        mob.point.maxHp = (level * 12472 * mob.point.hp + level * 7263 * mob.tempId) / 2;
+    public static void initMopbbdkb(Mob mob, int level) {
+        mob.point.dame = (level * 32500 * mob.level * 4) * 5;
+        mob.point.maxHp = ((level * 1_000_000 * mob.point.hp) + (level * 7263 * mob.tempId));
     }
 
     public static boolean isCantJoinMap(int idMap) {
@@ -533,7 +533,7 @@ public class Mob {
         try {
             if (player.session != null) {
                 // add point reward
-                int totalMoney = player.taixiu.chuyensinh + 1;
+                int totalMoney = 1;
                 if (Util.isTrue(1, 10000)) {
                     totalMoney += 1000;
                     Service.gI().sendThongBao(player, "Bạn vừa nổ hủ lớn");
@@ -644,14 +644,18 @@ public class Mob {
                 Service.gI().sendThongBao(player, "Bạn nhận được " + nguyenLieu.tenNguyenLieu);
             }
         }
+
         if (zone.map.mapId == 144) {
-            list.add(new ItemMap(zone, 861, Util.nextInt(100, 300), this.location.x, yEnd, player.id));
+            list.add(new ItemMap(zone, 861, Util.nextInt(1, 50), this.location.x, yEnd, player.id));
         }
         // rơi các loại đá thạch ( chỉ có ở ngũ hành sơn )
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
             int sl = Util.nextInt(1, 2);
             if (player.luyenThe.isLuyenTheReal()) {
                 sl += Util.nextInt(1, 3);
+            }
+            if (Util.isTrue(1, 500)) {
+                list.add(new ItemMap(zone, 611, Util.nextInt(1, 50), this.location.x, yEnd, player.id));
             }
             // roi con duong ran doc
             if (zone.map.mapId == 141 && Util.isTrue(15f, 100)) {
@@ -672,7 +676,6 @@ public class Mob {
                 short temIds = (short) Util.nextInt(1260, 1262);
                 list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
-
             // roi quai o ngoai
             if (Util.isTrue(3, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
@@ -684,7 +687,7 @@ public class Mob {
             }
         }
         // roi hong ngoc khi danh quai
-        list.add(new ItemMap(zone, 861, Util.nextInt(1, 25), this.location.x, yEnd, player.id));
+        list.add(new ItemMap(zone, 861, Util.nextInt(1, 5), this.location.x, yEnd, player.id));
         // rơi giấy thếp để chế bùa
         if (Manager.idsMapCold.contains(zone.map.mapId) && player.phuChuSu != null && player.phuChuSu.isPhuChu()) {
             if (Util.isTrue(3, 100)) {
@@ -838,13 +841,63 @@ public class Mob {
                 Service.gI().sendThongBao(player, "Bạn vừa nhận được 1 từ khóa đặc biệt từ Medusa");
             }
         }
-
+        if (MapService.gI().isMapDoanhTrai(player.zone.map.mapId)) {
+            if (Util.isTrue(1, 500)) {
+                list.add(new ItemMap(zone, Util.nextInt(1461, 1463), 1, player.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(1, 5000)) {
+                list.add(new ItemMap(zone, Util.nextInt(2084, 2085), 1, player.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(1, 50_000)) {
+                // roi ngu hanh tinh thach
+                list.add(new ItemMap(zone, 2083, 1, player.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(5, 100)) {
+                list.add(new ItemMap(zone, 2073, 1, player.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(5, 100)) {
+                list.add(new ItemMap(zone, 2074, 1, player.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(5, 500)) {
+                list.add(new ItemMap(zone, 2075, 1, player.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(5, 500)) {
+                list.add(new ItemMap(zone, 2068, 1, player.location.x, yEnd, player.id));
+            }
+            player.session.vnd += 100;
+            list.add(new ItemMap(zone, 861, Util.nextInt(100, 5_000), x, yEnd, player.id));
+        }
         if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)) {
             int levell = player.getMaster().clan.banDoKhoBau.level;
             int slhn = Util.nextInt(1, 3) * (levell);
             if (Util.isTrue(20, 100)) {
                 list.add(new ItemMap(zone, 861, slhn, x, yEnd, player.id));
-                Service.getInstance().sendThongBao(player, "Bạn vừa nhận được " + slhn + " hồng ngọc");
+            }
+            // ty le da ngu hanh roi
+            if (Util.isTrue(levell, 500)) {
+                list.add(new ItemMap(zone, 2081, 1, x, yEnd, player.id));
+            }
+            // roi da luyen the
+            if (Util.isTrue(15f, 100)) {
+                short temIds = (short) Util.nextInt(1260, 1266);
+                list.add(new ItemMap(zone, temIds, Math.max(levell / 100, 1), this.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(levell / 2, 500)) {
+                // roi thoi vàng
+                list.add(new ItemMap(zone, 457, Math.max(levell / 100, 1), this.location.x, yEnd, player.id));
+            }
+            // ty le roi ruong go , bac
+            if (Util.isTrue(levell, 100)) {
+                // roi ruong go
+                list.add(new ItemMap(zone, 570, 1, this.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(levell / 10000, 150)) {
+                // roi ruong bac
+                list.add(new ItemMap(zone, 571, 1, this.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(levell / 100000, 200)) {
+                // ruong vang
+                list.add(new ItemMap(zone, 572, 1, this.location.x, yEnd, player.id));
             }
         }
         if (Util.isTrue(99, 100) && player.setClothes.tinhan == 5 || player.setClothes.nguyetan == 5 || player.setClothes.nhatan == 5) {
