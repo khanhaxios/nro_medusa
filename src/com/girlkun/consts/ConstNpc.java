@@ -495,6 +495,7 @@ public class ConstNpc {
     public static final int MENU_BASE_GIAO_DICH = -91273552;
     public static final int BASE_MENU_GD = -5123562;
     public static final int MENU_TIEN_HOA =-7863123 ;
+    public static final int MENU_CHUYEN_SINH = -9127352;
 }
 
 /**

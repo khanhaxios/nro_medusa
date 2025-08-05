@@ -276,7 +276,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     @Override
     public float getLevelUpPercent() {
         if (level <= LEVEL_UP_PERCENT.length - 1) {
-            return ((getXDiemThienPhu() * 5) + LEVEL_UP_PERCENT[level]) + (stackTlDotPha * 2) + (congPhap.phamchat.id);
+            return ((getXDiemThienPhu() * 6) + LEVEL_UP_PERCENT[level]) + (stackTlDotPha * 2) + (congPhap.phamchat.id);
         }
         return 1f;
     }
@@ -471,15 +471,12 @@ public class TuTien extends BasePoint implements IBaseAction {
                 if (player.tuTien.congPhap != null && player.tuTien.congPhap.tenCongPhap != null) {
                     long expAdd = (long) (getXDiemThienPhu() * (BASE_EXP_BUFF[level] + (SUB_LEVEL_EXP[subLevel - 1] / 10))) * Math.max(1, congPhap.phamchat.id + 1);
                     expAdd += expAdd * player.nPoint.xTuVi / 100;
-                    addExp(expAdd * Math.max(1, xParam) * Util.nextInt(2, 8));
+                    addExp(expAdd * Math.max(1, xParam));
                     PlayerService.gI().sendTuTienAddTuVi(player, expAdd);
                     PlayerService.gI().sendTuTienTuVi(player);
                     lastTimeAddExp = System.currentTimeMillis();
                 }
             }
-//            if (congPhap.tenCongPhap != null && !player.isDie() && congPhap.doThuanThuc < congPhap.maxDoThuanThuc && Util.canDoWithTime(lastTimeAddDoTT, 3000)) {
-//                congPhap.autoAddDoTT();
-//            }
             if (maxLinhKhiPoint == 0) {
                 maxLinhKhiPoint = calcMaxLinhKhiPoint();
             }

@@ -273,6 +273,7 @@ public class Player {
     public LinhThucSu linhThucSu;
     public NguThuSu nguThuSu;
     public KhongThiSu khongThiSu;
+    public boolean isNhanQuaDenBu = false;
 
     public Player() {
         lastTimeSavePlayer = System.currentTimeMillis();
@@ -1295,15 +1296,16 @@ public class Player {
     }
 
     protected void setDie(Player plAtt) {
-        // giam tu vi tu tien
-        if (tuTien != null && tuTien.isTuTien()) {
-            tuTien.subExp(tuTien.maxExp / 100);
-        }
-        if (tuMa != null && tuMa.isTuMa()) {
-            tuMa.subExp(tuMa.maxExp / 1000);
-        }
-        if (luyenThe.isLuyenTheReal()) {
-            luyenThe.subExp(luyenThe.maxExp / 100);
+        if (!Zone.isHoaBinh) {
+            if (PlayerDAO.subvnd(this, 100)) {
+                plAtt.session.vnd += 100;
+            }
+            if (tuTien != null && tuTien.isTuTien()) {
+                tuTien.subExp(tuTien.maxExp / 100);
+            }
+            if (luyenThe.isLuyenTheReal()) {
+                luyenThe.subExp(luyenThe.maxExp / 100);
+            }
         }
         //xóa phù
         if (this.effectSkin.xHPKI > 1) {

@@ -17,6 +17,7 @@ public class LuyenThe extends BaseTuDuy {
     public long exp;
     public long maxExp;
     public long chanKhi;
+    public boolean canLevelUp = true;
     public long maxChanKhi;
     public List<VoKy> voKyList = new ArrayList<>();
     Player player;
@@ -99,13 +100,14 @@ public class LuyenThe extends BaseTuDuy {
 
     public void levelUp() {
         if (canLevelUp()) {
+            restExp();
             level += 1;
-            exp = 0;
-            maxExp = getNextLevelExp();
             timeThatBai = 0;
+            canLevelUp = level % 100 == 0;
             Service.gI().point(player);
         }
     }
+
 
     public void addExp(long pp) {
         exp += pp;
@@ -140,22 +142,33 @@ public class LuyenThe extends BaseTuDuy {
     }
 
     protected long getNextLevelExp() {
-        return level * 10000;
+        return level * 30_000;
     }
 
     public float getLevelUpPercent() {
         if (exp == 0) return 0;
         float percent = 0;
+
         if (!isLuyenTheReal()) {
             percent = ((exp / (maxExp * 1f) * 100) / (level / 3f)) + (timeThatBai * 3);
         } else {
-            percent = ((exp / (maxExp * 1f) * 100) / (level / 20f)) + (timeThatBai);
+            int levelInBlock = level % 100;
+            float minRate = 0.3f;
+            float maxRate = 25;
+            float basePercent = (levelInBlock == 0)
+                    ? maxRate
+                    : maxRate - ((maxRate - minRate) / 99f) * (levelInBlock - 1);
+
+            percent = (exp / (maxExp * 1f)) * basePercent + timeThatBai;
         }
+
         if (congPhapLuyenThe != null && congPhapLuyenThe.isLearn() && congPhapLuyenThe.type == 0) {
             percent *= 2.5f;
         }
+
         return percent;
     }
+
 
     public boolean isNotLuyenThe() {
         if (level <= 10) return true;
@@ -169,9 +182,9 @@ public class LuyenThe extends BaseTuDuy {
 
     public boolean canLevelUp() {
         if (isNotLuyenThe()) {
-            return level < MAX_LEVEL;
+            return (level < MAX_LEVEL) && canLevelUp;
         }
-        return level < MAX_LEVEL_FINAL;
+        return (level < MAX_LEVEL_FINAL) && canLevelUp;
     }
 
     public String getName() {
@@ -233,6 +246,7 @@ public class LuyenThe extends BaseTuDuy {
     public boolean isLuyenTheReal() {
         return level > 10 && (!player.tuMa.isTuMa() && !player.tuTien.isTuTien());
     }
+
     public void showInfo() {
         if (!isLuyenThe()) {
             Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện thể");

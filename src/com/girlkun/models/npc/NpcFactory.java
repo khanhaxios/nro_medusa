@@ -2510,7 +2510,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player) && mapId == 5) {
-                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Huyết mạch", "Công Pháp", "Tán Công");
+                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Huyết mạch", "Công Pháp", "Tán Công", "Chuyển Sinh");
                 }
             }
 
@@ -2534,6 +2534,61 @@ public class NpcFactory {
                         case 4:
                             player.luyenThe.reset();
                             break;
+                        case 5:
+                            this.createOtherMenu(player, ConstNpc.MENU_CHUYEN_SINH, "|7|CHUYỂN SINH" + "\n\n|1|Yêu cầu Sức mạnh đạt 100 tỷ" + "\nĐã học Skill " + player.tenskill9(player.gender) + "\n\n|2|Sau khi chuyển sinh Thành công" + "\n-Sức mạnh trở về 1,5 Triệu" + "\n-Cấp chuyển sinh tăng 1 Cấp" + "\n\n|1|Sức Mạnh: " + Util.powerToStringNDQ(player.nPoint.power) + "/" + " 100 Tỷ" + "\n|3|=>Mỗi cấp chuyển sinh sẽ cộng hp/ki/sd riêng vào chỉ số gốc" + "\n\n|7|Chuyển sinh Thất bại sẽ Giảm 50 Tỷ Sức mạnh", "Chuyển sinh", "Thông tin\nchuyển sinh");
+                            break;
+                    }
+                } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_CHUYEN_SINH) {
+                    switch (select) {
+                        case 0:
+                            int percent = player.taixiu.percentNangChuyenSinh();
+                            int buaZeno = player.taixiu.priceNangChuyenSinh(player.taixiu.chuyensinh);
+                            this.createOtherMenu(player, 987, "|7|Chuyển Sinh" + "\n\n|5|Bạn đang chuyển sinh : " + player.taixiu.chuyensinh + " \nCấp tiếp theo với tỉ lệ : " + percent + "% \n Mức giá chuyển sinh : " + Util.format(buaZeno) + " Hồng ngọc\n\n|7|Bạn có muốn chuyển sinh ?", "Đồng ý", "Từ chối");
+                            break; //
+                        case 1:
+                            double addPoint = player.taixiu.addNPointChuyenSinh(player.taixiu.chuyensinh * 3);
+                            Service.gI().sendThongBaoOK(player, "Bạn đang cấp chuyển sinh: " + player.taixiu.chuyensinh + "\n %HP/KI/SD Gốc Tăng Thêm " + Util.format(addPoint));
+                            break;
+                    }
+                } else if (player.iDMark.getIndexMenu() == 987) {
+                    if (player.playerSkill.skills.get(7).point == 0) {
+                        Service.gI().sendThongBao(player, "|7|Yêu cầu phải học kỹ năng " + player.tenskill9(player.gender));
+                        return;
+                    }
+                    if (player.nPoint.power < 100_000_000_000L) {
+                        Service.gI().sendThongBao(player, "|7|Bạn chưa đủ 100 tỷ sức mạnh để Chuyển sinh");
+                    } else {
+                        int qtyBua = player.taixiu.priceNangChuyenSinh(player.taixiu.chuyensinh);
+                        int percent = player.taixiu.percentNangChuyenSinh();
+                        if (player.inventory.ruby < qtyBua) {
+                            Service.gI().sendThongBao(player, "Bạn còn thiếu " + (qtyBua - player.inventory.ruby) + " bùa");
+                            return;
+                        }
+
+                        player.inventory.ruby -= qtyBua;
+                        int MAX_CS = 100;
+                        if (player.taixiu.chuyensinh + 1 > MAX_CS) {
+                            Service.gI().sendThongBaoOK(player, "Bạn đã đạt giới hạn chuyển sinh");
+                            return;
+                        }
+                        if (Util.isTrue(percent, 100)) {
+                            player.nPoint.power = 1500000;
+                            player.taixiu.chuyensinh++;
+                            player.luyenThe.canLevelUp = true;
+                            Service.gI().sendThongBao(player, "|1|Chuyển sinh thành công \n cấp hiện tại :" + player.taixiu.chuyensinh);
+                        } else {
+                            Service.gI().sendThongBao(player, "|7|Chuyển sinh thất bại \n cấp hiện tại :" + player.taixiu.chuyensinh);
+                            player.nPoint.power -= 50000000000L;
+                        }
+
+                        InventoryServiceNew.gI().sendItemBags(player);
+                        Service.gI().player(player);
+                        Service.gI().point(player);
+                        Service.getInstance().sendFlagBag(player);
+                        Service.getInstance().Send_Caitrang(player);
+                        Service.gI().Send_Info_NV(player);
+                        player.zone.load_Another_To_Me(player);
+                        player.zone.load_Me_To_Another(player);
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_H_CP_LT) {
                     if (select == 0) {
@@ -2604,10 +2659,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
-                    this.createOtherMenu(player, 0, "|7|CHUYỂN SINH" + "\n\n|1|Yêu cầu Sức mạnh đạt 500 tỷ" + "\nĐã học Skill " + player.tenskill9(player.gender) + "\n\n|2|Sau khi chuyển sinh Thành công"
-                            //                                + "\n|5|-Nhân vật sẽ CHUYỂN HÀNH TINH KHÁC"
-                            //                                + "\n-Các Kỹ năng sẽ được Reset về cấp 1"
-                            + "\n-Sức mạnh trở về 1,5 Triệu" + "\n-Cấp chuyển sinh tăng 1 Cấp" + "\n\n|1|Sức Mạnh: " + Util.powerToStringNDQ(player.nPoint.power) + "/" + " 500 Tỷ" + "\n|3|=>Mỗi cấp chuyển sinh sẽ cộng hp/ki/sd riêng vào chỉ số gốc" + "\n\n|7|Chuyển sinh Thất bại sẽ Giảm 50 Tỷ Sức mạnh", "Chuyển sinh", "Thông tin\nchuyển sinh", "Tính năng\nTu Tiên");
+                    this.createOtherMenu(player, 0, "|7|CHUYỂN SINH" + "\n\n|1|Yêu cầu Sức mạnh đạt 100 tỷ" + "\nĐã học Skill " + player.tenskill9(player.gender) + "\n\n|2|Sau khi chuyển sinh Thành công" + "\n-Sức mạnh trở về 1,5 Triệu" + "\n-Cấp chuyển sinh tăng 1 Cấp" + "\n\n|1|Sức Mạnh: " + Util.powerToStringNDQ(player.nPoint.power) + "/" + " 100 Tỷ" + "\n|3|=>Mỗi cấp chuyển sinh sẽ cộng hp/ki/sd riêng vào chỉ số gốc" + "\n\n|7|Chuyển sinh Thất bại sẽ Giảm 50 Tỷ Sức mạnh", "Chuyển sinh", "Thông tin\nchuyển sinh");
                 }
             }
 
@@ -2618,169 +2670,12 @@ public class NpcFactory {
                         switch (select) {
                             case 0:
                                 int percent = player.taixiu.percentNangChuyenSinh();
-                                int buaZeno = player.taixiu.priceNangChuyenSinh();
-                                this.createOtherMenu(player, 987, "|7|CHUYỂN SINH" + "\n\n|5|Bạn đang chuyển sinh : " + player.taixiu.chuyensinh + " \nCấp tiếp theo với tỉ lệ : " + percent + "% \n Mức giá chuyển sinh : " + Util.format(buaZeno) + " bùa zeno\n\n|7|Bạn có muốn chuyển sinh ?", "Đồng ý", "Từ chối");
+                                int buaZeno = player.taixiu.priceNangChuyenSinh(player.taixiu.chuyensinh);
+                                this.createOtherMenu(player, 987, "|7|Chuyển Sinh" + "\n\n|5|Bạn đang chuyển sinh : " + player.taixiu.chuyensinh + " \nCấp tiếp theo với tỉ lệ : " + percent + "% \n Mức giá chuyển sinh : " + Util.format(buaZeno) + " Hồng ngọc\n\n|7|Bạn có muốn chuyển sinh ?", "Đồng ý", "Từ chối");
                                 break; //
                             case 1:
                                 double addPoint = player.taixiu.addNPointChuyenSinh(player.taixiu.chuyensinh * 3);
                                 Service.gI().sendThongBaoOK(player, "Bạn đang cấp chuyển sinh: " + player.taixiu.chuyensinh + "\n %HP/KI/SD Gốc Tăng Thêm " + Util.format(addPoint));
-                                break;
-                            case 2:
-                                if (player.haveTuTien == false) {
-                                    Item broly = null;
-                                    Item zeno = null;
-                                    Item goku = null;
-                                    Item gogeta = null;
-                                    Item da1 = null;
-                                    Item da2 = null;
-                                    Item da3 = null;
-                                    Item da4 = null;
-                                    Item da5 = null;
-                                    Item da6 = null;
-                                    Item da7 = null;
-                                    try {
-                                        broly = InventoryServiceNew.gI().findItemBag(player, 542);
-                                        zeno = InventoryServiceNew.gI().findItemBag(player, 980);
-                                        goku = InventoryServiceNew.gI().findItemBag(player, 1395);
-                                        gogeta = InventoryServiceNew.gI().findItemBag(player, 1400);
-                                        da1 = InventoryServiceNew.gI().findItemBag(player, 1260);
-                                        da2 = InventoryServiceNew.gI().findItemBag(player, 1261);
-                                        da3 = InventoryServiceNew.gI().findItemBag(player, 1262);
-                                        da4 = InventoryServiceNew.gI().findItemBag(player, 1263);
-                                        da5 = InventoryServiceNew.gI().findItemBag(player, 1264);
-                                        da6 = InventoryServiceNew.gI().findItemBag(player, 1265);
-                                        da7 = InventoryServiceNew.gI().findItemBag(player, 1266);
-                                    } catch (Exception e) {
-                                    }
-                                    this.createOtherMenu(player, 4900, "|7|TU TIÊN" + "\n|5|Điều kiện để mở khóa Tu Tiên" + " \n|6|Trứng đệ: Broly: " + (broly == null ? 0 : broly.quantity) + " / 10" + " ; " + "Zeno: " + (zeno == null ? 0 : zeno.quantity) + " / 10" + "\nTrứng đệ Goku SSJ4: " + (goku == null ? 0 : goku.quantity) + " / 1" + " ; " + "Gogeta God: " + (gogeta == null ? 0 : gogeta.quantity) + " / 1" + "\nĐế Vương Thạch: " + (da1 == null ? 0 : da1.quantity) + " / 99" + "\nHỏa Hồn Thạch: " + (da2 == null ? 0 : da2.quantity) + " / 99" + "\nThiên Mệnh Thạch: " + (da3 == null ? 0 : da3.quantity) + " / 99" + "\nHuyết Tinh Thạch: " + (da4 == null ? 0 : da4.quantity) + " / 99" + "\nLinh Vân Thạch: " + (da5 == null ? 0 : da5.quantity) + " / 99" + "\nMịch Lâm Thạch: " + (da6 == null ? 0 : da6.quantity) + " / 99" + "\nThiên Nguyệt thạch: " + (da7 == null ? 0 : da7.quantity) + " / 99" + "\nCâu cá: " + player.tt_cauca + " / 200" + "\nGắp thú VIP: " + player.tt_gapVIP + " / 50" + "\nPem Gấu tướng cướp: " + player.tt_pemgau + " / 10000" + "\nTham gia Chiến trường PVP: " + player.tt_dautruong + " / 100", "Mở Khóa", "Từ chối");
-                                } else {
-                                    Item devuongthach = null;
-                                    try {
-                                        devuongthach = InventoryServiceNew.gI().findItemBag(player, 1260);
-                                    } catch (Exception e) {
-                                    }
-//                                    this.createOtherMenu(player, 4800, "|7|TU TIÊN" + "\n|1|Đột phá Tu Tiên cần" + "\n|5|Cấp bậc hiện tại: " + player.CapTuTien(player.CapTuTien) + "\nKinh Ngiệm: " + Util.format(player.KinhNghiemTT) + " / 10 Tỷ" + "\nĐế Vương Thạch: " + (devuongthach == null ? 0 : devuongthach.quantity) + " / " + player.DaTuTien(player.CapTuTien) + "\nTỉ lệ Thành công: " + player.tileDotPha(player.CapTuTien) + "%" + "\n|3|Lưu ý: Khi đột phá thất bại sẽ giảm 5 Tỷ Kinh nghiệm. Thành công Cấp bậc sẽ tăng lên " + player.CapTuTien(player.CapTuTien + 1), "Đột phá", "Từ chối");
-                                }
-                                break;
-                        }
-                    } else if (player.iDMark.getIndexMenu() == 4900) {
-                        switch (select) {
-                            case 0:
-                                if (!player.haveTuTien) {
-                                    Item broly = null;
-                                    Item zeno = null;
-                                    Item goku = null;
-                                    Item gogeta = null;
-                                    Item da1 = null;
-                                    Item da2 = null;
-                                    Item da3 = null;
-                                    Item da4 = null;
-                                    Item da5 = null;
-                                    Item da6 = null;
-                                    Item da7 = null;
-                                    try {
-                                        broly = InventoryServiceNew.gI().findItemBag(player, 542);
-                                        zeno = InventoryServiceNew.gI().findItemBag(player, 980);
-                                        goku = InventoryServiceNew.gI().findItemBag(player, 1395);
-                                        gogeta = InventoryServiceNew.gI().findItemBag(player, 1400);
-                                        da1 = InventoryServiceNew.gI().findItemBag(player, 1260);
-                                        da2 = InventoryServiceNew.gI().findItemBag(player, 1261);
-                                        da3 = InventoryServiceNew.gI().findItemBag(player, 1262);
-                                        da4 = InventoryServiceNew.gI().findItemBag(player, 1263);
-                                        da5 = InventoryServiceNew.gI().findItemBag(player, 1264);
-                                        da6 = InventoryServiceNew.gI().findItemBag(player, 1265);
-                                        da7 = InventoryServiceNew.gI().findItemBag(player, 1266);
-                                    } catch (Exception e) {
-                                    }
-                                    if (broly == null || broly.quantity < 10) {
-                                        Service.gI().sendThongBao(player, "Bạn chưa đủ Trứng Broly");
-                                        return;
-                                    }
-                                    if (zeno == null || zeno.quantity < 10) {
-                                        Service.gI().sendThongBao(player, "Bạn chưa đủ Trứng Zeno");
-                                        return;
-                                    }
-                                    if (goku == null || goku.quantity < 1) {
-                                        Service.gI().sendThongBao(player, "Bạn chưa đủ Trứng Goku");
-                                        return;
-                                    }
-                                    if (gogeta == null || gogeta.quantity < 1) {
-                                        Service.gI().sendThongBao(player, "Bạn chưa đủ Trứng Gogeta");
-                                        return;
-                                    }
-                                    if (player.tt_cauca < 200) {
-                                        Service.gI().sendThongBao(player, "Bạn chưa đủ Số lẩn Câu cá");
-                                        return;
-                                    }
-                                    if (player.tt_gapVIP < 50) {
-                                        Service.gI().sendThongBao(player, "Bạn chưa đủ Số lẩn Gắp VIP");
-                                        return;
-                                    }
-                                    if (player.tt_pemgau < 10000) {
-                                        Service.gI().sendThongBao(player, "Bạn chưa đủ Số lẩn Giết quái Tướng cướp");
-                                        return;
-                                    }
-                                    if (player.tt_dautruong < 100) {
-                                        Service.gI().sendThongBao(player, "Bạn chưa đủ Số lẩn Tham gia chiến trường PVP");
-                                        return;
-                                    }
-                                    if (da1 == null || da2 == null || da3 == null || da4 == null || da5 == null || da6 == null || da7 == null || da1.quantity < 99 || da2.quantity < 99 || da3.quantity < 99 || da4.quantity < 99 || da5.quantity < 99 || da6.quantity < 99 || da7.quantity < 99) {
-                                        Service.gI().sendThongBao(player, "Bạn chưa đủ Đá");
-                                    } else {
-                                        player.haveTuTien = true;
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, broly, 10);
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, zeno, 10);
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, goku, 1);
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, gogeta, 1);
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, da1, 99);
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, da2, 99);
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, da3, 99);
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, da4, 99);
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, da5, 99);
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, da6, 99);
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, da7, 99);
-                                        InventoryServiceNew.gI().sendItemBags(player);
-                                        PlayerDAO.updatePlayer(player);
-                                        Service.gI().sendThongBao(player, "|5|Đã mở khóa tính năng Tu Tiên");
-                                    }
-                                }
-                                break;
-                        }
-                    } else if (player.iDMark.getIndexMenu() == 4800) {
-                        switch (select) {
-                            case 0:
-                                Item devuongthach = null;
-                                try {
-                                    devuongthach = InventoryServiceNew.gI().findItemBag(player, 1260);
-                                } catch (Exception e) {
-                                }
-                                if (player.CapTuTien >= 19) {
-                                    Service.gI().sendThongBao(player, "Bạn đã đạt cấp tối đa");
-                                    return;
-                                }
-                                if (devuongthach == null || devuongthach.quantity < player.DaTuTien(player.CapTuTien)) {
-                                    Service.gI().sendThongBao(player, "Bạn chưa đủ đá Đế Vương Thạch");
-                                    return;
-                                }
-                                if (player.KinhNghiemTT < 10_000_000_000L) {
-                                    Service.gI().sendThongBao(player, "|3|Chưa đủ lượng Kinh nghiệm cần đột phá. Còn thiếu " + Util.format(10_000_000_000L - player.KinhNghiemTT));
-                                } else {
-                                    int tile;
-                                    tile = player.tileDotPha(player.CapTuTien);
-                                    if (Util.isTrue(tile, 100)) {
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, devuongthach, player.DaTuTien(player.CapTuTien));
-                                        player.CapTuTien++;
-                                        player.KinhNghiemTT = 0;
-                                        InventoryServiceNew.gI().sendItemBags(player);
-                                        Service.gI().sendThongBao(player, "|5|Đột phá Thành công");
-                                        PlayerDAO.updatePlayer(player);
-                                    } else {
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, devuongthach, player.DaTuTien(player.CapTuTien));
-                                        player.KinhNghiemTT -= 5_000_000_000L;
-                                        InventoryServiceNew.gI().sendItemBags(player);
-                                        Service.gI().sendThongBao(player, "|3|Đột phá Thất bại");
-                                    }
-                                }
                                 break;
                         }
                     } else if (player.iDMark.getIndexMenu() == 987) {
@@ -2788,25 +2683,19 @@ public class NpcFactory {
                             Service.gI().sendThongBao(player, "|7|Yêu cầu phải học kỹ năng " + player.tenskill9(player.gender));
                             return;
                         }
-                        if (player.nPoint.power < 500_000_000_000L) {
-                            Service.gI().sendThongBao(player, "|7|Bạn chưa đủ 500 tỷ sức mạnh để Chuyển sinh");
+                        if (player.nPoint.power < 100_000_000_000L) {
+                            Service.gI().sendThongBao(player, "|7|Bạn chưa đủ 100 tỷ sức mạnh để Chuyển sinh");
                         } else {
-                            Item buaZeno = InventoryServiceNew.gI().findItemBag(player, LuckyRound.ID_BUA_ZENO);
-
-                            int qtyBua = player.taixiu.priceNangChuyenSinh();
+                            int qtyBua = player.taixiu.priceNangChuyenSinh(player.taixiu.chuyensinh);
                             int percent = player.taixiu.percentNangChuyenSinh();
-
-                            if (buaZeno == null) {
-                                Service.gI().sendThongBao(player, "Bạn không có bùa để chuyển sinh");
-                                return;
-                            } else if (buaZeno.quantity < qtyBua) {
-                                Service.gI().sendThongBao(player, "Bạn còn thiếu " + (qtyBua - buaZeno.quantity) + " bùa");
+                            if (player.inventory.ruby < qtyBua) {
+                                Service.gI().sendThongBao(player, "Bạn còn thiếu " + (qtyBua - player.inventory.ruby) + " bùa");
                                 return;
                             }
 
-                            InventoryServiceNew.gI().subQuantityItemsBag(player, buaZeno, qtyBua);
-
-                            if (player.taixiu.chuyensinh + 1 > 2000) {
+                            player.inventory.ruby -= qtyBua;
+                            int MAX_CS = 100;
+                            if (player.taixiu.chuyensinh + 1 > MAX_CS) {
                                 Service.gI().sendThongBaoOK(player, "Bạn đã đạt giới hạn chuyển sinh");
                                 return;
                             }
@@ -3109,7 +2998,7 @@ public class NpcFactory {
                         mtv = "Tài khoản của bạn chưa được Mở thành viên nên còn bị khóa mõm với không giao dịch được!!!";
                     }
                     if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cố Gắng Có Làm Mới Có Ăn Con, đừng lo lắng cho ta.\n".replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê" : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru" : "Vua Vegeta") + "Ta đang giữ tiền tiết kiệm của con\n|1| Hiện tại con đang có: " + player.getSession().goldBar + " Thỏi vàng" + "\n\n|7| Cấp VIP được tính như sau:" + "\n|2| Quy đổi tiền <500.000đ = Tân Thủ (Nhận 30 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >2000.000đ và <5.000.000đ = VIP (Nhận 100 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >5.000.000đ = SVIP (Nhận 300 Thỏi vàng/Ngày)" + "\n|3|TỔNG QUY ĐỔI : " + Util.format(player.vnd) + "đ" + "\n\n|7|Cấp VIP hiện tại của bạn là : " + checkvnd + "\n|1| Điểm danh hằng ngày sẽ nhận được " + thoivang + " Thỏi vàng" + "\n|1| ***" + mtv + "***", "Đổi Mật Khẩu", "Nhận 200tr Ngọc xanh", "Nhận\nVàng", "Giftcode", "Điểm danh\nngày", "Đến\n Khu Test Dame", "Mở thành viên");
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cố Gắng Có Làm Mới Có Ăn Con, đừng lo lắng cho ta.\n".replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê" : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru" : "Vua Vegeta") + "Ta đang giữ tiền tiết kiệm của con\n|1| Hiện tại con đang có: " + player.getSession().goldBar + " Thỏi vàng" + "\n\n|7| Cấp VIP được tính như sau:" + "\n|2| Quy đổi tiền <500.000đ = Tân Thủ (Nhận 30 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >2000.000đ và <5.000.000đ = VIP (Nhận 100 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >5.000.000đ = SVIP (Nhận 300 Thỏi vàng/Ngày)" + "\n|3|TỔNG QUY ĐỔI : " + Util.format(player.vnd) + "đ" + "\n\n|7|Cấp VIP hiện tại của bạn là : " + checkvnd + "\n|1| Điểm danh hằng ngày sẽ nhận được " + thoivang + " Thỏi vàng" + "\n|1| ***" + mtv + "***", "Đổi Mật Khẩu", "Nhận 200tr Ngọc xanh", "Nhận\nVàng", "Giftcode", "Điểm danh\nngày", "Đến\n Khu Test Dame", "Mở thành viên", "Nhận quà\nđền bù");
 
                     }
                 }
@@ -3188,6 +3077,35 @@ public class NpcFactory {
                                     this.createOtherMenu(player, 1456, "|7|MỞ THÀNH VIÊN" + "\n\n|5|Khi bạn trờ thành thành viên chính thức của Ngọc Rồng MEDUSA sẽ được mở khóa chức năng Giao dịch và Chat thế giới" + "\n|3|Mở thành viên cần đạt tu tiên cảnh giới Nguyên Anh và luyện thể tầng 10 " + "\nSau khi mở thành viên thành công sẽ nhận được 500k hồng ngọc" + "\n\n|1|Tiền hiện còn : " + " " + Util.format(player.getSession().vnd) + "Bạn muốn ở thành viên?", "Đồng ý", "Từ chối");
                                     break;
                                 }
+                            case 7:
+                                // nhan qua den bu
+                                if (player.isNhanQuaDenBu) {
+                                    Service.gI().sendThongBao(player, "Bạn đã nhận rồi đừng có mà tham lam!");
+                                    return;
+                                }
+                                if (InventoryServiceNew.gI().getCountEmptyBag(player) < 18) {
+                                    Service.gI().sendThongBaoOK(player, "Cần 18 ô hành trang trống");
+                                    return;
+                                }
+                                player.isNhanQuaDenBu = true;
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2068, 20));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2072, 99));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2073, 99));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2075, 9));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2076, 999));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2082, 9));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2083, 9));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2031, 9999));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2031, 9999));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 211, 99));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 572, 1));
+                                player.session.vnd += 100_000;
+                                for (int i = 2084; i <= 2092; i++) {
+                                    InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) i, 2));
+                                }
+                                InventoryServiceNew.gI().sendItemBags(player);
+                                Service.gI().sendThongBaoOK(player, "Quà đền bù đã được gửi đến hành trang của bạn , cảm ơn đã chơi game");
+                                break;
                         }
                     } else if (player.iDMark.getIndexMenu() == 1456) {//code mở thành viên
                         switch (select) {
@@ -5512,31 +5430,22 @@ public class NpcFactory {
                     }
                     int nPlSameClan = 0;
                     for (Player pl : player.zone.getPlayers()) {
-                        if (!pl.equals(player) && pl.clan != null
-                                && pl.clan.equals(player.clan) && pl.location.x >= 1285
-                                && pl.location.x <= 1645) {
+                        if (!pl.equals(player) && pl.clan != null && pl.clan.equals(player.clan) && pl.location.x >= 1285 && pl.location.x <= 1645) {
                             nPlSameClan++;
                         }
                     }
                     if (nPlSameClan < DoanhTrai.N_PLAYER_MAP) {
-                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                                "Ngươi phải có ít nhất " + DoanhTrai.N_PLAYER_MAP + " đồng đội cùng bang đứng gần mới có thể\nvào\n"
-                                        + "tuy nhiên ta khuyên ngươi nên đi cùng với 3-4 người để khỏi chết.\n"
-                                        + "Hahaha.", "OK", "Hướng\ndẫn\nthêm");
+                        createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ngươi phải có ít nhất " + DoanhTrai.N_PLAYER_MAP + " đồng đội cùng bang đứng gần mới có thể\nvào\n" + "tuy nhiên ta khuyên ngươi nên đi cùng với 3-4 người để khỏi chết.\n" + "Hahaha.", "OK", "Hướng\ndẫn\nthêm");
                         return;
                     }
 
                     if (!player.clan.doanhTrai_haveGone) {
-                        LocalDate lastOpen = Instant.ofEpochMilli(player.clan.doanhTrai_lastTimeOpen)
-                                .atZone(ZoneId.systemDefault())
-                                .toLocalDate();
+                        LocalDate lastOpen = Instant.ofEpochMilli(player.clan.doanhTrai_lastTimeOpen).atZone(ZoneId.systemDefault()).toLocalDate();
                         LocalDate today = LocalDate.now();
                         player.clan.doanhTrai_haveGone = (new java.sql.Date(player.clan.doanhTrai_lastTimeOpen)).getDay() == (new java.sql.Date(System.currentTimeMillis())).getDay();
                     }
                     if (player.clan.doanhTrai_haveGone) {
-                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                                "Bang hội của ngươi đã đi trại lúc " + TimeUtil.formatTime(player.clan.doanhTrai_lastTimeOpen, "HH:mm:ss") + " hôm nay. Người mở\n"
-                                        + "(" + player.clan.doanhTrai_playerOpen + "). Hẹn ngươi quay lại vào ngày mai", "OK", "Hướng\ndẫn\nthêm");
+                        createOtherMenu(player, ConstNpc.IGNORE_MENU, "Bang hội của ngươi đã đi trại lúc " + TimeUtil.formatTime(player.clan.doanhTrai_lastTimeOpen, "HH:mm:ss") + " hôm nay. Người mở\n" + "(" + player.clan.doanhTrai_playerOpen + "). Hẹn ngươi quay lại vào ngày mai", "OK", "Hướng\ndẫn\nthêm");
                         return;
                     }
                     createOtherMenu(player, ConstNpc.MENU_JOIN_DOANH_TRAI, "Hôm nay bang hội của ngươi chưa vào trại lần nào. Ngươi có muốn vào\n" + "không?\nĐể vào, ta khuyên ngươi nên có 3-4 người cùng bang đi cùng", "Vào\n(miễn phí)", "Không", "Hướng\ndẫn\nthêm");
@@ -8189,8 +8098,12 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Bạn thiếu tài liệu rồi");
                                 return;
                             }
+                            if (!player.luyenThe.canLevelUp) {
+                                Service.gI().sendThongBaoOK(player, "Bạn cần chuyển sinh để tiếp tục đột phá");
+                                return;
+                            }
                             float ratioUp = player.luyenThe.getLevelUpPercent();
-                            if (Util.isTrue(ratioUp, 120)) {
+                            if (Util.isTrue(ratioUp, 100)) {
                                 player.luyenThe.levelUp();
                                 Service.gI().sendThongBao(player, "Đột phá thành công");
                             } else {
@@ -8321,7 +8234,7 @@ public class NpcFactory {
                                         ratio += player.luyenDanSu.danDuocEffect.percentDotPhaThienDao;
                                         player.luyenDanSu.danDuocEffect.resetDanDptd();
                                     }
-                                    if (Util.isTrue(ratio - subPercent, 110)) {
+                                    if (Util.isTrue(ratio - subPercent, 150)) {
                                         boolean isSuccess = true;
                                         if (player.tuTien.level > 6) {
                                             if (Util.isTrue(player.tuTien.level + player.tuTien.subLevel, 100)) {
@@ -8352,7 +8265,7 @@ public class NpcFactory {
                                     if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffMayMan()) {
                                         ratio1 += player.luyenDanSu.danDuocEffect.pointMayMan;
                                     }
-                                    if (Util.isTrue(ratio1, 110)) {
+                                    if (Util.isTrue(ratio1, 150)) {
                                         boolean isSuccess = true;
                                         int baseGapTamMa = 20 + player.tuTien.level + player.tuTien.subLevel;
                                         if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isUseDanTranhTamMa) {
@@ -8384,7 +8297,7 @@ public class NpcFactory {
                             if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffMayMan()) {
                                 ratio += player.luyenDanSu.danDuocEffect.pointMayMan;
                             }
-                            if (Util.isTrue(ratio - subPercent1, 110)) {
+                            if (Util.isTrue(ratio - subPercent1, 150)) {
                                 boolean isSuccess = true;
                                 if (player.tuTien.level > 2) {
                                     int baseGapTamMa = 20 + player.tuTien.level + player.tuTien.subLevel;

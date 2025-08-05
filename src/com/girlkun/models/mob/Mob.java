@@ -533,13 +533,13 @@ public class Mob {
         try {
             if (player.session != null) {
                 // add point reward
-                int totalMoney = 1;
+                int totalMoney = 2;
                 if (Util.isTrue(1, 10000)) {
                     totalMoney += 1000;
                     Service.gI().sendThongBao(player, "Bạn vừa nổ hủ lớn");
                 }
                 if (Util.isTrue(5, 100)) {
-                    totalMoney += 100;
+                    totalMoney += 50;
                     Service.gI().sendThongBao(player, "Bạn vừa nổ hủ nhỏ");
                 }
                 if (zone.map.mapId == Zone.currentMap) {
@@ -613,7 +613,7 @@ public class Mob {
         }
 
         if (player.tuTien.isTuTien() && player.tuTien.congPhap.getTenCongPhap() != null) {
-            long dtt = player.tuTien.congPhap.phamchat.id + 1 + Util.nextInt(5);
+            long dtt = player.tuTien.congPhap.phamchat.id + 1 + Util.nextInt(10);
             if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffCongPhap()) {
                 dtt *= player.luyenDanSu.danDuocEffect.xBuffCongPhap;
             }
@@ -646,7 +646,7 @@ public class Mob {
         }
 
         if (zone.map.mapId == 144) {
-            list.add(new ItemMap(zone, 861, Util.nextInt(1, 50), this.location.x, yEnd, player.id));
+            list.add(new ItemMap(zone, 861, Util.nextInt(1, 25), this.location.x, yEnd, player.id));
         }
         // rơi các loại đá thạch ( chỉ có ở ngũ hành sơn )
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
@@ -658,26 +658,26 @@ public class Mob {
                 list.add(new ItemMap(zone, 611, Util.nextInt(1, 50), this.location.x, yEnd, player.id));
             }
             // roi con duong ran doc
-            if (zone.map.mapId == 141 && Util.isTrue(15f, 100)) {
+            if (zone.map.mapId == 141 && Util.isTrue(7f, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
                 list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
 
-            if (zone.map.mapId == 141 && Util.isTrue(7f, 100)) {
+            if (zone.map.mapId == 141 && Util.isTrue(5f, 100)) {
                 short temIds = (short) Util.nextInt(1260, 1262);
                 list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
             // roi nhs
-            if (zone.map.mapId == 123 && Util.isTrue(6f, 100)) {
+            if (zone.map.mapId == 123 && Util.isTrue(3f, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
                 list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
-            if (zone.map.mapId == 123 && Util.isTrue(2f, 100)) {
+            if (zone.map.mapId == 123 && Util.isTrue(1f, 100)) {
                 short temIds = (short) Util.nextInt(1260, 1262);
                 list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
             // roi quai o ngoai
-            if (Util.isTrue(3, 100)) {
+            if (Util.isTrue(.5f, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
                 list.add(new ItemMap(zone, temIds, sl, this.location.x, yEnd, player.id));
             }
@@ -846,7 +846,7 @@ public class Mob {
                 list.add(new ItemMap(zone, Util.nextInt(1461, 1463), 1, player.location.x, yEnd, player.id));
             }
             if (Util.isTrue(1, 5000)) {
-                list.add(new ItemMap(zone, Util.nextInt(2084, 2085), 1, player.location.x, yEnd, player.id));
+                list.add(new ItemMap(zone, Util.nextInt(2084, 2092), 1, player.location.x, yEnd, player.id));
             }
             if (Util.isTrue(1, 50_000)) {
                 // roi ngu hanh tinh thach
@@ -870,9 +870,7 @@ public class Mob {
         if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)) {
             int levell = player.getMaster().clan.banDoKhoBau.level;
             int slhn = Util.nextInt(1, 3) * (levell);
-            if (Util.isTrue(20, 100)) {
-                list.add(new ItemMap(zone, 861, slhn, x, yEnd, player.id));
-            }
+            list.add(new ItemMap(zone, 861, slhn, x, yEnd, player.id));
             // ty le da ngu hanh roi
             if (Util.isTrue(levell, 500)) {
                 list.add(new ItemMap(zone, 2081, 1, x, yEnd, player.id));

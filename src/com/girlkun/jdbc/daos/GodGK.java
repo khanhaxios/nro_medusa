@@ -144,6 +144,7 @@ public class GodGK {
                             player.haveTennisSpaceShip = rs.getBoolean("have_tennis_space_ship");
                             player.diemdanh = rs.getLong("violate");
                             player.NguHanhSonPoint = rs.getInt("NguHanhSonPoint");
+                            player.isNhanQuaDenBu = rs.getBoolean("den_bu");
 //                            player.tienLuc = rs.getInt("tien_luc");
                             player.tyLeTangPhamDaoLu = rs.getFloat("tl_dl");
                             // data rada card
@@ -1268,6 +1269,7 @@ public class GodGK {
                             if (toiThe.size() > 0) {
                                 player.luyenThe.toiThe.tier = Integer.parseInt(toiThe.get(0).toString());
                             }
+                            player.luyenThe.canLevelUp = Boolean.parseBoolean(jsonArray.get(13).toString());
                         }
                     }
                 } catch (Exception e) {

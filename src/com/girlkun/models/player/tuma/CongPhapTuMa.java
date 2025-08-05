@@ -51,12 +51,12 @@ public class CongPhapTuMa {
     }
 
     public double getMaxDameBuff() {
-        double baseDame = 500_000;
+        double baseDame = 1_000_000;
         return baseDame * phamChat;
     }
 
     public double getMaxHpMpBuff() {
-        double baseHpMp = 1_000_000;
+        double baseHpMp = 1_500_000;
         return baseHpMp * phamChat;
     }
 

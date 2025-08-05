@@ -26,5 +26,6 @@ public class BaseTuDuy {
         Service.gI().sendThongBao(pl, "Dùng tinh thạch thành công tứ duy thuộc tính của bạn tăng lên một chút");
         InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
         InventoryServiceNew.gI().sendItemBags(pl);
+        Service.gI().point(pl);
     }
 }

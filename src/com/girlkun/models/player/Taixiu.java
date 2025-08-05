@@ -1,9 +1,8 @@
 package com.girlkun.models.player;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.girlkun.models.item.Item;
+
+import java.util.List;
 
 public class Taixiu {
 
@@ -48,12 +47,12 @@ public class Taixiu {
     }
 
 
-    public int priceNangChuyenSinh() {
-        return 50;
+    public int priceNangChuyenSinh(int level) {
+        return level * 5_000;
     }
 
     public int percentNangChuyenSinh() {
-        return 100 - (chuyensinh % 100);
+        return Math.abs(100 - (chuyensinh - 3));
     }
 
     public void dispose() {

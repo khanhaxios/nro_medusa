@@ -20,6 +20,7 @@ import com.girlkun.utils.Util;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,18 +91,34 @@ public class Zone {
         }
     }
 
+    public static boolean isHoaBinh;
+
+    private boolean cachedHoaBinh;
+
     private void udPlayer() {
+        LocalTime now = LocalTime.now();
+
+        if (now.getHour() % 3 == 0) {
+            isHoaBinh = false;
+        } else if (now.getHour() % 2 == 0) {
+            isHoaBinh = true;
+        }
         synchronized (this.notBosses) {
             for (int i = this.notBosses.size() - 1; i >= 0; i--) {
                 Player pl = this.notBosses.get(i);
+                // update player
                 if (pl != null && pl.isPl()) {
-                    if (map.mapId == 5 && pl.tuMa.isTuMa() && pl.cFlag != 8) {
-                        Service.gI().changeFlag(pl, 8);
+                    if (!isHoaBinh) {
+                        if (pl.tuMa.isTuMa()) {
+                            Service.gI().changeFlag(pl, 8);
+                        } else if (pl.tuTien.isTuTien()) {
+                            Service.gI().changeFlag(pl, 2);
+                        } else if (pl.luyenThe.isLuyenTheReal()) {
+                            Service.gI().changeFlag(pl, 3);
+                        }
                     }
-                    this.notBosses.get(i).update();
+                    pl.update();
                 }
-                // check map
-
             }
         }
     }

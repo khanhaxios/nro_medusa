@@ -1235,7 +1235,7 @@ public class NPoint {
             this.mpMax += this.mpMax * (player.tuMa.theChat * 5) / 100;
         }
         if (player.luyenThe != null && player.luyenThe.isLuyenTheReal()) {
-            this.mpMax += this.mpMax * (player.luyenThe.sucManh * 30) / 100;
+            this.mpMax += this.mpMax * (player.luyenThe.theChat * 30) / 100;
         }
     }
 
@@ -2045,7 +2045,11 @@ public class NPoint {
                     tiemNang += tn * 2;
                 }
             }
-            tiemNang *= Manager.RATE_EXP_SERVER;
+            if (player.luyenThe.isLuyenTheReal()) {
+                tiemNang *= 20;
+            } else {
+                tiemNang *= Manager.RATE_EXP_SERVER;
+            }
             tiemNang = calSubTNSM(tiemNang);
             if (tiemNang <= 0) {
                 tiemNang = 5;
