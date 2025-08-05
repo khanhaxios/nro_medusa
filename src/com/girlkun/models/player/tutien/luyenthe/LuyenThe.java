@@ -76,7 +76,7 @@ public class LuyenThe extends BaseTuDuy {
     }
 
     public long calcMaxChanKhi() {
-        long chanKhi = level * 100_000L;
+        long chanKhi = Math.max(level, 1) * 100_000L;
         if (congPhapLuyenThe.isLearn()) {
             if (congPhapLuyenThe.type == 1) {
                 chanKhi *= 5;
@@ -142,7 +142,7 @@ public class LuyenThe extends BaseTuDuy {
     }
 
     protected long getNextLevelExp() {
-        return level * 30_000;
+        return Math.max(level, 1) * 30_000;
     }
 
     public float getLevelUpPercent() {
@@ -192,6 +192,9 @@ public class LuyenThe extends BaseTuDuy {
     }
 
     public String getCurrentExpAsString() {
+        if (maxExp == 0) {
+            maxExp = getNextLevelExp();
+        }
         return exp + "/" + Util.powerToString(maxExp) + " (" + String.format("%s", exp / maxExp * 100) + "%)";
     }
 

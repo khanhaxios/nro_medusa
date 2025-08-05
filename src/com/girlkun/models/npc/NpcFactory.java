@@ -3088,20 +3088,20 @@ public class NpcFactory {
                                     return;
                                 }
                                 player.isNhanQuaDenBu = true;
-                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2068, 20));
-                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2072, 99));
-                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2073, 99));
-                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2075, 9));
-                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2076, 999));
-                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2082, 9));
-                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2083, 9));
-                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2031, 9999));
-                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2031, 9999));
-                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 211, 99));
-                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 572, 1));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2068, 20, true));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2072, 99, true));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2073, 99, true));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2075, 9, true));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2076, 99, true));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2082, 9, true));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2083, 9, true));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2031, 9999, true));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 2031, 9999, true));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 211, 99, true));
+                                InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) 572, 1, true));
                                 player.session.vnd += 100_000;
                                 for (int i = 2084; i <= 2092; i++) {
-                                    InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) i, 2));
+                                    InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem((short) i, 2, true));
                                 }
                                 InventoryServiceNew.gI().sendItemBags(player);
                                 Service.gI().sendThongBaoOK(player, "Quà đền bù đã được gửi đến hành trang của bạn , cảm ơn đã chơi game");
