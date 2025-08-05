@@ -98,7 +98,7 @@ public class LuckyPool {
     public void initLuckyItem() {
         // add rare item
         // rare item includes linh thu ,
-        luckyPoolRareItems = Manager.ITEM_TEMPLATES.stream().filter(it -> it.type == 13 || it.type == 27 || it.type == 11 || it.type == 33 || it.type == 29).map(it -> it.id) // only get id
+        luckyPoolRareItems = Manager.ITEM_TEMPLATES.stream().filter(it -> it.type == 13 || it.type == 33 || it.type == 29 || it.type == 27).map(it -> it.id) // only get id
                 .collect(Collectors.toList());
         luckyPoolEpicItems = Manager.ITEM_TEMPLATES.stream().filter(it -> it.type == 5 || it.type == 72 || it.type == 23 || it.type == 24).map(it -> it.id) // only get id
                 .collect(Collectors.toList());

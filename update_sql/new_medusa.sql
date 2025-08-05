@@ -46,12 +46,12 @@ CREATE TABLE IF NOT EXISTS `account` (
   `device_id` text NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `username` (`username`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table medusa.account: ~0 rows (approximately)
+-- Dumping data for table medusa.account: ~1 rows (approximately)
 DELETE FROM `account`;
 INSERT INTO `account` (`id`, `username`, `password`, `create_time`, `update_time`, `ban`, `point_post`, `last_post`, `role`, `is_admin`, `last_time_login`, `last_time_logout`, `ip_address`, `active`, `thoi_vang`, `server_login`, `bd_player`, `is_gift_box`, `gift_time`, `reward`, `vnd`, `tongnap`, `device_id`) VALUES
-	(1, 'admin', 'admin1312', '2025-07-21 13:17:47', '2025-07-21 13:17:47', 0, 0, 0, -1, 0, '1999-12-31 17:00:00', '2000-12-31 17:00:00', '127.0.0.1', 0, 0, -1, 1, 0, '0', NULL, 100035, 0, 'a0dd167c-532e-42d2-9a7f-ebf5cc2ac17a');
+	(1, 'admin', 'admin1312', '2025-07-21 13:17:47', '2025-07-21 13:17:47', 0, 0, 0, -1, 1, '1999-12-31 17:00:00', '2000-12-31 17:00:00', '127.0.0.1', 1, 0, -1, 1, 0, '0', NULL, 311, 0, 'a0dd167c-532e-42d2-9a7f-ebf5cc2ac17a');
 
 -- Dumping structure for table medusa.achievement
 CREATE TABLE IF NOT EXISTS `achievement` (
@@ -714,8 +714,6 @@ CREATE TABLE IF NOT EXISTS `clan_sv1` (
 
 -- Dumping data for table medusa.clan_sv1: ~0 rows (approximately)
 DELETE FROM `clan_sv1`;
-INSERT INTO `clan_sv1` (`id`, `NAME`, `slogan`, `img_id`, `power_point`, `max_member`, `clan_point`, `LEVEL`, `members`, `doanh_trai`, `create_time`) VALUES
-	(0, 'cc', '', 0, 0, 20, 0, 0, '["{\\"role\\":0,\\"receive_donate\\":0,\\"member_point\\":0,\\"body\\":392,\\"join_time\\":1749284854,\\"leg\\":393,\\"head\\":391,\\"ask_pea_time\\":0,\\"name\\":\\"bluepla\\",\\"clan_point\\":0,\\"id\\":42,\\"donate\\":0,\\"power\\":7439590341596}"]', '[1749284854801,"Việt"]', '2025-06-07 08:27:34');
 
 -- Dumping structure for table medusa.clan_sv2
 CREATE TABLE IF NOT EXISTS `clan_sv2` (
@@ -746,7 +744,7 @@ CREATE TABLE IF NOT EXISTS `devices` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table medusa.devices: ~0 rows (approximately)
+-- Dumping data for table medusa.devices: ~1 rows (approximately)
 DELETE FROM `devices`;
 INSERT INTO `devices` (`id`, `device_id`, `ip_address`, `platform`, `created_at`, `note`) VALUES
 	(1, 'a0dd167c-532e-42d2-9a7f-ebf5cc2ac17a', '127.0.0.1', 'Windows Editor', 1749012270189, '');
@@ -763,7 +761,7 @@ CREATE TABLE IF NOT EXISTS `dhvt_template` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table medusa.dhvt_template: ~0 rows (approximately)
+-- Dumping data for table medusa.dhvt_template: ~1 rows (approximately)
 DELETE FROM `dhvt_template`;
 INSERT INTO `dhvt_template` (`id`, `cup`, `time`, `gem`, `gold`, `min_start`, `min_limit`) VALUES
 	(1, 'Ngoại hạng', '11', 0, 20000, 2, 4);
@@ -931,15 +929,10 @@ CREATE TABLE IF NOT EXISTS `gidtcode_history` (
   `code` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Lịch sử nhận gift code';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Lịch sử nhận gift code';
 
--- Dumping data for table medusa.gidtcode_history: ~2 rows (approximately)
+-- Dumping data for table medusa.gidtcode_history: ~0 rows (approximately)
 DELETE FROM `gidtcode_history`;
-INSERT INTO `gidtcode_history` (`id`, `player_id`, `code`, `time`) VALUES
-	(1, 3, 'nrorise', '2025-05-31 22:53:30'),
-	(2, 3, 'bosss', '2025-05-31 22:54:15'),
-	(3, 3, 'tutien', '2025-05-31 23:06:48'),
-	(4, 3, 'tolinhdan', '2025-06-05 13:38:01');
 
 -- Dumping structure for table medusa.giftcodeviet
 CREATE TABLE IF NOT EXISTS `giftcodeviet` (
@@ -948,16 +941,14 @@ CREATE TABLE IF NOT EXISTS `giftcodeviet` (
   `Luot` int(11) NOT NULL,
   `Item` text NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table medusa.giftcodeviet: ~5 rows (approximately)
+-- Dumping data for table medusa.giftcodeviet: ~3 rows (approximately)
 DELETE FROM `giftcodeviet`;
 INSERT INTO `giftcodeviet` (`id`, `Code`, `Luot`, `Item`) VALUES
-	(1, 'nrorise', 998, '[{"item":1332,"soluong":1,"Option":[{"option":50,"chiso":30},{"option":77,"chiso":40},{"option":103,"chiso":40},{"option":14,"chiso":5},{"option":101,"chiso":100},{"option":100,"chiso":100},{"option":30,"chiso":0}]},{"item":2067,"soluong":1,"Option":[{"option":50,"chiso":35},{"option":77,"chiso":50},{"option":103,"chiso":50},{"option":101,"chiso":100},{"option":30,"chiso":0}]},{"item":457,"soluong":100,"Option":[{"option":30,"chiso":0}]},{"item":861,"soluong":100000,"Option":[{"option":30,"chiso":0}]},\r\n{"item":671,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"item":672,"soluong":5,"Option":[{"option":30,"chiso":0}]},\r\n{"item":672,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"item":219,"soluong":30,"Option":[{"option":30,"chiso":0}]},\r\n{"item":213,"soluong":30,"Option":[{"option":30,"chiso":0}]},\r\n{"item":214,"soluong":30,"Option":[{"option":30,"chiso":0}]},\r\n{"item":215,"soluong":30,"Option":[{"option":30,"chiso":0}]},\r\n{"item":216,"soluong":30,"Option":[{"option":30,"chiso":0}]},\r\n{"item":218,"soluong":30,"Option":[{"option":30,"chiso":0}]},\r\n{"item":217,"soluong":30,"Option":[{"option":30,"chiso":0}]}\r\n]'),
-	(2, 'tutien', 998, '[{"item":1260,"soluong":999,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1262,"soluong":999,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1263,"soluong":999,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1264,"soluong":999,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1265,"soluong":999,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1266,"soluong":999,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1261,"soluong":999,"Option":[{"option":30,"chiso":0}]}\r\n]'),
-	(4, 'bosss', 998, '[{"item":1296,"soluong":999,"Option":[{"option":30,"chiso":0}]}\r\n]'),
-	(5, 'dovip', 20, '[{"item":1079,"soluong":9,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1081,"soluong":9,"Option":[{"option":30,"chiso":0}]}\r\n]'),
-	(7, 'tolinhdan', 998, '[{"item":2068,"soluong":10,"Option":[{"option":30,"chiso":0}]}\r\n]');
+	(1, 'nrorise', 997, '[{"item":1332,"soluong":1,"Option":[{"option":50,"chiso":30},{"option":77,"chiso":40},{"option":103,"chiso":40},{"option":14,"chiso":5},{"option":101,"chiso":100},{"option":100,"chiso":100},{"option":30,"chiso":0}]},{"item":2067,"soluong":1,"Option":[{"option":50,"chiso":35},{"option":77,"chiso":50},{"option":103,"chiso":50},{"option":101,"chiso":100},{"option":30,"chiso":0}]},{"item":457,"soluong":100,"Option":[{"option":30,"chiso":0}]},{"item":861,"soluong":100000,"Option":[{"option":30,"chiso":0}]},\r\n{"item":671,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"item":672,"soluong":5,"Option":[{"option":30,"chiso":0}]},\r\n{"item":672,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"item":219,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"item":213,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"item":214,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"item":215,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"item":216,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"item":218,"soluong":10,"Option":[{"option":30,"chiso":0}]},\r\n{"item":217,"soluong":10,"Option":[{"option":30,"chiso":0}]}\r\n]'),
+	(2, 'tutien', 998, '[{"item":1260,"soluong":99,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1262,"soluong":99,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1263,"soluong":99,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1264,"soluong":99,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1265,"soluong":99,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1266,"soluong":99,"Option":[{"option":30,"chiso":0}]},\r\n{"item":1261,"soluong":99,"Option":[{"option":30,"chiso":0}]}\r\n]'),
+	(4, 'bosss', 998, '[{"item":1296,"soluong":9999,"Option":[{"option":30,"chiso":0}]}\r\n]');
 
 -- Dumping structure for table medusa.head_avatar
 CREATE TABLE IF NOT EXISTS `head_avatar` (
@@ -966,7 +957,7 @@ CREATE TABLE IF NOT EXISTS `head_avatar` (
   PRIMARY KEY (`head_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table medusa.head_avatar: ~417 rows (approximately)
+-- Dumping data for table medusa.head_avatar: ~420 rows (approximately)
 DELETE FROM `head_avatar`;
 INSERT INTO `head_avatar` (`head_id`, `avatar_id`) VALUES
 	(0, 516),
@@ -1605,7 +1596,7 @@ CREATE TABLE IF NOT EXISTS `item_option_template` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table medusa.item_option_template: ~252 rows (approximately)
+-- Dumping data for table medusa.item_option_template: ~267 rows (approximately)
 DELETE FROM `item_option_template`;
 INSERT INTO `item_option_template` (`id`, `NAME`) VALUES
 	(0, 'Tấn công+#'),
@@ -1867,7 +1858,14 @@ INSERT INTO `item_option_template` (`id`, `NAME`) VALUES
 	(256, 'Set Tiên Xayda'),
 	(257, '$(5 món +50% Sức đánh,300% Sức đánh chí mạng,500% KameJoko và 250% kaioken)'),
 	(258, '$(5 món +40% Sức đánh,350% Sức đánh chí mạng,350% Liên Hoàn)'),
-	(259, '$(5 món +40% Sức đánh,400% Sức đánh chí mạng,300% Galick và 250% HP)');
+	(259, '$(5 món +40% Sức đánh,400% Sức đánh chí mạng,300% Galick và 250% HP)'),
+	(260, 'Yêu cầu tu tiên # cấp'),
+	(261, 'Yêu cầu LKS # cấp'),
+	(262, 'Tăng #% Linh Khí'),
+	(263, 'Tăng #% Sát Thương Linh Căn'),
+	(264, 'Tăng #% Tốc Độ Hồi Linh Khí'),
+	(265, 'Tăng #% Tốc Độ Nạp Tu Vi'),
+	(266, 'Cố hóa # Lần');
 
 -- Dumping structure for table medusa.item_shop
 CREATE TABLE IF NOT EXISTS `item_shop` (
@@ -1886,7 +1884,7 @@ CREATE TABLE IF NOT EXISTS `item_shop` (
   KEY `temp_id` (`temp_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1095 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table medusa.item_shop: ~804 rows (approximately)
+-- Dumping data for table medusa.item_shop: ~834 rows (approximately)
 DELETE FROM `item_shop`;
 INSERT INTO `item_shop` (`id`, `tab_id`, `temp_id`, `is_new`, `is_sell`, `type_sell`, `cost`, `icon_spec`, `create_time`, `item_spec`) VALUES
 	(1, 1, 0, 0, 1, 0, 500, 0, '2022-06-09 23:00:59', 0),
@@ -4893,7 +4891,7 @@ CREATE TABLE IF NOT EXISTS `item_template` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table medusa.item_template: ~2,046 rows (approximately)
+-- Dumping data for table medusa.item_template: ~2,093 rows (approximately)
 DELETE FROM `item_template`;
 INSERT INTO `item_template` (`id`, `TYPE`, `gender`, `NAME`, `description`, `icon_id`, `part`, `is_up_to_up`, `power_require`, `gold`, `gem`, `head`, `body`, `leg`) VALUES
 	(0, 0, 0, 'Áo vải 3 lỗ', 'Giúp giảm sát thương', 390, 14, 0, 1200, 500, 0, -1, -1, -1),
@@ -6975,7 +6973,20 @@ INSERT INTO `item_template` (`id`, `TYPE`, `gender`, `NAME`, `description`, `ico
 	(2076, 27, 3, 'Đan tăng phẩm Đạo Lữ', 'Dùng để tăng phẩm đạo lữ', 12056, -1, 1, 0, 0, 0, -1, -1, -1),
 	(2077, 27, 3, 'Huyết Đan', 'Đân ngưng từ quái dùng tăng một chút chỉ số', 16125, -1, 1, 0, 0, 0, -1, -1, -1),
 	(2078, 27, 3, 'Phiếu pháp bảo', '10 cái ghép thành một pháp bảo', 7390, -1, 1, 0, 0, 0, -1, -1, -1),
-	(2079, 27, 3, 'Phiếu cường hóa', 'Dùng để cường hóa pháp bảo', 7389, -1, 1, 0, 0, 0, -1, -1, -1);
+	(2079, 27, 3, 'Phiếu cường hóa', 'Dùng để cường hóa pháp bảo', 7389, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2080, 27, 3, 'Mảnh bí tịch', '20 cái ghép thành một môn công pháp', 18211, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2081, 27, 3, 'Bí tịch chân giải', 'Dùng tăng độ thuần thục công pháp', 18211, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2082, 27, 3, 'Ngũ hành linh thạch', 'Tinh hoa từ ngũ hành dùng cho việc tu luyện', 10207, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2083, 27, 3, 'Ngũ hành tinh thạch', 'Tinh hoa từ ngũ hành chi linh dùng cho việc tiên hóa trang bị', 10743, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2084, 66, 3, 'Quang Chi Tinh', 'Quang chi tinh hoa', 10884, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2085, 66, 3, 'Kim Chi Tinh', 'Kim chi tinh hoa', 10885, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2086, 66, 3, 'Mộc Chi Tinh', 'Mộc chi tinh hoa', 10886, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2087, 66, 3, 'Thủy Chi Tinh', 'Thủy chi tinh hoa', 10888, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2088, 66, 3, 'Hỏa Chi Tinh', 'Hỏa chi tinh hoa', 10891, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2089, 66, 3, 'Thổ Chi Tinh', 'Thổ chi tinh hoa', 10889, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2090, 66, 3, 'Phong Chi Tinh', 'Phong chi tinh hoa', 10887, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2091, 66, 3, 'Lôi Chi Tinh', 'Lôi chi tinh hoa', 10890, -1, 1, 0, 0, 0, -1, -1, -1),
+	(2092, 66, 3, 'Ám Chi Tinh', 'Ám chi tinh hoa', 10892, -1, 1, 0, 0, 0, -1, -1, -1);
 
 -- Dumping structure for table medusa.map_template
 CREATE TABLE IF NOT EXISTS `map_template` (
@@ -7201,7 +7212,7 @@ CREATE TABLE IF NOT EXISTS `mob_template` (
   `id` int(11) NOT NULL,
   `TYPE` int(11) NOT NULL,
   `NAME` varchar(50) NOT NULL,
-  `hp` int(11) NOT NULL,
+  `hp` bigint(20) NOT NULL DEFAULT '0',
   `range_move` smallint(6) NOT NULL,
   `speed` smallint(6) NOT NULL,
   `dart_type` smallint(6) NOT NULL,
@@ -9591,15 +9602,15 @@ CREATE TABLE IF NOT EXISTS `player` (
   `data_lks` text,
   `tien_luc` int(11) DEFAULT '0',
   `tl_dl` float DEFAULT '1',
+  `lucky_pool` text,
+  `den_bu` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `account_id` (`account_id`) USING BTREE,
   CONSTRAINT `player_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table medusa.player: ~0 rows (approximately)
 DELETE FROM `player`;
-INSERT INTO `player` (`id`, `account_id`, `name`, `head`, `gender`, `have_tennis_space_ship`, `clan_id_sv1`, `clan_id_sv2`, `data_inventory`, `data_location`, `data_point`, `data_magic_tree`, `items_body`, `items_bag`, `items_box`, `items_box_lucky_round`, `friends`, `enemies`, `data_intrinsic`, `data_item_time`, `data_item_time_sieucap`, `data_task`, `data_mabu_egg`, `data_dua`, `Tai_xiu`, `data_charm`, `skills`, `skills_shortcut`, `pet`, `dao_lu`, `data_black_ball`, `data_side_task`, `create_time`, `violate`, `pointPvp`, `info_phoban`, `info_achievement`, `Thu_TrieuHoi`, `nhiemvu_chienthan`, `NguHanhSonPoint`, `data_card`, `vndd`, `dhieu`, `dhtime`, `dhtime2`, `dhtime3`, `dk_tutien`, `Tu_tien`, `dk_kethon`, `ket_hon`, `data_lks`, `tien_luc`, `tl_dl`) VALUES
-	(1, 1, 'cascasc', 31, 0, 0, -1, -1, '[100000,1000000000,100000,0,0,0,0,0,0,0]', '[0,760,432]', '[0,12550,502550,999,1000,200.0,100.0,10,0,0,0,202.0,89.0]', '[10,23,0,1753103882020,1753103882020]', '["[0,1,\\"[\\\\\\"[47,2]\\\\\\"]\\",1753103882020]","[6,1,\\"[\\\\\\"[6,30]\\\\\\"]\\",1753103882020]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]","[-1,0,\\"[]\\",1753103882029]"]', '["[457,100,\\"[\\\\\\"[30,1]\\\\\\"]\\",1753103882020]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]"]', '["[12,1,\\"[\\\\\\"[14,1]\\\\\\"]\\",1753103882020]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]","[-1,0,\\"[]\\",1753103882030]"]', '[]', '[]', '[]', '[0,0,0,0]', '[0,0,0,0,0,0,0,0,0,0,0]', '[0,0,0,0,0,0,0,0,0,0,0,0,0,0]', '[1,0,1]', '[]', '[]', '[0,0,0,0,0,0]', '[1753103882020,1753103882020,1753103882020,1753103882020,1753103882020,1753103882020,1753103882020,1753103882020,1753103882020,1753103882020]', '["[0,1,1753103896516,0]","[1,0,0,0]","[6,0,0,0]","[9,0,0,0]","[10,0,0,0]","[20,0,0,0]","[22,0,0,0]","[24,0,0,0]","[19,0,0,0]","[27,0,0,0]"]', '[0,-1,-1,-1,-1]', '[]', '[]', '["[0,0,0]","[0,0,0]","[0,0,0]","[0,0,0]","[0,0,0]","[0,0,0]","[0,0,0]"]', '[-1,0,0,0,20,0]', '2025-07-21 13:18:02', 0, '[0,0]', '[0,0]', '{"numPayMoney":0,"numHoiSinh":0,"numSkillChuong":0,"numSellItem":0,"numSkillDacBiet":0,"numKillNguoiRom":1,"numHourOnline":15,"listReceiveGem":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],"numPickGem":1,"numKillSieuQuai":0,"numFly":0,"numKillMobFly":0,"numPvpWin":0,"numGivePea":0}', '[-1]', '[0,0,0,10,0]', 0, '[]', 0, '[1,1]', '[0,0]', '[0,0]', '[0,0]', '[0,0,0,0]', '[0]', '[0,0]', '[0,0]', '["[0,0,99]","[0,0,99]"]', 0, 1);
 
 -- Dumping structure for table medusa.radar
 CREATE TABLE IF NOT EXISTS `radar` (
@@ -9676,7 +9687,7 @@ CREATE TABLE IF NOT EXISTS `san_giao_dich_bua_zeno` (
 -- Dumping data for table medusa.san_giao_dich_bua_zeno: ~1 rows (approximately)
 DELETE FROM `san_giao_dich_bua_zeno`;
 INSERT INTO `san_giao_dich_bua_zeno` (`id`, `total`, `in_stock`, `price`, `last_time_update`, `final_price`) VALUES
-	(1, 1000, 1000, 20000, '2025-06-11 19:26:24', 19100);
+	(1, 1000, 1000, 20000, '2025-06-11 19:26:24', 19796);
 
 -- Dumping structure for table medusa.san_giao_dich_player
 CREATE TABLE IF NOT EXISTS `san_giao_dich_player` (
@@ -9700,7 +9711,7 @@ CREATE TABLE IF NOT EXISTS `setting` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table medusa.setting: ~0 rows (approximately)
+-- Dumping data for table medusa.setting: ~1 rows (approximately)
 DELETE FROM `setting`;
 INSERT INTO `setting` (`id`, `img`, `name`, `vnd`, `loading`, `zalo`) VALUES
 	(0, 'logoweb.gif', 'Thế giới Ngọc rồng', 110, 1, 'Null');
@@ -9895,8 +9906,8 @@ INSERT INTO `skill_template` (`nclass_id`, `id`, `NAME`, `max_point`, `mana_use_
 	(1, 19, 'Khiên năng lượng', 7, 1, 3, 3784, 'Vô hiệu các đòn tấn công', 8, '["{"power_require":10000000,"damage":15,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":51,"cool_down":75000,"id":121,"point":1,"info":"Khiên năng lượng 1"}","{"power_require":25000000,"damage":20,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":48,"cool_down":80000,"id":122,"point":2,"info":"Khiên năng lượng 2"}","{"power_require":50000000,"damage":25,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":45,"cool_down":85000,"id":123,"point":3,"info":"Khiên năng lượng 3"}","{"power_require":125000000,"damage":30,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":42,"cool_down":90000,"id":124,"point":4,"info":"Khiên năng lượng 4"}","{"power_require":625000000,"damage":35,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":39,"cool_down":95000,"id":125,"point":5,"info":"Khiên năng lượng 5"}","{"power_require":3125000000,"damage":40,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":36,"cool_down":100000,"id":126,"point":6,"info":"Khiên năng lượng 6"}","{"power_require":15625000000,"damage":45,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":33,"cool_down":105000,"id":127,"point":7,"info":"Khiên năng lượng 7"}"]'),
 	(1, 26, 'Ma phong ba', 9, 1, 4, 11958, 'Nhốt đối thủ vào bình chứa 10s. Giảm #%HP/s cho đối thủ', 7, '["{"power_require":60000000000,"damage":1,"dx":83,"dy":83,"price":9999,"max_fight":1,"mana_use":80,"cool_down":170000,"id":166,"point":1,"info":"Chưởng 1"}","{"power_require":60000000000,"damage":1,"dx":95,"dy":95,"price":9999,"max_fight":1,"mana_use":75,"cool_down":160000,"id":167,"point":2,"info":"Chưởng 2"}","{"power_require":60000000000,"damage":2,"dx":107,"dy":107,"price":9999,"max_fight":1,"mana_use":70,"cool_down":150000,"id":168,"point":3,"info":"Chưởng 3"}","{"power_require":60000000000,"damage":2,"dx":119,"dy":119,"price":9999,"max_fight":1,"mana_use":65,"cool_down":140000,"id":169,"point":4,"info":"Chưởng 4"}","{"power_require":60000000000,"damage":3,"dx":130,"dy":130,"price":9999,"max_fight":1,"mana_use":60,"cool_down":130000,"id":170,"point":5,"info":"Chưởng 5"}","{"power_require":60000000000,"damage":3,"dx":142,"dy":142,"price":9999,"max_fight":1,"mana_use":55,"cool_down":120000,"id":171,"point":6,"info":"Chưởng 6"}","{"power_require":60000000000,"damage":4,"dx":154,"dy":154,"price":9999,"max_fight":1,"mana_use":50,"cool_down":110000,"id":172,"point":7,"info":"Chưởng 7"}","{"power_require":60000000000,"damage":4,"dx":165,"dy":165,"price":9999,"max_fight":1,"mana_use":45,"cool_down":100000,"id":173,"point":8,"info":"Chưởng 8"}","{"power_require":60000000000,"damage":6,"dx":177,"dy":177,"price":9999,"max_fight":1,"mana_use":40,"cool_down":90000,"id":174,"point":9,"info":"Chưởng 9"}","{"power_require":60000000000,"damage":6,"dx":188,"dy":188,"price":9999,"max_fight":1,"mana_use":35,"cool_down":80000,"id":175,"point":10,"info":"Chưởng 10"}"]\n'),
 	(1, 28, 'Biến hình Namec', 5, 1, 3, 30017, 'Biến hình thành cấp độ mới giúp tăng chỉ số 100K% với mỗi cấp', 9, '[{"power_require":250000000000,"damage":5,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":50,"cool_down":180000,"id":191,"point":1,"info":"Biến Đổi Trạng Thái"},{"power_require":500000000000,"damage":10,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":40,"cool_down":180000,"id":192,"point":2,"info":"Biến Đổi Trạng Thái"},{"power_require":1000000000000,"damage":15,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":30,"cool_down":180000,"id":193,"point":3,"info":"Biến Đổi Trạng Thái"},{"power_require":2000000000000,"damage":20,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":20,"cool_down":180000,"id":194,"point":4,"info":"Biến Đổi Trạng Thái"},{"power_require":3000000000000,"damage":30,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":10,"cool_down":180000,"id":195,"point":5,"info":"Biến Đổi Trạng Thái"}]'),
-	(2, 4, 'Chiêu đấm Galick', 7, 0, 1, 539, 'Tăng sức đánh: #%', 0, '["{"power_require":1000,"damage":110,"dx":36,"dy":18,"price":0,"max_fight":1,"mana_use":1,"cool_down":500,"id":28,"point":1,"info":"(Đấm Galick 1) Học tại ông nội ngay lúc đầu"}","{"power_require":10000,"damage":120,"dx":37,"dy":18,"price":10,"max_fight":1,"mana_use":2,"cool_down":500,"id":29,"point":2,"info":"(Đấm Galick 2) Sau khi làm nhiệm vụ tiêu diệt Heo Rừng sẽ học được tại ông nội"}","{"power_require":22000,"damage":130,"dx":38,"dy":18,"price":50,"max_fight":1,"mana_use":4,"cool_down":500,"id":30,"point":3,"info":"(Đấm Galick 3) Học tại Sư Phụ"}","{"power_require":66000,"damage":140,"dx":39,"dy":18,"price":100,"max_fight":1,"mana_use":8,"cool_down":500,"id":31,"point":4,"info":"(Đấm Galick 4) Học tại Sư Phụ"}","{"power_require":200000,"damage":150,"dx":40,"dy":18,"price":1000,"max_fight":1,"mana_use":16,"cool_down":500,"id":32,"point":5,"info":"(Đấm Galick 5) Học tại Sư Phụ"}","{"power_require":600000,"damage":160,"dx":41,"dy":18,"price":2000,"max_fight":1,"mana_use":32,"cool_down":500,"id":33,"point":6,"info":"(Đấm Galick 6) Học tại Sư Phụ"}","{"power_require":1800000,"damage":170,"dx":42,"dy":18,"price":4000,"max_fight":1,"mana_use":70,"cool_down":500,"id":34,"point":7,"info":"(Đấm Galick 7) Học tại Sư Phụ"}"]'),
-	(2, 5, 'Chiêu Antomic', 7, 0, 1, 540, 'Tăng sức đánh: #%', 1, '["{"power_require":10000,"damage":110,"dx":150,"dy":150,"price":500,"max_fight":1,"mana_use":18,"cool_down":1000,"id":35,"point":1,"info":"(Antomic 1) Học tại Sư Phụ sau khi làm nhiệm vụ tìm truyện Doremon"}","{"power_require":20000,"damage":140,"dx":160,"dy":160,"price":1000,"max_fight":1,"mana_use":34,"cool_down":1200,"id":36,"point":2,"info":"(Antomic 2) Học tại Sư Phụ"}","{"power_require":60000,"damage":170,"dx":170,"dy":170,"price":2000,"max_fight":1,"mana_use":68,"cool_down":1400,"id":37,"point":3,"info":"(Antomic 3) Học tại Sư Phụ"}","{"power_require":180000,"damage":200,"dx":180,"dy":180,"price":4000,"max_fight":1,"mana_use":136,"cool_down":1600,"id":38,"point":4,"info":"(Antomic 4) Học tại Sư Phụ"}","{"power_require":540000,"damage":230,"dx":190,"dy":190,"price":8000,"max_fight":1,"mana_use":258,"cool_down":1800,"id":39,"point":5,"info":"(Antomic 5) Học tại Sư Phụ"}","{"power_require":1600000,"damage":260,"dx":200,"dy":200,"price":9999,"max_fight":1,"mana_use":514,"cool_down":2000,"id":40,"point":6,"info":"(Antomic 6) Học tại Sư Phụ"}","{"power_require":4800000,"damage":290,"dx":210,"dy":210,"price":9999,"max_fight":1,"mana_use":1026,"cool_down":2200,"id":41,"point":7,"info":"(Antomic 7) Học tại Sư Phụ"}"]'),
+	(2, 4, 'Chiêu đấm Galick', 7, 0, 1, 539, 'Gây sát thương chuẩn bằng #% HP', 0, '["{"power_require":1000,"damage":150,"dx":36,"dy":18,"price":0,"max_fight":1,"mana_use":1,"cool_down":500,"id":28,"point":1,"info":"(Đấm Galick 1) Học tại ông nội ngay lúc đầu"}","{"power_require":10000,"damage":180,"dx":37,"dy":18,"price":10,"max_fight":1,"mana_use":2,"cool_down":500,"id":29,"point":2,"info":"(Đấm Galick 2) Sau khi làm nhiệm vụ tiêu diệt Heo Rừng sẽ học được tại ông nội"}","{"power_require":22000,"damage":200,"dx":38,"dy":18,"price":50,"max_fight":1,"mana_use":4,"cool_down":500,"id":30,"point":3,"info":"(Đấm Galick 3) Học tại Sư Phụ"}","{"power_require":66000,"damage":220,"dx":39,"dy":18,"price":100,"max_fight":1,"mana_use":8,"cool_down":500,"id":31,"point":4,"info":"(Đấm Galick 4) Học tại Sư Phụ"}","{"power_require":200000,"damage":250,"dx":40,"dy":18,"price":1000,"max_fight":1,"mana_use":16,"cool_down":500,"id":32,"point":5,"info":"(Đấm Galick 5) Học tại Sư Phụ"}","{"power_require":600000,"damage":280,"dx":41,"dy":18,"price":2000,"max_fight":1,"mana_use":32,"cool_down":500,"id":33,"point":6,"info":"(Đấm Galick 6) Học tại Sư Phụ"}","{"power_require":1800000,"damage":300,"dx":42,"dy":18,"price":4000,"max_fight":1,"mana_use":70,"cool_down":500,"id":34,"point":7,"info":"(Đấm Galick 7) Học tại Sư Phụ"}"]'),
+	(2, 5, 'Chiêu Antomic', 7, 0, 1, 540, 'Gây sát thương chuẩn bằng #% HP', 1, '["{"power_require":10000,"damage":150,"dx":150,"dy":150,"price":500,"max_fight":1,"mana_use":18,"cool_down":1000,"id":35,"point":1,"info":"(Antomic 1) Học tại Sư Phụ sau khi làm nhiệm vụ tìm truyện Doremon"}","{"power_require":20000,"damage":200,"dx":160,"dy":160,"price":1000,"max_fight":1,"mana_use":34,"cool_down":1200,"id":36,"point":2,"info":"(Antomic 2) Học tại Sư Phụ"}","{"power_require":60000,"damage":250,"dx":170,"dy":170,"price":2000,"max_fight":1,"mana_use":68,"cool_down":1400,"id":37,"point":3,"info":"(Antomic 3) Học tại Sư Phụ"}","{"power_require":180000,"damage":300,"dx":180,"dy":180,"price":4000,"max_fight":1,"mana_use":136,"cool_down":1600,"id":38,"point":4,"info":"(Antomic 4) Học tại Sư Phụ"}","{"power_require":540000,"damage":350,"dx":190,"dy":190,"price":8000,"max_fight":1,"mana_use":258,"cool_down":1800,"id":39,"point":5,"info":"(Antomic 5) Học tại Sư Phụ"}","{"power_require":1600000,"damage":400,"dx":200,"dy":200,"price":9999,"max_fight":1,"mana_use":514,"cool_down":2000,"id":40,"point":6,"info":"(Antomic 6) Học tại Sư Phụ"}","{"power_require":4800000,"damage":450,"dx":210,"dy":210,"price":9999,"max_fight":1,"mana_use":1026,"cool_down":2200,"id":41,"point":7,"info":"(Antomic 7) Học tại Sư Phụ"}"]'),
 	(2, 8, 'Tái tạo năng lượng', 7, 1, 3, 720, 'Tự tái tạo HP MP #%/s', 2, '["{"power_require":60000,"damage":4,"dx":0,"dy":0,"price":500,"max_fight":1,"mana_use":0,"cool_down":55000,"id":56,"point":1,"info":"(Tái tạo Xayda 1) Học tại sư phụ"}","{"power_require":120000,"damage":5,"dx":0,"dy":0,"price":1000,"max_fight":1,"mana_use":0,"cool_down":50000,"id":57,"point":2,"info":"(Tái tạo Xayda 2) Học tại sư phụ"}","{"power_require":360000,"damage":6,"dx":0,"dy":0,"price":2000,"max_fight":1,"mana_use":0,"cool_down":45000,"id":58,"point":3,"info":"(Tái tạo Xayda 3) Học tại sư phụ"}","{"power_require":1000000,"damage":7,"dx":0,"dy":0,"price":4000,"max_fight":1,"mana_use":0,"cool_down":40000,"id":59,"point":4,"info":"(Tái tạo Xayda 4) Học tại sư phụ"}","{"power_require":3200000,"damage":8,"dx":0,"dy":0,"price":8000,"max_fight":1,"mana_use":0,"cool_down":35000,"id":60,"point":5,"info":"(Tái tạo Xayda 5) Học tại sư phụ"}","{"power_require":10000000,"damage":9,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":0,"cool_down":30000,"id":61,"point":6,"info":"(Tái tạo Xayda 6) Học tại sư phụ"}","{"power_require":30000000,"damage":10,"dx":0,"dy":0,"price":9999,"max_fight":1,"mana_use":0,"cool_down":25000,"id":62,"point":7,"info":"(Tái tạo Xayda 7) Học tại sư phụ"}"]'),
 	(2, 13, 'Biến hình', 7, 1, 3, 718, 'Tăng sức đánh, HP và tốc độ', 3, '["{"power_require":250000000,"damage":100,"dx":200,"dy":200,"price":9999,"max_fight":1,"mana_use":10,"cool_down":300000,"id":91,"point":1,"info":"(Biến hình 1)"}","{"power_require":350000000,"damage":100,"dx":200,"dy":200,"price":9999,"max_fight":1,"mana_use":10,"cool_down":310000,"id":92,"point":2,"info":"(Biến hình 2)"}","{"power_require":450000000,"damage":100,"dx":200,"dy":200,"price":9999,"max_fight":1,"mana_use":10,"cool_down":320000,"id":93,"point":3,"info":"(Biến hình 3)"}","{"power_require":550000000,"damage":100,"dx":200,"dy":200,"price":9999,"max_fight":1,"mana_use":10,"cool_down":330000,"id":94,"point":4,"info":"(Biến hình 4)"}","{"power_require":650000000,"damage":100,"dx":200,"dy":200,"price":9999,"max_fight":1,"mana_use":10,"cool_down":340000,"id":95,"point":5,"info":"(Biến hình 5)"}","{"power_require":750000000,"damage":100,"dx":200,"dy":200,"price":9999,"max_fight":1,"mana_use":10,"cool_down":350000,"id":96,"point":6,"info":"(Biến hình 6)"}","{"power_require":850000000,"damage":100,"dx":200,"dy":200,"price":9999,"max_fight":1,"mana_use":10,"cool_down":360000,"id":97,"point":7,"info":"(Biến hình 7)"}"]'),
 	(2, 14, 'Tự phát nổ', 7, 1, 3, 2248, 'Hy sinh, gây sát thương lớn cho kẻ thù', 4, '["{"power_require":250000000,"damage":100,"dx":200,"dy":200,"price":9999,"max_fight":1,"mana_use":50,"cool_down":120000,"id":98,"point":1,"info":"(Tự phát nổ 1)"}","{"power_require":300000000,"damage":105,"dx":300,"dy":300,"price":9999,"max_fight":1,"mana_use":50,"cool_down":120000,"id":99,"point":2,"info":"(Tự phát nổ 2)"}","{"power_require":350000000,"damage":110,"dx":400,"dy":400,"price":9999,"max_fight":1,"mana_use":50,"cool_down":120000,"id":100,"point":3,"info":"(Tự phát nổ 3)"}","{"power_require":400000000,"damage":115,"dx":500,"dy":500,"price":9999,"max_fight":1,"mana_use":50,"cool_down":120000,"id":101,"point":4,"info":"(Tự phát nổ 4)"}","{"power_require":450000000,"damage":120,"dx":600,"dy":600,"price":9999,"max_fight":1,"mana_use":50,"cool_down":120000,"id":102,"point":5,"info":"(Tự phát nổ 5)"}","{"power_require":500000000,"damage":125,"dx":700,"dy":700,"price":9999,"max_fight":1,"mana_use":50,"cool_down":120000,"id":103,"point":6,"info":"(Tự phát nổ 6)"}","{"power_require":550000000,"damage":130,"dx":900,"dy":900,"price":9999,"max_fight":1,"mana_use":50,"cool_down":120000,"id":104,"point":7,"info":"(Tự phát nổ 7)"}"]'),
@@ -41230,7 +41241,7 @@ CREATE TABLE IF NOT EXISTS `tab_shop` (
   CONSTRAINT `tab_shop_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table medusa.tab_shop: ~60 rows (approximately)
+-- Dumping data for table medusa.tab_shop: ~62 rows (approximately)
 DELETE FROM `tab_shop`;
 INSERT INTO `tab_shop` (`id`, `shop_id`, `NAME`) VALUES
 	(1, 1, 'Áo<>Quần'),
@@ -41521,13 +41532,12 @@ CREATE TABLE IF NOT EXISTS `tu_tien` (
   `data_phap_bao` text COLLATE utf8mb4_unicode_ci,
   `data_huyet` text COLLATE utf8mb4_unicode_ci,
   `data_mach` text COLLATE utf8mb4_unicode_ci,
+  `sdg` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table medusa.tu_tien: ~1 rows (approximately)
+-- Dumping data for table medusa.tu_tien: ~0 rows (approximately)
 DELETE FROM `tu_tien`;
-INSERT INTO `tu_tien` (`id`, `data_tu_tien`, `data_luyen_the`, `data_tran_phap`, `data_ngu_thu`, `data_luyen_dan`, `data_phu_chu`, `data_linh_thuc`, `data_khong_thi`, `player_id`, `rs`, `data_tu_ma`, `data_phap_bao`, `data_huyet`, `data_mach`) VALUES
-	(1, '[]', '[]', '[]', '[]', '[]', '[]', '[]', '[]', 1, 0, '[]', '[[],[],[],[],[]]', '[]', '[5, 7, 120, 150, 80, 1.25, 500.0, 300.0, 300000, 300000, 10, 75, 1.10, true]\r\n');
 
 -- Dumping structure for table medusa.type_item
 CREATE TABLE IF NOT EXISTS `type_item` (
