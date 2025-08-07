@@ -85,8 +85,8 @@ public class DoanhTrai {
     }
 
     private void init() {
-        long totalDame = 0;
-        long totalHp = 0;
+        long totalDame = 20_000_000;
+        long totalHp = 10_000_000;
         for (Player pl : this.clan.membersInGame) {
             totalDame += pl.nPoint.dame;
             totalHp += pl.nPoint.hpMax;

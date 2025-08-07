@@ -1967,13 +1967,13 @@ public class UseItem {
     private void openWoodChest(Player pl, Item item) {
         // item có thể nhận
         // hồng ngọc , item buff , thang tinh thach , da luyen the , ngu hanh thach
-        long ruby = Util.nextInt(5_000, 100_000);
-        int slDaLuyenThe = Util.nextInt(10, 1666);
+        long ruby = Util.nextInt(5_000, 10_000);
+        int slDaLuyenThe = Util.nextInt(10, 299);
         int itemBuffQuantity = Util.nextInt(1, 5);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Mở rương gỗ thành công bạn nhận được").append("\n");
         stringBuilder.append("Hồng ngọc x").append(ruby).append("\n");
-        stringBuilder.append("Đá luyện thể x").append(slDaLuyenThe).append(slDaLuyenThe).append("\n");
+        stringBuilder.append("Đá luyện thể x").append(slDaLuyenThe).append("\n");
         //buff for player
         for (int j = 1260; j <= 1266; j++) {
             InventoryServiceNew.gI().addItemBag(pl, ItemService.gI().createNewItem((short) j, slDaLuyenThe));

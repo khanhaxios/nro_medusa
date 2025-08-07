@@ -103,7 +103,11 @@ public class LuyenThe extends BaseTuDuy {
             restExp();
             level += 1;
             timeThatBai = 0;
-            canLevelUp = level % 100 == 0;
+            if (level <= 10) {
+                canLevelUp = false;
+            } else {
+                canLevelUp = level % 100 != 0;
+            }
             Service.gI().point(player);
         }
     }

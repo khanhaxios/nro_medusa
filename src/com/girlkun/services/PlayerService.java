@@ -320,18 +320,21 @@ public class PlayerService {
                     return;
                 }
             } else {
-                if (player.inventory.ruby >= COST_GEM_HOI_SINH) {
-                    player.inventory.ruby -= COST_GEM_HOI_SINH;
-                    canHs = true;
+                if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId) || MapService.gI().isMapDoanhTrai(player.zone.map.mapId)) {
+                    Service.gI().sendThongBao(player, "Không thể hồi sinh trong map này");
                 } else {
-                    Service.getInstance().sendThongBao(player, "Không đủ hồng ngọc để thực hiện, còn thiếu " + Util.numberToMoney(COST_GEM_HOI_SINH - player.inventory.ruby) + " hồng ngọc");
-                    return;
+                    if (player.inventory.ruby >= COST_GEM_HOI_SINH) {
+                        player.inventory.ruby -= COST_GEM_HOI_SINH;
+                        canHs = true;
+                    } else {
+                        Service.getInstance().sendThongBao(player, "Không đủ hồng ngọc để thực hiện, còn thiếu " + Util.numberToMoney(COST_GEM_HOI_SINH - player.inventory.ruby) + " hồng ngọc");
+                        return;
+                    }
                 }
             }
             if (canHs) {
                 Service.getInstance().sendMoney(player);
                 Service.getInstance().hsChar(player, player.nPoint.hpMax, player.nPoint.mpMax);
-//                player.achievement.plusCount(13);
             }
         }
     }

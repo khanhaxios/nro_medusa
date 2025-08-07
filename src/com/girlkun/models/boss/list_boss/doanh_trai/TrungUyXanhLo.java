@@ -35,7 +35,9 @@ public class TrungUyXanhLo extends Boss {
                 new String[]{}, //text chat 1
                 new String[]{"|-1|Nhóc con"}, //text chat 2
                 new String[]{}, //text chat 3
-                1
+                1,//respawn
+                (byte) 2,
+                (byte) 10
         ));
 
         this.zone = zone;

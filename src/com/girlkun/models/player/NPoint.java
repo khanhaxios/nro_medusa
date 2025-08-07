@@ -1001,7 +1001,11 @@ public class NPoint {
         if (player.luyenThe != null && player.luyenThe.isLuyenTheReal()) {
             this.hpMax += this.hpMax * (player.luyenThe.sucManh * 30) / 100;
         }
+        if (player.taixiu.chuyensinh > 0) {
+            this.hpMax += this.hpMax * (3 * player.taixiu.chuyensinh) / 100;
+        }
         mauGoc = this.hpMax;
+
     }
 
     private void setHp() {
@@ -1236,6 +1240,9 @@ public class NPoint {
         }
         if (player.luyenThe != null && player.luyenThe.isLuyenTheReal()) {
             this.mpMax += this.mpMax * (player.luyenThe.theChat * 30) / 100;
+        }
+        if (player.taixiu.chuyensinh > 0) {
+            this.mpMax += this.mpMax * (3 * player.taixiu.chuyensinh) / 100;
         }
     }
 
@@ -1579,6 +1586,9 @@ public class NPoint {
         }
         if (player.luyenThe != null && player.luyenThe.isLuyenTheReal()) {
             this.dame += this.dame * (player.luyenThe.sucManh * 5) / 100;
+        }
+        if (player.taixiu.chuyensinh > 0) {
+            this.dame += this.dame * (3 * player.taixiu.chuyensinh) / 100;
         }
     }
 

@@ -82,8 +82,9 @@ public class Mob {
     }
 
     public static void initMopbbdkb(Mob mob, int level) {
-        mob.point.dame = (level * 32500 * mob.level * 4) * 5;
-        mob.point.maxHp = ((level * 1_000_000 * mob.point.hp) + (level * 7263 * mob.tempId));
+        mob.point.dame = (level * 32500 * mob.level * 4);
+        mob.point.maxHp = ((level * 10_000 * mob.point.hp) + (level * 7263 * mob.tempId));
+        mob.point.restHp();
     }
 
     public static boolean isCantJoinMap(int idMap) {
@@ -646,7 +647,7 @@ public class Mob {
         }
 
         if (zone.map.mapId == 144) {
-            list.add(new ItemMap(zone, 861, Util.nextInt(1, 25), this.location.x, yEnd, player.id));
+            list.add(new ItemMap(zone, 861, Util.nextInt(1, 10), this.location.x, yEnd, player.id));
         }
         // rơi các loại đá thạch ( chỉ có ở ngũ hành sơn )
         if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
@@ -758,10 +759,6 @@ public class Mob {
             list.add(new ItemMap(zone, 380, 1, x, yEnd, player.id));
             player.achievement.plusCount(5);
         }
-//       vat phẩm rơi khi use máy dò
-        if (player.itemTime.isUseMayDo2) {
-            list.add(new ItemMap(zone, 570, 1, x, yEnd, player.id));// cai nay sua sau nha
-        }
         if (Util.isTrue(5, 100)) {
             byte nroquai = (byte) new Random().nextInt(Manager.itemIds_NR.length);
             list.add(new ItemMap(zone, Manager.itemIds_NR[nroquai], 1, this.location.x, yEnd, player.id));
@@ -865,12 +862,11 @@ public class Mob {
                 list.add(new ItemMap(zone, 2068, 1, player.location.x, yEnd, player.id));
             }
             player.session.vnd += 100;
-            list.add(new ItemMap(zone, 861, Util.nextInt(100, 5_000), x, yEnd, player.id));
+            list.add(new ItemMap(zone, 861, Util.nextInt(10, 500), x, yEnd, player.id));
         }
         if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)) {
             int levell = player.getMaster().clan.banDoKhoBau.level;
-            int slhn = Util.nextInt(1, 3) * (levell);
-            list.add(new ItemMap(zone, 861, slhn, x, yEnd, player.id));
+            list.add(new ItemMap(zone, 861, levell, x, yEnd, player.id));
             // ty le da ngu hanh roi
             if (Util.isTrue(levell, 500)) {
                 list.add(new ItemMap(zone, 2081, 1, x, yEnd, player.id));

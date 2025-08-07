@@ -73,7 +73,7 @@ public class Zone {
     public boolean isbulon14Alive;
 
     private void udMob() {
-        if (Util.canDoWithTime(lastTimeChangeMap, 3_600_000) && Util.isTrue(50, 100)) {
+        if (Util.canDoWithTime(lastTimeChangeMap, 1_800_000)) {
             int idMap = Util.nextInt(5, 131);
             while (Mob.isCantJoinMap(idMap)) {
                 idMap = Util.nextInt(5, 131);

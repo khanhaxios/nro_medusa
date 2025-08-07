@@ -42,13 +42,13 @@ public class BanDoKhoBauService {
         if (player.zone == null || !MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)) {
             return;
         }
-        if (player.isPl() == true && player.clan.banDoKhoBau != null
+        if (player.isPl() && player.clan.banDoKhoBau != null
                 && player.clan.timeOpenbdkb != 0) {
             if (Util.canDoWithTime(player.clan.timeOpenbdkb, TIME_KHI_BAN_DO_KHO_BAU)) {
                 ketthucbdkb(player);
                 player.clan.banDoKhoBau = null;
             }
-            if (this.timeoutmap > 0 && player.isPl() == true && player.clan.banDoKhoBau != null
+            if (this.timeoutmap > 0 && player.isPl() && player.clan.banDoKhoBau != null
                     && player.clan.timeOpenbdkb != 0) {
                 while (this.timeoutmap > 0) {
                     this.timeoutmap--;
@@ -70,7 +70,7 @@ public class BanDoKhoBauService {
             Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
             return;
         }
-        if (pl.bdkb_countPerDay >= 3) {
+        if (pl.bdkb_countPerDay >= 10) {
             Service.getInstance().sendThongBao(pl, "Bạn đã đạt giới hạn lượt đi trong ngày");
             return;
         }
@@ -128,7 +128,7 @@ public class BanDoKhoBauService {
                             }
                             double dame = (totalHp / 20) * (level);
                             double hp = (totalDame * 10) * (level);
-                            new TrungUyXanhLoBdkb(player.clan.banDoKhoBau.getMapById(137), level,  dame, hp, BossID.TRUNG_UY_XANH_LO_BDKB);
+                            new TrungUyXanhLoBdkb(player.clan.banDoKhoBau.getMapById(137), level, dame, hp, BossID.TRUNG_UY_XANH_LO_BDKB);
                         } catch (Exception e) {
                             Logger.logException(BanDoKhoBauService.class, e, "Lỗi init boss");
                         }

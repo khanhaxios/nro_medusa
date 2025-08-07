@@ -31,7 +31,9 @@ public class NinjaTim extends Boss {
                 new String[]{}, //text chat 1
                 new String[]{"|-1|Nhóc con"}, //text chat 2
                 new String[]{}, //text chat 3
-                60
+                60,
+                (byte) 4,
+                (byte) 10
         ));
 
         this.zone = zone;
@@ -48,7 +50,7 @@ public class NinjaTim extends Boss {
                     this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it);
         }
-        ItemMap it = new ItemMap(this.zone, 2083,1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+        ItemMap it = new ItemMap(this.zone, 2083, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);
         Service.getInstance().dropItemMap(this.zone, it);
     }

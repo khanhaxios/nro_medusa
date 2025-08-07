@@ -2566,7 +2566,7 @@ public class NpcFactory {
                         }
 
                         player.inventory.ruby -= qtyBua;
-                        int MAX_CS = 100;
+                        int MAX_CS = 999;
                         if (player.taixiu.chuyensinh + 1 > MAX_CS) {
                             Service.gI().sendThongBaoOK(player, "Bạn đã đạt giới hạn chuyển sinh");
                             return;
@@ -5424,7 +5424,7 @@ public class NpcFactory {
                         this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Chỉ tiếp các bang hội, miễn tiếp khách vãng lai", "Đóng");
                         return;
                     }
-                    if (player.clan.doanhTrai != null && player.clanMember.getNumDateFromJoinTimeToToday() >= 2 && !player.clan.doanhTrai_haveGone) {
+                    if (player.clan.doanhTrai != null && !player.clan.doanhTrai_haveGone) {
                         createOtherMenu(player, ConstNpc.MENU_JOIN_DOANH_TRAI, "Bang hội của ngươi đang đánh trại độc nhãn\n" + "Thời gian còn lại là " + TimeUtil.getMinLeft(player.clan.doanhTrai.getLastTimeOpen(), DoanhTrai.TIME_DOANH_TRAI / 1000) + " Phút" + ". Ngươi có muốn tham gia không?", "Tham gia", "Không", "Hướng\ndẫn\nthêm");
                         return;
                     }
@@ -5440,10 +5440,14 @@ public class NpcFactory {
                     }
 
                     if (!player.clan.doanhTrai_haveGone) {
-                        LocalDate lastOpen = Instant.ofEpochMilli(player.clan.doanhTrai_lastTimeOpen).atZone(ZoneId.systemDefault()).toLocalDate();
+                        LocalDate lastOpen = Instant.ofEpochMilli(player.clan.doanhTrai_lastTimeOpen)
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDate();
                         LocalDate today = LocalDate.now();
-                        player.clan.doanhTrai_haveGone = (new java.sql.Date(player.clan.doanhTrai_lastTimeOpen)).getDay() == (new java.sql.Date(System.currentTimeMillis())).getDay();
+
+                        player.clan.doanhTrai_haveGone = lastOpen.equals(today);
                     }
+
                     if (player.clan.doanhTrai_haveGone) {
                         createOtherMenu(player, ConstNpc.IGNORE_MENU, "Bang hội của ngươi đã đi trại lúc " + TimeUtil.formatTime(player.clan.doanhTrai_lastTimeOpen, "HH:mm:ss") + " hôm nay. Người mở\n" + "(" + player.clan.doanhTrai_playerOpen + "). Hẹn ngươi quay lại vào ngày mai", "OK", "Hướng\ndẫn\nthêm");
                         return;

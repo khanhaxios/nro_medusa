@@ -1296,16 +1296,11 @@ public class Player {
     }
 
     protected void setDie(Player plAtt) {
-        if (!Zone.isHoaBinh) {
-            if (PlayerDAO.subvnd(this, 100)) {
-                plAtt.session.vnd += 100;
-            }
-            if (tuTien != null && tuTien.isTuTien()) {
-                tuTien.subExp(tuTien.maxExp / 100);
-            }
-            if (luyenThe.isLuyenTheReal()) {
-                luyenThe.subExp(luyenThe.maxExp / 100);
-            }
+        if (tuTien != null && tuTien.isTuTien()) {
+            tuTien.subExp(tuTien.maxExp / 100);
+        }
+        if (luyenThe.isLuyenTheReal()) {
+            luyenThe.subExp(luyenThe.maxExp / 100);
         }
         //xóa phù
         if (this.effectSkin.xHPKI > 1) {

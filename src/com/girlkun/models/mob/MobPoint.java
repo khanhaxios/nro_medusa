@@ -39,4 +39,11 @@ public class MobPoint {
                 : this.getHpFull() * Util.GioiHannextdame(mob.pDame - 1, mob.pDame + 1) / 100d
                 + Util.GioiHannextdame(-(mob.level * 15d), mob.level * 15d);
     }
+
+    public void restHp() {
+        if (maxHp <= 0) {
+            this.maxHp = 100;
+        }
+        this.hp = maxHp;
+    }
 }

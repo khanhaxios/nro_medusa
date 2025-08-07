@@ -11,6 +11,7 @@ import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
+import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 /**
@@ -18,11 +19,8 @@ import com.girlkun.utils.Util;
  */
 public class TrungUyXanhLoBdkb extends Boss {
 
-    private long lastUpdate = System.currentTimeMillis();
     private int levell;
-    private int initSuper = 0;
     protected Player playerAtt;
-    private int timeLive = 200000000;
 
     public TrungUyXanhLoBdkb(Zone zone, int level, double dame, double hp, int id) throws Exception {
         super(id, new BossData(
@@ -30,8 +28,8 @@ public class TrungUyXanhLoBdkb extends Boss {
                 ConstPlayer.TRAI_DAT, //gender
                 new short[]{135, 136, 137, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
                 ((long) ((10000L + dame) * level)), //dame
-                new double[]{((double) ((100_000_000_000D + hp) * level))}, //hp
-                new int[]{148}, //map join
+                new double[]{((double) ((hp) * level))}, //hp
+                new int[]{137}, //map join
                 new int[][]{
                         {Skill.GALICK, 5, 5},
                         {Skill.KAMEJOKO, 7, 12},
@@ -43,9 +41,10 @@ public class TrungUyXanhLoBdkb extends Boss {
                 new String[]{"|-1|Kho báu ở đây là của ta"}, //text chat 1
                 new String[]{"|-1|Nhóc con"}, //text chat 2
                 new String[]{"|-1|Ta sẽ tiêu diệt tất cả bang hội ngươi"}, //text chat 3
-                60
+                60,
+                (byte) 2,
+                (byte) 10
         ));
-
         this.zone = zone;
         this.levell = level;
     }
@@ -105,6 +104,11 @@ public class TrungUyXanhLoBdkb extends Boss {
     @Override
     public void active() {
         super.active();
+    }
+
+    @Override
+    public void update() {
+        super.update();
     }
 
     @Override
