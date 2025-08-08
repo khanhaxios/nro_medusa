@@ -178,7 +178,7 @@ public class ShopServiceNew {
                             msg.writer().writeInt(0);
                             msg.writer().writeInt(itemShop.cost);
                         }
-                        msg.writer().writeByte(itemShop.options.size());
+                        msg.writer().writeShort(itemShop.options.size());
                         for (Item.ItemOption option : itemShop.options) {
                             msg.writer().writeShort(option.optionTemplate.id);
                             msg.writer().writeInt(option.param);
@@ -221,7 +221,7 @@ public class ShopServiceNew {
                         int giaItem = isUsePGGWithType3(player, itemShop.iconSpec)
                                 ? (itemShop.cost / 2 > 0 ? itemShop.cost / 2 : itemShop.cost) : itemShop.cost;
                         msg.writer().writeInt(giaItem);
-                        msg.writer().writeByte(itemShop.options.size());
+                        msg.writer().writeShort(itemShop.options.size());
                         for (Item.ItemOption option : itemShop.options) {
                             msg.writer().writeShort(option.optionTemplate.id);
                             msg.writer().writeInt(option.param);
@@ -266,13 +266,13 @@ public class ShopServiceNew {
             for (Item item : items) {
                 msg.writer().writeShort(item.template.id);
                 msg.writer().writeUTF("\n|7|Chào mừng đến với Ngọc Rồng RISE (MEDUSA MỚI)");
-                msg.writer().writeByte(item.itemOptions.size() + 1);
+                msg.writer().writeShort(item.itemOptions.size());
                 for (Item.ItemOption io : item.itemOptions) {
                     msg.writer().writeShort(io.optionTemplate.id);
                     msg.writer().writeInt(io.param);
                 }
                 //số lượng
-                msg.writer().writeByte(31);
+//                msg.writer().writeByte(31);
                 msg.writer().writeShort(item.quantity);
                 //
                 msg.writer().writeByte(1);

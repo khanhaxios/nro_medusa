@@ -114,6 +114,15 @@ public class ItemService {
         item.info = item.getInfo();
         return item;
     }
+    public Item createNewItem(int tempId, int quantity) {
+        Item item = new Item();
+        item.template = getTemplate(tempId);
+        item.quantity = quantity;
+        item.createTime = System.currentTimeMillis();
+        item.content = item.getContent();
+        item.info = item.getInfo();
+        return item;
+    }
 
     public Item createNewItem(short tempId, int quantity, boolean locked) {
         Item item = new Item();

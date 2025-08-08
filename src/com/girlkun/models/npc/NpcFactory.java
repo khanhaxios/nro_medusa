@@ -9152,18 +9152,10 @@ public class NpcFactory {
                                     createOtherMenu(player, ConstNpc.TAIXIU, "\n|7|---NHÀ CÁI TÀI XỈU---\n\n|3|Kết quả kì trước:  " + TaiXiu.gI().x + " : " + TaiXiu.gI().y + " : " + TaiXiu.gI().z + "\n\n|6|Tổng nhà TÀI: " + Util.format(TaiXiu.gI().goldTai) + " Điểm nạp" + "\n\nTổng nhà XỈU: " + Util.format(TaiXiu.gI().goldXiu) + " Điểm nạp" + "\n\n|5|Thời gian còn lại: " + time, "Cập nhập", "Theo TÀI", "Theo XỈU", "Đóng");
                                     break;
                                 case 1:
-                                    if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_24_0) {
-                                        Input.gI().TAI_taixiu(player);
-                                    } else {
-                                        Service.getInstance().sendThongBao(player, "Bạn chưa đủ điều kiện để chơi");
-                                    }
+                                    Input.gI().TAI_taixiu(player);
                                     break;
                                 case 2:
-                                    if (TaskService.gI().getIdTask(player) >= ConstTask.TASK_24_0) {
-                                        Input.gI().XIU_taixiu(player);
-                                    } else {
-                                        Service.getInstance().sendThongBao(player, "Bạn chưa đủ điều kiện để chơi");
-                                    }
+                                    Input.gI().XIU_taixiu(player);
                                     break;
                             }
                         } else if (((TaiXiu.gI().lastTimeEnd - System.currentTimeMillis()) / 1000) > 0 && player.goldTai > 0 && TaiXiu.gI().baotri == false) {
