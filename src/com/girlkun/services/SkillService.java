@@ -1308,7 +1308,7 @@ public class SkillService {
                     break;
                 case 1:
                     // ty le gay choang
-                    double dameMoc = dameHit * (paramOfLinhCan / 20f) / 100;
+                    double dameMoc = plAtt.nPoint.hpMax * (paramOfLinhCan / 5f) / 100;
                     dameMoc += linhKhiPoint;
                     dameMoc *= (plAtt.tuTien.congPhap.phamchat.id + 1 + plAtt.tuTien.xParam);
                     dameMoc = subDameWithCanhGioi(plAtt, plInjure, dameMoc);
@@ -1435,6 +1435,10 @@ public class SkillService {
             switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
                 case 0:
                     double hp = plInjure.injured(plAtt, (plInjure.nPoint.hpMax / 80) * (paramOfLinhCan), false, false, true);
+                    if (plAtt.nPoint.hutMauTamThoi + hp >= plAtt.nPoint.mauGoc) {
+                        sendMessagePlayerAttackPlayer(plAtt, plInjure, hp, (byte) 0);
+                        return;
+                    }
                     plAtt.nPoint.hutMauTamThoi += hp;
                     plAtt.nPoint.hpMax += plAtt.nPoint.hutMauTamThoi;
                     plAtt.nPoint.lastTimeHutMau = System.currentTimeMillis();

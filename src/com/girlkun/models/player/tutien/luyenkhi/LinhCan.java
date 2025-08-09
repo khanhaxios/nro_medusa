@@ -1,7 +1,12 @@
 package com.girlkun.models.player.tutien.luyenkhi;
 
 import com.girlkun.consts.ConstNpc;
+import com.girlkun.models.item.Item;
+import com.girlkun.services.InventoryServiceNew;
+import com.girlkun.services.ItemService;
 import com.girlkun.services.NpcService;
+import com.girlkun.services.Service;
+import com.girlkun.utils.Util;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -86,6 +91,51 @@ public class LinhCan {
     public void showMenuLinhCan() {
         String npc = String.format("|7|Thông Tin Linh Căn\n|5|Linh Căn  : %s(%s)\n|5|Hiệu Quả\n%s",
                 getLinhCanName(getThuocTinhLinhCan().getLinhCanBatBuoc()), getThuocTinhLinhCan().getParam() + "%", getHieuQuaLinhCan());
-        NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_TT_LINH_CAN, -1, npc, "Đóng");
+        NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_TT_LINH_CAN, -1, npc, "Dưỡng Linh", "Đóng");
+    }
+
+    public void duongLinhCanMenu() {
+        StringBuilder menuText = new StringBuilder();
+        menuText.append("|7|Thông tin Linh Căn").append("\n");
+        menuText.append("|5|Độ tinh khiết : ").append(thuocTinhLinhCan.getParam()).append("%").append("\n");
+        menuText.append("|5|Tỷ lệ thành công : ").append(getTyLeThanhCong()).append("%").append("\n");
+        menuText.append("|5|Cần x1").append(getItemNeed().template.name).append("\n");
+        menuText.append("|7|Dùng thuộc tính linh thạch cùng loại với linh căn của bạn để bồi dưỡng linh căn").append("\n")
+                .append("|7|Sau khi thành công linh căn sẽ tăng lên một chút").append("\n");
+        NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_DUONG_LINH, -1, menuText.toString(), "Dưỡng Linh", "Đóng");
+    }
+
+    private Item getItemNeed() {
+        int id = ItemService.gI().getItemDuongLinh(getLinhCanType());
+        return InventoryServiceNew.gI().findItemBag(tuTien.player, id);
+    }
+
+    private float getTyLeThanhCong() {
+        float param = thuocTinhLinhCan.getParam();
+        return 100f / (1f + (param / 60f));
+    }
+
+    public void duongLinh() {
+        int itemId = ItemService.gI().getItemDuongLinh(getLinhCanType());
+        if (itemId == -1) {
+            Service.gI().sendThongBao(tuTien.player, "Có lỗi xảy ra hãy thử lại sau");
+            return;
+        }
+        Item item = InventoryServiceNew.gI().findItemBag(tuTien.player, itemId);
+        if (item == null || !item.isNotNullItem()) {
+            Service.gI().sendThongBao(tuTien.player, "Không tìm thấy vật phẩm cần thiết");
+            return;
+        }
+        float tyLe = getTyLeThanhCong();
+        if (Util.isTrue(tyLe, 150)) {
+            thuocTinhLinhCan.setParam((short) (thuocTinhLinhCan.getParam() + 1));
+            Service.gI().sendThongBaoOK(tuTien.player, "Dưỡng linh thành công");
+            InventoryServiceNew.gI().subQuantityItemsBag(tuTien.player, item, 1);
+            InventoryServiceNew.gI().sendItemBags(tuTien.player);
+            return;
+        }
+        Service.gI().sendThongBao(tuTien.player, "Dưỡng linh thất bại");
+        InventoryServiceNew.gI().subQuantityItemsBag(tuTien.player, item, 1);
+        InventoryServiceNew.gI().sendItemBags(tuTien.player);
     }
 }

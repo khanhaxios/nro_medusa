@@ -123,7 +123,7 @@ public class LuckyPool {
 
         for (int i = 0; i < slDong; i++) {
             id = Util.nextInt(0, OPTION_LEAGUE.length - 1);
-            Item.ItemOption itemOption = new Item.ItemOption(OPTION_LEAGUE[id], getParam(id, TYPE_LEAGUE));
+            Item.ItemOption itemOption = new Item.ItemOption(OPTION_LEAGUE[id], getParam(OPTION_LEAGUE[id], TYPE_LEAGUE));
             item.itemOptions.add(itemOption);
         }
     }
@@ -142,9 +142,9 @@ public class LuckyPool {
                 return 10 * type;
             case 6, 7, 48: //HP+#
                 return 30_000 * type;
-            case 8, 14, 45, 80, 81, 104, 97, 162, 173: //Hút #% HP, KI xung quanh mỗi 5 giây
+            case 8, 14, 45, 80, 81, 104, 97, 162, 173:
                 return type / 5;
-            case 19, 49, 147, 196, 219, 232: //Tấn công+#% khi đánh quái
+            case 19, 49, 147, 196, 219, 232:
                 return 50 * type;
             case 22: //HP+#K
             case 23, 28, 27, 47: //MP+#K
@@ -236,7 +236,7 @@ public class LuckyPool {
 
         for (int i = 0; i < slDong; i++) {
             id = Util.nextInt(0, OPTION_LEAGUE.length - 1);
-            Item.ItemOption itemOption = new Item.ItemOption(OPTION_EPIC[id], getParam(id, TYPE_EPIC));
+            Item.ItemOption itemOption = new Item.ItemOption(OPTION_EPIC[id], getParam(OPTION_EPIC[id], TYPE_EPIC));
             item.itemOptions.add(itemOption);
         }
     }

@@ -8145,9 +8145,23 @@ public class NpcFactory {
                             default -> player.tuTien.getInfoStr();
                         }
                         break;
+                    case ConstNpc.MENU_DUONG_LINH:
+                        switch (select) {
+                            case 0:
+                                player.tuTien.linhCan.duongLinh();
+                                break;
+                            default:
+                                player.tuTien.linhCan.showMenuLinhCan();
+                                break;
+                        }
+                        break;
                     case ConstNpc.MENU_TT_LINH_CAN:
                         switch (select) {
-                            default -> player.tuTien.getInfoStr();
+                            case 0:
+                                player.tuTien.linhCan.duongLinhCanMenu();
+                                break;
+                            default:
+                                player.tuTien.getInfoStr();
                         }
                         break;
                     case ConstNpc.MENU_PLAYER_TU_TIEN:

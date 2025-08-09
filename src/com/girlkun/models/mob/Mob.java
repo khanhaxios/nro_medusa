@@ -9,6 +9,7 @@ import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Location;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
 import com.girlkun.models.player.tutien.luyendansu.NguyenLieu;
 import com.girlkun.models.player.tutien.luyendansu.NguyenLieuFactory;
 import com.girlkun.models.reward.ItemMobReward;
@@ -27,7 +28,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Mob {
-
 
     public int id;
     public Zone zone;
@@ -643,6 +643,10 @@ public class Mob {
                 NguyenLieu nguyenLieu = NguyenLieuFactory.radomizeNguyenLieu();
                 player.luyenDanSu.tuiNguyenLieu.addNguyenLieu(nguyenLieu);
                 Service.gI().sendThongBao(player, "Bạn nhận được " + nguyenLieu.tenNguyenLieu);
+            }
+            if (Util.isTrue(1, 1_000_000)) {
+                player.luyenDanSu.tuiDanPhuong.addDanPhuong(DanPhuongFactory.randomizeDanPhuong(3));
+                Service.gI().sendThongBao(player, "Bạn vừa nhận được đan phương");
             }
         }
 

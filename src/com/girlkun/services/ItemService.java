@@ -114,6 +114,7 @@ public class ItemService {
         item.info = item.getInfo();
         return item;
     }
+
     public Item createNewItem(int tempId, int quantity) {
         Item item = new Item();
         item.template = getTemplate(tempId);
@@ -1737,5 +1738,23 @@ public class ItemService {
 
     public Item createItemFromTemplate(Template.ItemTemplate itemTemplate, int quantity) {
         return createNewItem(itemTemplate.id, quantity);
+    }
+
+    public int getItemDuongLinh(byte type) {
+        switch (type) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+                return 2085 + type;
+            case 7:
+                return 2084;
+            case 8:
+                return 2092;
+        }
+        return -1;
     }
 }

@@ -484,15 +484,16 @@ public class InventoryServiceNew {
                 }
                 if (item.template.type == 23 || item.template.type == 24 || item.template.type == 72 || item.template.type == 21) {
                     if (player.tuMa.isTuMa() && player.tuMa.level < 30) {
-                        Service.gI().sendThongBaoOK(player, "Cần đạt tu ma cấp " + TuMa.CANH_GIOI[player.tuMa.level / 10] + " để có thể đeo thú cưỡi");
+                        Service.gI().sendThongBaoOK(player, "Cần đạt tu ma cấp " + TuMa.CANH_GIOI[3] + " để có thể đeo thú cưỡi");
                         return;
-                    }
-                    if (player.tuTien.isTuTien() && (player.nguThuSu == null || !player.nguThuSu.isNguThu())) {
+                    } else if (player.tuTien.isTuTien() && (player.nguThuSu == null || !player.nguThuSu.isNguThu())) {
                         Service.gI().sendThongBaoOK(player, "Bạn cần học ngự thú sư để trang bị thú cưỡi,pet,linh thú");
                         return;
-                    }
-                    if (player.luyenThe.isLuyenTheReal() && player.luyenThe.level < 100) {
+                    } else if (player.luyenThe.isLuyenTheReal() && player.luyenThe.level < 100) {
                         Service.gI().sendThongBaoOK(player, "Cần đạt luyện thể cấp 100 để có thể đeo thú cưỡi");
+                        return;
+                    } else {
+                        Service.gI().sendThongBao(player, "Bạn cần học nghề để có thể trang bị cái này");
                         return;
                     }
                 }

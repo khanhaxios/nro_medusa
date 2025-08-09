@@ -808,6 +808,7 @@ public class UseItem {
         // ====== Trừ rương và gửi thông báo ======
         InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
         InventoryServiceNew.gI().sendItemBags(player);
+        Service.gI().sendMoney(player);
         Service.gI().sendThongBaoOK(player, sb.toString());
     }
 
@@ -852,6 +853,7 @@ public class UseItem {
         // ====== Trừ rương và gửi thông báo ======
         InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
         InventoryServiceNew.gI().sendItemBags(player);
+        Service.gI().sendMoney(player);
         Service.gI().sendThongBaoOK(player, sb.toString());
     }
 
@@ -924,8 +926,10 @@ public class UseItem {
         // ====== Trừ rương và gửi thông báo ======
         InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
         InventoryServiceNew.gI().sendItemBags(pl);
+        Service.gI().sendMoney(pl);
         Service.gI().sendThongBaoOK(pl, stringBuilder.toString());
     }
+
     // ====== Hàm random số lượng theo tỷ lệ hiếm ======
 // low: mức thấp, mid: mức trung bình, high: mức cao
     private int randomByRarity(int low, int mid, int high) {
@@ -988,6 +992,7 @@ public class UseItem {
         // ====== Trừ rương và gửi thông báo ======
         InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
         InventoryServiceNew.gI().sendItemBags(pl);
+        Service.gI().sendMoney(pl);
         Service.gI().sendThongBaoOK(pl, stringBuilder.toString());
     }
 
