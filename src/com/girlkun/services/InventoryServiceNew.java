@@ -9,7 +9,6 @@ import com.girlkun.models.npc.specialnpc.Timedua;
 import com.girlkun.models.player.Inventory;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
-import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.network.io.Message;
 import com.girlkun.services.func.ChangeMapService;
@@ -482,18 +481,34 @@ public class InventoryServiceNew {
                 if (!checkTuTienCondition(item, player)) {
                     return;
                 }
+                boolean canEquid = true;
+                StringBuilder text = new StringBuilder();
                 if (item.template.type == 23 || item.template.type == 24 || item.template.type == 72 || item.template.type == 21) {
-                    if (player.tuMa.isTuMa() && player.tuMa.level < 30) {
-                        Service.gI().sendThongBaoOK(player, "Cần đạt tu ma cấp " + TuMa.CANH_GIOI[3] + " để có thể đeo thú cưỡi");
-                        return;
-                    } else if (player.tuTien.isTuTien() && (player.nguThuSu == null || !player.nguThuSu.isNguThu())) {
-                        Service.gI().sendThongBaoOK(player, "Bạn cần học ngự thú sư để trang bị thú cưỡi,pet,linh thú");
-                        return;
-                    } else if (player.luyenThe.isLuyenTheReal() && player.luyenThe.level < 100) {
-                        Service.gI().sendThongBaoOK(player, "Cần đạt luyện thể cấp 100 để có thể đeo thú cưỡi");
-                        return;
-                    } else {
-                        Service.gI().sendThongBao(player, "Bạn cần học nghề để có thể trang bị cái này");
+
+                    if (player.tuTien.isTuTien()) {
+                        if (!player.nguThuSu.isNguThu()) {
+                            canEquid = false;
+                            text.append("Bạn cần mở ngự thú để đeo");
+                        }
+                    }
+                    if (player.tuMa.isTuMa()) {
+                        if (player.tuMa.level / 10 < 4) {
+                            canEquid = false;
+                            text.append("Bạn cần tu ma đạt Ma Hồn để đeo");
+                        }
+                    }
+                    if (player.luyenThe.isLuyenTheReal()) {
+                        if (player.luyenThe.level < 100) {
+                            canEquid = false;
+                            text.append("Bạn cần đạt luyện thể tầng 100 để đeo");
+                        }
+                    }
+                    if (!player.tuMa.isTuMa() || !player.tuTien.isTuTien() || !player.luyenThe.isLuyenTheReal()) {
+                        canEquid = false;
+                        text.append("Bạn cần mở nghề để đeo");
+                    }
+                    if (!canEquid) {
+                        Service.gI().sendThongBao(player, text.toString());
                         return;
                     }
                 }

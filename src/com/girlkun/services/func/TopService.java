@@ -1,11 +1,10 @@
 package com.girlkun.services.func;
 
 import com.girlkun.database.GirlkunDB;
-import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.player.Player;
+import com.girlkun.network.io.Message;
 import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
-import com.girlkun.network.io.Message;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
@@ -108,20 +107,9 @@ public class TopService implements Runnable {
                 if (Manager.timeRealTop + (30 * 60 * 1000) < System.currentTimeMillis()) {
                     Manager.timeRealTop = System.currentTimeMillis();
                     try (Connection con = GirlkunDB.getConnection()) {
-//                        Manager.topNV = Manager.realTop(Manager.queryTopNV, con);
-//                        Manager.topSM = Manager.realTop(Manager.queryTopSM, con);
-//                        Manager.topSB = Manager.realTop(Manager.querytopSB, con);
-//                        Manager.topSK = Manager.realTop(Manager.querytopSK, con);
-//                        Manager.topSKSanMa = Manager.realTop(Manager.QUERY_TOP_SK_SAN_MA, con);
-//                        Manager.topSK2T9 = Manager.realTop(Manager.QUERY_TOP_SK_2T9, con);
-//                        Manager.topSKTrungThu = Manager.realTop(Manager.QUERY_TOP_SK_TRUNG_THU, con);
-//                Manager.topPVP = Manager.realTop(Manager.queryTopPVP, con);
-//                Manager.topNHS = Manager.realTop(Manager.queryTopNHS, con);
-//                        Manager.topVND = Manager.realTop(Manager.queryTopVND, con);
-//                        Manager.topDaoLu = Manager.realTop(Manager.QUERY_TOP_DAO_LU, con);
-//                        Manager.topHP = Manager.realTop(Manager.queryTopHP, con);
-//                        Manager.topKI = Manager.realTop(Manager.queryTopKI, con);
-//                        Manager.topSD = Manager.realTop(Manager.queryTopSD, con);
+                        Manager.topTuMa = Manager.realTop(Manager.QUERY_TOP_TU_MA, con);
+                        Manager.topTuTien = Manager.realTop(Manager.QUERY_TOP_TU_TIEN, con);
+                        Manager.topLuyenThe = Manager.realTop(Manager.QUERY_TOP_LUYEN_THE, con);
                     } catch (Exception ignored) {
                         Logger.error("Lỗi đọc top");
                     }

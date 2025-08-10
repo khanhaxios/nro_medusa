@@ -24,7 +24,7 @@ public class DoanhTrai {
     public static final List<DoanhTrai> DOANH_TRAI;
     public static final int N_PLAYER_CLAN = 10;
     //số người đứng cùng khu
-    public static final int N_PLAYER_MAP = 3;
+    public static final int N_PLAYER_MAP = 0;
     public static final int AVAILABLE = 10;
     public static final int TIME_DOANH_TRAI = 1800000;
 

@@ -17,9 +17,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LuckyPool {
-    public int TYPE_LEAGUE = 50;
-    public int TYPE_EPIC = 15;
-    public int TYPE_RARE = 5;
+    public int TYPE_LEAGUE = 30;
+    public int TYPE_EPIC = 5;
     public static int[] OPTION_LEAGUE = new int[]{45, 49, 77, 103, 5, 50};
     public static int[] OPTION_EPIC = new int[]{45, 49, 77, 103, 5, 50};
     public List<Short> luckyPoolEpicItems = new ArrayList<>();
@@ -101,8 +100,6 @@ public class LuckyPool {
     }
 
     public void initLuckyItem() {
-        // add rare item
-        // rare item includes linh thu ,
         luckyPoolRareItems = Manager.ITEM_TEMPLATES.stream().filter(it -> it.type == 13 || it.type == 33 || it.type == 29).map(it -> it.id) // only get id
                 .collect(Collectors.toList());
         luckyPoolEpicItems = Manager.ITEM_TEMPLATES.stream().filter(it -> it.type == 5 || it.type == 72 || it.type == 23 || it.type == 24).map(it -> it.id) // only get id
@@ -165,7 +162,7 @@ public class LuckyPool {
         for (int i = 0; i < timeToRoll; i++) {
             // roll item
             // league item first
-            if (tyLeRoll == 1000) {
+            if (tyLeRoll == 10_000) {
                 //  auto roll league item and pass this loop time
                 player.luckyPoolPlayer.totalLuckyPoint = 0;
                 // reset ty le rool
@@ -177,7 +174,7 @@ public class LuckyPool {
                 player.luckyPoolPlayer.addItemToBag(item);
                 continue;
             }
-            if (Util.isTrue(tyLeRoll, 10000)) {
+            if (Util.isTrue(tyLeRoll, 100_000)) {
                 // item league
                 // khi roll ra league se tu dong reset point
                 player.luckyPoolPlayer.totalLuckyPoint = 0;
@@ -189,21 +186,18 @@ public class LuckyPool {
                 Service.gI().sendThongBao(player, "Chúc mừng bạn nhận được x1" + item.template.name);
                 continue;
             }
-            if (Util.isTrue(tyLeRoll, 1000)) {
+            if (Util.isTrue(tyLeRoll, 10_000)) {
                 Item item = ItemService.gI().createNewItem(luckyPoolEpicItems.get(Util.nextInt(0, luckyPoolEpicItems.size() - 1)), 1);
                 // ratio option for this
                 ratioEpicItemOption(item);
                 // add to bag and continue
                 player.luckyPoolPlayer.addItemToBag(item);
-                player.luckyPoolPlayer.totalLuckyPoint += 1;
-                if (player.luckyPoolPlayer.totalLuckyPoint > 1000) {
-                    player.luckyPoolPlayer.totalLuckyPoint = 1000;
-                }
+                player.luckyPoolPlayer.totalLuckyPoint -= player.luckyPoolPlayer.totalLuckyPoint / 2;
                 Service.gI().sendThongBao(player, "Chúc mừng bạn nhận được x1" + item.template.name);
                 continue;
             }
 
-            if (Util.isTrue(tyLeRoll, 500)) {
+            if (Util.isTrue(tyLeRoll, 5_000)) {
                 Item item = ItemService.gI().createNewItem(luckyPoolSpecialItem.get(Util.nextInt(0, luckyPoolSpecialItem.size() - 1)), 1);
                 // add to bag and continue
                 item.itemOptions.add(new Item.ItemOption(30, 0));
@@ -217,9 +211,6 @@ public class LuckyPool {
             item.itemOptions.add(new Item.ItemOption(30, 0));
             player.luckyPoolPlayer.addItemToBag(item);
             player.luckyPoolPlayer.totalLuckyPoint += 1;
-            if (player.luckyPoolPlayer.totalLuckyPoint > 1000) {
-                player.luckyPoolPlayer.totalLuckyPoint = 1000;
-            }
             Service.gI().sendThongBao(player, "Chúc mừng bạn nhận được x1" + item.template.name);
         }
         Service.gI().sendThongBao(player, "Quay số hoàn thành");

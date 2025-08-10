@@ -40,6 +40,7 @@ import com.girlkun.models.task.TaskMain;
 import com.girlkun.result.GirlkunResultSet;
 import com.girlkun.services.ItemService;
 import com.girlkun.services.MapService;
+import com.girlkun.services.func.TopService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 import org.json.simple.JSONArray;
@@ -306,6 +307,7 @@ public class Manager {
         NguyenLieuFactory.loadNguyenLieu();
         DanPhuongFactory.getInstance().initTemplate();
         VoKyFactory.initTemplate();
+        new Thread(TopService.gI()).start();
         sanGiaoDichBuaZeno = new SanGiaoDichBuaZeno();
     }
 

@@ -274,7 +274,7 @@ public class UseItem {
                         return;
                     }
                     if (pl.luyenThe.isLuyenTheReal()) {
-                        pl.tuMa.increasePoint(pl, item);
+                        pl.luyenThe.increasePoint(pl, item);
                         return;
                     }
                     Service.gI().sendThongBao(pl, "Bạn cần học nghề để có thể dùng vật phẩm này");
