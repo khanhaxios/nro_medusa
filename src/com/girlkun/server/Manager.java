@@ -569,11 +569,6 @@ public class Manager {
                     clan.doanhTrai_lastTimeOpen = Long.parseLong(String.valueOf(dataArray.get(0)));
                     clan.doanhTrai_playerOpen = (String) dataArray.get(1);
                 }
-//                dataArray = (JSONArray) JSONValue.parse(rs.getString("ban_do_kho_bau"));
-//                if (!dataArray.isEmpty()) {
-//                    clan.banDoKhoBau_lastTimeOpen = Long.parseLong(String.valueOf(dataArray.get(0)));
-//                    clan.banDoKhoBau_playerOpen = (String) dataArray.get(1);
-//                }
                 CLANS.add(clan);
                 dataArray.clear();
                 dataObject.clear();

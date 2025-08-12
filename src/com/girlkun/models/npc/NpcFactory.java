@@ -2330,6 +2330,10 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Bạn đã luyện thể " + player.luyenThe.level + " tầng , Không thể tu tiên");
                                     return;
                                 }
+                                if (player.tuMa.isTuMa()){
+                                    Service.gI().sendThongBao(player,"Bạn đã tu ma rồi mà");
+                                    return;
+                                }
                                 // mo tu tien
                                 if (player.tuTien.isTuTien()) {
                                     Service.gI().sendThongBao(player, "Bạn đã mở tu tiên rồi mà");

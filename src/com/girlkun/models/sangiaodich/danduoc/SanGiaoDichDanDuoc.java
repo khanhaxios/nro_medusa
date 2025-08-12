@@ -32,17 +32,20 @@ public class SanGiaoDichDanDuoc implements Runnable {
     }
 
     private String getListTransactionInfo(List<Transaction> playerTransaction) {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        if (playerTransaction.size() == 0) {
-            return "|1|Không có giao dịch nào!!!!!";
+        if (playerTransaction == null || playerTransaction.isEmpty()) {
+            return "|1|Không có giao dịch nào!";
         }
+
+        StringBuilder sb = new StringBuilder();
         for (Transaction transaction : playerTransaction) {
-            stringBuilder.append("|5|Mã Giao Dịch [").append(transaction.code).append("]").append("Trạng thái ==> ").append(transaction.getStatusString()).append("\n");
+            sb.append("|5|[")
+                    .append(transaction.code)
+                    .append("]==>")
+                    .append(transaction.getStatusString())
+                    .append("\n");
         }
-        return stringBuilder.toString();
+        return sb.toString().trim();
     }
-
     public List<Transaction> getListTransactionByPlayer(Player player) {
         List<Transaction> transactions1 = new ArrayList<>();
         for (Transaction transaction : transactions) {

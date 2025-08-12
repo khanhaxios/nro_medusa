@@ -68,7 +68,7 @@ public class SanGiaoDichService {
             Service.gI().sendThongBaoOK(player, "Không tìm thấy đan phương hoặc đan dược có id [" + idItem + "]");
             return;
         }
-        Transaction transaction = new Transaction(player, playerAccept, 86_400_000);
+        Transaction transaction = new Transaction(player, playerAccept, 86_400_000, maGiaoDich);
         transaction.addItems(iTransaction);
         transaction.totalPrice = diemNap;
         SanGiaoDichDanDuoc.getI().addTransaction(transaction);

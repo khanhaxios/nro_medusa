@@ -5,7 +5,6 @@ import com.girlkun.models.map.Zone;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.ItemTimeService;
-import com.girlkun.services.Service;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Util;
 
@@ -16,24 +15,13 @@ import java.util.List;
  * @author BTH     public static final int MAX_AVAILABLE = 50;
  */
 public class BanDoKhoBau {
-    private static BanDoKhoBau i;
-
-    public static BanDoKhoBau gI() {
-        if (i == null) {
-        }
-        return i;
-    }
-
     public static final long POWER_CAN_GO_TO_BDKB = 2000000000;
 
     public static final List<BanDoKhoBau> BAN_DO_KHO_BAU;
-    public static final int MAX_AVAILABLE = 50;
+    public static final int MAX_AVAILABLE = 15;
     public static final int N_PLAYER_MAP = 2;
     public static final int TIME_KHI_BAN_DO_KHO_BAU = 1800000;
     private Player player;
-
-    private long lastTimeBuffHP = System.currentTimeMillis();
-    private static final long TIME_BUFF_HP = 7 * 60 * 1000;
 
     static {
         BAN_DO_KHO_BAU = new ArrayList<>();
@@ -55,33 +43,13 @@ public class BanDoKhoBau {
         this.zones = new ArrayList<>();
     }
 
-    public void update() {
-        if (this.isOpened) {
-            long now = System.currentTimeMillis();
-
-            // Kiểm tra hết thời gian bản đồ
-            if (Util.canDoWithTime(lastTimeOpen, TIME_KHI_BAN_DO_KHO_BAU)) {
-                this.finish();
-                return;
-            }
-
-            // Cứ mỗi 10 phút thì buff HP quái
-            if (now - lastTimeBuffHP >= TIME_BUFF_HP) {
-                buffQuaiX3HP();
-                lastTimeBuffHP = now;
-            }
-        }
-    }
-
-    private void buffQuaiX3HP() {
-        for (Zone zone : zones) {
-            for (Mob mob : zone.mobs) {
-                mob.point.maxHp *= 1.5;
-                mob.point.hp = mob.point.maxHp;
-            }
-        }
-        Service.gI().sendThongBao(player.clan.membersInGame, "Lũ quái đã trở nên mạnh hơn! HP x1.5!!");
-    }
+//    public void update() {
+//        if (this.isOpened) {
+//            if (Util.canDoWithTime(lastTimeOpen, TIME_KHI_BAN_DO_KHO_BAU)) {
+//                this.finish();
+//            }
+//        }
+//    }
 
     public void openBanDoKhoBau(Player plOpen, Clan clan, int level) {
         this.level = level;
@@ -111,18 +79,19 @@ public class BanDoKhoBau {
 
     //kết thúc bản đồ kho báu
     public void finish() {
-        List<Player> plOutDT = new ArrayList<>();
+        List<Player> bossDie = new ArrayList<>();
         for (Zone zone : zones) {
-            List<Player> players = zone.getPlayers();
-            plOutDT.addAll(players);
-
+            bossDie.addAll(zone.getBosses());
         }
-        for (Player pl : plOutDT) {
-            ChangeMapService.gI().changeMapBySpaceShip(pl, 0, -1, 384);
+        for (Player player1 : bossDie) {
+            if (player1.isBoss) {
+                player1.injured(null, player1.nPoint.hpMax + 1000, false, false, true);
+            }
         }
         this.clan.banDoKhoBau = null;
         this.clan = null;
         this.isOpened = false;
+        this.player = null;
     }
 
     public Zone getMapById(int mapId) {
@@ -141,6 +110,12 @@ public class BanDoKhoBau {
     private void sendTextbdkb() {
         for (Player pl : this.clan.membersInGame) {
             ItemTimeService.gI().sendTextBanDoKhoBau(pl);
+        }
+    }
+
+    private void removeTextBdkb() {
+        for (Player pl : this.clan.membersInGame) {
+            ItemTimeService.gI().removeTextbdkb(pl);
         }
     }
 }

@@ -202,7 +202,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
     }
 
     public void showBaseMenu() {
-        String menuText = "|7|Thông tin luyện đan sư\n" + "|5|Cấp bậc :" + getName() + "\n" + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" + "|7|Tỷ lệ đột phá : " + getLevelUpPercent() + "%\n" + "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" + "|2|Số đan dược đã dùng  : " + tongDanDuocDaAn + " viên\n" + "|5|Đan dược kháng tính : " + diemKhangTinh + "%\n" + "|7|Khi đột phá , đan dược kháng tính sẽ được giảm bớt đi 1 xíu";
+        String menuText = "|7|Thông tin luyện đan sư\n" + "|5|Cấp bậc :" + getName() + "\n" + "|5|Kinh nghiệm : " + getCurrentExpAsString() + "\n" + "|7|Tỷ lệ đột phá : " + getLevelUpPercent() + "%\n" + "|1|Cấp càng cao tỷ lệ đột phá càng thấp\n" + "|2|Số đan dược đã dùng  : " + tongDanDuocDaAn + " viên\n";
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_DAN, -1, menuText, "Túi Đan\nPhương", "Túi Nguyên\nLiệu", "Túi Đan", "Luyện đan", "Đóng");
     }
 

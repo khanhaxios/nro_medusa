@@ -417,7 +417,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     public float getDameBuff() {
         float percentBuff = (getBaseBuffByLevel(2) + (getSubLevelOtherBuff() + (Math.max(1, level - 1) * 10)));
         if (level >= 5) {
-            percentBuff *= Math.max(1, xParam) * Util.nextInt(2, 3);
+            percentBuff *= 2;
         }
         return percentBuff + (percentBuff * xParam);
     }

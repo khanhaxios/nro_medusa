@@ -46,7 +46,7 @@ public class BanDoKhoBauService {
                 && player.clan.timeOpenbdkb != 0) {
             if (Util.canDoWithTime(player.clan.timeOpenbdkb, TIME_KHI_BAN_DO_KHO_BAU)) {
                 ketthucbdkb(player);
-                player.clan.banDoKhoBau = null;
+                player.clan.banDoKhoBau.finish();
             }
             if (this.timeoutmap > 0 && player.isPl() && player.clan.banDoKhoBau != null
                     && player.clan.timeOpenbdkb != 0) {
@@ -60,7 +60,7 @@ public class BanDoKhoBauService {
                     }
                 }
                 BanDoKhoBauService.gI().ketthucbdkb(player);
-                player.clan.banDoKhoBau = null;
+                player.clan.banDoKhoBau.finish();
             }
         }
     }
@@ -70,7 +70,7 @@ public class BanDoKhoBauService {
             Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
             return;
         }
-        if (pl.bdkb_countPerDay >= 10) {
+        if (pl.bdkb_countPerDay >= 3) {
             Service.getInstance().sendThongBao(pl, "Bạn đã đạt giới hạn lượt đi trong ngày");
             return;
         }

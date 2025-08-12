@@ -145,6 +145,7 @@ public class GodGK {
                             player.diemdanh = rs.getLong("violate");
                             player.NguHanhSonPoint = rs.getInt("NguHanhSonPoint");
                             player.isNhanQuaDenBu = rs.getBoolean("den_bu");
+                            player.lastTimeLeaveClan = rs.getLong("last_time_clan");
 //                            player.tienLuc = rs.getInt("tien_luc");
                             player.tyLeTangPhamDaoLu = rs.getFloat("tl_dl");
                             // data rada card
@@ -158,10 +159,10 @@ public class GodGK {
                                 dataArray.clear();
                             }
                             player.totalPlayerViolate = 0;
-                            int clanId = rs.getInt("clan_id_sv" + Manager.SERVER);
+                            int clanId = rs.getInt("clan_id_sv1");
                             if (clanId != -1) {
-                                try {
-                                    Clan clan = ClanService.gI().getClanById(clanId);
+                                Clan clan = ClanService.gI().getClanById(clanId);
+                                if (clan != null) {
                                     for (ClanMember cm : clan.getMembers()) {
                                         if (cm.id == player.id) {
                                             clan.addMemberOnline(player);
@@ -170,8 +171,6 @@ public class GodGK {
                                             break;
                                         }
                                     }
-                                } catch (Exception e) {
-                                    System.err.println("Phát hiện bang hội id '" + clanId + "' không tồn tại - loại bỏ bang của người chơi: " + player.name);
                                 }
                             }
 
@@ -1863,12 +1862,14 @@ public class GodGK {
                 int clanId = rs.getInt("clan_id_sv" + Manager.SERVER);
                 if (clanId != -1) {
                     Clan clan = ClanService.gI().getClanById(clanId);
-                    for (ClanMember cm : clan.getMembers()) {
-                        if (cm.id == player.id) {
-                            clan.addMemberOnline(player);
-                            player.clan = clan;
-                            player.clanMember = cm;
-                            break;
+                    if (clan != null) {
+                        for (ClanMember cm : clan.getMembers()) {
+                            if (cm.id == player.id) {
+                                clan.addMemberOnline(player);
+                                player.clan = clan;
+                                player.clanMember = cm;
+                                break;
+                            }
                         }
                     }
                 }

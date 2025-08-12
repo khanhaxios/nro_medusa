@@ -481,38 +481,24 @@ public class InventoryServiceNew {
                 if (!checkTuTienCondition(item, player)) {
                     return;
                 }
-                boolean canEquid = true;
-                StringBuilder text = new StringBuilder();
                 if (item.template.type == 23 || item.template.type == 24 || item.template.type == 72 || item.template.type == 21) {
-
-                    if (player.tuTien.isTuTien()) {
-                        if (!player.nguThuSu.isNguThu()) {
-                            canEquid = false;
-                            text.append("Bạn cần mở ngự thú để đeo");
-                        }
+                    if (!player.tuMa.isTuMa() && !player.tuTien.isTuTien() && !player.luyenThe.isLuyenTheReal()) {
+                        Service.gI().sendThongBao(player, "Bạn cần mở nghề để đeo");
+                        return;
                     }
-                    if (player.tuMa.isTuMa()) {
-                        if (player.tuMa.level / 10 < 4) {
-                            canEquid = false;
-                            text.append("Bạn cần tu ma đạt Ma Hồn để đeo");
-                        }
+                    if (player.tuTien.isTuTien() && !player.nguThuSu.isNguThu()) {
+                        Service.gI().sendThongBao(player, "Bạn cần mở ngự thú để đeo");
+                        return;
                     }
-                    if (player.luyenThe.isLuyenTheReal()) {
-                        if (player.luyenThe.level < 100) {
-                            canEquid = false;
-                            text.append("Bạn cần đạt luyện thể tầng 100 để đeo");
-                        }
+                    if (player.tuMa.isTuMa() && player.tuMa.level / 10 < 4) {
+                        Service.gI().sendThongBao(player, "Bạn cần tu ma đạt Ma Hồn để đeo");
+                        return;
                     }
-                    if (!player.tuMa.isTuMa() || !player.tuTien.isTuTien() || !player.luyenThe.isLuyenTheReal()) {
-                        canEquid = false;
-                        text.append("Bạn cần mở nghề để đeo");
-                    }
-                    if (!canEquid) {
-                        Service.gI().sendThongBao(player, text.toString());
+                    if (player.luyenThe.isLuyenTheReal() && player.luyenThe.level < 100) {
+                        Service.gI().sendThongBao(player, "Bạn cần đạt luyện thể tầng 100 để đeo");
                         return;
                     }
                 }
-
                 player.inventory.itemsBag.set(index, putItemBody(player, item));
                 if (item.template.id > 1299 && item.template.id < 1309) {
                     Service.gI().removeTitle(player);

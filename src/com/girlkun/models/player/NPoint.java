@@ -1802,6 +1802,9 @@ public class NPoint {
                 if (this.player.setClothes.setTienTD == 5) {
                     percentXDame = 1000;
                 }
+                if (player.tuTien.isTuTien()) {
+                    percentXDame += percentDameSkill * (player.tuTien.xParam) / 5;
+                }
                 break;
             case Skill.GALICK:
                 if (intrinsic.id == 16) {

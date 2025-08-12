@@ -27,7 +27,7 @@ public class Transaction {
     public long lastTimeCreated;
     public int status; // 0 = pending , 1 = done , 2 = cancel
 
-    public Transaction(Player player, Player playerAccept, long timeWaitGiaoDich) {
+    public Transaction(Player player, Player playerAccept, long timeWaitGiaoDich,String code) {
         this.playerRequest = player;
         this.playerAccept = playerAccept;
         this.timeWaitGiaoDich = timeWaitGiaoDich;
@@ -36,6 +36,7 @@ public class Transaction {
         takenItemPlayerRequest = false;
         takenItemPlayerAccept = false;
         this.lastTimeCreated = System.currentTimeMillis();
+        this.code = code;
     }
 
     public void lockTransaction(Player player) {

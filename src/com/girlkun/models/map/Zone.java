@@ -96,27 +96,10 @@ public class Zone {
     private boolean cachedHoaBinh;
 
     private void udPlayer() {
-        LocalTime now = LocalTime.now();
-
-        if (now.getHour() % 3 == 0) {
-            isHoaBinh = false;
-        } else if (now.getHour() % 2 == 0) {
-            isHoaBinh = true;
-        }
         synchronized (this.notBosses) {
             for (int i = this.notBosses.size() - 1; i >= 0; i--) {
                 Player pl = this.notBosses.get(i);
-                // update player
                 if (pl != null && pl.isPl()) {
-                    if (!isHoaBinh) {
-                        if (pl.tuMa.isTuMa()) {
-                            Service.gI().changeFlag(pl, 8);
-                        } else if (pl.tuTien.isTuTien()) {
-                            Service.gI().changeFlag(pl, 2);
-                        } else if (pl.luyenThe.isLuyenTheReal()) {
-                            Service.gI().changeFlag(pl, 3);
-                        }
-                    }
                     pl.update();
                 }
             }

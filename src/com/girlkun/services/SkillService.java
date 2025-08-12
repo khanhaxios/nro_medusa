@@ -1048,18 +1048,21 @@ public class SkillService {
             percentPST += plTarget.tuTien.linhCan.getThuocTinhLinhCan().getParam();
         }
         if (plTarget.tuTien.isTuTien() && plTarget.tuTien.linhCan.getLinhCanType() == 4) {
-            percentPST += plTarget.tuTien.linhCan.getThuocTinhLinhCan().getParam() / 5;
+            percentPST += plTarget.tuTien.linhCan.getThuocTinhLinhCan().getParam();
         }
         if (percentPST != 0) {
-            damePST = Util.DoubleGioihan(dame * percentPST / 100);
+            damePST = Util.DoubleGioihang(dame * percentPST / 100);
+            if (damePST > plTarget.nPoint.hpMax) {
+                damePST = plTarget.nPoint.hpMax;
+            }
             Message msg;
             try {
                 msg = new Message(56);
                 msg.writer().writeInt((int) plAtt.id);
                 if (damePST >= plAtt.nPoint.hp) {
-                    damePST = Util.DoubleGioihan(plAtt.nPoint.hp) - 1;
+                    damePST = Util.DoubleGioihang(plAtt.nPoint.hp) - 1;
                 }
-                damePST = (damePST >= plAtt.nPoint.hp || plAtt.nPoint.hp < 2) ? 0 : plAtt.injured(null, damePST, true, false, false);
+                damePST = (damePST >= plAtt.nPoint.hp || plAtt.nPoint.hp < 2) ? 0 : plAtt.injured(null, damePST, true, false, true);
                 plAtt.nPoint.hp = (damePST >= plAtt.nPoint.hp) ? 1 : (plAtt.nPoint.hp - damePST);
                 msg.writer().writeDouble(Util.DoubleGioihang(plAtt.nPoint.hp));
                 msg.writer().writeDouble(Util.DoubleGioihang(damePST));

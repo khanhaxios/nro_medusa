@@ -1,28 +1,28 @@
 package com.girlkun.services;
 
-import com.girlkun.database.GirlkunDB;
-import java.util.List;
-import static com.girlkun.models.clan.Clan.DEPUTY;
-import static com.girlkun.models.clan.Clan.LEADER;
-import static com.girlkun.models.clan.Clan.MEMBER;
-import com.girlkun.models.item.Item;
 import com.girlkun.consts.ConstNpc;
+import com.girlkun.database.GirlkunDB;
 import com.girlkun.models.Template.FlagBag;
 import com.girlkun.models.clan.Clan;
 import com.girlkun.models.clan.ClanMember;
 import com.girlkun.models.clan.ClanMessage;
+import com.girlkun.models.item.Item;
 import com.girlkun.models.player.Player;
 import com.girlkun.network.io.Message;
 import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+
+import static com.girlkun.models.clan.Clan.*;
 
 
 public class ClanService {
@@ -64,8 +64,13 @@ public class ClanService {
         return i;
     }
 
-    public Clan getClanById(int id) throws Exception {
-        return getClanById(0, Manager.getNumClan(), id);
+    public Clan getClanById(int id) {
+        for (Clan clan : Manager.CLANS) {
+            if (clan.id == id) {
+                return clan;
+            }
+        }
+        return null; // Không tìm thấy
     }
 
     private Clan getClanById(int l, int r, int id) throws Exception {
@@ -149,7 +154,7 @@ public class ClanService {
                     chat(player, msg.reader().readUTF());
                     break;
                 case ASK_FOR_PEA:
-//                    askForPea(player);
+                    askForPea(player);
                     break;
                 case ASK_FOR_JOIN_CLAN:
                     askForJoinClan(player, msg.reader().readInt());
@@ -203,6 +208,10 @@ public class ClanService {
 
     public void joinClan(Player player, Message msg) {
         try {
+            if (!Util.canDoWithTime(player.lastTimeLeaveClan, (48 * 60 * 60) * 1000)) {
+                Service.gI().sendThongBaoOK(player, "Bạn cần đợi 2 ngày để vào lại bang sau khi rời");
+                return;
+            }
             int clanMessageId = msg.reader().readInt();
             byte action = msg.reader().readByte();
             switch (action) {
@@ -258,6 +267,7 @@ public class ClanService {
     }
 
     //--------------------------------------------------------------------------
+
     /**
      * Mời vào bang
      */
@@ -473,6 +483,10 @@ public class ClanService {
      * Tạo clan mới
      */
     private void createClan(Player player, byte imgId, String name) {
+        if (!Util.canDoWithTime(player.lastTimeLeaveClan, (48 * 60 * 60) * 1000)) {
+            Service.gI().sendThongBaoOK(player, "Bạn cần đợi 2 ngày để vào lại bang sau khi rời");
+            return;
+        }
         if (player.clan == null) {
             if (name.length() > 30) {
                 Service.getInstance().sendThongBao(player, "Tên bang hội không được quá 30 ký tự");
@@ -566,13 +580,14 @@ public class ClanService {
                     }
                     player.sendMessage(msg);
                     msg.cleanup();
-                } catch (Exception e) {
-                    Service.getInstance().sendThongBao(player, e.getMessage());
+                } catch (Exception ex) {
+                    Service.getInstance().sendThongBao(player, "Có lỗi xảy ra");
+                    Logger.logException(ClanService.class, ex);
                 }
             }
         } catch (Exception ex) {
-            Service.getInstance().sendThongBao(player, ex.getMessage());
-
+            Service.getInstance().sendThongBao(player, "Có lỗi xảy ra");
+            Logger.logException(ClanService.class, ex);
         }
     }
 
@@ -742,6 +757,7 @@ public class ClanService {
                 cm = null;
                 player.clan = null;
                 player.clanMember = null;
+                player.lastTimeLeaveClan = System.currentTimeMillis();
                 ClanService.gI().sendMyClan(player);
                 ClanService.gI().sendClanId(player);
                 Service.getInstance().sendFlagBag(player);

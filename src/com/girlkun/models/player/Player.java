@@ -274,6 +274,7 @@ public class Player {
     public NguThuSu nguThuSu;
     public KhongThiSu khongThiSu;
     public boolean isNhanQuaDenBu = false;
+    public long lastTimeLeaveClan;
 
     public Player() {
         lastTimeSavePlayer = System.currentTimeMillis();
@@ -293,7 +294,6 @@ public class Player {
         fightMabu = new FightMabu(this);
         //----------------------------------------------------------------------
         iDMark = new IDMark();
-        huyet = new Huyet(this);
         combineNew = new CombineNew();
         playerTask = new TaskPlayer();
         friends = new ArrayList<>();
@@ -319,6 +319,7 @@ public class Player {
         // init data phap bao
         phapBaos = new ArrayList<>(Collections.nCopies(5, null));
         this.mach = new Mach(this);
+        huyet = new Huyet(this);
     }
 
     //--------------------------------------------------------------------------
