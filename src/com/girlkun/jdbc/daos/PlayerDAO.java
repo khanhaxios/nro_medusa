@@ -1686,6 +1686,38 @@ public class PlayerDAO {
         return lastTimeLogout > lastTimeLogin;
     }
 
+    public static boolean subvnd(Player player, int num,boolean isOver) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            double afterCalc = player.session.vnd - num;
+            con = GirlkunDB.getConnection();
+            ps = con.prepareStatement("UPDATE account SET vnd = ? WHERE id = ?");
+            ps.setDouble(1, afterCalc);
+            ps.setInt(2, player.getSession().userId);
+            int rowsUpdated = ps.executeUpdate();
+            if (rowsUpdated == 0) {
+                return false; // Không cập nhật bất kỳ hàng nào trong cơ sở dữ liệu.
+            }
+
+            player.session.vnd -= num; // Cập nhật số dư `vnd` của người chơi trong bộ nhớ.
+            return true;
+        } catch (SQLException e) {
+            Logger.logException(PlayerDAO.class, e, "Lỗi update vnd: " + player.name);
+            return false;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                Logger.logException(PlayerDAO.class, e, "Lỗi đóng kết nối cơ sở dữ liệu: " + player.name);
+            }
+        }
+    }
     public static boolean subvnd(Player player, int num) {
         if (num < 0 || player.session.vnd - num < 0) {
             return false; // Giá trị `num` không hợp lệ.

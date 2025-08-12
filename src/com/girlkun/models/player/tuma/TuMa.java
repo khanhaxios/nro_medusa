@@ -75,7 +75,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     public void levelUp() {
         this.level += 1;
         if (level / 10 != 0 && level % 10 == 0) {
-            maTinh += 1;
+            maTinh += 2;
         }
         restExp();
         restMaKhi();

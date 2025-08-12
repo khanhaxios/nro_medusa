@@ -46,7 +46,6 @@ public class BanDoKhoBauService {
                 && player.clan.timeOpenbdkb != 0) {
             if (Util.canDoWithTime(player.clan.timeOpenbdkb, TIME_KHI_BAN_DO_KHO_BAU)) {
                 ketthucbdkb(player);
-                player.clan.banDoKhoBau.finish();
             }
             if (this.timeoutmap > 0 && player.isPl() && player.clan.banDoKhoBau != null
                     && player.clan.timeOpenbdkb != 0) {
@@ -60,7 +59,6 @@ public class BanDoKhoBauService {
                     }
                 }
                 BanDoKhoBauService.gI().ketthucbdkb(player);
-                player.clan.banDoKhoBau.finish();
             }
         }
     }
@@ -94,12 +92,26 @@ public class BanDoKhoBauService {
 
     public void ketthucbdkb(Player player) {
         List<Player> playersMap = player.zone.getPlayers();
+        Player playerOpen = player.clan.banDoKhoBau.player;
         for (int i = playersMap.size() - 1; i >= 0; i--) {
             Player pl = playersMap.get(i);
-            kickOutOfBDKB(pl);
-            ItemTimeService.gI().removeTextbdkb(player);
-            pl.bdkb_isJoinBdkb = false;
+            if (containtInClan(playerOpen, pl)) {
+                kickOutOfBDKB(pl);
+                ItemTimeService.gI().removeTextbdkb(player);
+                pl.bdkb_isJoinBdkb = false;
+                pl.clan.banDoKhoBau.dispose();
+                pl.clan.banDoKhoBau = null;
+            }
         }
+    }
+
+    private boolean containtInClan(Player pl, Player player) {
+        for (Player player1 : pl.clan.membersInGame) {
+            if (player.id == player1.id) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

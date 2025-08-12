@@ -1,6 +1,7 @@
 package com.girlkun.models.sangiaodich.danduoc;
 
 import com.girlkun.consts.ConstNpc;
+import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.tutien.luyendansu.DanDuoc;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuong;
@@ -27,7 +28,7 @@ public class Transaction {
     public long lastTimeCreated;
     public int status; // 0 = pending , 1 = done , 2 = cancel
 
-    public Transaction(Player player, Player playerAccept, long timeWaitGiaoDich,String code) {
+    public Transaction(Player player, Player playerAccept, long timeWaitGiaoDich, String code) {
         this.playerRequest = player;
         this.playerAccept = playerAccept;
         this.timeWaitGiaoDich = timeWaitGiaoDich;
@@ -70,11 +71,13 @@ public class Transaction {
         StringBuilder stringBuilder = new StringBuilder();
         int st = getStatus();
         if (st == 0) {
-            stringBuilder.append(playerRequest.name)
+            stringBuilder.append("(").append(playerRequest.name).append(")")
                     .append("[").append(isPlayerRequestLock ? "Đã khóa" : "Chưa khóa")
-                    .append("]").append("=====")
+                    .append("]").append(" <= => ")
+                    .append("(")
                     .append(playerAccept.name)
-                    .append("[").append(isPlayerAcceptLock ? "Đã khóa" : "Chưa khóa");
+                    .append(")")
+                    .append("[").append(isPlayerAcceptLock ? "Đã khóa" : "Chưa khóa").append("]");
         } else if (st == 1) {
             stringBuilder.append("Giao dịch hoàn thành");
         } else {
@@ -94,7 +97,7 @@ public class Transaction {
             menuText.append("|7|======= Vật phẩm giao dịch =======").append("\n");
             menuText.append(getItemReceived());
             menuText.append("Tổng Giá => ").append(Util.powerToString(totalPrice)).append(" Điểm nạp").append("\n");
-            menuText.append("Trạng Thái => ").append(getStatusString()).append("\n");
+            menuText.append(getStatusString()).append("\n");
             String[] options = new String[]{};
             if (player.id == playerAccept.id) {
                 player.iDMark.gdMenuType = 0;
@@ -131,13 +134,17 @@ public class Transaction {
     }
 
     public void takeItem(Player player) {
+        if (!isPlayerRequestLock || !isPlayerAcceptLock) {
+            Service.gI().sendThongBao(player, "Giao dịch chưa khóa bạn không thể lấy vật phẩm");
+            return;
+        }
         if (player.id == playerRequest.id) {
             if (takenItemPlayerRequest) {
                 Service.gI().sendThongBao(player, "Bạn đã lấy vật phẩm rồi");
                 return;
             }
             // take item received
-            for (ITransaction iTransaction : iTransactions) {
+            for (ITransaction iTransaction : iTransactionsAccept) {
                 if (iTransaction instanceof DanDuoc danDuoc) {
                     playerRequest.luyenDanSu.tuiDanDuoc.addDanDuoc(danDuoc);
                 } else if (iTransaction instanceof DanPhuong danPhuong) {
@@ -160,12 +167,17 @@ public class Transaction {
             takenItemPlayerAccept = true;
         }
         Service.gI().sendThongBao(player, "Vật phẩm đã được chuyển vào túi của bạn");
+        if (takenItemPlayerAccept && takenItemPlayerRequest) {
+            destroyTransaction();
+            Service.gI().sendThongBaoOK(player, "Giao dịch hoàn thành hệ thống đã tự xóa giao dịch");
+        }
     }
 
     private void destroyTransaction() {
         this.lastTimeCreated = System.currentTimeMillis() + timeWaitGiaoDich;
         this.isPlayerAcceptLock = false;
         this.isPlayerRequestLock = false;
+        PlayerDAO.subvnd(playerRequest, (int) totalPrice, true);
         this.dispose();
         // remove this self
     }
@@ -209,6 +221,6 @@ public class Transaction {
     }
 
     public void addItemsReceived(ITransaction iTransaction) {
-        this.iTransactions.add(iTransaction);
+        this.iTransactionsAccept.add(iTransaction);
     }
 }

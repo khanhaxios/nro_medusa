@@ -98,6 +98,16 @@ public class TuiDanDuoc {
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_DAN_DUOC, -1, stringBuilder.toString(), "Dùng Đan\nDược", "Xem Đan\nDược");
     }
 
+    public DanDuoc takeDanDuocSplit(int idDanDuoc, int quantity) {
+        DanDuoc danDuoc = this.danDuocs.stream().filter(t -> t.id == idDanDuoc && t.quantity >= quantity).findFirst().orElse(null);
+        if (danDuoc != null) {
+            danDuoc = new DanDuoc(danDuoc.id, danDuoc.tenDanDuoc, danDuoc.capDanDuoc, danDuoc.capDoYeuCauDeSuDung);
+            danDuoc.quantity = quantity;
+            subDanDuocQuantity(idDanDuoc, quantity, danDuoc.capDanDuoc);
+        }
+        return danDuoc;
+    }
+
     public DanDuoc takeDanDuoc(int idDanDuoc, int quantity) {
         return this.danDuocs.stream().filter(t -> t.id == idDanDuoc && t.quantity >= quantity).findFirst().orElse(null);
     }

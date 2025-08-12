@@ -6,7 +6,6 @@ import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.ItemTimeService;
 import com.girlkun.services.func.ChangeMapService;
-import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class BanDoKhoBau {
     public static final int MAX_AVAILABLE = 15;
     public static final int N_PLAYER_MAP = 2;
     public static final int TIME_KHI_BAN_DO_KHO_BAU = 1800000;
-    private Player player;
+    public Player player;
 
     static {
         BAN_DO_KHO_BAU = new ArrayList<>();
@@ -79,6 +78,7 @@ public class BanDoKhoBau {
 
     //kết thúc bản đồ kho báu
     public void finish() {
+        // die all boss
         List<Player> bossDie = new ArrayList<>();
         for (Zone zone : zones) {
             bossDie.addAll(zone.getBosses());
@@ -117,5 +117,10 @@ public class BanDoKhoBau {
         for (Player pl : this.clan.membersInGame) {
             ItemTimeService.gI().removeTextbdkb(pl);
         }
+    }
+
+    public void dispose() {
+        this.player = null;
+        this.clan = null;
     }
 }

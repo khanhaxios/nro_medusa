@@ -19,7 +19,7 @@ public class SanGiaoDichService {
     }
 
     public void createGiaoDichForm(Player player) {
-        Input.SubInput[] subInputs = new Input.SubInput[]{new Input.SubInput("Nhập vào mã giao dịch", Input.ANY), new Input.SubInput("Nhập vào id  người cần giao dịch", Input.NUMERIC), new Input.SubInput("Nhập vào id vật phẩm cần giao dịch", Input.NUMERIC), new Input.SubInput("Nhập vào số lượng cần giao dịch", Input.NUMERIC), new Input.SubInput("Nhập vào giá ( điểm nạp )", Input.NUMERIC)};
+        Input.SubInput[] subInputs = new Input.SubInput[]{new Input.SubInput("Nhập vào mã giao dịch", Input.ANY), new Input.SubInput("Nhập vào id  người cần giao dịch", Input.NUMERIC), new Input.SubInput("Nhập vào id vật phẩm cần giao dịch", Input.NUMERIC), new Input.SubInput("Nhập vào số lượng cần giao dịch", Input.NUMERIC)};
         Input.gI().createForm(player, Input.CREATE_GIAO_DICH, "Tạo giao dịch mới", subInputs);
     }
 
@@ -59,7 +59,7 @@ public class SanGiaoDichService {
         }
         // find Dan Duoc
         ITransaction iTransaction = null;
-        iTransaction = player.luyenDanSu.tuiDanDuoc.takeDanDuoc(idItem, slItem);
+        iTransaction = player.luyenDanSu.tuiDanDuoc.takeDanDuocSplit(idItem, slItem);
         if (iTransaction == null) {
             //find dan phuong
             iTransaction = player.luyenDanSu.tuiDanPhuong.takeDanPhuong(idItem);
@@ -70,6 +70,7 @@ public class SanGiaoDichService {
         }
         Transaction transaction = new Transaction(player, playerAccept, 86_400_000, maGiaoDich);
         transaction.addItems(iTransaction);
+        diemNap = 1000;
         transaction.totalPrice = diemNap;
         SanGiaoDichDanDuoc.getI().addTransaction(transaction);
         Service.gI().sendThongBao(player, "Tạo giao dịch thành công , bạn có thể xem ở danh sách giao dịch");
@@ -114,7 +115,7 @@ public class SanGiaoDichService {
 
     public void createDatVatPhamGiaoDichForm(Player player) {
         Input.SubInput[] subInputs = new Input.SubInput[]{new Input.SubInput("Nhập vào mã giao dịch", Input.ANY), new Input.SubInput("Nhập vào id vật phẩm cần giao dịch", Input.NUMERIC), new Input.SubInput("Nhập vào số lượng cần giao dịch", Input.NUMERIC),};
-        Input.gI().createForm(player, Input.DAT_VAT_PHAM_VAO_GD, "Tạo giao dịch mới", subInputs);
+        Input.gI().createForm(player, Input.DAT_VAT_PHAM_VAO_GD, "Đặt vật phẩm vào giao dịch", subInputs);
     }
 
     public void datVatPhamVaoGiaoDich(String gdd, int idItem, int slItem, Player player) {
@@ -127,7 +128,6 @@ public class SanGiaoDichService {
             Service.gI().sendThongBao(player, "Bạn không có quyền xem giao dịch này");
             return;
         }
-
         // take item by id
         if (!player.luyenDanSu.isLuyenDan()) {
             Service.gI().sendThongBao(player, "Bạn chưa mở luyện đan");
@@ -148,8 +148,16 @@ public class SanGiaoDichService {
             Service.gI().sendThongBaoOK(player, "Không tìm thấy đan phương hoặc đan dược có id [" + idItem + "]");
             return;
         }
-        // add item vô
-        transaction.addItemsReceived(iTransaction);
+        int diemNap = slItem * 100;
+        if (player.id == transaction.playerAccept.id) {
+            transaction.addItemsReceived(iTransaction);
+        } else if (player.id == transaction.playerRequest.id) {
+            transaction.addItems(iTransaction);
+        } else {
+            Service.gI().sendThongBao(player, "Bạn không có quyền đặt vật phẩm");
+            return;
+        }
+        transaction.totalPrice += diemNap;
         Service.gI().sendThongBao(player, "Đặt vật phẩm vào thành công");
         transaction.showBaseMenu(player);
     }

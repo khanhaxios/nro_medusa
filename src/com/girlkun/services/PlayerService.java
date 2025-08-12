@@ -311,6 +311,7 @@ public class PlayerService {
     public void hoiSinh(Player player) {
         if (player.isDie()) {
             boolean canHs = false;
+            long gemHs = COST_GEM_HOI_SINH;
             if (MapService.gI().isMapBlackBallWar(player.zone.map.mapId)) {
                 if (player.inventory.gold >= COST_GOLD_HOI_SINH_NRSD) {
                     player.inventory.gold -= COST_GOLD_HOI_SINH_NRSD;
@@ -321,15 +322,14 @@ public class PlayerService {
                 }
             } else {
                 if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId) || MapService.gI().isMapDoanhTrai(player.zone.map.mapId)) {
-                    Service.gI().sendThongBao(player, "Không thể hồi sinh trong map này");
+                    gemHs *= 10;
+                }
+                if (player.inventory.ruby >= gemHs) {
+                    player.inventory.ruby -= gemHs;
+                    canHs = true;
                 } else {
-                    if (player.inventory.ruby >= COST_GEM_HOI_SINH) {
-                        player.inventory.ruby -= COST_GEM_HOI_SINH;
-                        canHs = true;
-                    } else {
-                        Service.getInstance().sendThongBao(player, "Không đủ hồng ngọc để thực hiện, còn thiếu " + Util.numberToMoney(COST_GEM_HOI_SINH - player.inventory.ruby) + " hồng ngọc");
-                        return;
-                    }
+                    Service.getInstance().sendThongBao(player, "Không đủ hồng ngọc để thực hiện, còn thiếu " + Util.numberToMoney(gemHs - player.inventory.ruby) + " hồng ngọc");
+                    return;
                 }
             }
             if (canHs) {
