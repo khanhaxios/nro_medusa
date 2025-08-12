@@ -120,6 +120,7 @@ public class BanDoKhoBau {
     }
 
     public void dispose() {
+        this.isOpened = false;
         this.player = null;
         this.clan = null;
     }

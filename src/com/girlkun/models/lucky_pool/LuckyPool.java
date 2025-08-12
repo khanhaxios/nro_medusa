@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LuckyPool {
-    public int TYPE_LEAGUE = 30;
+    public int TYPE_LEAGUE = 20;
     public int TYPE_EPIC = 5;
     public static int[] OPTION_LEAGUE = new int[]{45, 49, 77, 103, 5, 50};
     public static int[] OPTION_EPIC = new int[]{45, 49, 77, 103, 5, 50};
@@ -104,7 +104,7 @@ public class LuckyPool {
                 .collect(Collectors.toList());
         luckyPoolEpicItems = Manager.ITEM_TEMPLATES.stream().filter(it -> it.type == 5 || it.type == 72 || it.type == 23 || it.type == 24).map(it -> it.id) // only get id
                 .collect(Collectors.toList());
-        luckyPoolLeagueItems = Manager.ITEM_TEMPLATES.stream().filter(it -> it.type < 5 || it.type == 32).map(it -> it.id) // only get id
+        luckyPoolLeagueItems = Manager.ITEM_TEMPLATES.stream().filter(it -> it.type == 32).map(it -> it.id) // only get id
                 .collect(Collectors.toList());
         luckyPoolSpecialItem = Arrays.asList(211, 380, 457, 542, 668, 573, 674, 1232, 1233, 1234, 2003, 2004, 2005);
     }

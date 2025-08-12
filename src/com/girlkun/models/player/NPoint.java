@@ -2561,14 +2561,8 @@ public class NPoint {
                 PlayerService.gI().hoiPhuc(this.player, hpHoi, mpHoi);
                 this.lastTimeHoiPhuc = System.currentTimeMillis();
             }
-            if (Util.canDoWithTime(lastTimeHoiStamina, 30000) && this.stamina < this.maxStamina) {
-                if (player.luyenThe.isLuyenTheReal()) {
-                    stamina += 5;
-                } else if (player.tuMa.isTuMa()) {
-                    stamina += 2;
-                } else {
-                    stamina++;
-                }
+            if (Util.canDoWithTime(lastTimeHoiStamina, 60000) && this.stamina < this.maxStamina) {
+                stamina++;
                 this.lastTimeHoiStamina = System.currentTimeMillis();
                 if (!this.player.isBoss && !this.player.isPet && !this.player.isDaoLu && !this.player.isTrieuhoipet) {
                     PlayerService.gI().sendCurrentStamina(this.player);

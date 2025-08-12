@@ -1523,11 +1523,11 @@ public class Service {
             player.tuMa.showBaseMenu();
             return;
         }
-        if (text.equals("sgd")) {
-            if (Manager.sanGiaoDichBuaZeno != null) {
-                Manager.sanGiaoDichBuaZeno.showInfo(player);
-            }
-        }
+//        if (text.equals("sgd")) {
+////            if (Manager.sanGiaoDichBuaZeno != null) {
+////                Manager.sanGiaoDichBuaZeno.showInfo(player);
+////            }
+//        }
         if (text.equals("tthm")) {
             NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHON_HM, -1, "|7|Huyết Mạch\n" + "|5|Huyết mạch giúp bạn tăng mạnh chỉ số và buff đặc biệt", "Huyết", "Mạch");
             return;

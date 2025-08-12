@@ -46,6 +46,7 @@ public class BanDoKhoBauService {
                 && player.clan.timeOpenbdkb != 0) {
             if (Util.canDoWithTime(player.clan.timeOpenbdkb, TIME_KHI_BAN_DO_KHO_BAU)) {
                 ketthucbdkb(player);
+                return;
             }
             if (this.timeoutmap > 0 && player.isPl() && player.clan.banDoKhoBau != null
                     && player.clan.timeOpenbdkb != 0) {
