@@ -91,9 +91,6 @@ public class Zone {
         }
     }
 
-    public static boolean isHoaBinh;
-
-    private boolean cachedHoaBinh;
 
     private void udPlayer() {
         synchronized (this.notBosses) {

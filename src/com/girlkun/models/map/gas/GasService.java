@@ -40,7 +40,7 @@ public class GasService {
         if (player.zone == null || !MapService.gI().isMapKhiGas(player.zone.map.mapId)) {
             return;
         }
-        if (player.isPl() == true && player.clan.khiGas != null
+        if (player.isPl() && player.clan.khiGas != null
                 && player.clan.timeOpenKhiGas != 0){
             if(Util.canDoWithTime(player.clan.timeOpenKhiGas, TIME_KHI_GAS)){
                 ketthucGas(player);

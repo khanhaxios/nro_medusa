@@ -407,7 +407,7 @@ public class Player {
     public void update() {
         if (!this.beforeDispose) {
             try {
-                if (!iDMark.isBan()) {
+                if (iDMark != null && !iDMark.isBan()) {
                     if (tuTien != null) {
                         tuTien.update();
                     }
@@ -583,28 +583,28 @@ public class Player {
                         }
                     }
 
-                    Iterator<ItemKyGui> iterator = ShopKyGuiManager.gI().listItem.iterator();
-                    while (iterator.hasNext()) {
-                        ItemKyGui it = iterator.next();
-                        if (it != null && it.isBuy == false && it.player_sell == this.id && this.session != null && it.thoigian <= System.currentTimeMillis() - 172800000) {
-
-                            if (InventoryServiceNew.gI().getCountEmptyBag(this) < countit) {
-                                Service.getInstance().sendThongBao(this, "Hành trang không đủ chỗ trống để hoàn trả vật phẩm kí gửi");
-                            } else {
-                                Item item = ItemService.gI().createNewItem(it.itemId);
-                                item.quantity = it.quantity;
-                                item.itemOptions.addAll(it.options);
-
-                                // Remove the current item using the iterator
-                                iterator.remove();
-
-                                InventoryServiceNew.gI().addItemBag(this, item);
-                                InventoryServiceNew.gI().sendItemBags(this);
-                                Service.getInstance().sendMoney(this);
-                                Service.getInstance().sendThongBao(this, "Vật phẩm kí đã quá 2 ngày. Vật phẩm đã được hoàn trả");
-                            }
-                        }
-                    }
+//                    Iterator<ItemKyGui> iterator = ShopKyGuiManager.gI().listItem.iterator();
+//                    while (iterator.hasNext()) {
+//                        ItemKyGui it = iterator.next();
+//                        if (it != null && it.isBuy == false && it.player_sell == this.id && this.session != null && it.thoigian <= System.currentTimeMillis() - 172800000) {
+//
+//                            if (InventoryServiceNew.gI().getCountEmptyBag(this) < countit) {
+//                                Service.getInstance().sendThongBao(this, "Hành trang không đủ chỗ trống để hoàn trả vật phẩm kí gửi");
+//                            } else {
+//                                Item item = ItemService.gI().createNewItem(it.itemId);
+//                                item.quantity = it.quantity;
+//                                item.itemOptions.addAll(it.options);
+//
+//                                // Remove the current item using the iterator
+//                                iterator.remove();
+//
+//                                InventoryServiceNew.gI().addItemBag(this, item);
+//                                InventoryServiceNew.gI().sendItemBags(this);
+//                                Service.getInstance().sendMoney(this);
+//                                Service.getInstance().sendThongBao(this, "Vật phẩm kí đã quá 2 ngày. Vật phẩm đã được hoàn trả");
+//                            }
+//                        }
+//                    }
                 }
                 //////////////////////////////////////////////////////////////////////////////////////////
                 if (this.isPl() && !this.beforeDispose && Util.canDoWithTime(lastTimeSavePlayer, TIME_AUTO_SAVE)) {
@@ -617,7 +617,7 @@ public class Player {
                 }
             } catch (Exception e) {
                 e.getStackTrace();
-                Logger.logException(Player.class, e, "Lỗi tại player: " + this.name);
+                Logger.logException(Player.class, e, "Lỗi tại player: " + this.id);
             }
         }
     }
