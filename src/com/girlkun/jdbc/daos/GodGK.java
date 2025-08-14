@@ -1103,7 +1103,7 @@ public class GodGK {
                             player.luyenDanSu.level = Byte.parseByte(jsonArray.get(0).toString());
                             player.luyenDanSu.exp = Long.parseLong(jsonArray.get(1).toString());
                             player.luyenDanSu.maxExp = Long.parseLong(jsonArray.get(2).toString());
-                            player.luyenDanSu.tongDanDuocDaAn = Byte.parseByte(jsonArray.get(3).toString());
+                            player.luyenDanSu.tongDanDuocDaAn = Integer.parseInt(jsonArray.get(3).toString());
                             player.luyenDanSu.diemKhangTinh = Integer.parseInt(jsonArray.get(4).toString());
 
                             JSONArray tuiDanDuoc = (JSONArray) jsonArray.get(5);  // Vị trí này có thể thay đổi tùy theo cách lưu trữ trong database

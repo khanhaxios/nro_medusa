@@ -924,7 +924,7 @@ public class Service {
             if (text.equals("testbt")) {
                 LocalTime now = LocalTime.now();
                 AutoMaintenance.HOUR = now.getHour();
-                AutoMaintenance.MINUTE = now.getMinute() - 1;
+                AutoMaintenance.MINUTE = now.getMinute();
                 return;
             }
             if (text.startsWith("bufftm ")) {

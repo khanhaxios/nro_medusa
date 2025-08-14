@@ -25,7 +25,9 @@ public class AutoMaintenance implements Runnable {
         while (!Maintenance.isRuning && !isRunning) {
             try {
                 LocalTime now = LocalTime.now();
+                Logger.log("Time : " + now.getHour() + ":" + now.getMinute() + " time mt : " + HOUR + ":" + MINUTE);
                 if (now.getHour() == HOUR && now.getMinute() == MINUTE) {
+                    Logger.log("Start auto maintenance");
                     Maintenance.gI().start(60);
                     isRunning = true;
                 }
