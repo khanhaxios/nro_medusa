@@ -475,7 +475,7 @@ public class TuTien extends BasePoint implements IBaseAction {
                     long expAdd = (long) (getXDiemThienPhu() * (BASE_EXP_BUFF[level] + (SUB_LEVEL_EXP[subLevel - 1] / 10))) * Math.max(1, congPhap.phamchat.id + 1);
                     expAdd += expAdd * player.nPoint.xTuVi / 100;
                     addExp(expAdd * Math.max(1, xParam));
-                    PlayerService.gI().sendTuTienAddTuVi(player, expAdd);
+//                    PlayerService.gI().sendTuTienAddTuVi(player, expAdd);
                     PlayerService.gI().sendTuTienTuVi(player);
                     lastTimeAddExp = System.currentTimeMillis();
                 }

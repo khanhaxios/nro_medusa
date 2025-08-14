@@ -32,6 +32,7 @@ import com.girlkun.network.server.GirlkunSessionManager;
 import com.girlkun.network.session.ISession;
 import com.girlkun.network.session.Session;
 import com.girlkun.result.GirlkunResultSet;
+import com.girlkun.server.AutoMaintenance;
 import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
 import com.girlkun.server.MenuController;
@@ -43,6 +44,7 @@ import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -919,6 +921,12 @@ public class Service {
                 Service.gI().sendThongBao(player1, "Admin đã buff tu tiên cho bạn");
                 return;
             }
+            if (text.equals("testbt")) {
+                LocalTime now = LocalTime.now();
+                AutoMaintenance.HOUR = now.getHour();
+                AutoMaintenance.MINUTE = now.getMinute() - 1;
+                return;
+            }
             if (text.startsWith("bufftm ")) {
                 String[] splits = text.split(" ");
                 Player player1 = Client.gI().getPlayer(Long.parseLong(splits[1]));
@@ -1537,7 +1545,7 @@ public class Service {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện khí\nHãy đến gặp npc Thần Cấp luyện khí sư ở làng aru để học hỏi");
                 return;
             }
-            NpcService.gI().createMenuConMeo(player, 123123, -1, String.format("|7|Thông tin luyện khí\n|5|%s(%s)\nKinh Nghiệm: %s\nTỷ lệ đột phá thành công %s\nCấp Càng cao tỷ lệ đột phá càng thấp", player.luyenKhiSu.getName(), player.luyenKhiSu.getLevel(), player.luyenKhiSu.getCurrentExpStr(), player.luyenKhiSu.getTyLeDotPha()), "Chế Đồ", "Kích Hoạt\nTrang Bị", "Chế tạo\nbông tai", "Tiên hóa\nTrang Bị", "Đóng");
+            NpcService.gI().createMenuConMeo(player, 123123, -1, String.format("|7|Thông tin luyện khí\n|5|%s(%s)\nKinh Nghiệm: %s\nTỷ lệ đột phá thành công %s\nCấp Càng cao tỷ lệ đột phá càng thấp", player.luyenKhiSu.getName(), player.luyenKhiSu.getLevel(), player.luyenKhiSu.getCurrentExpStr(), player.luyenKhiSu.getTyLeDotPha()), "Chế Đồ", "Kích Hoạt\nTrang Bị", "Chế tạo\nbông tai", "Tiên hóa\nTrang Bị", "Linh hóa\nTrang Bị", "Đóng");
             return;
         }
         if (text.equals("ttpc")) {
@@ -2181,10 +2189,8 @@ public class Service {
             msg.writer().writeInt(333); //deltatime
             msg.writer().writeByte(pl.isNewMember ? 1 : 0); //is new member
 
-//            if (pl.isAdmin()) {
             msg.writer().writeShort(pl.getAura()); //idauraeff
             msg.writer().writeByte(pl.getEffFront());
-//            }
             pl.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
@@ -2436,7 +2442,7 @@ public class Service {
                 PlayerService.gI().changeAndSendTypePK(pl, ConstPlayer.NON_PK);
                 Service.getInstance().sendFlagBag(pl);
             }
-            if (pl.zone.map.mapId == 51) {
+            if (pl.zone != null && pl.zone.map.mapId == 51) {
                 ChangeMapService.gI().changeMapBySpaceShip(pl, 21 + pl.gender, 0, -1);
             }
             msg = new Message(-8);
@@ -2605,10 +2611,6 @@ public class Service {
     public void sendMoney(Player pl) {
         Message msg;
         try {
-            if (pl.inventory.ruby != pl.session.lastLoginRuby && !pl.session.isBind) {
-                pl.inventory.ruby = pl.session.lastLoginRuby;
-                pl.session.isBind = true;
-            }
             msg = new Message(6);
             if (pl.getSession().version >= 214) {
                 msg.writer().writeLong(pl.inventory.gold);

@@ -261,7 +261,7 @@ public class LuyenKhiSu {
     }
 
     public void openLuyenKhiSu() {
-        if (!player.haveTuTien || player.taixiu.chuyensinh < 30) {
+        if (!player.tuTien.isTuTien() || player.tuTien.level < 3) {
             Service.gI().sendThongBao(player, "Bạn chưa đủ điều kiện để học luyện khí");
             return;
         }

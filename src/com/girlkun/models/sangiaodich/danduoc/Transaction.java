@@ -52,7 +52,7 @@ public class Transaction {
         if (isPlayerRequestLock && isPlayerAcceptLock) {
             return 1; // Đã hoàn tất
         }
-        if (System.currentTimeMillis() - lastTimeCreated > timeWaitGiaoDich) {
+        if (Util.canDoWithTime(lastTimeCreated, timeWaitGiaoDich)) {
             return 2; // Hết thời gian, huỷ
         }
         return 0; // Đang chờ
@@ -174,12 +174,11 @@ public class Transaction {
     }
 
     private void destroyTransaction() {
-        this.lastTimeCreated = System.currentTimeMillis() + timeWaitGiaoDich;
+        this.lastTimeCreated += timeWaitGiaoDich;
         this.isPlayerAcceptLock = false;
         this.isPlayerRequestLock = false;
         PlayerDAO.subvnd(playerRequest, (int) totalPrice, true);
         this.dispose();
-        // remove this self
     }
 
     public boolean canRemoveGiaoDich() {

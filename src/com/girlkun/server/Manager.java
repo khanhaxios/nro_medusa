@@ -14,12 +14,16 @@ import com.girlkun.models.clan.ClanMember;
 import com.girlkun.models.intrinsic.Intrinsic;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.WayPoint;
+import com.girlkun.models.map.Zone;
 import com.girlkun.models.matches.TOP;
 import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.npc.NpcFactory;
-import com.girlkun.models.player.*;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
+import com.girlkun.models.player.Player;
+import com.girlkun.models.player.Referee;
+import com.girlkun.models.player.Referee1;
+import com.girlkun.models.player.TestDame;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tuma.TuMaTemplate;
 import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
@@ -77,8 +81,7 @@ public class Manager {
     public static byte RATE_EXP_SERVER = 10;
     public static boolean LOCAL = false;
     public static byte SUKIEN = 0;// sau khi chinh
-    public static final String[] CONTENT_SUKIEN
-            = new String[]{"Không có sự kiện nào", "Sự kiện Trung Thu", "Sự kiện Hè", "Sự kiện Tết", "Sự kiện Valentine", "Sự kiện Giỗ Tổ", "Sự kiện Giáng Sinh", "Sự kiện Halloween"};
+    public static final String[] CONTENT_SUKIEN = new String[]{"Không có sự kiện nào", "Sự kiện Trung Thu", "Sự kiện Hè", "Sự kiện Tết", "Sự kiện Valentine", "Sự kiện Giỗ Tổ", "Sự kiện Giáng Sinh", "Sự kiện Halloween"};
     public static short KHUYEN_MAI_NAP = 1;
     public static Player medusa;
 
@@ -112,27 +115,11 @@ public class Manager {
     public static final List<String> NOTIFY = new ArrayList<>();
     public static final ArrayList<DaiHoiVoThuat> LIST_DHVT = new ArrayList<>();
     public static final List<Item> RUBY_REWARDS = new ArrayList<>();
-    public static final String queryTopSM = "SELECT id, \n"
-            + "       CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(data_point, ',', 2), ',', -1) AS UNSIGNED) AS sm\n"
-            + "FROM player WHERE id NOT IN (SELECT id FROM account WHERE is_admin = 1)\n"
-            + "ORDER BY sm DESC\n"
-            + "LIMIT 20;";
-    public static final String queryTopSD = "SELECT id, \n"
-            + "       CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(data_point, ',', 8), ',', -1) AS UNSIGNED) AS sd\n"
-            + "FROM player WHERE id NOT IN (SELECT id FROM account WHERE is_admin = 1)\n"
-            + "ORDER BY sd DESC\n"
-            + "LIMIT 20;";
-    public static final String queryTopHP = "SELECT id, \n"
-            + "       CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(data_point, ',', 6), ',', -1) AS UNSIGNED) AS hp\n"
-            + "FROM player WHERE id NOT IN (SELECT id FROM account WHERE is_admin = 1)\n"
-            + "ORDER BY hp DESC\n"
-            + "LIMIT 20;";
+    public static final String queryTopSM = "SELECT id, \n" + "       CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(data_point, ',', 2), ',', -1) AS UNSIGNED) AS sm\n" + "FROM player WHERE id NOT IN (SELECT id FROM account WHERE is_admin = 1)\n" + "ORDER BY sm DESC\n" + "LIMIT 20;";
+    public static final String queryTopSD = "SELECT id, \n" + "       CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(data_point, ',', 8), ',', -1) AS UNSIGNED) AS sd\n" + "FROM player WHERE id NOT IN (SELECT id FROM account WHERE is_admin = 1)\n" + "ORDER BY sd DESC\n" + "LIMIT 20;";
+    public static final String queryTopHP = "SELECT id, \n" + "       CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(data_point, ',', 6), ',', -1) AS UNSIGNED) AS hp\n" + "FROM player WHERE id NOT IN (SELECT id FROM account WHERE is_admin = 1)\n" + "ORDER BY hp DESC\n" + "LIMIT 20;";
     public static final String queryTopKI = "SELECT id, CAST( split_str(data_point,',',7) AS UNSIGNED) AS ki FROM player WHERE id NOT IN (SELECT id FROM account WHERE is_admin = 1) ORDER BY CAST( split_str(data_point,',',7)  AS UNSIGNED) DESC LIMIT 20;";
-    public static final String queryTopNV = "SELECT id, CAST(SPLIT_STR(SPLIT_STR(data_task, ',', 1), '[', 2) AS UNSIGNED) AS nv\n"
-            + "FROM player WHERE id NOT IN (SELECT id FROM account WHERE is_admin = 1) ORDER BY "
-            + " CAST(SPLIT_STR(SPLIT_STR(data_task, ',', 1), '[', 2) AS UNSIGNED) DESC,"
-            + " CAST(SPLIT_STR(data_task, ',', 2) AS UNSIGNED) DESC,"
-            + " CAST(SPLIT_STR(data_point, ',', 2) AS UNSIGNED) DESC LIMIT 50;";
+    public static final String queryTopNV = "SELECT id, CAST(SPLIT_STR(SPLIT_STR(data_task, ',', 1), '[', 2) AS UNSIGNED) AS nv\n" + "FROM player WHERE id NOT IN (SELECT id FROM account WHERE is_admin = 1) ORDER BY " + " CAST(SPLIT_STR(SPLIT_STR(data_task, ',', 1), '[', 2) AS UNSIGNED) DESC," + " CAST(SPLIT_STR(data_task, ',', 2) AS UNSIGNED) DESC," + " CAST(SPLIT_STR(data_point, ',', 2) AS UNSIGNED) DESC LIMIT 50;";
     public static final String querytopSB = "SELECT id, CAST( split_str( data_inventory,',',5)  AS UNSIGNED) AS event FROM player WHERE id NOT IN (SELECT id FROM account WHERE is_admin = 1) ORDER BY CAST( split_str( data_inventory,',',5)  AS UNSIGNED) DESC LIMIT 20;";
     public static final String querytopSK = "SELECT id, CAST( split_str( data_inventory,',',4)  AS UNSIGNED) AS event FROM player WHERE id NOT IN (SELECT id FROM account WHERE is_admin = 1) ORDER BY CAST( split_str( data_inventory,',',4)  AS UNSIGNED) DESC LIMIT 20;";
     public static final String QUERY_TOP_SK_SAN_MA = "SELECT id, eventColumn FROM (SELECT player.id, CAST(JSON_EXTRACT(data_inventory, '$[5]') AS UNSIGNED) AS eventColumn FROM player JOIN account ON player.account_id = account.id WHERE account.id NOT IN (SELECT id FROM account WHERE is_admin = 1)) AS subquery WHERE eventColumn IS NOT NULL ORDER BY eventColumn DESC LIMIT 20;";
@@ -146,43 +133,9 @@ public class Manager {
 
     public static final String QUERY_TOP_LUYEN_THE = "SELECT id,player_id, CAST(TRIM(BOTH '[' FROM SUBSTRING_INDEX(data_luyen_the, ',', 1)) AS UNSIGNED) AS sm FROM tu_tien WHERE player_id NOT IN (SELECT p.id FROM player p JOIN account a ON p.account_id = a.id WHERE a.is_admin = 1) ORDER BY sm DESC LIMIT 20";
 
-    public static final String QUERY_TOP_TU_TIEN = "SELECT \n" +
-            "    id,player_id,\n" +
-            "    CAST(\n" +
-            "        SUBSTRING_INDEX(\n" +
-            "            SUBSTRING_INDEX(data_tu_tien, ',', 1),\n" +
-            "            '[[',\n" +
-            "            -1\n" +
-            "        ) AS UNSIGNED\n" +
-            "    ) AS sm\n" +
-            "FROM tu_tien\n" +
-            "WHERE player_id NOT IN (\n" +
-            "    SELECT p.id\n" +
-            "    FROM player p\n" +
-            "    JOIN account a ON p.account_id = a.id\n" +
-            "    WHERE a.is_admin = 1\n" +
-            ")\n" +
-            "ORDER BY sm DESC\n" +
-            "LIMIT 20;\n";
+    public static final String QUERY_TOP_TU_TIEN = "SELECT \n" + "    id,player_id,\n" + "    CAST(\n" + "        SUBSTRING_INDEX(\n" + "            SUBSTRING_INDEX(data_tu_tien, ',', 1),\n" + "            '[[',\n" + "            -1\n" + "        ) AS UNSIGNED\n" + "    ) AS sm\n" + "FROM tu_tien\n" + "WHERE player_id NOT IN (\n" + "    SELECT p.id\n" + "    FROM player p\n" + "    JOIN account a ON p.account_id = a.id\n" + "    WHERE a.is_admin = 1\n" + ")\n" + "ORDER BY sm DESC\n" + "LIMIT 20;\n";
 
-    public static final String QUERY_TOP_TU_MA = "SELECT \n" +
-            "    id,player_id,\n" +
-            "    CAST(\n" +
-            "        SUBSTRING_INDEX(\n" +
-            "            SUBSTRING_INDEX(data_tu_ma, ',', 1),\n" +
-            "            '[[',\n" +
-            "            -1\n" +
-            "        ) AS UNSIGNED\n" +
-            "    ) AS sm\n" +
-            "FROM tu_tien\n" +
-            "WHERE player_id NOT IN (\n" +
-            "    SELECT p.id\n" +
-            "    FROM player p\n" +
-            "    JOIN account a ON p.account_id = a.id\n" +
-            "    WHERE a.is_admin = 1\n" +
-            ")\n" +
-            "ORDER BY sm DESC\n" +
-            "LIMIT 20;\n";
+    public static final String QUERY_TOP_TU_MA = "SELECT \n" + "    id,player_id,\n" + "    CAST(\n" + "        SUBSTRING_INDEX(\n" + "            SUBSTRING_INDEX(data_tu_ma, ',', 1),\n" + "            '[[',\n" + "            -1\n" + "        ) AS UNSIGNED\n" + "    ) AS sm\n" + "FROM tu_tien\n" + "WHERE player_id NOT IN (\n" + "    SELECT p.id\n" + "    FROM player p\n" + "    JOIN account a ON p.account_id = a.id\n" + "    WHERE a.is_admin = 1\n" + ")\n" + "ORDER BY sm DESC\n" + "LIMIT 20;\n";
 
     public static List<TOP> topTuTien;
     public static List<TOP> topTuMa;
@@ -312,34 +265,20 @@ public class Manager {
     }
 
     public void loadCaiTrang() {
-        LIST_CAI_TRANG_ID = ITEM_TEMPLATES.stream()
-                .filter(t -> t.type == 5 && t.part == -1)
-                .mapToInt(t -> t.id)
-                .mapToObj(i -> (short) i)
-                .collect(Collectors.collectingAndThen(
-                        Collectors.toList(),
-                        list -> {
-                            short[] arr = new short[list.size()];
-                            for (int i = 0; i < list.size(); i++) {
-                                arr[i] = list.get(i);
-                            }
-                            return arr;
-                        }
-                ));
-        LIST_LINH_THU_ID = ITEM_TEMPLATES.stream()
-                .filter(t -> t.type == 72 && t.part == -1)
-                .mapToInt(t -> t.id)
-                .mapToObj(i -> (short) i)
-                .collect(Collectors.collectingAndThen(
-                        Collectors.toList(),
-                        list -> {
-                            short[] arr = new short[list.size()];
-                            for (int i = 0; i < list.size(); i++) {
-                                arr[i] = list.get(i);
-                            }
-                            return arr;
-                        }
-                ));
+        LIST_CAI_TRANG_ID = ITEM_TEMPLATES.stream().filter(t -> t.type == 5 && t.part == -1).mapToInt(t -> t.id).mapToObj(i -> (short) i).collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
+            short[] arr = new short[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                arr[i] = list.get(i);
+            }
+            return arr;
+        }));
+        LIST_LINH_THU_ID = ITEM_TEMPLATES.stream().filter(t -> t.type == 72 && t.part == -1).mapToInt(t -> t.id).mapToObj(i -> (short) i).collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
+            short[] arr = new short[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                arr[i] = list.get(i);
+            }
+            return arr;
+        }));
 
     }
 
@@ -381,36 +320,117 @@ public class Manager {
         return tops;
     }
 
+    private static final int MAPS_PER_THREAD = 20; // Số map tối đa mỗi thread xử lý
+
     private void initMap() {
         int[][] tileTyleTop = readTileIndexTileType(ConstMap.TILE_TOP);
         for (MapTemplate mapTemp : MAP_TEMPLATES) {
             int[][] tileMap = readTileMap(mapTemp.id);
             int[] tileTop = tileTyleTop[mapTemp.tileId - 1];
-            com.girlkun.models.map.Map map = new com.girlkun.models.map.Map(mapTemp.id,
-                    mapTemp.name, mapTemp.planetId, mapTemp.tileId, mapTemp.bgId,
-                    mapTemp.bgType, mapTemp.type, tileMap, tileTop,
-                    mapTemp.zones,
-                    mapTemp.maxPlayerPerZone, mapTemp.wayPoints);
+            com.girlkun.models.map.Map map = new com.girlkun.models.map.Map(mapTemp.id, mapTemp.name, mapTemp.planetId, mapTemp.tileId, mapTemp.bgId, mapTemp.bgType, mapTemp.type, tileMap, tileTop, mapTemp.zones, mapTemp.maxPlayerPerZone, mapTemp.wayPoints);
             MAPS.add(map);
             map.initMob(mapTemp.mobTemp, mapTemp.mobLevel, mapTemp.mobHp, mapTemp.mobX, mapTemp.mobY);
             map.initNpc(mapTemp.npcId, mapTemp.npcX, mapTemp.npcY);
-            new Thread(map, "Update map " + map.mapName).start();
         }
 
+        // Chia map thành từng nhóm
+        int totalMaps = MAPS.size();
+        int numThreads = (int) Math.ceil((double) totalMaps / MAPS_PER_THREAD);
+
+        for (int t = 0; t < numThreads; t++) {
+            int start = t * MAPS_PER_THREAD;
+            int end = Math.min(start + MAPS_PER_THREAD, totalMaps);
+            List<com.girlkun.models.map.Map> mapGroup = MAPS.subList(start, end);
+            new Thread(() -> {
+                while (!Maintenance.isRuning) {
+                    try {
+                        long st = System.currentTimeMillis();
+                        for (com.girlkun.models.map.Map map : mapGroup) {
+                            try {
+                                // Skip nếu map không có người → tiết kiệm CPU
+                                if (!map.hasPlayersInAnyZone()) continue;
+
+                                for (Zone zone : map.zones) {
+                                    zone.update();
+                                }
+                            } catch (Exception e) {
+                                Logger.logException(Map.class, e, "Lỗi update map " + map.mapName);
+                            }
+                        }
+                        long timeDo = System.currentTimeMillis() - st;
+                        long timeSleep = 1000 - timeDo;
+                        if (timeSleep > 0) {
+                            Thread.sleep(timeSleep);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, "MapUpdater-" + (t + 1)).start();
+        }
         Referee r = new Referee();
         r.initReferee();
-
         Referee1 r1 = new Referee1();
         r1.initReferee1();
-
         TestDame r2 = new TestDame();
         r2.initTestDame();
-
-        MedusaNPC medusaNPC = new MedusaNPC();
-        medusaNPC.initMedusaNPC();
-
-        Logger.success("Init map thành công!\n");
+//        MedusaNPC medusaNPC = new MedusaNPC();
+//        medusaNPC.initMedusaNPC();
+        Logger.success("Init map thành công với " + numThreads + " thread update!\n");
     }
+
+//    private void initMap() {
+//        int[][] tileTyleTop = readTileIndexTileType(ConstMap.TILE_TOP);
+//        for (MapTemplate mapTemp : MAP_TEMPLATES) {
+//            int[][] tileMap = readTileMap(mapTemp.id);
+//            int[] tileTop = tileTyleTop[mapTemp.tileId - 1];
+//            com.girlkun.models.map.Map map = new com.girlkun.models.map.Map(mapTemp.id,
+//                    mapTemp.name, mapTemp.planetId, mapTemp.tileId, mapTemp.bgId,
+//                    mapTemp.bgType, mapTemp.type, tileMap, tileTop,
+//                    mapTemp.zones,
+//                    mapTemp.maxPlayerPerZone, mapTemp.wayPoints);
+//            MAPS.add(map);
+//            map.initMob(mapTemp.mobTemp, mapTemp.mobLevel, mapTemp.mobHp, mapTemp.mobX, mapTemp.mobY);
+//            map.initNpc(mapTemp.npcId, mapTemp.npcX, mapTemp.npcY);
+////            new Thread(map, "Update map " + map.mapName).start();
+//        }
+//        new Thread(() -> {
+//            while (!Maintenance.isRuning) {
+//                try {
+//                    long st = System.currentTimeMillis();
+//                    for (com.girlkun.models.map.Map map : MAPS) {
+//                        try {
+//                            for (Zone zone : map.zones) {
+//                                zone.update();
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    long timeDo = System.currentTimeMillis() - st;
+//                    long timeSleep = 1000 - timeDo;
+//                    if (timeSleep > 0) {
+//                        Thread.sleep(timeSleep);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+//        Referee r = new Referee();
+//        r.initReferee();
+//
+//        Referee1 r1 = new Referee1();
+//        r1.initReferee1();
+//
+//        TestDame r2 = new TestDame();
+//        r2.initTestDame();
+//
+//        MedusaNPC medusaNPC = new MedusaNPC();
+//        medusaNPC.initMedusaNPC();
+//
+//        Logger.success("Init map thành công!\n");
+//    }
 
     public static void loadPart() {
         JSONValue jv = new JSONValue();
@@ -430,9 +450,7 @@ public class Manager {
                 dataArray = (JSONArray) jv.parse(rs.getString("data").replaceAll("\\\"", ""));
                 for (int j = 0; j < dataArray.size(); j++) {
                     JSONArray pd = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
-                    part.partDetails.add(new PartDetail(Short.parseShort(String.valueOf(pd.get(0))),
-                            Byte.parseByte(String.valueOf(pd.get(1))),
-                            Byte.parseByte(String.valueOf(pd.get(2)))));
+                    part.partDetails.add(new PartDetail(Short.parseShort(String.valueOf(pd.get(0))), Byte.parseByte(String.valueOf(pd.get(1))), Byte.parseByte(String.valueOf(pd.get(2)))));
                     pd.clear();
                 }
                 parts.add(part);
@@ -475,9 +493,7 @@ public class Manager {
                 dataArray = (JSONArray) jv.parse(rs.getString("data").replaceAll("\\\"", ""));
                 for (int j = 0; j < dataArray.size(); j++) {
                     JSONArray pd = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
-                    part.partDetails.add(new PartDetail(Short.parseShort(String.valueOf(pd.get(0))),
-                            Byte.parseByte(String.valueOf(pd.get(1))),
-                            Byte.parseByte(String.valueOf(pd.get(2)))));
+                    part.partDetails.add(new PartDetail(Short.parseShort(String.valueOf(pd.get(0))), Byte.parseByte(String.valueOf(pd.get(1))), Byte.parseByte(String.valueOf(pd.get(2)))));
                     pd.clear();
                 }
                 parts.add(part);
@@ -623,14 +639,7 @@ public class Manager {
                 skillTemplate.damInfo = rs.getString("dam_info");
                 nClass.skillTemplatess.add(skillTemplate);
 
-                dataArray = (JSONArray) jv.parse(
-                        rs.getString("skills")
-                                .replaceAll("\\[\"", "[")
-                                .replaceAll("\"\\[", "[")
-                                .replaceAll("\"\\]", "]")
-                                .replaceAll("\\]\"", "]")
-                                .replaceAll("\\}\",\"\\{", "},{")
-                );
+                dataArray = (JSONArray) jv.parse(rs.getString("skills").replaceAll("\\[\"", "[").replaceAll("\"\\[", "[").replaceAll("\"\\]", "]").replaceAll("\\]\"", "]").replaceAll("\\}\",\"\\{", "},{"));
                 for (int j = 0; j < dataArray.size(); j++) {
                     JSONObject dts = (JSONObject) jv.parse(String.valueOf(dataArray.get(j)));
                     Skill skill = new Skill();
@@ -712,10 +721,7 @@ public class Manager {
             Logger.success("Load intrinsic thành công (" + INTRINSICS.size() + ")\n");
 
             //load task
-            ps = con.prepareStatement("SELECT id, task_main_template.name, detail, "
-                    + "task_sub_template.name AS 'sub_name', max_count, notify, npc_id, map "
-                    + "FROM task_main_template JOIN task_sub_template ON task_main_template.id = "
-                    + "task_sub_template.task_main_id");
+            ps = con.prepareStatement("SELECT id, task_main_template.name, detail, " + "task_sub_template.name AS 'sub_name', max_count, notify, npc_id, map " + "FROM task_main_template JOIN task_sub_template ON task_main_template.id = " + "task_sub_template.task_main_id");
             rs = ps.executeQuery();
             int taskId = -1;
             TaskMain task = null;
@@ -742,12 +748,7 @@ public class Manager {
             ps = con.prepareStatement("SELECT * FROM achievement");
             rs = ps.executeQuery();
             while (rs.next()) {
-                AchievementTemplate achi = new AchievementTemplate(
-                        rs.getInt("id"),
-                        rs.getString("info1"),
-                        rs.getString("info2"),
-                        rs.getDouble("count_purpose"),
-                        rs.getInt("gem"));
+                AchievementTemplate achi = new AchievementTemplate(rs.getInt("id"), rs.getString("info1"), rs.getString("info2"), rs.getDouble("count_purpose"), rs.getInt("gem"));
                 ACHIEVEMENTS.add(achi);
             }
             Logger.success("Load achievement done (" + ACHIEVEMENTS.size() + ")");
@@ -909,9 +910,7 @@ public class Manager {
                         for (int g = 0; g < mapDrop.length; g++) {
                             mapDrop[g] = Integer.parseInt(arrMap[g]);
                         }
-                        ItemMobReward item = new ItemMobReward(itemId, mapDrop,
-                                new int[]{Integer.parseInt(quantity[0]), Integer.parseInt(quantity[1])},
-                                new int[]{Integer.parseInt(ratio[0]), Integer.parseInt(ratio[1])}, gender);
+                        ItemMobReward item = new ItemMobReward(itemId, mapDrop, new int[]{Integer.parseInt(quantity[0]), Integer.parseInt(quantity[1])}, new int[]{Integer.parseInt(ratio[0]), Integer.parseInt(ratio[1])}, gender);
                         if (item.getTemp().type == 30) { // sao pha lê
                             item.setRatio(new int[]{20, Integer.parseInt(ratio[1])});
                         }
@@ -932,9 +931,7 @@ public class Manager {
                             int optionId = dis.readInt();
                             String[] param = dis.readUTF().split("-");
                             String[] ratioOption = dis.readUTF().split("-");
-                            ItemOptionMobReward option = new ItemOptionMobReward(optionId,
-                                    new int[]{Integer.parseInt(param[0]), Integer.parseInt(param[1])},
-                                    new int[]{Integer.parseInt(ratioOption[0]), Integer.parseInt(ratioOption[1])});
+                            ItemOptionMobReward option = new ItemOptionMobReward(optionId, new int[]{Integer.parseInt(param[0]), Integer.parseInt(param[1])}, new int[]{Integer.parseInt(ratioOption[0]), Integer.parseInt(ratioOption[1])});
                             item.getOption().add(option);
                         }
                     }
@@ -1070,11 +1067,7 @@ public class Manager {
                     mapTemplate.zones = rs.getByte("zones");
                     mapTemplate.maxPlayerPerZone = rs.getByte("max_player");
                     //load waypoints
-                    dataArray = (JSONArray) jv.parse(rs.getString("waypoints")
-                            .replaceAll("\\[\"\\[", "[[")
-                            .replaceAll("\\]\"\\]", "]]")
-                            .replaceAll("\",\"", ",")
-                    );
+                    dataArray = (JSONArray) jv.parse(rs.getString("waypoints").replaceAll("\\[\"\\[", "[[").replaceAll("\\]\"\\]", "]]").replaceAll("\",\"", ","));
                     for (int j = 0; j < dataArray.size(); j++) {
                         WayPoint wp = new WayPoint();
                         JSONArray dtwp = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
@@ -1158,9 +1151,7 @@ public class Manager {
                 for (int i = 0; i < arr.size(); i++) {
                     JSONObject ob = (JSONObject) arr.get(i);
                     if (ob != null) {
-                        rd.Options.add(new OptionCard(Integer.parseInt(ob.get("id").toString()),
-                                Short.parseShort(ob.get("param").toString()),
-                                Byte.parseByte(ob.get("activeCard").toString())));
+                        rd.Options.add(new OptionCard(Integer.parseInt(ob.get("id").toString()), Short.parseShort(ob.get("param").toString()), Byte.parseByte(ob.get("activeCard").toString())));
                     }
                 }
                 rd.Require = rs.getShort("require");

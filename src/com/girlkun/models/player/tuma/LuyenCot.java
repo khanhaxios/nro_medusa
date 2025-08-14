@@ -45,7 +45,10 @@ public class LuyenCot {
     }
 
     public void addManhCot(long value) {
-        slManhCot = Math.min(slManhCot + value, maxSlManhCot);
+        slManhCot += value;
+        if (slManhCot > maxSlManhCot) {
+            slManhCot = maxSlManhCot;
+        }
     }
 
     public void luyenCot() {
@@ -90,6 +93,7 @@ public class LuyenCot {
         float successRate = getTyLeThanhCongDotPha();
         if (!Util.isTrue(successRate, 100)) {
             Service.gI().sendThongBao(player, "Đột phá tầng thất bại!");
+            slManhCot = 0;
             return;
         }
         soTang++;

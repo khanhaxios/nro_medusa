@@ -1137,4 +1137,17 @@ public class InventoryServiceNew {
         }
         return -1;
     }
+
+    public boolean checkHasLinhCanOption(Player plAtt) {
+        boolean has = false;
+        for (Item item : plAtt.inventory.itemsBody) {
+            for (ItemOption itemOption : item.itemOptions) {
+                if (itemOption.optionTemplate.id >= 267 && itemOption.optionTemplate.id <= 275) {
+                    has = true;
+                    break;
+                }
+            }
+        }
+        return has;
+    }
 }

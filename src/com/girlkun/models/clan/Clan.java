@@ -4,24 +4,21 @@ import com.girlkun.database.GirlkunDB;
 import com.girlkun.models.map.bdkb.BanDoKhoBau;
 import com.girlkun.models.map.doanhtrai.DoanhTrai;
 import com.girlkun.models.map.gas.Gas;
-import com.girlkun.services.ClanService;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.girlkun.models.player.Player;
+import com.girlkun.network.io.Message;
 import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
+import com.girlkun.services.ClanService;
 import com.girlkun.services.Service;
-import com.girlkun.network.io.Message;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Clan {
@@ -46,17 +43,18 @@ public class Clan {
     public boolean active;
     public int capsuleClan;
 
-    
-      public long timeOpenbdkb;
+
+    public long timeOpenbdkb;
     public Player playerOpenbdkb;
     public BanDoKhoBau banDoKhoBau;
-    
+    public long timeOutMap;
+
     public long doanhTrai_lastTimeOpen;
     public boolean doanhTrai_haveGone;
     public String doanhTrai_playerOpen;
     public long timeOpenDoanhTrai;
     public DoanhTrai doanhTrai;
-      public long timeOpenKhiGas;
+    public long timeOpenKhiGas;
     public Player playerOpenKhiGas;
     public Gas khiGas;
     public final List<ClanMember> members;
@@ -146,7 +144,7 @@ public class Clan {
             }
             msg.cleanup();
         } catch (Exception e) {
-                System.out.println("        loi clan1");
+            System.out.println("        loi clan1");
         }
     }
 

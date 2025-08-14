@@ -19,8 +19,6 @@ import java.util.List;
 
 @Data
 public class DoanhTrai {
-
-    //bang hội đủ số người mới đc mở
     public static final List<DoanhTrai> DOANH_TRAI;
     public static final int N_PLAYER_CLAN = 10;
     //số người đứng cùng khu
@@ -99,6 +97,7 @@ public class DoanhTrai {
                 mob.point.dame = Util.DoubleGioihang(totalHp / 20f);
                 mob.point.maxHp = Util.DoubleGioihang(totalDame * 20);
                 mob.hoiSinh();
+                mob.sendMobHoiSinh();
             }
         }
 
@@ -144,12 +143,11 @@ public class DoanhTrai {
             if (b != null) {
                 b.leaveMap();
                 BossManager.gI().removeBoss(b);
-                b = null;
             }
         }
-//        this.clan = null;
+        this.clan = null;
         this.bossDoanhTrai.clear();
-//        currentIndexMap = -1;
+        this.currentIndexMap = -1;
     }
 }
 

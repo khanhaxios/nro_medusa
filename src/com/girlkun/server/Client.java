@@ -197,23 +197,18 @@ public class Client implements Runnable {
 
     public void close() {
         Logger.error("BEGIN KICK OUT SESSION.............................." + players.size());
-
-        // Backup: clone danh sách sessions để không bị lỗi ConcurrentModification
         List<MySession> sessionList = new ArrayList<>();
 
         for (MySession session : sessionList) {
             this.kickSession(session);
         }
-
-        // Xử lý nốt danh sách players chưa rõ session
         while (!players.isEmpty()) {
             Player pl = players.remove(0);
             if (pl != null) {
                 this.kickSession(pl.getSession());
             }
         }
-
-        Logger.error("...........................................SUCCESSFUL");
+        Logger.error("SAVE PLAYER...........................................SUCCESSFUL");
     }
 
     public void cloneMySessionNotConnect() {
@@ -251,12 +246,9 @@ public class Client implements Runnable {
         while (ServerManager.isRunning) {
             try {
                 long start = System.currentTimeMillis();
-
                 update(); // hàm xử lý logic
-
                 long elapsed = System.currentTimeMillis() - start;
                 long sleepTime = Math.max(0, 800 - elapsed);
-
                 Thread.sleep(sleepTime);
             } catch (Exception e) {
                 Logger.logException(Client.class, e, "Lỗi Update Client");

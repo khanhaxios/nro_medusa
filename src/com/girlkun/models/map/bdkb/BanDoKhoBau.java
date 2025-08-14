@@ -35,6 +35,7 @@ public class BanDoKhoBau {
 
     public Clan clan;
     public boolean isOpened;
+    public long timeOutMap;
     private long lastTimeOpen;
 
     public BanDoKhoBau(int id) {
@@ -71,28 +72,13 @@ public class BanDoKhoBau {
         for (Zone zone : zones) {
             for (Mob m : zone.mobs) {
                 Mob.initMopbbdkb(m, this.level);
+                m.hoiSinh();
                 m.sendMobHoiSinh();
             }
         }
     }
-
     //kết thúc bản đồ kho báu
-    public void finish() {
-        // die all boss
-        List<Player> bossDie = new ArrayList<>();
-        for (Zone zone : zones) {
-            bossDie.addAll(zone.getBosses());
-        }
-        for (Player player1 : bossDie) {
-            if (player1.isBoss) {
-                player1.injured(null, player1.nPoint.hpMax + 1000, false, false, true);
-            }
-        }
-        this.clan.banDoKhoBau = null;
-        this.clan = null;
-        this.isOpened = false;
-        this.player = null;
-    }
+
 
     public Zone getMapById(int mapId) {
         for (Zone zone : zones) {
@@ -120,6 +106,7 @@ public class BanDoKhoBau {
     }
 
     public void dispose() {
+        // die boss if boss not die
         this.isOpened = false;
         this.player = null;
         this.clan = null;

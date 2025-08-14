@@ -11,7 +11,6 @@ import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
-import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 /**
@@ -31,10 +30,10 @@ public class TrungUyXanhLoBdkb extends Boss {
                 new double[]{((double) ((hp) * level))}, //hp
                 new int[]{137}, //map join
                 new int[][]{
-                        {Skill.GALICK, 5, 5},
+                        {Skill.LIEN_HOAN, 5, 5},
                         {Skill.KAMEJOKO, 7, 12},
-                        {Skill.THAI_DUONG_HA_SAN, 7, 20000},
-                        {Skill.KHIEN_NANG_LUONG, 6, 23},
+//                        {Skill.THAI_DUONG_HA_SAN, 7, 20000},
+//                        {Skill.KHIEN_NANG_LUONG, 6, 23},
                         {Skill.TAI_TAO_NANG_LUONG, 6, 23},
                         {Skill.DE_TRUNG, 6, 23},
                 },
@@ -42,7 +41,7 @@ public class TrungUyXanhLoBdkb extends Boss {
                 new String[]{"|-1|Nhóc con"}, //text chat 2
                 new String[]{"|-1|Ta sẽ tiêu diệt tất cả bang hội ngươi"}, //text chat 3
                 60,
-                (byte) 2,
+                (byte) (level / 100),
                 (byte) 10
         ));
         this.zone = zone;
@@ -98,7 +97,7 @@ public class TrungUyXanhLoBdkb extends Boss {
                     this.location.y - 24), -1);
             Service.getInstance().dropItemMap(this.zone, it);
         }
-        BanDoKhoBauService.gI().timeoutmap = 20;
+        BanDoKhoBauService.gI().setTimeOutMap(plKill, 20);
     }
 
     @Override

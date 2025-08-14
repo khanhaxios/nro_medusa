@@ -25,6 +25,8 @@ public class CombineServiceNew {
     public static final int TIEN_HOA_TRANG_BI = -89721;
     public static final int CO_HOA_TRANG_BI = -1827632;
     public static final int TINH_HOA_TRANG_BI = -1298732;
+    public static final int LINH_HOA_TRANG_BI = -891723;
+    public static final int TAY_LINH_TRANG_BI = -71263;
     private static final int[] TIEN_KHI_OPTIONS_ID = new int[]{254, 255, 256};
     private static final int COST_DOI_VE_DOI_DO_HUY_DIET = 500000000;
     private static final int COST_DAP_DO_KICH_HOAT = 500000000;
@@ -299,6 +301,62 @@ public class CombineServiceNew {
                     NpcService.gI().createMenuConMeo(player, MENU_START_COMBINE_NEW, -1, "Bạn có muốn Tinh hóa trang bị này", "Tinh hóa", "Đóng");
                 } else {
                     Service.gI().sendThongBao(player, "Cần đặt vào trang bị và ngũ hành tinh thạch");
+                }
+                break;
+            case LINH_HOA_TRANG_BI:
+                if (player.combineNew.itemsCombine.size() == 2) {
+                    Item nhlt = null;
+                    Item trangbi = null;
+                    for (Item item : player.combineNew.itemsCombine) {
+                        if (item.template.id >= 2084 && item.template.id <= 2092) {
+                            nhlt = item;
+                        } else {
+                            trangbi = item;
+                        }
+                    }
+
+                    if (trangbi == null || trangbi.template.type > 5) {
+                        Service.gI().sendThongBao(player, "Hãy đặt vào trang bị");
+                        return;
+                    }
+
+                    if (nhlt == null) {
+                        Service.gI().sendThongBao(player, "Cần ngũ hành thuộc tính tinh thạch");
+                        return;
+                    }
+                    NpcService.gI().createMenuConMeo(player, MENU_START_COMBINE_NEW, -1, "Bạn có muốn Linh hóa trang bị này", "Linh hóa", "Đóng");
+                } else {
+                    Service.gI().sendThongBao(player, "Cần đặt vào trang bị và ngũ thuộc tính tinh thạch");
+                }
+                break;
+            case TAY_LINH_TRANG_BI:
+                if (player.combineNew.itemsCombine.size() == 2) {
+                    Item nhlt = null;
+                    Item trangbi = null;
+                    for (Item item : player.combineNew.itemsCombine) {
+                        if (item.template.id == 2030) {
+                            nhlt = item;
+                        } else {
+                            trangbi = item;
+                        }
+                    }
+
+                    if (trangbi == null || trangbi.template.type > 5) {
+                        Service.gI().sendThongBao(player, "Hãy đặt vào trang bị");
+                        return;
+                    }
+
+                    if (nhlt == null) {
+                        Service.gI().sendThongBao(player, "Cần đá ma thuật");
+                        return;
+                    }
+                    if (nhlt.quantity < 10000) {
+                        Service.gI().sendThongBao(player, "Cần x10000 đá ma thuật");
+                        return;
+                    }
+                    NpcService.gI().createMenuConMeo(player, MENU_START_COMBINE_NEW, -1, "Bạn có muốn Tẩy linh trang bị này", "Tẩy Linh", "Đóng");
+                } else {
+                    Service.gI().sendThongBao(player, "Cần đặt vào trang bị và Đá ma thuật");
                 }
                 break;
             case KICH_HOAT_TRANG_BI:
@@ -1476,6 +1534,12 @@ public class CombineServiceNew {
             case TINH_HOA_TRANG_BI:
                 tinhHoaTrangBi(player);
                 break;
+            case LINH_HOA_TRANG_BI:
+                linhHoaTrangBi(player);
+                break;
+            case TAY_LINH_TRANG_BI:
+                tayLinhTrangBi(player);
+                break;
             case TIEN_HOA_TRANG_BI:
                 tienHoaTrangBi(player);
                 break;
@@ -1587,6 +1651,152 @@ public class CombineServiceNew {
         player.iDMark.setIndexMenu(ConstNpc.IGNORE_MENU);
         player.combineNew.clearParamCombine();
         player.combineNew.lastTimeCombine = System.currentTimeMillis();
+    }
+
+    private void tayLinhTrangBi(Player player) {
+        Item nhlt = null;
+        Item trangbi = null;
+        for (Item item : player.combineNew.itemsCombine) {
+            if (item.template.id == 2030) {
+                nhlt = item;
+            } else {
+                trangbi = item;
+            }
+        }
+
+        if (trangbi == null || trangbi.template.type > 5) {
+            Service.gI().sendThongBao(player, "Hãy đặt vào trang bị");
+            return;
+        }
+
+        if (nhlt == null) {
+            Service.gI().sendThongBao(player, "Cần đá ma thuật");
+            return;
+        }
+        if (nhlt.quantity < 10000) {
+            Service.gI().sendThongBao(player, "Cần x10000 đá ma thuật");
+            return;
+        }
+
+        // Lọc các option Linh Hóa
+        List<ItemOption> linhHoaOption = new ArrayList<>();
+        for (ItemOption itemOption : trangbi.itemOptions) {
+            if (itemOption.optionTemplate.id >= 267 && itemOption.optionTemplate.id <= 275) {
+                linhHoaOption.add(itemOption);
+            }
+        }
+
+        if (linhHoaOption.isEmpty()) {
+            Service.gI().sendThongBao(player, "Trang bị không có thuộc tính Linh Hóa");
+            return;
+        }
+
+        // Xóa tất cả option Linh Hóa
+        trangbi.itemOptions.removeIf(opt -> opt.optionTemplate.id >= 267 && opt.optionTemplate.id <= 275);
+        Service.gI().sendThongBao(player, "Tẩy linh thành công");
+        InventoryServiceNew.gI().subQuantityItemsBag(player, nhlt, 10000);
+        InventoryServiceNew.gI().sendItemBags(player);
+        CombineServiceNew.gI().reOpenItemCombine(player);
+    }
+
+    private void linhHoaTrangBi(Player player) {
+        Item nhlt = null;
+        Item trangbi = null;
+        for (Item item : player.combineNew.itemsCombine) {
+            if (item.template.id >= 2084 && item.template.id <= 2092) {
+                nhlt = item;
+            } else {
+                trangbi = item;
+            }
+        }
+
+        if (trangbi == null || trangbi.template.type > 5) {
+            Service.gI().sendThongBao(player, "Hãy đặt vào trang bị");
+            return;
+        }
+
+        if (nhlt == null) {
+            Service.gI().sendThongBao(player, "Cần ngũ hành thuộc tính tinh thạch");
+            return;
+        }
+        // dau tien la check xem trang bi co option linh hoa hay chua
+        List<ItemOption> linhHoaOption = new ArrayList<>();
+        for (ItemOption itemOption : trangbi.itemOptions) {
+            if (itemOption.optionTemplate.id >= 267 && itemOption.optionTemplate.id <= 275) {
+                linhHoaOption.add(itemOption);
+            }
+        }
+        ItemOption itemOption = new ItemOption(getOptionLinhHoaByItemId(nhlt.template.id), 0);
+        if (Util.isTrue(1, 100)) {
+            itemOption.param = 20;
+        } else if (Util.isTrue(20, 100)) {
+            itemOption.param = 5;
+        } else {
+            itemOption.param = Util.nextInt(1, 3);
+        }
+        boolean hasNew = true;
+        for (ItemOption option : linhHoaOption) {
+            if (option.optionTemplate.id == itemOption.optionTemplate.id) {
+                option.param += itemOption.param;
+                hasNew = false;
+            }
+        }
+        int MAX_OPTION = 2;
+        if (hasNew) {
+            if (linhHoaOption.size() + 1 > MAX_OPTION) {
+                Service.gI().sendThongBaoOK(player, "Tối đa linh hóa " + MAX_OPTION + " thuộc tính trên một trang bị");
+                return;
+            }
+            if (!Util.isTrue(100 - linhHoaOption.size() * 50, 100)) {
+                Service.gI().sendThongBao(player, "Linh hóa thất bại");
+                return;
+            }
+            // linh hoa thanh cong
+            linhHoaOption.add(itemOption);
+        }
+        // add all option vao lai trang bi
+        // Đảm bảo tất cả option Linh Hóa được cập nhật
+        for (ItemOption opt : linhHoaOption) {
+            boolean found = false;
+            for (ItemOption tbo : trangbi.itemOptions) {
+                if (tbo.optionTemplate.id == opt.optionTemplate.id) {
+                    tbo.param = opt.param;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                trangbi.itemOptions.add(opt);
+            }
+        }
+        Service.gI().sendThongBao(player, "Linh hóa thành công");
+        InventoryServiceNew.gI().subQuantityItemsBag(player, nhlt, 1);
+        InventoryServiceNew.gI().sendItemBags(player);
+        CombineServiceNew.gI().reOpenItemCombine(player);
+    }
+
+    private int getOptionLinhHoaByItemId(short id) {
+        switch (id) {
+            case 2084:
+                return 274;
+            case 2085:
+                return 267;
+            case 2086:
+                return 268;
+            case 2087:
+                return 269;
+            case 2088:
+                return 270;
+            case 2089:
+                return 271;
+            case 2090:
+                return 272;
+            case 2091:
+                return 273;
+            case 2092:
+                return 275;
+        }
+        return -1;
     }
 
     private static final int TYLE_THANH_CONG_CO_HOA = 70; // 70% thành công
@@ -4977,6 +5187,10 @@ public class CombineServiceNew {
                 return "Cố hóa trang bị giúp bạn có thể mở thêm tiên dòng trên trang bị";
             case TINH_HOA_TRANG_BI:
                 return "Tinh hóa trang bị giúp tăng chỉ số các đòng tiên";
+            case LINH_HOA_TRANG_BI:
+                return "Linh hóa trang bị giúp trang bị có những dòng thuộc tính của linh căn";
+            case TAY_LINH_TRANG_BI:
+                return "Tẩy linh trang bị giúp tẩy hết các dòng đã linh hóa";
             case CHE_TAO_BT:
                 return "Bông tai giúp m hợp thể với đệ tử";
             case KICH_HOAT_TRANG_BI:
@@ -5052,6 +5266,10 @@ public class CombineServiceNew {
                 return "Hãy đặt vào trang bị , ngũ hành tinh thạch và thăng tinh thạch sau đó ấn cố hóa";
             case TINH_HOA_TRANG_BI:
                 return "Đặt vào trang bị bất kỳ và ngũ hành tinh thạch\n sau đó ấn tinh hóa";
+            case LINH_HOA_TRANG_BI:
+                return "Hãy đặt vào trang bị và ngũ hành thuộc tính tinh thạch";
+            case TAY_LINH_TRANG_BI:
+                return "Đặt vào trang bị và đá pháp sư để tiến hành tẩy linh";
             case CHE_TAO_BT:
                 return "Cho vào đây số lượng Đế Vương thạch , Thiên mệnh thạch,\n Thiên nguyệt thạch , ĐÁ MEDUSA VIP đầy đủ";
             case KICH_HOAT_TRANG_BI:

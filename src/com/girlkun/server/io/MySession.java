@@ -184,7 +184,6 @@ public class MySession extends Session {
             }
             player = GodGK.login(this, al);
             if (player != null) {
-                lastLoginRuby = player.inventory.ruby;
                 // -77 max small
                 DataGame.sendSmallVersion(this);
                 // -93 bgitem version

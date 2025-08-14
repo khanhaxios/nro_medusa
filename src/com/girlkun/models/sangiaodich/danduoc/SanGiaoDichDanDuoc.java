@@ -46,11 +46,14 @@ public class SanGiaoDichDanDuoc implements Runnable {
         }
         return sb.toString().trim();
     }
+
     public List<Transaction> getListTransactionByPlayer(Player player) {
         List<Transaction> transactions1 = new ArrayList<>();
         for (Transaction transaction : transactions) {
-            if (transaction.playerRequest.id == player.id) {
-                transactions1.add(transaction);
+            if (transaction.playerRequest != null && transaction.playerAccept != null) {
+                if (transaction.playerRequest.id == player.id) {
+                    transactions1.add(transaction);
+                }
             }
         }
         return transactions1;

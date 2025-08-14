@@ -492,6 +492,10 @@ public class ClanService {
                 Service.getInstance().sendThongBao(player, "Tên bang hội không được quá 30 ký tự");
                 return;
             }
+            if (containName(name)) {
+                Service.gI().sendThongBao(player, "Tên bang hội đã được sử dụng");
+                return;
+            }
             FlagBag flagBag = FlagBagService.gI().getFlagBag(imgId);
             if (flagBag != null) {
                 if (flagBag.gold > 0) {
@@ -528,6 +532,15 @@ public class ClanService {
                 sendMyClan(player);
             }
         }
+    }
+
+    private boolean containName(String name) {
+        for (Clan clan : Manager.CLANS) {
+            if (clan.name.equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     //danh sách clan

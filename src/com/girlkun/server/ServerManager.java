@@ -4,7 +4,6 @@ import com.girlkun.database.GirlkunDB;
 import com.girlkun.jdbc.daos.HistoryTransactionDAO;
 import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.item.Item;
-import com.girlkun.models.kygui.ShopKyGuiManager;
 import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
 import com.girlkun.models.player.Player;
 import com.girlkun.network.example.MessageSendCollect;
@@ -20,7 +19,6 @@ import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.NgocRongNamecService;
 import com.girlkun.services.Service;
 import com.girlkun.services.func.TaiXiu;
-import com.girlkun.services.func.TopService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
@@ -77,7 +75,7 @@ public class ServerManager {
     public void activePanelControllerApi() {
         try {
             panelSocket = new ServerSocket(8888, 50, InetAddress.getByName("0.0.0.0"));
-            Logger.log(Logger.CYAN, "Server API is waiting on port 8888\n");
+//            Logger.log(Logger.CYAN, "Server API is waiting on port 8888\n");
             while (isRunning) {
                 Socket client = panelSocket.accept();
                 panelClient = client;
@@ -173,7 +171,8 @@ public class ServerManager {
         NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
         new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
 //        new Thread(TopService.gI(), "Thread TOP").start();
-        new Thread(Manager.sanGiaoDichBuaZeno, "SGD").start();
+//        new Thread(Manager.sanGiaoDichBuaZeno, "SGD").start();
+        new Thread(AutoMaintenance.gI(), "AUTO_MAINTAN").start();
         try {
             BossManager.gI().loadBoss();
             Manager.MAPS.forEach(com.girlkun.models.map.Map::initBoss);
@@ -311,17 +310,21 @@ public class ServerManager {
     }
 
     public void close(long delay) {
-        GirlkunServer.gI().stopConnect();
-
-        isRunning = false;
         try {
+            Thread.sleep(delay);
+            GirlkunServer.gI().stopConnect();
             ClanService.gI().close();
+            Client.gI().close();
+            isRunning = false;
+            if (AutoMaintenance.isRunning) {
+                AutoMaintenance.isRunning = false;
+                AutoMaintenance.runBatchFile("./run.sh");
+            }
+            System.exit(0);
+            Logger.success("SUCCESSFULLY MAINTENANCE!...................................\n");
         } catch (Exception e) {
-            Logger.error("Lỗi save clan!...................................\n");
+            e.printStackTrace();
+            System.exit(0);
         }
-        ShopKyGuiManager.gI().save();
-        Client.gI().close();
-        Logger.success("SUCCESSFULLY MAINTENANCE!...................................\n");
-        System.exit(0);
     }
 }

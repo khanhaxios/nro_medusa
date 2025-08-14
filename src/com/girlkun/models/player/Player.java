@@ -68,6 +68,7 @@ public class Player {
     public int pointPvpthuong;
     public int pointPvpVip;
     public boolean autoUse;
+    public boolean isDie;
 
     public LuckyPoolPlayer luckyPoolPlayer;
     public PhapBao phapBaoTamThoi;
@@ -408,6 +409,10 @@ public class Player {
         if (!this.beforeDispose) {
             try {
                 if (iDMark != null && !iDMark.isBan()) {
+                    if (isDie() && !isDie) {
+                        setDie(this);
+                        return;
+                    }
                     if (tuTien != null) {
                         tuTien.update();
                     }
@@ -616,7 +621,6 @@ public class Player {
                     }
                 }
             } catch (Exception e) {
-                e.getStackTrace();
                 Logger.logException(Player.class, e, "Lỗi tại player: " + this.id);
             }
         }
@@ -641,10 +645,9 @@ public class Player {
     };
 
     public byte getAura() {
-        /// Remake By ndq (Zalo - 0372475179) ====================
-        // AURA BIẾN HÌNH Ở ĐÂY 
         if (this.isPl() && this.effectSkill != null && this.effectSkill.isBienHinh) {
-            return ConstPlayer.AURA_BIEN_HINH[this.gender][this.effectSkill.levelBienHinh - 1];
+//            return ConstPlayer.AURA_BIEN_HINH[this.gender][this.effectSkill.levelBienHinh - 1];
+            return 28;
         }
         if (this.inventory.itemsBody.isEmpty() || this.inventory.itemsBody.size() < 10) {
             return -1;
@@ -653,14 +656,11 @@ public class Player {
         if (!item.isNotNullItem()) {
             return -1;
         }
-        switch (item.template.id) {
-            case 1204, 1238, 9502, 9501:
-                return 11;
-            case 1444, 1445:
-                return 16;
-            default:
-                return -1;
-        }
+        return switch (item.template.id) {
+            case 1204, 1238, 9502, 9501 -> 11;
+            case 1444, 1445 -> 16;
+            default -> -1;
+        };
 
     }
 
@@ -715,9 +715,9 @@ public class Player {
                 return (short) headd;
             }
         }
-        if (tuTien != null && tuTien.level > 10) {
-            return outfitTutien[gender][0];
-        }
+//        if (tuTien != null && tuTien.level > 10) {
+//            return outfitTutien[gender][0];
+//        }
         return this.head;
     }
 
@@ -764,9 +764,9 @@ public class Player {
         if (inventory != null && inventory.itemsBody.get(0).isNotNullItem()) {
             return inventory.itemsBody.get(0).template.part;
         }
-        if (tuTien != null && tuTien.level > 10) {
-            return outfitTutien[gender][1];
-        }
+//        if (tuTien != null && tuTien.level > 10) {
+//            return outfitTutien[gender][1];
+//        }
         return (short) (gender == ConstPlayer.NAMEC ? 59 : 57);
     }
 
@@ -814,9 +814,9 @@ public class Player {
         if (inventory != null && inventory.itemsBody.get(1).isNotNullItem()) {
             return inventory.itemsBody.get(1).template.part;
         }
-        if (tuTien != null && tuTien.level > 10) {
-            return outfitTutien[gender][2];
-        }
+//        if (tuTien != null && tuTien.level > 10) {
+//            return outfitTutien[gender][2];
+//        }
         return (short) (gender == 1 ? 60 : 58);
     }
 
@@ -1297,6 +1297,7 @@ public class Player {
     }
 
     protected void setDie(Player plAtt) {
+        isDie = true;
         if (tuTien != null && tuTien.isTuTien()) {
             tuTien.subExp(tuTien.maxExp / 100);
         }

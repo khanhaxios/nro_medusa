@@ -333,6 +333,7 @@ public class PlayerService {
                 }
             }
             if (canHs) {
+                player.isDie = false;
                 Service.getInstance().sendMoney(player);
                 Service.getInstance().hsChar(player, player.nPoint.hpMax, player.nPoint.mpMax);
             }

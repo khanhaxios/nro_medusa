@@ -7,10 +7,8 @@ import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.map.MapMaBu.MapMaBu;
 import com.girlkun.models.map.bdkb.BanDoKhoBau;
-import com.girlkun.models.map.bdkb.BanDoKhoBauService;
-import com.girlkun.models.map.doanhtrai.DoanhTrai;
-import com.girlkun.models.map.bdkb.BanDoKhoBauService;
 import com.girlkun.models.map.blackball.BlackBallWar;
+import com.girlkun.models.map.doanhtrai.DoanhTrai;
 import com.girlkun.models.map.doanhtrai.DoanhTraiService;
 import com.girlkun.models.map.gas.Gas;
 import com.girlkun.models.mob.Mob;
@@ -19,7 +17,6 @@ import com.girlkun.models.npc.NpcFactory;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Manager;
 import com.girlkun.services.Service;
-import com.girlkun.services.func.TopService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
@@ -53,8 +50,8 @@ public class Map implements Runnable {
     public List<Npc> npcs;
 
     public Map(int mapId, String mapName, byte planetId,
-            byte tileId, byte bgId, byte bgType, byte type, int[][] tileMap,
-            int[] tileTop, int zones, int maxPlayer, List<WayPoint> wayPoints) {
+               byte tileId, byte bgId, byte bgType, byte type, int[][] tileMap,
+               int[] tileTop, int zones, int maxPlayer, List<WayPoint> wayPoints) {
         this.mapId = mapId;
         this.mapName = mapName;
         this.planetId = planetId;
@@ -131,7 +128,6 @@ public class Map implements Runnable {
                 for (Zone zone : this.zones) {
                     zone.update();
                 }
-//                TopService.gI().updateTop();
                 long timeDo = System.currentTimeMillis() - st;
                 long timeSleep = 1000 - timeDo;
                 if (timeSleep > 0) {
@@ -139,7 +135,6 @@ public class Map implements Runnable {
                 }
             } catch (Exception e) {
                 Logger.logException(Map.class, e, "Lỗi update map " + this.mapName);
-//                System.out.println("Lỗi update map " + this.mapName);
             }
         }
     }
@@ -324,6 +319,15 @@ public class Map implements Runnable {
     private boolean isTileTop(int tileMap) {
         for (int i = 0; i < tileTop.length; i++) {
             if (tileTop[i] == tileMap) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasPlayersInAnyZone() {
+        for (Zone zone : zones) {
+            if (zone.getHumanoids().size() > 0) {
                 return true;
             }
         }

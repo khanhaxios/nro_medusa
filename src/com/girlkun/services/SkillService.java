@@ -1437,7 +1437,7 @@ public class SkillService {
             }
             switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
                 case 0:
-                    double hp = plInjure.injured(plAtt, (plInjure.nPoint.hpMax / 80) * (paramOfLinhCan), false, false, true);
+                    double hp = plInjure.injured(plAtt, (plAtt.nPoint.hpMax / 20) * (paramOfLinhCan), false, false, true);
                     if (plAtt.nPoint.hutMauTamThoi + hp >= plAtt.nPoint.mauGoc) {
                         sendMessagePlayerAttackPlayer(plAtt, plInjure, hp, (byte) 0);
                         return;
@@ -1452,7 +1452,7 @@ public class SkillService {
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameA, (byte) 0);
                     break;
                 case 2:
-                    double dameB = ((plInjure.nPoint.hpMax / 80) * paramOfLinhCan) * Util.nextInt(2, 4);
+                    double dameB = ((plAtt.nPoint.hpMax / 20) * paramOfLinhCan) * Util.nextInt(2, 4);
                     dameB = plInjure.injured(plAtt, dameB, false, false, false);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameB, (byte) 0);
                     break;
@@ -1475,7 +1475,42 @@ public class SkillService {
             }
             plAtt.tuMa.subMaKhi(Util.nextInt(10, 30));
         }
-        // handle for huyet mach
+        if (plAtt.nPoint.tlDameKim > 0) {
+            double dh = plInjure.injured(plAtt, dameHit * plAtt.nPoint.tlDameKim / 100, false, false, false);
+            sendMessagePlayerAttackPlayer(plAtt, plInjure, dh, (byte) 1, (byte) 0);
+        }
+        if (plAtt.nPoint.tlDameMoc > 0) {
+            double dh = plInjure.injured(plAtt, dameHit * plAtt.nPoint.tlDameMoc / 100, false, false, false);
+            sendMessagePlayerAttackPlayer(plAtt, plInjure, dh, (byte) 1, (byte) 1);
+        }
+        if (plAtt.nPoint.tlDameThuy > 0) {
+            double dh = plInjure.injured(plAtt, dameHit * plAtt.nPoint.tlDameThuy / 100, false, false, false);
+            sendMessagePlayerAttackPlayer(plAtt, plInjure, dh, (byte) 1, (byte) 2);
+        }
+        if (plAtt.nPoint.tlDameHoa > 0) {
+            double dh = plInjure.injured(plAtt, dameHit * plAtt.nPoint.tlDameHoa / 100, false, false, false);
+            sendMessagePlayerAttackPlayer(plAtt, plInjure, dh, (byte) 1, (byte) 3);
+        }
+        if (plAtt.nPoint.tlDameTho > 0) {
+            double dh = plInjure.injured(plAtt, dameHit * plAtt.nPoint.tlDameTho / 100, false, false, false);
+            sendMessagePlayerAttackPlayer(plAtt, plInjure, dh, (byte) 1, (byte) 4);
+        }
+        if (plAtt.nPoint.tlDamePhong > 0) {
+            double dh = plInjure.injured(plAtt, dameHit * plAtt.nPoint.tlDamePhong / 100, false, false, false);
+            sendMessagePlayerAttackPlayer(plAtt, plInjure, dh, (byte) 1, (byte) 5);
+        }
+        if (plAtt.nPoint.tlDameLoi > 0) {
+            double dh = plInjure.injured(plAtt, dameHit * plAtt.nPoint.tlDameLoi / 100, false, false, true);
+            sendMessagePlayerAttackPlayer(plAtt, plInjure, dh, (byte) 1, (byte) 6);
+        }
+        if (plAtt.nPoint.tlDameQuang > 0) {
+            double dh = plInjure.injured(plAtt, dameHit * plAtt.nPoint.tlDameQuang / 100, false, false, true);
+            sendMessagePlayerAttackPlayer(plAtt, plInjure, dh, (byte) 1, (byte) 7);
+        }
+        if (plAtt.nPoint.tlDameAm > 0) {
+            double dh = plInjure.injured(plAtt, dameHit * plAtt.nPoint.tlDameAm / 100, false, false, true);
+            sendMessagePlayerAttackPlayer(plAtt, plInjure, dh, (byte) 1, (byte) 8);
+        }
     }
 
     private boolean neDon(Player plInjure, boolean miss) {
@@ -1510,6 +1545,64 @@ public class SkillService {
             msg.writer().writeByte(type); // type attack
             if (type == 1) {
                 msg.writer().writeByte(plAtt.tuTien.linhCan.getLinhCanType());
+            }
+            msg.writer().writeByte(plAtt.playerSkill.skillSelect.skillId); //skill pem
+            msg.writer().writeByte(1); //số người pem
+            msg.writer().writeInt((int) plInjure.id); //id ăn pem
+            byte typeSkill = SkillUtil.getTyleSkillAttack(plAtt.playerSkill.skillSelect);
+            msg.writer().writeByte(typeSkill == 2 ? 0 : 1); //read continue
+            msg.writer().writeByte(0); //type skill
+            msg.writer().writeDouble(Util.DoubleGioihang(dameHit)); //dame ăn
+            msg.writer().writeBoolean(plInjure.isDie()); //is die
+            msg.writer().writeBoolean(plAtt.nPoint.isCrit); //crit
+            if (typeSkill != 1) {
+                Service.getInstance().sendMessAllPlayerInMap(plAtt, msg);
+                msg.cleanup();
+            } else {
+                plInjure.sendMessage(msg);
+                msg.cleanup();
+                msg = new Message(-60);
+                msg.writer().writeInt((int) plAtt.id); //id pem
+                msg.writer().writeByte(plAtt.playerSkill.skillSelect.skillId); //skill pem
+                msg.writer().writeByte(1); //số người pem
+                msg.writer().writeInt((int) plInjure.id); //id ăn pem
+                msg.writer().writeByte(typeSkill == 2 ? 0 : 1); //read continue
+                msg.writer().writeByte(0); //type skill
+                msg.writer().writeDouble(Util.DoubleGioihang(dameHit)); //dame ăn
+                msg.writer().writeBoolean(plInjure.isDie()); //is die
+                msg.writer().writeBoolean(plAtt.nPoint.isCrit); //crit
+                Service.getInstance().sendMessAnotherNotMeInMap(plInjure, msg);
+                msg.cleanup();
+            }
+            try {
+                msg = Service.getInstance().messageSubCommand((byte) 14);
+                msg.writer().writeInt((int) plInjure.id);
+                msg.writer().writeDouble(Util.DoubleGioihang(plInjure.nPoint.hp));
+                msg.writer().writeByte(0);
+                msg.writer().writeDouble(Util.DoubleGioihang(plInjure.nPoint.hpMax));
+                Service.getInstance().sendMessAnotherNotMeInMap(plInjure, msg);
+                msg.cleanup();
+            } catch (Exception e) {
+
+            }
+            Service.getInstance().addSMTN(plInjure, (byte) 1, 1, false);
+            if (plInjure.isDie() && !plAtt.isBoss) {
+                plAtt.fightMabu.changePoint((byte) 5);
+            }
+
+        } catch (Exception e) {
+            Logger.logException(SkillService.class, e);
+        }
+    }
+
+    public void sendMessagePlayerAttackPlayer(Player plAtt, Player plInjure, double dameHit, byte type, byte lcType) {
+        Message msg;
+        try {
+            msg = new Message(-60);
+            msg.writer().writeInt((int) plAtt.id); //id pem
+            msg.writer().writeByte(type); // type attack
+            if (type == 1) {
+                msg.writer().writeByte(lcType);
             }
             msg.writer().writeByte(plAtt.playerSkill.skillSelect.skillId); //skill pem
             msg.writer().writeByte(1); //số người pem

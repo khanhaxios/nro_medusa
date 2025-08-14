@@ -98,7 +98,7 @@ public class Input {
                         int idNhanVat = Integer.parseInt(text[1]);
                         int idItem = Integer.parseInt(text[2]);
                         int slItem = Integer.parseInt(text[3]);
-                        SanGiaoDichService.getI().createGiaoDich(maGiaoDich, idNhanVat, idItem, slItem, 0, player);
+                        SanGiaoDichService.getI().createGiaoDich(maGiaoDich, idNhanVat, idItem, slItem, player);
                     } catch (Exception e) {
                         Service.gI().sendThongBao(player, "Dữ liệu nhập vào không hợp lệ");
                         SanGiaoDichService.getI().createGiaoDichForm(player);

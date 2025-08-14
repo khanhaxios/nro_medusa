@@ -84,7 +84,6 @@ public class Mob {
     public static void initMopbbdkb(Mob mob, int level) {
         mob.point.dame = (level * 32500 * mob.level * 4);
         mob.point.maxHp = ((level * 10_000 * mob.point.hp) + (level * 7263 * mob.tempId));
-        mob.point.restHp();
     }
 
     public static boolean isCantJoinMap(int idMap) {
@@ -226,7 +225,7 @@ public class Mob {
         if (this.isDie() && !Maintenance.isRuning) {
             switch (zone.map.type) {
                 case ConstMap.MAP_DOANH_TRAI:
-                    if (this.zone.isTrungUyTrangAlive == true) {
+                    if (this.zone.isTrungUyTrangAlive) {
                         if (this.tempId == 22 && this.zone.map.mapId == 59) {
                             if (Util.canDoWithTime(lastTimeDie, 5000)) {
                                 if (this.id == 13) {
@@ -579,7 +578,7 @@ public class Mob {
             if (player.tuMa != null && player.tuMa.isTuMa()) {
                 long exp = player.tuMa.getExpCanGain(this);
                 player.tuMa.addExp(exp);
-                PlayerService.gI().sendTuTienAddTuVi(player, exp);
+//                PlayerService.gI().sendTuTienAddTuVi(player, exp);
                 PlayerService.gI().sendTuTienTuVi(player);
                 if (player.tuMa.congPhapTuMa != null && player.tuMa.congPhapTuMa.ten != null) {
                     player.tuMa.congPhapTuMa.handleHutMaKhi(this);

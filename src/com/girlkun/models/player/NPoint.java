@@ -39,6 +39,16 @@ public class NPoint {
         this.tlDameCrit = new ArrayList<>();
     }
 
+    public int tlDameKim;
+    public int tlDameMoc;
+    public int tlDameThuy;
+    public int tlDameHoa;
+    public int tlDameTho;
+    public int tlDamePhong;
+    public int tlDameLoi;
+    public int tlDameQuang;
+    public int tlDameAm;
+
     public byte tyLeGiamDame = 0;
     public boolean isCrit;
     public boolean isCrit100;
@@ -479,6 +489,33 @@ public class NPoint {
                             break;
                         case 265:
                             xTuVi += io.param;
+                            break;
+                        case 267:
+                            tlDameKim += io.param;
+                            break;
+                        case 268:
+                            tlDameMoc += io.param;
+                            break;
+                        case 269:
+                            tlDameThuy += io.param;
+                            break;
+                        case 270:
+                            tlDameHoa += io.param;
+                            break;
+                        case 271:
+                            tlDameTho += io.param;
+                            break;
+                        case 272:
+                            tlDamePhong += io.param;
+                            break;
+                        case 273:
+                            tlDameLoi += io.param;
+                            break;
+                        case 274:
+                            tlDameQuang += io.param;
+                            break;
+                        case 275:
+                            tlDameAm += io.param;
                             break;
                     }
                 }

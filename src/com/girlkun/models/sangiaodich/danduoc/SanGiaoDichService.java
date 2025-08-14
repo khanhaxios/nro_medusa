@@ -23,7 +23,7 @@ public class SanGiaoDichService {
         Input.gI().createForm(player, Input.CREATE_GIAO_DICH, "Tạo giao dịch mới", subInputs);
     }
 
-    public void createGiaoDich(String maGiaoDich, int idNhanVat, int idItem, int slItem, int diemNap, Player player) {
+    public void createGiaoDich(String maGiaoDich, int idNhanVat, int idItem, int slItem, Player player) {
         // check id nhan vat
         if (SanGiaoDichDanDuoc.getI().getListTransactionByPlayer(player).size() + 1 > MAX_GD) {
             Service.gI().sendThongBao(player, "Bạn tối đa chỉ được tạo 8 giao dịch cùng lúc");
@@ -70,8 +70,7 @@ public class SanGiaoDichService {
         }
         Transaction transaction = new Transaction(player, playerAccept, 86_400_000, maGiaoDich);
         transaction.addItems(iTransaction);
-        diemNap = 1000;
-        transaction.totalPrice = diemNap;
+        transaction.totalPrice = 1000;
         SanGiaoDichDanDuoc.getI().addTransaction(transaction);
         Service.gI().sendThongBao(player, "Tạo giao dịch thành công , bạn có thể xem ở danh sách giao dịch");
         SanGiaoDichDanDuoc.getI().showBaseMenu(player);
@@ -139,7 +138,7 @@ public class SanGiaoDichService {
         }
         // find Dan Duoc
         ITransaction iTransaction = null;
-        iTransaction = player.luyenDanSu.tuiDanDuoc.takeDanDuoc(idItem, slItem);
+        iTransaction = player.luyenDanSu.tuiDanDuoc.takeDanDuocSplit(idItem, slItem);
         if (iTransaction == null) {
             //find dan phuong
             iTransaction = player.luyenDanSu.tuiDanPhuong.takeDanPhuong(idItem);

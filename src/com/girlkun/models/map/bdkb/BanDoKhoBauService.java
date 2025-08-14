@@ -3,6 +3,7 @@ package com.girlkun.models.map.bdkb;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.list_boss.phoban.TrungUyXanhLoBdkb;
 import com.girlkun.models.item.Item;
+import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.ItemTimeService;
@@ -23,7 +24,6 @@ public class BanDoKhoBauService {
 
     public int timeoutmap;
 
-    public long timeoutmapwait;
 
     private static BanDoKhoBauService i;
 
@@ -48,11 +48,11 @@ public class BanDoKhoBauService {
                 ketthucbdkb(player);
                 return;
             }
-            if (this.timeoutmap > 0 && player.isPl() && player.clan.banDoKhoBau != null
+            if (player.isPl() && player.clan.banDoKhoBau != null && player.clan.banDoKhoBau.timeOutMap > 0
                     && player.clan.timeOpenbdkb != 0) {
-                while (this.timeoutmap > 0) {
-                    this.timeoutmap--;
-                    Service.getInstance().sendThongBao(player, "Bản đồ kho báu sẽ kết thúc trong " + timeoutmap + " giây. Tàu vũ trụ sẽ đưa bạn về nhà");
+                while (player.clan.banDoKhoBau.timeOutMap > 0) {
+                    player.clan.banDoKhoBau.timeOutMap--;
+                    Service.getInstance().sendThongBao(player, "Bản đồ kho báu sẽ kết thúc trong " + player.clan.banDoKhoBau.timeOutMap + " giây. Tàu vũ trụ sẽ đưa bạn về nhà");
                     try {
                         Thread.sleep(1000);
                     } catch (Exception e) {
@@ -67,10 +67,6 @@ public class BanDoKhoBauService {
     public void joinBDKB(Player pl) {
         if (pl.clan == null) {
             Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
-            return;
-        }
-        if (pl.bdkb_countPerDay >= 3) {
-            Service.getInstance().sendThongBao(pl, "Bạn đã đạt giới hạn lượt đi trong ngày");
             return;
         }
         if (pl.clan.banDoKhoBau != null) {
@@ -94,6 +90,8 @@ public class BanDoKhoBauService {
     public void ketthucbdkb(Player player) {
         List<Player> playersMap = player.zone.getPlayers();
         Player playerOpen = player.clan.banDoKhoBau.player;
+        Zone zone = playerOpen.clan.banDoKhoBau.getMapById(137);
+        List<Player> bosses = zone.getBosses();
         for (int i = playersMap.size() - 1; i >= 0; i--) {
             Player pl = playersMap.get(i);
             if (containtInClan(playerOpen, pl)) {
@@ -102,6 +100,11 @@ public class BanDoKhoBauService {
                 pl.bdkb_isJoinBdkb = false;
                 pl.clan.banDoKhoBau.dispose();
                 pl.clan.banDoKhoBau = null;
+            }
+        }
+        for (Player boss : bosses) {
+            if (boss != null && !boss.isDie) {
+                boss.injured(playerOpen, boss.nPoint.hpMax + 10000, false, false, true);
             }
         }
     }
@@ -139,7 +142,7 @@ public class BanDoKhoBauService {
                                 totalDame += play.nPoint.dame;
                                 totalHp += play.nPoint.hpMax;
                             }
-                            double dame = (totalHp / 20) * (level);
+                            double dame = (totalHp / 100) * (level);
                             double hp = (totalDame * 10) * (level);
                             new TrungUyXanhLoBdkb(player.clan.banDoKhoBau.getMapById(137), level, dame, hp, BossID.TRUNG_UY_XANH_LO_BDKB);
                         } catch (Exception e) {
@@ -156,6 +159,12 @@ public class BanDoKhoBauService {
             }
         } else {
             Service.getInstance().sendThongBao(player, "Không thể thực hiện");
+        }
+    }
+
+    public void setTimeOutMap(Player plKill, int i) {
+        if (plKill.clan.banDoKhoBau != null && plKill.clan.timeOpenbdkb != 0) {
+            plKill.clan.banDoKhoBau.timeOutMap = i;
         }
     }
 }

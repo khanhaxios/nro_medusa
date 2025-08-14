@@ -1008,24 +1008,20 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Bạn chưa đủ điều kiện cấp Chiến thần");
                                     return;
                                 }
-                                if (player.dk_bdkb < 10) {
-                                    Service.gI().sendThongBao(player, "Bạn chưa đủ Số lẩn Tham gia Bản đồ kho báu");
-                                } else {
-                                    player.inventory.ruby -= 999_999;
-                                    player.dk_bdkb -= 10;
-                                    InventoryServiceNew.gI().subQuantityItemsBag(player, broly, 10);
-                                    InventoryServiceNew.gI().subQuantityItemsBag(player, zeno, 10);
-                                    InventoryServiceNew.gI().subQuantityItemsBag(player, berus, 10);
-                                    InventoryServiceNew.gI().subQuantityItemsBag(player, thoivang, 999);
-                                    InventoryServiceNew.gI().subQuantityItemsBag(player, bonghong, 99);
+                                player.inventory.ruby -= 999_999;
+                                player.dk_bdkb -= 10;
+                                InventoryServiceNew.gI().subQuantityItemsBag(player, broly, 10);
+                                InventoryServiceNew.gI().subQuantityItemsBag(player, zeno, 10);
+                                InventoryServiceNew.gI().subQuantityItemsBag(player, berus, 10);
+                                InventoryServiceNew.gI().subQuantityItemsBag(player, thoivang, 999);
+                                InventoryServiceNew.gI().subQuantityItemsBag(player, bonghong, 99);
 
-                                    Item nhan = ItemService.gI().createNewItem((short) 1415);
-                                    InventoryServiceNew.gI().addItemBag(player, nhan);
+                                Item nhan = ItemService.gI().createNewItem((short) 1415);
+                                InventoryServiceNew.gI().addItemBag(player, nhan);
 
-                                    Service.getInstance().sendMoney(player);
-                                    InventoryServiceNew.gI().sendItemBags(player);
-                                    Service.gI().sendThongBao(player, "|5|Đã nhận được " + nhan.template.name);
-                                }
+                                Service.getInstance().sendMoney(player);
+                                InventoryServiceNew.gI().sendItemBags(player);
+                                Service.gI().sendThongBao(player, "|5|Đã nhận được " + nhan.template.name);
                                 break;
                             case 1:
                                 this.createOtherMenu(player, 54855, "|7|Thông tin kết hôn" + "\n|5|Số lần Kết hôn: " + player.dakethon + " Lần" + "\n|4|+" + (5 * player.dakethon) + "% Chỉ số HP,KI,SD" + "\n|5|Số lần Được Cầu hôn: " + player.duockethon + " Lần" + "\n|4|+" + (player.duockethon == 0 ? 0 : player.duockethon == 1 ? 10 : player.duockethon == 2 ? 20 : player.duockethon == 3 ? 30 : player.duockethon == 4 ? 40 : player.duockethon == 5 ? 50 : player.duockethon == 6 ? 60 : player.duockethon == 7 ? 70 : player.duockethon == 8 ? 80 : player.duockethon == 9 ? 90 : player.duockethon == 10 ? 100 : player.duockethon == 11 ? 110 : player.duockethon == 12 ? 120 : player.duockethon == 13 ? 130 : player.duockethon == 14 ? 140 : player.duockethon == 15 ? 150 : player.duockethon == 16 ? 160 : player.duockethon == 17 ? 170 : player.duockethon == 18 ? 180 : player.duockethon == 19 ? 190 : 200) + "% Chỉ số HP,KI,SD", "OK");
@@ -2330,8 +2326,8 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Bạn đã luyện thể " + player.luyenThe.level + " tầng , Không thể tu tiên");
                                     return;
                                 }
-                                if (player.tuMa.isTuMa()){
-                                    Service.gI().sendThongBao(player,"Bạn đã tu ma rồi mà");
+                                if (player.tuMa.isTuMa()) {
+                                    Service.gI().sendThongBao(player, "Bạn đã tu ma rồi mà");
                                     return;
                                 }
                                 // mo tu tien
@@ -2915,7 +2911,6 @@ public class NpcFactory {
                                 if (player.chienthan.tasknow == 8) {
                                     player.chienthan.dalamduoc++;
                                 }
-                                player.dk_bdkb++;
                                 BanDoKhoBauService.gI().openBanDoKhoBau(player, player.iDMark.choseLevelBdkb);
                                 break;
                         }
@@ -5444,12 +5439,8 @@ public class NpcFactory {
                     }
 
                     if (!player.clan.doanhTrai_haveGone) {
-                        LocalDate lastOpen = Instant.ofEpochMilli(player.clan.doanhTrai_lastTimeOpen)
-                                .atZone(ZoneId.systemDefault())
-                                .toLocalDate();
-                        LocalDate today = LocalDate.now();
-
-                        player.clan.doanhTrai_haveGone = lastOpen.equals(today);
+                        LocalDate lastOpen = Instant.ofEpochMilli(player.clan.doanhTrai_lastTimeOpen).atZone(ZoneId.systemDefault()).toLocalDate();
+                        player.clan.doanhTrai_haveGone = lastOpen.equals(LocalDate.now());
                     }
 
                     if (player.clan.doanhTrai_haveGone) {
@@ -8777,8 +8768,20 @@ public class NpcFactory {
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHON_CAP_BT, -1, "Chọn cấp độ bông tai", "Cấp 1", "Cấp 2", "Cấp 3", "Cấp 4", "Cấp 5", "Cấp 6");
                                 break;
                             case 3:
-
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TIEN_HOA, -1, "Tiên hóa trang bị giúp bạn mạnh hơn", "Tiên hóa", "Cố hóa", "Tinh hóa");
+                                break;
+                            case 4:
+                                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LINH_HOA, -1, "Linh hóa trang bị giúp trang bị của bạn có nhiều thuộc tính của linh căn", "Linh Hóa", "Tẩy Linh");
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_LINH_HOA:
+                        switch (select) {
+                            case 0:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.LINH_HOA_TRANG_BI);
+                                break;
+                            case 1:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.TAY_LINH_TRANG_BI);
                                 break;
                         }
                         break;

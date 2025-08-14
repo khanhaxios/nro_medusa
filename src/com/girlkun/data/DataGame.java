@@ -1,40 +1,23 @@
 package com.girlkun.data;
 
-import com.girlkun.models.Template.HeadAvatar;
-import com.girlkun.models.Template.MapTemplate;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.girlkun.utils.FileIO;
-import com.girlkun.services.Service;
+import com.girlkun.models.Template.*;
 import com.girlkun.models.skill.NClass;
 import com.girlkun.models.skill.Skill;
-import com.girlkun.models.Template.MobTemplate;
-import com.girlkun.models.Template.NpcTemplate;
-import com.girlkun.models.Template.SkillTemplate;
-import com.girlkun.models.item.Item;
-import com.girlkun.models.player.Player;
-import com.girlkun.network.session.ISession;
 import com.girlkun.network.io.Message;
+import com.girlkun.network.session.ISession;
 import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
 import com.girlkun.server.io.MySession;
-import com.girlkun.services.PlayerService;
+import com.girlkun.services.Service;
+import com.girlkun.utils.FileIO;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.Map;
 
 public class DataGame {
 
@@ -519,6 +502,8 @@ public class DataGame {
     public static void sendImageByName(MySession session, String imgName) {
         Message msg;
         try {
+            Logger.log("Send image : " + imgName + Manager.getNFrameImageByName(imgName));
+
             msg = new Message(66);
             msg.writer().writeUTF(imgName);
             msg.writer().writeByte(Manager.getNFrameImageByName(imgName));
@@ -561,7 +546,7 @@ public class DataGame {
         }
     }
 
-//    public static void sendRes(MySession session) {
+    //    public static void sendRes(MySession session) {
 //        File folder = new File("data/girlkun/res/x" + session.zoomLevel);
 //        File[] files = folder.listFiles();
 //        if (files == null) return;

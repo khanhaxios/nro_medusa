@@ -25,7 +25,7 @@ public class LuyenHon {
     }
 
     public void tangBac() {
-        if (soHonDaLuyen != tongSoHonCanLuyen) {
+        if (soHonDaLuyen < tongSoHonCanLuyen) {
             Service.gI().sendThongBao(player, "Cần số hồn đã luyện đạt tối đa thì mới tăng bậc được");
             return;
         }
