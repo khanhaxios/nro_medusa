@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Client implements Runnable {
-
     private static Client i;
+    public long lastTimeCleanSession;
 
     private final Map<Long, Player> players_id = new HashMap<Long, Player>();
     private final Map<Integer, Player> players_userId = new HashMap<Integer, Player>();
@@ -227,6 +227,17 @@ public class Client implements Runnable {
 
     private void update() {
         try {
+            if (Util.canDoWithTime(lastTimeCleanSession, (30 * 60) * 1000)) {
+                List<ISession> sessions = new ArrayList<>(GirlkunSessionManager.gI().getSessions());
+                for (ISession session : sessions) {
+                    MySession mySession = (MySession) session;
+                    if (mySession.player == null) {
+                        GirlkunSessionManager.gI().removeSession(session);
+                        Client.gI().remove(mySession);
+                    }
+                }
+                lastTimeCleanSession = System.currentTimeMillis();
+            }
             for (ISession s : GirlkunSessionManager.gI().getSessions()) {
                 MySession session = (MySession) s;
                 if (session.timeWait > 0) {
@@ -246,7 +257,7 @@ public class Client implements Runnable {
         while (ServerManager.isRunning) {
             try {
                 long start = System.currentTimeMillis();
-                update(); // hàm xử lý logic
+                update();
                 long elapsed = System.currentTimeMillis() - start;
                 long sleepTime = Math.max(0, 800 - elapsed);
                 Thread.sleep(sleepTime);

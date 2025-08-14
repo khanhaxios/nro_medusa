@@ -200,13 +200,6 @@ public class ServerManager {
                 @Override
                 public void sessionDisconnect(ISession iSession) {
                     Client.gI().kickSession((MySession) iSession);
-                    List<ISession> sessions = new ArrayList<>(GirlkunSessionManager.gI().getSessions());
-                    for (ISession session : sessions) {
-                        MySession mySession = (MySession) session;
-                        if (mySession.player == null) {
-                            GirlkunSessionManager.gI().removeSession(session);
-                        }
-                    }
                 }
             };
             GirlkunServer.gI().init().setAcceptHandler(sessionAcceptHandler).setTypeSessioClone(MySession.class)
