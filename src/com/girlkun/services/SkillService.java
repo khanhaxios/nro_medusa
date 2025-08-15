@@ -1265,14 +1265,11 @@ public class SkillService {
             plAtt.nPoint.isCrit100 = true;
         }
         // handle for dame bosss
-        double damGoc = subDameWithCanhGioi(plAtt, plInjure);
+        boolean hasXaydaSkill = SkillUtil.containXaydaSkill(plAtt.playerSkill.skillSelect);
+        double damGoc = hasXaydaSkill ? plAtt.nPoint.getDameAttack(false) : subDameWithCanhGioi(plAtt, plInjure);
         miss = neDon(plInjure, miss);
         double dameHit = 0;
-        if (SkillUtil.containXaydaSkill(plAtt.playerSkill.skillSelect)) {
-            dameHit = plInjure.injured(plAtt, miss ? 0 : plAtt.nPoint.getDameAttack(false), false, false, true);
-        } else {
-            dameHit = plInjure.injured(plAtt, miss ? 0 : damGoc, false, false, false);
-        }
+        dameHit = plInjure.injured(plAtt, miss ? 0 : damGoc, false, false, hasXaydaSkill);
         phanSatThuong(plAtt, plInjure, Util.DoubleGioihan(dameHit));
         hutHPMP(plAtt, dameHit, false);
         hutLinhKhi(plAtt);
@@ -1437,7 +1434,7 @@ public class SkillService {
             }
             switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
                 case 0:
-                    double hp = plInjure.injured(plAtt, (plAtt.nPoint.hpMax / 20) * (paramOfLinhCan), false, false, true);
+                    double hp = plInjure.injured(plAtt, (plAtt.nPoint.hpMax / 10) * (paramOfLinhCan), false, false, true);
                     if (plAtt.nPoint.hutMauTamThoi + hp >= plAtt.nPoint.mauGoc) {
                         sendMessagePlayerAttackPlayer(plAtt, plInjure, hp, (byte) 0);
                         return;
@@ -1452,7 +1449,7 @@ public class SkillService {
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameA, (byte) 0);
                     break;
                 case 2:
-                    double dameB = ((plAtt.nPoint.hpMax / 20) * paramOfLinhCan) * Util.nextInt(2, 4);
+                    double dameB = ((plAtt.nPoint.hpMax / 10) * paramOfLinhCan) * Util.nextInt(2, 4);
                     dameB = plInjure.injured(plAtt, dameB, false, false, false);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameB, (byte) 0);
                     break;

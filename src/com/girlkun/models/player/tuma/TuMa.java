@@ -64,7 +64,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
 
     @Override
     public long getExpCanGain(Mob targetMob) {
-        long exp = Math.max((long) (targetMob.point.maxHp / 1_000_000) * Math.max(player.tuMa.congPhapTuMa.phamChat, 1), Util.nextInt(10, 50));
+        long exp = Math.min((long) (targetMob.point.maxHp / 1_000_000) * Math.max(player.tuMa.congPhapTuMa.phamChat, 1), Util.nextInt(1000, 50000));
         if (player.nPoint.xTuVi > 0) {
             exp += exp * player.nPoint.xTuVi / 100;
         }

@@ -16,7 +16,7 @@ import java.util.List;
 public class BanDoKhoBau {
     public static final long POWER_CAN_GO_TO_BDKB = 2000000000;
 
-    public static final List<BanDoKhoBau> BAN_DO_KHO_BAU;
+    public static List<BanDoKhoBau> BAN_DO_KHO_BAU;
     public static final int MAX_AVAILABLE = 15;
     public static final int N_PLAYER_MAP = 2;
     public static final int TIME_KHI_BAN_DO_KHO_BAU = 1800000;
@@ -36,7 +36,7 @@ public class BanDoKhoBau {
     public Clan clan;
     public boolean isOpened;
     public long timeOutMap;
-    private long lastTimeOpen;
+    public long lastTimeOpen;
 
     public BanDoKhoBau(int id) {
         this.id = id;

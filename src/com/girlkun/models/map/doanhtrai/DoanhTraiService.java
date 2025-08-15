@@ -6,6 +6,7 @@ import com.girlkun.services.ItemTimeService;
 import com.girlkun.services.MapService;
 import com.girlkun.services.Service;
 import com.girlkun.services.func.ChangeMapService;
+import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 
@@ -112,6 +113,8 @@ public class DoanhTraiService {
             ItemTimeService.gI().removeTextDoanhTrai(player);
             player.clan.doanhTrai_haveGone = true;
         }
+        int idDoanhTrai = player.clan.doanhTrai.getId();
+        doanhTrais.set(idDoanhTrai, new DoanhTrai(idDoanhTrai));
     }
 
     public void joinDoanhTrai(Player player) {
@@ -136,6 +139,28 @@ public class DoanhTraiService {
             doanhTrai.openDoanhTrai(player);
         }
     }
+
+    public void clearAll() {
+        for (DoanhTrai doanhTrai : new ArrayList<>(doanhTrais)) {
+            if (doanhTrai.getClan() != null
+                    && doanhTrai.isOpened
+                    && Util.canDoWithTime(doanhTrai.getLastTimeOpen(), TIME_DOANH_TRAI)) {
+
+                List<Player> players = new ArrayList<>(doanhTrai.getClan().membersInGame);
+
+                for (Player player : players) {
+                    if (MapService.gI().isMapDoanhTrai(player.zone.map.mapId)) {
+                        kickOutOfDT(player);
+                    }
+                    ItemTimeService.gI().removeTextDoanhTrai(player);
+                }
+                doanhTrai.getClan().doanhTrai_haveGone = true;
+                doanhTrais.set(doanhTrai.getId(), new DoanhTrai(doanhTrai.getId()));
+            }
+        }
+        Logger.log("Reload doanh trai success");
+    }
+
 }
 
 /**

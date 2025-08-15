@@ -1,0 +1,72 @@
+package com.girlkun.server;
+
+import com.girlkun.models.boss.BossManager;
+import com.girlkun.models.map.bdkb.BanDoKhoBauService;
+import com.girlkun.models.map.doanhtrai.DoanhTraiService;
+import com.girlkun.services.Service;
+import com.girlkun.utils.Logger;
+import com.girlkun.utils.Util;
+
+public class AutoClear implements Runnable {
+    private static final long TIME_WAIT_CLEAR = 10_800_000;
+    private static AutoClear I;
+
+    public boolean isRunning;
+    public boolean AUTO_CLEAN_STATE;
+
+    public long lastTimeClear;
+
+    public static AutoClear getI() {
+        if (I == null) {
+            I = new AutoClear();
+        }
+        return I;
+    }
+
+    public AutoClear() {
+        lastTimeClear = System.currentTimeMillis();
+        isRunning = true;
+        AUTO_CLEAN_STATE = true;
+    }
+
+    public void setState(boolean state) {
+        this.AUTO_CLEAN_STATE = state;
+    }
+
+    public void close() {
+        AUTO_CLEAN_STATE = false;
+        isRunning = false;
+    }
+
+    @Override
+    public void run() {
+        while (!Maintenance.isRuning && isRunning && AUTO_CLEAN_STATE) {
+            try {
+                long timePassed = System.currentTimeMillis() - lastTimeClear;
+                long timeLeft = TIME_WAIT_CLEAR - timePassed;
+
+                if (timeLeft <= 300000 && timeLeft > 0) {
+                    long seconds = timeLeft / 1000;
+                    long minutes = seconds / 60;
+                    Service.gI().sendThongBaoAllPlayer(
+                            "Hệ thống sắp dọn dẹp phó bản định kỳ sau "
+                                    + minutes + " phút (" + seconds + " giây). Hãy chú ý thoát ra."
+                    );
+                }
+
+                if (Util.canDoWithTime(lastTimeClear, TIME_WAIT_CLEAR)) {
+                    Client.gI().kickAllSession();
+                    BanDoKhoBauService.gI().clearAll();
+                    DoanhTraiService.gI().clearAll();
+                    BossManager.gI().clearAll();
+                    Logger.log("AutoClear: dọn dẹp thành công!");
+                    lastTimeClear = System.currentTimeMillis();
+                }
+
+                Thread.sleep(800);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}

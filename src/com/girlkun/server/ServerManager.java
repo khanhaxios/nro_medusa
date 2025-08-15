@@ -75,7 +75,6 @@ public class ServerManager {
     public void activePanelControllerApi() {
         try {
             panelSocket = new ServerSocket(8888, 50, InetAddress.getByName("0.0.0.0"));
-//            Logger.log(Logger.CYAN, "Server API is waiting on port 8888\n");
             while (isRunning) {
                 Socket client = panelSocket.accept();
                 panelClient = client;
@@ -173,6 +172,7 @@ public class ServerManager {
 //        new Thread(TopService.gI(), "Thread TOP").start();
 //        new Thread(Manager.sanGiaoDichBuaZeno, "SGD").start();
         new Thread(AutoMaintenance.gI(), "AUTO_MAINTAN").start();
+        new Thread(AutoClear.getI(), "AUTO_CLEAR").start();
         try {
             BossManager.gI().loadBoss();
             Manager.MAPS.forEach(com.girlkun.models.map.Map::initBoss);

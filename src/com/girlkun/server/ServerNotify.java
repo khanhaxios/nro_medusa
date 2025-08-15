@@ -74,7 +74,7 @@ public class ServerNotify extends Thread {
         Message msg;
         try {
             msg = new Message(50);
-            msg.writer().writeByte(10);
+            msg.writer().writeByte(3);
 
             msg.writer().writeShort(0);
             msg.writer().writeUTF("Thông tin MEDUSA");
@@ -100,20 +100,6 @@ public class ServerNotify extends Thread {
             msg.writer().writeShort(2);
             msg.writer().writeUTF("GIFTCODE");
             msg.writer().writeUTF(GiftcodeViet.gI().checkInfomationGiftCode());
-
-            if (player.TrieuHoiCapBac != -1) {
-                String ttpet = "Name: " + player.TenThuTrieuHoi;
-                ttpet += "\nLevel: " + player.TrieuHoiLevel + " (" + (player.TrieuHoiExpThanThu * 100 / (3000000L + player.TrieuHoiLevel * 1500000L)) + "%)";
-                ttpet += "\nKinh nghiệm: " + Util.format(player.TrieuHoiExpThanThu);
-                ttpet += "\nCấp bậc: " + player.NameThanthu(player.TrieuHoiCapBac);
-                ttpet += "\nThức ăn: " + player.TrieuHoiThucAn + "%";
-                ttpet += "\nSức Đánh: " + Util.getFormatNumber(player.TrieuHoiDame);
-                ttpet += "\nMáu: " + Util.getFormatNumber(player.TrieuHoiDame);
-                ttpet += "\nKĩ năng: " + player.TrieuHoiKiNang(player.TrieuHoiCapBac);
-                msg.writer().writeShort(3);
-                msg.writer().writeUTF("Thông tin CHIẾN THẦN");
-                msg.writer().writeUTF(ttpet);
-            }
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception ignored) {

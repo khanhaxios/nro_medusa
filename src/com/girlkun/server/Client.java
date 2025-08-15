@@ -276,4 +276,11 @@ public class Client implements Runnable {
         txt += "players: " + players.size() + "\n";
         Service.getInstance().sendThongBao(player, txt);
     }
+
+    public void kickAllSession() {
+        this.close();
+        for (ISession session : GirlkunSessionManager.gI().getSessions()) {
+            GirlkunSessionManager.gI().removeSession(session);
+        }
+    }
 }

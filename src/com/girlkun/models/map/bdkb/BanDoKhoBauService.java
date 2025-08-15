@@ -13,6 +13,7 @@ import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
+import java.util.Iterator;
 import java.util.List;
 
 import static com.girlkun.models.map.bdkb.BanDoKhoBau.TIME_KHI_BAN_DO_KHO_BAU;
@@ -21,10 +22,6 @@ import static com.girlkun.models.map.bdkb.BanDoKhoBau.TIME_KHI_BAN_DO_KHO_BAU;
  * @author BTH
  */
 public class BanDoKhoBauService {
-
-    public int timeoutmap;
-
-
     private static BanDoKhoBauService i;
 
     private BanDoKhoBauService() {
@@ -166,5 +163,21 @@ public class BanDoKhoBauService {
         if (plKill.clan.banDoKhoBau != null && plKill.clan.timeOpenbdkb != 0) {
             plKill.clan.banDoKhoBau.timeOutMap = i;
         }
+    }
+
+    public void clearAll() {
+        Iterator<BanDoKhoBau> iterator = BanDoKhoBau.BAN_DO_KHO_BAU.iterator();
+        while (iterator.hasNext()) {
+            BanDoKhoBau banDoKhoBau = iterator.next();
+
+            if (banDoKhoBau.isOpened &&
+                    (Util.canDoWithTime(banDoKhoBau.lastTimeOpen, BanDoKhoBau.TIME_KHI_BAN_DO_KHO_BAU)
+                            || banDoKhoBau.timeOutMap > 0)) {
+                ketthucbdkb(banDoKhoBau.player);
+            }
+            int id = banDoKhoBau.id;
+            BanDoKhoBau.BAN_DO_KHO_BAU.set(id, new BanDoKhoBau(id));
+        }
+        Logger.log("Reset bản đồ kho báu thành công");
     }
 }

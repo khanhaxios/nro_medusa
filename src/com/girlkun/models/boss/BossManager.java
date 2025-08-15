@@ -1,124 +1,53 @@
 package com.girlkun.models.boss;
 
-import com.girlkun.models.boss.list_boss.AnTrom;
+import com.girlkun.models.boss.list_boss.*;
 import com.girlkun.models.boss.list_boss.BLACK.*;
-import com.girlkun.models.boss.list_boss.Cooler.Cooler;
-import com.girlkun.models.boss.list_boss.HuyDiet.Champa;
-import com.girlkun.models.boss.list_boss.HuyDiet.ThanHuyDiet;
-import com.girlkun.models.boss.list_boss.HuyDiet.ThienSuWhis;
-import com.girlkun.models.boss.list_boss.HuyDiet.Vados;
-import com.girlkun.models.boss.list_boss.NgucTu.CoolerGold;
-import com.girlkun.models.boss.list_boss.Doraemon.Doraemon;
-import com.girlkun.models.boss.list_boss.FideBack.Kingcold;
-import com.girlkun.models.boss.list_boss.Mabu;
-import com.girlkun.models.boss.list_boss.BossViet;
-import com.girlkun.models.boss.list_boss.BossChienThan;
-import com.girlkun.models.boss.list_boss.BossDetuBerus;
-import com.girlkun.models.boss.list_boss.OnePiece.*;
-////
-import com.girlkun.models.boss.list_boss.BossAdmin.BossADMIN;
-import com.girlkun.models.boss.list_boss.BossAdmin.BossADMIN2;
-import com.girlkun.models.boss.list_boss.BossAdmin.BossADMIN3;
-import com.girlkun.models.boss.list_boss.BossAdmin.BossADMIN4;
-import com.girlkun.models.boss.list_boss.BossAdmin.BossADMIN5;
-import com.girlkun.models.boss.list_boss.BossNOEL;
-import com.girlkun.models.boss.list_boss.BossTG;
-import com.girlkun.models.boss.list_boss.BossMoi.BossMOI1;
-import com.girlkun.models.boss.list_boss.BossMoi.BossMOI2;
-import com.girlkun.models.boss.list_boss.BossMoi.BossMOI3;
-import com.girlkun.models.boss.list_boss.BossMoi.BossMOI4;
-import com.girlkun.models.boss.list_boss.BossMoi.BossMOI5;
-import com.girlkun.models.boss.list_boss.BossMoi.BossMOI6;
-import com.girlkun.models.boss.list_boss.BossMoi.BossMOI7;
-import com.girlkun.models.boss.list_boss.BossMoi.BossMOI8;
-import com.girlkun.models.boss.list_boss.BossMoi.BossMOI9;
-import com.girlkun.models.boss.list_boss.BossMoi.BossMOI10;
-import com.girlkun.models.boss.list_boss.BossHac.BossHAC;
-import com.girlkun.models.boss.list_boss.BossHac.BossHAC1;
-import com.girlkun.models.boss.list_boss.BossHac.BossHAC2;
-import com.girlkun.models.boss.list_boss.BossHac.BossHAC3;
-import com.girlkun.models.boss.list_boss.BossHac.BossHAC4;
-import com.girlkun.models.boss.list_boss.BossHac.BossHAC5;
-import com.girlkun.models.boss.list_boss.BossHac.BossHAC6;
-import com.girlkun.models.boss.list_boss.BossHac.BossHAC7;
-import com.girlkun.models.boss.list_boss.BossTet.BossTET;
-import com.girlkun.models.boss.list_boss.BossTet.BossTET2;
-import com.girlkun.models.boss.list_boss.BossTet.BossTET3;
-import com.girlkun.models.boss.list_boss.BossTet.BossTET4;
-import com.girlkun.models.boss.list_boss.BossMA;
-import com.girlkun.models.boss.list_boss.BossTHAN;
-///
-import com.girlkun.models.boss.list_boss.BossTet.BossTET5;
-import com.girlkun.models.boss.list_boss.BossTet.BossTET6;
-import com.girlkun.models.boss.list_boss.BossTet.BossTET7;
-import com.girlkun.models.boss.list_boss.BossTet.BossTET8;
-import com.girlkun.models.boss.list_boss.BossTet.BossTET9;
-import com.girlkun.models.boss.list_boss.BossTet.BossTET10;
-import com.girlkun.models.boss.list_boss.BossTet.BossTET11;
-import com.girlkun.models.boss.list_boss.BossCU.BossCU;
-import com.girlkun.models.boss.list_boss.BossCU.BossCU2;
-import com.girlkun.models.boss.list_boss.BossCU.BossCU3;
-import com.girlkun.models.boss.list_boss.BossCU.BossCU4;
-import com.girlkun.models.boss.list_boss.BossCU.BossCU5;
-import com.girlkun.models.boss.list_boss.BossCU.BossCU6;
-import com.girlkun.models.boss.list_boss.BossCU.BossCU7;
-import com.girlkun.models.boss.list_boss.BossCU.BossCU8;
-import com.girlkun.models.boss.list_boss.BossVANG;
+import com.girlkun.models.boss.list_boss.Boss1S.Boss1S1;
+import com.girlkun.models.boss.list_boss.Boss1S.Boss1S2;
+import com.girlkun.models.boss.list_boss.Boss1S.Boss1S3;
+import com.girlkun.models.boss.list_boss.Boss1S.Boss1S4;
+import com.girlkun.models.boss.list_boss.BossAdmin.*;
+import com.girlkun.models.boss.list_boss.BossCU.*;
+import com.girlkun.models.boss.list_boss.BossHac.*;
+import com.girlkun.models.boss.list_boss.BossMa.MaTroiHong;
+import com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh;
+import com.girlkun.models.boss.list_boss.BossMoi.*;
 import com.girlkun.models.boss.list_boss.BossNgoc.BossNGOC;
-import com.girlkun.models.boss.list_boss.BossVANG1;
 import com.girlkun.models.boss.list_boss.BossNgoc.BossNGOC1;
 import com.girlkun.models.boss.list_boss.BossNgoc.BossNGOC2;
 import com.girlkun.models.boss.list_boss.BossSieuCap.BossGokuUI;
 import com.girlkun.models.boss.list_boss.BossSieuCap.BossGokuUI2;
 import com.girlkun.models.boss.list_boss.BossSieuCap.BossJiren;
 import com.girlkun.models.boss.list_boss.BossSieuCap.BossJiren2;
-////
-import com.girlkun.models.boss.list_boss.Boss1S.Boss1S1;
-import com.girlkun.models.boss.list_boss.Boss1S.Boss1S2;
-import com.girlkun.models.boss.list_boss.Boss1S.Boss1S3;
-import com.girlkun.models.boss.list_boss.Boss1S.Boss1S4;
-import com.girlkun.models.boss.list_boss.BossCapybara;
-import com.girlkun.models.boss.list_boss.BossDetuBroly;
-import com.girlkun.models.boss.list_boss.BossMa.MaTroiHong;
-import com.girlkun.models.boss.list_boss.BossMa.MaTroiXanh;
-import com.girlkun.models.boss.list_boss.BossZeno.*;
-//import com.girlkun.models.boss.list_boss.BossVang;
+import com.girlkun.models.boss.list_boss.BossTet.*;
+import com.girlkun.models.boss.list_boss.BossZeno.BossZeno;
+import com.girlkun.models.boss.list_boss.BossZeno.BossZeno2;
+import com.girlkun.models.boss.list_boss.BossZeno.BossZeno3;
+import com.girlkun.models.boss.list_boss.Broly.Broly;
+import com.girlkun.models.boss.list_boss.Cooler.Cooler;
+import com.girlkun.models.boss.list_boss.Doraemon.*;
+import com.girlkun.models.boss.list_boss.FideBack.FideRobot;
+import com.girlkun.models.boss.list_boss.FideBack.Kingcold;
+import com.girlkun.models.boss.list_boss.HuyDiet.Champa;
+import com.girlkun.models.boss.list_boss.HuyDiet.ThanHuyDiet;
+import com.girlkun.models.boss.list_boss.HuyDiet.ThienSuWhis;
+import com.girlkun.models.boss.list_boss.HuyDiet.Vados;
+import com.girlkun.models.boss.list_boss.Mabu12h.*;
+import com.girlkun.models.boss.list_boss.NRD.*;
+import com.girlkun.models.boss.list_boss.NgucTu.CoolerGold;
 import com.girlkun.models.boss.list_boss.NgucTu.Cumber;
-import com.girlkun.models.boss.list_boss.cell.Xencon;
-import com.girlkun.models.boss.list_boss.ginyu.TDST;
+import com.girlkun.models.boss.list_boss.NgucTu.SongokuTaAc;
+import com.girlkun.models.boss.list_boss.OnePiece.*;
 import com.girlkun.models.boss.list_boss.android.*;
 import com.girlkun.models.boss.list_boss.cell.SieuBoHung;
 import com.girlkun.models.boss.list_boss.cell.XenBoHung;
-import com.girlkun.models.boss.list_boss.Broly.Broly;
-import com.girlkun.models.boss.list_boss.Doraemon.Nobita;
-import com.girlkun.models.boss.list_boss.Doraemon.Xeko;
-import com.girlkun.models.boss.list_boss.Doraemon.Xuka;
-import com.girlkun.models.boss.list_boss.FideBack.FideRobot;
-import com.girlkun.models.boss.list_boss.NgucTu.SongokuTaAc;
+import com.girlkun.models.boss.list_boss.cell.Xencon;
+import com.girlkun.models.boss.list_boss.doanh_trai.*;
 import com.girlkun.models.boss.list_boss.fide.Fide;
-import com.girlkun.models.boss.list_boss.Doraemon.Chaien;
-import com.girlkun.models.boss.list_boss.NRD.Rong1Sao;
-import com.girlkun.models.boss.list_boss.NRD.Rong2Sao;
-import com.girlkun.models.boss.list_boss.NRD.Rong3Sao;
-import com.girlkun.models.boss.list_boss.NRD.Rong4Sao;
-import com.girlkun.models.boss.list_boss.NRD.Rong5Sao;
-import com.girlkun.models.boss.list_boss.NRD.Rong6Sao;
-import com.girlkun.models.boss.list_boss.NRD.Rong7Sao;
-import com.girlkun.models.boss.list_boss.Mabu12h.MabuBoss;
-import com.girlkun.models.boss.list_boss.Mabu12h.BuiBui;
-import com.girlkun.models.boss.list_boss.Mabu12h.BuiBui2;
-import com.girlkun.models.boss.list_boss.Mabu12h.Drabura;
-import com.girlkun.models.boss.list_boss.Mabu12h.Drabura2;
-import com.girlkun.models.boss.list_boss.Mabu12h.Yacon;
-import com.girlkun.models.boss.list_boss.MiNuong;
-import com.girlkun.models.boss.list_boss.PetLan;
-import com.girlkun.models.boss.list_boss.ThoTrang;
-import com.girlkun.models.boss.list_boss.doanh_trai.NinjaTim;
-import com.girlkun.models.boss.list_boss.doanh_trai.RobotVeSi;
-import com.girlkun.models.boss.list_boss.doanh_trai.TrungUyThep;
-import com.girlkun.models.boss.list_boss.doanh_trai.TrungUyTrang;
-import com.girlkun.models.boss.list_boss.doanh_trai.TrungUyXanhLo;
-import com.girlkun.models.boss.list_boss.nappa.*;
+import com.girlkun.models.boss.list_boss.ginyu.TDST;
+import com.girlkun.models.boss.list_boss.nappa.Kuku;
+import com.girlkun.models.boss.list_boss.nappa.MapDauDinh;
+import com.girlkun.models.boss.list_boss.nappa.Rambo;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
 import com.girlkun.network.io.Message;
@@ -128,6 +57,7 @@ import com.girlkun.services.MapService;
 import com.girlkun.utils.Logger;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class BossManager implements Runnable {
@@ -170,7 +100,6 @@ public class BossManager implements Runnable {
             return;
         }
         try {
-//            Thread.sleep(10000);
             this.createBoss(BossID.BOSS_THOTRANG);
             this.createBoss(BossID.BOSS_THOTRANG2);
             this.createBoss(BossID.BOSS_CAPYBARA);
@@ -802,6 +731,18 @@ public class BossManager implements Runnable {
             } catch (Exception ignored) {
             }
         }
+    }
+
+    public void clearAll() {
+        Iterator<Boss> iterator = bosses.iterator();
+        while (iterator.hasNext()) {
+            Boss boss = iterator.next();
+            boss.dispose();
+            iterator.remove();
+        }
+        loadedBoss = false;
+        loadBoss();
+        Logger.log("Reload boss success");
     }
 }
 
