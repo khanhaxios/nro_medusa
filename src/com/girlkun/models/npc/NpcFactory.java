@@ -5373,41 +5373,36 @@ public class NpcFactory {
                         this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Chỉ tiếp các bang hội, miễn tiếp khách vãng lai", "Đóng");
                         return;
                     }
-                    if (player.clan.doanhTrai_haveGone) {
-                        createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ta đã thả ngọc rồng ở tất cả các map,mau đi nhặt đi. Hẹn ngươi quay lại vào ngày mai", "OK");
-                        return;
-                    }
-
-                    boolean flag = true;
-                    for (Mob mob : player.zone.mobs) {
-                        if (!mob.isDie()) {
-                            flag = false;
-                        }
-                    }
-                    for (Player boss : player.zone.getBosses()) {
-                        if (!boss.isDie()) {
-                            flag = false;
-                        }
-                    }
+                    createOtherMenu(player, ConstNpc.BASE_MENU, "Ta đã thả Ngũ Hành Thạch ở tất cả các map,mau đi nhặt đi. Hẹn ngươi quay lại vào ngày mai", "Nhận thưởng", "Đóng");
                 }
             }
 
             @Override
             public void confirmMenu(Player player, int select) {
                 if (canOpenNpc(player)) {
-                    switch (player.iDMark.getIndexMenu()) {
-                        case ConstNpc.MENU_JOIN_DOANH_TRAI:
-                            if (select == 0) {
-                                DoanhTraiService.gI().joinDoanhTrai(player);
-                            } else if (select == 2) {
-                                NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_DOANH_TRAI);
-                            }
-                            break;
-                        case ConstNpc.IGNORE_MENU:
-                            if (select == 1) {
-                                NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_DOANH_TRAI);
-                            }
-                            break;
+                    if (player.iDMark.getIndexMenu() == ConstNpc.BASE_MENU) {
+                        switch (select) {
+                            case 0:
+                                boolean flag = true;
+                                for (Mob mob : player.zone.mobs) {
+                                    if (!mob.isDie()) {
+                                        flag = false;
+                                    }
+                                }
+                                for (Player boss : player.zone.getBosses()) {
+                                    if (!boss.isDie()) {
+                                        flag = false;
+                                    }
+                                }
+                                if (flag) {
+                                    // thả đá vào hành trang
+                                    InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createNewItem(2083, Util.nextInt(1, 3)));
+                                    InventoryServiceNew.gI().sendItemBags(player);
+                                    Service.gI().sendThongBao(player, "Phần thưởng đã gửi vào túi của bạn");
+                                    DoanhTraiService.gI().ketthucDT(player);
+                                }
+                                break;
+                        }
                     }
                 }
             }
@@ -5429,7 +5424,7 @@ public class NpcFactory {
                     }
                     int nPlSameClan = 0;
                     for (Player pl : player.zone.getPlayers()) {
-                        if (!pl.equals(player) && pl.clan != null && pl.clan.equals(player.clan) && pl.location.x >= 1285 && pl.location.x <= 1645) {
+                        if ((pl.clan.id == player.clan.id && pl.id != player.id) && pl.location.x >= 1285 && pl.location.x <= 1645) {
                             nPlSameClan++;
                         }
                     }
@@ -7092,6 +7087,8 @@ public class NpcFactory {
         int avatar = Manager.NPC_TEMPLATES.get(tempId).avatar;
         try {
             switch (tempId) {
+                case ConstNpc.DOC_NHAN:
+                    return docNhan(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.MEDUSA_TU_MA:
                     return tuma(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.NPC_LUYEN_THE:

@@ -105,11 +105,13 @@ public class DoanhTraiService {
         }
     }
 
-    private void ketthucDT(Player player) {
-        List<Player> playersMap = player.zone.getPlayers();
+    public void ketthucDT(Player player) {
+        List<Player> playersMap = player.clan.membersInGame;
         for (int i = playersMap.size() - 1; i >= 0; i--) {
             Player pl = playersMap.get(i);
-            kickOutOfDT(pl);
+            if (MapService.gI().isMapDoanhTrai(pl.zone.map.mapId)) {
+                kickOutOfDT(pl);
+            }
             ItemTimeService.gI().removeTextDoanhTrai(player);
             player.clan.doanhTrai_haveGone = true;
         }

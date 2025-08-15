@@ -169,14 +169,15 @@ public class BanDoKhoBauService {
         Iterator<BanDoKhoBau> iterator = BanDoKhoBau.BAN_DO_KHO_BAU.iterator();
         while (iterator.hasNext()) {
             BanDoKhoBau banDoKhoBau = iterator.next();
-
-            if (banDoKhoBau.isOpened &&
-                    (Util.canDoWithTime(banDoKhoBau.lastTimeOpen, BanDoKhoBau.TIME_KHI_BAN_DO_KHO_BAU)
-                            || banDoKhoBau.timeOutMap > 0)) {
-                ketthucbdkb(banDoKhoBau.player);
+            if (banDoKhoBau != null) {
+                if (banDoKhoBau.isOpened &&
+                        (Util.canDoWithTime(banDoKhoBau.lastTimeOpen, BanDoKhoBau.TIME_KHI_BAN_DO_KHO_BAU)
+                                || banDoKhoBau.timeOutMap > 0)) {
+                    ketthucbdkb(banDoKhoBau.player);
+                }
+                int id = banDoKhoBau.id;
+                BanDoKhoBau.BAN_DO_KHO_BAU.set(id, new BanDoKhoBau(id));
             }
-            int id = banDoKhoBau.id;
-            BanDoKhoBau.BAN_DO_KHO_BAU.set(id, new BanDoKhoBau(id));
         }
         Logger.log("Reset bản đồ kho báu thành công");
     }

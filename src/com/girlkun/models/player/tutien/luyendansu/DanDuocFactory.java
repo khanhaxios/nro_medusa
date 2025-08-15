@@ -1,6 +1,7 @@
 package com.girlkun.models.player.tutien.luyendansu;
 
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
@@ -18,9 +19,17 @@ public class DanDuocFactory {
             Service.gI().sendThongBao(player, "Bạn cần học luyện đan để có thể sử dụng đan dược");
             return;
         }
-        if (!player.isAdmin() && player.tuTien.level < danDuoc.capDoYeuCauDeSuDung) {
-            Service.gI().sendThongBao(player, "Bạn cần đạt tu tiên cấp " + TuTien.CANH_GIOI[danDuoc.capDoYeuCauDeSuDung] + " để sử dụng");
-            return;
+        if (!player.isAdmin()) {
+            if (player.tuTien.isTuTien() && player.tuTien.level < danDuoc.capDoYeuCauDeSuDung) {
+                Service.gI().sendThongBao(player, "Bạn cần đạt tu tiên cấp " + TuTien.CANH_GIOI[danDuoc.capDoYeuCauDeSuDung] + " để sử dụng");
+                return;
+            } else if (player.tuMa.isTuMa() && player.tuMa.level / 10 < danDuoc.capDoYeuCauDeSuDung) {
+                Service.gI().sendThongBao(player, "Bạn cần đạt tu ma cấp " + TuMa.CANH_GIOI[danDuoc.capDoYeuCauDeSuDung] + " để sử dụng");
+                return;
+            } else if (player.luyenThe.isLuyenTheReal() && player.luyenThe.level < danDuoc.capDoYeuCauDeSuDung * 20) {
+                Service.gI().sendThongBao(player, "Bạn cần đạt luyện thể tầng " + danDuoc.capDoYeuCauDeSuDung * 20 + " để sử dụng");
+                return;
+            }
         }
         if (danDuoc.id >= 456 && danDuoc.id <= 456 + 5) {
             //hoi khi dan

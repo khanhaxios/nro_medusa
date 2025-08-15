@@ -737,8 +737,10 @@ public class BossManager implements Runnable {
         Iterator<Boss> iterator = bosses.iterator();
         while (iterator.hasNext()) {
             Boss boss = iterator.next();
-            boss.dispose();
-            iterator.remove();
+            if (boss != null) {
+                boss.dispose();
+                iterator.remove();
+            }
         }
         loadedBoss = false;
         loadBoss();

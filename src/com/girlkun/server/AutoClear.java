@@ -60,15 +60,18 @@ public class AutoClear implements Runnable {
 
                 // Đủ thời gian thì clear + reset
                 if (Util.canDoWithTime(lastTimeClear, TIME_WAIT_CLEAR)) {
-                    Client.gI().kickAllSession();
-                    BanDoKhoBauService.gI().clearAll();
-                    DoanhTraiService.gI().clearAll();
-                    BossManager.gI().clearAll();
-                    Logger.log("AutoClear: dọn dẹp thành công!");
+                    try {
+                        Client.gI().kickAllSession();
+                        BanDoKhoBauService.gI().clearAll();
+                        DoanhTraiService.gI().clearAll();
+                        BossManager.gI().clearAll();
+                        Logger.log("AutoClear: dọn dẹp thành công!");
+                    } catch (Exception e) {
+                        Logger.error(e.getMessage());
+                    }
                     lastTimeClear = System.currentTimeMillis();
                     warned = false;
                 }
-
                 Thread.sleep(800);
             } catch (Exception e) {
                 e.printStackTrace();
