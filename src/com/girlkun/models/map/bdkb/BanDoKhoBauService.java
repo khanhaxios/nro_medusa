@@ -85,19 +85,19 @@ public class BanDoKhoBauService {
     }
 
     public void ketthucbdkb(Player player) {
-        List<Player> playersMap = player.zone.getPlayers();
+        List<Player> playersMap = player.clan.membersInGame;
         Player playerOpen = player.clan.banDoKhoBau.player;
         Zone zone = playerOpen.clan.banDoKhoBau.getMapById(137);
         List<Player> bosses = zone.getBosses();
         for (int i = playersMap.size() - 1; i >= 0; i--) {
             Player pl = playersMap.get(i);
-            if (containtInClan(playerOpen, pl)) {
+            if (MapService.gI().isMapBanDoKhoBau(pl.zone.map.mapId)) {
                 kickOutOfBDKB(pl);
-                ItemTimeService.gI().removeTextbdkb(player);
-                pl.bdkb_isJoinBdkb = false;
-                pl.clan.banDoKhoBau.dispose();
-                pl.clan.banDoKhoBau = null;
             }
+            ItemTimeService.gI().removeTextbdkb(player);
+            pl.bdkb_isJoinBdkb = false;
+            pl.clan.banDoKhoBau.dispose();
+            pl.clan.banDoKhoBau = null;
         }
         for (Player boss : bosses) {
             if (boss != null && !boss.isDie) {

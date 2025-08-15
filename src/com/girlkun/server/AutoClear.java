@@ -8,13 +8,14 @@ import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 public class AutoClear implements Runnable {
-    private static final long TIME_WAIT_CLEAR = 10_800_000;
+    private static final long TIME_WAIT_CLEAR = 10_800_000; // 3 tiếng
     private static AutoClear I;
 
     public boolean isRunning;
     public boolean AUTO_CLEAN_STATE;
 
     public long lastTimeClear;
+    private boolean warned; // cờ đánh dấu đã thông báo trước 5 phút
 
     public static AutoClear getI() {
         if (I == null) {
@@ -27,6 +28,7 @@ public class AutoClear implements Runnable {
         lastTimeClear = System.currentTimeMillis();
         isRunning = true;
         AUTO_CLEAN_STATE = true;
+        warned = false;
     }
 
     public void setState(boolean state) {
@@ -45,15 +47,18 @@ public class AutoClear implements Runnable {
                 long timePassed = System.currentTimeMillis() - lastTimeClear;
                 long timeLeft = TIME_WAIT_CLEAR - timePassed;
 
-                if (timeLeft <= 300000 && timeLeft > 0) {
+                // Thông báo 1 lần khi còn 5 phút
+                if (!warned && timeLeft <= 300000 && timeLeft > 0) {
                     long seconds = timeLeft / 1000;
                     long minutes = seconds / 60;
                     Service.gI().sendThongBaoAllPlayer(
                             "Hệ thống sắp dọn dẹp phó bản định kỳ sau "
                                     + minutes + " phút (" + seconds + " giây). Hãy chú ý thoát ra."
                     );
+                    warned = true;
                 }
 
+                // Đủ thời gian thì clear + reset
                 if (Util.canDoWithTime(lastTimeClear, TIME_WAIT_CLEAR)) {
                     Client.gI().kickAllSession();
                     BanDoKhoBauService.gI().clearAll();
@@ -61,6 +66,7 @@ public class AutoClear implements Runnable {
                     BossManager.gI().clearAll();
                     Logger.log("AutoClear: dọn dẹp thành công!");
                     lastTimeClear = System.currentTimeMillis();
+                    warned = false;
                 }
 
                 Thread.sleep(800);
