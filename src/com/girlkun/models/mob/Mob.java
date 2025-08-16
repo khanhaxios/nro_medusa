@@ -894,7 +894,10 @@ public class Mob {
             }
             if (Util.isTrue(levell / 100000, 200)) {
                 // ruong vang
-                list.add(new ItemMap(zone, 572, 1, this.location.x, yEnd, player.id));
+                Item item = ItemService.gI().createNewItem(572, 1);
+                InventoryServiceNew.gI().addItemBag(player, item);
+                InventoryServiceNew.gI().sendItemBags(player);
+                Service.gI().sendThongBao(player, "Bạn vừa nhận được rương vàng.");
             }
         }
         if (Util.isTrue(99, 100) && player.setClothes.tinhan == 5 || player.setClothes.nguyetan == 5 || player.setClothes.nhatan == 5) {
@@ -929,7 +932,7 @@ public class Mob {
         //Dao Lu rơi đan
         if (player.isDaoLu) {
             // Xác suất 1% để rơi đồ đặc biệt
-            if (Util.isTrue(1, 100)) {
+            if (Util.isTrue(1, 1000)) {
                 // Rơi 1 item đặc biệt trong khoảng 1066–1069
                 int[] itemIds = {1606, 1607, 1608, 1609};
                 int itemId = itemIds[Util.nextInt(0, itemIds.length)];

@@ -4,12 +4,15 @@ import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossData;
 import com.girlkun.models.boss.BossManager;
+import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.map.bdkb.BanDoKhoBauService;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.services.EffectSkillService;
+import com.girlkun.services.InventoryServiceNew;
+import com.girlkun.services.ItemService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
@@ -75,7 +78,6 @@ public class TrungUyXanhLoBdkb extends Boss {
                 a += 10;
             }
         }
-        // chac chan roi ruong
         if (levell <= 50) {
             // roi ruong bac
             ItemMap it = new ItemMap(this.zone, 573, Util.nextInt(1, 5), this.location.x, this.zone.map.yPhysicInTop(this.location.x,
@@ -88,14 +90,14 @@ public class TrungUyXanhLoBdkb extends Boss {
             Service.getInstance().dropItemMap(this.zone, it);
         }
         if (levell > 100 && levell <= 250) {
-            ItemMap it = new ItemMap(this.zone, 571, Util.nextInt(1, 5), this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), -1);
-            Service.getInstance().dropItemMap(this.zone, it);
+            Item item = ItemService.gI().createNewItem(571, Util.nextInt(1, 5));
+            InventoryServiceNew.gI().addItemBag(plKill, item);
+            InventoryServiceNew.gI().sendItemBags(plKill);
         }
         if (levell > 250 && levell <= 500) {
-            ItemMap it = new ItemMap(this.zone, 572, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), -1);
-            Service.getInstance().dropItemMap(this.zone, it);
+            Item item = ItemService.gI().createNewItem(572, 1);
+            InventoryServiceNew.gI().addItemBag(plKill, item);
+            InventoryServiceNew.gI().sendItemBags(plKill);
         }
         BanDoKhoBauService.gI().setTimeOutMap(plKill, 20);
     }

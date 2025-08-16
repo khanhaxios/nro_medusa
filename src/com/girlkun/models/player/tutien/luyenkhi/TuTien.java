@@ -459,7 +459,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     protected long getNextLevelExp() {
         int nextLv = Math.min(level, LEVEL_EXP.length - 1);
         int nextSubLv = Math.min(subLevel, SUB_LEVEL_EXP.length - 1);
-        return ((LEVEL_EXP[nextLv] + SUB_LEVEL_EXP[nextSubLv]) * Math.max(1, xParam)) * 2;
+        return ((LEVEL_EXP[nextLv] + SUB_LEVEL_EXP[nextSubLv]) * Math.max(1, xParam)) * 10;
     }
 
     @Override

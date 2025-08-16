@@ -89,6 +89,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     private long calcMaxMaKhi() {
         long m = (BASE_LINH_KHI[level / 10] + BASE_SUB_LINH_KHI[level % 10]) * (congPhapTuMa.phamChat + 1 + maTinh);
         m += m * player.nPoint.xLinhKhi / 100;
+        m *= 3;
         return m;
     }
 
@@ -98,7 +99,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     }
 
     private long getNextLevelExp() {
-        return (LEVEL_EXP[level / 10] + SUB_LEVEL_EXP[level / 10]) * (congPhapTuMa.phamChat + 500);
+        return (LEVEL_EXP[level / 10] + SUB_LEVEL_EXP[level / 10]) * (congPhapTuMa.phamChat + 700);
     }
 
     @Override

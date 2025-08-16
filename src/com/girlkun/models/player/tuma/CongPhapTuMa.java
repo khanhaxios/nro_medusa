@@ -51,7 +51,7 @@ public class CongPhapTuMa {
     }
 
     public double getMaxDameBuff() {
-        double baseDame = 1_000_000;
+        double baseDame = 600_000;
         return baseDame * phamChat;
     }
 

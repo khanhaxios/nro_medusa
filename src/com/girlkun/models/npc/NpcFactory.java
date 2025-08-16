@@ -8090,7 +8090,7 @@ public class NpcFactory {
                             Item item2 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[1]);
                             Item item3 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[2]);
                             byte nextLevel = (byte) (player.luyenThe.level + 1);
-                            if (item1 == null || item2 == null || item3 == null || item1.quantity < (nextLevel * 10) || item2.quantity < (nextLevel * 10) || item3.quantity < (nextLevel * 10)) {
+                            if (item1 == null || item2 == null || item3 == null || item1.quantity < (nextLevel * 20) || item2.quantity < (nextLevel * 10) || item3.quantity < (nextLevel * 10)) {
                                 Service.gI().sendThongBao(player, "Bạn thiếu tài liệu rồi");
                                 return;
                             }
@@ -8123,12 +8123,11 @@ public class NpcFactory {
                                         player.luyenThe.timeThatBai++;
                                     }
                                 }
-
                                 Service.gI().sendThongBao(player, "Đột phá thất bại");
                             }
-                            InventoryServiceNew.gI().subQuantityItemsBag(player, item1, player.luyenThe.level * 10);
-                            InventoryServiceNew.gI().subQuantityItemsBag(player, item2, player.luyenThe.level * 10);
-                            InventoryServiceNew.gI().subQuantityItemsBag(player, item3, player.luyenThe.level * 10);
+                            InventoryServiceNew.gI().subQuantityItemsBag(player, item1, player.luyenThe.level * 20);
+                            InventoryServiceNew.gI().subQuantityItemsBag(player, item2, player.luyenThe.level * 20);
+                            InventoryServiceNew.gI().subQuantityItemsBag(player, item3, player.luyenThe.level * 20);
                             InventoryServiceNew.gI().sendItemBags(player);
                         }
                         break;

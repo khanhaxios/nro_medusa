@@ -559,26 +559,26 @@ public class Manager {
                 clan.createTime = (int) (rs.getTimestamp("create_time").getTime() / 1000);
                 dataArray = (JSONArray) jv.parse(rs.getString("members"));
                 for (int i = 0; i < dataArray.size(); i++) {
-                    dataObject = (JSONObject) jv.parse(String.valueOf(dataArray.get(i)));
-                    ClanMember cm = new ClanMember();
-                    cm.clan = clan;
-                    cm.id = Integer.parseInt(String.valueOf(dataObject.get("id")));
-                    cm.name = String.valueOf(dataObject.get("name"));
-                    cm.head = Short.parseShort(String.valueOf(dataObject.get("head")));
-                    cm.body = Short.parseShort(String.valueOf(dataObject.get("body")));
-                    cm.leg = Short.parseShort(String.valueOf(dataObject.get("leg")));
-                    cm.role = Byte.parseByte(String.valueOf(dataObject.get("role")));
-                    cm.donate = Integer.parseInt(String.valueOf(dataObject.get("donate")));
-                    cm.receiveDonate = Integer.parseInt(String.valueOf(dataObject.get("receive_donate")));
-                    cm.memberPoint = Integer.parseInt(String.valueOf(dataObject.get("member_point")));
-                    cm.clanPoint = Integer.parseInt(String.valueOf(dataObject.get("clan_point")));
-                    cm.joinTime = Integer.parseInt(String.valueOf(dataObject.get("join_time")));
-                    cm.timeAskPea = Long.parseLong(String.valueOf(dataObject.get("ask_pea_time")));
                     try {
+                        dataObject = (JSONObject) jv.parse(String.valueOf(dataArray.get(i)));
+                        ClanMember cm = new ClanMember();
+                        cm.clan = clan;
+                        cm.id = Integer.parseInt(String.valueOf(dataObject.get("id")));
+                        cm.name = String.valueOf(dataObject.get("name"));
+                        cm.head = Short.parseShort(String.valueOf(dataObject.get("head")));
+                        cm.body = Short.parseShort(String.valueOf(dataObject.get("body")));
+                        cm.leg = Short.parseShort(String.valueOf(dataObject.get("leg")));
+                        cm.role = Byte.parseByte(String.valueOf(dataObject.get("role")));
+                        cm.donate = Integer.parseInt(String.valueOf(dataObject.get("donate")));
+                        cm.receiveDonate = Integer.parseInt(String.valueOf(dataObject.get("receive_donate")));
+                        cm.memberPoint = Integer.parseInt(String.valueOf(dataObject.get("member_point")));
+                        cm.clanPoint = Integer.parseInt(String.valueOf(dataObject.get("clan_point")));
+                        cm.joinTime = Integer.parseInt(String.valueOf(dataObject.get("join_time")));
+                        cm.timeAskPea = Long.parseLong(String.valueOf(dataObject.get("ask_pea_time")));
                         cm.powerPoint = Long.parseLong(String.valueOf(dataObject.get("power")));
+                        clan.addClanMember(cm);
                     } catch (Exception e) {
                     }
-                    clan.addClanMember(cm);
                 }
                 dataArray = (JSONArray) JSONValue.parse(rs.getString("doanh_trai"));
                 if (!dataArray.isEmpty()) {

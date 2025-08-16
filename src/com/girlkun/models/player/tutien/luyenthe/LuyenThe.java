@@ -146,7 +146,7 @@ public class LuyenThe extends BaseTuDuy {
     }
 
     protected long getNextLevelExp() {
-        return Math.max(level, 1) * 30_000;
+        return Math.max(level, 1) * 100_000;
     }
 
     public float getLevelUpPercent() {
@@ -296,7 +296,7 @@ public class LuyenThe extends BaseTuDuy {
     public String getItemNeed(short[] idsItemNeed) {
         StringBuilder needStr = new StringBuilder();
         for (short i : idsItemNeed) {
-            needStr.append("x").append((level + 1) * 10).append(Manager.ITEM_TEMPLATES.get(i).name);
+            needStr.append("x").append((level + 1) * 20).append(Manager.ITEM_TEMPLATES.get(i).name);
             if (i != idsItemNeed[idsItemNeed.length - 1]) {
                 needStr.append(",");
             }

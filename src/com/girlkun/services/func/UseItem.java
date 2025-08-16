@@ -861,9 +861,8 @@ public class UseItem {
     private void openRuongVang(Player pl, Item item) {
         // ====== Tỷ lệ phần thưởng ======
         // Tỷ lệ tính theo phần trăm (0 - 100)
-        int rateRuby = 100;            // Hồng ngọc luôn có
         int rateRubyBigBonus = 5;      // Tỷ lệ ra thêm 10tr ruby
-        int rateDN = 100;              // Điểm nạp luôn có
+        int rateDN = 80;              // Điểm nạp luôn có
         int rateThangTinhThach = 70;   // 70% ra thăng tinh thạch
         int rateDaLuyenThe = 80;       // 80% ra đá luyện thể
         int rateNguHanhThach = 50;     // 50% ra ngũ hành thạch

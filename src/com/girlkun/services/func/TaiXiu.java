@@ -3,6 +3,7 @@ package com.girlkun.services.func;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Client;
 import com.girlkun.services.InventoryServiceNew;
+import com.girlkun.services.ItemService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
@@ -79,41 +80,18 @@ public class TaiXiu implements Runnable {
                 long timeLeft = TaiXiu.gI().lastTimeEnd - System.currentTimeMillis();
                 if (timeLeft <= 0) {
                     int x, y, z;
-                    if (TaiXiu.gI().goldTai >= TaiXiu.gI().goldXiu) {
+                    x = Util.nextInt(1, 6);
+                    y = Util.nextInt(1, 6);
+                    z = Util.nextInt(1, 6);
+
+                    if (goldTai > 1_000_000 || goldXiu > 1_000_000) {
                         if (Util.isTrue(60, 100)) {
-                            x = Util.nextInt(1, 2);
-                            y = Util.nextInt(1, 3);
-                            z = Util.nextInt(1, 3);
-                            TaiXiu.gI().x = x;
-                            TaiXiu.gI().y = y;
-                            TaiXiu.gI().z = z;
-                        } else {
-                            x = Util.nextInt(3, 6);
-                            y = Util.nextInt(4, 6);
-                            z = Util.nextInt(4, 6);
-                            TaiXiu.gI().x = x;
-                            TaiXiu.gI().y = y;
-                            TaiXiu.gI().z = z;
-                        }
-                    } else {
-                        if (Util.isTrue(60, 100)) {
-                            x = Util.nextInt(3, 6);
-                            y = Util.nextInt(4, 6);
-                            z = Util.nextInt(4, 6);
-                            TaiXiu.gI().x = x;
-                            TaiXiu.gI().y = y;
-                            TaiXiu.gI().z = z;
-                        } else {
-                            x = Util.nextInt(1, 2);
-                            y = Util.nextInt(1, 3);
-                            z = Util.nextInt(1, 3);
-                            TaiXiu.gI().x = x;
-                            TaiXiu.gI().y = y;
-                            TaiXiu.gI().z = z;
+                            x = Util.nextInt(1, 6);
+                            z = x;
+                            y = z;
                         }
                     }
                     int tong = (x + y + z);
-
                     if (tong > 3 && tong < 11) {
                         ketquaTamhoa = false;
                         ketquaXiu = true;
@@ -141,6 +119,15 @@ public class TaiXiu implements Runnable {
                                     Logger.logTaiXiu(pl, 0, pl.goldTai, goldC);
                                     pl.session.vnd += goldC;
                                     pl.taixiu.win += pl.goldTai * TILE_AN_THUA / 100;
+                                    if (Util.isTrue(1, 500)) {
+                                        InventoryServiceNew.gI().addItemBag(pl, ItemService.gI().createNewItem(752, 1));
+                                        InventoryServiceNew.gI().sendItemBags(pl);
+                                        Service.gI().sendThongBao(pl, "Bạn nhận được rương vàng");
+                                    } else {
+                                        InventoryServiceNew.gI().addItemBag(pl, ItemService.gI().createNewItem(570, 1));
+                                        InventoryServiceNew.gI().sendItemBags(pl);
+                                        Service.gI().sendThongBao(pl, "Bạn nhận được rương gỗ");
+                                    }
                                     Service.getInstance().sendMoney(pl);
                                     InventoryServiceNew.gI().sendItemBags(pl);
                                 }
@@ -164,6 +151,15 @@ public class TaiXiu implements Runnable {
                                     Logger.logTaiXiu(pl, 1, pl.goldXiu, goldC);
                                     pl.session.vnd += goldC;
                                     pl.taixiu.win += pl.goldXiu * TILE_AN_THUA / 100;
+                                    if (Util.isTrue(1, 500)) {
+                                        InventoryServiceNew.gI().addItemBag(pl, ItemService.gI().createNewItem(752, 1));
+                                        InventoryServiceNew.gI().sendItemBags(pl);
+                                        Service.gI().sendThongBao(pl, "Bạn nhận được rương vàng");
+                                    } else {
+                                        InventoryServiceNew.gI().addItemBag(pl, ItemService.gI().createNewItem(570, 1));
+                                        InventoryServiceNew.gI().sendItemBags(pl);
+                                        Service.gI().sendThongBao(pl, "Bạn nhận được rương gỗ");
+                                    }
                                     Service.getInstance().sendMoney(pl);
                                     InventoryServiceNew.gI().sendItemBags(pl);
                                 }
