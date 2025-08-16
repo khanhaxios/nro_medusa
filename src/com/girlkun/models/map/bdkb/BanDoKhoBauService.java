@@ -170,14 +170,16 @@ public class BanDoKhoBauService {
         while (iterator.hasNext()) {
             BanDoKhoBau banDoKhoBau = iterator.next();
             if (banDoKhoBau != null) {
-                if (banDoKhoBau.isOpened &&
-                        (Util.canDoWithTime(banDoKhoBau.lastTimeOpen, BanDoKhoBau.TIME_KHI_BAN_DO_KHO_BAU)
-                                || banDoKhoBau.timeOutMap > 0)) {
+                if (banDoKhoBau.clan != null && (Util.canDoWithTime(banDoKhoBau.clan.timeOpenbdkb, BanDoKhoBau.TIME_KHI_BAN_DO_KHO_BAU)
+                        || banDoKhoBau.timeOutMap > 0)) {
                     ketthucbdkb(banDoKhoBau.player);
                 }
-                int id = banDoKhoBau.id;
-                BanDoKhoBau.BAN_DO_KHO_BAU.set(id, new BanDoKhoBau(id));
             }
+        }
+        //  init new
+        BanDoKhoBau.BAN_DO_KHO_BAU.clear();
+        for (int i = 0; i < BanDoKhoBau.MAX_AVAILABLE; i++) {
+            BanDoKhoBau.BAN_DO_KHO_BAU.add(new BanDoKhoBau(i));
         }
         Logger.log("Reset bản đồ kho báu thành công");
     }

@@ -61,7 +61,6 @@ public class AutoClear implements Runnable {
                 // Đủ thời gian thì clear + reset
                 if (Util.canDoWithTime(lastTimeClear, TIME_WAIT_CLEAR)) {
                     try {
-                        Client.gI().kickAllSession();
                         BanDoKhoBauService.gI().clearAll();
                         DoanhTraiService.gI().clearAll();
                         BossManager.gI().clearAll();

@@ -147,9 +147,7 @@ public class DoanhTraiService {
             if (doanhTrai.getClan() != null
                     && doanhTrai.isOpened
                     && Util.canDoWithTime(doanhTrai.getLastTimeOpen(), TIME_DOANH_TRAI)) {
-
                 List<Player> players = new ArrayList<>(doanhTrai.getClan().membersInGame);
-
                 for (Player player : players) {
                     if (MapService.gI().isMapDoanhTrai(player.zone.map.mapId)) {
                         kickOutOfDT(player);
