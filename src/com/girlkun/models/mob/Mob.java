@@ -141,11 +141,13 @@ public class Mob {
             if (this.isDie()) {
                 this.lvMob = 0;
                 this.status = 0;
-                this.sendMobDieAffterAttacked(plAtt, damage, type);
-                TaskService.gI().checkDoneTaskKillMob(plAtt, this);
-                TaskService.gI().checkDoneSideTaskKillMob(plAtt, this);
-                // hut dame
-                plAtt.tuTien.handleHutChiSo();
+                if (plAtt != null) {
+                    this.sendMobDieAffterAttacked(plAtt, damage, type);
+                    TaskService.gI().checkDoneTaskKillMob(plAtt, this);
+                    TaskService.gI().checkDoneSideTaskKillMob(plAtt, this);
+                    // hut dame
+                    plAtt.tuTien.handleHutChiSo();
+                }
                 this.lastTimeDie = System.currentTimeMillis();
                 if (this.id == 13) {
                     this.zone.isbulon13Alive = false;

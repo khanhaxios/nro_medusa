@@ -5,7 +5,9 @@ import com.girlkun.models.map.Zone;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.ItemTimeService;
+import com.girlkun.services.Service;
 import com.girlkun.services.func.ChangeMapService;
+import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +17,10 @@ import java.util.List;
  */
 public class BanDoKhoBau {
     public static final long POWER_CAN_GO_TO_BDKB = 2000000000;
-
+    public static final long TIME_WAIT_BDKB = (60 * 60) * 1000;
     public static List<BanDoKhoBau> BAN_DO_KHO_BAU;
     public static final int MAX_AVAILABLE = 15;
-    public static final int N_PLAYER_MAP = 2;
+    //    public static final int N_PLAYER_MAP = 2;
     public static final int TIME_KHI_BAN_DO_KHO_BAU = 1800000;
     public Player player;
 
@@ -52,6 +54,7 @@ public class BanDoKhoBau {
 //    }
 
     public void openBanDoKhoBau(Player plOpen, Clan clan, int level) {
+
         this.level = level;
         plOpen.bdkb_countPerDay++;
         plOpen.bdkb_lastTimeJoin = System.currentTimeMillis();
@@ -72,6 +75,7 @@ public class BanDoKhoBau {
         for (Zone zone : zones) {
             for (Mob m : zone.mobs) {
                 Mob.initMopbbdkb(m, this.level);
+                m.injured(null, m.point.maxHp + 19999999, true, (byte) 0);
                 m.hoiSinh();
                 m.sendMobHoiSinh();
             }

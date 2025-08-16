@@ -61,8 +61,7 @@ public class GodGK {
             for (int i = 0; i < json.size(); i++) {
                 JSONObject ob = (JSONObject) json.get(i);
                 if (ob != null) {
-                    ops.add(new OptionCard(Integer.parseInt(ob.get("id").toString()),
-                            Integer.parseInt(ob.get("param").toString()), Byte.parseByte(ob.get("active").toString())));
+                    ops.add(new OptionCard(Integer.parseInt(ob.get("id").toString()), Integer.parseInt(ob.get("param").toString()), Byte.parseByte(ob.get("active").toString())));
                 }
             }
         } catch (Exception e) {
@@ -106,8 +105,7 @@ public class GodGK {
                         Client.gI().kickSession(plInGame.getSession());
                         Service.getInstance().sendThongBaoOK(session, "Ai đó đã vô acc bạn :3");
                     } else {
-                        GirlkunDB.executeUpdate("update account set last_time_logout = ? where id = ?",
-                                new Timestamp(System.currentTimeMillis()), session.userId);
+                        GirlkunDB.executeUpdate("update account set last_time_logout = ? where id = ?", new Timestamp(System.currentTimeMillis()), session.userId);
                         Service.getInstance().sendThongBaoOK(session, "Cập nhật dữ liệu tài khoản hoàn tất, có thể tiếp tục đăng nhập");
                         return null;
                     }
@@ -163,14 +161,20 @@ public class GodGK {
                             if (clanId != -1) {
                                 Clan clan = ClanService.gI().getClanById(clanId);
                                 if (clan != null) {
+                                    ClanMember member = null;
                                     for (ClanMember cm : clan.getMembers()) {
                                         if (cm.id == player.id) {
-                                            clan.addMemberOnline(player);
-                                            player.clan = clan;
-                                            player.clanMember = cm;
+                                            member = cm;
                                             break;
                                         }
                                     }
+                                    if (member == null) {
+                                        ClanMember clanMember = new ClanMember(player, clan, Clan.MEMBER);
+                                        clan.addClanMember(clanMember);
+                                    }
+                                    clan.addMemberOnline(player);
+                                    player.clan = clan;
+                                    player.clanMember = member;
                                 }
                             }
 
@@ -247,8 +251,7 @@ public class GodGK {
                                 player.location.x = Integer.parseInt(String.valueOf(dataArray.get(1)));
                                 player.location.y = Integer.parseInt(String.valueOf(dataArray.get(2)));
                                 player.location.lastTimeplayerMove = System.currentTimeMillis();
-                                if (MapService.gI().isMapDoanhTrai(mapId) || MapService.gI().isMapBlackBallWar(mapId)
-                                        || MapService.gI().isMapBanDoKhoBau(mapId) || MapService.gI().isMapKhiGas(mapId) || MapService.gI().isMapMaBu(mapId)) {
+                                if (MapService.gI().isMapDoanhTrai(mapId) || MapService.gI().isMapBlackBallWar(mapId) || MapService.gI().isMapBanDoKhoBau(mapId) || MapService.gI().isMapKhiGas(mapId) || MapService.gI().isMapMaBu(mapId)) {
                                     mapId = player.gender + 21;
                                     player.location.x = 300;
                                     player.location.y = 336;
@@ -314,8 +317,7 @@ public class GodGK {
                                     JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                                     for (int j = 0; j < options.size(); j++) {
                                         JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                                        item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                                Integer.parseInt(String.valueOf(opt.get(1)))));
+                                        item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                                     }
                                     item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
                                     if (ItemService.gI().isOutOfDateTime(item) || ItemService.gI().isOutOfDateTimeVV(item)) {
@@ -342,8 +344,7 @@ public class GodGK {
                                     JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                                     for (int j = 0; j < options.size(); j++) {
                                         JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                                        item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                                Integer.parseInt(String.valueOf(opt.get(1)))));
+                                        item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                                     }
                                     item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
                                     if (ItemService.gI().isOutOfDateTime(item) || ItemService.gI().isOutOfDateTimeVV(item)) {
@@ -367,8 +368,7 @@ public class GodGK {
                                     JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                                     for (int j = 0; j < options.size(); j++) {
                                         JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                                        item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                                Integer.parseInt(String.valueOf(opt.get(1)))));
+                                        item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                                     }
                                     item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
                                     if (ItemService.gI().isOutOfDateTime(item) || ItemService.gI().isOutOfDateTimeVV(item)) {
@@ -393,8 +393,7 @@ public class GodGK {
                                         JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                                         for (int j = 0; j < options.size(); j++) {
                                             JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                                    Integer.parseInt(String.valueOf(opt.get(1)))));
+                                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                                         }
                                         player.inventory.itemsBoxCrackBall.add(item);
                                     }
@@ -565,15 +564,13 @@ public class GodGK {
                             //data trứng bư
                             dataArray = (JSONArray) jv.parse(rs.getString("data_mabu_egg"));
                             if (dataArray.size() != 0) {
-                                player.mabuEgg = new MabuEgg(player, Long.parseLong(String.valueOf(dataArray.get(0))),
-                                        Long.parseLong(String.valueOf(dataArray.get(1))));
+                                player.mabuEgg = new MabuEgg(player, Long.parseLong(String.valueOf(dataArray.get(0))), Long.parseLong(String.valueOf(dataArray.get(1))));
                             }
                             dataArray.clear();
                             //data dưa
                             dataArray = (JSONArray) jv.parse(rs.getString("data_dua"));
                             if (dataArray.size() != 0) {
-                                player.timedua = new Timedua(player, Long.parseLong(String.valueOf(dataArray.get(0))),
-                                        Long.parseLong(String.valueOf(dataArray.get(1))));
+                                player.timedua = new Timedua(player, Long.parseLong(String.valueOf(dataArray.get(0))), Long.parseLong(String.valueOf(dataArray.get(1))));
                             }
                             dataArray.clear();
 
@@ -607,9 +604,7 @@ public class GodGK {
                             dataArray.clear();
 
                             //data skill
-                            int[] skillsArr = player.gender == 0 ? ConstPlayer.SKILL_TD
-                                    : player.gender == 1 ? ConstPlayer.SKILL_NAMEC
-                                    : ConstPlayer.SKILL_XAYDA;
+                            int[] skillsArr = player.gender == 0 ? ConstPlayer.SKILL_TD : player.gender == 1 ? ConstPlayer.SKILL_NAMEC : ConstPlayer.SKILL_XAYDA;
                             dataArray = (JSONArray) jv.parse(rs.getString("skills"));
                             for (int i = 0; i < dataArray.size(); i++) {
                                 JSONArray dataSkill = (JSONArray) jv.parse(String.valueOf(dataArray.get(i)));
@@ -655,8 +650,7 @@ public class GodGK {
                                 }
                             }
                             if (player.playerSkill.skillSelect == null) {
-                                player.playerSkill.skillSelect = player.playerSkill.getSkillbyId(player.gender == ConstPlayer.TRAI_DAT
-                                        ? Skill.DRAGON : (player.gender == ConstPlayer.NAMEC ? Skill.DEMON : Skill.GALICK));
+                                player.playerSkill.skillSelect = player.playerSkill.getSkillbyId(player.gender == ConstPlayer.TRAI_DAT ? Skill.DRAGON : (player.gender == ConstPlayer.NAMEC ? Skill.DEMON : Skill.GALICK));
                             }
                             dataArray.clear();
 
@@ -670,8 +664,7 @@ public class GodGK {
                                 pet.gender = Byte.parseByte(String.valueOf(dataArray.get(1)));
                                 pet.name = String.valueOf(dataArray.get(2));
                                 player.fusion.typeFusion = Byte.parseByte(String.valueOf(dataArray.get(3)));
-                                player.fusion.lastTimeFusion = System.currentTimeMillis()
-                                        - (Fusion.TIME_FUSION - Integer.parseInt(String.valueOf(dataArray.get(4))));
+                                player.fusion.lastTimeFusion = System.currentTimeMillis() - (Fusion.TIME_FUSION - Integer.parseInt(String.valueOf(dataArray.get(4))));
                                 pet.status = Byte.parseByte(String.valueOf(dataArray.get(5)));
 
                                 //data chỉ số
@@ -700,8 +693,7 @@ public class GodGK {
                                         JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                                         for (int j = 0; j < options.size(); j++) {
                                             JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                                    Integer.parseInt(String.valueOf(opt.get(1)))));
+                                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                                         }
                                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
                                         if (ItemService.gI().isOutOfDateTime(item) || ItemService.gI().isOutOfDateTimeVV(item)) {
@@ -753,8 +745,7 @@ public class GodGK {
                                 petDaoLu.nameDaoLu = String.valueOf(dataArray.get(2));
                                 petDaoLu.name = "$[" + petDaoLu.getTypeString() + "] " + petDaoLu.nameDaoLu;
                                 player.fusion.typeFusion = Byte.parseByte(String.valueOf(dataArray.get(3)));
-                                player.fusion.lastTimeFusion = System.currentTimeMillis()
-                                        - (Fusion.TIME_FUSION - Integer.parseInt(String.valueOf(dataArray.get(4))));
+                                player.fusion.lastTimeFusion = System.currentTimeMillis() - (Fusion.TIME_FUSION - Integer.parseInt(String.valueOf(dataArray.get(4))));
                                 petDaoLu.status = Byte.parseByte(String.valueOf(dataArray.get(5)));
 
                                 //Ndq viết thêm mở rộng
@@ -794,8 +785,7 @@ public class GodGK {
                                         JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                                         for (int j = 0; j < options.size(); j++) {
                                             JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                                    Integer.parseInt(String.valueOf(opt.get(1)))));
+                                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                                         }
                                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
                                         if (ItemService.gI().isOutOfDateTime(item)) {
@@ -1635,8 +1625,7 @@ public class GodGK {
                         JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                         for (int j = 0; j < options.size(); j++) {
                             JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
-                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                    Integer.parseInt(String.valueOf(opt.get(1)))));
+                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
 
                         }
                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
@@ -1662,8 +1651,7 @@ public class GodGK {
                         JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                         for (int j = 0; j < options.size(); j++) {
                             JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
-                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                    Integer.parseInt(String.valueOf(opt.get(1)))));
+                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
                         if (ItemService.gI().isOutOfDateTime(item)) {
@@ -1688,8 +1676,7 @@ public class GodGK {
                         JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                         for (int j = 0; j < options.size(); j++) {
                             JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
-                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                    Integer.parseInt(String.valueOf(opt.get(1)))));
+                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
                         if (ItemService.gI().isOutOfDateTime(item)) {
@@ -1714,8 +1701,7 @@ public class GodGK {
                         JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                         for (int j = 0; j < options.size(); j++) {
                             JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
-                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                    Integer.parseInt(String.valueOf(opt.get(1)))));
+                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         player.inventory.itemsBoxCrackBall.add(item);
                     }
@@ -1732,8 +1718,7 @@ public class GodGK {
                     pet.gender = Byte.parseByte(String.valueOf(dataArray.get(1)));
                     pet.name = String.valueOf(dataArray.get(2));
                     player.fusion.typeFusion = Byte.parseByte(String.valueOf(dataArray.get(3)));
-                    player.fusion.lastTimeFusion = System.currentTimeMillis()
-                            - (Fusion.TIME_FUSION - Integer.parseInt(String.valueOf(dataArray.get(4))));
+                    player.fusion.lastTimeFusion = System.currentTimeMillis() - (Fusion.TIME_FUSION - Integer.parseInt(String.valueOf(dataArray.get(4))));
                     pet.status = Byte.parseByte(String.valueOf(dataArray.get(5)));
 
                     //data chỉ số
@@ -1762,8 +1747,7 @@ public class GodGK {
                             JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                             for (int j = 0; j < options.size(); j++) {
                                 JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                                item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                        Integer.parseInt(String.valueOf(opt.get(1)))));
+                                item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                             }
                             item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
                             if (ItemService.gI().isOutOfDateTime(item)) {
@@ -1887,9 +1871,7 @@ public class GodGK {
                     int mapId = Integer.parseInt(String.valueOf(dataArray.get(0)));
                     player.location.x = Integer.parseInt(String.valueOf(dataArray.get(1)));
                     player.location.y = Integer.parseInt(String.valueOf(dataArray.get(2)));
-                    if (MapService.gI().isMapDoanhTrai(mapId) || MapService.gI().isMapBlackBallWar(mapId)
-                            || MapService.gI().isMapBanDoKhoBau(mapId)
-                            || MapService.gI().isMapKhiGas(mapId)) {
+                    if (MapService.gI().isMapDoanhTrai(mapId) || MapService.gI().isMapBlackBallWar(mapId) || MapService.gI().isMapBanDoKhoBau(mapId) || MapService.gI().isMapKhiGas(mapId)) {
                         mapId = player.gender + 21;
                         player.location.x = 300;
                         player.location.y = 336;
@@ -1949,8 +1931,7 @@ public class GodGK {
                         JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                         for (int j = 0; j < options.size(); j++) {
                             JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                    Integer.parseInt(String.valueOf(opt.get(1)))));
+                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
                         if (ItemService.gI().isOutOfDateTime(item)) {
@@ -1974,8 +1955,7 @@ public class GodGK {
                         JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                         for (int j = 0; j < options.size(); j++) {
                             JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                    Integer.parseInt(String.valueOf(opt.get(1)))));
+                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
                         if (ItemService.gI().isOutOfDateTime(item)) {
@@ -1999,8 +1979,7 @@ public class GodGK {
                         JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                         for (int j = 0; j < options.size(); j++) {
                             JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                    Integer.parseInt(String.valueOf(opt.get(1)))));
+                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
                         if (ItemService.gI().isOutOfDateTime(item)) {
@@ -2024,8 +2003,7 @@ public class GodGK {
                         JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                         for (int j = 0; j < options.size(); j++) {
                             JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                    Integer.parseInt(String.valueOf(opt.get(1)))));
+                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         player.inventory.itemsBoxCrackBall.add(item);
                     }
@@ -2183,15 +2161,13 @@ public class GodGK {
                 //data trứng bư
                 dataArray = (JSONArray) jv.parse(rs.getString("data_mabu_egg"));
                 if (dataArray.size() != 0) {
-                    player.mabuEgg = new MabuEgg(player, Long.parseLong(String.valueOf(dataArray.get(0))),
-                            Long.parseLong(String.valueOf(dataArray.get(1))));
+                    player.mabuEgg = new MabuEgg(player, Long.parseLong(String.valueOf(dataArray.get(0))), Long.parseLong(String.valueOf(dataArray.get(1))));
                 }
                 dataArray.clear();
                 //data trứng bư
                 dataArray = (JSONArray) jv.parse(rs.getString("data_dua"));
                 if (dataArray.size() != 0) {
-                    player.timedua = new Timedua(player, Long.parseLong(String.valueOf(dataArray.get(0))),
-                            Long.parseLong(String.valueOf(dataArray.get(1))));
+                    player.timedua = new Timedua(player, Long.parseLong(String.valueOf(dataArray.get(0))), Long.parseLong(String.valueOf(dataArray.get(1))));
                 }
                 dataArray.clear();
 
@@ -2238,8 +2214,7 @@ public class GodGK {
                     }
                 }
                 if (player.playerSkill.skillSelect == null) {
-                    player.playerSkill.skillSelect = player.playerSkill.getSkillbyId(player.gender == ConstPlayer.TRAI_DAT
-                            ? Skill.DRAGON : (player.gender == ConstPlayer.NAMEC ? Skill.DEMON : Skill.GALICK));
+                    player.playerSkill.skillSelect = player.playerSkill.getSkillbyId(player.gender == ConstPlayer.TRAI_DAT ? Skill.DRAGON : (player.gender == ConstPlayer.NAMEC ? Skill.DEMON : Skill.GALICK));
                 }
                 dataArray.clear();
 
@@ -2253,8 +2228,7 @@ public class GodGK {
                     pet.gender = Byte.parseByte(String.valueOf(dataArray.get(1)));
                     pet.name = String.valueOf(dataArray.get(2));
                     player.fusion.typeFusion = Byte.parseByte(String.valueOf(dataArray.get(3)));
-                    player.fusion.lastTimeFusion = System.currentTimeMillis()
-                            - (Fusion.TIME_FUSION - Integer.parseInt(String.valueOf(dataArray.get(4))));
+                    player.fusion.lastTimeFusion = System.currentTimeMillis() - (Fusion.TIME_FUSION - Integer.parseInt(String.valueOf(dataArray.get(4))));
                     pet.status = Byte.parseByte(String.valueOf(dataArray.get(5)));
 
                     //data chỉ số
@@ -2283,8 +2257,7 @@ public class GodGK {
                             JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                             for (int j = 0; j < options.size(); j++) {
                                 JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                                item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                        Integer.parseInt(String.valueOf(opt.get(1)))));
+                                item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                             }
                             item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
                             if (ItemService.gI().isOutOfDateTime(item)) {
@@ -2334,8 +2307,7 @@ public class GodGK {
                     petDaoLu.nameDaoLu = String.valueOf(dataArray.get(2));
                     petDaoLu.name = "$[" + petDaoLu.getTypeString() + "] " + petDaoLu.nameDaoLu;
                     player.fusion.typeFusion = Byte.parseByte(String.valueOf(dataArray.get(3)));
-                    player.fusion.lastTimeFusion = System.currentTimeMillis()
-                            - (Fusion.TIME_FUSION - Integer.parseInt(String.valueOf(dataArray.get(4))));
+                    player.fusion.lastTimeFusion = System.currentTimeMillis() - (Fusion.TIME_FUSION - Integer.parseInt(String.valueOf(dataArray.get(4))));
                     petDaoLu.status = Byte.parseByte(String.valueOf(dataArray.get(5)));
 
                     //Ndq viết thêm mở rộng
@@ -2374,8 +2346,7 @@ public class GodGK {
                             JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
                             for (int j = 0; j < options.size(); j++) {
                                 JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                                item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))),
-                                        Integer.parseInt(String.valueOf(opt.get(1)))));
+                                item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                             }
                             item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
                             if (ItemService.gI().isOutOfDateTime(item)) {

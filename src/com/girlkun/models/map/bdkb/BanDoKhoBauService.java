@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import static com.girlkun.models.map.bdkb.BanDoKhoBau.TIME_KHI_BAN_DO_KHO_BAU;
+import static com.girlkun.models.map.bdkb.BanDoKhoBau.TIME_WAIT_BDKB;
 
 /**
  * @author BTH
@@ -42,7 +43,7 @@ public class BanDoKhoBauService {
         if (player.isPl() && player.clan.banDoKhoBau != null
                 && player.clan.timeOpenbdkb != 0) {
             if (Util.canDoWithTime(player.clan.timeOpenbdkb, TIME_KHI_BAN_DO_KHO_BAU)) {
-                ketthucbdkb(player);
+                BanDoKhoBauService.gI().ketthucbdkb(player);
                 return;
             }
             if (player.isPl() && player.clan.banDoKhoBau != null && player.clan.banDoKhoBau.timeOutMap > 0
@@ -129,6 +130,10 @@ public class BanDoKhoBauService {
                         }
                     }
                     if (bdkb != null) {
+                        if (!Util.canDoWithTime(player.clan.timeOpenbdkb, TIME_WAIT_BDKB)) {
+                            Service.gI().sendThongBao(player, "Bang hội của bạn vừa đi bản đồ kho báu!Cần đợi " + (TIME_WAIT_BDKB - (System.currentTimeMillis() - player.clan.timeOpenbdkb)) + "Giây nữa để đi");
+                            return;
+                        }
                         InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
                         InventoryServiceNew.gI().sendItemBags(player);
                         bdkb.openBanDoKhoBau(player, player.clan, level);
