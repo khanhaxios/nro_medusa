@@ -383,34 +383,38 @@ public class PetService {
 
     //=========================== Pet - Ver 2 - by ndq ==========================
     private void createNewPet(Player player, byte typePet, byte... gender) {
-        int[] data = getDataPets(typePet);
-        Pet pet = new Pet(player);
-        pet.name = "$" + getNamePets(typePet); //"[" + player.name + "]" + " - " +
-        pet.gender = (gender != null && gender.length != 0) ? gender[0] : (byte) Util.nextInt(0, 2);
-        pet.id = -player.id;
-        pet.nPoint.power = typePet != 0 ? 1500000 : 2000;
-        pet.nPoint.tiemNang = typePet != 0 ? 1500000 : 2000;
-        pet.typePet = (byte) typePet;
-        pet.nPoint.stamina = 1000;
-        pet.nPoint.maxStamina = 1000;
-        pet.nPoint.hpg = data[0];
-        pet.nPoint.mpg = data[1];
-        pet.nPoint.dameg = data[2];
-        pet.nPoint.defg = data[3];
-        pet.nPoint.critg = data[4];
-        for (int i = 0; i < 8; i++) {
-            pet.inventory.itemsBody.add(ItemService.gI().createItemNull());
+        try {
+            int[] data = getDataPets(typePet);
+            Pet pet = new Pet(player);
+            pet.name = "$" + getNamePets(typePet); //"[" + player.name + "]" + " - " +
+            pet.gender = (gender != null && gender.length != 0) ? gender[0] : (byte) Util.nextInt(0, 2);
+            pet.id = -player.id;
+            pet.nPoint.power = typePet != 0 ? 1500000 : 2000;
+            pet.nPoint.tiemNang = typePet != 0 ? 1500000 : 2000;
+            pet.typePet = (byte) typePet;
+            pet.nPoint.stamina = 1000;
+            pet.nPoint.maxStamina = 1000;
+            pet.nPoint.hpg = data[0];
+            pet.nPoint.mpg = data[1];
+            pet.nPoint.dameg = data[2];
+            pet.nPoint.defg = data[3];
+            pet.nPoint.critg = data[4];
+            for (int i = 0; i < 8; i++) {
+                pet.inventory.itemsBody.add(ItemService.gI().createItemNull());
+            }
+            if (pet.typePet >= 7) {
+                pet.playerSkill.skills.add(SkillUtil.createSkill(17, 1));
+            } else {
+                pet.playerSkill.skills.add(SkillUtil.createSkill(Util.nextInt(0, 2) * 2, 1));
+            }
+            for (int i = 0; i < 4; i++) {
+                pet.playerSkill.skills.add(SkillUtil.createEmptySkill());
+            }
+            pet.nPoint.setFullHpMp();
+            player.pet = pet;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        if (pet.typePet >= 7) {
-            pet.playerSkill.skills.add(SkillUtil.createSkill(17, 1));
-        } else {
-            pet.playerSkill.skills.add(SkillUtil.createSkill(Util.nextInt(0, 2) * 2, 1));
-        }
-        for (int i = 0; i < 4; i++) {
-            pet.playerSkill.skills.add(SkillUtil.createEmptySkill());
-        }
-        pet.nPoint.setFullHpMp();
-        player.pet = pet;
     }
 
     private int[] getDataPets(Byte typePet) {

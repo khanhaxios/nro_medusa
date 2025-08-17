@@ -8661,10 +8661,7 @@ public class NpcFactory {
                                 break;
                             case 2:
                                 if (player.isAdmin()) {
-                                    System.out.println(player.name);
-//                                PlayerService.gI().baoTri();
                                     Maintenance.gI().start(15);
-                                    System.out.println(player.name);
                                 }
                                 break;
                             case 3:

@@ -283,4 +283,13 @@ public class Client implements Runnable {
             GirlkunSessionManager.gI().removeSession(session);
         }
     }
+
+    public Player getPlayerById(int parseInt) {
+        for (Player player : players) {
+            if (player.id == parseInt) {
+                return player;
+            }
+        }
+        return null;
+    }
 }

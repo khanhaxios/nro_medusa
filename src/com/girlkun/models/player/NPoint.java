@@ -1731,6 +1731,7 @@ public class NPoint {
         this.tlDef.clear();
         this.tlDame.clear();
         this.tlDameCrit.clear();
+        this.tyLeGiamDame = 0;
         this.tlDameAttMob.clear();
         this.tlHpHoiBanThanVaDongDoi = 0;
         this.tlMpHoiBanThanVaDongDoi = 0;
@@ -1758,6 +1759,18 @@ public class NPoint {
         this.xHoiLinhKhi = 0;
         this.xDameLinhCan = 0;
         this.xTuVi = 0;
+
+        this.tlDameKim = 0;
+        this.tlDameMoc = 0;
+        this.tlDameThuy = 0;
+        this.tlDameHoa = 0;
+        this.tlDameTho = 0;
+
+        this.tlDamePhong = 0;
+        this.tlDameLoi = 0;
+        this.tlDameQuang = 0;
+        this.tlDameAm = 0;
+
         this.teleport = false;
 
         this.wearingVoHinh = false;

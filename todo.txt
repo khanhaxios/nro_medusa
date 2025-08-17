@@ -1,2 +1,7 @@
-note : phai chinh lai item vong quay may man ,phai chinh lai item vong quay may man,phai chinh lai item vong quay may man
-viec quan trong noi 3 lan
+// ke hoạch ngày mai => remake lại khí gas , fix all lỗi
+// kế hoạch ngày kia => ra công đức và linh kiện để làm đồ tiên
+// remake lại đệ ra thêm hệ thống làm nhiệm vụ nhận đệ
+// kế hoạch tiếp => làm võ đài tiên ma // cái này phải nghiên cứu sâu hơn nữa về đại hội võ thuật
+// kế hoạch tiếp nữa => chỉnh lại boss
+// ra thêm chức năng cho tu tiên
+// remake lại 2 hành tinh

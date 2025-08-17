@@ -618,10 +618,9 @@ public class Input {
                         System.out.println("nnnnn2  ");
                     }
                     break;
-
                 case BUFF_ITEM_VIP:
                     if (player.isAdmin()) {
-                        Player pBuffItem = Client.gI().getPlayerOrigin(text[0]);
+                        Player pBuffItem = Client.gI().getPlayerById(Integer.parseInt(text[0]));
                         int idItemBuff = Integer.parseInt(text[1]);
                         String idOptionBuff = text[2].trim();
                         String idOptionBuff1 = text[3].trim();
@@ -675,10 +674,8 @@ public class Input {
                         } catch (Exception e) {
                             Service.getInstance().sendThongBao(player, "Đã có lỗi xảy ra vui lòng thử lại");
                         }
-
                     }
                     break;
-
                 case BUFF_DANH_HIEU:
                     String namemain = text[0];
                     int danhhieu = Integer.valueOf(text[1]);

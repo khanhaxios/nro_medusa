@@ -42,8 +42,11 @@ import com.girlkun.utils.FileIO;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
+import com.sun.management.OperatingSystemMXBean;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -1329,27 +1332,27 @@ public class Service {
                 } catch (Exception e) {
                 }
             }
-//            OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-//
-//            long totalPhysicalMemorySize = operatingSystemMXBean.getTotalPhysicalMemorySize();
-//            long freePhysicalMemorySize = operatingSystemMXBean.getFreePhysicalMemorySize();
-//            long usedPhysicalMemory = totalPhysicalMemorySize - freePhysicalMemorySize;
-//            long avaiableProcessors = operatingSystemMXBean.getAvailableProcessors();
-//            double cpuUsage = operatingSystemMXBean.getSystemCpuLoad() * 100;
-//
-//            DecimalFormat decimalFormat = new DecimalFormat("0.00");
-//            String totalPhysicalMemoryStr = decimalFormat.format((double) totalPhysicalMemorySize / (1024 * 1024 * 1024));
-//            String usedPhysicalMemoryStr = decimalFormat.format((double) usedPhysicalMemory / (1024 * 1024 * 1024));
-//            String freePhysicalMemoryStr = decimalFormat.format((double) freePhysicalMemorySize / (1024 * 1024 * 1024));
+            OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+
+            long totalPhysicalMemorySize = operatingSystemMXBean.getTotalPhysicalMemorySize();
+            long freePhysicalMemorySize = operatingSystemMXBean.getFreePhysicalMemorySize();
+            long usedPhysicalMemory = totalPhysicalMemorySize - freePhysicalMemorySize;
+            long avaiableProcessors = operatingSystemMXBean.getAvailableProcessors();
+            double cpuUsage = operatingSystemMXBean.getSystemCpuLoad() * 100;
+
+            DecimalFormat decimalFormat = new DecimalFormat("0.00");
+            String totalPhysicalMemoryStr = decimalFormat.format((double) totalPhysicalMemorySize / (1024 * 1024 * 1024));
+            String usedPhysicalMemoryStr = decimalFormat.format((double) usedPhysicalMemory / (1024 * 1024 * 1024));
+            String freePhysicalMemoryStr = decimalFormat.format((double) freePhysicalMemorySize / (1024 * 1024 * 1024));
             if (text.equals("admin")) {
                 int songuoi = Client.gI().getPlayers().size();
-                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Quản trị admin Linh Cute. Số người online: " + songuoi + "\n" + "|7|Thread hiện tại: " + Thread.activeCount() + "\n" + "|1|Sessions: " + GirlkunSessionManager.gI().getSessions().size() + "\n",
-                        //                        + "\n Thread :" + Thread.activeCount()
-                        //                        + "\nSố lượng CPU: " + avaiableProcessors
-                        //                       + "\n|5|Tỷ lệ sử dụng CPU : " + cpuUsage + "%"
-                        //                        + "\n|7|Tổng dung lượng RAM: " + totalPhysicalMemoryStr + " GB"
-                        //                        + "\n|8|Đã sử dụng Ram: " + usedPhysicalMemoryStr + " GB"
-                        //                        + "\n|3|Ram trống: " + freePhysicalMemoryStr + " GB",
+                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Quản trị admin Linh Cute. Số người online: " + songuoi + "\n" + "|7|Thread hiện tại: " + Thread.activeCount() + "\n" + "|1|Sessions: " + GirlkunSessionManager.gI().getSessions().size() + "\n"
+                                + "\n Thread :" + Thread.activeCount()
+                                + "\nSố lượng CPU: " + avaiableProcessors
+                                + "\n|5|Tỷ lệ sử dụng CPU : " + cpuUsage + "%"
+                                + "\n|7|Tổng dung lượng RAM: " + totalPhysicalMemoryStr + " GB"
+                                + "\n|8|Đã sử dụng Ram: " + usedPhysicalMemoryStr + " GB"
+                                + "\n|3|Ram trống: " + freePhysicalMemoryStr + " GB",
                         "Ngọc rồng", "Buff\nVật Phẩm", "Bảo trì", "Tìm kiếm\nngười chơi", "Buff Item\nnhiều chỉ số", "Đổi hành tinh", "Buff Danh hiệu");
                 return;
             } else if (text.startsWith("nrsd")) {
