@@ -843,15 +843,16 @@ public class NPoint {
         // chi so  hop the
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             switch (((Pet) this.player).typePet) {
-                case ConstPet.MABU -> this.hpMax += (this.hpMax * 10 / 100);
-                case ConstPet.BERUS -> this.hpMax += (this.hpMax * 12 / 100);
-                case ConstPet.MASTER_BROLY -> this.hpMax += (this.hpMax * 15 / 100);
-                case ConstPet.ZENO -> this.hpMax += (this.hpMax * 20 / 100);
-                case ConstPet.GOKU -> this.hpMax += (this.hpMax * 25 / 100);
-                case ConstPet.GOGETA -> this.hpMax += (this.hpMax * 30 / 100);
-                case ConstPet.NAKROTH -> this.hpMax += (this.hpMax * 45 / 100);
-                case ConstPet.THAN_LONG_TY_TY -> this.hpMax += (this.hpMax * 55 / 100);
-                case ConstPet.FU -> this.hpMax += (this.hpMax * 100 / 100);
+                case ConstPet.MABU:
+                    this.hpMax += (this.hpMax * Math.max(75, player.khongThiSu.level * 75) / 100);
+                    this.tyLeGiamDame += Math.max(5, player.khongThiSu.level * 5);
+                    break;
+                case ConstPet.MASTER_BROLY:
+                    this.hpMax += (this.hpMax * Math.max(50, player.khongThiSu.level * 50) / 100);
+                    break;
+                case ConstPet.GOKU:
+                    this.hpMax += (this.hpMax * Math.max(150, player.khongThiSu.level * 150) / 100);
+                    break;
             }
         }
         if (this.player.isPl()) {
@@ -1104,15 +1105,9 @@ public class NPoint {
 
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             switch (((Pet) this.player).typePet) {
-                case ConstPet.MABU -> this.mpMax += ((double) this.mpMax * 10 / 100);
-                case ConstPet.BERUS -> this.mpMax += ((double) this.mpMax * 15 / 100);
-                case ConstPet.MASTER_BROLY -> this.mpMax += ((double) this.mpMax * 20 / 100);
-                case ConstPet.ZENO -> this.mpMax += ((double) this.mpMax * 25 / 100);
-                case ConstPet.GOKU -> this.mpMax += ((double) this.mpMax * 30 / 100);
-                case ConstPet.GOGETA -> this.mpMax += ((double) this.mpMax * 55 / 100);
-                case ConstPet.NAKROTH -> this.mpMax += ((double) this.mpMax * 60 / 100);
-                case ConstPet.THAN_LONG_TY_TY -> this.mpMax += ((double) this.mpMax * 65 / 100);
-                case ConstPet.FU -> this.mpMax += ((double) this.mpMax * 120 / 100);
+                case ConstPet.MABU, ConstPet.MASTER_BROLY:
+                    this.mpMax += ((double) Math.max(50, player.khongThiSu.level * 50) / 100);
+                    break;
             }
         }
         if (this.player.isPl()) {
@@ -1332,15 +1327,32 @@ public class NPoint {
 
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             switch (((Pet) this.player).typePet) {
-                case ConstPet.MABU -> this.dame += ((double) this.dame * 5 / 100);
-                case ConstPet.BERUS -> this.dame += ((double) this.dame * 10 / 100);
-                case ConstPet.MASTER_BROLY -> this.dame += ((double) this.dame * 15 / 100);
-                case ConstPet.ZENO -> this.dame += ((double) this.dame * 20 / 100);
-                case ConstPet.GOKU -> this.dame += ((double) this.dame * 25 / 100);
-                case ConstPet.GOGETA -> this.dame += ((double) this.dame * 30 / 100);
-                case ConstPet.NAKROTH -> this.dame += ((double) this.dame * 35 / 100);
-                case ConstPet.THAN_LONG_TY_TY -> this.dame += ((double) this.dame * 50 / 100);
-                case ConstPet.FU -> this.dame += ((double) this.dame * 75 / 100);
+                case ConstPet.BERUS:
+                    this.dame += ((double) this.dame * Math.max(50, player.khongThiSu.level * 50) / 100);
+                    this.tlDameCrit.add(Math.max(50, player.khongThiSu.level * 50));
+                    break;
+                case ConstPet.MASTER_BROLY:
+                    this.dame += ((double) this.dame * Math.max(10, player.khongThiSu.level * 20) / 100);
+                    break;
+                case ConstPet.ZENO:
+                    this.dame += ((double) this.dame * Math.max(20, player.khongThiSu.level * 20) / 100);
+                    this.tlDameCrit.add(Math.max(30, player.khongThiSu.level * 30));
+                    break;
+                case ConstPet.GOGETA:
+                    this.dame += ((double) this.dame * Math.max(100, player.khongThiSu.level * 100) / 100);
+                    break;
+                case ConstPet.NAKROTH:
+                    this.crit = 100;
+                    this.tlDameCrit.add(Math.max(100, player.khongThiSu.level * 100));
+                    break;
+                case ConstPet.THAN_LONG_TY_TY:
+                    this.dame += ((double) this.dame * Math.max(30, player.khongThiSu.level * 30) / 100);
+                    this.crit = 100;
+                    this.tlDameCrit.add(Math.max(50, player.khongThiSu.level * 50));
+                    break;
+                case ConstPet.FU:
+                    this.dame += ((double) this.dame * Math.max(75, player.khongThiSu.level * 75) / 100);
+                    break;
             }
         }
 

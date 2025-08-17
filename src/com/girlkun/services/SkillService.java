@@ -5,6 +5,7 @@ import com.girlkun.models.boss.Boss;
 import com.girlkun.models.intrinsic.Intrinsic;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.mob.MobMe;
+import com.girlkun.models.player.Pet.ConstPet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
@@ -1269,11 +1270,30 @@ public class SkillService {
         double damGoc = hasXaydaSkill ? plAtt.nPoint.getDameAttack(false) : subDameWithCanhGioi(plAtt, plInjure);
         miss = neDon(plInjure, miss);
         double dameHit = 0;
+        short paramOfLinhCan = 0;
+        if (plAtt.fusion.typeFusion != ConstPlayer.NON_FUSION) {
+            if (plAtt.pet.type == ConstPet.FU && plAtt.khongThiSu.level > 3) {
+                if (Util.isTrue(1, 10000)) {
+                    Service.gI().chat(plAtt, "Tử vong phán quyết");
+                    double dam = plInjure.injured(plAtt, plInjure.nPoint.hpMax * Math.max(10, plAtt.khongThiSu.level * 10) / 100, false, false, true);
+                    sendMessagePlayerAttackPlayer(plAtt, plInjure, dam, (byte) 0);
+                }
+            }
+            if (plAtt.pet.type == ConstPet.THAN_LONG_TY_TY && plAtt.khongThiSu.level > 2) {
+                paramOfLinhCan += Math.max(10, plAtt.khongThiSu.level * 10);
+            }
+            if (plAtt.pet.type == ConstPet.ZENO && plAtt.khongThiSu.level > 2) {
+                hasXaydaSkill = true;
+            }
+        }
+
         dameHit = plInjure.injured(plAtt, miss ? 0 : damGoc, false, false, hasXaydaSkill);
         phanSatThuong(plAtt, plInjure, Util.DoubleGioihan(dameHit));
         hutHPMP(plAtt, dameHit, false);
         hutLinhKhi(plAtt);
         sendMessagePlayerAttackPlayer(plAtt, plInjure, dameHit, (byte) 0);
+
+
         /// handle for linh can
         if (isLinhCan && plAtt.isPl() && plAtt.tuTien.isTuTien() && plAtt.tuTien.isAttackWithLinhCan) {
             long linhKhiPoint = TuTien.BASE_LINH_KHI[plAtt.tuTien.level] / (Util.nextInt(500, 1000));
@@ -1281,7 +1301,7 @@ public class SkillService {
             if (!plAtt.tuTien.canHandleWithLinhKhiPoint(linhKhiPoint)) {
                 return;
             }
-            short paramOfLinhCan = plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam();
+            paramOfLinhCan += plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam();
 
             if (plAtt.tuTien.congPhap.isLearn()) {
                 if (plAtt.tuTien.congPhap.xDameThuocTinh > 0) {
@@ -1428,13 +1448,13 @@ public class SkillService {
             if (!plAtt.tuMa.canHandleWithMaKhiPoint(3)) {
                 return;
             }
-            float paramOfLinhCan = plAtt.tuMa.linhCanTuMa.xParam;
+            float paramOfLinhCanTuma = plAtt.tuMa.linhCanTuMa.xParam;
             if (plAtt.nPoint.xDameLinhCan > 0) {
-                paramOfLinhCan += plAtt.nPoint.xDameLinhCan / 100f;
+                paramOfLinhCanTuma += plAtt.nPoint.xDameLinhCan / 100f;
             }
             switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
                 case 0:
-                    double hp = plInjure.injured(plAtt, (plAtt.nPoint.hpMax / 10) * (paramOfLinhCan), false, false, true);
+                    double hp = plInjure.injured(plAtt, (plAtt.nPoint.hpMax / 10) * (paramOfLinhCanTuma), false, false, true);
                     if (plAtt.nPoint.hutMauTamThoi + hp >= plAtt.nPoint.mauGoc) {
                         sendMessagePlayerAttackPlayer(plAtt, plInjure, hp, (byte) 0);
                         return;
@@ -1445,18 +1465,18 @@ public class SkillService {
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, hp, (byte) 0);
                     break;
                 case 1:
-                    double dameA = plInjure.injured(plAtt, (dameHit * 3) * paramOfLinhCan, false, false, true);
+                    double dameA = plInjure.injured(plAtt, (dameHit * 3) * paramOfLinhCanTuma, false, false, true);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameA, (byte) 0);
                     break;
                 case 2:
-                    double dameB = ((plAtt.nPoint.hpMax / 10) * paramOfLinhCan) * Util.nextInt(2, 4);
+                    double dameB = ((plAtt.nPoint.hpMax / 10) * paramOfLinhCanTuma) * Util.nextInt(2, 4);
                     dameB = plInjure.injured(plAtt, dameB, false, false, false);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameB, (byte) 0);
                     break;
                 case 3:
-                    double dameC = plInjure.injured(plAtt, (dameHit * 3) * paramOfLinhCan, false, false, true);
+                    double dameC = plInjure.injured(plAtt, (dameHit * 3) * paramOfLinhCanTuma, false, false, true);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameC, (byte) 0);
-                    if (Util.isTrue(paramOfLinhCan * Util.nextInt(2, 3), Util.nextInt(100, 120))) {
+                    if (Util.isTrue(paramOfLinhCanTuma * Util.nextInt(2, 3), Util.nextInt(100, 120))) {
                         if (!plInjure.effectSkill.isStun) {
                             EffectSkillService.gI().startStun(plInjure, System.currentTimeMillis(), 2000);
                         }
@@ -1464,7 +1484,7 @@ public class SkillService {
                     break;
                 case 4:
                     // - hp cua ban than
-                    double dame = plAtt.nPoint.hpMax * (paramOfLinhCan);
+                    double dame = plAtt.nPoint.hpMax * (paramOfLinhCanTuma);
                     plAtt.nPoint.subHP(dame);
                     double dameD = plInjure.injured(plAtt, dame, false, false, true);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameD, (byte) 0);
@@ -1508,6 +1528,7 @@ public class SkillService {
             double dh = plInjure.injured(plAtt, dameHit * plAtt.nPoint.tlDameAm / 100, false, false, true);
             sendMessagePlayerAttackPlayer(plAtt, plInjure, dh, (byte) 1, (byte) 8);
         }
+
     }
 
     private boolean neDon(Player plInjure, boolean miss) {

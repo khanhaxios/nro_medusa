@@ -3,6 +3,7 @@ package com.girlkun.models.map.bdkb;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.list_boss.phoban.TrungUyXanhLoBdkb;
 import com.girlkun.models.item.Item;
+import com.girlkun.models.map.Map;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.InventoryServiceNew;
@@ -13,6 +14,7 @@ import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -86,25 +88,35 @@ public class BanDoKhoBauService {
     }
 
     public void ketthucbdkb(Player player) {
-        List<Player> playersMap = player.clan.membersInGame;
-        Player playerOpen = player.clan.banDoKhoBau.player;
-        Zone zone = playerOpen.clan.banDoKhoBau.getMapById(137);
+        List<Player> playersMap = new ArrayList<>();
+        for (int i = 135; i <= 138; i++) {
+            // get player in this map
+            Map map = MapService.gI().getMapById(i);
+            for (Zone zone : map.zones) {
+                if (zone.zoneId == player.clan.banDoKhoBau.id) {
+                    playersMap.addAll(zone.getPlayers());
+                }
+            }
+        }
+        int id = player.clan.banDoKhoBau.id;
+        Zone zone = player.clan.banDoKhoBau.getMapById(137);
         List<Player> bosses = zone.getBosses();
         for (int i = playersMap.size() - 1; i >= 0; i--) {
             Player pl = playersMap.get(i);
-            if (MapService.gI().isMapBanDoKhoBau(pl.zone.map.mapId)) {
+            if (containtInClan(pl, player)) {
                 kickOutOfBDKB(pl);
+                ItemTimeService.gI().removeTextbdkb(player);
+                pl.bdkb_isJoinBdkb = false;
+                pl.clan.banDoKhoBau.dispose();
+                pl.clan.banDoKhoBau = null;
             }
-            ItemTimeService.gI().removeTextbdkb(player);
-            pl.bdkb_isJoinBdkb = false;
-            pl.clan.banDoKhoBau.dispose();
-            pl.clan.banDoKhoBau = null;
         }
         for (Player boss : bosses) {
             if (boss != null && !boss.isDie) {
-                boss.injured(playerOpen, boss.nPoint.hpMax + 10000, false, false, true);
+                boss.injured(player, boss.nPoint.hpMax + 10000, false, false, true);
             }
         }
+        BanDoKhoBau.BAN_DO_KHO_BAU.set(id, new BanDoKhoBau(id));
     }
 
     private boolean containtInClan(Player pl, Player player) {
