@@ -3,6 +3,7 @@ package com.girlkun.models.sangiaodich.danduoc;
 import com.girlkun.jdbc.daos.GodGK;
 import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.tutien.luyendansu.DanDuoc;
 import com.girlkun.models.player.tutien.luyendansu.ITransaction;
 import com.girlkun.services.Service;
 import com.girlkun.services.func.Input;
@@ -58,19 +59,15 @@ public class SanGiaoDichService {
             return;
         }
         // find Dan Duoc
-        ITransaction iTransaction = null;
+        DanDuoc iTransaction = null;
         iTransaction = player.luyenDanSu.tuiDanDuoc.takeDanDuocSplit(idItem, slItem);
         if (iTransaction == null) {
-            //find dan phuong
-            iTransaction = player.luyenDanSu.tuiDanPhuong.takeDanPhuong(idItem);
-        }
-        if (iTransaction == null) {
-            Service.gI().sendThongBaoOK(player, "Không tìm thấy đan phương hoặc đan dược có id [" + idItem + "]");
+            Service.gI().sendThongBaoOK(player, "Không tìm thấy đan dược có id [" + idItem + "]");
             return;
         }
         Transaction transaction = new Transaction(player, playerAccept, 86_400_000, maGiaoDich);
         transaction.addItems(iTransaction);
-        transaction.totalPrice = 1000;
+        transaction.totalPrice = 1000L * iTransaction.quantity;
         SanGiaoDichDanDuoc.getI().addTransaction(transaction);
         Service.gI().sendThongBao(player, "Tạo giao dịch thành công , bạn có thể xem ở danh sách giao dịch");
         SanGiaoDichDanDuoc.getI().showBaseMenu(player);
@@ -140,14 +137,10 @@ public class SanGiaoDichService {
         ITransaction iTransaction = null;
         iTransaction = player.luyenDanSu.tuiDanDuoc.takeDanDuocSplit(idItem, slItem);
         if (iTransaction == null) {
-            //find dan phuong
-            iTransaction = player.luyenDanSu.tuiDanPhuong.takeDanPhuong(idItem);
-        }
-        if (iTransaction == null) {
-            Service.gI().sendThongBaoOK(player, "Không tìm thấy đan phương hoặc đan dược có id [" + idItem + "]");
+            Service.gI().sendThongBaoOK(player, "Không tìm thấy đan dược có id [" + idItem + "]");
             return;
         }
-        int diemNap = slItem * 100;
+        int diemNap = slItem * 1000;
         if (player.id == transaction.playerAccept.id) {
             transaction.addItemsReceived(iTransaction);
         } else if (player.id == transaction.playerRequest.id) {

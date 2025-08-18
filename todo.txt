@@ -5,3 +5,15 @@
 // kế hoạch tiếp nữa => chỉnh lại boss
 // ra thêm chức năng cho tu tiên
 // remake lại 2 hành tinh
+List lỗi:
+- Lỗi khí gas, quái đều còn 6tr hp (1% hp) dù đi lv110. => done
+- Lỗi khí gas, đến cuối ải ko có boss. => done
+- Pb khí gas chưa mở gh lên lv500. => done
+- Lỗi bdkb, boss cuối trung úy xanh lơ chạy ra ngoài map bdkb gây lỗi bdkb ko vào đc. => done
+- Thêm npc xóa pb như doanh trại tại 2 pb: bdkb + khí gas (có thgian đợi khoảng 30p-60p tính từ lúc xóa map để đi lại). => done bdkb
+- Thêm điều kiện cho thuần lt + ma tu mở được nghề khống thi. => done
+- Lỗi đổi đệ tử, sử dụng bất kỳ đổi đệ hay mới săn đc đệ sẽ auto chết đợi hồi sinh up bth. => done
+- Lỗi buff hợp thể đệ remake. => done ko phải lỗi
+- Lỗi 9 loại dòng mới sát thương lc, tháo trang bị nhưng vẫn đc buff stlc hệ đó, tháo ra tháo zo tăng stlc của buff lc đó. => done
+- Lỗi skill tuyệt kỹ, out game mất exp (chỉnh giảm exp tuyệt kỹ xuống để nâng, ko nhất thiết fix out game). => done
+- Lỗi gd đan, đặt đan phương hay bán đan phương đều ko mở hiện bảng gd đan nhưng vẫn hủy gd đc. => done

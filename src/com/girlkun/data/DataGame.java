@@ -603,7 +603,7 @@ public class DataGame {
                 msg.writer().write(res);
                 session.sendMessage(msg);
                 msg.cleanup();
-//                Thread.sleep(10);
+                Thread.sleep(10);
             }
 
             msg = new Message(-74);

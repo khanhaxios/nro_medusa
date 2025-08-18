@@ -79,6 +79,7 @@ public class NpcFactory {
 
     //playerid - object
     public static final java.util.Map<Long, Object> PLAYERID_OBJECT = new HashMap<Long, Object>();
+    public static final short MAX_SPECIAL_SKILL_EXP = 300;
 
     private NpcFactory() {
 
@@ -139,12 +140,6 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
-//                    if (player.clanMember.getNumDateFromJoinTimeToToday() < 1) {
-//                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
-//                                "|7|KHÍ GAS\n|6|Map Khí Gas chỉ cho phép những người ở trong bang trên 1 ngày. Hẹn ngươi quay lại vào lúc khác",
-//                                "OK", "Hướng\ndẫn\nthêm");
-//                        return;
-//                    }
                     if (player.clan == null) {
                         createOtherMenu(player, ConstNpc.IGNORE_MENU, "|7|KHÍ GAS\n|6|Map Khí Gas chỉ dành cho những người có bang hội", "OK", "Hướng\ndẫn\nthêm");
                         return;
@@ -163,7 +158,7 @@ public class NpcFactory {
                             case 1:
                                 if (player.clan != null) {
                                     if (player.clan.khiGas != null) {
-                                        this.createOtherMenu(player, ConstNpc.MENU_OPENED_GAS, "|7|KHÍ GAS\n|6|Bang hội của con đang đi DesTroy Gas cấp độ " + player.clan.khiGas.level + "\nCon có muốn đi theo không?", "Đồng ý", "Từ chối");
+                                        this.createOtherMenu(player, ConstNpc.MENU_OPENED_GAS, "|7|KHÍ GAS\n|6|Bang hội của con đang đi DesTroy Gas cấp độ " + player.clan.khiGas.level + "\nCon có muốn đi theo không?", "Đồng ý", "Thoát kẹt", "Từ chối");
                                     } else {
                                         this.createOtherMenu(player, ConstNpc.MENU_OPEN_GAS, "|7|KHÍ GAS\n|6|Khí Gas Huỷ Diệt đã chuẩn bị tiếp nhận các đợt tấn công của quái vật\n" + "các con hãy giúp chúng ta tiêu diệt quái vật \n" + "Ở đây có ta lo\nNhớ chọn cấp độ vừa sức mình nhé", "Chọn\ncấp độ", "Từ chối");
                                     }
@@ -171,27 +166,6 @@ public class NpcFactory {
                                     this.npcChat(player, "Con phải có bang hội ta mới có thể cho con đi");
                                 }
                                 break;
-//                            case 2:
-//                                Clan clan = player.clan;
-//                                if (clan != null) {
-//                                    ClanMember cm = clan.getClanMember((int) player.id);
-//                                    if (cm != null) {
-//                                        if (clan.members.size() > 1) {
-//                                            Service.gI().sendThongBao(player, "Bang phải còn một người");
-//                                            break;
-//                                        }
-//                                        if (!clan.isLeader(player)) {
-//                                            Service.gI().sendThongBao(player, "Phải là bảng chủ");
-//                                            break;
-//                                        }
-////                                        
-//                                        NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_DISSOLUTION_CLAN, -1, "|7|KHÍ GAS\n|6|Con có chắc chắn muốn giải tán bang hội không? Ta cho con 2 lựa chọn...",
-//                                                "Yes you do!", "Từ chối!");
-//                                    }
-//                                    break;
-//                                }
-//                                Service.gI().sendThongBao(player, "Có bang hội đâu ba!!!");
-//                                break;
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_OPENED_GAS) {
                         switch (select) {
@@ -202,7 +176,9 @@ public class NpcFactory {
                                     this.npcChat(player, "Sức mạnh của con phải ít nhất phải đạt " + Util.numberToMoney(Gas.POWER_CAN_GO_TO_GAS));
                                 }
                                 break;
-
+                            case 1:
+                                GasService.gI().ketthucGasWithoutInside(player);
+                                break;
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_OPEN_GAS) {
                         switch (select) {
@@ -214,15 +190,13 @@ public class NpcFactory {
                                 }
                                 break;
                         }
-
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_ACCPET_GO_TO_GAS) {
                         switch (select) {
                             case 0:
-//                                 this.npcChat(player, "Chức năng đang bảo trì ");
                                 if (player.chienthan.tasknow == 7) {
                                     player.chienthan.dalamduoc++;
                                 }
-                                GasService.gI().openKhiGas(player, Byte.parseByte(String.valueOf(PLAYERID_OBJECT.get(player.id))));
+                                GasService.gI().openKhiGas(player, Short.parseShort(String.valueOf(PLAYERID_OBJECT.get(player.id))));
                                 break;
                         }
                     }
@@ -2842,7 +2816,7 @@ public class NpcFactory {
                             case 4:
                                 if (player.clan != null) {
                                     if (player.clan.banDoKhoBau != null) {
-                                        this.createOtherMenu(player, ConstNpc.MENU_OPENED_BDKB, "|7|BẢN ĐỒ KHO BÁU\n|6|Bang hội của con đang đi Bản đồ Kho báu cấp độ " + player.clan.banDoKhoBau.level + "\nCon có muốn đi theo không?", "Đồng ý", "Từ chối");
+                                        this.createOtherMenu(player, ConstNpc.MENU_OPENED_BDKB, "|7|BẢN ĐỒ KHO BÁU\n|6|Bang hội của con đang đi Bản đồ Kho báu cấp độ " + player.clan.banDoKhoBau.level + "\nCon có muốn đi theo không?", "Đồng ý", "Xóa kẹt", "Từ chối");
                                     } else {
                                         this.createOtherMenu(player, ConstNpc.MENU_OPEN_BDKB, "|7|BẢN ĐỒ KHO BÁU\n|6|Bản đồ Kho báu đã chuẩn bị tiếp nhận các đợt tấn công của quái vật\n" + "các con hãy giúp chúng ta tiêu diệt quái vật \n" + "Ở đây có ta lo\nNhớ chọn cấp độ vừa sức mình nhé", "Chọn\ncấp độ", "Từ chối");
                                     }
@@ -2892,6 +2866,9 @@ public class NpcFactory {
                                 } else {
                                     this.npcChat(player, "Sức mạnh của con phải ít nhất phải đạt " + Util.numberToMoney(BanDoKhoBau.POWER_CAN_GO_TO_BDKB));
                                 }
+                                break;
+                            case 1:
+                                BanDoKhoBauService.gI().kethucbdkbwithoutinside(player);
                                 break;
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_OPEN_BDKB) {
@@ -6152,9 +6129,9 @@ public class NpcFactory {
                                             Service.getInstance().sendThongBao(player, "Yêu cầu sức mạnh trên 60 Tỷ");
                                         }
                                     } else if (curSkill.point > 0 && curSkill.point < 9) {
-                                        if (curSkill.currLevel == 1000 && player.inventory.ruby < 200_000) {
+                                        if (curSkill.currLevel == MAX_SPECIAL_SKILL_EXP && player.inventory.ruby < 200_000) {
                                             Service.getInstance().sendThongBao(player, "Không đủ Hồng ngọc");
-                                        } else if (curSkill.currLevel == 1000 && player.inventory.ruby > 200_000) {
+                                        } else if (curSkill.currLevel == MAX_SPECIAL_SKILL_EXP && player.inventory.ruby > 200_000) {
                                             player.inventory.ruby -= 200_000;
                                             Service.getInstance().sendMoney(player);
                                             curSkill = SkillUtil.createSkill(Skill.SUPER_KAME, curSkill.point + 1);
@@ -6201,9 +6178,9 @@ public class NpcFactory {
                                             Service.getInstance().sendThongBao(player, "Yêu cầu sức mạnh trên 60 Tỷ");
                                         }
                                     } else if (curSkill.point > 0 && curSkill.point < 9) {
-                                        if (curSkill.currLevel == 1000 && player.inventory.ruby < 200_000) {
+                                        if (curSkill.currLevel == MAX_SPECIAL_SKILL_EXP && player.inventory.ruby < 200_000) {
                                             Service.getInstance().sendThongBao(player, "Không đủ Hồng ngọc");
-                                        } else if (curSkill.currLevel == 1000 && player.inventory.ruby > 200_000) {
+                                        } else if (curSkill.currLevel == MAX_SPECIAL_SKILL_EXP && player.inventory.ruby > 200_000) {
                                             player.inventory.ruby -= 200_000;
                                             Service.getInstance().sendMoney(player);
                                             curSkill = SkillUtil.createSkill(Skill.MA_PHONG_BA, curSkill.point + 1);
@@ -6250,9 +6227,9 @@ public class NpcFactory {
                                             Service.getInstance().sendThongBao(player, "Yêu cầu sức mạnh trên 60 Tỷ");
                                         }
                                     } else if (curSkill.point > 0 && curSkill.point < 9) {
-                                        if (curSkill.currLevel == 1000 && player.inventory.ruby < 200_000) {
+                                        if (curSkill.currLevel == MAX_SPECIAL_SKILL_EXP && player.inventory.ruby < 200_000) {
                                             Service.getInstance().sendThongBao(player, "Không đủ Hồng ngọc");
-                                        } else if (curSkill.currLevel == 1000 && player.inventory.ruby > 200_000) {
+                                        } else if (curSkill.currLevel == MAX_SPECIAL_SKILL_EXP && player.inventory.ruby > 200_000) {
                                             player.inventory.ruby -= 200_000;
                                             Service.getInstance().sendMoney(player);
                                             curSkill = SkillUtil.createSkill(Skill.LIEN_HOAN_CHUONG, curSkill.point + 1);
@@ -6468,7 +6445,9 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
-                    if (this.mapId == 102) {
+                    if (this.mapId == 135) {
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Bạn muốn quay về ? Đồng nghĩa với việc bản đồ kho báu sẽ bị xóa", "Quay về", "Đóng");
+                    } else if (this.mapId == 102) {
                         if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
                             this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cậu bé muốn mua gì nào?", "Cửa hàng", "Quay Số", "Đóng");
                         }
@@ -6493,6 +6472,12 @@ public class NpcFactory {
                                 ShopServiceNew.gI().opendShop(player, "KARIN", true);
                             } else if (select == 1) {
                                 LuckyPool.showBaseMenu(player);
+                            }
+                        }
+                    } else if (this.mapId == 135) {
+                        if (player.iDMark.isBaseMenu()) {
+                            if (select == 0) {
+                                BanDoKhoBauService.gI().ketthucbdkb(player);
                             }
                         }
                     }
