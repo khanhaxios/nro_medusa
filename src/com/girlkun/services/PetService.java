@@ -410,6 +410,7 @@ public class PetService {
             for (int i = 0; i < 4; i++) {
                 pet.playerSkill.skills.add(SkillUtil.createEmptySkill());
             }
+            pet.nPoint.setBasePoint();
             pet.nPoint.setFullHpMp();
             player.pet = pet;
         } catch (Exception e) {

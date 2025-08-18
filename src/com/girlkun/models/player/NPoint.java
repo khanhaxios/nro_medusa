@@ -2063,7 +2063,6 @@ public class NPoint {
     public void setFullHpMp() {
         this.hp = this.hpMax;
         this.mp = this.mpMax;
-
     }
 
     public void subHP(double sub) {

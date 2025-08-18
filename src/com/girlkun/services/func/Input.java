@@ -725,7 +725,7 @@ public class Input {
                     break;
                 case CHOOSE_LEVEL_GAS:
                     int levele = Integer.parseInt(text[0]);
-                    if (levele >= 1 && levele <= 110) {
+                    if (levele >= 1 && levele <= 500) {
                         Npc npc = NpcManager.getByIdAndMap(ConstNpc.MR_POPO, player.zone.map.mapId);
                         if (npc != null) {
                             npc.createOtherMenu(player, ConstNpc.MENU_ACCPET_GO_TO_GAS, "Con có chắc chắn muốn tới Khí gas huỷ diệt cấp độ " + levele + "?", new String[]{"Đồng ý, Let's Go", "Từ chối"}, levele);

@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.girlkun.models.npc.NpcFactory.MAX_SPECIAL_SKILL_EXP;
+
 /**
  * @author Admin
  */
@@ -60,7 +62,7 @@ public class SkillSpecial {
 
     public void setSkillSpecial(byte dir, short _xPlayer, short _yPlayer, short _xObjTaget, short _yObjTaget) {
         this.skillSpecial = this.player.playerSkill.skillSelect;
-        if (skillSpecial.currLevel < 1000) {
+        if (skillSpecial.currLevel < MAX_SPECIAL_SKILL_EXP) {
             skillSpecial.currLevel++;
             SkillService.gI().sendCurrLevelSpecial(player, skillSpecial);
         }

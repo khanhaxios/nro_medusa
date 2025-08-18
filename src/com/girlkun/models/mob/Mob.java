@@ -75,10 +75,9 @@ public class Mob {
         buffTuTienLevel = (byte) Util.nextInt(1, 120);
     }
 
-    public static void initMopbKhiGas(Mob mob, byte level) {
+    public static void initMopbKhiGas(Mob mob, short level) {
         mob.point.dame = (level * 3250 * mob.level * 4) * 5;
-        mob.point.maxHp = (level * 12472 * mob.point.hp + level * 7263 * mob.tempId) / 2;
-        //code by Việt Nguyễn
+        mob.point.maxHp = (level * 50_000 * mob.point.hp + level * 7263 * mob.tempId) / 2;
     }
 
     public static void initMopbbdkb(Mob mob, int level) {
@@ -660,9 +659,7 @@ public class Mob {
             if (player.luyenThe.isLuyenTheReal()) {
                 sl += Util.nextInt(1, 3);
             }
-            if (Util.isTrue(1, 500)) {
-                list.add(new ItemMap(zone, 611, Util.nextInt(1, 50), this.location.x, yEnd, player.id));
-            }
+
             // roi con duong ran doc
             if (zone.map.mapId == 141 && Util.isTrue(7f, 100)) {
                 short temIds = (short) Util.nextInt(1263, 1266);
@@ -844,6 +841,9 @@ public class Mob {
             }
         }
         if (MapService.gI().isMapDoanhTrai(player.zone.map.mapId)) {
+            if (Util.isTrue(1, 100)) {
+                list.add(new ItemMap(zone, 611, Util.nextInt(1, 50), this.location.x, yEnd, player.id));
+            }
             if (Util.isTrue(1, 500)) {
                 list.add(new ItemMap(zone, Util.nextInt(1461, 1463), 1, player.location.x, yEnd, player.id));
             }
@@ -873,6 +873,9 @@ public class Mob {
             int levell = player.getMaster().clan.banDoKhoBau.level;
             list.add(new ItemMap(zone, 861, levell, x, yEnd, player.id));
             // ty le da ngu hanh roi
+            if (Util.isTrue(levell / 100, 100)) {
+                list.add(new ItemMap(zone, 1309, 1, x, yEnd, player.id));
+            }
             if (Util.isTrue(levell, 500)) {
                 list.add(new ItemMap(zone, 2081, 1, x, yEnd, player.id));
             }

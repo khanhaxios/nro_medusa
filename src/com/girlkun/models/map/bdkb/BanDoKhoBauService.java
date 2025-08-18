@@ -87,6 +87,28 @@ public class BanDoKhoBauService {
         }
     }
 
+    public void kethucbdkbwithoutinside(Player player) {
+        List<Player> playersMap = player.clan.membersInGame;
+        int id = player.clan.banDoKhoBau.id;
+        Zone zone = player.clan.banDoKhoBau.getMapById(137);
+        List<Player> bosses = zone.getBosses();
+        for (int i = playersMap.size() - 1; i >= 0; i--) {
+            Player pl = playersMap.get(i);
+            kickOutOfBDKB(pl);
+            ItemTimeService.gI().removeTextbdkb(player);
+            pl.bdkb_isJoinBdkb = false;
+            pl.clan.banDoKhoBau.dispose();
+            pl.clan.banDoKhoBau = null;
+        }
+        for (Player boss : bosses) {
+            if (boss != null && !boss.isDie) {
+                boss.injured(player, boss.nPoint.hpMax + 10000, false, false, true);
+            }
+        }
+        Service.gI().sendThongBao(player, "Đã xóa bản đồ kho báu thành công");
+        BanDoKhoBau.BAN_DO_KHO_BAU.set(id, new BanDoKhoBau(id));
+    }
+
     public void ketthucbdkb(Player player) {
         List<Player> playersMap = new ArrayList<>();
         for (int i = 135; i <= 138; i++) {
