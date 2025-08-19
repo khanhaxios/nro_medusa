@@ -8751,6 +8751,49 @@ public class NpcFactory {
                             case 4:
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LINH_HOA, -1, "Linh hóa trang bị giúp trang bị của bạn có nhiều thuộc tính của linh căn", "Linh Hóa", "Tẩy Linh");
                                 break;
+                            case 5:
+                                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TIEN_KHI, -1, "Tiên khí giúp bạn tăng mạnh các chỉ số và các dòng đặc biệt", "Chế tạo\nTiên Khí", "Thức Tỉnh\nKhí Linh", "Thức Tỉnh\nNgũ Hành", "Tăng Phẩm");
+                        }
+                        break;
+                    case ConstNpc.MENU_TIEN_KHI:
+                        switch (select) {
+                            case 0:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.CHE_TAO_TIEN_KHI);
+                                break;
+                            case 1:
+                                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_KHI_LINH, -1, "Khí linh là một phần quan trọng của tiên khí bạn muốn?", "Thức tỉnh", "Bồi dưỡng", "Xóa linh");
+                                break;
+                            case 2:
+                                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TT_NGU_HANH, -1, "Thức tỉnh ngũ hành giúp tiên khí hài hòa với linh căn hơn", "Thức tỉnh", "Nâng phẩm", "Tẩy ngũ\nhành");
+                                break;
+                            case 3:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.TANG_PHAM_TK);
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_KHI_LINH:
+                        switch (select) {
+                            case 0:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.TT_KHI_LINH);
+                                break;
+                            case 1:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.DUONG_LINH);
+                                break;
+                            case 2:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.TAY_LINH);
+                        }
+                        break;
+                    case ConstNpc.MENU_TT_NGU_HANH:
+                        switch (select) {
+                            case 0:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.TT_NGU_HANH);
+                                break;
+                            case 1:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.TT_NGU_HANH_NP);
+                                break;
+                            case 2:
+                                CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.TT_NGU_HANH_TAY_NH);
+                                break;
                         }
                         break;
                     case ConstNpc.MENU_LINH_HOA:

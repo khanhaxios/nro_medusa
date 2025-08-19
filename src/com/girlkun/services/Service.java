@@ -1548,7 +1548,7 @@ public class Service {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện khí\nHãy đến gặp npc Thần Cấp luyện khí sư ở làng aru để học hỏi");
                 return;
             }
-            NpcService.gI().createMenuConMeo(player, 123123, -1, String.format("|7|Thông tin luyện khí\n|5|%s(%s)\nKinh Nghiệm: %s\nTỷ lệ đột phá thành công %s\nCấp Càng cao tỷ lệ đột phá càng thấp", player.luyenKhiSu.getName(), player.luyenKhiSu.getLevel(), player.luyenKhiSu.getCurrentExpStr(), player.luyenKhiSu.getTyLeDotPha()), "Chế Đồ", "Kích Hoạt\nTrang Bị", "Chế tạo\nbông tai", "Tiên hóa\nTrang Bị", "Linh hóa\nTrang Bị", "Đóng");
+            NpcService.gI().createMenuConMeo(player, 123123, -1, String.format("|7|Thông tin luyện khí\n|5|%s(%s)\nKinh Nghiệm: %s\nTỷ lệ đột phá thành công %s\nCấp Càng cao tỷ lệ đột phá càng thấp", player.luyenKhiSu.getName(), player.luyenKhiSu.getLevel(), player.luyenKhiSu.getCurrentExpStr(), player.luyenKhiSu.getTyLeDotPha()), "Chế Đồ", "Kích Hoạt\nTrang Bị", "Chế tạo\nbông tai", "Tiên hóa\nTrang Bị", "Linh hóa\nTrang Bị", "Tiên Khí", "Đóng");
             return;
         }
         if (text.equals("ttpc")) {

@@ -27,6 +27,14 @@ public class CombineServiceNew {
     public static final int TINH_HOA_TRANG_BI = -1298732;
     public static final int LINH_HOA_TRANG_BI = -891723;
     public static final int TAY_LINH_TRANG_BI = -71263;
+    public static final int CHE_TAO_TIEN_KHI = -291731;
+    public static final int TT_KHI_LINH = -9182732;
+    public static final int TT_NGU_HANH = -98723132;
+    public static final int TANG_PHAM_TK = -65123781;
+    public static final int DUONG_LINH = -1231232;
+    public static final int TAY_LINH = -213972;
+    public static final int TT_NGU_HANH_NP = -123122;
+    public static final int TT_NGU_HANH_TAY_NH = -9217382;
     private static final int[] TIEN_KHI_OPTIONS_ID = new int[]{254, 255, 256};
     private static final int COST_DOI_VE_DOI_DO_HUY_DIET = 500000000;
     private static final int COST_DAP_DO_KICH_HOAT = 500000000;
@@ -302,6 +310,9 @@ public class CombineServiceNew {
                 } else {
                     Service.gI().sendThongBao(player, "Cần đặt vào trang bị và ngũ hành tinh thạch");
                 }
+                break;
+            case TT_KHI_LINH:
+                // chua co nguyen lieu huhu
                 break;
             case LINH_HOA_TRANG_BI:
                 if (player.combineNew.itemsCombine.size() == 2) {
@@ -5189,6 +5200,14 @@ public class CombineServiceNew {
                 return "Tinh hóa trang bị giúp tăng chỉ số các đòng tiên";
             case LINH_HOA_TRANG_BI:
                 return "Linh hóa trang bị giúp trang bị có những dòng thuộc tính của linh căn";
+            case CHE_TAO_TIEN_KHI:
+                return "Tiên khí giúp bạn tăng mạnh các chỉ số cơ bản";
+            case TT_NGU_HANH:
+                return "Thức tỉnh ngũ hành giúp tiên khí có thuộc tính ngũ hành";
+            case TT_KHI_LINH:
+                return "Thức tỉnh khí linh giúp chỉ số tiên khí tăng vượt trội";
+            case TANG_PHAM_TK:
+                return "Tăng phẩm tiên khí giúp tiên khí trở nên mạnh hơn";
             case TAY_LINH_TRANG_BI:
                 return "Tẩy linh trang bị giúp tẩy hết các dòng đã linh hóa";
             case CHE_TAO_BT:
@@ -5266,6 +5285,14 @@ public class CombineServiceNew {
                 return "Hãy đặt vào trang bị , ngũ hành tinh thạch và thăng tinh thạch sau đó ấn cố hóa";
             case TINH_HOA_TRANG_BI:
                 return "Đặt vào trang bị bất kỳ và ngũ hành tinh thạch\n sau đó ấn tinh hóa";
+            case CHE_TAO_TIEN_KHI:
+                return "Đặt vào mảnh tiên khí và cần 10 công đức cho mỗi trang bị\n Sau khi ghép thành công sẽ cho ra trang bị tiên\nNgẫu nhiên";
+            case TT_KHI_LINH:
+                return "Đặt vào mảnh tiên khí dựa trên trang bị và 1 điểm công đức";
+            case TT_NGU_HANH:
+                return "Đặt vào mảnh tiên khí , ngũ hành chi tinh và 1 điểm công đức";
+            case TANG_PHAM_TK:
+                return "Đặt vào mảnh tiên khí và 1 điểm công đức để tăng phẩm";
             case LINH_HOA_TRANG_BI:
                 return "Hãy đặt vào trang bị và ngũ hành thuộc tính tinh thạch";
             case TAY_LINH_TRANG_BI:

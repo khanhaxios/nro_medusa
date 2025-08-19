@@ -1586,9 +1586,6 @@ public class ItemService {
     }
 
     private Item randomOption(Item item) {
-        if (Util.isTrue(50, 100)) {
-            item.itemOptions.add(new ItemOption(30, 0));
-        }
         if (Util.isTrue(80, 100)) {
             item.itemOptions.add(new ItemOption(optionsRandom[Util.nextInt(0, optionsRandom.length - 1)], Util.nextInt(5, 25)));
         }

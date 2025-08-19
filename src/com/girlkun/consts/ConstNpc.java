@@ -494,10 +494,13 @@ public class ConstNpc {
     public static final int MENU_CONFRM_QSMM = -198732;
     public static final int MENU_BASE_GIAO_DICH = -91273552;
     public static final int BASE_MENU_GD = -5123562;
-    public static final int MENU_TIEN_HOA =-7863123 ;
+    public static final int MENU_TIEN_HOA = -7863123;
     public static final int MENU_CHUYEN_SINH = -9127352;
     public static final int MENU_DUONG_LINH = -91266873;
-    public static final int MENU_LINH_HOA =-91287355 ;
+    public static final int MENU_LINH_HOA = -91287355;
+    public static final int MENU_TIEN_KHI = -917232;
+    public static final int MENU_KHI_LINH = -98732123;
+    public static final int MENU_TT_NGU_HANH = -2913723;
 }
 
 /**
