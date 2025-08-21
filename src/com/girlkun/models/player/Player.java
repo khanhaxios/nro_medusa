@@ -668,15 +668,15 @@ public class Player {
                 }
             }
         }
-        if (inventory != null && inventory.itemsBody.get(4).isNotNullItem()) {
-            int headd = inventory.itemsBody.get(4).template.part;
-            if (headd != -1) {
-                return (short) headd;
+        if (inventory != null && inventory.itemsBody.size() > 4) {
+            Item item = inventory.itemsBody.get(4);
+            if (item.isNotNullItem()){
+                int headd = inventory.itemsBody.get(4).template.part;
+                if (headd != -1) {
+                    return (short) headd;
+                }
             }
         }
-//        if (tuTien != null && tuTien.level > 10) {
-//            return outfitTutien[gender][0];
-//        }
         return this.head;
     }
 
