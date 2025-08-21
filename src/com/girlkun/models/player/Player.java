@@ -670,7 +670,7 @@ public class Player {
         }
         if (inventory != null && inventory.itemsBody.size() > 4) {
             Item item = inventory.itemsBody.get(4);
-            if (item.isNotNullItem()){
+            if (item.isNotNullItem()) {
                 int headd = inventory.itemsBody.get(4).template.part;
                 if (headd != -1) {
                     return (short) headd;
@@ -714,18 +714,18 @@ public class Player {
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
                 return idOutfitFusion[6 + this.gender][1];
             }
-        } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
-            int body = inventory.itemsBody.get(5).template.body;
-            if (body != -1) {
-                return (short) body;
+        } else if (inventory != null) {
+            if (inventory.itemsBody.size() > 5 && inventory.itemsBody.get(5).isNotNullItem()) {
+                int body = inventory.itemsBody.get(5).template.body;
+                if (body != -1) {
+                    return (short) body;
+                }
+            }
+
+            if (inventory.itemsBody.size() > 0 && inventory.itemsBody.get(0).isNotNullItem()) {
+                return inventory.itemsBody.get(0).template.part;
             }
         }
-        if (inventory != null && inventory.itemsBody.get(0).isNotNullItem()) {
-            return inventory.itemsBody.get(0).template.part;
-        }
-//        if (tuTien != null && tuTien.level > 10) {
-//            return outfitTutien[gender][1];
-//        }
         return (short) (gender == ConstPlayer.NAMEC ? 59 : 57);
     }
 
@@ -764,18 +764,18 @@ public class Player {
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
                 return idOutfitFusion[6 + this.gender][2];
             }
-        } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
-            int leg = inventory.itemsBody.get(5).template.leg;
-            if (leg != -1) {
-                return (short) leg;
+        } else if (inventory != null) {
+            if (inventory.itemsBody.size() > 5 && inventory.itemsBody.get(5).isNotNullItem()) {
+                int leg = inventory.itemsBody.get(5).template.leg;
+                if (leg != -1) {
+                    return (short) leg;
+                }
+            }
+
+            if (inventory.itemsBody.size() > 1 && inventory.itemsBody.get(1).isNotNullItem()) {
+                return inventory.itemsBody.get(1).template.part;
             }
         }
-        if (inventory != null && inventory.itemsBody.get(1).isNotNullItem()) {
-            return inventory.itemsBody.get(1).template.part;
-        }
-//        if (tuTien != null && tuTien.level > 10) {
-//            return outfitTutien[gender][2];
-//        }
         return (short) (gender == 1 ? 60 : 58);
     }
 
