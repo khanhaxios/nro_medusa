@@ -131,7 +131,7 @@ public class Logger {
                 log(PURPLE, log[0] + "\n");
                 logE = "Chú thích lỗi gặp phải: " + log[0] + "\n";
             }
-            StackTraceElement stackTraceElements[] = (new Throwable()).getStackTrace();
+            StackTraceElement[] stackTraceElements = (new Throwable()).getStackTrace();
             String nameMethod = stackTraceElements[1].getMethodName();
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);

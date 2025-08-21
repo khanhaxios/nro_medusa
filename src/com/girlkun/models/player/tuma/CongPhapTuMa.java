@@ -51,7 +51,7 @@ public class CongPhapTuMa {
     }
 
     public double getMaxDameBuff() {
-        double baseDame = 600_000;
+        double baseDame = 500_000;
         return baseDame * phamChat;
     }
 
@@ -301,23 +301,13 @@ public class CongPhapTuMa {
 
     public void showCOngChiSoMenu() {
         StringBuilder text = new StringBuilder();
-
         text.append("|7|❖════ THÔNG TIN CÔNG PHÁP ════❖\n");
-
-// — Tên công pháp —
         text.append("|5|").append(getTenCongPhap()).append("\n");
-
-// — Buff chỉ số —
         text.append("|5|➤ Dame Buff : ").append(Util.powerToString(dameBuff)).append("\n");
         text.append("|5|➤ HP Buff   : ").append(Util.powerToString(hpBuff)).append("\n");
         text.append("|5|➤ MP Buff   : ").append(mpBuff).append("\n");
-
-// — Tỷ lệ lĩnh ngộ (Chú ma) —
         text.append("|1|✦ Chú Ma     : ").append(tyLeLinhNgo).append("% / ").append(getBaseDiemLinhNgoMax()).append("%\n");
-
-// — Gợi ý nâng cấp —
         text.append("|7|✪ Phẩm cấp càng cao, giới hạn buff càng lớn!");
-
         text.append("\n|7|❖══════════════════════════════❖");
 
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONG_CHI_SO, -1, text.toString(), "Cộng\nChỉ Số", "Auto\nCộng CS");

@@ -13,8 +13,6 @@ import com.girlkun.models.intrinsic.IntrinsicPlayer;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.item.ItemTime;
 import com.girlkun.models.item.ItemTimeSieuCap;
-import com.girlkun.models.kygui.ItemKyGui;
-import com.girlkun.models.kygui.ShopKyGuiManager;
 import com.girlkun.models.lucky_pool.LuckyPoolPlayer;
 import com.girlkun.models.map.MapMaBu.MapMaBu;
 import com.girlkun.models.map.TrapMap;
@@ -59,7 +57,6 @@ import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 public class Player {
@@ -341,7 +338,7 @@ public class Player {
     }
 
     public void sendMessage(Message msg) {
-        if (this.session != null) {
+        if (this.session != null && this.session.isConnected()) {
             session.sendMessage(msg);
         }
     }
@@ -408,9 +405,9 @@ public class Player {
     public void update() {
         if (!this.beforeDispose) {
             try {
-                if (iDMark != null && !iDMark.isBan()) {
-                    if (isDie() && !isDie) {
-                        setDie(this);
+                if (iDMark != null) {
+                    if (!this.isBot && iDMark.isBan() && Util.canDoWithTime(iDMark.getLastTimeBan(), 5000)) {
+                        Client.gI().kickSession(session);
                         return;
                     }
                     if (tuTien != null) {
@@ -443,7 +440,7 @@ public class Player {
                     if (fusion != null) {
                         fusion.update();
                     }
-                    if (effectSkin != null) {
+                    if (effectSkill != null) {
                         effectSkill.update();
                     }
                     if (mobMe != null) {
@@ -464,9 +461,6 @@ public class Player {
                     if (TrieuHoipet != null) {
                         TrieuHoipet.update();
                     }
-//                    if (newpet1 != null) {
-//                        newpet1.update();
-//                    }
                     if (magicTree != null) {
                         magicTree.update();
                     }
@@ -495,134 +489,97 @@ public class Player {
                     BlackBallWar.gI().update(this);
                     MapMaBu.gI().update(this);
                     TimeReset.gI().update(this); //time reset ngày
-                    if (!isBoss && this.iDMark.isGoToGas() && Util.canDoWithTime(this.iDMark.getLastTimeGotoGas(), 6000)) {
-//                        ChangeMapService.gI().changeMapBySpaceShip(this, 149, -1, 163);
-                        ChangeMapService.gI().changeMapBySpaceShip(this, 149, -1, 163);
-                        this.iDMark.setGoToGas(false);
-                    }
-                    if (!isBoss && this.iDMark.isGotoFuture() && Util.canDoWithTime(this.iDMark.getLastTimeGoToFuture(), 6000)) {
-                        ChangeMapService.gI().changeMapBySpaceShip(this, 102, -1, Util.nextInt(60, 200));
-                        this.iDMark.setGotoFuture(false);
-                    }
-                    if (!isBoss && this.iDMark.isGoToBDKB() && Util.canDoWithTime(this.iDMark.getLastTimeGoToBDKB(), 6000)) {
-                        ChangeMapService.gI().changeMapBySpaceShip(this, 135, -1, 35);
-                        this.iDMark.setGoToBDKB(false);
-                    }
-                    if (this.zone != null) {
-                        TrapMap trap = this.zone.isInTrap(this);
-                        if (trap != null) {
-                            trap.doPlayer(this);
-                        }
-                        if (this.isPl()) {
-                            if (this.zone.map.mapId == 183) { // && this.fusion.typeFusion == ConstPlayer.NON_FUSION
-                                if (this.setClothes.ctDeKaiDo != -1 && this.cFlag != 1) {
-                                    Service.getInstance().changeFlag(this, 1);
-                                } else if (this.setClothes.ctHaiTac != -1 && this.cFlag != 2) {
-                                    Service.getInstance().changeFlag(this, 2);
-                                }
-                                if ((this.setClothes.ctDeKaiDo == -1 && this.setClothes.ctHaiTac == -1) && this.cFlag != 0) {
-                                    Service.getInstance().changeFlag(this, 0);
-                                }
-                            }
-                        }
-                    }
-                    if (this.isPl() && this.inventory.itemsBody.get(7) != null) {
-                        Item it = this.inventory.itemsBody.get(7);
-                        if (it != null && it.isNotNullItem() && this.newpet == null) {// && this.newpet1 == null
-                            switch (it.template.type) {
-                                case 21:
-                                    if (this.newpet != null) {
-                                        ChangeMapService.gI().exitMap(this.newpet);
-                                        this.newpet.dispose();
-                                        this.newpet = null;
-                                    }
-                                    PetService.Pet2(this, it.template.head, it.template.body, it.template.leg, it.template.name);
-                                    Service.getInstance().point(this);
-                                    break;
-                            }
-                        }
-                    } else if (this.isPl() && newpet != null && !this.inventory.itemsBody.get(7).isNotNullItem()) {// && newpet1 != null
-                        ChangeMapService.gI().exitMap(this.newpet);
-                        newpet.dispose();
-                        newpet = null;
-                    }
-                    if (this.isPl() && this.TrieuHoipet == null && this.TrieuHoiCapBac >= 0 && this.TrieuHoiCapBac <= 10) {
-                        PetService.Thu_TrieuHoi(this);
-                    } else if (this.isPl() && this.TrieuHoipet != null && this.TrieuHoiCapBac < 0 && this.TrieuHoiCapBac > 10) {
-                        ChangeMapService.gI().exitMap(this.TrieuHoipet);
-                        TrieuHoipet.dispose();
-                        TrieuHoipet = null;
-                    }
-                    if (this.isPl() && isWin && this.zone.map.mapId == 51 && Util.canDoWithTime(lastTimeWin, 2000)) {
-                        ChangeMapService.gI().changeMapBySpaceShip(this, 52, 0, -1);
-                        isWin = false;
-                    }
-                    if (!this.isBot && location.lastTimeplayerMove < System.currentTimeMillis() - 30 * 60 * 1000) {
-                        Client.gI().kickSession(getSession());
-                    }
-                } else {
-                    if (!this.isBot && Util.canDoWithTime(iDMark.getLastTimeBan(), 5000)) {
-                        Client.gI().kickSession(session);
-                    }
-                }
-                if (Client.gI().getPlayer(this.name) != null) {
-                    this.achievement.plusCount(8);
-                }
-//                if((Client.gI().getPlayer(this.name) != null) && Util.canDoWithTime(this.timeupdateplayer, 900000)){
-//                    updatePlayer(this);
-//                    this.timeupdateplayer = System.currentTimeMillis();
-//                }
-                if (Util.canDoWithTime(this.lastTimeDame, 5000) && this.dametong != 0) {
-                    this.dametong = 0;
-                    this.resetdame = true;
-                }
-
-                //////////////////// HOÀN TRẢ KÝ GỬI SAU 2 NGÀY ////////////////////
-                if (this.isPl()) {
-                    Iterator<ItemKyGui> iterator1 = ShopKyGuiManager.gI().listItem.iterator();
-                    int countit = 0;
-                    while (iterator1.hasNext()) {
-                        ItemKyGui it = iterator1.next();
-                        if (it != null && it.isBuy == false && it.player_sell == this.id && this.session != null && it.thoigian <= System.currentTimeMillis() - 172800000) {
-                            countit++;
-                        }
-                    }
-
-//                    Iterator<ItemKyGui> iterator = ShopKyGuiManager.gI().listItem.iterator();
-//                    while (iterator.hasNext()) {
-//                        ItemKyGui it = iterator.next();
-//                        if (it != null && it.isBuy == false && it.player_sell == this.id && this.session != null && it.thoigian <= System.currentTimeMillis() - 172800000) {
-//
-//                            if (InventoryServiceNew.gI().getCountEmptyBag(this) < countit) {
-//                                Service.getInstance().sendThongBao(this, "Hành trang không đủ chỗ trống để hoàn trả vật phẩm kí gửi");
-//                            } else {
-//                                Item item = ItemService.gI().createNewItem(it.itemId);
-//                                item.quantity = it.quantity;
-//                                item.itemOptions.addAll(it.options);
-//
-//                                // Remove the current item using the iterator
-//                                iterator.remove();
-//
-//                                InventoryServiceNew.gI().addItemBag(this, item);
-//                                InventoryServiceNew.gI().sendItemBags(this);
-//                                Service.getInstance().sendMoney(this);
-//                                Service.getInstance().sendThongBao(this, "Vật phẩm kí đã quá 2 ngày. Vật phẩm đã được hoàn trả");
-//                            }
-//                        }
-//                    }
-                }
-                //////////////////////////////////////////////////////////////////////////////////////////
-                if (this.isPl() && !this.beforeDispose && Util.canDoWithTime(lastTimeSavePlayer, TIME_AUTO_SAVE)) {
-                    lastTimeSavePlayer = System.currentTimeMillis();
-                    if (this.iDMark == null) {
-                    } else {
-                        System.out.println("Tiến Hành Update Định Kỳ 30P 1 Lần Tại Người Chơi: " + this.name);
-                        PlayerDAO.updatePlayer(this);
-                    }
+                    updateMapEvents();
+                    updatePets();
+                    updateAutoSave();
                 }
             } catch (Exception e) {
                 Logger.logException(Player.class, e, "Lỗi tại player: " + this.id);
             }
+        }
+    }
+
+    public void updateAutoSave() {
+        if (this.isPl() && !this.beforeDispose && Util.canDoWithTime(lastTimeSavePlayer, TIME_AUTO_SAVE)) {
+            lastTimeSavePlayer = System.currentTimeMillis();
+            System.out.println("Tiến Hành Update Định Kỳ 30P 1 Lần Tại Người Chơi: " + this.name);
+            PlayerDAO.updatePlayer(this);
+        }
+        if (Client.gI().getPlayer(this.name) != null) {
+            this.achievement.plusCount(8);
+        }
+    }
+
+    public void updateMapEvents() {
+        try {
+            if (!isBoss && this.iDMark.isGoToGas() && Util.canDoWithTime(this.iDMark.getLastTimeGotoGas(), 6000)) {
+//                        ChangeMapService.gI().changeMapBySpaceShip(this, 149, -1, 163);
+                ChangeMapService.gI().changeMapBySpaceShip(this, 149, -1, 163);
+                this.iDMark.setGoToGas(false);
+            }
+            if (!isBoss && this.iDMark.isGotoFuture() && Util.canDoWithTime(this.iDMark.getLastTimeGoToFuture(), 6000)) {
+                ChangeMapService.gI().changeMapBySpaceShip(this, 102, -1, Util.nextInt(60, 200));
+                this.iDMark.setGotoFuture(false);
+            }
+            if (!isBoss && this.iDMark.isGoToBDKB() && Util.canDoWithTime(this.iDMark.getLastTimeGoToBDKB(), 6000)) {
+                ChangeMapService.gI().changeMapBySpaceShip(this, 135, -1, 35);
+                this.iDMark.setGoToBDKB(false);
+            }
+            if (this.zone != null) {
+                TrapMap trap = this.zone.isInTrap(this);
+                if (trap != null) {
+                    trap.doPlayer(this);
+                }
+                if (this.isPl()) {
+                    if (this.zone.map.mapId == 183) { // && this.fusion.typeFusion == ConstPlayer.NON_FUSION
+                        if (this.setClothes.ctDeKaiDo != -1 && this.cFlag != 1) {
+                            Service.getInstance().changeFlag(this, 1);
+                        } else if (this.setClothes.ctHaiTac != -1 && this.cFlag != 2) {
+                            Service.getInstance().changeFlag(this, 2);
+                        }
+                        if ((this.setClothes.ctDeKaiDo == -1 && this.setClothes.ctHaiTac == -1) && this.cFlag != 0) {
+                            Service.getInstance().changeFlag(this, 0);
+                        }
+                    }
+                }
+            }
+            if (this.isPl() && isWin && this.zone.map.mapId == 51 && Util.canDoWithTime(lastTimeWin, 2000)) {
+                ChangeMapService.gI().changeMapBySpaceShip(this, 52, 0, -1);
+                isWin = false;
+            }
+            if (!this.isBot && location.lastTimeplayerMove < System.currentTimeMillis() - 30 * 60 * 1000) {
+                Client.gI().kickSession(getSession());
+            }
+        } catch (Exception e) {
+            Logger.logException(Player.class, e, "Lỗi tại player: " + this.id);
+        }
+    }
+
+    public void updatePets() {
+        try {
+            if (this.isPl() && this.inventory != null &&
+                    this.inventory.itemsBody != null && this.inventory.itemsBody.size() > 7) {
+                Item it = this.inventory.itemsBody.get(7);
+                if (it != null && it.isNotNullItem() && this.newpet == null) {// && this.newpet1 == null
+                    if (it.template.type == 21) {
+                        PetService.Pet2(this, it.template.head, it.template.body, it.template.leg, it.template.name);
+                        Service.getInstance().point(this);
+                    }
+                }
+            } else if (this.isPl() && newpet != null && !this.inventory.itemsBody.get(7).isNotNullItem()) {// && newpet1 != null
+                ChangeMapService.gI().exitMap(this.newpet);
+                newpet.dispose();
+                newpet = null;
+            }
+            if (this.isPl() && this.TrieuHoipet == null && this.TrieuHoiCapBac >= 0 && this.TrieuHoiCapBac <= 10) {
+                PetService.Thu_TrieuHoi(this);
+            } else if (TrieuHoipet != null) {
+                ChangeMapService.gI().exitMap(this.TrieuHoipet);
+                TrieuHoipet.dispose();
+                TrieuHoipet = null;
+            }
+        } catch (Exception e) {
+            Logger.logException(Player.class, e, "Lỗi tại player: " + this.id);
         }
     }
 
@@ -646,8 +603,7 @@ public class Player {
 
     public byte getAura() {
         if (this.isPl() && this.effectSkill != null && this.effectSkill.isBienHinh) {
-//            return ConstPlayer.AURA_BIEN_HINH[this.gender][this.effectSkill.levelBienHinh - 1];
-            return 28;
+            return ConstPlayer.AURA_BIEN_HINH[this.gender][this.effectSkill.levelBienHinh - 1];
         }
         if (this.inventory.itemsBody.isEmpty() || this.inventory.itemsBody.size() < 10) {
             return -1;
@@ -703,10 +659,13 @@ public class Player {
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
                 return idOutfitFusion[6 + this.gender][0];
             }
-        } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
-            int headd = inventory.itemsBody.get(5).template.head;
-            if (headd != -1) {
-                return (short) headd;
+        } else if (inventory != null && inventory.itemsBody.size() >= 5) {
+            Item item = inventory.itemsBody.get(5);
+            if (item.isNotNullItem()) {
+                int headd = inventory.itemsBody.get(5).template.head;
+                if (headd != -1) {
+                    return (short) headd;
+                }
             }
         }
         if (inventory != null && inventory.itemsBody.get(4).isNotNullItem()) {

@@ -380,7 +380,7 @@ public class Mob {
     //**************************************************************************
     private void mobAttackPlayer(Player player) {
         double dameMob = this.point.getDameAttack();
-        if (!player.isDie() && !player.isNewPet && !player.isBoss && !player.zone.items.stream().anyMatch(it -> it != null && (it.playerId == player.id || isMemInMap(player)) && it.itemTemplate.id == 344 && Util.getDistance(it.x, it.y, player.location.x, player.location.y) <= 200)) {
+        if (!player.isDie() && !player.isNewPet && !player.isBoss && player.zone.items.stream().noneMatch(it -> it != null && (it.playerId == player.id || isMemInMap(player)) && it.itemTemplate.id == 344 && Util.getDistance(it.x, it.y, player.location.x, player.location.y) <= 200)) {
             if (player.charms.tdDaTrau > System.currentTimeMillis()) {
                 dameMob /= 2;
             }
@@ -399,7 +399,7 @@ public class Mob {
             try {
                 msg = new Message(-11);
                 msg.writer().writeByte(this.id);
-                msg.writer().writeInt(Util.DoubleGioihana(dame)); //dame
+                msg.writer().writeDouble(Util.DoubleGioihang(dame)); //dame
                 player.sendMessage(msg);
                 msg.cleanup();
             } catch (IOException e) {
@@ -580,7 +580,7 @@ public class Mob {
                 long exp = player.tuMa.getExpCanGain(this);
                 player.tuMa.addExp(exp);
 //                PlayerService.gI().sendTuTienAddTuVi(player, exp);
-                PlayerService.gI().sendTuTienTuVi(player);
+//                PlayerService.gI().sendTuTienTuVi(player);
                 if (player.tuMa.congPhapTuMa != null && player.tuMa.congPhapTuMa.ten != null) {
                     player.tuMa.congPhapTuMa.handleHutMaKhi(this);
                 }
@@ -903,6 +903,19 @@ public class Mob {
                 InventoryServiceNew.gI().addItemBag(player, item);
                 InventoryServiceNew.gI().sendItemBags(player);
                 Service.gI().sendThongBao(player, "Bạn vừa nhận được rương vàng.");
+            }
+        }
+        if (MapService.gI().isMapKhiGas(player.zone.map.mapId)) {
+            int levell = player.getMaster().clan.khiGas.level;
+
+            if (Util.isTrue(levell, 5000)) {
+                list.add(new ItemMap(zone, Util.nextInt(2093, 2097), 1, this.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(levell, 5000)) {
+                list.add(new ItemMap(zone, 2098, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
+            }
+            if (Util.isTrue(levell, 500)) {
+                player.session.congduc += Math.max(levell / 100, 1);
             }
         }
         if (Util.isTrue(99, 100) && player.setClothes.tinhan == 5 || player.setClothes.nguyetan == 5 || player.setClothes.nhatan == 5) {

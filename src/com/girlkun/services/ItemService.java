@@ -1586,9 +1586,6 @@ public class ItemService {
     }
 
     private Item randomOption(Item item) {
-        if (Util.isTrue(50, 100)) {
-            item.itemOptions.add(new ItemOption(30, 0));
-        }
         if (Util.isTrue(80, 100)) {
             item.itemOptions.add(new ItemOption(optionsRandom[Util.nextInt(0, optionsRandom.length - 1)], Util.nextInt(5, 25)));
         }
@@ -1756,5 +1753,15 @@ public class ItemService {
                 return 2092;
         }
         return -1;
+    }
+
+    public Item createRandomDoTien() {
+        Item item = null;
+        short itemId;
+        byte gender = (byte) Util.nextInt(0, 2);
+        itemId = Util.idDoThanTien[gender][Util.nextInt(0, 4)];
+        item = Util.ratioItemTien(itemId, gender);
+        item.itemOptions.add(new ItemOption(260, 8));
+        return randomOption(item);
     }
 }

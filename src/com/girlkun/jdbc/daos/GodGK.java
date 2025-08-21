@@ -83,6 +83,7 @@ public class GodGK {
                 session.goldBar = rs.getInt("account.thoi_vang");
                 session.bdPlayer = rs.getDouble("account.bd_player");
                 session.vnd = rs.getDouble("vnd");
+                session.congduc = rs.getLong("congduc");
                 long lastTimeLogin = rs.getTimestamp("last_time_login").getTime();
                 int secondsPass1 = (int) ((System.currentTimeMillis() - lastTimeLogin) / 1000);
                 long lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
@@ -1423,7 +1424,9 @@ public class GodGK {
                     if (player.tuTien.isTuTien()) {
                         player.name = "[" + TuTien.CANH_GIOI[player.tuTien.level] + "]" + player.name;
                     } else if (player.tuMa.isTuMa()) {
-                        player.name = "[" + TuMa.CANH_GIOI[player.tuMa.level / 10] + "]" + player.name;
+                        int level = player.tuMa.level / 10;
+                        if (level <= TuMa.CANH_GIOI.length - 1) ;
+                        player.name = "[" + TuMa.CANH_GIOI[level] + "]" + player.name;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1838,31 +1841,113 @@ public class GodGK {
 
                 //base info
                 player.id = rs.getInt("id");
+                player.vnd = rs.getInt("vndd");
                 player.name = rs.getString("name");
                 player.head = rs.getShort("head");
                 player.gender = rs.getByte("gender");
                 player.haveTennisSpaceShip = rs.getBoolean("have_tennis_space_ship");
-
-                int clanId = rs.getInt("clan_id_sv" + Manager.SERVER);
+                player.diemdanh = rs.getLong("violate");
+                player.NguHanhSonPoint = rs.getInt("NguHanhSonPoint");
+                player.isNhanQuaDenBu = rs.getBoolean("den_bu");
+                player.lastTimeLeaveClan = rs.getLong("last_time_clan");
+//                            player.tienLuc = rs.getInt("tien_luc");
+                player.tyLeTangPhamDaoLu = rs.getFloat("tl_dl");
+                // data rada card
+                // data rada card
+                dataArray = (JSONArray) jv.parse(rs.getString("data_card"));
+                if (dataArray != null) {
+                    for (int i = 0; i < dataArray.size(); i++) {
+                        JSONObject obj = (JSONObject) dataArray.get(i);
+                        player.Cards.add(new Card(Short.parseShort(obj.get("id").toString()), Byte.parseByte(obj.get("amount").toString()), Byte.parseByte(obj.get("max").toString()), Byte.parseByte(obj.get("level").toString()), loadOptionCard((JSONArray) JSONValue.parse(obj.get("option").toString())), Byte.parseByte(obj.get("used").toString())));
+                    }
+                    dataArray.clear();
+                }
+                player.totalPlayerViolate = 0;
+                int clanId = rs.getInt("clan_id_sv1");
                 if (clanId != -1) {
                     Clan clan = ClanService.gI().getClanById(clanId);
                     if (clan != null) {
+                        ClanMember member = null;
                         for (ClanMember cm : clan.getMembers()) {
                             if (cm.id == player.id) {
-                                clan.addMemberOnline(player);
-                                player.clan = clan;
-                                player.clanMember = cm;
+                                member = cm;
                                 break;
                             }
                         }
+                        if (member == null) {
+                            ClanMember clanMember = new ClanMember(player, clan, Clan.MEMBER);
+                            clan.addClanMember(clanMember);
+                        }
+                        clan.addMemberOnline(player);
+                        player.clan = clan;
+                        player.clanMember = member;
                     }
                 }
 
                 //data kim lượng
                 dataArray = (JSONArray) jv.parse(rs.getString("data_inventory"));
-                player.inventory.gold = Long.parseLong(String.valueOf(dataArray.get(0)));
-                player.inventory.gem = Integer.parseInt(String.valueOf(dataArray.get(1)));
-                player.inventory.ruby = Integer.parseInt(String.valueOf(dataArray.get(2)));
+
+                try {
+                    player.inventory.gold = Long.parseLong(String.valueOf(dataArray.get(0)));
+                    player.inventory.gem = Integer.parseInt(String.valueOf(dataArray.get(1)));
+                    player.inventory.ruby = Integer.parseInt(String.valueOf(dataArray.get(2)));
+                } catch (Exception e) {
+                    player.inventory.ruby = 2_000_000_000;
+                    player.inventory.gem = 2_000_000_000;
+                }
+
+                try {
+                    player.inventory.skMedusa = Integer.parseInt(String.valueOf(dataArray.get(3)));
+                    player.inventory.event = Integer.parseInt(String.valueOf(dataArray.get(4)));
+                    player.inventory.eventSanMa = Integer.parseInt(String.valueOf(dataArray.get(5)));
+                    player.inventory.event2T9 = Integer.parseInt(String.valueOf(dataArray.get(6)));
+                    player.inventory.eventTrungThu = Integer.parseInt(String.valueOf(dataArray.get(7)));
+                    player.inventory.null4 = Integer.parseInt(String.valueOf(dataArray.get(8)));
+                    player.inventory.null5 = Integer.parseInt(String.valueOf(dataArray.get(9)));
+                } catch (Exception e) {
+                }
+                dataArray.clear();
+
+
+                //data danh hiệu
+                dataArray = (JSONArray) jv.parse(rs.getString("dhieu"));
+                player.titleitem = Integer.parseInt(String.valueOf(dataArray.get(0))) == 1 ? true : false;
+                player.titlett = Integer.parseInt(String.valueOf(dataArray.get(1))) == 1 ? true : false;
+                dataArray.clear();
+                dataArray = (JSONArray) jv.parse(rs.getString("dhtime"));
+                player.isTitleUse1 = Integer.parseInt(String.valueOf(dataArray.get(0))) == 1 ? true : false;
+                player.lastTimeTitle1 = Long.parseLong(String.valueOf(dataArray.get(1)));
+                dataArray.clear();
+                dataArray = (JSONArray) jv.parse(rs.getString("dhtime2"));
+                player.isTitleUse2 = Integer.parseInt(String.valueOf(dataArray.get(0))) == 1 ? true : false;
+                player.lastTimeTitle2 = Long.parseLong(String.valueOf(dataArray.get(1)));
+                dataArray.clear();
+                dataArray = (JSONArray) jv.parse(rs.getString("dhtime3"));
+                player.isTitleUse3 = Integer.parseInt(String.valueOf(dataArray.get(0))) == 1 ? true : false;
+                player.lastTimeTitle3 = Long.parseLong(String.valueOf(dataArray.get(1)));
+                dataArray.clear();
+
+                dataArray = (JSONArray) jv.parse(rs.getString("dk_tutien"));
+                player.tt_cauca = Integer.parseInt(String.valueOf(dataArray.get(0)));
+                player.tt_gapVIP = Integer.parseInt(String.valueOf(dataArray.get(1)));
+                player.tt_pemgau = Integer.parseInt(String.valueOf(dataArray.get(2)));
+                player.tt_dautruong = Integer.parseInt(String.valueOf(dataArray.get(3)));
+                dataArray.clear();
+
+                dataArray = (JSONArray) jv.parse(rs.getString("Tu_tien"));
+                player.haveTuTien = Integer.parseInt(String.valueOf(dataArray.get(0))) == 1 ? true : false;
+//                            player.CapTuTien = Integer.parseInt(String.valueOf(dataArray.get(1)));
+//                            player.KinhNghiemTT = Long.parseLong(String.valueOf(dataArray.get(2)));
+                dataArray.clear();
+
+                dataArray = (JSONArray) jv.parse(rs.getString("dk_kethon"));
+                player.dk_bdkb = Integer.parseInt(String.valueOf(dataArray.get(0)));
+                player.dk_gapvip = Integer.parseInt(String.valueOf(dataArray.get(1)));
+                dataArray.clear();
+
+                dataArray = (JSONArray) jv.parse(rs.getString("ket_hon"));
+                player.dakethon = Integer.parseInt(String.valueOf(dataArray.get(0)));
+                player.duockethon = Integer.parseInt(String.valueOf(dataArray.get(1)));
                 dataArray.clear();
 
                 //data tọa độ
@@ -1871,14 +1956,15 @@ public class GodGK {
                     int mapId = Integer.parseInt(String.valueOf(dataArray.get(0)));
                     player.location.x = Integer.parseInt(String.valueOf(dataArray.get(1)));
                     player.location.y = Integer.parseInt(String.valueOf(dataArray.get(2)));
-                    if (MapService.gI().isMapDoanhTrai(mapId) || MapService.gI().isMapBlackBallWar(mapId) || MapService.gI().isMapBanDoKhoBau(mapId) || MapService.gI().isMapKhiGas(mapId)) {
+                    player.location.lastTimeplayerMove = System.currentTimeMillis();
+                    if (MapService.gI().isMapDoanhTrai(mapId) || MapService.gI().isMapBlackBallWar(mapId) || MapService.gI().isMapBanDoKhoBau(mapId) || MapService.gI().isMapKhiGas(mapId) || MapService.gI().isMapMaBu(mapId)) {
                         mapId = player.gender + 21;
                         player.location.x = 300;
                         player.location.y = 336;
                     }
                     player.zone = MapService.gI().getMapCanJoin(player, mapId, -1);
                 } catch (Exception e) {
-                    System.out.println("ttt");
+                    System.out.println("eee");
                 }
                 dataArray.clear();
 
@@ -1894,9 +1980,9 @@ public class GodGK {
                 player.nPoint.dameg = Long.parseLong(String.valueOf(dataArray.get(7)));
                 player.nPoint.defg = Integer.parseInt(String.valueOf(dataArray.get(8)));
                 player.nPoint.critg = Byte.parseByte(String.valueOf(dataArray.get(9)));
-                dataArray.get(10); //** Năng động
-                plHp = Double.parseDouble(String.valueOf(dataArray.get(11)));
-                plMp = Double.parseDouble(String.valueOf(dataArray.get(12)));
+//                            player.session.dataArray.get(10); //** Năng động
+                plHp = Double.parseDouble((String.valueOf(dataArray.get(11))));
+                plMp = Double.parseDouble((String.valueOf(dataArray.get(11))));
                 dataArray.clear();
 
                 //data đậu thần
@@ -1916,6 +2002,12 @@ public class GodGK {
                     dataBlackBall = (JSONArray) jv.parse(String.valueOf(dataArray.get(i)));
                     player.rewardBlackBall.timeOutOfDateReward[i] = Long.parseLong(String.valueOf(dataBlackBall.get(0)));
                     player.rewardBlackBall.lastTimeGetReward[i] = Long.parseLong(String.valueOf(dataBlackBall.get(1)));
+                    try {
+                        player.rewardBlackBall.quantilyBlackBall[i] = dataBlackBall.get(2) != null ? Integer.parseInt(String.valueOf(dataBlackBall.get(2))) : 0;
+                    } catch (Exception e) {
+                        player.rewardBlackBall.quantilyBlackBall[i] = player.rewardBlackBall.timeOutOfDateReward[i] != 0 ? 1 : 0;
+                        System.out.println("        loi 26");
+                    }
                     dataBlackBall.clear();
                 }
                 dataArray.clear();
@@ -1934,13 +2026,16 @@ public class GodGK {
                             item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
-                        if (ItemService.gI().isOutOfDateTime(item)) {
+                        if (ItemService.gI().isOutOfDateTime(item) || ItemService.gI().isOutOfDateTimeVV(item)) {
                             item = ItemService.gI().createItemNull();
                         }
                     } else {
                         item = ItemService.gI().createItemNull();
                     }
                     player.inventory.itemsBody.add(item);
+                }
+                if (player.inventory.itemsBody.size() == 10) {
+                    player.inventory.itemsBody.add(ItemService.gI().createItemNull());
                 }
                 dataArray.clear();
 
@@ -1958,7 +2053,7 @@ public class GodGK {
                             item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
-                        if (ItemService.gI().isOutOfDateTime(item)) {
+                        if (ItemService.gI().isOutOfDateTime(item) || ItemService.gI().isOutOfDateTimeVV(item)) {
                             item = ItemService.gI().createItemNull();
                         }
                     } else {
@@ -1982,7 +2077,7 @@ public class GodGK {
                             item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
-                        if (ItemService.gI().isOutOfDateTime(item)) {
+                        if (ItemService.gI().isOutOfDateTime(item) || ItemService.gI().isOutOfDateTimeVV(item)) {
                             item = ItemService.gI().createItemNull();
                         }
                     } else {
@@ -1994,21 +2089,23 @@ public class GodGK {
 
                 //data box lucky round
                 dataArray = (JSONArray) jv.parse(rs.getString("items_box_lucky_round"));
-                for (int i = 0; i < dataArray.size(); i++) {
-                    Item item = null;
-                    JSONArray dataItem = (JSONArray) jv.parse(dataArray.get(i).toString());
-                    short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
-                    if (tempId != -1) {
-                        item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
-                        JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
-                        for (int j = 0; j < options.size(); j++) {
-                            JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
-                            item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
+                if (dataArray != null) {
+                    for (int i = 0; i < dataArray.size(); i++) {
+                        Item item = null;
+                        JSONArray dataItem = (JSONArray) jv.parse(dataArray.get(i).toString());
+                        short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
+                        if (tempId != -1) {
+                            item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
+                            JSONArray options = (JSONArray) jv.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
+                            for (int j = 0; j < options.size(); j++) {
+                                JSONArray opt = (JSONArray) jv.parse(String.valueOf(options.get(j)));
+                                item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
+                            }
+                            player.inventory.itemsBoxCrackBall.add(item);
                         }
-                        player.inventory.itemsBoxCrackBall.add(item);
                     }
+                    dataArray.clear();
                 }
-                dataArray.clear();
 
                 //data friends
                 dataArray = (JSONArray) jv.parse(rs.getString("friends"));
@@ -2068,6 +2165,7 @@ public class GodGK {
                 int timeMayDo = Integer.parseInt(String.valueOf(dataArray.get(6)));
                 int timeDuoi = Integer.parseInt(String.valueOf(dataArray.get(7)));
                 int iconDuoi = Integer.parseInt(String.valueOf(dataArray.get(8)));
+                int timeUseTDLT = Integer.parseInt(String.valueOf(dataArray.get(9)));
                 int timeMayDo2 = Integer.parseInt(String.valueOf(dataArray.get(10)));
 
                 player.itemTime.lastTimeBoHuyet = System.currentTimeMillis() - (ItemTime.TIME_ITEM - timeBoHuyet);
@@ -2078,8 +2176,11 @@ public class GodGK {
                 player.itemTime.lastTimeBiNgo = System.currentTimeMillis() - (ItemTime.TIME_BI_NGO - timeBiNgo);
                 player.itemTime.lastTimeUseMayDo = System.currentTimeMillis() - (ItemTime.TIME_MAY_DO - timeMayDo);
                 player.itemTime.lastTimeDuoikhi = System.currentTimeMillis() - (ItemTime.TIME_DUOI_KHI - timeDuoi);
-                player.itemTime.iconDuoi = iconDuoi;
+                player.itemTime.timeTDLT = timeUseTDLT * 60 * 1000;
+                player.itemTime.lastTimeUseTDLT = System.currentTimeMillis();
                 player.itemTime.lastTimeUseMayDo2 = System.currentTimeMillis() - (ItemTime.TIME_MAY_DO2 - timeMayDo2);
+
+                player.itemTime.iconDuoi = iconDuoi;
                 player.itemTime.isUseBoHuyet = timeBoHuyet != 0;
                 player.itemTime.isUseBoKhi = timeBoKhi != 0;
                 player.itemTime.isUseGiapXen = timeGiapXen != 0;
@@ -2088,6 +2189,7 @@ public class GodGK {
                 player.itemTime.isBiNgo = timeBiNgo != 0;
                 player.itemTime.isUseMayDo = timeMayDo != 0;
                 player.itemTime.isDuoikhi = timeDuoi != 0;
+                player.itemTime.isUseTDLT = timeUseTDLT != 0;
                 player.itemTime.isUseMayDo2 = timeMayDo2 != 0;
                 dataArray.clear();
 
@@ -2108,6 +2210,12 @@ public class GodGK {
                 int timeBienhinh1 = Integer.parseInt(String.valueOf(dataArray.get(12)));
                 int timeSieuCap = Integer.parseInt(String.valueOf(dataArray.get(13)));
 
+                int timeUseTDLT3 = 0;
+                if (dataArray.size() == 10) {
+                    timeUseTDLT3 = Integer.parseInt(String.valueOf(dataArray.get(9)));
+//                            int timeMayDo2 = Integer.parseInt(String.valueOf(dataArray.get(10)));
+                }
+
                 player.itemTimesieucap.lastTimeBoHuyet3 = System.currentTimeMillis() - (ItemTimeSieuCap.TIME_ITEM3 - timeBoHuyet3);
                 player.itemTimesieucap.lastTimeBoKhi3 = System.currentTimeMillis() - (ItemTimeSieuCap.TIME_ITEM3 - timeBoKhi3);
                 player.itemTimesieucap.lastTimeGiapXen3 = System.currentTimeMillis() - (ItemTimeSieuCap.TIME_ITEM3 - timeGiapXen3);
@@ -2116,12 +2224,13 @@ public class GodGK {
                 player.itemTimesieucap.lastTimeKeo = System.currentTimeMillis() - (ItemTimeSieuCap.TIME_KEO - timeKeo);
                 player.itemTimesieucap.lastTimeUseXiMuoi = System.currentTimeMillis() - (ItemTimeSieuCap.TIME_XI_MUOI - timeXiMuoi);
                 player.itemTimesieucap.lastTimeMeal = System.currentTimeMillis() - (ItemTimeSieuCap.TIME_EAT_MEAL - timeDuoi3);
-                player.itemTimesieucap.iconMeal = iconDuoi3;
-                player.itemTimesieucap.iconBanh = iconBanh;
                 player.itemTimesieucap.lastTimeUseBanh = System.currentTimeMillis() - (ItemTimeSieuCap.TIME_TRUNGTHU - timeBanh);
                 player.itemTimesieucap.lastTimeBienhinh = System.currentTimeMillis() - (ItemTimeSieuCap.TIME_ITEM3 - timeBienhinh);
                 player.itemTimesieucap.lastTimeBienhinh1 = System.currentTimeMillis() - (ItemTimeSieuCap.TIME_ITEM3 - timeBienhinh1);
                 player.itemTimesieucap.lastTimeRongSieuCap = System.currentTimeMillis() - (ItemTimeSieuCap.TIME_ITEM_SC_30P - timeSieuCap);
+
+                player.itemTimesieucap.iconMeal = iconDuoi3;
+                player.itemTimesieucap.iconBanh = iconBanh;
                 player.itemTimesieucap.isUseBoHuyet3 = timeBoHuyet3 != 0;
                 player.itemTimesieucap.isUseBoKhi3 = timeBoKhi3 != 0;
                 player.itemTimesieucap.isUseGiapXen3 = timeGiapXen3 != 0;
@@ -2164,11 +2273,21 @@ public class GodGK {
                     player.mabuEgg = new MabuEgg(player, Long.parseLong(String.valueOf(dataArray.get(0))), Long.parseLong(String.valueOf(dataArray.get(1))));
                 }
                 dataArray.clear();
-                //data trứng bư
+                //data dưa
                 dataArray = (JSONArray) jv.parse(rs.getString("data_dua"));
                 if (dataArray.size() != 0) {
                     player.timedua = new Timedua(player, Long.parseLong(String.valueOf(dataArray.get(0))), Long.parseLong(String.valueOf(dataArray.get(1))));
                 }
+                dataArray.clear();
+
+                //data tài xỉu
+                dataArray = (JSONArray) JSONValue.parse(rs.getString("Tai_xiu"));
+                player.taixiu.hotong = Integer.parseInt(String.valueOf(dataArray.get(0)));
+                player.taixiu.chuyensinh = Integer.parseInt(String.valueOf(dataArray.get(1)));
+                player.taixiu.toptaixiu = Long.parseLong(String.valueOf(dataArray.get(2)));
+                player.taixiu.win = Integer.parseInt(String.valueOf(dataArray.get(3)));
+                player.taixiu.bongtai = Integer.parseInt(String.valueOf(dataArray.get(4)));
+                player.taixiu.MaxGoldTradeDay = Long.parseLong(String.valueOf(dataArray.get(5)));
                 dataArray.clear();
 
                 //data bùa
@@ -2186,6 +2305,7 @@ public class GodGK {
                 dataArray.clear();
 
                 //data skill
+                int[] skillsArr = player.gender == 0 ? ConstPlayer.SKILL_TD : player.gender == 1 ? ConstPlayer.SKILL_NAMEC : ConstPlayer.SKILL_XAYDA;
                 dataArray = (JSONArray) jv.parse(rs.getString("skills"));
                 for (int i = 0; i < dataArray.size(); i++) {
                     JSONArray dataSkill = (JSONArray) jv.parse(String.valueOf(dataArray.get(i)));
@@ -2198,7 +2318,24 @@ public class GodGK {
                         skill = SkillUtil.createSkillLevel0(tempId);
                     }
                     skill.lastTimeUseThisSkill = Long.parseLong(String.valueOf(dataSkill.get(2)));
+                    if (dataSkill.size() > 3) {
+                        skill.currLevel = Short.parseShort(String.valueOf(dataSkill.get(3)));
+                    }
                     player.playerSkill.skills.add(skill);
+                }
+                boolean hasSkill;
+                for (int i = 0; i < skillsArr.length; i++) {
+                    hasSkill = false;
+                    for (Skill skillPl : player.playerSkill.skills) {
+                        if (skillPl.template.id == skillsArr[i]) {
+                            hasSkill = true;
+                            break;
+                        }
+                    }
+                    if (!hasSkill) {
+                        Skill skill = SkillUtil.createSkillLevel0(skillsArr[i]);
+                        player.playerSkill.skills.add(skill);
+                    }
                 }
                 dataArray.clear();
 
@@ -2241,7 +2378,7 @@ public class GodGK {
                     pet.nPoint.hpg = Double.parseDouble(String.valueOf(dataArray.get(5)));
                     pet.nPoint.mpg = Double.parseDouble(String.valueOf(dataArray.get(6)));
                     pet.nPoint.dameg = Long.parseLong(String.valueOf(dataArray.get(7)));
-                    pet.nPoint.defg = Integer.parseInt(String.valueOf(dataArray.get(8)));
+                    pet.nPoint.defg = Long.parseLong(String.valueOf(dataArray.get(8)));
                     pet.nPoint.critg = Integer.parseInt(String.valueOf(dataArray.get(9)));
                     double hp = Double.parseDouble(String.valueOf(dataArray.get(10)));
                     double mp = Double.parseDouble(String.valueOf(dataArray.get(11)));
@@ -2260,12 +2397,11 @@ public class GodGK {
                                 item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                             }
                             item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
-                            if (ItemService.gI().isOutOfDateTime(item)) {
+                            if (ItemService.gI().isOutOfDateTime(item) || ItemService.gI().isOutOfDateTimeVV(item)) {
                                 item = ItemService.gI().createItemNull();
                             }
                         } else {
                             item = ItemService.gI().createItemNull();
-                            ;
                         }
                         pet.inventory.itemsBody.add(item);
                     }
@@ -2291,6 +2427,9 @@ public class GodGK {
                         }
                         pet.playerSkill.skills.add(skill);
                     }
+                    if (pet.playerSkill.skills.size() < 5) {
+                        pet.playerSkill.skills.add(4, SkillUtil.createSkillLevel0(-1));
+                    }
                     pet.nPoint.hp = hp;
                     pet.nPoint.mp = mp;
                     player.pet = pet;
@@ -2301,7 +2440,7 @@ public class GodGK {
                 if (petDaoLuData != null && !petDaoLuData.isEmpty()) {
                     dataArray = (JSONArray) jv.parse(String.valueOf(petDaoLuData.get(0)));
                     DaoLu petDaoLu = new DaoLu(player);
-                    petDaoLu.id = -player.id * 111111;
+                    petDaoLu.id = Player.setIdForPet(petDaoLu, player.id);
                     petDaoLu.typeDaoLu = Byte.parseByte(String.valueOf(dataArray.get(0)));
                     petDaoLu.gender = Byte.parseByte(String.valueOf(dataArray.get(1)));
                     petDaoLu.nameDaoLu = String.valueOf(dataArray.get(2));
@@ -2322,7 +2461,8 @@ public class GodGK {
 
                     //data chỉ số
                     dataArray = (JSONArray) jv.parse(String.valueOf(petDaoLuData.get(1)));
-                    petDaoLu.nPoint.limitPower = Byte.parseByte(String.valueOf(dataArray.get(0)));
+//                                petDaoLu.nPoint.limitPower = Byte.parseByte(String.valueOf(dataArray.get(0)));
+                    petDaoLu.nPoint.limitPower = player.nPoint.limitPower;
                     petDaoLu.nPoint.power = Long.parseLong(String.valueOf(dataArray.get(1)));
                     petDaoLu.nPoint.tiemNang = Long.parseLong(String.valueOf(dataArray.get(2)));
                     petDaoLu.nPoint.stamina = Short.parseShort(String.valueOf(dataArray.get(3)));
@@ -2330,7 +2470,7 @@ public class GodGK {
                     petDaoLu.nPoint.hpg = Double.parseDouble(String.valueOf(dataArray.get(5)));
                     petDaoLu.nPoint.mpg = Double.parseDouble(String.valueOf(dataArray.get(6)));
                     petDaoLu.nPoint.dameg = Long.parseLong(String.valueOf(dataArray.get(7)));
-                    petDaoLu.nPoint.defg = Integer.parseInt(String.valueOf(dataArray.get(8)));
+                    petDaoLu.nPoint.defg = Long.parseLong(String.valueOf(dataArray.get(8)));
                     petDaoLu.nPoint.critg = Integer.parseInt(String.valueOf(dataArray.get(9)));
                     double hp = Double.parseDouble(String.valueOf(dataArray.get(10)));
                     double mp = Double.parseDouble(String.valueOf(dataArray.get(11)));
@@ -2354,13 +2494,12 @@ public class GodGK {
                             }
                         } else {
                             item = ItemService.gI().createItemNull();
-
                         }
                         petDaoLu.inventory.itemsBody.add(item);
                     }
 
                     //data skills
-                    dataArray = (JSONArray) jv.parse(String.valueOf(petData.get(3)));
+                    dataArray = (JSONArray) jv.parse(String.valueOf(petDaoLuData.get(3)));
                     for (int i = 0; i < dataArray.size(); i++) {
                         JSONArray skillTemp = (JSONArray) jv.parse(String.valueOf(dataArray.get(i)));
                         int tempId = Integer.parseInt(String.valueOf(skillTemp.get(0)));
@@ -2375,17 +2514,45 @@ public class GodGK {
                             case Skill.KAMEJOKO:
                             case Skill.MASENKO:
                             case Skill.ANTOMIC:
-                                skill.coolDown = 1000;
+                                skill.coolDown = 500;
                                 break;
                         }
                         petDaoLu.playerSkill.skills.add(skill);
                     }
-
+                    for (int i = 0; i < skillsArr.length; i++) {
+                        hasSkill = false;
+                        for (Skill skillPl : player.playerSkill.skills) {
+                            if (skillPl.template.id == skillsArr[i]) {
+                                hasSkill = true;
+                                break;
+                            }
+                        }
+                        if (!hasSkill) {
+                            Skill skill = SkillUtil.createSkill(skillsArr[i], 1);
+                            petDaoLu.playerSkill.skills.add(skill);
+                        }
+                    }
                     petDaoLu.nPoint.hp = hp;
                     petDaoLu.nPoint.mp = mp;
                     player.petDaoLu = petDaoLu;
                 }
 
+                dataArray = (JSONArray) JSONValue.parse(rs.getString("info_phoban"));
+                if (!dataArray.isEmpty()) {
+                    player.bdkb_countPerDay = Integer.parseInt(String.valueOf(dataArray.get(1)));
+                    player.bdkb_lastTimeJoin = Long.parseLong(String.valueOf(dataArray.get(0)));
+                }
+                dataArray.clear();
+
+                dataArray = (JSONArray) JSONValue.parse(rs.getString("pointPvp"));
+                if (!dataArray.isEmpty()) {
+                    player.pointPvpthuong = Integer.parseInt(String.valueOf(dataArray.get(0)));
+                    player.pointPvpVip = Integer.parseInt(String.valueOf(dataArray.get(1)));
+
+                }
+                dataArray.clear();
+
+                // nhiem vu bo mong
                 JSONObject achievementObject = (JSONObject) JSONValue.parse(rs.getString("info_achievement"));
                 player.achievement.numPvpWin = Integer.parseInt(String.valueOf(achievementObject.get("numPvpWin")));
                 player.achievement.numSkillChuong = Integer.parseInt(String.valueOf(achievementObject.get("numSkillChuong")));
@@ -2403,8 +2570,9 @@ public class GodGK {
 
                 dataArray = (JSONArray) JSONValue.parse(String.valueOf(achievementObject.get("listReceiveGem")));
                 for (Byte i = 0; i < dataArray.size(); i++) {
-                    player.achievement.listReceiveGem.add((Boolean) dataArray.get(i));
+                    player.achievement.listReceiveGem.add(Boolean.valueOf(String.valueOf(dataArray.get(i))));
                 }
+                dataArray.clear();
 
                 dataArray = (JSONArray) JSONValue.parse(rs.getString("Thu_TrieuHoi"));
                 player.TrieuHoiCapBac = Integer.parseInt(String.valueOf(dataArray.get(0)));
@@ -2423,10 +2591,79 @@ public class GodGK {
                     player.TrieuHoiCapBac = -1;
                 }
                 dataArray.clear();
-                handleDataTutTien(player);
+                // data luyen khi su
+                try {
+                    dataArray = (JSONArray) JSONValue.parse(rs.getString("data_lks"));
+                    //read data
+                    JSONArray luyenkhisuData = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(0)));
+                    JSONArray linhHoaData = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(1)));
+
+                    player.luyenKhiSu.setLevel(Byte.parseByte(String.valueOf(luyenkhisuData.get(0))));
+                    player.luyenKhiSu.setExp(Long.parseLong(String.valueOf(luyenkhisuData.get(1))));
+                    player.luyenKhiSu.setMaxExp(Long.parseLong(String.valueOf(luyenkhisuData.get(2))));
+
+                    player.luyenKhiSu.getLinhHoa().setLevel(Byte.parseByte(String.valueOf(linhHoaData.get(0))));
+                    player.luyenKhiSu.getLinhHoa().setExp(Long.parseLong(String.valueOf(linhHoaData.get(1))));
+                    player.luyenKhiSu.getLinhHoa().setMaxExp(Long.parseLong(String.valueOf(linhHoaData.get(2))));
+                    // done load data luyen khi
+                    dataArray.clear();
+                } catch (Exception e) {
+                    player.luyenKhiSu.init();
+                }
+                // end data
+                //data Nhiệm vụ nhận Chiến Thần
+                dataArray = (JSONArray) JSONValue.parse(rs.getString("nhiemvu_chienthan"));
+                player.chienthan.tasknow = Integer.parseInt(String.valueOf(dataArray.get(0)));
+                player.chienthan.dalamduoc = Integer.parseInt(String.valueOf(dataArray.get(1)));
+                player.chienthan.maxcount = Integer.parseInt(String.valueOf(dataArray.get(2)));
+                player.chienthan.maxtask = Integer.parseInt(String.valueOf(dataArray.get(3)));
+                player.chienthan.donechienthan = Integer.parseInt(String.valueOf(dataArray.get(4)));
+                dataArray.clear();
+                //handle data lucky pool
+                dataArray = (JSONArray) JSONValue.parse(rs.getString("lucky_pool"));
+                if (dataArray != null && dataArray.size() > 0) {
+                    player.luckyPoolPlayer.totalLuckyPoint = Integer.parseInt(String.valueOf(dataArray.get(0)));
+                    // Lấy danh sách item
+                    JSONArray itemList = (JSONArray) dataArray.get(1);
+                    player.luckyPoolPlayer.itemBags.clear();
+
+                    for (Object obj : itemList) {
+                        JSONArray itemData = (JSONArray) obj;
+                        int itemId = Integer.parseInt(String.valueOf(itemData.get(0)));
+                        int quantity = Integer.parseInt(String.valueOf(itemData.get(1)));
+
+                        // Tạo Item mới
+                        Item item = ItemService.gI().createNewItem((short) itemId, quantity);
+                        // Parse các option
+                        JSONArray options = (JSONArray) itemData.get(2);
+                        for (Object o : options) {
+                            JSONArray opt = (JSONArray) o;
+                            int optionId = Integer.parseInt(String.valueOf(opt.get(0)));
+                            int param = Integer.parseInt(String.valueOf(opt.get(1)));
+
+                            Item.ItemOption itemOption = new Item.ItemOption();
+                            itemOption.optionTemplate = ItemService.gI().getItemOptionTemplate(optionId);
+                            itemOption.param = param;
+
+                            item.itemOptions.add(itemOption);
+                        }
+
+                        // Thêm item vào pool
+                        player.luckyPoolPlayer.itemBags.add(item);
+                    }
+                }
+                // handle data tu tien
+                player.bdkb_isJoinBdkb = false;
+                if ((new java.sql.Date(player.bdkb_lastTimeJoin)).getDay() != (new java.sql.Date(System.currentTimeMillis())).getDay()) {
+                    player.bdkb_countPerDay = 0;
+                }
+                if ((new java.sql.Date(player.diemdanh)).getDay() != (new java.sql.Date(System.currentTimeMillis())).getDay()) {
+                    player.diemdanh = 0;
+                }
                 player.nPoint.hp = plHp;
                 player.nPoint.mp = plMp;
                 player.iDMark.setLoadedAllDataPlayer(true);
+                handleDataTutTien(player);
             }
         } catch (Exception e) {
             player.dispose();
