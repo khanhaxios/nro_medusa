@@ -1544,6 +1544,10 @@ public class Service {
             return;
         }
         if (text.equals("ttlk")) {
+            if (player.tuMa.isTuMa()) {
+                Service.gI().sendThongBao(player, "Tu ma không thể luyện khí");
+                return;
+            }
             if (player.luyenKhiSu.getLevel() == 0 && !player.isAdmin()) {
                 Service.gI().sendThongBaoOK(player, "Bạn chưa mở luyện khí\nHãy đến gặp npc Thần Cấp luyện khí sư ở làng aru để học hỏi");
                 return;

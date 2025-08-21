@@ -2484,7 +2484,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player) && mapId == 5) {
-                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Huyết mạch", "Công Pháp", "Tán Công", "Chuyển Sinh");
+                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Huyết mạch", "Công Pháp", "Chuyển Sinh", "Tán Công");
                 }
             }
 
@@ -2506,11 +2506,15 @@ public class NpcFactory {
                             createOtherMenu(player, ConstNpc.MENU_H_CP_LT, "Công pháp giúp tăng cường sức mạnh của luyện thể", "Học\nCông Pháp", "Đóng");
                             break;
                         case 4:
-                            player.luyenThe.reset();
-                            break;
-                        case 5:
                             this.createOtherMenu(player, ConstNpc.MENU_CHUYEN_SINH, "|7|CHUYỂN SINH" + "\n\n|1|Yêu cầu Sức mạnh đạt 100 tỷ" + "\nĐã học Skill " + player.tenskill9(player.gender) + "\n\n|2|Sau khi chuyển sinh Thành công" + "\n-Sức mạnh trở về 1,5 Triệu" + "\n-Cấp chuyển sinh tăng 1 Cấp" + "\n\n|1|Sức Mạnh: " + Util.powerToStringNDQ(player.nPoint.power) + "/" + " 100 Tỷ" + "\n|3|=>Mỗi cấp chuyển sinh sẽ cộng hp/ki/sd riêng vào chỉ số gốc" + "\n\n|7|Chuyển sinh Thất bại sẽ Giảm 50 Tỷ Sức mạnh", "Chuyển sinh", "Thông tin\nchuyển sinh");
                             break;
+                        case 5:
+                            createOtherMenu(player, -1231232, "Bạn có chắc muốn tán công không?", "Tán công", "Đóng");
+                            break;
+                    }
+                } else if (player.iDMark.getIndexMenu() == -1231232) {
+                    if (select == 0) {
+                        player.luyenThe.reset();
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_CHUYEN_SINH) {
                     switch (select) {

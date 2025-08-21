@@ -1273,9 +1273,9 @@ public class SkillService {
         short paramOfLinhCan = 0;
         if (plAtt.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             if (plAtt.pet.type == ConstPet.FU && plAtt.khongThiSu.level > 3) {
-                if (Util.isTrue(1, 10000)) {
+                if (Util.isTrue(1, 1000000)) {
                     Service.gI().chat(plAtt, "Tử vong phán quyết");
-                    double dam = plInjure.injured(plAtt, plInjure.nPoint.hpMax * Math.max(10, plAtt.khongThiSu.level * 10) / 100, false, false, true);
+                    double dam = plInjure.injured(plAtt, plInjure.nPoint.hpMax * Math.max(1, plAtt.khongThiSu.level) / 100, false, false, true);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dam, (byte) 0);
                 }
             }

@@ -203,8 +203,8 @@ public class MySession extends Session {
                 }
                 if (player.petDaoLu != null) {
                     player.petDaoLu.nPoint.calPoint();
-                    player.petDaoLu.nPoint.setHp(player.pet.nPoint.hp);
-                    player.petDaoLu.nPoint.setMp(player.pet.nPoint.mp);
+                    player.petDaoLu.nPoint.setHp(player.petDaoLu.nPoint.hp);
+                    player.petDaoLu.nPoint.setMp(player.petDaoLu.nPoint.mp);
                 }
                 player.setSession(this);
                 Client.gI().put(player);
