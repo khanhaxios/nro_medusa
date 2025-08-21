@@ -1754,4 +1754,14 @@ public class ItemService {
         }
         return -1;
     }
+
+    public Item createRandomDoTien() {
+        Item item = null;
+        short itemId;
+        byte gender = (byte) Util.nextInt(0, 2);
+        itemId = Util.idDoThanTien[gender][Util.nextInt(0, 4)];
+        item = Util.ratioItemTien(itemId, gender);
+        item.itemOptions.add(new ItemOption(260, 8));
+        return randomOption(item);
+    }
 }

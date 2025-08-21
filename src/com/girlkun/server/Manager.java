@@ -71,6 +71,7 @@ public class Manager {
     public static short[] setNguyenThuy = new short[]{1450, 1451, 1452};
     public static short[] setThanhTon = new short[]{1431, 1432, 1433, 1434, 1435};
     public static List<Integer> idsMapCold = Arrays.asList(110, 109, 108, 107, 106, 105);
+    public static short[][] idsDoTien = new short[][]{{2051, 2052, 2053, 2054, 2055}, {2056, 2057, 2058, 2059, 2060}, {2061, 2062, 2063, 2064, 2065}};
     private static Manager i;
 
     public static byte SERVER = 1;
@@ -340,7 +341,7 @@ public class Manager {
         for (int t = 0; t < numThreads; t++) {
             int start = t * MAPS_PER_THREAD;
             int end = Math.min(start + MAPS_PER_THREAD, totalMaps);
-            List<com.girlkun.models.map.Map> mapGroup = MAPS.subList(start, end);
+            List<com.girlkun.models.map.Map> mapGroup = new ArrayList<>(MAPS.subList(start, end));
             new Thread(() -> {
                 while (!Maintenance.isRuning) {
                     try {

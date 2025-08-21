@@ -1715,7 +1715,7 @@ public class Service {
 //            return;
         }
         if (text.equals("dn")) {
-            Service.gI().sendThongBaoOK(player, String.format("Số dư của bạn là : %s", Util.format(player.session.vnd)));
+            Service.gI().sendThongBaoOK(player, String.format("Số dư của bạn là : %s\n Công đức là : %s", Util.format(player.session.vnd), Util.format(player.session.congduc)));
             return;
         }
         // Player

@@ -598,26 +598,68 @@ public class UseItem {
                                 Service.getInstance().sendThongBao(pl, "Chúc mừng bạn nhận được Pet " + linhThu.template.name);
                             }
                             break;
-                        case 542: //đổi đệ tử
+                        case 542:
+                            if (!canDoWithQuantity(item, 30)) {
+                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
+                                return;
+                            }
                             changePetPic(pl, item);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
+                            InventoryServiceNew.gI().sendItemBags(pl);
                             break;
                         case 980: //đổi đệ tử
+                            if (!canDoWithQuantity(item, 30)) {
+                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
+                                return;
+                            }
                             changePetVIP(pl, item);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
+                            InventoryServiceNew.gI().sendItemBags(pl);
                             break;
                         case 1395: //đổi đệ tử GOKU
+                            if (!canDoWithQuantity(item, 30)) {
+                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
+                                return;
+                            }
                             changePetGOKU(pl, item);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
+                            InventoryServiceNew.gI().sendItemBags(pl);
                             break;
                         case 1400: //đổi đệ tử GOGETA
+                            if (!canDoWithQuantity(item, 30)) {
+                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
+                                return;
+                            }
                             changePetGOGETA(pl, item);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
+                            InventoryServiceNew.gI().sendItemBags(pl);
                             break;
                         case 1401: //đổi đệ tử NA
+                            if (!canDoWithQuantity(item, 30)) {
+                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
+                                return;
+                            }
                             changePetNA(pl, item);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
+                            InventoryServiceNew.gI().sendItemBags(pl);
                             break;
                         case 1402: //đổi đệ tử TET 2024
+                            if (!canDoWithQuantity(item, 30)) {
+                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
+                                return;
+                            }
                             changePetTET(pl, item);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
+                            InventoryServiceNew.gI().sendItemBags(pl);
                             break;
                         case 1403: //đổi đệ tử Fu 2024
+                            if (!canDoWithQuantity(item, 30)) {
+                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
+                                return;
+                            }
                             changePetFU(pl, item);
+                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
+                            InventoryServiceNew.gI().sendItemBags(pl);
                             break;
                         case 402: //sách nâng chiêu 1 đệ tử
                         case 403: //sách nâng chiêu 2 đệ tử
@@ -631,7 +673,6 @@ public class UseItem {
                         case 2002://hop qua skh, item 2002 xd
                             UseItem.gI().ItemSKH(pl, item);
                             break;
-
                         case 2003://hop qua skh, item 2003 td
                         case 2004://hop qua skh, item 2004 nm
                         case 2005://hop qua skh, item 2005 xd
@@ -706,6 +747,14 @@ public class UseItem {
                             break;
                         }
                         case 1599:
+                            if (pl.tuMa.isTuMa()) {
+                                if (Util.isTrue(pl.tuMa.congPhapTuMa.dlThonPhe * 10, 100)) {
+                                    Service.gI().sendThongBao(pl, "Do bạn thôn phệ đạo lữ quá nhiều nên đạo lữ đã bỏ chạy");
+                                    InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
+                                    InventoryServiceNew.gI().sendItemBags(pl);
+                                    return;
+                                }
+                            }
                             Input.gI().TAO_DAO_LU(pl);
                             break;
                         case 1600:
@@ -749,6 +798,10 @@ public class UseItem {
         } else {
             Service.getInstance().sendThongBaoOK(pl, "Sức mạnh không đủ yêu cầu");
         }
+    }
+
+    private boolean canDoWithQuantity(Item item, int quantity) {
+        return item.quantity >= quantity;
     }
 
     private void openCapsuleVang(Player player, Item item) {
@@ -1983,7 +2036,7 @@ public class UseItem {
             return;
         }
         // get ty le len cap
-        int tyLeLenCapMax = phamHienTai * 100;
+        int tyLeLenCapMax = phamHienTai * 500;
         // ty le base
         float tyLeBase = 1 + player.tyLeTangPhamDaoLu;
         int nguong = tyLeLenCapMax * 70 / 100;

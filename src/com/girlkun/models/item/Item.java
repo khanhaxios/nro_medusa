@@ -5,6 +5,7 @@ import com.girlkun.models.Template.ItemTemplate;
 import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.ItemService;
 import com.girlkun.utils.Util;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,7 +67,7 @@ public class Item {
         }
         this.itemOptions = null;
     }
-    
+
     public String getInfoItem() {
         String strInfo = "|1|" + template.name + "\n|0|";
         for (ItemOption itemOption : itemOptions) {
@@ -74,6 +75,10 @@ public class Item {
         }
         strInfo += "|2|" + template.description;
         return strInfo;
+    }
+
+    public boolean isNguHanhChiTinh() {
+        return template.id >= 2085 && template.id <= 2092;
     }
 
 
@@ -110,6 +115,7 @@ public class Item {
         public void dispose() {
             this.optionTemplate = null;
         }
+
         @Override
         public String toString() {
             final String n = "\"";
@@ -118,7 +124,12 @@ public class Item {
                     + n + "param" + n + ":" + n + param + n
                     + "}";
         }
+
+        public boolean isNguHanhOption() {
+            return optionTemplate.id >= 277 && optionTemplate.id <= 285;
+        }
     }
+
     public boolean isSKH() {
         for (ItemOption itemOption : itemOptions
         ) {
@@ -150,25 +161,28 @@ public class Item {
     public boolean isDGoku() {
         return this.template.id >= 1527 && this.template.id <= 1531;
     }
-    
+
     public boolean isThanhTon() {
         if (this.template.id >= 1431 && this.template.id <= 1435) {
             return true;
         }
         return false;
     }
+
     public boolean isNguyenThuy() {
         if (this.template.id >= 1450 && this.template.id <= 1454) {
             return true;
         }
         return false;
     }
+
     public boolean isThongKho() {
         if (this.template.id >= 1482 && this.template.id <= 1486) {
             return true;
         }
         return false;
     }
+
     public boolean isCongThuc() {
         if (this.template.id >= 1071 && this.template.id <= 1073) {
             return true;
@@ -189,14 +203,14 @@ public class Item {
         }
         return false;
     }
-    
+
     public boolean haveOption(int idOption) {
         if (this != null && this.isNotNullItem()) {
             return this.itemOptions.stream().anyMatch(op -> op != null && op.optionTemplate.id == idOption);
         }
         return false;
     }
-    
+
     public boolean isTrangBiHSD() {
         if (InventoryServiceNew.gI().hasOptionTemplateId(this, 234)) {
             return false;

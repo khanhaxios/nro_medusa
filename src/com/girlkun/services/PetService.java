@@ -274,8 +274,8 @@ public class PetService {
     private int[] getDataPetNormal() {
         int[] hpmp = {1700, 1800, 1900, 2000, 2100, 2200};
         int[] petData = new int[5];
-        petData[0] = Util.nextInt(40, 105) * 20; //hp
-        petData[1] = Util.nextInt(40, 105) * 20; //mp
+        petData[0] = Util.nextInt(40,80) * 20; //hp
+        petData[1] = Util.nextInt(40, 80) * 20; //mp
         petData[2] = Util.nextInt(20, 45); //dame
         petData[3] = Util.nextInt(9, 50); //def
         petData[4] = Util.nextInt(0, 2); //crit

@@ -39,6 +39,11 @@ public class NPoint {
         this.tlDameCrit = new ArrayList<>();
     }
 
+    public int phamKhiLinh;
+    public int khiLinhType;
+
+    public int phamNguHanh;
+    public int typeNguHanh;
     public int tlDameKim;
     public int tlDameMoc;
     public int tlDameThuy;
@@ -517,6 +522,79 @@ public class NPoint {
                         case 275:
                             tlDameAm += io.param;
                             break;
+                        case 277:
+                            phamNguHanh = io.param;
+                            typeNguHanh = 0;
+                            break;
+                        case 278:
+                            phamNguHanh = io.param;
+                            typeNguHanh = 1;
+                            break;
+                        case 279:
+                            phamNguHanh = io.param;
+                            typeNguHanh = 2;
+                            break;
+                        case 280:
+                            phamNguHanh = io.param;
+                            typeNguHanh = 3;
+                            break;
+                        case 281:
+                            phamNguHanh = io.param;
+                            typeNguHanh = 4;
+                            break;
+                        case 282:
+                            phamNguHanh = io.param;
+                            typeNguHanh = 5;
+                            break;
+                        case 283:
+                            phamNguHanh = io.param;
+                            typeNguHanh = 6;
+                            break;
+                        case 284:
+                            phamNguHanh = io.param;
+                            typeNguHanh = 7;
+                            break;
+                        case 285:
+                            phamNguHanh = io.param;
+                            typeNguHanh = 8;
+                            break;
+                        case 286:
+                            phamKhiLinh = io.param;
+                            khiLinhType = 0;
+                            break;
+                        case 287:
+                            phamKhiLinh = io.param;
+                            khiLinhType = 1;
+                            break;
+                        case 288:
+                            phamKhiLinh = io.param;
+                            khiLinhType = 2;
+                            break;
+                        case 289:
+                            phamKhiLinh = io.param;
+                            khiLinhType = 3;
+                            break;
+                        case 290:
+                            phamKhiLinh = io.param;
+                            khiLinhType = 4;
+                            break;
+                        case 291:
+                            phamKhiLinh = io.param;
+                            khiLinhType = 5;
+                            break;
+                        case 292:
+                            phamKhiLinh = io.param;
+                            khiLinhType = 6;
+                            break;
+                        case 293:
+                            phamKhiLinh = io.param;
+                            khiLinhType = 7;
+                            break;
+                        case 294:
+                            phamKhiLinh = io.param;
+                            khiLinhType = 8;
+                            break;
+
                     }
                 }
                 if (dameSSSAdd > 0) {
@@ -1776,6 +1854,12 @@ public class NPoint {
         this.wearingVoHinh = false;
         this.isKhongLanh = false;
         this.khangTDHS = false;
+
+        phamKhiLinh = 0;
+        khiLinhType = -1;
+
+        phamNguHanh = 0;
+        typeNguHanh = -1;
     }
 
     public void addHp(double hp) {

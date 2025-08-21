@@ -62,6 +62,7 @@ public class MySession extends Session {
 
     public int version;
     public double vnd;
+    public double congduc;
     public int Bar;
 
     public boolean isRIcon;

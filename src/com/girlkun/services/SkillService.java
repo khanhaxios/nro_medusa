@@ -1308,11 +1308,15 @@ public class SkillService {
                     paramOfLinhCan += paramOfLinhCan * plAtt.tuTien.congPhap.xDameThuocTinh / 100;
                 }
             }
-
             if (plAtt.luyenDanSu.isLuyenDan() && plAtt.luyenDanSu.danDuocEffect.isBuffSTLinhCan()) {
                 paramOfLinhCan += plAtt.luyenDanSu.danDuocEffect.stLinhCanBuff;
             }
-
+            if (plAtt.nPoint.khiLinhType == plAtt.tuTien.linhCan.getLinhCanType()) {
+                paramOfLinhCan += (12 * plAtt.nPoint.phamKhiLinh);
+            }
+            if (plAtt.nPoint.typeNguHanh == plAtt.tuTien.linhCan.getLinhCanType()) {
+                paramOfLinhCan += (12 * plAtt.nPoint.phamKhiLinh);
+            }
             paramOfLinhCan += paramOfLinhCan * plAtt.nPoint.xDameLinhCan / 100;
             switch (plAtt.tuTien.linhCan.getLinhCanType()) {
                 case 0:
@@ -1419,7 +1423,7 @@ public class SkillService {
                     }
                     break;
                 case 7:
-                    if (plInjure.nPoint.getCurrPercentHP() < 5 && Util.isTrue(paramOfLinhCan, 200)) {
+                    if (plInjure.nPoint.getCurrPercentHP() < 5 && Util.isTrue(paramOfLinhCan, 500)) {
                         // pham phan
                         Service.gI().chat(plAtt, "Thần thánh thẩm phán");
                         double dameQuang = plInjure.nPoint.hp;
@@ -1454,7 +1458,7 @@ public class SkillService {
             }
             switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
                 case 0:
-                    double hp = plInjure.injured(plAtt, (plAtt.nPoint.hpMax / 10) * (paramOfLinhCanTuma), false, false, true);
+                    double hp = plInjure.injured(plAtt, (plAtt.nPoint.hpMax) * (paramOfLinhCanTuma), false, false, true);
                     if (plAtt.nPoint.hutMauTamThoi + hp >= plAtt.nPoint.mauGoc) {
                         sendMessagePlayerAttackPlayer(plAtt, plInjure, hp, (byte) 0);
                         return;
@@ -1469,7 +1473,7 @@ public class SkillService {
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameA, (byte) 0);
                     break;
                 case 2:
-                    double dameB = ((plAtt.nPoint.hpMax / 10) * paramOfLinhCanTuma) * Util.nextInt(2, 4);
+                    double dameB = ((plAtt.nPoint.hpMax) * paramOfLinhCanTuma);
                     dameB = plInjure.injured(plAtt, dameB, false, false, false);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameB, (byte) 0);
                     break;
