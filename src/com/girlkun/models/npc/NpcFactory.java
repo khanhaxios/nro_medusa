@@ -2873,6 +2873,7 @@ public class NpcFactory {
                                 break;
                             case 1:
                                 BanDoKhoBauService.gI().kethucbdkbwithoutinside(player);
+                                Service.gI().sendThongBao(player, "Đã kết thúc bản đồ kho báu");
                                 break;
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_OPEN_BDKB) {
@@ -6726,11 +6727,11 @@ public class NpcFactory {
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_MO_KHONG_THI) {
                             if (select == 0) {
                                 if (!player.isAdmin()) {
-                                    if (!player.tuTien.isTuTien() || player.tuTien.level < 1) {
+                                    if (player.tuTien.isTuTien() && player.tuTien.level < 1) {
                                         Service.gI().sendThongBao(player, "Cần đạt tu tiên cấp Trúc Cơ");
                                         return;
                                     }
-                                    if (!player.luyenThe.isLuyenThe() || player.luyenThe.level < 10) {
+                                    if (player.luyenThe.isLuyenThe() && player.luyenThe.level < 10) {
                                         Service.gI().sendThongBao(player, "Cần đạt luyện thể cấp 10");
                                         return;
                                     }

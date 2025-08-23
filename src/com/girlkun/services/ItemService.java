@@ -1590,7 +1590,7 @@ public class ItemService {
             item.itemOptions.add(new ItemOption(optionsRandom[Util.nextInt(0, optionsRandom.length - 1)], Util.nextInt(5, 25)));
         }
         if (Util.isTrue(10, 100)) {
-            item.itemOptions.add(new ItemOption(optionRandomVip[Util.nextInt(0, optionRandomVip.length - 1)], Util.nextInt(1, 25)));
+            item.itemOptions.add(new ItemOption(optionRandomVip[Util.nextInt(0, optionRandomVip.length - 1)], Util.nextInt(1, 100)));
         }
         return item;
     }

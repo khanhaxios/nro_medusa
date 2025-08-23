@@ -238,15 +238,15 @@ public class Client implements Runnable {
                 }
                 lastTimeCleanSession = System.currentTimeMillis();
             }
-            for (ISession s : GirlkunSessionManager.gI().getSessions()) {
-                MySession session = (MySession) s;
-                if (session.timeWait > 0) {
-                    session.timeWait--;
-                    if (session.timeWait == 0) {
-                        kickSession(session);
-                    }
-                }
-            }
+//            for (ISession s : GirlkunSessionManager.gI().getSessions()) {
+//                MySession session = (MySession) s;
+//                if (session.timeWait > 0) {
+//                    session.timeWait--;
+//                    if (session.timeWait == 0) {
+//                        kickSession(session);
+//                    }
+//                }
+//            }
         } catch (Exception e) {
             Logger.log(e.getMessage());
         }

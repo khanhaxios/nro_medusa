@@ -100,11 +100,17 @@ public class BanDoKhoBauService {
             pl.clan.banDoKhoBau.dispose();
             pl.clan.banDoKhoBau = null;
         }
+        player.clan.banDoKhoBau.dispose();
+        player.clan.banDoKhoBau = null;
+        player.bdkb_isJoinBdkb = false;
+
         for (Player boss : bosses) {
             if (boss != null && !boss.isDie) {
                 boss.injured(player, boss.nPoint.hpMax + 10000, false, false, true);
             }
         }
+
+
         Service.gI().sendThongBao(player, "Đã xóa bản đồ kho báu thành công");
         BanDoKhoBau.BAN_DO_KHO_BAU.set(id, new BanDoKhoBau(id));
     }

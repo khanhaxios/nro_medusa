@@ -577,14 +577,14 @@ public class Util {
                 it.itemOptions.add(new Item.ItemOption(47, Util.nextInt(100, 200) + 20000));
                 break;
             case 1:
-                it.itemOptions.add(new Item.ItemOption(22, Util.nextInt(100, 200) + 700));
+                it.itemOptions.add(new Item.ItemOption(22, Util.nextInt(100, 200) + 1500));
                 break;
             case 2:
-                it.itemOptions.add(new Item.ItemOption(0, Util.nextInt(10000) + 100000));
-                it.itemOptions.add(new Item.ItemOption(50, Util.nextInt(12) + 30));
+                it.itemOptions.add(new Item.ItemOption(0, Util.nextInt(10000) + 1000000));
+                it.itemOptions.add(new Item.ItemOption(50, Util.nextInt(12) + 100));
                 break;
             case 3:
-                it.itemOptions.add(new Item.ItemOption(23, Util.nextInt(100, 200) + 700));
+                it.itemOptions.add(new Item.ItemOption(23, Util.nextInt(100, 200) + 1500));
                 it.itemOptions.add(new Item.ItemOption(17, Util.nextInt(100, 200) + 1200));
                 break;
             case 4:
@@ -593,8 +593,6 @@ public class Util {
                 break;
         }
         it.itemOptions.add(new Item.ItemOption(41, 0));
-        it.itemOptions.add(new Item.ItemOption(21, 500));
-        it.itemOptions.add(new Item.ItemOption(44, Util.nextInt(1, 10)));
         return it;
     }
 

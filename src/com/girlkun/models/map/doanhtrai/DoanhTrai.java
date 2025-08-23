@@ -23,7 +23,7 @@ public class DoanhTrai {
     public static final int N_PLAYER_CLAN = 10;
     //số người đứng cùng khu
     public static final int N_PLAYER_MAP = 2;
-    public static final int AVAILABLE = 10;
+    public static final int AVAILABLE = 30;
     public static final int TIME_DOANH_TRAI = 1800000;
 
     List<Integer> listMap = Arrays.asList(53, 58, 59, 60, 61, 62, 55, 56, 54, 57);

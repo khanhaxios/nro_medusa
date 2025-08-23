@@ -2350,6 +2350,10 @@ public class CombineServiceNew {
             return;
         }
 
+        if (trangbi.quantity < 200) {
+            Service.gI().sendThongBao(player, "Cần 200 mảnh tiên khí");
+            return;
+        }
         if (nhlt == null) {
             Service.gI().sendThongBao(player, "Cần ngũ hành tinh thạch");
             return;
@@ -2358,9 +2362,14 @@ public class CombineServiceNew {
             Service.gI().sendThongBao(player, "Cần x10 ngũ hành tinh thạch");
             return;
         }
+        if (!canDoWithCongDuc(player, 100)) {
+            Service.gI().sendThongBao(player, "Cần x100 công đức");
+            return;
+        }
+        PlayerDAO.subCongDuc(player, 100);
         Item doTien = ItemService.gI().createRandomDoTien();
         InventoryServiceNew.gI().addItemBag(player, doTien);
-        InventoryServiceNew.gI().subQuantityItemsBag(player, trangbi, 10);
+        InventoryServiceNew.gI().subQuantityItemsBag(player, trangbi, 200);
         InventoryServiceNew.gI().subQuantityItemsBag(player, nhlt, 10);
         InventoryServiceNew.gI().sendItemBags(player);
         Service.gI().sendThongBao(player, "Chế tạo thành công bạn nhận được " + doTien.template.name);

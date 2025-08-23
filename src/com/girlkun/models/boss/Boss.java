@@ -178,7 +178,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         return (byte) this.data[this.currentLevel].getOutfit()[5];
     }
 
-    public int[] ID_BOSS_NV = new int[]{BossID.KUKU, BossID.RAMBO, BossID.MAP_DAU_DINH, BossID.SO_1, BossID.SO_2, BossID.SO_4, BossID.SO_3, BossID.TIEU_DOI_TRUONG, BossID.TDST, BossID.FIDE, BossID.ANDROID_15, BossID.ANDROID_13, BossID.ANDROID_14, BossID.ANDROID_19, BossID.XEN_CON_1, BossID.XEN_BO_HUNG};
+    public int[] ID_BOSS_NV = new int[]{BossID.KUKU, BossID.RAMBO, BossID.MAP_DAU_DINH, BossID.SO_1, BossID.SO_2, BossID.SO_4, BossID.SO_3, BossID.TIEU_DOI_TRUONG, BossID.TDST, BossID.FIDE, BossID.ANDROID_15, BossID.ANDROID_13, BossID.ANDROID_14, BossID.ANDROID_19, BossID.XEN_CON_1, BossID.XEN_BO_HUNG, BossID.TRUNG_UY_TRANG, BossID.TRUNG_UY_THEP, BossID.TRUNG_UY_XANH_LO, BossID.TRUNG_UY_XANH_LO_BDKB, BossID.DR_LYCHEE, BossID.HACHIYACK};
 
     public int[] MAP_CAN_NOT_JOIN = new int[]{21, 22, 23, 45, 48, 49, 50, 46, 47, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 67, 85, 86, 87, 88, 89, 90, 91, 112, 113, 114, 115, 116, 117, 118, 119, 120, 127, 128};
     public final Set<Integer> MAP_CANT_JOIN_SET = Arrays.stream(MAP_CAN_NOT_JOIN).boxed().collect(Collectors.toSet());

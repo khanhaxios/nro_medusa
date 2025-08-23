@@ -19,7 +19,7 @@ public class Gas {
     public static final long POWER_CAN_GO_TO_GAS = 2000000000;
 
     public static final List<Gas> KHI_GAS;
-    public static final int MAX_AVAILABLE = 15;
+    public static final int MAX_AVAILABLE = 30;
     public int timeWaitOut;
     public static final int TIME_KHI_GAS = 1800000;
 

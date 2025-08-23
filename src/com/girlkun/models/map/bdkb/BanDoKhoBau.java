@@ -19,7 +19,7 @@ public class BanDoKhoBau {
     public static final long POWER_CAN_GO_TO_BDKB = 2000000000;
     public static final long TIME_WAIT_BDKB = (60 * 60) * 1000;
     public static List<BanDoKhoBau> BAN_DO_KHO_BAU;
-    public static final int MAX_AVAILABLE = 15;
+    public static final int MAX_AVAILABLE = 30;
     //    public static final int N_PLAYER_MAP = 2;
     public static final int TIME_KHI_BAN_DO_KHO_BAU = 1800000;
     public Player player;

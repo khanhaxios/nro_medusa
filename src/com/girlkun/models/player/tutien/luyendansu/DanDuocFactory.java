@@ -9,7 +9,7 @@ import com.girlkun.utils.Util;
 
 public class DanDuocFactory {
     public static DanDuoc createDanDuoc(DanPhuong danPhuong, byte cap, int quanity) {
-        DanDuoc danDuoc = new DanDuoc(danPhuong.id + cap + 1, danPhuong.tenDanPhuong, cap, 5 + cap);
+        DanDuoc danDuoc = new DanDuoc(danPhuong.id + cap + 1, danPhuong.tenDanPhuong, cap, 2 + cap);
         danDuoc.quantity = quanity;
         return danDuoc;
     }

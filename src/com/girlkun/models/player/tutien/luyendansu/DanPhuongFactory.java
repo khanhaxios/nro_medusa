@@ -135,13 +135,12 @@ public class DanPhuongFactory {
             DanDuoc danDuoc = DanDuocFactory.createDanDuoc(danPhuong, levelDanDuoc, Util.nextInt(1, 5));
             player.luyenDanSu.tuiDanDuoc.addDanDuoc(danDuoc);
             //handle exp
-            exp = (long) Util.nextInt(300, 600) * Math.max(levelDanDuoc, 1);
+            exp = (long) Util.nextInt(1000, 6000) * Math.max(levelDanDuoc, 1);
             // Tạo thông báo cho người chơi về kết quả luyện đan
             String danDuocMessage = getDanDuocMessage(levelDanDuoc, danDuoc);
             Service.gI().sendThongBao(player, "Bạn đã luyện thành công " + danDuocMessage);
-
         } else {
-            exp = (long) Util.nextInt(150, 300) * 1;
+            exp = Util.nextInt(500, 999);
             Service.gI().sendThongBao(player, "Luyện đan thất bại");
         }
         // tang exp

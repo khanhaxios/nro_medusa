@@ -4,11 +4,12 @@ import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossData;
 import com.girlkun.models.boss.BossManager;
-import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.services.EffectSkillService;
+import com.girlkun.services.ItemMapService;
+import com.girlkun.services.ItemService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
@@ -28,7 +29,7 @@ public class DrLyChee extends Boss {
 
     public DrLyChee(Zone zone, short level, int dame, int hp, int id) throws Exception {
         super(id, new BossData(
-                "Drabura Frost", //name
+                "DrLyChee", //name
                 ConstPlayer.TRAI_DAT, //gender
                 new short[]{1309, 1310, 1311, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
                 ((100 + dame * level)), //dame
@@ -54,22 +55,18 @@ public class DrLyChee extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        if (Util.isTrue(100, 100)) {
-            if (levell == 110) {
-                ItemMap it = new ItemMap(this.zone, 1201, 12, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                        this.location.y - 24), plKill.id);
-                Service.getInstance().dropItemMap(this.zone, it);
-
-            } else if (levell > 99 && levell < 110) {
-                ItemMap it = new ItemMap(this.zone, 1201, 9, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                        this.location.y - 24), plKill.id);
-                Service.getInstance().dropItemMap(this.zone, it);
-
-            } else if (levell < 100) {
-                ItemMap it = new ItemMap(this.zone, 1201, 3, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                        this.location.y - 24), plKill.id);
-                Service.getInstance().dropItemMap(this.zone, it);
-            }
+        if (levell > 0 && levell < 100) {
+            // roi long thạch
+            Service.gI().dropItemMap(zone, ItemMapService.gI().createItemMapFromItem(zone, 1, plKill.location.x, zone.map.yPhysicInTop(plKill.location.x, plKill.location.y - 24), plKill.id, ItemService.gI().createNewItem((short) 2098)));
+        }
+        if (levell > 100 && levell < 250) {
+            Service.gI().dropItemMap(zone, ItemMapService.gI().createItemMapFromItem(zone, 10, plKill.location.x, zone.map.yPhysicInTop(plKill.location.x, plKill.location.y - 24), plKill.id, ItemService.gI().createNewItem((short) 2098)));
+        }
+        if (levell > 250 && levell <= 500) {
+            Service.gI().dropItemMap(zone, ItemMapService.gI().createItemMapFromItem(zone, 20, plKill.location.x, zone.map.yPhysicInTop(plKill.location.x, plKill.location.y - 24), plKill.id, ItemService.gI().createNewItem((short) 2098)));
+        }
+        if (Util.isTrue(10, 100)) {
+            Service.gI().dropItemMap(zone, ItemMapService.gI().createItemMapFromItem(zone, Util.nextInt(1, 3), plKill.location.x, zone.map.yPhysicInTop(plKill.location.x, plKill.location.y - 24), plKill.id, ItemService.gI().createNewItem((short) Util.nextInt(2084, 2097))));
         }
     }
 

@@ -73,6 +73,11 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
 
     @Override
     public void levelUp() {
+        if (Util.isTrue(level, 180)) {
+            Service.gI().sendThongBao(player, "Bạn đã nhập ma quá sâu dẫn đến đột phá thất bại");
+            restExp();
+            return;
+        }
         this.level += 1;
         if (level / 10 != 0 && level % 10 == 0) {
             maTinh += 2;
