@@ -88,30 +88,60 @@ public class BanDoKhoBauService {
     }
 
     public void kethucbdkbwithoutinside(Player player) {
-        List<Player> playersMap = player.clan.membersInGame;
-        int id = player.clan.banDoKhoBau.id;
-        Zone zone = player.clan.banDoKhoBau.getMapById(137);
-        List<Player> bosses = zone.getBosses();
-        for (int i = playersMap.size() - 1; i >= 0; i--) {
-            Player pl = playersMap.get(i);
-            kickOutOfBDKB(pl);
-            ItemTimeService.gI().removeTextbdkb(player);
-            pl.bdkb_isJoinBdkb = false;
-            pl.clan.banDoKhoBau.dispose();
-            pl.clan.banDoKhoBau = null;
+        if (player == null || player.clan == null || player.clan.banDoKhoBau == null) {
+            return; // tránh null ngay từ đầu
         }
-        player.clan.banDoKhoBau.dispose();
-        player.clan.banDoKhoBau = null;
-        player.bdkb_isJoinBdkb = false;
 
-        for (Player boss : bosses) {
-            if (boss != null && !boss.isDie) {
-                boss.injured(player, boss.nPoint.hpMax + 10000, false, false, true);
+        BanDoKhoBau bdkb = player.clan.banDoKhoBau;
+        int id = bdkb.id;
+
+        Zone zone = bdkb.getMapById(137);
+        List<Player> bosses = (zone != null) ? zone.getBosses() : new ArrayList<>();
+
+        List<Player> playersMap = new ArrayList<>();
+        if (player.clan.membersInGame != null) {
+            playersMap.addAll(player.clan.membersInGame); // copy ra tránh concurrent modification
+        }
+
+        // kick tất cả player
+        for (Player pl : playersMap) {
+            try {
+                if (pl != null) {
+                    kickOutOfBDKB(pl);
+                    ItemTimeService.gI().removeTextbdkb(pl); // sửa: remove theo từng pl thay vì player
+                    pl.bdkb_isJoinBdkb = false;
+
+                    if (pl.clan != null && pl.clan.banDoKhoBau != null) {
+                        pl.clan.banDoKhoBau.dispose();
+                        pl.clan.banDoKhoBau = null;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace(); // log lỗi nhưng không dừng vòng lặp
             }
         }
 
+        // dispose cho clan của player chính
+        if (player.clan != null && player.clan.banDoKhoBau != null) {
+            player.clan.banDoKhoBau.dispose();
+            player.clan.banDoKhoBau = null;
+        }
+        player.bdkb_isJoinBdkb = false;
+
+        // xử lý boss
+        for (Player boss : bosses) {
+            try {
+                if (boss != null && !boss.isDie) {
+                    boss.injured(player, boss.nPoint.hpMax + 10000, false, false, true);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         Service.gI().sendThongBao(player, "Đã xóa bản đồ kho báu thành công");
+
+        // reset map
         BanDoKhoBau.BAN_DO_KHO_BAU.set(id, new BanDoKhoBau(id));
     }
 
