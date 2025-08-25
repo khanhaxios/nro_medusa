@@ -165,6 +165,16 @@ public class EffectSkill {
         }
     }
 
+    public void clearAllEffect() {
+        isStun = false;
+        isThieuDot = false;
+        isAmAnh = false;
+        isThoiMien = false;
+        isBlindDCTT = false;
+        isSocola = false;
+        anTroi = false;
+    }
+
     public boolean isHaveEffectSkill() {
         return isStun || isBlindDCTT || anTroi || isThoiMien;
     }

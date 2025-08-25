@@ -12,6 +12,7 @@ import com.girlkun.services.MapService;
 import com.girlkun.services.Service;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Logger;
+import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
@@ -98,10 +99,7 @@ public class BanDoKhoBauService {
         Zone zone = bdkb.getMapById(137);
         List<Player> bosses = (zone != null) ? zone.getBosses() : new ArrayList<>();
 
-        List<Player> playersMap = new ArrayList<>();
-        if (player.clan.membersInGame != null) {
-            playersMap.addAll(player.clan.membersInGame); // copy ra tránh concurrent modification
-        }
+        List<Player> playersMap = new ArrayList<>(player.clan.membersInGame); // copy ra tránh concurrent modification
 
         // kick tất cả player
         for (Player pl : playersMap) {
@@ -131,7 +129,7 @@ public class BanDoKhoBauService {
         // xử lý boss
         for (Player boss : bosses) {
             try {
-                if (boss != null && !boss.isDie) {
+                if (boss != null && !boss.isDie()) {
                     boss.injured(player, boss.nPoint.hpMax + 10000, false, false, true);
                 }
             } catch (Exception e) {
@@ -140,7 +138,6 @@ public class BanDoKhoBauService {
         }
 
         Service.gI().sendThongBao(player, "Đã xóa bản đồ kho báu thành công");
-
         // reset map
         BanDoKhoBau.BAN_DO_KHO_BAU.set(id, new BanDoKhoBau(id));
     }
@@ -170,7 +167,7 @@ public class BanDoKhoBauService {
             }
         }
         for (Player boss : bosses) {
-            if (boss != null && !boss.isDie) {
+            if (boss != null && !boss.isDie()) {
                 boss.injured(player, boss.nPoint.hpMax + 10000, false, false, true);
             }
         }
@@ -201,7 +198,7 @@ public class BanDoKhoBauService {
                     }
                     if (bdkb != null) {
                         if (!Util.canDoWithTime(player.clan.timeOpenbdkb, TIME_WAIT_BDKB)) {
-                            Service.gI().sendThongBao(player, "Bang hội của bạn vừa đi bản đồ kho báu!Cần đợi " + (TIME_WAIT_BDKB - (System.currentTimeMillis() - player.clan.timeOpenbdkb)) + "Giây nữa để đi");
+                            Service.gI().sendThongBao(player, "Bang hội của bạn vừa đi bản đồ kho báu!Cần đợi " + TimeUtil.getTimeLeft(player.clan.timeOpenbdkb, (int) TIME_WAIT_BDKB) + " nữa để đi");
                             return;
                         }
                         InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);

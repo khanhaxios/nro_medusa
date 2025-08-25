@@ -55,7 +55,6 @@ public class Gas {
         this.clan.timeOpenKhiGas = this.lastTimeOpen;
         this.clan.playerOpenKhiGas = plOpen;
         this.clan.khiGas = this;
-
         resetGas();
         ChangeMapService.gI().goToGas(plOpen);
         sendTextGas();

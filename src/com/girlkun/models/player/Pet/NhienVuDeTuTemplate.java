@@ -1,5 +1,7 @@
 package com.girlkun.models.player.Pet;
 
+import com.girlkun.models.boss.BossID;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +15,7 @@ public class NhienVuDeTuTemplate {
     public void initTemplate() {
         // nhiem vu cho de mabu
         List<NhiemVuDeTuPhu> MABU_LIST = new ArrayList<>();
-        MABU_LIST.add(new NhiemVuDeTuPhu("Tìm kiếm # hồn đệ ma bư", 0, 10, TaskType.FIND_ITEM, 1230));
+        MABU_LIST.add(new NhiemVuDeTuPhu("Tìm kiếm # hồn đệ ma bư", 10, TaskType.KILL_BOSS, BossID.MABU));
         nhiemVuDeTus.put(MABU_TASK, MABU_LIST);
     }
 }

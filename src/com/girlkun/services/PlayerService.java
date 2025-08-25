@@ -246,6 +246,12 @@ public class PlayerService {
             }
             MapService.gI().sendPlayerMove(player);
             TaskService.gI().checkDoneTaskGoToMap(player, player.zone);
+            if (player.nhiemVuDeTu != null) {
+                if (player.location.y <= 300) {
+                    player.nhiemVuDeTu.checkDoneTaskFly();
+                }
+                player.nhiemVuDeTu.checkDoneTaskRun();
+            }
         }
     }
 
@@ -310,12 +316,10 @@ public class PlayerService {
 
     public void hoiSinh(Player player) {
         if (player.isDie()) {
-            boolean canHs = false;
             long gemHs = COST_GEM_HOI_SINH;
             if (MapService.gI().isMapBlackBallWar(player.zone.map.mapId)) {
                 if (player.inventory.gold >= COST_GOLD_HOI_SINH_NRSD) {
                     player.inventory.gold -= COST_GOLD_HOI_SINH_NRSD;
-                    canHs = true;
                 } else {
                     Service.getInstance().sendThongBao(player, "Không đủ vàng để thực hiện, còn thiếu " + Util.numberToMoney(COST_GOLD_HOI_SINH_NRSD - player.inventory.gold) + " vàng");
                     return;
@@ -326,17 +330,13 @@ public class PlayerService {
                 }
                 if (player.inventory.ruby >= gemHs) {
                     player.inventory.ruby -= gemHs;
-                    canHs = true;
                 } else {
                     Service.getInstance().sendThongBao(player, "Không đủ hồng ngọc để thực hiện, còn thiếu " + Util.numberToMoney(gemHs - player.inventory.ruby) + " hồng ngọc");
                     return;
                 }
             }
-            if (canHs) {
-                player.isDie = false;
-                Service.getInstance().sendMoney(player);
-                Service.getInstance().hsChar(player, player.nPoint.hpMax, player.nPoint.mpMax);
-            }
+            Service.getInstance().sendMoney(player);
+            Service.getInstance().hsChar(player, player.nPoint.hpMax, player.nPoint.mpMax);
         }
     }
 

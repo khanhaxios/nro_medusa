@@ -9,10 +9,8 @@ import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
-import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.EffectSkillService;
-import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
 
 /**
@@ -26,10 +24,9 @@ public class Mabu extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        ItemMap it = new ItemMap(this.zone, 568, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                this.location.y - 24), plKill.id);
-        Service.getInstance().dropItemMap(this.zone, it);
-
+        if (plKill.nhiemVuDeTu != null) {
+            plKill.nhiemVuDeTu.checkDoneTaskBoss(this);
+        }
     }
 
     @Override

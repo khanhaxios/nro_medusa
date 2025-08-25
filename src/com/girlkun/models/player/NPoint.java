@@ -1905,6 +1905,7 @@ public class NPoint {
 
     public double getDameAttack(boolean isAttackMob) {
         setIsCrit();
+        boolean autoCrit = false;
         double dameAttack = this.dame;
         intrinsic = this.player.playerIntrinsic.intrinsic;
         percentDameIntrinsic = 0;
@@ -1949,7 +1950,7 @@ public class NPoint {
                     percentXDame = 1000;
                 }
                 if (player.tuTien.isTuTien()) {
-                    percentXDame += percentDameSkill * (player.tuTien.xParam) / 5;
+                    percentXDame += percentDameSkill * (player.tuTien.xParam);
                 }
                 break;
             case Skill.GALICK:
@@ -1980,14 +1981,17 @@ public class NPoint {
                 if (this.player.setClothes.setTienXayda == 5) {
                     percentXDame = 300;
                 }
-                dameAttack = this.hpMax / 20;
+                dameAttack = this.hpMax / 30;
+                if (player.tuMa.isTuMa()) {
+                    percentXDame *= Math.max(1, player.tuMa.maTinh);
+                }
                 break;
             case Skill.ANTOMIC:
                 percentDameSkill = skillSelect.damage;
                 if (intrinsic.id == 17) {
                     percentDameIntrinsic = intrinsic.param1;
                 }
-                dameAttack = this.hpMax / 5;
+                dameAttack = this.hpMax / 10;
                 break;
             case Skill.DEMON:
                 if (intrinsic.id == 8) {
@@ -2056,6 +2060,9 @@ public class NPoint {
                 if (this.player.setClothes.setTienNM == 5) {
                     percentXDame = 350;
                 }
+                if (player.luyenThe.isLuyenTheReal()) {
+                    autoCrit = true;
+                }
                 break;
             case Skill.DICH_CHUYEN_TUC_THOI:
                 dameAttack *= 2;
@@ -2099,13 +2106,16 @@ public class NPoint {
         if (this.player.isPet && ((Pet) this.player).master.charms.tdDeTu > System.currentTimeMillis()) {
             dameAttack *= 2;
         }
-        if (isCrit) {
+        if (isCrit || autoCrit) {
             if (SkillUtil.isUseSkillChuong(this.player) && this.player.chienthan.tasknow == 6) {
                 this.player.chienthan.dalamduoc++;
             }
             dameAttack = dameAttack * 2;
             for (Integer integer : tlDameCrit) {
                 dameAttack += dameAttack * integer / 150;
+            }
+            if (autoCrit) {
+                dameAttack *= 1.5;
             }
         }
         dameAttack += dameAttack * percentXDame / 100;

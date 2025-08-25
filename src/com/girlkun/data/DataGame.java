@@ -508,6 +508,9 @@ public class DataGame {
             msg.writer().writeUTF(imgName);
             msg.writer().writeByte(Manager.getNFrameImageByName(imgName));
             byte[] data = FileIO.readFile("data/girlkun/img_by_name/x" + session.zoomLevel + "/" + imgName + ".png");
+            if (data == null) {
+                return;
+            }
             msg.writer().writeInt(data.length);
             msg.writer().write(data);
             session.sendMessage(msg);

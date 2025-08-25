@@ -23,6 +23,8 @@ public class IDMark {
     public int gdMenuType;
     public int typeDotPhaThienDao;
     public int choseLevelBdkb;
+    public int timeWaitGoToBkb;
+    public int timeWaitGoToGas;
     private int typeChangeMap; //capsule, ngọc rồng đen...
     private int indexMenu; //menu npc
     private int typeInput; //input

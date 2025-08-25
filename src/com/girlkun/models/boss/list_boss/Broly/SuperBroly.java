@@ -82,12 +82,6 @@ public class SuperBroly extends Boss {
             if (isDie()) {
                 this.setDie(plAtt);
                 die(plAtt);
-                // call super broly 3
-                try {
-                    new BrolyGod(this.zone);
-                } catch (Exception ex) {
-                    System.out.println("     Loi ra Super Broly");
-                }
             }
             return damage;
         } else {

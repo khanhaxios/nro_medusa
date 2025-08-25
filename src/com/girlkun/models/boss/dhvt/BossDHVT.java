@@ -10,6 +10,7 @@ import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.SkillService;
 import com.girlkun.services.func.ChangeMapService;
+import com.girlkun.utils.Logger;
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
 
@@ -91,7 +92,6 @@ public abstract class BossDHVT extends Boss {
 
     @Override
     public void update() {
-//        super.update();
         try {
             switch (this.bossStatus) {
                 case RESPAWN:
@@ -117,7 +117,7 @@ public abstract class BossDHVT extends Boss {
             }
 //            }
         } catch (Exception e) {
-            System.out.println("ppp");
+            Logger.logException(BossDHVT.class, e, "Lỗi boss dhvt");
         }
     }
 

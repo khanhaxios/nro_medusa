@@ -33,18 +33,16 @@ public class TrungUyXanhLoBdkb extends Boss {
                 new double[]{((double) ((hp) * level))}, //hp
                 new int[]{137}, //map join
                 new int[][]{
-                        {Skill.LIEN_HOAN, 5, 5},
-                        {Skill.KAMEJOKO, 7, 12},
-//                        {Skill.THAI_DUONG_HA_SAN, 7, 20000},
-//                        {Skill.KHIEN_NANG_LUONG, 6, 23},
-                        {Skill.TAI_TAO_NANG_LUONG, 6, 23},
-                        {Skill.DE_TRUNG, 6, 23},
+                        {Skill.LIEN_HOAN, 7, 300},
+                        {Skill.KAMEJOKO, 7, 5000},
+                        {Skill.TAI_TAO_NANG_LUONG, 6, 30000},
+                        {Skill.DE_TRUNG, 6, 250000},
                 },
                 new String[]{"|-1|Kho báu ở đây là của ta"}, //text chat 1
                 new String[]{"|-1|Nhóc con"}, //text chat 2
                 new String[]{"|-1|Ta sẽ tiêu diệt tất cả bang hội ngươi"}, //text chat 3
                 60,
-                (byte) (level / 100),
+                (byte) (level / 50),
                 (byte) 10
         ));
         this.zone = zone;

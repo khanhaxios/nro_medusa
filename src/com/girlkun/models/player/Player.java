@@ -28,6 +28,7 @@ import com.girlkun.models.npc.specialnpc.MabuEgg;
 import com.girlkun.models.npc.specialnpc.MagicTree;
 import com.girlkun.models.npc.specialnpc.Timedua;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
+import com.girlkun.models.player.Pet.NhiemVuDeTu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.huyet_mach.Huyet;
 import com.girlkun.models.player.huyet_mach.Mach;
@@ -65,7 +66,6 @@ public class Player {
     public int pointPvpthuong;
     public int pointPvpVip;
     public boolean autoUse;
-    public boolean isDie;
 
     public LuckyPoolPlayer luckyPoolPlayer;
     public PhapBao phapBaoTamThoi;
@@ -81,6 +81,7 @@ public class Player {
     public long lastTimeDame;
     public double dametong = 0;
     public byte countBDKB;
+    public NhiemVuDeTu nhiemVuDeTu;
     public boolean firstJoinBDKB;
     public long lastimeJoinBDKB;
 
@@ -275,6 +276,7 @@ public class Player {
     public long lastTimeLeaveClan;
 
     public Player() {
+        nhiemVuDeTu = new NhiemVuDeTu(this);
         lastTimeSavePlayer = System.currentTimeMillis();
         lastTimeUseOption = System.currentTimeMillis();
         location = new Location();
@@ -328,9 +330,7 @@ public class Player {
         return true;
     }
 
-    public short[][] outfitTutien = new short[][]{
-            {2080, 2081, 2082}, {2075, 2076, 2077}, {2070, 2071, 2072}
-    };
+    public short[][] outfitTutien = new short[][]{{2080, 2081, 2082}, {2075, 2076, 2077}, {2070, 2071, 2072}};
 
     //--------------------------------------------------------------------------
     public void setSession(MySession session) {
@@ -409,6 +409,14 @@ public class Player {
                     if (!this.isBot && iDMark.isBan() && Util.canDoWithTime(iDMark.getLastTimeBan(), 5000)) {
                         Client.gI().kickSession(session);
                         return;
+                    }
+                    if (iDMark.timeWaitGoToBkb > 0 && iDMark.isGoToBDKB()) {
+                        Service.gI().sendThongBao(this, "Bản đồ kho báu đang được khởi tạo bạn sẽ được đưa đến sau " + iDMark.timeWaitGoToBkb / 1000 + " giây");
+                        iDMark.timeWaitGoToBkb -= 1000;
+                    }
+                    if (iDMark.timeWaitGoToGas > 0 && iDMark.isGoToGas()) {
+                        Service.gI().sendThongBao(this, "Khí Gas đang được khởi tạo bạn sẽ được đưa đến sau " + iDMark.timeWaitGoToGas / 1000 + " giây");
+                        iDMark.timeWaitGoToGas -= 1000;
                     }
                     if (tuTien != null) {
                         tuTien.update();
@@ -513,7 +521,6 @@ public class Player {
     public void updateMapEvents() {
         try {
             if (!isBoss && this.iDMark.isGoToGas() && Util.canDoWithTime(this.iDMark.getLastTimeGotoGas(), 6000)) {
-//                        ChangeMapService.gI().changeMapBySpaceShip(this, 149, -1, 163);
                 ChangeMapService.gI().changeMapBySpaceShip(this, 149, -1, 163);
                 this.iDMark.setGoToGas(false);
             }
@@ -557,8 +564,7 @@ public class Player {
 
     public void updatePets() {
         try {
-            if (this.isPl() && this.inventory != null &&
-                    this.inventory.itemsBody != null && this.inventory.itemsBody.size() > 7) {
+            if (this.isPl() && this.inventory != null && this.inventory.itemsBody != null && this.inventory.itemsBody.size() > 7) {
                 Item it = this.inventory.itemsBody.get(7);
                 if (it != null && it.isNotNullItem() && this.newpet == null) {// && this.newpet1 == null
                     if (it.template.type == 21) {
@@ -1213,7 +1219,11 @@ public class Player {
                     damage = 0;
                 }
             }
-            this.nPoint.subHP(damage);
+            if (damage > nPoint.hp) {
+                this.nPoint.hp = 0;
+            } else {
+                this.nPoint.subHP(damage);
+            }
             // healing hp after get dame
 //            if (tuTien != null && tuTien.isAutoUseTienPhap && (nPoint.hp / nPoint.hpMax * 100) < 20) {
 //                tuTien.useBestHealingTienPhap();
@@ -1256,7 +1266,6 @@ public class Player {
     }
 
     protected void setDie(Player plAtt) {
-        isDie = true;
         if (tuTien != null && tuTien.isTuTien()) {
             tuTien.subExp(tuTien.maxExp / 100);
         }

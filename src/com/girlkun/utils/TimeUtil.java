@@ -1,7 +1,5 @@
 package com.girlkun.utils;
 
-import com.girlkun.utils.Logger;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -138,5 +136,14 @@ public class TimeUtil {
 
     public static String formatMinutes(long tdTriTue) {
         return tdTriTue / 1000 / 60 + " Phút";
+    }
+
+    public static String toMinutes(long l) {
+        if (l <= 0) return "0 phút";
+        float minutes = l / 1000f / 60;
+        if (minutes < 1) {
+            return l / 1000f + " giây";
+        }
+        return minutes + " phút";
     }
 }

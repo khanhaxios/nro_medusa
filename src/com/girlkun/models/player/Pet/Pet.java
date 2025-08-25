@@ -350,6 +350,9 @@ public class Pet extends Player {
                     master.fusion.typeFusion = ConstPlayer.LUONG_LONG_NHAT_THE;
                     ItemTimeService.gI().sendItemTime(master, master.gender == ConstPlayer.NAMEC ? 3901 : 3790, Fusion.TIME_FUSION / 1000);
                 }
+                if (master != null) {
+                    master.effectSkill.clearAllEffect();
+                }
                 this.status = FUSION;
                 ChangeMapService.gI().exitMap(this);
                 fusionEffect(master.fusion.typeFusion);

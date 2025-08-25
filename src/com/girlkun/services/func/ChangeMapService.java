@@ -725,8 +725,9 @@ public class ChangeMapService {
             player.iDMark.setLastTimeGotoGas(System.currentTimeMillis());
             player.iDMark.setGoToGas(true);
             player.type = 1;
-            spaceShipArrive(player, (byte) 1, DEFAULT_SPACE_SHIP);
-            effectChangeMap(player, 60, EFFECT_GO_TO_BDKG);
+            player.iDMark.timeWaitGoToGas = 6000;
+//            spaceShipArrive(player, (byte) 1, DEFAULT_SPACE_SHIP);
+//            effectChangeMap(player, 60, EFFECT_GO_TO_BDKG);
         }
     }
 
@@ -735,8 +736,7 @@ public class ChangeMapService {
             player.iDMark.setLastTimeGoToBDKB(System.currentTimeMillis());
             player.iDMark.setGoToBDKB(true);
             player.type = 2;
-            spaceShipArrive(player, (byte) 1, DEFAULT_SPACE_SHIP);
-            effectChangeMap(player, 60, EFFECT_GO_TO_BDKG);
+            player.iDMark.timeWaitGoToBkb = 6000;
         }
     }
 

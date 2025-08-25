@@ -11,17 +11,15 @@ public class NhiemVuDeTuPhu {
     public TaskType type;
     public boolean isDone;
 
-    public NhiemVuDeTuPhu(String mota, int currentCount, int totalCount, TaskType type, int targetId) {
+    public NhiemVuDeTuPhu(String mota, int totalCount, TaskType type, int targetId) {
         this.mota = mota;
         this.targetId = targetId;
-        this.currentCount = currentCount;
         this.totalCount = totalCount;
         this.type = type;
     }
 
     public void checkDoneTask() {
-        if (currentCount == totalCount) {
-            isDone = true;
-        }
+        currentCount += 1;
+        isDone = currentCount >= totalCount;
     }
 }

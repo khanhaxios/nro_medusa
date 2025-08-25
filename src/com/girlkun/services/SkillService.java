@@ -48,6 +48,9 @@ public class SkillService {
         if (player.playerSkill == null) {
             return false;
         }
+        if (player.playerSkill.skillSelect == null){
+            return false;
+        }
         if (player.playerSkill.skillSelect.template.type == 2 && canUseSkillWithMana(player) && canUseSkillWithCooldown(player)) {
             useSkillBuffToPlayer(player, plTarget);
             return true;

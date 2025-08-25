@@ -5,9 +5,7 @@ import com.girlkun.models.map.Zone;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.services.ItemTimeService;
-import com.girlkun.services.Service;
 import com.girlkun.services.func.ChangeMapService;
-import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +52,6 @@ public class BanDoKhoBau {
 //    }
 
     public void openBanDoKhoBau(Player plOpen, Clan clan, int level) {
-
         this.level = level;
         plOpen.bdkb_countPerDay++;
         plOpen.bdkb_lastTimeJoin = System.currentTimeMillis();
