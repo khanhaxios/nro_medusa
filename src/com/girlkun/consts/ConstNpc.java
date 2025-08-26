@@ -80,6 +80,7 @@ public class ConstNpc {
     public static final byte RUONG_DO = 3;
     public static final byte DAU_THAN = 4;
     public static final byte CON_MEO = 5;
+    public static final byte NVDETU = 107;
     public static final byte KHU_VUC = 6;
     public static final byte BUNMA = 7; //562
     public static final byte DENDE = 8; //350
@@ -501,6 +502,8 @@ public class ConstNpc {
     public static final int MENU_TIEN_KHI = -917232;
     public static final int MENU_KHI_LINH = -98732123;
     public static final int MENU_TT_NGU_HANH = -2913723;
+    public static final int MENU_CHON_NV_DE_TU = -917238912;
+    public static final int CONFIRM_BO_NV = -9821732;
 }
 
 /**

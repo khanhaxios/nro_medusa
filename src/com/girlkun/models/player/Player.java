@@ -421,6 +421,9 @@ public class Player {
                     if (tuTien != null) {
                         tuTien.update();
                     }
+                    if (Util.canDoWithTime(location.lastTimeplayerMove, 5000)) {
+                        location.lastTimeHold = System.currentTimeMillis();
+                    }
                     if (mach != null) {
                         mach.update();
                     }

@@ -597,69 +597,6 @@ public class UseItem {
                                 Service.getInstance().sendThongBao(pl, "Chúc mừng bạn nhận được Pet " + linhThu.template.name);
                             }
                             break;
-//                        case 542:
-//                            if (!canDoWithQuantity(item, 30)) {
-//                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
-//                                return;
-//                            }
-//                            changePetPic(pl, item);
-//                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
-//                            InventoryServiceNew.gI().sendItemBags(pl);
-//                            break;
-//                        case 980: //đổi đệ tử
-//                            if (!canDoWithQuantity(item, 30)) {
-//                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
-//                                return;
-//                            }
-//                            changePetVIP(pl, item);
-//                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
-//                            InventoryServiceNew.gI().sendItemBags(pl);
-//                            break;
-//                        case 1395: //đổi đệ tử GOKU
-//                            if (!canDoWithQuantity(item, 30)) {
-//                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
-//                                return;
-//                            }
-//                            changePetGOKU(pl, item);
-//                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
-//                            InventoryServiceNew.gI().sendItemBags(pl);
-//                            break;
-//                        case 1400: //đổi đệ tử GOGETA
-//                            if (!canDoWithQuantity(item, 30)) {
-//                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
-//                                return;
-//                            }
-//                            changePetGOGETA(pl, item);
-//                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
-//                            InventoryServiceNew.gI().sendItemBags(pl);
-//                            break;
-//                        case 1401: //đổi đệ tử NA
-//                            if (!canDoWithQuantity(item, 30)) {
-//                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
-//                                return;
-//                            }
-//                            changePetNA(pl, item);
-//                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
-//                            InventoryServiceNew.gI().sendItemBags(pl);
-//                            break;
-//                        case 1402: //đổi đệ tử TET 2024
-//                            if (!canDoWithQuantity(item, 30)) {
-//                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
-//                                return;
-//                            }
-//                            changePetTET(pl, item);
-//                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
-//                            InventoryServiceNew.gI().sendItemBags(pl);
-//                            break;
-//                        case 1403: //đổi đệ tử Fu 2024
-//                            if (!canDoWithQuantity(item, 30)) {
-//                                Service.gI().sendThongBao(pl, "Cần x30 " + item.template.name + " để chiêu mộ đệ tử");
-//                                return;
-//                            }
-//                            changePetFU(pl, item);
-//                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 29);
-//                            InventoryServiceNew.gI().sendItemBags(pl);
-//                            break;
                         case 402: //sách nâng chiêu 1 đệ tử
                         case 403: //sách nâng chiêu 2 đệ tử
                         case 404: //sách nâng chiêu 3 đệ tử
@@ -794,6 +731,9 @@ public class UseItem {
                     break;
             }
             InventoryServiceNew.gI().sendItemBags(pl);
+            if (pl.isPl() && pl.nhiemVuDeTu != null) {
+                pl.nhiemVuDeTu.checkDoneTaskPickItemAndUseItem(item);
+            }
         } else {
             Service.getInstance().sendThongBaoOK(pl, "Sức mạnh không đủ yêu cầu");
         }
@@ -848,10 +788,7 @@ public class UseItem {
         if (Util.isTrue(rateItemBuff, 100)) {
             int itemBuffQuantity = randomByRarity(1, 3, 5);
             for (int i = 0; i < 5; i++) {
-                Item itemBuff = ItemService.gI().createItemFromTemplate(
-                        Manager.ITEM__BUFFS.get(Util.nextInt(0, Manager.ITEM__BUFFS.size() - 1)),
-                        itemBuffQuantity
-                );
+                Item itemBuff = ItemService.gI().createItemFromTemplate(Manager.ITEM__BUFFS.get(Util.nextInt(0, Manager.ITEM__BUFFS.size() - 1)), itemBuffQuantity);
                 InventoryServiceNew.gI().addItemBag(player, itemBuff);
                 sb.append(itemBuff.template.name).append(" x").append(itemBuffQuantity).append("\n");
             }
@@ -893,10 +830,7 @@ public class UseItem {
         if (Util.isTrue(rateItemBuff, 100)) {
             int itemBuffQuantity = randomByRarity(1, 3, 5);
             for (int i = 0; i < 5; i++) {
-                Item itemBuff = ItemService.gI().createItemFromTemplate(
-                        Manager.ITEM__BUFFS.get(Util.nextInt(0, Manager.ITEM__BUFFS.size() - 1)),
-                        itemBuffQuantity
-                );
+                Item itemBuff = ItemService.gI().createItemFromTemplate(Manager.ITEM__BUFFS.get(Util.nextInt(0, Manager.ITEM__BUFFS.size() - 1)), itemBuffQuantity);
                 InventoryServiceNew.gI().addItemBag(player, itemBuff);
                 sb.append(itemBuff.template.name).append(" x").append(itemBuffQuantity).append("\n");
             }
@@ -965,10 +899,7 @@ public class UseItem {
         if (Util.isTrue(rateItemBuff, 100)) {
             int itemBuffQuantity = randomByRarity(1, 2, 5);
             for (int i = 0; i < 5; i++) {
-                Item itemBuff = ItemService.gI().createItemFromTemplate(
-                        Manager.ITEM__BUFFS.get(Util.nextInt(0, Manager.ITEM__BUFFS.size() - 1)),
-                        itemBuffQuantity
-                );
+                Item itemBuff = ItemService.gI().createItemFromTemplate(Manager.ITEM__BUFFS.get(Util.nextInt(0, Manager.ITEM__BUFFS.size() - 1)), itemBuffQuantity);
                 InventoryServiceNew.gI().addItemBag(pl, itemBuff);
                 stringBuilder.append(itemBuff.template.name).append(" x").append(itemBuffQuantity).append("\n");
             }
@@ -1031,10 +962,7 @@ public class UseItem {
         if (Util.isTrue(rateItemBuff, 100)) {
             int itemBuffQuantity = randomByRarity(1, 3, 10);
             for (int i = 0; i < 5; i++) {
-                Item itemBuff = ItemService.gI().createItemFromTemplate(
-                        Manager.ITEM__BUFFS.get(Util.nextInt(0, Manager.ITEM__BUFFS.size() - 1)),
-                        itemBuffQuantity
-                );
+                Item itemBuff = ItemService.gI().createItemFromTemplate(Manager.ITEM__BUFFS.get(Util.nextInt(0, Manager.ITEM__BUFFS.size() - 1)), itemBuffQuantity);
                 InventoryServiceNew.gI().addItemBag(pl, itemBuff);
                 stringBuilder.append(itemBuff.template.name).append(" x").append(itemBuffQuantity).append("\n");
             }

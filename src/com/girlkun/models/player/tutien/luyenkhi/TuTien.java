@@ -133,6 +133,9 @@ public class TuTien extends BasePoint implements IBaseAction {
                     }
                     player.iDMark.dotPhaThienDao = false;
                 }
+                if (player.nhiemVuDeTu != null) {
+                    player.nhiemVuDeTu.checkDoneTaskDotPha();
+                }
                 Service.gI().sendThongBao(player, "Chúc mừng bạn đã đột phá lên " + (player.iDMark.dotPhaThienDao ? "Thiên đạo " : "") + getFormatName());
             } else {
                 Service.gI().sendThongBao(player, "Bạn đã đạt cấp tối đa.");
@@ -140,6 +143,9 @@ public class TuTien extends BasePoint implements IBaseAction {
         } else {
             subLevel++;
             Service.gI().sendThongBao(player, "Bạn đã đột phá lên " + getFormatName());
+            if (player.nhiemVuDeTu != null) {
+                player.nhiemVuDeTu.checkDoneTaskDotPha();
+            }
         }
         restExp();
         restLinhKhi();

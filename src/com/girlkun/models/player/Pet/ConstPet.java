@@ -5,10 +5,6 @@
 package com.girlkun.models.player.Pet;
 
 public class ConstPet {
-    private ConstPet() {
-
-    }
-
     // Const Pet
     public static final byte NORMAL = 0;
     public static final byte MABU = 1;

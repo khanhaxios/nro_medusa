@@ -7,4 +7,5 @@ public class Location {
     public int y;
 
     public long lastTimeplayerMove;
+    public long lastTimeHold;
 }

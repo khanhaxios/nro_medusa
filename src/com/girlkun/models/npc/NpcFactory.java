@@ -34,6 +34,7 @@ import com.girlkun.models.matches.pvp.DaiHoiVoThuatService;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Pet.ConstPet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
+import com.girlkun.models.player.Pet.PetTaskType;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.Thu_TrieuHoi;
 import com.girlkun.models.player.phapbao.PhapBao;
@@ -2553,6 +2554,9 @@ public class NpcFactory {
                             player.nPoint.power = 1500000;
                             player.taixiu.chuyensinh++;
                             player.luyenThe.canLevelUp = true;
+                            if (player.nhiemVuDeTu != null) {
+                                player.nhiemVuDeTu.checkDoneTaskChuyenSinh();
+                            }
                             Service.gI().sendThongBao(player, "|1|Chuyển sinh thành công \n cấp hiện tại :" + player.taixiu.chuyensinh);
                         } else {
                             Service.gI().sendThongBao(player, "|7|Chuyển sinh thất bại \n cấp hiện tại :" + player.taixiu.chuyensinh);
@@ -7077,6 +7081,8 @@ public class NpcFactory {
         int avatar = Manager.NPC_TEMPLATES.get(tempId).avatar;
         try {
             switch (tempId) {
+                case ConstNpc.NVDETU:
+                    return nhiemvudetu(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.DOC_NHAN:
                     return docNhan(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.MEDUSA_TU_MA:
@@ -7267,6 +7273,69 @@ public class NpcFactory {
             Logger.logException(NpcFactory.class, e, "Lỗi load npc");
             return null;
         }
+    }
+
+    private static Npc nhiemvudetu(int mapId, int status, int cx, int cy, int tempId, int avatar) {
+        return new Npc(mapId, status, cx, cy, tempId, avatar) {
+            @Override
+            public void openBaseMenu(Player player) {
+//                if (canOpenNpc(player) && mapId == 14) {
+//                    StringBuilder menuText = new StringBuilder();
+//                    menuText.append("|7|Nhiệm Vụ Đệ Tử").append("\n");
+//                    menuText.append("|5|Bạn có thể nhận các loại nhiệm vụ đệ tử ở đây và sau khi hoàn thành").append("\n").append("|5|Bạn có thể nhận đệ tử rồi").append("\n");
+//                    menuText.append("|7|Lưu ý nếu bạn từ bỏ nhiệm vụ thì bạn sẽ phải làm lại từ đầu").append("\n");
+//                    menuText.append("|1|Bạn muốn?");
+//                    String[] selections = new String[]{"Nhiệm vụ\nhiện tại", "Nhận nhiệm\nvụ", "Từ bỏ\nnhiệm vụ"};
+//                    createOtherMenu(player, ConstNpc.BASE_MENU, menuText.toString(), selections);
+//                }
+            }
+
+            @Override
+            public void confirmMenu(Player player, int select) {
+                if (player.iDMark.isBaseMenu()) {
+                    switch (select) {
+                        case 0:
+                            if (player.nhiemVuDeTu == null || player.nhiemVuDeTu.currentTaskIndex < 0) {
+                                Service.gI().sendThongBao(player, "Bạn chưa nhận nhiệm vụ nào");
+                                return;
+                            }
+                            player.nhiemVuDeTu.getCurrentTask().showBaseMenu(player, this);
+                            break;
+                        case 1:
+                            String[] listNv = new String[]{"Mabu", "Berrus", "Zeno"};
+                            createOtherMenu(player, ConstNpc.MENU_CHON_NV_DE_TU, "Bạn muốn chọn nhiệm vụ nào\nĐệ càng về sau càng khó nha", listNv);
+                            break;
+                        case 2:
+                            if (player.nhiemVuDeTu == null || player.nhiemVuDeTu.currentTaskIndex == -1) {
+                                Service.gI().sendThongBao(player, "Bạn chưa nhận nhiệm vụ nào");
+                                return;
+                            }
+                            createOtherMenu(player, ConstNpc.CONFIRM_BO_NV, "Bạn có chắc muốn bỏ nhiệm vụ?", "Đồng ý", "Đóng");
+                            break;
+                    }
+                } else if (player.iDMark.getIndexMenu() == ConstNpc.CONFIRM_BO_NV) {
+                    if (select == 0) {
+                        player.nhiemVuDeTu.dispose();
+                        Service.gI().sendThongBao(player, "Bạn đã từ bỏ nhiệm vụ");
+                    }
+                } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_CHON_NV_DE_TU) {
+                    if (player.pet == null) {
+                        Service.gI().sendThongBao(player, "Bạn cần có đệ tử thường để nhận nhiệm vụ");
+                        return;
+                    }
+                    if (player.nhiemVuDeTu != null && player.nhiemVuDeTu.currentTaskIndex >= 0) {
+                        Service.gI().sendThongBao(player, "Bạn đang làm nhiệm vụ khác rồi");
+                        return;
+                    }
+                    switch (select) {
+                        case 0:
+                            player.nhiemVuDeTu.init(PetTaskType.MABU.getTaskKey());
+                            Service.gI().sendThongBao(player, "Bạn đã nhận nhiệm vụ đệ Ma Nhân Bư");
+                            break;
+                    }
+                }
+            }
+        };
     }
 
     public static void createNpcRongThieng() {

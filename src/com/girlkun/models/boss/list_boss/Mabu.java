@@ -24,9 +24,6 @@ public class Mabu extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        if (plKill.nhiemVuDeTu != null) {
-            plKill.nhiemVuDeTu.checkDoneTaskBoss(this);
-        }
     }
 
     @Override

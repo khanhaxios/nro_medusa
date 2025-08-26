@@ -20,6 +20,7 @@ import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.npc.NpcFactory;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
+import com.girlkun.models.player.Pet.NhienVuDeTuTemplate;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.Referee;
 import com.girlkun.models.player.Referee1;
@@ -261,6 +262,7 @@ public class Manager {
         NguyenLieuFactory.loadNguyenLieu();
         DanPhuongFactory.getInstance().initTemplate();
         VoKyFactory.initTemplate();
+        NhienVuDeTuTemplate.getI().initTemplate();
         new Thread(TopService.gI()).start();
         sanGiaoDichBuaZeno = new SanGiaoDichBuaZeno();
     }

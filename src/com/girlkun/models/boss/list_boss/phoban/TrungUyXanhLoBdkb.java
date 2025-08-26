@@ -97,6 +97,9 @@ public class TrungUyXanhLoBdkb extends Boss {
             InventoryServiceNew.gI().addItemBag(plKill, item);
             InventoryServiceNew.gI().sendItemBags(plKill);
         }
+        if (plKill.nhiemVuDeTu != null) {
+            plKill.nhiemVuDeTu.checkDoneTaskBanDoKhoBau();
+        }
         BanDoKhoBauService.gI().setTimeOutMap(plKill, 20);
     }
 

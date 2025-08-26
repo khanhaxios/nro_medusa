@@ -7,6 +7,7 @@ import com.girlkun.models.item.ItemTimeSieuCap;
 import com.girlkun.models.player.Friend;
 import com.girlkun.models.player.Fusion;
 import com.girlkun.models.player.Inventory;
+import com.girlkun.models.player.Pet.NhiemVuDeTuPhu;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.huyet_mach.Huyet;
 import com.girlkun.models.player.phapbao.PhapBao;
@@ -1539,8 +1540,22 @@ public class PlayerDAO {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            String dataDeTu = new JSONArray().toJSONString();
+            try {
+                if (player.nhiemVuDeTu != null && player.nhiemVuDeTu.currentTaskIndex >= 0) {
+                    jsonArray = new JSONArray();
+                    jsonArray.add(player.nhiemVuDeTu.type);
+                    jsonArray.add(player.nhiemVuDeTu.currentTaskIndex);
+                    NhiemVuDeTuPhu currentTask = player.nhiemVuDeTu.getCurrentTask();
+                    jsonArray.add(currentTask != null ? currentTask.currentCount : 0);
+                    dataDeTu = jsonArray.toJSONString();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             // save sql
-            int rowEffect = GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?,data_tu_ma = ?,data_phap_bao=?,data_huyet =  ? ,data_mach=? where player_id=?", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, dataHuyet, dataMach, player.id);
+            int rowEffect = GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?,data_tu_ma = ?,data_phap_bao=?,data_huyet =  ? ,data_mach=? ,detu=? where player_id=?", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, dataHuyet, dataMach, dataDeTu, player.id);
             Logger.log(String.valueOf(rowEffect));
         } catch (Exception e) {
             Logger.error("Loi save data tu tien" + e.getMessage());

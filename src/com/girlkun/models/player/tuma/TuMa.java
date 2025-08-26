@@ -82,6 +82,9 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
         if (level / 10 != 0 && level % 10 == 0) {
             maTinh += 2;
         }
+        if (player.nhiemVuDeTu != null) {
+            player.nhiemVuDeTu.checkDoneTaskDotPha();
+        }
         restExp();
         restMaKhi();
         Service.gI().sendThongBao(player, "Chúc mừng bạn đã đột phá thành công " + getName());

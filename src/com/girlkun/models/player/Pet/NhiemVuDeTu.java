@@ -2,8 +2,10 @@ package com.girlkun.models.player.Pet;
 
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.item.Item;
+import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
+import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,29 +13,26 @@ import java.util.List;
 public class NhiemVuDeTu {
     public int currentTaskIndex = -1;
     public Player player;
-    public int MAX_TASK = 12;
-
-    public PetTaskType type;
+    public int type;
     public List<NhiemVuDeTuPhu> subTask = new ArrayList<>();
 
     public NhiemVuDeTu(Player player) {
         this.player = player;
-    }
-
-    public void processTask(int index) {
-
+        subTask = new ArrayList<>();
     }
 
     public boolean isDone() {
-        return currentTaskIndex > MAX_TASK;
+        return (currentTaskIndex == subTask.size() - 1) && getCurrentTask().isDone;
     }
 
     public void sendNextTask() {
-        currentTaskIndex += 1;
+        if (currentTaskIndex + 1 <= subTask.size() - 1) {
+            currentTaskIndex += 1;
+        }
     }
 
     public NhiemVuDeTuPhu getCurrentTask() {
-        if (currentTaskIndex > subTask.size()) {
+        if (currentTaskIndex >= subTask.size()) {
             return subTask.get(subTask.size() - 1);
         }
         if (currentTaskIndex == -1) {
@@ -62,7 +61,7 @@ public class NhiemVuDeTu {
     public void checkDoneTaskUseSkill(Skill skill) {
         if (currentTaskIndex < 0 || currentTaskIndex >= subTask.size()) return;
         NhiemVuDeTuPhu task = subTask.get(currentTaskIndex);
-        if (task.type == TaskType.USE_SKILL && task.targetId == skill.template.id) {
+        if (task.type == TaskType.USE_SKILL && task.targetId == skill.template.type) {
             task.checkDoneTask();
         }
     }
@@ -78,12 +77,77 @@ public class NhiemVuDeTu {
     public void checkDoneTaskRun() {
         if (currentTaskIndex < 0 || currentTaskIndex >= subTask.size()) return;
         NhiemVuDeTuPhu task = subTask.get(currentTaskIndex);
-        if (task.type == TaskType.RUN) {
+        if (task.type == TaskType.RUN && !Util.canDoWithTime(player.location.lastTimeHold, 2000)) {
             task.checkDoneTask();
         }
     }
 
-    public void checkDoneTask(int i) {
+    public void checkDoneTaskKillMob(Mob mob) {
+        if (currentTaskIndex < 0 || currentTaskIndex >= subTask.size()) return;
+        NhiemVuDeTuPhu task = subTask.get(currentTaskIndex);
+        if (task.type == TaskType.KILL_MOB && task.targetId == mob.tempId) {
+            task.checkDoneTask();
+        }
+    }
 
+    public void checkDoneTaskBanDoKhoBau() {
+        if (currentTaskIndex < 0 || currentTaskIndex >= subTask.size()) return;
+        NhiemVuDeTuPhu task = subTask.get(currentTaskIndex);
+        if (task.type == TaskType.BDKB) {
+            task.checkDoneTask();
+        }
+    }
+
+    public void checkDoneTaskQuayMayMan() {
+        if (currentTaskIndex < 0 || currentTaskIndex >= subTask.size()) return;
+        NhiemVuDeTuPhu task = subTask.get(currentTaskIndex);
+        if (task.type == TaskType.PLAY_LUCKY_ROUND) {
+            task.checkDoneTask();
+        }
+    }
+
+    public void checkDoneTaskChuyenSinh() {
+        if (currentTaskIndex < 0 || currentTaskIndex >= subTask.size()) return;
+        NhiemVuDeTuPhu task = subTask.get(currentTaskIndex);
+        if (task.type == TaskType.CHUYEN_SINH) {
+            task.checkDoneTask();
+        }
+    }
+
+    public void checkDoneTaskDotPha() {
+        if (currentTaskIndex < 0 || currentTaskIndex >= subTask.size()) return;
+        NhiemVuDeTuPhu task = subTask.get(currentTaskIndex);
+        if (task.type == TaskType.DOT_PHA_CANH_GIOI) {
+            task.checkDoneTask();
+        }
+    }
+
+    public void dispose() {
+        currentTaskIndex = -1;
+        player.nhiemVuDeTu = new NhiemVuDeTu(player);
+    }
+
+    public void init(int taskType) {
+        this.type = PetTaskType.fromTaskType(taskType).getTaskKey();
+        this.subTask = NhienVuDeTuTemplate.nhiemVuDeTus.get(taskType);
+        this.currentTaskIndex = 0;
+    }
+
+    public void onLoad(int taskType, int currentTaskIndex, int currentCount) {
+        // kiểm tra xem trong template có tồn tại type này không
+        PetTaskType type = PetTaskType.fromTaskType(taskType);
+        List<NhiemVuDeTuPhu> sub = NhienVuDeTuTemplate.nhiemVuDeTus.get(taskType);
+        if (sub == null || sub.isEmpty()) {
+            System.err.println("Không tìm thấy nhiệm vụ loại: " + taskType);
+            return;
+        }
+        this.type = taskType; // map từ string sang enum (bạn có thể viết hàm này)
+        this.subTask = sub;
+        this.currentTaskIndex = Math.min(currentTaskIndex, sub.size() - 1);
+
+        NhiemVuDeTuPhu nhiemVuDeTuPhu = sub.get(this.currentTaskIndex);
+        if (nhiemVuDeTuPhu != null) {
+            nhiemVuDeTuPhu.currentCount = Math.max(0, currentCount); // tránh giá trị âm
+        }
     }
 }

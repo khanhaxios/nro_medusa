@@ -212,6 +212,9 @@ public class LuckyPool {
             player.luckyPoolPlayer.addItemToBag(item);
             player.luckyPoolPlayer.totalLuckyPoint += 1;
             Service.gI().sendThongBao(player, "Chúc mừng bạn nhận được x1" + item.template.name);
+            if (player.nhiemVuDeTu != null) {
+                player.nhiemVuDeTu.checkDoneTaskQuayMayMan();
+            }
         }
         Service.gI().sendThongBao(player, "Quay số hoàn thành");
     }

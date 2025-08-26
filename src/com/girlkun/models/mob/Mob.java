@@ -144,6 +144,9 @@ public class Mob {
                     this.sendMobDieAffterAttacked(plAtt, damage, type);
                     TaskService.gI().checkDoneTaskKillMob(plAtt, this);
                     TaskService.gI().checkDoneSideTaskKillMob(plAtt, this);
+                    if (plAtt.nhiemVuDeTu != null) {
+                        plAtt.nhiemVuDeTu.checkDoneTaskKillMob(this);
+                    }
                     // hut dame
                     plAtt.tuTien.handleHutChiSo();
                 }

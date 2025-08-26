@@ -17,6 +17,7 @@ import com.girlkun.models.player.Enemy;
 import com.girlkun.models.player.Friend;
 import com.girlkun.models.player.Fusion;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
+import com.girlkun.models.player.Pet.NhiemVuDeTu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.huyet_mach.Huyet;
@@ -1548,6 +1549,25 @@ public class GodGK {
                             player.mach.mAtkBuff = Integer.parseInt(jsonArray.get(11).toString());
                             player.mach.linhKhiBuff = Double.parseDouble(jsonArray.get(12).toString());
                             player.mach.isOpen = Boolean.parseBoolean(jsonArray.get(13).toString());
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    String dataDetu = rs.getString("detu");
+                    if (dataDetu != null && !dataDetu.isEmpty()) {
+                        // Parse the JSON string into a JSONObject
+                        JSONArray jsonArray = (JSONArray) JSONValue.parse(dataDetu);
+
+                        if (jsonArray != null && jsonArray.size() > 0) {
+                            if (player.nhiemVuDeTu == null) {
+                                player.nhiemVuDeTu = new NhiemVuDeTu(player); // tạo mới nếu chưa có
+                            }
+                            int type = Integer.parseInt(jsonArray.get(0).toString());
+                            int currentIndex = Integer.parseInt(jsonArray.get(1).toString());
+                            int currentCount = Integer.parseInt(jsonArray.get(2).toString());
+                            player.nhiemVuDeTu.onLoad(type, currentIndex, currentCount);
                         }
                     }
                 } catch (Exception e) {

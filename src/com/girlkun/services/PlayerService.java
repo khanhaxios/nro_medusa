@@ -246,7 +246,7 @@ public class PlayerService {
             }
             MapService.gI().sendPlayerMove(player);
             TaskService.gI().checkDoneTaskGoToMap(player, player.zone);
-            if (player.nhiemVuDeTu != null) {
+            if (player.isPl() && player.nhiemVuDeTu != null) {
                 if (player.location.y <= 300) {
                     player.nhiemVuDeTu.checkDoneTaskFly();
                 }

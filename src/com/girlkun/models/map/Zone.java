@@ -20,7 +20,6 @@ import com.girlkun.utils.Util;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -292,6 +291,9 @@ public class Zone {
                     }
                     if (picked) {
                         int itemType = item.template.type;
+                        if (player.isPl() && player.nhiemVuDeTu != null) {
+                            player.nhiemVuDeTu.checkDoneTaskPickItemAndUseItem(item);
+                        }
                         Message msg;
                         try {
                             msg = new Message(-20);
@@ -635,7 +637,7 @@ public class Zone {
             }
             // mob
             List<Mob> mobs = this.mobs;
-            msg.writer().writeByte(0);
+            msg.writer().writeByte(mobs.size());
             for (Mob mob : mobs) {
                 msg.writer().writeBoolean(false); //is disable
                 msg.writer().writeBoolean(false); //is dont move

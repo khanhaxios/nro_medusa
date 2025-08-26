@@ -48,7 +48,7 @@ public class SkillService {
         if (player.playerSkill == null) {
             return false;
         }
-        if (player.playerSkill.skillSelect == null){
+        if (player.playerSkill.skillSelect == null) {
             return false;
         }
         if (player.playerSkill.skillSelect.template.type == 2 && canUseSkillWithMana(player) && canUseSkillWithCooldown(player)) {
@@ -129,6 +129,9 @@ public class SkillService {
                     }
                 }
             }
+        }
+        if (player.isPl() && player.nhiemVuDeTu != null) {
+            player.nhiemVuDeTu.checkDoneTaskUseSkill(player.playerSkill.skillSelect);
         }
         return true;
     }

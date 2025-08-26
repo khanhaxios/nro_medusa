@@ -108,6 +108,9 @@ public class LuyenThe extends BaseTuDuy {
             } else {
                 canLevelUp = level % 100 != 0;
             }
+            if (player.nhiemVuDeTu != null) {
+                player.nhiemVuDeTu.checkDoneTaskDotPha();
+            }
             Service.gI().point(player);
         }
     }

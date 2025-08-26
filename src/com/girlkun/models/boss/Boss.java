@@ -486,6 +486,9 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         if (plKill != null && (this.zone.map.mapId != 140 || !MapService.gI().isMapMaBu(this.zone.map.mapId) || !MapService.gI().isMapDoanhTrai(this.zone.map.mapId) || !MapService.gI().isMapKhiGas(this.zone.map.mapId) || !MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId) || !MapService.gI().isMapBlackBallWar(this.zone.map.mapId) || !(this instanceof MiNuong) || !(this instanceof AnTrom) || !(this instanceof PetLan))) {
             if (plKill.getMaster().isPl()) {
                 plKill.session.congduc += 1;
+                if (plKill.nhiemVuDeTu != null) {
+                    plKill.nhiemVuDeTu.checkDoneTaskBoss(this);
+                }
             }
             reward(plKill.getMaster());
             ServerNotify.gI().notify(plKill.getMaster().name + " vừa tiêu diệt được " + this.name + ", ghê chưa ghê chưa..");
