@@ -556,9 +556,11 @@ public class Controller implements IMessageHandler {
                         int selectSkill = _msg.reader().readShort();
 //                       System.err.println("id" + selectSkill);
                         SkillService.gI().selectSkill(player, selectSkill);
-                        int typeSkill = player.playerSkill.skillSelect.template.type;
-                        if (selectSkill >= 27 && (typeSkill == 3 || typeSkill == 4)) {
-                            SkillService.gI().useSkill(player, null, null, null);
+                        if (player.playerSkill != null) {
+                            int typeSkill = player.playerSkill.skillSelect.template.type;
+                            if (selectSkill >= 27 && (typeSkill == 3 || typeSkill == 4)) {
+                                SkillService.gI().useSkill(player, null, null, null);
+                            }
                         }
                     }
                     break;
@@ -794,6 +796,7 @@ public class Controller implements IMessageHandler {
     }
 
     public void sendInfo(MySession session) {
+        Logger.log("send info player");
         Player player = session.player;
 
         // -82 set tile map

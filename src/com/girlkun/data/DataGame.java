@@ -47,6 +47,7 @@ public class DataGame {
     public static void sendVersionGame(MySession session) {
         Message msg;
         try {
+            Logger.log("send version game");
             msg = Service.getInstance().messageNotMap((byte) 4);
             msg.writer().writeByte(vsData);
             msg.writer().writeByte(vsMap);
@@ -310,6 +311,7 @@ public class DataGame {
     public static void sendDataItemBG(MySession session) {
         Message msg;
         try {
+            Logger.log("send data item bg");
             byte[] item_bg = FileIO.readFile("data/girlkun/item_bg_temp/item_bg_data");
             msg = new Message(-31);
             msg.writer().write(item_bg);
@@ -364,6 +366,7 @@ public class DataGame {
     public static void sendSmallVersion(MySession session) {
         Message msg;
         try {
+            Logger.log("send small version");
             msg = new Message(-77);
             byte[] data = FileIO.readFile("data/girlkun/data_img_version/x" + session.zoomLevel + "/img_version");
             if (data != null) {

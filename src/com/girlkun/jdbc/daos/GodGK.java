@@ -244,8 +244,6 @@ public class GodGK {
                             player.dakethon = Integer.parseInt(String.valueOf(dataArray.get(0)));
                             player.duockethon = Integer.parseInt(String.valueOf(dataArray.get(1)));
                             dataArray.clear();
-
-                            //data tọa độ
                             try {
                                 dataArray = (JSONArray) jv.parse(rs.getString("data_location"));
                                 int mapId = Integer.parseInt(String.valueOf(dataArray.get(0)));

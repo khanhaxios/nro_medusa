@@ -1,9 +1,11 @@
 package com.girlkun.server.io;
 
+import com.girlkun.consts.ConstPlayer;
 import com.girlkun.data.DataGame;
 import com.girlkun.jdbc.daos.GodGK;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
 import com.girlkun.network.session.Session;
 import com.girlkun.server.Client;
@@ -189,7 +191,6 @@ public class MySession extends Session {
                 DataGame.sendSmallVersion(this);
                 // -93 bgitem version
                 Service.getInstance().sendMessage(this, -93, "1630679752231_-93_r");
-
                 this.timeWait = 0;
                 this.joinedGame = true;
                 player.nPoint.calPoint();
@@ -217,11 +218,6 @@ public class MySession extends Session {
 //                this.player.timeupdateplayer = System.currentTimeMillis();
                 Service.getInstance().sendTimeSkill(player);
                 PlayerService.gI().sendInfoHpMp(player);
-//                if (player.playerSkill.getSkillbyId(player.gender == ConstPlayer.TRAI_DAT
-//                        ? Skill.SUPER_KAME : (player.gender == ConstPlayer.NAMEC ? Skill.MA_PHONG_BA : Skill.LIEN_HOAN_CHUONG)).point != 0) {
-//                    player.playerSkill.skillShortCut[0] = (player.gender == ConstPlayer.TRAI_DAT
-//                            ? Skill.SUPER_KAME : (player.gender == ConstPlayer.NAMEC ? Skill.MA_PHONG_BA : Skill.LIEN_HOAN_CHUONG));
-//                }
                 Logger.warning("Login thành công player " + this.player.name + ": Version -> " + this.version + "\n");
             }
         } catch (Exception e) {

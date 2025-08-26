@@ -521,7 +521,7 @@ public class Player {
     public void updateMapEvents() {
         try {
             if (!isBoss && this.iDMark.isGoToGas() && Util.canDoWithTime(this.iDMark.getLastTimeGotoGas(), 6000)) {
-                ChangeMapService.gI().changeMapBySpaceShip(this, 149, -1, 163);
+                ChangeMapService.gI().changeMapBySpaceShip(this, 149, clan.banDoKhoBau.id, 163);
                 this.iDMark.setGoToGas(false);
             }
             if (!isBoss && this.iDMark.isGotoFuture() && Util.canDoWithTime(this.iDMark.getLastTimeGoToFuture(), 6000)) {
@@ -529,7 +529,7 @@ public class Player {
                 this.iDMark.setGotoFuture(false);
             }
             if (!isBoss && this.iDMark.isGoToBDKB() && Util.canDoWithTime(this.iDMark.getLastTimeGoToBDKB(), 6000)) {
-                ChangeMapService.gI().changeMapBySpaceShip(this, 135, -1, 35);
+                ChangeMapService.gI().changeMapBySpaceShip(this, 135, clan.banDoKhoBau.id, 35);
                 this.iDMark.setGoToBDKB(false);
             }
             if (this.zone != null) {

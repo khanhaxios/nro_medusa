@@ -635,7 +635,7 @@ public class Zone {
             }
             // mob
             List<Mob> mobs = this.mobs;
-            msg.writer().writeByte(mobs.size());
+            msg.writer().writeByte(0);
             for (Mob mob : mobs) {
                 msg.writer().writeBoolean(false); //is disable
                 msg.writer().writeBoolean(false); //is dont move
