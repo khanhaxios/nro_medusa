@@ -1116,8 +1116,10 @@ public class NPoint {
         }
         if (player.isPet && player.getMaster() != null) {
             Player master = player.getMaster();
-            if (master.tuMa.isTuMa() || master.tuTien.isTuTien() || master.luyenThe.isLuyenTheReal()) {
-                this.hpMax += master.nPoint.hpMax * (Math.max(master.khongThiSu.level, 1) * 15) / 100f;
+            if (master.fusion.typeFusion == ConstPlayer.NON_FUSION) {
+                if (master.tuMa.isTuMa() || master.tuTien.isTuTien() || master.luyenThe.isLuyenTheReal()) {
+                    this.hpMax += master.nPoint.hpMax * (Math.max(master.khongThiSu.level, 1) * 15) / 100f;
+                }
             }
             // duoc huong chi so tu su phu
         }
@@ -1347,8 +1349,10 @@ public class NPoint {
         }
         if (player.isPet && player.getMaster() != null) {
             Player master = player.getMaster();
-            if (master.tuMa.isTuMa() || master.tuTien.isTuTien() || master.luyenThe.isLuyenTheReal()) {
-                this.mpMax += master.nPoint.mpMax * Math.max(player.khongThiSu.level, 1) * 15 / 100f;
+            if (master.fusion.typeFusion == ConstPlayer.NON_FUSION) {
+                if (master.tuMa.isTuMa() || master.tuTien.isTuTien() || master.luyenThe.isLuyenTheReal()) {
+                    this.mpMax += master.nPoint.mpMax * Math.max(player.khongThiSu.level, 1) * 15 / 100f;
+                }
             }
         }
     }
@@ -1692,8 +1696,10 @@ public class NPoint {
         }
         if (player.isPet && player.getMaster() != null) {
             Player master = player.getMaster();
-            if (master.tuMa.isTuMa() || master.tuTien.isTuTien() || master.luyenThe.isLuyenTheReal()) {
-                this.dame += master.nPoint.dame * Math.max(master.khongThiSu.level, 1) * 5 / 100f;
+            if (master.fusion.typeFusion == ConstPlayer.NON_FUSION) {
+                if (master.tuMa.isTuMa() || master.tuTien.isTuTien() || master.luyenThe.isLuyenTheReal()) {
+                    this.dame += master.nPoint.dame * Math.max(master.khongThiSu.level, 1) * 5 / 100f;
+                }
             }
             // duoc huong chi so tu su phu
         }
