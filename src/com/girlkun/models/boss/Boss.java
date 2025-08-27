@@ -1,4 +1,5 @@
 /*
+/*
  * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
  */
 
@@ -109,7 +110,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         this.gender = data.getGender();
         this.nPoint.mpg = 7_5_2002;
         this.nPoint.dameg = (long) data.getDame();
-        this.nPoint.hpg = data.getHp()[Util.nextInt(0, data.getHp().length - 1)] * 1000;
+        this.nPoint.hpg = data.getHp()[Util.nextInt(0, data.getHp().length - 1)] * 1200;
         this.nPoint.hp = nPoint.hpg;
         this.nPoint.calPoint();
         this.initSkill();
@@ -286,7 +287,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                 break;
             case CHAT_E:
                 if (chatE()) {
-                    this.doneChatE();
                     this.changeStatus(BossStatus.LEAVE_MAP);
                 }
                 break;
@@ -373,7 +373,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     }
 
     protected void notifyJoinMap() {
-//        if (this.id >= -22 && this.id <= -20) return;
         if (this.zone.map.mapId == 140 || MapService.gI().isMapMaBu(this.zone.map.mapId) || MapService.gI().isMapDoanhTrai(this.zone.map.mapId) || MapService.gI().isMapKhiGas(this.zone.map.mapId) || MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId) || MapService.gI().isMapBlackBallWar(this.zone.map.mapId) || this instanceof MiNuong || this instanceof PetLan || this instanceof AnTrom) {
             return;
         }
@@ -487,7 +486,10 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     @Override
     public void die(Player plKill) {
-        if (plKill != null && (this.zone.map.mapId != 140 || !MapService.gI().isMapMaBu(this.zone.map.mapId) || !MapService.gI().isMapDoanhTrai(this.zone.map.mapId) || !MapService.gI().isMapKhiGas(this.zone.map.mapId) || !MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId) || !MapService.gI().isMapBlackBallWar(this.zone.map.mapId) || !(this instanceof MiNuong) || !(this instanceof AnTrom) || !(this instanceof PetLan))) {
+        if (plKill == null) {
+            return;
+        }
+        if ((this.zone.map.mapId != 140 && !MapService.gI().isMapMaBu(this.zone.map.mapId) && !MapService.gI().isMapDoanhTrai(this.zone.map.mapId) && !MapService.gI().isMapKhiGas(this.zone.map.mapId) && !MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId) && !MapService.gI().isMapBlackBallWar(this.zone.map.mapId) && !(this instanceof MiNuong) && !(this instanceof AnTrom) && !(this instanceof PetLan))) {
             if (plKill.getMaster().isPl()) {
                 plKill.session.congduc += 1;
                 if (plKill.nhiemVuDeTu != null) {
@@ -499,9 +501,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
             System.out.println("=> Boss " + this.name + " vừa bị tiêu diệt bởi " + plKill.getMaster().name);
             this.changeStatus(BossStatus.DIE);
         } else {
-            if (plKill != null) {
-                reward(plKill.getMaster());
-            }
+            reward(plKill.getMaster());
             this.changeStatus(BossStatus.DIE);
         }
     }
@@ -554,46 +554,34 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         }
         this.wakeupAnotherBossWhenDisappear();
     }
-    //end loop
-//    public void leaveMapDHVT() {
-//        if (this.currentLevel < this.data.length - 1) {
-//            this.lastZone = this.zone;
-//            this.changeStatus(BossStatus.RESPAWN);
-//        } else {
-////            ChangeMapService.gI().spaceShipArrive(this, (byte) 2, ChangeMapService.DEFAULT_SPACE_SHIP);
-//            ChangeMapService.gI().exitMap(this);
-//            this.lastZone = null;
-//            this.lastTimeRest = System.currentTimeMillis();
-//            this.changeStatus(BossStatus.REST);
-//        }
-//        this.wakeupAnotherBossWhenDisappear();
-//    }
 
     @Override
     public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean isSTChuan) {
-        if (!this.isDie()) {
-            if (!isSTChuan) {
-                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                    this.chat("Xí hụt");
-                    return 0;
-                }
-                damage = this.nPoint.subDameInjureWithDeff(damage);
-                if (!piercing && effectSkill.isShielding) {
-                    if (damage > nPoint.hpMax) {
-                        EffectSkillService.gI().breakShield(this);
-                    }
-                    damage = 1;
-                }
+        damage = Math.abs(damage);
+        if (this.isDie()) return 0;
+        if (!isSTChuan) {
+            // Né đòn
+            boolean isDodged = !piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000);
+            if (isDodged) {
+                this.chat("Xí hụt");
+                return 0;
             }
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
+            // Giảm sát thương bởi thủ
+            damage = this.nPoint.subDameInjureWithDeff(damage);
+            // Khiên chặn
+            if (!piercing && effectSkill.isShielding) {
+                if (damage > nPoint.hpMax) {
+                    EffectSkillService.gI().breakShield(this);
+                }
+                damage = 1;
             }
-            return damage;
-        } else {
-            return 0;
         }
+        this.nPoint.subHP(damage);
+        if (this.isDie()) {
+            this.setDie(plAtt);
+            die(plAtt);
+        }
+        return damage;
     }
 
     public double injuredLimitDame(Player plAtt, double damage, boolean piercing, long limitDame) {

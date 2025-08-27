@@ -61,7 +61,7 @@ public class DoanhTraiService {
     private DoanhTraiService() {
         this.doanhTrais = new ArrayList<>();
         for (int i = 0; i < DoanhTrai.AVAILABLE; i++) {
-            this.doanhTrais.add(new DoanhTrai(i));
+            this.doanhTrais.add(new DoanhTrai(i, new ArrayList<>()));
         }
     }
 
@@ -119,8 +119,8 @@ public class DoanhTraiService {
             ItemTimeService.gI().removeTextDoanhTrai(player);
             player.clan.doanhTrai_haveGone = true;
         }
-        int idDoanhTrai = player.clan.doanhTrai.getId();
-        doanhTrais.set(idDoanhTrai, new DoanhTrai(idDoanhTrai));
+        DoanhTrai doanhTrai = player.clan.doanhTrai;
+        doanhTrais.set(doanhTrai.getId(), new DoanhTrai(doanhTrai.getId(), doanhTrai.getZones()));
     }
 
     public void joinDoanhTrai(Player player) {
@@ -159,7 +159,7 @@ public class DoanhTraiService {
                     ItemTimeService.gI().removeTextDoanhTrai(player);
                 }
                 doanhTrai.getClan().doanhTrai_haveGone = true;
-                doanhTrais.set(doanhTrai.getId(), new DoanhTrai(doanhTrai.getId()));
+                doanhTrais.set(doanhTrai.getId(), new DoanhTrai(doanhTrai.getId(), doanhTrai.getZones()));
             }
         }
         Logger.log("Reload doanh trai success");

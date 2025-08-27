@@ -125,30 +125,15 @@ public class MaTroiXanh extends Boss {
 
     @Override
     public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
-        if (!this.isDie()) {
-            damage = 20;
-            if (!a) {
-                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                    this.chat("Xí hụt");
-                    return 0;
-
-                }
-                if (plAtt != null) {
-                    if (plAtt.setClothes.isThuongLinhDietMa) {
-                        damage = Util.nextInt(100, 400);
-                    } else if (plAtt.setClothes.isDaoYeuLinhPhucMa) {
-                        damage = Util.nextInt(50, 200);
-                    }
-                }
-            }
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            return damage;
+        if (plAtt.setClothes.isDaoYeuLinhPhucMa) {
+            damage = damage * 20 / 100f;
+            a = true;
+        } else if (plAtt.setClothes.isThuongLinhDietMa) {
+            damage = damage * 30 / 100f;
+            a = true;
         } else {
-            return 0;
+            damage = 20;
         }
+        return super.injured(plAtt, damage, piercing, isMobAttack, a);
     }
 }

@@ -24,6 +24,11 @@ public class Nobita extends Boss {
     }
 
 
+    public long timeThanThanh = 60_000;
+
+    public long lastTimeUseThanThanh = System.currentTimeMillis();
+    public boolean hasUseThanThanh;
+
     @Override
     public void reward(Player plKill) {
         plKill.achievement.plusCount(3);
@@ -56,7 +61,7 @@ public class Nobita extends Boss {
                     this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
         }
-        ItemMap it12= new ItemMap(this.zone, 987, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+        ItemMap it12 = new ItemMap(this.zone, 987, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);
         Service.getInstance().dropItemMap(this.zone, it12);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
@@ -92,30 +97,36 @@ public class Nobita extends Boss {
 
     @Override
     public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
-        if (!this.isDie()) {
-            if (!a) {
-                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                    this.chat("Xí hụt");
-                    return 0;
-                }
-                damage = this.nPoint.subDameInjureWithDeff(damage);
-                if (!piercing && effectSkill.isShielding) {
-                    if (damage > nPoint.hpMax) {
-                        EffectSkillService.gI().breakShield(this);
-                    }
-                    damage = 1;
-                }
-            }
-
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            return damage;
-        } else {
+        if (isDie()) {
             return 0;
         }
+        boolean isDodged = !piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000);
+        if (isDodged) {
+            this.chat("Xí hụt");
+            return 0;
+        }
+        damage = nPoint.subDameInjureWithDeff(damage);
+        if (!piercing && effectSkill.isShielding) {
+            if (damage > nPoint.hpMax) {
+                EffectSkillService.gI().breakShield(this);
+            }
+            damage = 1;
+        }
+        if (damage > nPoint.hp && !hasUseThanThanh) {
+            hasUseThanThanh = true;
+            lastTimeUseThanThanh = System.currentTimeMillis();
+        }
+
+        if (hasUseThanThanh && !Util.canDoWithTime(lastTimeUseThanThanh, timeThanThanh)) {
+            damage = 0;
+            chat("Nobita God Mode đã bật");
+        }
+        nPoint.subHP(damage);
+        if (isDie()) {
+            setDie(plAtt);
+            die(plAtt);
+        }
+        return damage;
     }
 
 }

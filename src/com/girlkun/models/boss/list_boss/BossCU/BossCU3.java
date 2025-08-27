@@ -32,11 +32,6 @@ public class BossCU3 extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.inventory.event++;
-        Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 10000 con Micky");
-        ItemMap it = new ItemMap(this.zone, 1428, 30000, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                this.location.y - 24), plKill.id);
-        it.options.add(new Item.ItemOption(30, 0));
-        Service.getInstance().dropItemMap(this.zone, it);
         int a = 0;
         for (int i = 0; i < 8; i++) {
             ItemMap it1 = new ItemMap(this.zone, 1340, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,
@@ -47,10 +42,10 @@ public class BossCU3 extends Boss {
         ItemMap it1 = new ItemMap(this.zone, 1341, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);
         Service.getInstance().dropItemMap(this.zone, it1);
-            ItemMap daMedusa = new ItemMap(this.zone, 1079, Util.nextInt(1, 3), this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), plKill.id);
-            it.options.add(new Item.ItemOption(30, 0));
-            Service.getInstance().dropItemMap(this.zone, daMedusa);
+        ItemMap daMedusa = new ItemMap(this.zone, 1079, Util.nextInt(1, 3), this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                this.location.y - 24), plKill.id);
+        daMedusa.options.add(new Item.ItemOption(30, 0));
+        Service.getInstance().dropItemMap(this.zone, daMedusa);
         Util.ratioManhPhapBao(zone, 1, this.location.x, this.location.y, plKill.id, 100);
 
         Util.ratioVeNangCap(zone, 1, this.location.x, this.location.y, plKill.id, 100);
@@ -72,31 +67,4 @@ public class BossCU3 extends Boss {
 
     private long st;
 
-    @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack,boolean a) {
-        if (!this.isDie()) {
-            if (!a){
-                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                    this.chat("Xí hụt");
-                    return 0;
-                }
-                damage = this.nPoint.subDameInjureWithDeff(damage);
-                if (!piercing && effectSkill.isShielding) {
-                    if (damage > nPoint.hpMax) {
-                        EffectSkillService.gI().breakShield(this);
-                    }
-                    damage = 1;
-                }
-            }
-
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            return damage;
-        } else {
-            return 0;
-        }
-    }
 }

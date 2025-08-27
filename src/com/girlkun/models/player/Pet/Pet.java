@@ -31,7 +31,6 @@ public class Pet extends Player {
     public static final byte FUSION = 4;
     public static final byte FUSION_FOREVER = 5;
 
-
     public Player master;
     public byte status = 0;
 
@@ -89,51 +88,11 @@ public class Pet extends Player {
         }
     }
 
-    private boolean shouldDisobeyMaster() {
-        boolean khongThiSuNullOrNotInState = master.khongThiSu == null || !master.khongThiSu.isKhongThi();
-
-        boolean khongThiSuLowLevel = master.khongThiSu != null &&
-                master.tuTien.isKhongThi &&
-                master.tuTien.canHandleWithLinhKhiPoint(
-                        10L * Math.max(this.nPoint.limitPower, 1) * typePet) &&
-                master.khongThiSu.level + 2 < this.typePet;
-        return khongThiSuNullOrNotInState || khongThiSuLowLevel;
-    }
-
-    private void sayDisobedientLine() {
-        Service.gI().chat(this, "Sao tao phải nghe mày");
-    }
-
-    private void setRandomStatus() {
-        this.status = (byte) Util.nextInt(0, 3);
-    }
-
     private boolean isBusyOrInvalidFusion(byte requestedStatus) {
         return goingHome ||
                 master.fusion.typeFusion != 0 ||
                 (this.isDie() && requestedStatus == FUSION);
     }
-
-//    public void changeStatus(byte status) {
-//        if (master.khongThiSu == null || !master.khongThiSu.isKhongThi()) {
-//            Service.gI().chat(this, "Sao tao phải nghe mày");
-//            this.status = (byte) Util.nextInt(0, 3);
-//            handleWithStatus(status);
-//        } else if (master.khongThiSu != null && master.tuTien.isKhongThi && master.tuTien.canHandleWithLinhKhiPoint((long) 10 * Math.max(this.nPoint.limitPower, 1) * typePet)) {
-//            if (master.khongThiSu.level + 2 < this.typePet) {
-//                Service.gI().chat(this, "Sao tao phải nghe mày");
-//                this.status = (byte) Util.nextInt(0, 3);
-//                handleWithStatus(status);
-//            }
-//        } else {
-//            if (goingHome || master.fusion.typeFusion != 0 || (this.isDie() && status == FUSION)) {
-//                Service.getInstance().sendThongBao(master, "Không thể thực hiện");
-//                return;
-//            }
-//            handleWithStatus(status);
-//            this.status = status;
-//        }
-//    }
 
     private void handleWithStatus(byte status) {
         Service.getInstance().chatJustForMe(master, this, getTextStatus(status));
@@ -422,7 +381,7 @@ public class Pet extends Player {
         try {
             super.update();
             increasePoint(); //cộng chỉ số
-            autodau(); //cộng chỉ số
+            autodau();
             updatePower(); //check mở skill...
             if (isDie()) {
                 if (System.currentTimeMillis() - lastTimeDie > 50000) {
@@ -911,7 +870,7 @@ public class Pet extends Player {
     private void increasePoint() {
         if (this.nPoint != null && Util.canDoWithTime(lastTimeIncreasePoint, 1000)) {
             if (Util.isTrue(1, 100)) {
-                this.nPoint.increasePoint((byte) 3, (short) 1);
+                this.nPoint.increasePoint((byte) 3, (short) Util.nextInt(1, 100));
             } else {
                 byte type = (byte) Util.nextInt(0, 2);
                 short point = (short) Util.nextInt(1, 100);

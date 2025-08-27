@@ -41,26 +41,6 @@ public class FideRobot extends Boss {
     public void active() {
         this.attack();
     }
-
-//    @Override
-//    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a)       {
-//        if (plAtt != null) {
-//            switch (plAtt.playerSkill.skillSelect.template.id) {
-//                case Skill.KAMEJOKO:
-//                case Skill.MASENKO:
-//                case Skill.ANTOMIC:
-//                    int hpHoi = (int) ((long) damage * 80 / 100);
-//                    PlayerService.gI().hoiPhuc(this, hpHoi, 0);
-//                    if (Util.isTrue(1, 5)) {
-//                        this.chat("Hahaha,Các ngươi nghĩ sao vậy?");
-//                    }
-//                    return 0;
-//            }
-//        }
-//        return super.injured(plAtt, damage, piercing, isMobAttack);
-//    }
-
- 
 }
 
 

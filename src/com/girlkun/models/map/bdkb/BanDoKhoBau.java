@@ -29,7 +29,7 @@ public class BanDoKhoBau {
     static {
         BAN_DO_KHO_BAU = new ArrayList<>();
         for (int i = 0; i < MAX_AVAILABLE; i++) {
-            BAN_DO_KHO_BAU.add(new BanDoKhoBau(i));
+            BAN_DO_KHO_BAU.add(new BanDoKhoBau(i, new ArrayList<>()));
         }
     }
 
@@ -42,9 +42,9 @@ public class BanDoKhoBau {
     public long timeOutMap;
     public long lastTimeOpen;
 
-    public BanDoKhoBau(int id) {
+    public BanDoKhoBau(int id, List<Zone> zones) {
         this.id = id;
-        this.zones = new ArrayList<>();
+        this.zones = zones;
     }
 
 //    public void update() {
@@ -76,15 +76,13 @@ public class BanDoKhoBau {
         for (Zone zone : zones) {
             for (Mob m : zone.mobs) {
                 Mob.initMopbbdkb(m, this.level);
-                m.injured(null, m.point.maxHp + 19999999, true, (byte) 0);
                 m.hoiSinh();
                 m.sendMobHoiSinh();
             }
         }
     }
+
     //kết thúc bản đồ kho báu
-
-
     public Zone getMapById(int mapId) {
         for (Zone zone : zones) {
             if (zone.map.mapId == mapId) {

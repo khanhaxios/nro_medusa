@@ -58,7 +58,7 @@ public class Vados extends Boss {
             damage = 0;
 
         }
-        if (!this.isDie()) {
+        if (!this.isDie() && plAtt != null) {
             if (!a) {
 
                 if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1)) {
@@ -72,9 +72,6 @@ public class Vados extends Boss {
                     }
                     damage = 1;
                 }
-//            if (damage >= 1) {
-//                damage = 1;
-//            }
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
@@ -85,19 +82,4 @@ public class Vados extends Boss {
         }
         return 0;
     }
-
-//    @Override
-//    public void active() {
-//        super.active(); //To change body of generated methods, choose Tools | Templates.
-//        if (Util.canDoWithTime(st, 1000000)) {
-//            this.changeStatus(BossStatus.LEAVE_MAP);
-//        }
-//    }
-//
-//    @Override
-//    public void joinMap() {
-//        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-//        st = System.currentTimeMillis();
-//    }
-//    private long st;
 }

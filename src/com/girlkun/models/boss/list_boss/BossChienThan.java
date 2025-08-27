@@ -34,14 +34,6 @@ public class BossChienThan extends Boss {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, DaTienMon[randomDA], Util.nextInt(10, 100), this.location.x, this.location.y, plKill.id));
         }
     }
-//    @Override
-//    public void active() {
-//        super.active(); //To change body of generated methods, choose Tools | Templates.
-//        if (Util.canDoWithTime(st, 900000)) {
-//            this.changeStatus(BossStatus.LEAVE_MAP);
-//        }
-//    }
-
     @Override
     public void joinMap() {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
@@ -49,31 +41,4 @@ public class BossChienThan extends Boss {
     }
 
     private long st;
-
-    @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
-        if (!this.isDie()) {
-            if (!a) {
-                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                    this.chat("Xí hụt");
-                    return 0;
-                }
-                damage = this.nPoint.subDameInjureWithDeff(damage / 2);
-                if (!piercing && effectSkill.isShielding) {
-                    if (damage > nPoint.hpMax) {
-                        EffectSkillService.gI().breakShield(this);
-                    }
-                    damage = 1;
-                }
-            }
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            return damage;
-        } else {
-            return 0;
-        }
-    }
 }

@@ -10,7 +10,6 @@ import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
-import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.Service;
 import com.girlkun.services.TaskService;
 import com.girlkun.utils.Util;
@@ -55,7 +54,7 @@ public class Xeko extends Boss {
                     this.location.y - 24), plKill.id);
             Service.getInstance().dropItemMap(this.zone, it1);
         }
-        ItemMap it12= new ItemMap(this.zone, 987, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
+        ItemMap it12 = new ItemMap(this.zone, 987, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);
         Service.getInstance().dropItemMap(this.zone, it12);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
@@ -91,28 +90,11 @@ public class Xeko extends Boss {
     private long st;
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a)       {
-        if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
-                }
-                damage = 1;
-            }
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            return damage;
-        } else {
-            return 0;
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
+        if (Util.isTrue(Util.nextInt(1, 20), 100)) {
+            return super.injured(plAtt, damage, piercing, isMobAttack, a);
         }
+        return 0;
     }
 }
 

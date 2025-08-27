@@ -9,22 +9,15 @@ import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.BossesData;
-import com.girlkun.models.item.Item;
-import com.girlkun.models.item.Item.ItemOption;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Client;
-import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.MapService;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
-import com.girlkun.services.SkillService;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Util;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Viet Nguyen
@@ -81,20 +74,9 @@ public class AnTrom extends Boss {
     }
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack,boolean a) {
-        if (!this.isDie()) {
-            damage = 1;
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
-            SkillService.gI().useSkill(this, plAtt, null, null);
-            return damage;
-        } else {
-            return 0;
-        }
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
+        damage = 1;
+        return super.injured(plAtt, damage, piercing, isMobAttack, true);
     }
 
     @Override
@@ -161,7 +143,6 @@ public class AnTrom extends Boss {
     public void joinMap() {
         super.joinMap();
         lastTimeJoinMap = System.currentTimeMillis() + timeChangeMap;
-//        System.err.println("SETTTTTTTTTTTTTTTTTTT lastimejoinmap ANTROM");
     }
 
     @Override
@@ -189,7 +170,6 @@ public class AnTrom extends Boss {
                 }
             }
         } catch (Exception e) {
-//            System.out.println("        loi an trom");
         }
     }
 

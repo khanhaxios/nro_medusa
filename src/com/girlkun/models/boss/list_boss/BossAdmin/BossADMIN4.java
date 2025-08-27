@@ -33,12 +33,6 @@ public class BossADMIN4 extends Boss {
     public void reward(Player plKill) {
         plKill.inventory.event++;
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
-        //SK 2T9
-//        ItemMap dayThung = new ItemMap(this.zone, 1540, 2, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-//                this.location.y - 24), plKill.id);
-//        dayThung.options.add(new Item.ItemOption(30, 1));
-//        Service.getInstance().dropItemMap(this.zone, dayThung);
-
         ItemMap it = new ItemMap(this.zone, 1312, 30, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);
         it.options.add(new Item.ItemOption(30, 1));
@@ -76,31 +70,4 @@ public class BossADMIN4 extends Boss {
     }
     private long st;
 
-    @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack,boolean a) {
-        if (!this.isDie()) {
-            if (!a){
-                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                    this.chat("Xí hụt");
-                    return 0;
-                }
-                damage = this.nPoint.subDameInjureWithDeff(damage);
-                if (!piercing && effectSkill.isShielding) {
-                    if (damage > nPoint.hpMax) {
-                        EffectSkillService.gI().breakShield(this);
-                    }
-                    damage = 1;
-                }
-            }
-
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            return damage;
-        } else {
-            return 0;
-        }
-    }
 }

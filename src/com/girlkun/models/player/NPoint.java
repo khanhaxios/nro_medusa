@@ -1114,8 +1114,14 @@ public class NPoint {
         if (player.taixiu.chuyensinh > 0) {
             this.hpMax += this.hpMax * (3 * player.taixiu.chuyensinh) / 100;
         }
+        if (player.isPet && player.getMaster() != null) {
+            Player master = player.getMaster();
+            if (master.tuMa.isTuMa() || master.tuTien.isTuTien() || master.luyenThe.isLuyenTheReal()) {
+                this.hpMax += master.nPoint.hpMax * (Math.max(master.khongThiSu.level, 1) * 15) / 100f;
+            }
+            // duoc huong chi so tu su phu
+        }
         mauGoc = this.hpMax;
-
     }
 
     private void setHp() {
@@ -1130,14 +1136,7 @@ public class NPoint {
             int sl = player.huyet.getLevelTinhHuyetCongDon();
             int cs1 = 0;
             switch (player.huyet.type) {
-                case 1:
-                    cs1 = 0;
-                    for (int i = 0; i < sl; i++) {
-                        cs1 += Huyet.TinhHuyetEffect.LEVEL_PARAM_TYPE[player.huyet.type][i][1];
-                    }
-                    tlMp.add(cs1);
-                    break;
-                case 4:
+                case 1, 4:
                     cs1 = 0;
                     for (int i = 0; i < sl; i++) {
                         cs1 += Huyet.TinhHuyetEffect.LEVEL_PARAM_TYPE[player.huyet.type][i][1];
@@ -1345,6 +1344,12 @@ public class NPoint {
         }
         if (player.taixiu.chuyensinh > 0) {
             this.mpMax += this.mpMax * (3 * player.taixiu.chuyensinh) / 100;
+        }
+        if (player.isPet && player.getMaster() != null) {
+            Player master = player.getMaster();
+            if (master.tuMa.isTuMa() || master.tuTien.isTuTien() || master.luyenThe.isLuyenTheReal()) {
+                this.mpMax += master.nPoint.mpMax * Math.max(player.khongThiSu.level, 1) * 15 / 100f;
+            }
         }
     }
 
@@ -1684,6 +1689,13 @@ public class NPoint {
         }
         if (player.taixiu.chuyensinh > 0) {
             this.dame += this.dame * (3 * player.taixiu.chuyensinh) / 100;
+        }
+        if (player.isPet && player.getMaster() != null) {
+            Player master = player.getMaster();
+            if (master.tuMa.isTuMa() || master.tuTien.isTuTien() || master.luyenThe.isLuyenTheReal()) {
+                this.dame += master.nPoint.dame * Math.max(master.khongThiSu.level, 1) * 5 / 100f;
+            }
+            // duoc huong chi so tu su phu
         }
     }
 
@@ -2339,8 +2351,17 @@ public class NPoint {
         }
     }
 
-    public int getHpMpLimit(boolean isDaoLu) {
-        return isDaoLu ? getHpMpLimit() / 10 : getHpMpLimit();
+    public int getHpMpLimit(int type) {
+        if (type == 0) {
+            return getHpMpLimit();
+        }
+        if (type == 1) {
+            return getHpMpLimit() / 10;
+        }
+        if (type == 2) {
+            return getHpMpLimit() * 5;
+        }
+        return getHpMpLimit();
     }
 
     public int getHpMpLimit() {
@@ -2389,8 +2410,16 @@ public class NPoint {
         return 0;
     }
 
-    public int getDameLimit(boolean isDaoLu) {
-        return isDaoLu ? getDameLimit() / 10 : getDameLimit();
+    public int getDameLimit(int type) {
+        return type == 0 ? getDameLimit() : type == 1 ? getDameLimit() / 10 : getDameLimit() * 5;
+    }
+
+    public int getDameLimitPet() {
+        return getDameLimit() * 10;
+    }
+
+    public int getHpMpLimitPet() {
+        return getHpMpLimit() * 10;
     }
 
     public int getDameLimit() {
@@ -2547,6 +2576,8 @@ public class NPoint {
     }
 
     public void increasePoint(byte type, short point) {
+        int typpe = player.isPl() ? 0 : player.isDL() ? 1 : 2;
+
         if (point <= 0 || point > 100) {
             return;
         }
@@ -2554,7 +2585,7 @@ public class NPoint {
         if (type == 0) {
             int pointHp = point * 20;
             tiemNangUse = point * (2 * (this.hpg + 1000) + pointHp - 20) / 2;
-            if ((this.hpg + pointHp) <= getHpMpLimit(player.isDaoLu)) {
+            if ((this.hpg + pointHp) <= getHpMpLimit()) {
                 if (doUseTiemNang(tiemNangUse)) {
                     hpg += pointHp;
                 }
@@ -2565,7 +2596,7 @@ public class NPoint {
         if (type == 1) {
             int pointMp = point * 20;
             tiemNangUse = point * (2 * (this.mpg + 1000) + pointMp - 20) / 2;
-            if ((this.mpg + pointMp) <= getHpMpLimit(player.isDaoLu)) {
+            if ((this.mpg + pointMp) <= getHpMpLimit(typpe)) {
                 if (doUseTiemNang(tiemNangUse)) {
                     mpg += pointMp;
                 }
@@ -2575,7 +2606,7 @@ public class NPoint {
         }
         if (type == 2) {
             tiemNangUse = point * (2 * this.dameg + point - 1) / 2f * 100;
-            if ((this.dameg + point) <= getDameLimit(player.isDaoLu)) {
+            if ((this.dameg + point) <= getDameLimit(typpe)) {
                 if (doUseTiemNang(tiemNangUse)) {
                     dameg += point;
                 }
@@ -2715,5 +2746,9 @@ public class NPoint {
 
     public double getMP() {
         return Math.min(this.mp, this.mpMax);
+    }
+
+    public double getPercentHp(int i) {
+        return this.hpMax * i / 100;
     }
 }

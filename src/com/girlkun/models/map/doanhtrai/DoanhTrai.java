@@ -37,7 +37,7 @@ public class DoanhTrai {
     static {
         DOANH_TRAI = new ArrayList<>();
         for (int i = 0; i < AVAILABLE; i++) {
-            DOANH_TRAI.add(new DoanhTrai(i));
+            DOANH_TRAI.add(new DoanhTrai(i, new ArrayList<>()));
         }
     }
 
@@ -48,9 +48,9 @@ public class DoanhTrai {
 
     private long lastTimeOpen;
 
-    public DoanhTrai(int id) {
+    public DoanhTrai(int id, List<Zone> zones) {
         this.id = id;
-        this.zones = new ArrayList<>();
+        this.zones = zones;
         this.bossDoanhTrai = new ArrayList<>();
     }
 

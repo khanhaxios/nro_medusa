@@ -12,8 +12,8 @@ package com.girlkun.models.boss.list_boss.BossMa;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
-import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.boss.BossStatus;
+import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
@@ -98,7 +98,7 @@ public class MaTroiHong extends Boss {
                 if (pl == null || pl.isDie()) {
                     return;
                 }
-                this.nPoint.dame = pl.nPoint.hpMax * 0.001;
+                this.nPoint.dame = pl.nPoint.hpMax * 0.1;
                 this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 if (Util.getDistance(this, pl) <= this.getRangeCanAttackWithSkillSelect()) {
                     if (Util.isTrue(5, 20)) {
@@ -124,30 +124,16 @@ public class MaTroiHong extends Boss {
     }
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack,boolean a) {
-        if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
-            damage = 20;
-            if (plAtt != null) {
-                if (plAtt.setClothes.isThuongLinhDietMa) {
-                    damage = Util.nextInt(100, 400);
-                } else if (plAtt.setClothes.isDaoYeuLinhPhucMa) {
-                    damage = Util.nextInt(50, 200);
-                } else {
-                    damage = 20;
-                }
-            }
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            return damage;
+    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
+        if (plAtt.setClothes.isDaoYeuLinhPhucMa) {
+            damage = damage * 20 / 100f;
+            a = true;
+        } else if (plAtt.setClothes.isThuongLinhDietMa) {
+            damage = damage * 30 / 100f;
+            a = true;
         } else {
-            return 0;
+            damage = 20;
         }
+        return super.injured(plAtt, damage, piercing, isMobAttack, a);
     }
 }

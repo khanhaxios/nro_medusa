@@ -37,7 +37,6 @@ public class MabuBoss extends Boss {
         } else {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id));
         }
-        // nhan trung mabu
     }
 }
 

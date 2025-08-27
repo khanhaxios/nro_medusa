@@ -74,13 +74,13 @@ public class GasService {
     public void ketthucGas(Player player) {
         List<Player> players = new ArrayList<>();
         List<Player> bosess = new ArrayList<>();
-        int idGas = player.clan.khiGas.id;
+        Gas gas = player.clan.khiGas;
 
         for (int i = 147; i <= 152; i++) {
             if (MapService.gI().isMapKhiGas(i)) {
                 Map map = MapService.gI().getMapById(i);
                 for (Zone zone : map.zones) {
-                    if (zone.zoneId == idGas) {
+                    if (zone.zoneId == gas.id) {
                         players.addAll(zone.getPlayers());
                         bosess.addAll(zone.getBosses());
                     }
@@ -100,19 +100,19 @@ public class GasService {
             bosess1.injured(player, bosess1.nPoint.hpMax + 1000000, false, false, true);
         }
         // reset khi gas
-        Gas.KHI_GAS.set(idGas, new Gas(idGas));
+        Gas.KHI_GAS.set(gas.id, new Gas(gas.id, gas.zones));
     }
 
     public void ketthucGasWithoutInside(Player player) {
         List<Player> players = player.clan.membersInGame;
         List<Player> bosess = new ArrayList<>();
-        int idGas = player.clan.khiGas.id;
+        Gas gas = player.clan.khiGas;
 
         for (int i = 147; i <= 152; i++) {
             if (MapService.gI().isMapKhiGas(i)) {
                 Map map = MapService.gI().getMapById(i);
                 for (Zone zone : map.zones) {
-                    if (zone.zoneId == idGas) {
+                    if (zone.zoneId == gas.id) {
                         bosess.addAll(zone.getBosses());
                     }
                 }
@@ -131,7 +131,7 @@ public class GasService {
         }
         // reset khi gas
         Service.gI().sendThongBao(player, "Đã xóa khí gas thành công");
-        Gas.KHI_GAS.set(idGas, new Gas(idGas));
+        Gas.KHI_GAS.set(gas.id, new Gas(gas.id, gas.zones));
     }
 
     private boolean containInClan(Player pl, Player player) {

@@ -1200,51 +1200,49 @@ public class SkillService {
 
     private double subDameWithCanhGioi(Player plAtt, Player plInjure) {
         double dame = plAtt.nPoint.getDameAttack(false);
-
         int attLevel = getLevel(plAtt);
         int attSub = getSubLevel(plAtt);
-
         int targetLevel = getLevel(plInjure);
         int targetSub = getSubLevel(plInjure);
 
-        if (attLevel < 0 || targetLevel < 0) return dame;
-
-        if (attLevel < targetLevel) {
-            int levelDiff = targetLevel - attLevel;
-            dame -= dame * (50 * levelDiff) / 100;
-        } else {
-            int levelDiff = attLevel - targetLevel;
-            if (levelDiff > 0) {
-                dame += dame * (50 * levelDiff) / 100;
-            }
+        if (attLevel < 0 || targetLevel < 0) {
+            return dame;
         }
+
+        int attackScore = attLevel * 10 + attSub;
+        int targetScore = targetLevel * 10 + targetSub;
+
+        if (attackScore < targetScore) {
+            int gap = targetScore - attackScore;
+            int reductionPercent = gap * SUBLEVEL_PENALTY;
+            dame -= dame * reductionPercent / 100.0;
+        }
+
         return dame;
     }
 
-    private double subDameWithCanhGioi(Player plAtt, Player plInjure, double dame) {
-        int attLevel = getLevel(plAtt);
-        int attSub = getSubLevel(plAtt);
+    public int SUBLEVEL_PENALTY = 8;
 
-        int targetLevel = getLevel(plInjure);
-        int targetSub = getSubLevel(plInjure);
+    private double subDameWithCanhGioi(Player attacker, Player target, double damage) {
+        int attLevel = getLevel(attacker);
+        int attSub = getSubLevel(attacker);
+        int targetLevel = getLevel(target);
+        int targetSub = getSubLevel(target);
 
-        if (attLevel < 0 || targetLevel < 0) return dame;
-
-        if (attLevel < targetLevel) {
-            int levelDiff = targetLevel - attLevel;
-            dame -= dame * (90 * levelDiff) / 100;
-        } else {
-            int levelDiff = attLevel - targetLevel;
-            int subDiff = attSub - targetSub;
-
-            if (subDiff > 0) {
-                dame += dame * (10 * subDiff) / 100;
-            }
-            if (levelDiff > 0) {
-                dame += dame * (30 * levelDiff) / 100;
-            }
+        if (attLevel < 0 || targetLevel < 0) {
+            return damage;
         }
-        return dame;
+
+        int attackScore = attLevel * 10 + attSub;
+        int targetScore = targetLevel * 10 + targetSub;
+
+        if (attackScore < targetScore) {
+            int gap = targetScore - attackScore;
+            int reductionPercent = gap * SUBLEVEL_PENALTY;
+            damage -= damage * reductionPercent / 100.0;
+        }
+
+        return damage;
     }
 
     private int getLevel(Player p) {

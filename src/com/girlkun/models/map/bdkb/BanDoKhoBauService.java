@@ -4,6 +4,7 @@
 
 package com.girlkun.models.map.bdkb;
 
+import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.boss.list_boss.phoban.TrungUyXanhLoBdkb;
 import com.girlkun.models.item.Item;
@@ -20,7 +21,6 @@ import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import static com.girlkun.models.map.bdkb.BanDoKhoBau.TIME_KHI_BAN_DO_KHO_BAU;
@@ -98,7 +98,8 @@ public class BanDoKhoBauService {
         }
 
         BanDoKhoBau bdkb = player.clan.banDoKhoBau;
-        int id = bdkb.id;
+        BanDoKhoBau banDoKhoBau = player.clan.banDoKhoBau;
+
 
         Zone zone = bdkb.getMapById(137);
         List<Player> bosses = (zone != null) ? zone.getBosses() : new ArrayList<>();
@@ -143,7 +144,7 @@ public class BanDoKhoBauService {
 
         Service.gI().sendThongBao(player, "Đã xóa bản đồ kho báu thành công");
         // reset map
-        BanDoKhoBau.BAN_DO_KHO_BAU.set(id, new BanDoKhoBau(id));
+        BanDoKhoBau.BAN_DO_KHO_BAU.set(banDoKhoBau.id, new BanDoKhoBau(banDoKhoBau.id, banDoKhoBau.zones));
     }
 
     public void ketthucbdkb(Player player) {
@@ -157,7 +158,7 @@ public class BanDoKhoBauService {
                 }
             }
         }
-        int id = player.clan.banDoKhoBau.id;
+        BanDoKhoBau banDoKhoBau = player.clan.banDoKhoBau;
         Zone zone = player.clan.banDoKhoBau.getMapById(137);
         List<Player> bosses = zone.getBosses();
         for (int i = playersMap.size() - 1; i >= 0; i--) {
@@ -171,11 +172,13 @@ public class BanDoKhoBauService {
             }
         }
         for (Player boss : bosses) {
-            if (boss != null && !boss.isDie()) {
-                boss.injured(player, boss.nPoint.hpMax + 10000, false, false, true);
+            Boss boss1 = (Boss) boss;
+            if (boss1 != null && !boss1.isDie()) {
+                boss1.setDie(player);
+                boss1.die(player);
             }
         }
-        BanDoKhoBau.BAN_DO_KHO_BAU.set(id, new BanDoKhoBau(id));
+        BanDoKhoBau.BAN_DO_KHO_BAU.set(banDoKhoBau.id, new BanDoKhoBau(banDoKhoBau.id, banDoKhoBau.zones));
     }
 
     private boolean containtInClan(Player pl, Player player) {
@@ -201,8 +204,8 @@ public class BanDoKhoBauService {
                         }
                     }
                     if (bdkb != null) {
-                        if (!Util.canDoWithTime(player.clan.timeOpenbdkb, TIME_WAIT_BDKB)) {
-                            Service.gI().sendThongBao(player, "Bang hội của bạn vừa đi bản đồ kho báu!Cần đợi " + TimeUtil.getTimeLeft(player.clan.timeOpenbdkb, (int) TIME_WAIT_BDKB) + " nữa để đi");
+                        if (!Util.canDoWithTime(player.clan.timeOpenbdkb, TIME_WAIT_BDKB) && !player.isAdmin()) {
+                            Service.gI().sendThongBao(player, "Bang hội của bạn vừa đi bản đồ kho báu!Cần đợi " + TimeUtil.getTimeLeft(player.clan.timeOpenbdkb, (int) TIME_WAIT_BDKB / 1000) + " nữa để đi");
                             return;
                         }
                         InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
@@ -242,21 +245,21 @@ public class BanDoKhoBauService {
     }
 
     public void clearAll() {
-        Iterator<BanDoKhoBau> iterator = BanDoKhoBau.BAN_DO_KHO_BAU.iterator();
-        while (iterator.hasNext()) {
-            BanDoKhoBau banDoKhoBau = iterator.next();
-            if (banDoKhoBau != null) {
-                if (banDoKhoBau.clan != null && (Util.canDoWithTime(banDoKhoBau.clan.timeOpenbdkb, BanDoKhoBau.TIME_KHI_BAN_DO_KHO_BAU)
-                        || banDoKhoBau.timeOutMap > 0)) {
-                    ketthucbdkb(banDoKhoBau.player);
-                }
-            }
-        }
-        //  init new
-        BanDoKhoBau.BAN_DO_KHO_BAU.clear();
-        for (int i = 0; i < BanDoKhoBau.MAX_AVAILABLE; i++) {
-            BanDoKhoBau.BAN_DO_KHO_BAU.add(new BanDoKhoBau(i));
-        }
-        Logger.log("Reset bản đồ kho báu thành công");
+//        Iterator<BanDoKhoBau> iterator = BanDoKhoBau.BAN_DO_KHO_BAU.iterator();
+//        while (iterator.hasNext()) {
+//            BanDoKhoBau banDoKhoBau = iterator.next();
+//            if (banDoKhoBau != null) {
+//                if (banDoKhoBau.clan != null && (Util.canDoWithTime(banDoKhoBau.clan.timeOpenbdkb, BanDoKhoBau.TIME_KHI_BAN_DO_KHO_BAU)
+//                        || banDoKhoBau.timeOutMap > 0)) {
+//                    ketthucbdkb(banDoKhoBau.player);
+//                }
+//            }
+//        }
+//        //  init new
+//        BanDoKhoBau.BAN_DO_KHO_BAU.clear();
+//        for (int i = 0; i < BanDoKhoBau.MAX_AVAILABLE; i++) {
+//            BanDoKhoBau.BAN_DO_KHO_BAU.add(new BanDoKhoBau(i));
+//        }
+//        Logger.log("Reset bản đồ kho báu thành công");
     }
 }

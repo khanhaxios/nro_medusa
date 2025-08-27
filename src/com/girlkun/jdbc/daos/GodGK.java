@@ -1428,7 +1428,10 @@ public class GodGK {
                         player.name = "[" + TuTien.CANH_GIOI[player.tuTien.level] + "]" + player.name;
                     } else if (player.tuMa.isTuMa()) {
                         int level = player.tuMa.level / 10;
-                        if (level <= TuMa.CANH_GIOI.length - 1) ;
+                        if (level > TuMa.CANH_GIOI.length - 1) {
+                            level = TuMa.CANH_GIOI.length - 1;
+                        }
+                        ;
                         player.name = "[" + TuMa.CANH_GIOI[level] + "]" + player.name;
                     }
                 } catch (Exception e) {

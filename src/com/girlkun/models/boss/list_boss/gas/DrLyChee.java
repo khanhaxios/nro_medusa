@@ -11,7 +11,6 @@ import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
-import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.ItemMapService;
 import com.girlkun.services.ItemService;
 import com.girlkun.services.Service;
@@ -36,15 +35,15 @@ public class DrLyChee extends Boss {
                 "DrLyChee", //name
                 ConstPlayer.TRAI_DAT, //gender
                 new short[]{1309, 1310, 1311, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-                ((100 + dame * level)), //dame
-                new double[]{((1000 + hp * level))}, //hp
+                ((1000000 * level)), //dame
+                new double[]{((1_000_000_000 * level))}, //hp
                 new int[]{148}, //map join
                 new int[][]{
                         {Skill.LIEN_HOAN, 7, 300},
                         {Skill.THOI_MIEN, 7, 30000},
                         {Skill.BIEN_KHI, 7, 150000},
                         {Skill.TROI, 7, 30000},
-                        {Skill.KAMEJOKO, 7, 1000},},
+                        {Skill.KAMEJOKO, 7, 5000},},
                 new String[]{}, //text chat 1
                 new String[]{"|-1|Nhóc con"}, //text chat 2
                 new String[]{}, //text chat 3
@@ -79,31 +78,6 @@ public class DrLyChee extends Boss {
         super.active();
     }
 
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
-        if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
-            damage = (int) this.nPoint.subDameInjureWithDeff(damage / 2);
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
-                }
-                damage = 1;
-            }
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            return damage;
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
     public void leaveMap() {
         super.leaveMap();
         BossManager.gI().removeBoss(this);

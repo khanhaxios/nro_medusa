@@ -4,9 +4,6 @@
 
 package com.girlkun.server;
 
-import com.girlkun.models.boss.BossManager;
-import com.girlkun.models.map.bdkb.BanDoKhoBauService;
-import com.girlkun.models.map.doanhtrai.DoanhTraiService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
@@ -65,9 +62,9 @@ public class AutoClear implements Runnable {
                 // Đủ thời gian thì clear + reset
                 if (Util.canDoWithTime(lastTimeClear, TIME_WAIT_CLEAR)) {
                     try {
-                        BanDoKhoBauService.gI().clearAll();
-                        DoanhTraiService.gI().clearAll();
-                        BossManager.gI().clearAll();
+//                        BanDoKhoBauService.gI().clearAll();
+//                        DoanhTraiService.gI().clearAll();
+//                        BossManager.gI().clearAll();
                         Logger.log("AutoClear: dọn dẹp thành công!");
                     } catch (Exception e) {
                         Logger.error(e.getMessage());

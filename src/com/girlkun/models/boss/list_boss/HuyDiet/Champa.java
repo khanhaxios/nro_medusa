@@ -11,7 +11,6 @@ import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Manager;
-import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
@@ -48,34 +47,6 @@ public class Champa extends Boss {
 
     }
 
-    @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
-        if (!this.isDie()) {
-            if (!a) {
-                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1)) {
-                    this.chat("Xí hụt");
-                    return 0;
-                }
-                damage = this.nPoint.subDameInjureWithDeff(damage);
-            }
-
-            if (!piercing && effectSkill.isShielding && a) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
-                }
-                damage = 1;
-            }
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            return damage;
-        } else {
-            return 0;
-        }
-    }
-
 
     @Override
     public void active() {
@@ -83,20 +54,9 @@ public class Champa extends Boss {
         if (this.typePk == ConstPlayer.NON_PK) {
             this.changeToTypePK();
         }
-//        this.huydiet();
+        this.huydiet();
         this.attack();
-//        super.active(); //To change body of generated methods, choose Tools | Templates.
-//        if (Util.canDoWithTime(st, 1000000)) {
-//            this.changeStatus(BossStatus.LEAVE_MAP);
     }
-
-
-//    @Override
-//    public void joinMap() {
-//        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-//        st = System.currentTimeMillis();
-//    }
-//    private long st;
 
     private void huydiet() {
         if (!Util.canDoWithTime(this.lasttimehakai, this.timehakai) || !Util.isTrue(1, 100)) {
@@ -118,7 +78,6 @@ public class Champa extends Boss {
         this.lasttimehakai = System.currentTimeMillis();
         this.timehakai = Util.nextInt(20000, 30000);
     }
-
 
 }
 

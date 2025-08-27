@@ -49,6 +49,11 @@ public class Gas {
         this.zones = new ArrayList<>();
     }
 
+    public Gas(int id, List<Zone> zones) {
+        this.id = id;
+        this.zones = zones;
+    }
+
 
     public void openKhiGas(Player plOpen, Clan clan, short level) {
         this.level = level;

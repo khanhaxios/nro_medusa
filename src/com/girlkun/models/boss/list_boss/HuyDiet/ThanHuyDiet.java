@@ -6,7 +6,6 @@ package com.girlkun.models.boss.list_boss.HuyDiet;
 
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.models.boss.Boss;
-import com.girlkun.models.boss.BossStatus;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.ItemMap;
@@ -48,46 +47,13 @@ public class ThanHuyDiet extends Boss {
     }
 
     @Override
-    public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean a) {
-        if (!this.isDie()) {
-            if (!a) {
-                if (!piercing && Util.isTrue(this.nPoint.tlNeDon - plAtt.nPoint.tlchinhxac, 1)) {
-                    this.chat("Xí hụt");
-                    return 0;
-                }
-            }
-            if (!a) {
-                damage = this.nPoint.subDameInjureWithDeff(damage);
-            }
-            if (!piercing && effectSkill.isShielding && !a) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
-                }
-                damage = 1;
-            }
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            return damage;
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
     public void active() {
 
         if (this.typePk == ConstPlayer.NON_PK) {
             this.changeToTypePK();
         }
-//        this.huydiet();
+        this.huydiet();
         this.attack();
-//        super.active(); //To change body of generated methods, choose Tools | Templates.
-        if (Util.canDoWithTime(st, 1000000)) {
-            this.changeStatus(BossStatus.LEAVE_MAP);
-        }
     }
 
     //    }
