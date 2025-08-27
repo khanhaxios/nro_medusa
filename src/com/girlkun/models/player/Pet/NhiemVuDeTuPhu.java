@@ -37,6 +37,6 @@ public class NhiemVuDeTuPhu {
         stringBuilder.append("|1|").append(mota.replaceAll("#", String.valueOf(totalCount))).append("\n");
         stringBuilder.append("|2|Tiến độ : ").append(currentCount).append("/").append(totalCount).append("\n");
         stringBuilder.append("|7|Trạng thái :").append(isDone ? "Hoàn thành" : "Chưa hoàn thành").append("\n");
-        npc.createOtherMenu(player, ConstNpc.IGNORE_MENU, stringBuilder.toString(), "Đóng");
+        npc.createOtherMenu(player, ConstNpc.MENHU_CT_NHIEM_VU, stringBuilder.toString(), "Giao Nhiệm\nVụ", "Đóng");
     }
 }

@@ -91,14 +91,14 @@ public class Huyet {
 
     public static class TinhHuyetEffect {
         public static int[][][] LEVEL_PARAM_TYPE = new int[][][]{
-                {{50, 50}, {75, 75}, {160, 160}},
+                {{30, 50}, {55, 75}, {120, 160}},
                 {{100, 100}, {150, 150}, {200, 200}},
                 {{20, 20}, {30, 30}, {40, 40}},
                 {{20, 20}, {30, 30}, {40, 40}},
                 {{10, 50}, {20, 75}, {30, 100}}
         };
         public static String[][] LEVEL_DESC_TYPE = new String[][]{
-                {"Tăng 50% DAME,50% STCM", "Tăng 75% DAME,75% STCM", "Tăng 160% DAME,160% STCM"},
+                {"Tăng 30% DAME,50% STCM", "Tăng 55% DAME,75% STCM", "Tăng 120% DAME,160% STCM"},
                 {"Tăng 100% HP,100% KI", "Tăng 150% HP,150% KI", "Tăng 200% HP,200% HP"},
                 {"Tăng 20% DAME SSS,20% DAME ÁNH SÁNG", "Tăng 30% DAME SSS,30% DAME ÁNH SÁNG", "Tăng 40% DAME SSS,50% DAME ÁNH SÁNG"},
                 {"Tăng 20% DAME SSS,20% DAME BÓNG TỐI", "Tăng 30% DAME SSS,20% DAME BÓNG TỐI", "Tăng 40% DAME SSS,20% DAME BÓNG TỐI"},
@@ -233,7 +233,7 @@ public class Huyet {
         slTinhHuyet += 1;
         // roll dong thuoc tinh
         rollDongThuocTinh();
-        calcMaxSlTinhHuyetcoTheNuot();
+        maxSlTinhHuyetCoTheNuot = calcMaxSlTinhHuyetcoTheNuot();
         restExp();
         resDoTinhKhiet();
         Service.gI().sendThongBaoOK(player, "Đột phá phẩm thành công");

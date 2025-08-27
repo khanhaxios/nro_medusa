@@ -504,6 +504,7 @@ public class ConstNpc {
     public static final int MENU_TT_NGU_HANH = -2913723;
     public static final int MENU_CHON_NV_DE_TU = -917238912;
     public static final int CONFIRM_BO_NV = -9821732;
+    public static final int MENHU_CT_NHIEM_VU = -2987122;
 }
 
 /**

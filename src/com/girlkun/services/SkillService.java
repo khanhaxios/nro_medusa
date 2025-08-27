@@ -1212,16 +1212,11 @@ public class SkillService {
 
         if (attLevel < targetLevel) {
             int levelDiff = targetLevel - attLevel;
-            dame -= dame * (90 * levelDiff) / 100;
+            dame -= dame * (50 * levelDiff) / 100;
         } else {
             int levelDiff = attLevel - targetLevel;
-            int subDiff = attSub - targetSub;
-
-            if (subDiff > 0) {
-                dame += dame * (10 * subDiff) / 100;
-            }
             if (levelDiff > 0) {
-                dame += dame * (30 * levelDiff) / 100;
+                dame += dame * (50 * levelDiff) / 100;
             }
         }
         return dame;
@@ -1273,23 +1268,13 @@ public class SkillService {
         }
         // handle for dame bosss
         boolean hasXaydaSkill = SkillUtil.containXaydaSkill(plAtt.playerSkill.skillSelect);
-        double damGoc = hasXaydaSkill ? plAtt.nPoint.getDameAttack(false) : subDameWithCanhGioi(plAtt, plInjure);
+        double damGoc = subDameWithCanhGioi(plAtt, plInjure);
         miss = neDon(plInjure, miss);
         double dameHit = 0;
         short paramOfLinhCan = 0;
         if (plAtt.fusion.typeFusion != ConstPlayer.NON_FUSION) {
-            if (plAtt.pet.type == ConstPet.FU && plAtt.khongThiSu.level > 3) {
-                if (Util.isTrue(1, 1000000)) {
-                    Service.gI().chat(plAtt, "Tử vong phán quyết");
-                    double dam = plInjure.injured(plAtt, plInjure.nPoint.hpMax * Math.max(1, plAtt.khongThiSu.level) / 100, false, false, true);
-                    sendMessagePlayerAttackPlayer(plAtt, plInjure, dam, (byte) 0);
-                }
-            }
-            if (plAtt.pet.type == ConstPet.THAN_LONG_TY_TY && plAtt.khongThiSu.level > 2) {
-                paramOfLinhCan += Math.max(10, plAtt.khongThiSu.level * 10);
-            }
-            if (plAtt.pet.type == ConstPet.ZENO && plAtt.khongThiSu.level > 2) {
-                hasXaydaSkill = true;
+            if (plAtt.khongThiSu.isKhongThi() && plAtt.khongThiSu.level > 3 && plAtt.pet != null && plAtt.pet.typePet == ConstPet.MABU) {
+                paramOfLinhCan += 15 * plAtt.khongThiSu.level;
             }
         }
 
@@ -1298,7 +1283,6 @@ public class SkillService {
         hutHPMP(plAtt, dameHit, false);
         hutLinhKhi(plAtt);
         sendMessagePlayerAttackPlayer(plAtt, plInjure, dameHit, (byte) 0);
-
 
         /// handle for linh can
         if (isLinhCan && plAtt.isPl() && plAtt.tuTien.isTuTien() && plAtt.tuTien.isAttackWithLinhCan) {

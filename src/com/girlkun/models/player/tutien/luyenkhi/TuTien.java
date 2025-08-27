@@ -228,8 +228,8 @@ public class TuTien extends BasePoint implements IBaseAction {
             addLinhKhi(linhKhiCanHoiPhuc);
             lastTimeHoiPhuc = System.currentTimeMillis();
             // send effect to server
-            PlayerService.gI().sendHoiPhucLinhKhi(player, linhKhiCanHoiPhuc);
-            PlayerService.gI().sendLinhKhiPoint(player);
+//            PlayerService.gI().sendHoiPhucLinhKhi(player, linhKhiCanHoiPhuc);
+//            PlayerService.gI().sendLinhKhiPoint(player);
         }
     }
 

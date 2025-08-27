@@ -7279,15 +7279,15 @@ public class NpcFactory {
         return new Npc(mapId, status, cx, cy, tempId, avatar) {
             @Override
             public void openBaseMenu(Player player) {
-//                if (canOpenNpc(player) && mapId == 14) {
-//                    StringBuilder menuText = new StringBuilder();
-//                    menuText.append("|7|Nhiệm Vụ Đệ Tử").append("\n");
-//                    menuText.append("|5|Bạn có thể nhận các loại nhiệm vụ đệ tử ở đây và sau khi hoàn thành").append("\n").append("|5|Bạn có thể nhận đệ tử rồi").append("\n");
-//                    menuText.append("|7|Lưu ý nếu bạn từ bỏ nhiệm vụ thì bạn sẽ phải làm lại từ đầu").append("\n");
-//                    menuText.append("|1|Bạn muốn?");
-//                    String[] selections = new String[]{"Nhiệm vụ\nhiện tại", "Nhận nhiệm\nvụ", "Từ bỏ\nnhiệm vụ"};
-//                    createOtherMenu(player, ConstNpc.BASE_MENU, menuText.toString(), selections);
-//                }
+                if (canOpenNpc(player) && mapId == 14) {
+                    StringBuilder menuText = new StringBuilder();
+                    menuText.append("|7|Nhiệm Vụ Đệ Tử").append("\n");
+                    menuText.append("|5|Bạn có thể nhận các loại nhiệm vụ đệ tử ở đây và sau khi hoàn thành").append("\n").append("|5|Bạn có thể nhận đệ tử rồi").append("\n");
+                    menuText.append("|7|Lưu ý nếu bạn từ bỏ nhiệm vụ thì bạn sẽ phải làm lại từ đầu").append("\n");
+                    menuText.append("|1|Bạn muốn?");
+                    String[] selections = new String[]{"Nhiệm vụ\nhiện tại", "Nhận nhiệm\nvụ", "Từ bỏ\nnhiệm vụ"};
+                    createOtherMenu(player, ConstNpc.BASE_MENU, menuText.toString(), selections);
+                }
             }
 
             @Override
@@ -7332,6 +7332,26 @@ public class NpcFactory {
                             player.nhiemVuDeTu.init(PetTaskType.MABU.getTaskKey());
                             Service.gI().sendThongBao(player, "Bạn đã nhận nhiệm vụ đệ Ma Nhân Bư");
                             break;
+                    }
+                } else if (player.iDMark.getIndexMenu() == ConstNpc.MENHU_CT_NHIEM_VU) {
+                    if (select == 0) {
+                        if (!player.nhiemVuDeTu.getCurrentTask().isDone) {
+                            Service.gI().sendThongBao(player, "Bạn cần hoàn thành nhiệm vụ giai đoạn này");
+                            return;
+                        }
+                        player.nhiemVuDeTu.sendNextTask();
+                        Service.gI().sendThongBao(player, "Giao nhiệm vụ thành công");
+                        if (player.nhiemVuDeTu.isDone()) {
+                            // cho de tu
+                            switch (player.nhiemVuDeTu.type) {
+                                case 0:
+                                    // mabu
+                                    PetService.gI().createPet(player, ConstPet.MABU, player.pet.nPoint.limitPower, (byte) Util.nextInt(0, 2));
+                                    Service.gI().sendThongBao(player, "Bạn đã nhận được đệ tử Ma Nhân Bư");
+                                    break;
+                            }
+                            player.nhiemVuDeTu.dispose();
+                        }
                     }
                 }
             }
