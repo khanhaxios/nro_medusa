@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services.func;
 
 import com.girlkun.database.GirlkunDB;
@@ -33,7 +37,7 @@ public class TopService implements Runnable {
     private static TopService i;
 
     private long lastTimeGetTopPower;
-    private List<Player> listTopPower;
+    private final List<Player> listTopPower;
 
     private TopService() {
         this.listTopPower = new ArrayList<>();
@@ -47,7 +51,7 @@ public class TopService implements Runnable {
     }
 
     public static String getTopNap() {
-        StringBuffer sb = new StringBuffer("");
+        String sb = "";
 
         String SELECT_TOP_POWER = "SELECT name, vnd FROM player ORDER BY vnd DESC LIMIT 20;";
         PreparedStatement ps;
@@ -68,7 +72,7 @@ public class TopService implements Runnable {
             System.out.println("12345");
         }
 
-        return sb.toString();
+        return sb;
     }
 
     public void showTopPower(Player player) {

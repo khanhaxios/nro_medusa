@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tuma;
 
 import com.girlkun.consts.ConstNpc;
@@ -300,17 +304,16 @@ public class CongPhapTuMa {
     }
 
     public void showCOngChiSoMenu() {
-        StringBuilder text = new StringBuilder();
-        text.append("|7|❖════ THÔNG TIN CÔNG PHÁP ════❖\n");
-        text.append("|5|").append(getTenCongPhap()).append("\n");
-        text.append("|5|➤ Dame Buff : ").append(Util.powerToString(dameBuff)).append("\n");
-        text.append("|5|➤ HP Buff   : ").append(Util.powerToString(hpBuff)).append("\n");
-        text.append("|5|➤ MP Buff   : ").append(mpBuff).append("\n");
-        text.append("|1|✦ Chú Ma     : ").append(tyLeLinhNgo).append("% / ").append(getBaseDiemLinhNgoMax()).append("%\n");
-        text.append("|7|✪ Phẩm cấp càng cao, giới hạn buff càng lớn!");
-        text.append("\n|7|❖══════════════════════════════❖");
+        String text = "|7|❖════ THÔNG TIN CÔNG PHÁP ════❖\n" +
+                "|5|" + getTenCongPhap() + "\n" +
+                "|5|➤ Dame Buff : " + Util.powerToString(dameBuff) + "\n" +
+                "|5|➤ HP Buff   : " + Util.powerToString(hpBuff) + "\n" +
+                "|5|➤ MP Buff   : " + mpBuff + "\n" +
+                "|1|✦ Chú Ma     : " + tyLeLinhNgo + "% / " + getBaseDiemLinhNgoMax() + "%\n" +
+                "|7|✪ Phẩm cấp càng cao, giới hạn buff càng lớn!" +
+                "\n|7|❖══════════════════════════════❖";
 
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONG_CHI_SO, -1, text.toString(), "Cộng\nChỉ Số", "Auto\nCộng CS");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONG_CHI_SO, -1, text, "Cộng\nChỉ Số", "Auto\nCộng CS");
     }
 
     public void calcPoint() {
@@ -404,30 +407,23 @@ public class CongPhapTuMa {
     }
 
     public void showMenuChuMa() {
-        StringBuilder text = new StringBuilder();
 
-        text.append("|7|❖═════ CHÚ MA ═════❖\n");
+        String text = "|7|❖═════ CHÚ MA ═════❖\n" +
+                "|5|➤ Chú ma giúp tăng tỷ lệ lĩnh ngộ công pháp.\n" +
+                "|5|➤ Mỗi lần chú, điểm lĩnh ngộ tăng theo giới hạn phẩm cấp.\n" +
+                "|7|✦ Tiến độ: [" + tyLeLinhNgo + "% / +" + getBaseDiemLinhNgoMax() + "%]\n" +
+                "|7|❖══════════════════❖";
 
-        text.append("|5|➤ Chú ma giúp tăng tỷ lệ lĩnh ngộ công pháp.\n");
-        text.append("|5|➤ Mỗi lần chú, điểm lĩnh ngộ tăng theo giới hạn phẩm cấp.\n");
-
-        text.append("|7|✦ Tiến độ: [").append(tyLeLinhNgo).append("% / +").append(getBaseDiemLinhNgoMax()).append("%]\n");
-
-        text.append("|7|❖══════════════════❖");
-
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHU_MA, -1, text.toString(), "1 lần", "10 lần", "100 lần", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHU_MA, -1, text, "1 lần", "10 lần", "100 lần", "Đóng");
     }
 
     public void showMemuLinhNgo() {
-        StringBuilder text = new StringBuilder();
 
-        text.append("|7|❖════ LĨNH NGỘ CÔNG PHÁP ════❖\n");
-
-        text.append("|5|➤ Khi Chú Ma đạt giới hạn, bạn có thể lĩnh ngộ công pháp.\n");
-        text.append("|7|✦ Chú Ma hiện tại: ").append("[").append(tyLeLinhNgo).append("%]\n");
-
-        text.append("|7|❖═══════════════════════════❖");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LINH_NGO_TU_MA, -1, text.toString(), "Lĩnh ngộ", "Đóng");
+        String text = "|7|❖════ LĨNH NGỘ CÔNG PHÁP ════❖\n" +
+                "|5|➤ Khi Chú Ma đạt giới hạn, bạn có thể lĩnh ngộ công pháp.\n" +
+                "|7|✦ Chú Ma hiện tại: " + "[" + tyLeLinhNgo + "%]\n" +
+                "|7|❖═══════════════════════════❖";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LINH_NGO_TU_MA, -1, text, "Lĩnh ngộ", "Đóng");
     }
 
     public void toggleAutoCs(int select) {
@@ -489,16 +485,13 @@ public class CongPhapTuMa {
     }
 
     public void showThongTinHuyetDan() {
-        StringBuilder text = new StringBuilder();
 
-        text.append("|7|❖════ THÔNG TIN HUYẾT ĐAN ════❖\n");
+        String text = "|7|❖════ THÔNG TIN HUYẾT ĐAN ════❖\n" +
+                "|5|➤ Dame Buff : " + totalBuffDameHuyetDan + "\n" +
+                "|5|➤ HP Buff   : " + totalBuffHpHuyetDan + "\n" +
+                "|5|➤ MP Buff   : " + totalBuffMpHuyetDan + "\n" +
+                "|7|❖════════════════════════════❖";
 
-        text.append("|5|➤ Dame Buff : ").append(totalBuffDameHuyetDan).append("\n");
-        text.append("|5|➤ HP Buff   : ").append(totalBuffHpHuyetDan).append("\n");
-        text.append("|5|➤ MP Buff   : ").append(totalBuffMpHuyetDan).append("\n");
-
-        text.append("|7|❖════════════════════════════❖");
-
-        NpcService.gI().createMenuConMeo(player, ConstNpc.IGNORE_MENU, -1, text.toString(), "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.IGNORE_MENU, -1, text, "Đóng");
     }
 }

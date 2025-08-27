@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -20,7 +24,7 @@ import com.girlkun.services.TaskService;
 import com.girlkun.utils.Util;
 
 /**
- * @@Stole By Hoàng Việt
+ * @
  */
 public class BossNOEL extends Boss {
 
@@ -38,7 +42,6 @@ public class BossNOEL extends Boss {
         int randomNR = new Random().nextInt(NRs.length);
         if (Util.isTrue(90, 100)) {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
-            return;
         } else {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, NRs[randomNR], 10, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.Pet;
 
 import com.girlkun.consts.ConstNpc;
@@ -31,12 +35,11 @@ public class NhiemVuDeTuPhu {
     }
 
     public void showBaseMenu(Player player, Npc npc) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|Nhiệm Vụ Hiện Tại").append("\n");
-        stringBuilder.append("|5|").append(tenNhiemVu).append("\n");
-        stringBuilder.append("|1|").append(mota.replaceAll("#", String.valueOf(totalCount))).append("\n");
-        stringBuilder.append("|2|Tiến độ : ").append(currentCount).append("/").append(totalCount).append("\n");
-        stringBuilder.append("|7|Trạng thái :").append(isDone ? "Hoàn thành" : "Chưa hoàn thành").append("\n");
-        npc.createOtherMenu(player, ConstNpc.MENHU_CT_NHIEM_VU, stringBuilder.toString(), "Giao Nhiệm\nVụ", "Đóng");
+        String stringBuilder = "|7|Nhiệm Vụ Hiện Tại" + "\n" +
+                "|5|" + tenNhiemVu + "\n" +
+                "|1|" + mota.replaceAll("#", String.valueOf(totalCount)) + "\n" +
+                "|2|Tiến độ : " + currentCount + "/" + totalCount + "\n" +
+                "|7|Trạng thái :" + (isDone ? "Hoàn thành" : "Chưa hoàn thành") + "\n";
+        npc.createOtherMenu(player, ConstNpc.MENHU_CT_NHIEM_VU, stringBuilder, "Giao Nhiệm\nVụ", "Đóng");
     }
 }

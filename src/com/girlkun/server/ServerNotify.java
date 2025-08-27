@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.server;
 
 import com.girlkun.models.player.Player;
@@ -10,7 +14,7 @@ import java.util.List;
 
 public class ServerNotify extends Thread {
 
-    private byte[] gk = new byte[]{67, 104, -61, -96, 111, 32, 109, -31, -69, -85,
+    private final byte[] gk = new byte[]{67, 104, -61, -96, 111, 32, 109, -31, -69, -85,
         110, 103, 32, 98, -31, -70, -95, 110, 32, -60, -111, -61, -93, 32, 116, -31,
         -69, -101, 105, 32, 118, -31, -69, -101, 105, 32, 109, -61, -95, 121, 32,
         99, 104, -31, -69, -89, 32, 71, 105, 114, 108, 107, 117, 110, 55, 53, 46,

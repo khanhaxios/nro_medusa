@@ -1,10 +1,8 @@
-package com.girlkun.models.player;
-
-/**
- *
- * @author ❤Girlkun75❤
- * @copyright ❤Trần Lại❤
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
  */
+
+package com.girlkun.models.player;
 
 public class CPoint {
     

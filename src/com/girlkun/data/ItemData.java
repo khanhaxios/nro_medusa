@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.data;
 
 import com.girlkun.models.Template.ItemOptionTemplate;
@@ -13,11 +17,11 @@ public class ItemData {
 
     public static List<Integer> list_thuc_an = Arrays.asList(663, 664, 665, 666, 667);
     public static List<Integer> list_dapdo = Arrays.asList(1107, 1140, 1196, 1197, 1198, 1221, 1222, 1223, 1133, 1180, 1181, 1229, 1230, 1326);
-    public static List<Integer> phieu = Arrays.asList(459);
+    public static List<Integer> phieu = List.of(459);
 
     //------------------------------------------------------ start update client
     public static void updateItem(MySession session) {
-        System.out.printf("update item template");
+        System.out.print("update item template");
         updateItemOptionItemplate(session);
         int count = 925;
         updateItemTemplate(session, count);

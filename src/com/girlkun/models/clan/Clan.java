@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.clan;
 
 import com.girlkun.database.GirlkunDB;
@@ -287,7 +291,7 @@ public class Clan {
         }
         String member = dataArray.toJSONString();
         PreparedStatement ps = null;
-        try (Connection con = GirlkunDB.getConnection();) {
+        try (Connection con = GirlkunDB.getConnection()) {
             ps = con.prepareStatement("insert into clan_sv" + Manager.SERVER
                     + "(id, name, slogan, img_id, power_point, max_member, clan_point, level, members, doanh_trai) "
                     + "values (?,?,?,?,?,?,?,?,?,?)");
@@ -336,7 +340,7 @@ public class Clan {
         }
         String member = dataArray.toJSONString();
         PreparedStatement ps = null;
-        try (Connection con = GirlkunDB.getConnection();) {
+        try (Connection con = GirlkunDB.getConnection()) {
             ps = con.prepareStatement("update clan_sv" + Manager.SERVER
                     + " set slogan = ?, img_id = ?, power_point = ?, max_member = ?, clan_point = ?, "
                     + "level = ?, members = ? where id = ? limit 1");
@@ -363,7 +367,7 @@ public class Clan {
 
     public void deleteDB(int id) {
         PreparedStatement ps;
-        try (Connection con = GirlkunDB.getConnection();) {
+        try (Connection con = GirlkunDB.getConnection()) {
             ps = con.prepareStatement("delete from clan_sv" + Manager.SERVER + " where id = ?");
             ps.setInt(1, id);
             ps.executeUpdate();

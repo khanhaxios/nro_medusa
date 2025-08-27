@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.utils;
 
 import java.awt.Graphics2D;
@@ -138,7 +142,7 @@ public class ImageUtil {
             BufferedImage[] frames = new BufferedImage[nFrame];
             for (int i = 0; i < nFrame; i++) {
                 BufferedImage frame = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_ARGB);
-                Graphics2D g = (Graphics2D) frame.createGraphics();
+                Graphics2D g = frame.createGraphics();
                 int nSubImage = dis.readByte();
                 for (int j = 0; j < nSubImage; j++) {
                     int dx = dis.readShort() * zoomLevel;
@@ -201,7 +205,7 @@ public class ImageUtil {
             BufferedImage[] frames = new BufferedImage[nFrame];
             for (int i = 0; i < nFrame; i++) {
                 BufferedImage frame = new BufferedImage(400, 400, BufferedImage.TYPE_INT_ARGB);
-                Graphics2D g = (Graphics2D) frame.createGraphics();
+                Graphics2D g = frame.createGraphics();
                 int nSubImage = dis.readByte();
                 for (int j = 0; j < nSubImage; j++) {
                     int dx = dis.readShort() * zoomLevel;
@@ -366,6 +370,4 @@ public class ImageUtil {
 
 }
 
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức.
- */
+

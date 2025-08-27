@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.boss.list_boss.doanh_trai;
 
 import com.girlkun.consts.ConstPlayer;
@@ -21,10 +25,10 @@ import com.girlkun.utils.Util;
 
 public class NinjaClone extends Boss {
   
-    private long lastUpdate = System.currentTimeMillis();
+    private final long lastUpdate = System.currentTimeMillis();
     private long timeJoinMap;
     protected Player playerAtt;
-    private int timeLive = 200000000;
+    private final int timeLive = 200000000;
     public NinjaClone(Zone zone , int dame, int hp,int id) throws Exception {
         super(id, new BossData(
                 "Ninja Áo Tím", //name
@@ -61,7 +65,7 @@ public class NinjaClone extends Boss {
     @Override
     public void leaveMap() {
         super.leaveMap();
-        if (Util.canDoWithTime(st, 1800000) || this.isDie() == true) {
+        if (Util.canDoWithTime(st, 1800000) || this.isDie()) {
             this.changeStatus(BossStatus.LEAVE_MAP);
             BossManager.gI().removeBoss(this);
         }

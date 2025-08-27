@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.sangiaodich.danduoc;
 
 import com.girlkun.consts.ConstNpc;
@@ -24,11 +28,10 @@ public class SanGiaoDichDanDuoc implements Runnable {
 
     public void showBaseMenu(Player player) {
         List<Transaction> playerTransaction = getListTransactionByPlayer(player);
-        StringBuilder menuText = new StringBuilder();
-        menuText.append("|7|Sàn Giao Dịch Đan Dược").append("\n");
-        menuText.append(getListTransactionInfo(playerTransaction));
+        String menuText = "|7|Sàn Giao Dịch Đan Dược" + "\n" +
+                getListTransactionInfo(playerTransaction);
         String[] options = new String[]{"Mở Giao\nDịch", "Hủy Giao\nDịch", "Chi Tiết\nGiao Dịch"};
-        NpcService.gI().createMenuConMeo(player, ConstNpc.BASE_MENU_GD, -1, menuText.toString(), options);
+        NpcService.gI().createMenuConMeo(player, ConstNpc.BASE_MENU_GD, -1, menuText, options);
     }
 
     private String getListTransactionInfo(List<Transaction> playerTransaction) {
@@ -86,6 +89,7 @@ public class SanGiaoDichDanDuoc implements Runnable {
         for (Transaction transaction : transactions) {
             if (Objects.equals(transaction.code, maGiaoDich)) {
                 canUse = false;
+                break;
             }
         }
         return canUse;

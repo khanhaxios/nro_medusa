@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services;
 
 import com.girlkun.consts.ConstPlayer;
@@ -572,10 +576,7 @@ public class SkillService {
         if (playerTarget.tuTien.isTuTien() && playerTarget.tuTien.linhCan.getLinhCanType() == 0 && playerTarget.nPoint.getCurrPercentHP() <= 30) {
             return false;
         }
-        if (playerTarget.tuTien.isTuTien() && playerTarget.tuTien.linhCan.getLinhCanType() == 2 && playerTarget.nPoint.getCurrPercentHP() <= 70) {
-            return false;
-        }
-        return true;
+        return !playerTarget.tuTien.isTuTien() || playerTarget.tuTien.linhCan.getLinhCanType() != 2 || !(playerTarget.nPoint.getCurrPercentHP() <= 70);
     }
 
     private void useSkillAttack(Player player, Player plTarget, Mob mobTarget) {
@@ -990,60 +991,58 @@ public class SkillService {
     }
 
     public void useSkillBuffToPlayer(Player player, Player plTarget) {
-        switch (player.playerSkill.skillSelect.template.id) {
-            case Skill.TRI_THUONG:
-                List<Player> playersMap = null;
-                playersMap = player.zone.getNotBosses();
-                Message msg = null;
-                Player plTriThuong = null;
-                for (Player pl : playersMap) {
-                    if (pl != null && pl.zone.zoneId == player.zone.zoneId && !pl.isNewPet && !pl.isBoss && !plTarget.isBoss && !plTarget.isNewPet && canHsPlayer(player, plTarget)) {
-                        if (player.playerSkill.skillSelect.point > 1) {
-                            plTriThuong = pl;
-                        } else if (player.playerSkill.skillSelect.point == 1) {
-                            plTriThuong = plTarget;
-                        }
-                        if (plTriThuong != null) {
-                            int percentTriThuong = SkillUtil.getPercentTriThuong(player.playerSkill.skillSelect.point);
-                            Service.gI().chat(plTriThuong, "Cảm ơn " + player.name + " đã cứu mình");
-                            try {
-                                msg = new Message(-60);
-                                msg.writer().writeInt((int) player.id); //id pem
-                                msg.writer().writeByte(player.playerSkill.skillSelect.skillId); //skill pem
-                                msg.writer().writeByte(1); //số người pem
-                                msg.writer().writeInt((int) plTriThuong.id); //id ăn pem
-                                msg.writer().writeByte(0); //read continue
-                                msg.writer().writeByte(player.playerSkill.skillSelect.template.type); //type skill
-                                Service.gI().sendMessAllPlayerInMap(plTriThuong.zone, msg);
-                                msg.cleanup();
-                                boolean isDie = plTriThuong.isDie();
-                                player.nPoint.addHp((player.nPoint.hpMax * percentTriThuong / 100));
-                                plTriThuong.nPoint.addHp((plTriThuong.nPoint.hpMax * percentTriThuong / 100));
-                                plTriThuong.nPoint.addMp((plTriThuong.nPoint.mpMax * percentTriThuong / 100));
-                                if (isDie) {
-                                    Service.gI().Send_Info_NV(player);
-                                    Service.gI().hsChar(plTriThuong, plTriThuong.nPoint.getHP(), plTriThuong.nPoint.getMP());
-                                    PlayerService.gI().sendInfoHpMpMoney(plTriThuong);
-                                    PlayerService.gI().sendInfoHpMp(player);
-                                } else {
-                                    Service.gI().Send_Info_NV(player);
-                                    PlayerService.gI().sendInfoHpMpMoney(plTriThuong);
-                                    PlayerService.gI().sendInfoHpMp(player);
-                                }
-                                Service.gI().Send_Info_NV(plTriThuong);
-                            } catch (IOException e) {
-                                //                            e.printStackTrace();
+        if (player.playerSkill.skillSelect.template.id == Skill.TRI_THUONG) {
+            List<Player> playersMap = null;
+            playersMap = player.zone.getNotBosses();
+            Message msg = null;
+            Player plTriThuong = null;
+            for (Player pl : playersMap) {
+                if (pl != null && pl.zone.zoneId == player.zone.zoneId && !pl.isNewPet && !pl.isBoss && !plTarget.isBoss && !plTarget.isNewPet && canHsPlayer(player, plTarget)) {
+                    if (player.playerSkill.skillSelect.point > 1) {
+                        plTriThuong = pl;
+                    } else if (player.playerSkill.skillSelect.point == 1) {
+                        plTriThuong = plTarget;
+                    }
+                    if (plTriThuong != null) {
+                        int percentTriThuong = SkillUtil.getPercentTriThuong(player.playerSkill.skillSelect.point);
+                        Service.gI().chat(plTriThuong, "Cảm ơn " + player.name + " đã cứu mình");
+                        try {
+                            msg = new Message(-60);
+                            msg.writer().writeInt((int) player.id); //id pem
+                            msg.writer().writeByte(player.playerSkill.skillSelect.skillId); //skill pem
+                            msg.writer().writeByte(1); //số người pem
+                            msg.writer().writeInt((int) plTriThuong.id); //id ăn pem
+                            msg.writer().writeByte(0); //read continue
+                            msg.writer().writeByte(player.playerSkill.skillSelect.template.type); //type skill
+                            Service.gI().sendMessAllPlayerInMap(plTriThuong.zone, msg);
+                            msg.cleanup();
+                            boolean isDie = plTriThuong.isDie();
+                            player.nPoint.addHp((player.nPoint.hpMax * percentTriThuong / 100));
+                            plTriThuong.nPoint.addHp((plTriThuong.nPoint.hpMax * percentTriThuong / 100));
+                            plTriThuong.nPoint.addMp((plTriThuong.nPoint.mpMax * percentTriThuong / 100));
+                            if (isDie) {
+                                Service.gI().Send_Info_NV(player);
+                                Service.gI().hsChar(plTriThuong, plTriThuong.nPoint.getHP(), plTriThuong.nPoint.getMP());
+                                PlayerService.gI().sendInfoHpMpMoney(plTriThuong);
+                                PlayerService.gI().sendInfoHpMp(player);
+                            } else {
+                                Service.gI().Send_Info_NV(player);
+                                PlayerService.gI().sendInfoHpMpMoney(plTriThuong);
+                                PlayerService.gI().sendInfoHpMp(player);
                             }
+                            Service.gI().Send_Info_NV(plTriThuong);
+                        } catch (IOException e) {
+                            //                            e.printStackTrace();
                         }
                     }
                 }
-                if (player.isPl()) {
-                    player.achievement.plusCount(14);
-                }
+            }
+            if (player.isPl()) {
+                player.achievement.plusCount(14);
+            }
 
-                affterUseSkill(player, player.playerSkill.skillSelect.template.id);
-                playersMap = null;
-                break;
+            affterUseSkill(player, player.playerSkill.skillSelect.template.id);
+            playersMap = null;
         }
     }
 
@@ -1677,7 +1676,7 @@ public class SkillService {
                 dameHit += (dameHit * 150 / 100);
             }
             if (plAtt.isPet) {
-                if (((Pet) plAtt).charms.tdDeTu > System.currentTimeMillis()) {
+                if (plAtt.charms.tdDeTu > System.currentTimeMillis()) {
                     dameHit *= 2;
                 }
             }
@@ -1834,24 +1833,12 @@ public class SkillService {
             }
             switch (player.playerSkill.skillSelect.template.manaUseType) {
                 case 0:
-                    if (player.nPoint.mp >= player.playerSkill.skillSelect.manaUse) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return player.nPoint.mp >= player.playerSkill.skillSelect.manaUse;
                 case 1:
                     double mpUse = player.nPoint.mpMax * player.playerSkill.skillSelect.manaUse / 100;
-                    if (player.nPoint.mp >= mpUse) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return player.nPoint.mp >= mpUse;
                 case 2:
-                    if (player.nPoint.mp > 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return player.nPoint.mp > 0;
                 default:
                     return false;
             }
@@ -1978,7 +1965,7 @@ public class SkillService {
                 break;
         }
         int coolDown = player.playerSkill.skillSelect.coolDown;
-        player.playerSkill.skillSelect.lastTimeUseThisSkill = System.currentTimeMillis() - (coolDown * subTimeParam / 100);
+        player.playerSkill.skillSelect.lastTimeUseThisSkill = System.currentTimeMillis() - ((long) coolDown * subTimeParam / 100);
         if (subTimeParam != 0) {
             Service.getInstance().sendTimeSkill(player);
         }
@@ -1998,13 +1985,8 @@ public class SkillService {
             return false;
         }
         if (player.cFlag != 0) {
-            if (plTarget.cFlag != 0 && plTarget.cFlag != player.cFlag) {
-                return false;
-            }
-        } else if (plTarget.cFlag != 0) {
-            return false;
-        }
-        return true;
+            return plTarget.cFlag == 0 || plTarget.cFlag == player.cFlag;
+        } else return plTarget.cFlag == 0;
     }
 
     private boolean canAttackPlayer(Player p1, Player p2) {
@@ -2027,10 +2009,7 @@ public class SkillService {
         if (p1.pvp == null || p2.pvp == null) {
             return false;
         }
-        if (p1.pvp.isInPVP(p2) || p2.pvp.isInPVP(p1)) {
-            return true;
-        }
-        return false;
+        return p1.pvp.isInPVP(p2) || p2.pvp.isInPVP(p1);
     }
 
     private void sendPlayerAttackMob(Player plAtt, Mob mob) {
@@ -2082,7 +2061,4 @@ public class SkillService {
     }
 }
 
-/**
- * Code được viết bởi HOÀNG VIỆT Vui lòng không sao chép mã nguồn này dưới mọi
- * hình thức.
- */
+

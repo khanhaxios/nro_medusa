@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.boss.list_boss.phoban;
 
 import com.girlkun.consts.ConstPlayer;
@@ -21,7 +25,7 @@ import com.girlkun.utils.Util;
  */
 public class TrungUyXanhLoBdkb extends Boss {
 
-    private int levell;
+    private final int levell;
     protected Player playerAtt;
 
     public TrungUyXanhLoBdkb(Zone zone, int level, double dame, double hp, int id) throws Exception {
@@ -30,7 +34,7 @@ public class TrungUyXanhLoBdkb extends Boss {
                 ConstPlayer.TRAI_DAT, //gender
                 new short[]{135, 136, 137, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
                 ((long) ((10000L + dame) * level)), //dame
-                new double[]{((double) ((hp) * level))}, //hp
+                new double[]{(hp) * level}, //hp
                 new int[]{137}, //map join
                 new int[][]{
                         {Skill.LIEN_HOAN, 7, 300},

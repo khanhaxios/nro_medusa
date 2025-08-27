@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services;
 
 import com.girlkun.consts.ConstNpc;
@@ -138,7 +142,7 @@ public class FriendAndEnemyService {
                 msg.writer().writeShort(f.leg);
                 msg.writer().writeByte(f.bag);
                 msg.writer().writeUTF(f.name);
-                msg.writer().writeBoolean(Client.gI().getPlayer((int) f.id) != null);
+                msg.writer().writeBoolean(Client.gI().getPlayer(f.id) != null);
                 msg.writer().writeUTF(Util.numberToMoney(f.power));
             }
             player.sendMessage(msg);
@@ -164,7 +168,7 @@ public class FriendAndEnemyService {
                 msg.writer().writeShort(e.bag);
                 msg.writer().writeUTF(e.name);
                 msg.writer().writeUTF(Util.numberToMoney(e.power));
-                msg.writer().writeBoolean(Client.gI().getPlayer((int) e.id) != null);
+                msg.writer().writeBoolean(Client.gI().getPlayer(e.id) != null);
             }
             player.sendMessage(msg);
             msg.cleanup();
@@ -205,7 +209,7 @@ public class FriendAndEnemyService {
                 try {
                     msg = new Message(-80);
                     msg.writer().writeByte(REMOVE_FRIEND);
-                    msg.writer().writeInt((int) player.friends.get(i).id);
+                    msg.writer().writeInt(player.friends.get(i).id);
                     player.sendMessage(msg);
                     msg.cleanup();
                 } catch (Exception e) {
@@ -281,7 +285,7 @@ public class FriendAndEnemyService {
                             && !MapService.gI().isMapKhiGas(pl.zone.map.mapId)
                             && !MapService.gI().isMapTienMon(pl.zone.map.mapId)
                             && !MapService.gI().isMapNguHanhSon(pl.zone.map.mapId)
-                            && pl.zone.map.mapId != 155 && player.haveBeQuynh == false) {
+                            && pl.zone.map.mapId != 155 && !player.haveBeQuynh) {
                         if ((player.isAdmin() || !pl.zone.isFullPlayer())
                                 && !MapService.gI().isMapDoanhTrai(pl.zone.map.mapId) && !MapService.gI().isMapMaBu(pl.zone.map.mapId)
                                 && !MapService.gI().isMapKhiGas(pl.zone.map.mapId)) {
@@ -306,6 +310,7 @@ public class FriendAndEnemyService {
         for (Enemy ene : player.enemies) {
             if (ene.id == ene.id) {
                 hadEnemy = true;
+                break;
             }
         }
         if (!hadEnemy) {

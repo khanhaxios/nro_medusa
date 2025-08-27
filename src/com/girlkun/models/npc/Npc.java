@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.npc;
 
 import com.girlkun.consts.ConstNpc;
@@ -144,7 +148,7 @@ public abstract class Npc implements IAtionNpc {
             return true;
         }
         if (player.soluongmuanhieu == 0) {
-            if (player.haveBeQuynh == false) {
+            if (!player.haveBeQuynh) {
                 if (this.tempId == ConstNpc.DAU_THAN) {
                     if (player.zone.map.mapId == 21
                             || player.zone.map.mapId == 22

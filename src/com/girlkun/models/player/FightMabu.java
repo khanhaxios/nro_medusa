@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player;
 
 import com.girlkun.services.MapService;
@@ -7,7 +11,7 @@ public class FightMabu {
     public final byte POINT_MAX = 20;
 
     public int pointMabu = 0;
-    private Player player;
+    private final Player player;
 
     public FightMabu(Player player){
         this.player = player;

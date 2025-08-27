@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.item;
 
 import com.girlkun.models.Template;
@@ -84,7 +88,7 @@ public class Item {
 
     public static class ItemOption {
 
-        private static Map<String, String> OPTION_STRING = new HashMap<String, String>();
+        private static final Map<String, String> OPTION_STRING = new HashMap<String, String>();
 
         public int param;
 
@@ -141,17 +145,11 @@ public class Item {
     }
 
     public boolean isDTS() {
-        if (this.template.id >= 1048 && this.template.id <= 1062) {
-            return true;
-        }
-        return false;
+        return this.template.id >= 1048 && this.template.id <= 1062;
     }
 
     public boolean isDTL() {
-        if (this.template.id >= 555 && this.template.id <= 567) {
-            return true;
-        }
-        return false;
+        return this.template.id >= 555 && this.template.id <= 567;
     }
 
     public boolean isDJiren() {
@@ -163,45 +161,27 @@ public class Item {
     }
 
     public boolean isThanhTon() {
-        if (this.template.id >= 1431 && this.template.id <= 1435) {
-            return true;
-        }
-        return false;
+        return this.template.id >= 1431 && this.template.id <= 1435;
     }
 
     public boolean isNguyenThuy() {
-        if (this.template.id >= 1450 && this.template.id <= 1454) {
-            return true;
-        }
-        return false;
+        return this.template.id >= 1450 && this.template.id <= 1454;
     }
 
     public boolean isThongKho() {
-        if (this.template.id >= 1482 && this.template.id <= 1486) {
-            return true;
-        }
-        return false;
+        return this.template.id >= 1482 && this.template.id <= 1486;
     }
 
     public boolean isCongThuc() {
-        if (this.template.id >= 1071 && this.template.id <= 1073) {
-            return true;
-        }
-        return false;
+        return this.template.id >= 1071 && this.template.id <= 1073;
     }
 
     public boolean isDHD() {
-        if (this.template.id >= 650 && this.template.id <= 662) {
-            return true;
-        }
-        return false;
+        return this.template.id >= 650 && this.template.id <= 662;
     }
 
     public boolean isManhTS() {
-        if (this.template.id >= 1066 && this.template.id <= 1070) {
-            return true;
-        }
-        return false;
+        return this.template.id >= 1066 && this.template.id <= 1070;
     }
 
     public boolean haveOption(int idOption) {

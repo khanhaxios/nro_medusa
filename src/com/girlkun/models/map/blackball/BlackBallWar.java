@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.map.blackball;
 
 import com.girlkun.models.item.Item;
@@ -81,9 +85,9 @@ public class BlackBallWar {
         if (i.day == -1 || i.day != TimeUtil.getCurrDay()) {
             i.day = TimeUtil.getCurrDay();
             try {
-                this.TIME_OPEN = TimeUtil.getTime(TimeUtil.getTimeNow("dd/MM/yyyy") + " " + HOUR_OPEN + ":" + MIN_OPEN + ":" + SECOND_OPEN, "dd/MM/yyyy HH:mm:ss");
-                this.TIME_CAN_PICK_DB = TimeUtil.getTime(TimeUtil.getTimeNow("dd/MM/yyyy") + " " + HOUR_CAN_PICK_DB + ":" + MIN_CAN_PICK_DB + ":" + SECOND_CAN_PICK_DB, "dd/MM/yyyy HH:mm:ss");
-                this.TIME_CLOSE = TimeUtil.getTime(TimeUtil.getTimeNow("dd/MM/yyyy") + " " + HOUR_CLOSE + ":" + MIN_CLOSE + ":" + SECOND_CLOSE, "dd/MM/yyyy HH:mm:ss");
+                TIME_OPEN = TimeUtil.getTime(TimeUtil.getTimeNow("dd/MM/yyyy") + " " + HOUR_OPEN + ":" + MIN_OPEN + ":" + SECOND_OPEN, "dd/MM/yyyy HH:mm:ss");
+                TIME_CAN_PICK_DB = TimeUtil.getTime(TimeUtil.getTimeNow("dd/MM/yyyy") + " " + HOUR_CAN_PICK_DB + ":" + MIN_CAN_PICK_DB + ":" + SECOND_CAN_PICK_DB, "dd/MM/yyyy HH:mm:ss");
+                TIME_CLOSE = TimeUtil.getTime(TimeUtil.getTimeNow("dd/MM/yyyy") + " " + HOUR_CLOSE + ":" + MIN_CLOSE + ":" + SECOND_CLOSE, "dd/MM/yyyy HH:mm:ss");
 //                this.TIME_RS = TimeUtil.getTime(TimeUtil.getTimeNow("dd/MM/yyyy") + " " + HOUR_RS + ":" + MIN_RS + ":" + SECOND_RS, "dd/MM/yyyy HH:mm:ss");
             } catch (Exception e) {
             }
@@ -222,9 +226,9 @@ public class BlackBallWar {
 
     public boolean pickBlackBall(Player player, Item item) {
         try {
-            if (System.currentTimeMillis() < this.TIME_CAN_PICK_DB) {
+            if (System.currentTimeMillis() < TIME_CAN_PICK_DB) {
                 Service.getInstance().sendThongBao(player, "Chưa thể nhặt ngọc rồng ngay lúc này, vui lòng đợi "
-                        + TimeUtil.diffDate(new Date(this.TIME_CAN_PICK_DB),
+                        + TimeUtil.diffDate(new Date(TIME_CAN_PICK_DB),
                         new Date(System.currentTimeMillis()), TimeUtil.SECOND) + " giây nữa");
                 return false;
             } else if (player.zone.finishBlackBallWar) {
@@ -279,8 +283,8 @@ public class BlackBallWar {
             player.effectSkin.lastTimeXHPKI = System.currentTimeMillis();
             player.effectSkin.xHPKI = x;
             player.nPoint.calPoint();
-            player.nPoint.setHp((double) player.nPoint.hp * x);
-            player.nPoint.setMp((double) player.nPoint.mp * x);
+            player.nPoint.setHp(player.nPoint.hp * x);
+            player.nPoint.setMp(player.nPoint.mp * x);
             PlayerService.gI().sendInfoHpMp(player);
             Service.getInstance().point(player);
         } else {

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.data;
 
 import com.girlkun.models.Template.*;
@@ -379,7 +383,7 @@ public class DataGame {
         }
     }
 
-    private static List<Integer> list = new ArrayList<>();
+    private static final List<Integer> list = new ArrayList<>();
 
     public static void requestMobTemplate(MySession session, int id) {
 //        if (list.contains(id)) {
@@ -430,7 +434,7 @@ public class DataGame {
                         for (int j = 0; j < w; j++) {
                             System.out.print(dis.readByte() + " ");
                         }
-                        System.out.println("");
+                        System.out.println();
                     }
                 }
             }

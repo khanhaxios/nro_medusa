@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tuma;
 
 import com.girlkun.consts.ConstNpc;
@@ -299,20 +303,19 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     }
 
     public void showBaseMenu() {
-        StringBuilder text = new StringBuilder();
-        text.append("|7|❖═════ THÔNG TIN MA TU ═════❖\n");
+        String text = "|7|❖═════ THÔNG TIN MA TU ═════❖\n" +
 //— Cấp độ & kinh nghiệm —
-        text.append("|5|➤").append(getName()).append("/").append("\n");
-        text.append("|5|➤ Kinh nghiệm ").append(getCurrentExpAsString()).append("\n");
+                "|5|➤" + getName() + "/" + "\n" +
+                "|5|➤ Kinh nghiệm " + getCurrentExpAsString() + "\n" +
 //— Ma Khí —
-        text.append("|5|➤ Ma Khí ").append(getMaKhiAsString()).append("\n");
-        text.append("|5|➤ Ma Tính ").append(getMaTinhDanhGia()).append("\n");
+                "|5|➤ Ma Khí " + getMaKhiAsString() + "\n" +
+                "|5|➤ Ma Tính " + getMaTinhDanhGia() + "\n" +
 //— Thời gian tu luyện —
-        text.append("|5|➤ Đã tu luyện ").append(getYearOpened()).append("\n");
+                "|5|➤ Đã tu luyện " + getYearOpened() + "\n" +
 //— Dòng đặc biệt Ma Đạo —
-        text.append("|7|✪ Ma Tu không có bình cảnh – phá giới vô tận!\n");
-        text.append("|7|❖══════════════════════════════❖");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_TU_MA, -1, text.toString(), "Thông Tin\nTu Ma", "Thông Tin\nCông Pháp", "Thông Tin\nLinh Căn", "Thông tin\nLuyện Hồn", "Pháp bảo", "Luyện Cốt", "Đóng");
+                "|7|✪ Ma Tu không có bình cảnh – phá giới vô tận!\n" +
+                "|7|❖══════════════════════════════❖";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_TU_MA, -1, text, "Thông Tin\nTu Ma", "Thông Tin\nCông Pháp", "Thông Tin\nLinh Căn", "Thông tin\nLuyện Hồn", "Pháp bảo", "Luyện Cốt", "Đóng");
     }
 
     private String getMaKhiAsString() {
@@ -347,21 +350,20 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     }
 
     public void showMenuTuMa() {
-        StringBuilder text = new StringBuilder();
 
-        text.append("|7|❖═════ THÔNG TIN MA TU ═════❖\n");
-        text.append("|5|➤ Dame Buff: ").append(getDameBuff()).append("%\n");
-        text.append("|5|➤ HP/MP Buff: ").append(getHPMPBuff()).append("%\n");
-        text.append("|1|➤ Thể Chất: +").append(theChat).append(" Điểm\n");
-        text.append("|1|➤ Sức Mạnh: +").append(sucManh).append(" Điểm\n");
-        text.append("|1|➤ Tốc Độ: +").append(nhanhNhen).append(" Điểm\n");
-        text.append("|1|➤ Tinh Thần: +").append(tinhThan).append(" Điểm\n");
-        text.append("|5|➤ Ma Khí: ").append(getMaKhiAsString()).append("\n");
-        text.append("|5|➤ Tu vi: ").append(getCurrentExpAsString()).append("\n");
-        text.append("|7|✪ Ma Tu không có bình cảnh – phá giới vô hạn!\n");
-        text.append("|7|❖══════════════════════════❖");
+        String text = "|7|❖═════ THÔNG TIN MA TU ═════❖\n" +
+                "|5|➤ Dame Buff: " + getDameBuff() + "%\n" +
+                "|5|➤ HP/MP Buff: " + getHPMPBuff() + "%\n" +
+                "|1|➤ Thể Chất: +" + theChat + " Điểm\n" +
+                "|1|➤ Sức Mạnh: +" + sucManh + " Điểm\n" +
+                "|1|➤ Tốc Độ: +" + nhanhNhen + " Điểm\n" +
+                "|1|➤ Tinh Thần: +" + tinhThan + " Điểm\n" +
+                "|5|➤ Ma Khí: " + getMaKhiAsString() + "\n" +
+                "|5|➤ Tu vi: " + getCurrentExpAsString() + "\n" +
+                "|7|✪ Ma Tu không có bình cảnh – phá giới vô hạn!\n" +
+                "|7|❖══════════════════════════❖";
 
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MA_TU_DOT_PHA, -1, text.toString(), "Đột phá", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MA_TU_DOT_PHA, -1, text, "Đột phá", "Đóng");
     }
 
 

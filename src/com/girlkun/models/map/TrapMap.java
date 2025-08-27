@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.map;
 
 import com.girlkun.models.player.Player;
@@ -16,16 +20,14 @@ public class TrapMap {
     public int dame;
 
     public void doPlayer(Player player) {
-        switch (this.effectId) {
-            case 49:
-                if (!player.isDie() && Util.canDoWithTime(player.iDMark.getLastTimeAnXienTrapBDKB(), 1000) && !player.isBoss) {
-                    player.injured(null, dame + (Util.nextInt(-10, 10) * dame / 100), false, false, false);
-                    PlayerService.gI().sendInfoHp(player);
-                    EffectMapService.gI().sendEffectMapToAllInMap(player.zone,
-                            effectId, 2, 1, player.location.x - 32, 1040, 1);
-                    player.iDMark.setLastTimeAnXienTrapBDKB(System.currentTimeMillis());
-                }
-                break;
+        if (this.effectId == 49) {
+            if (!player.isDie() && Util.canDoWithTime(player.iDMark.getLastTimeAnXienTrapBDKB(), 1000) && !player.isBoss) {
+                player.injured(null, dame + (Util.nextInt(-10, 10) * dame / 100), false, false, false);
+                PlayerService.gI().sendInfoHp(player);
+                EffectMapService.gI().sendEffectMapToAllInMap(player.zone,
+                        effectId, 2, 1, player.location.x - 32, 1040, 1);
+                player.iDMark.setLastTimeAnXienTrapBDKB(System.currentTimeMillis());
+            }
         }
     }
 

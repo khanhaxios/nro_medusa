@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,10 +12,7 @@ package com.girlkun.consts;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.result.GirlkunResultSet;
 
-/**
- *
- * @Stole By Hoàng Việt
- */
+
 public class Test {
 
     public static void main(String[] args) throws Exception {

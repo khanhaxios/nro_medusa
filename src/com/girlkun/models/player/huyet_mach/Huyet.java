@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.huyet_mach;
 
 import com.girlkun.consts.ConstNpc;
@@ -24,30 +28,28 @@ public class Huyet {
     };
 
     public void openMenuTinhHuyet() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|Tinh huyết huyết mạch\n");
-        stringBuilder.append("|5|Tinh huyết cần huyết đan và mỗi huyết đan tăng 50 exp\n");
-        stringBuilder.append("|5|Sau khi đầy exp ấn đột phá sẽ lên phẩm");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TINH_HUYET, -1, stringBuilder.toString(), "1 lần", "10 lần", "100 lần", "Đóng");
+        String stringBuilder = "|7|Tinh huyết huyết mạch\n" +
+                "|5|Tinh huyết cần huyết đan và mỗi huyết đan tăng 50 exp\n" +
+                "|5|Sau khi đầy exp ấn đột phá sẽ lên phẩm";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TINH_HUYET, -1, stringBuilder, "1 lần", "10 lần", "100 lần", "Đóng");
     }
 
     public void openMenuToihuyet() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|Thông tin tôi huyết");
-        stringBuilder.append(Util.getHonorialLine(12));
-        stringBuilder.append("|5| DAME : ").append(getDoTinhKhietBuff()).append("%").append("\n");
-        stringBuilder.append("|5| HP : ").append(getDoTinhKhietBuff()).append("%").append("\n");
-        stringBuilder.append("|5| KI : ").append(getDoTinhKhietBuff()).append("%").append("\n");
-        stringBuilder.append("|5|Độ tinh khiết [").append(doTinhKhiet).append("]\n");
-        stringBuilder.append("|7|Tỷ lệ thành công [").append(getTyLeToiHuyetThanhCong()).append("]\n");
-        stringBuilder.append(Util.getHonorialLine(12));
-        stringBuilder.append("|2|Tinh huyết cần tốn huyết đan (cái này đi xin ma tu nhé!!!!)\n");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TOI_HUYET, -1, stringBuilder.toString(), "1 lần", "10 lần", "100 lần", "1000 lần", "Đóng");
+        String stringBuilder = "|7|Thông tin tôi huyết" +
+                Util.getHonorialLine(12) +
+                "|5| DAME : " + getDoTinhKhietBuff() + "%" + "\n" +
+                "|5| HP : " + getDoTinhKhietBuff() + "%" + "\n" +
+                "|5| KI : " + getDoTinhKhietBuff() + "%" + "\n" +
+                "|5|Độ tinh khiết [" + doTinhKhiet + "]\n" +
+                "|7|Tỷ lệ thành công [" + getTyLeToiHuyetThanhCong() + "]\n" +
+                Util.getHonorialLine(12) +
+                "|2|Tinh huyết cần tốn huyết đan (cái này đi xin ma tu nhé!!!!)\n";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TOI_HUYET, -1, stringBuilder, "1 lần", "10 lần", "100 lần", "1000 lần", "Đóng");
     }
 
     public static class OptionForHuyet {
 
-        private static Map<String, String> OPTION_STRING = new HashMap<String, String>();
+        private static final Map<String, String> OPTION_STRING = new HashMap<String, String>();
 
         public double param;
 

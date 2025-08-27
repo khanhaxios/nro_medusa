@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tutien.luyendansu;
 
 import com.girlkun.consts.ConstNpc;
@@ -91,11 +95,10 @@ public class TuiDanDuoc {
     }
 
     public void showMenuTui() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|Túi Dan Dược\n");
-        stringBuilder.append("|5|").append("Bạn có thể dùng đan dược bạn đang có ở đây");
-        stringBuilder.append("\n");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_DAN_DUOC, -1, stringBuilder.toString(), "Dùng Đan\nDược", "Xem Đan\nDược");
+        String stringBuilder = "|7|Túi Dan Dược\n" +
+                "|5|" + "Bạn có thể dùng đan dược bạn đang có ở đây" +
+                "\n";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_DAN_DUOC, -1, stringBuilder, "Dùng Đan\nDược", "Xem Đan\nDược");
     }
 
     public DanDuoc takeDanDuocSplit(int idDanDuoc, int quantity) {

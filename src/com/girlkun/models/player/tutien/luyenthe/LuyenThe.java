@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tutien.luyenthe;
 
 import com.girlkun.consts.ConstNpc;
@@ -149,7 +153,7 @@ public class LuyenThe extends BaseTuDuy {
     }
 
     protected long getNextLevelExp() {
-        return Math.max(level, 1) * 100_000;
+        return Math.max(level, 1) * 100_000L;
     }
 
     public float getLevelUpPercent() {
@@ -263,31 +267,29 @@ public class LuyenThe extends BaseTuDuy {
             return;
         }
 
-        StringBuilder text = new StringBuilder();
+        String text = "|7|❖═════ LUYỆN THỂ ═════❖\n" +
+                "|5|➤ " + getName() + "\n" +
+                "|5|➤ Tu vi: " + getCurrentExpAsString() + "\n" +
+                "|5|➤ Chân khí: " + getCurrentChanKhiAsString() + "\n" +
 
-        text.append("|7|❖═════ LUYỆN THỂ ═════❖\n");
-        text.append("|5|➤ ").append(getName()).append("\n");
-        text.append("|5|➤ Tu vi: ").append(getCurrentExpAsString()).append("\n");
-        text.append("|5|➤ Chân khí: ").append(getCurrentChanKhiAsString()).append("\n");
+                // --- Buff chỉ số ---
+                "|5|➤ Dame Buff: " + getDameBuff() + "%\n" +
+                "|5|➤ HP/MP Buff: " + getHPMPBuff() + "%\n" +
 
-        // --- Buff chỉ số ---
-        text.append("|5|➤ Dame Buff: ").append(getDameBuff()).append("%\n");
-        text.append("|5|➤ HP/MP Buff: ").append(getHPMPBuff()).append("%\n");
+                // --- Thuộc tính luyện thể ---
+                "|1|➤ Thể Chất: +" + theChat + " Điểm\n" +
+                "|1|➤ Sức Mạnh: +" + sucManh + " Điểm\n" +
+                "|1|➤ Tốc Độ: +" + nhanhNhen + " Điểm\n" +
+                "|1|➤ Tinh Thần: +" + tinhThan + " Điểm\n" +
 
-        // --- Thuộc tính luyện thể ---
-        text.append("|1|➤ Thể Chất: +").append(theChat).append(" Điểm\n");
-        text.append("|1|➤ Sức Mạnh: +").append(sucManh).append(" Điểm\n");
-        text.append("|1|➤ Tốc Độ: +").append(nhanhNhen).append(" Điểm\n");
-        text.append("|1|➤ Tinh Thần: +").append(tinhThan).append(" Điểm\n");
+                // --- Tỷ lệ đột phá ---
+                "|5|➤ Tỷ lệ đột phá: " + String.format("%.2f%%", getLevelUpPercent()) + "\n" +
 
-        // --- Tỷ lệ đột phá ---
-        text.append("|5|➤ Tỷ lệ đột phá: ").append(String.format("%.2f%%", getLevelUpPercent())).append("\n");
+                // --- Nhắc nhở ---
+                "|7|✪ Cấp càng cao, tỷ lệ đột phá càng thấp!" +
+                "\n|7|❖════════════════════❖";
 
-        // --- Nhắc nhở ---
-        text.append("|7|✪ Cấp càng cao, tỷ lệ đột phá càng thấp!");
-        text.append("\n|7|❖════════════════════❖");
-
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text.toString(),
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_THE, -1, text,
                 "Đột phá", "Công Pháp", "Võ Kỹ", "Tôi Thể", "Đóng");
     }
 
@@ -360,19 +362,17 @@ public class LuyenThe extends BaseTuDuy {
     }
 
     public void showVoKy() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|Túi võ kỹ").append("\n");
-        stringBuilder.append(getAllVoKy());
-        stringBuilder.append("|7|Bạn muốn").append("\n");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.VK_SHOW_BASE, -1, stringBuilder.toString(), getAllVoKySelect());
+        String stringBuilder = "|7|Túi võ kỹ" + "\n" +
+                getAllVoKy() +
+                "|7|Bạn muốn" + "\n";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.VK_SHOW_BASE, -1, stringBuilder, getAllVoKySelect());
     }
 
     public void showMenuHocVoKy(VoKy voKy) {
         player.iDMark.vokytamthoi = voKy;
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(voKy.getBaseMenuText());
-        stringBuilder.append("|7|Bạn muốn");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_HOC_VK, -1, stringBuilder.toString(), "Học", "Bỏ");
+        String stringBuilder = voKy.getBaseMenuText() +
+                "|7|Bạn muốn";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_HOC_VK, -1, stringBuilder, "Học", "Bỏ");
     }
 
     public void hocVoKy(VoKy vokytamthoi) {

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services;
 
 import com.girlkun.consts.ConstPlayer;
@@ -60,11 +64,11 @@ public class NgocRongNamecService implements Runnable{
         }
     }
     
-    public int mapNrNamec[] = {-1,-1,-1,-1,-1,-1,-1};
-    public String nameNrNamec[] = {"","","","","","",""};
-    public byte zoneNrNamec[] = {-1,-1,-1,-1,-1,-1,-1};
-    public String pNrNamec[] = {"","","","","","",""};
-    public int idpNrNamec[] = {-1,-1,-1,-1,-1,-1,-1};
+    public int[] mapNrNamec = {-1,-1,-1,-1,-1,-1,-1};
+    public String[] nameNrNamec = {"","","","","","",""};
+    public byte[] zoneNrNamec = {-1,-1,-1,-1,-1,-1,-1};
+    public String[] pNrNamec = {"","","","","","",""};
+    public int[] idpNrNamec = {-1,-1,-1,-1,-1,-1,-1};
     public long timeNrNamec = 0;
     public boolean firstNrNamec = true;
     public long tOpenNrNamec = 0;
@@ -146,7 +150,7 @@ public class NgocRongNamecService implements Runnable{
     public void removeStoneNrNamec() {
         for(byte i = 0; i < (byte)7; i++) {
             Zone zone = Manager.MAPS.get(mapNrNamec[i]).zones.get(zoneNrNamec[i]);
-            int idItem = (int)(i + 353);
+            int idItem = i + 353;
             for(byte j = 0; j < zone.items.size(); j++) {
                 if(zone.items.get(j).itemTemplate.id == idItem) {
                     ItemMapService.gI().removeItemMap(zone.items.remove(j));
@@ -191,9 +195,7 @@ public class NgocRongNamecService implements Runnable{
                         }
                     }
                 }
-                if(count == (byte)7) {
-                    return true;
-                }
+                return count == (byte) 7;
             }
         }
         return false;
@@ -260,13 +262,9 @@ public class NgocRongNamecService implements Runnable{
         List<Integer> a = new ArrayList<>();
         Integer[] sttMap = {8,9,11,12,13,31,32,33,34};
         if(start < stop){
-            for(int i = start ; i < stop ;i++){
-                a.add(sttMap[i]);
-            }
+            a.addAll(Arrays.asList(sttMap).subList(start, stop));
         }else{
-            for(int i = stop ; i < start ;i++){
-                a.add(sttMap[i]);
-            }
+            a.addAll(Arrays.asList(sttMap).subList(stop, start));
         }
         return a;
     }

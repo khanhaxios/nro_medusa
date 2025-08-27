@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services;
 
 import com.girlkun.consts.ConstMob;
@@ -323,16 +327,14 @@ public class TaskService {
     //kiểm tra hoàn thành nhiệm vụ khi xác nhận menu npc nào đó
     public void checkDoneTaskConfirmMenuNpc(Player player, Npc npc, byte select) {
         if (player.isPl()) {
-            switch (npc.tempId) {
-                case ConstNpc.DAU_THAN:
-                    switch (player.iDMark.getIndexMenu()) {
-                        case ConstNpc.MAGIC_TREE_NON_UPGRADE_LEFT_PEA:
-                        case ConstNpc.MAGIC_TREE_NON_UPGRADE_FULL_PEA:
-                            if (select == 0) {
-                                doneTask(player, ConstTask.TASK_0_4);
-                            }
-                    }
-                    break;
+            if (npc.tempId == ConstNpc.DAU_THAN) {
+                switch (player.iDMark.getIndexMenu()) {
+                    case ConstNpc.MAGIC_TREE_NON_UPGRADE_LEFT_PEA:
+                    case ConstNpc.MAGIC_TREE_NON_UPGRADE_FULL_PEA:
+                        if (select == 0) {
+                            doneTask(player, ConstTask.TASK_0_4);
+                        }
+                }
             }
         }
     }
@@ -598,7 +600,7 @@ public class TaskService {
                     }
                     break;
                 case ConstMob.GAU_TUONG_CUOP:
-                    if (player.haveTuTien == false) {
+                    if (!player.haveTuTien) {
                         player.tt_pemgau++;
                     }
                     break;

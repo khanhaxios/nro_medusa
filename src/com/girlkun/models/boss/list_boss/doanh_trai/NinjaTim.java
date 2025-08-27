@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.boss.list_boss.doanh_trai;
 
 import com.girlkun.consts.ConstPlayer;
@@ -62,7 +66,7 @@ public class NinjaTim extends Boss {
     @Override
     public void leaveMap() {
         super.leaveMap();
-        if (Util.canDoWithTime(st, 1800000) || this.isDie() == true) {
+        if (Util.canDoWithTime(st, 1800000) || this.isDie()) {
             this.changeStatus(BossStatus.LEAVE_MAP);
             BossManager.gI().removeBoss(this);
         }

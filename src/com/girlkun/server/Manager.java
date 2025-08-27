@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.server;
 
 import com.girlkun.consts.ConstMap;
@@ -53,6 +57,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -441,7 +446,7 @@ public class Manager {
         JSONObject dataObject = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        try (Connection con = GirlkunDB.getConnection();) {
+        try (Connection con = GirlkunDB.getConnection()) {
             //load part
             ps = con.prepareStatement("select * from part");
             rs = ps.executeQuery();
@@ -450,9 +455,9 @@ public class Manager {
                 Part part = new Part();
                 part.id = rs.getShort("id");
                 part.type = rs.getByte("type");
-                dataArray = (JSONArray) jv.parse(rs.getString("data").replaceAll("\\\"", ""));
+                dataArray = (JSONArray) JSONValue.parse(rs.getString("data").replaceAll("\\\"", ""));
                 for (int j = 0; j < dataArray.size(); j++) {
-                    JSONArray pd = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
+                    JSONArray pd = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(j)));
                     part.partDetails.add(new PartDetail(Short.parseShort(String.valueOf(pd.get(0))), Byte.parseByte(String.valueOf(pd.get(1))), Byte.parseByte(String.valueOf(pd.get(2)))));
                     pd.clear();
                 }
@@ -484,7 +489,7 @@ public class Manager {
         JSONObject dataObject = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        try (Connection con = GirlkunDB.getConnection();) {
+        try (Connection con = GirlkunDB.getConnection()) {
             //load part
             ps = con.prepareStatement("select * from part");
             rs = ps.executeQuery();
@@ -493,9 +498,9 @@ public class Manager {
                 Part part = new Part();
                 part.id = rs.getShort("id");
                 part.type = rs.getByte("type");
-                dataArray = (JSONArray) jv.parse(rs.getString("data").replaceAll("\\\"", ""));
+                dataArray = (JSONArray) JSONValue.parse(rs.getString("data").replaceAll("\\\"", ""));
                 for (int j = 0; j < dataArray.size(); j++) {
-                    JSONArray pd = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
+                    JSONArray pd = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(j)));
                     part.partDetails.add(new PartDetail(Short.parseShort(String.valueOf(pd.get(0))), Byte.parseByte(String.valueOf(pd.get(1))), Byte.parseByte(String.valueOf(pd.get(2)))));
                     pd.clear();
                 }
@@ -560,10 +565,10 @@ public class Manager {
                 clan.capsuleClan = rs.getInt("clan_point");
                 clan.level = rs.getByte("level");
                 clan.createTime = (int) (rs.getTimestamp("create_time").getTime() / 1000);
-                dataArray = (JSONArray) jv.parse(rs.getString("members"));
+                dataArray = (JSONArray) JSONValue.parse(rs.getString("members"));
                 for (int i = 0; i < dataArray.size(); i++) {
                     try {
-                        dataObject = (JSONObject) jv.parse(String.valueOf(dataArray.get(i)));
+                        dataObject = (JSONObject) JSONValue.parse(String.valueOf(dataArray.get(i)));
                         ClanMember cm = new ClanMember();
                         cm.clan = clan;
                         cm.id = Integer.parseInt(String.valueOf(dataObject.get("id")));
@@ -642,9 +647,9 @@ public class Manager {
                 skillTemplate.damInfo = rs.getString("dam_info");
                 nClass.skillTemplatess.add(skillTemplate);
 
-                dataArray = (JSONArray) jv.parse(rs.getString("skills").replaceAll("\\[\"", "[").replaceAll("\"\\[", "[").replaceAll("\"\\]", "]").replaceAll("\\]\"", "]").replaceAll("\\}\",\"\\{", "},{"));
+                dataArray = (JSONArray) JSONValue.parse(rs.getString("skills").replaceAll("\\[\"", "[").replaceAll("\"\\[", "[").replaceAll("\"\\]", "]").replaceAll("\\]\"", "]").replaceAll("\\}\",\"\\{", "},{"));
                 for (int j = 0; j < dataArray.size(); j++) {
-                    JSONObject dts = (JSONObject) jv.parse(String.valueOf(dataArray.get(j)));
+                    JSONObject dts = (JSONObject) JSONValue.parse(String.valueOf(dataArray.get(j)));
                     Skill skill = new Skill();
                     skill.template = skillTemplate;
                     skill.skillId = Short.parseShort(String.valueOf(dts.get("id")));
@@ -948,7 +953,7 @@ public class Manager {
             for (File fileEntry : folder.listFiles()) {
                 if (!fileEntry.isDirectory()) {
                     StringBuffer notify = new StringBuffer(fileEntry.getName().substring(0, fileEntry.getName().lastIndexOf("."))).append("<>");
-                    BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileEntry), "UTF-8"));
+                    BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileEntry), StandardCharsets.UTF_8));
                     String line = null;
                     while ((line = br.readLine()) != null) {
                         notify.append(line + "\n");
@@ -1070,10 +1075,10 @@ public class Manager {
                     mapTemplate.zones = rs.getByte("zones");
                     mapTemplate.maxPlayerPerZone = rs.getByte("max_player");
                     //load waypoints
-                    dataArray = (JSONArray) jv.parse(rs.getString("waypoints").replaceAll("\\[\"\\[", "[[").replaceAll("\\]\"\\]", "]]").replaceAll("\",\"", ","));
+                    dataArray = (JSONArray) JSONValue.parse(rs.getString("waypoints").replaceAll("\\[\"\\[", "[[").replaceAll("\\]\"\\]", "]]").replaceAll("\",\"", ","));
                     for (int j = 0; j < dataArray.size(); j++) {
                         WayPoint wp = new WayPoint();
-                        JSONArray dtwp = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
+                        JSONArray dtwp = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(j)));
                         wp.name = String.valueOf(dtwp.get(0));
                         wp.minX = Short.parseShort(String.valueOf(dtwp.get(1)));
                         wp.minY = Short.parseShort(String.valueOf(dtwp.get(2)));
@@ -1089,14 +1094,14 @@ public class Manager {
                     }
                     dataArray.clear();
                     //load mobs
-                    dataArray = (JSONArray) jv.parse(rs.getString("mobs").replaceAll("\\\"", ""));
+                    dataArray = (JSONArray) JSONValue.parse(rs.getString("mobs").replaceAll("\\\"", ""));
                     mapTemplate.mobTemp = new byte[dataArray.size()];
                     mapTemplate.mobLevel = new byte[dataArray.size()];
                     mapTemplate.mobHp = new double[dataArray.size()];
                     mapTemplate.mobX = new short[dataArray.size()];
                     mapTemplate.mobY = new short[dataArray.size()];
                     for (int j = 0; j < dataArray.size(); j++) {
-                        JSONArray dtm = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
+                        JSONArray dtm = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(j)));
                         mapTemplate.mobTemp[j] = Byte.parseByte(String.valueOf(dtm.get(0)));
                         mapTemplate.mobLevel[j] = Byte.parseByte(String.valueOf(dtm.get(1)));
                         if (mapTemplate.mobTemp[j] == 0) {
@@ -1110,12 +1115,12 @@ public class Manager {
                     }
                     dataArray.clear();
                     //load npcs
-                    dataArray = (JSONArray) jv.parse(rs.getString("npcs").replaceAll("\\\"", ""));
+                    dataArray = (JSONArray) JSONValue.parse(rs.getString("npcs").replaceAll("\\\"", ""));
                     mapTemplate.npcId = new byte[dataArray.size()];
                     mapTemplate.npcX = new short[dataArray.size()];
                     mapTemplate.npcY = new short[dataArray.size()];
                     for (int j = 0; j < dataArray.size(); j++) {
-                        JSONArray dtn = (JSONArray) jv.parse(String.valueOf(dataArray.get(j)));
+                        JSONArray dtn = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(j)));
                         mapTemplate.npcId[j] = Byte.parseByte(String.valueOf(dtn.get(0)));
                         mapTemplate.npcX[j] = Short.parseShort(String.valueOf(dtn.get(1)));
                         mapTemplate.npcY[j] = Short.parseShort(String.valueOf(dtn.get(2)));
@@ -1317,7 +1322,7 @@ public class Manager {
         for (int i = 1; i <= 10; i++) {
             value = properties.get("server.girlkun.sv" + i);
             if (value != null) {
-                linkServer += String.valueOf(value) + ":0,";
+                linkServer += value + ":0,";
             }
         }
         DataGame.LINK_IP_PORT = linkServer.substring(0, linkServer.length() - 1);
@@ -1342,7 +1347,7 @@ public class Manager {
             RATE_EXP_SERVER = Byte.parseByte(String.valueOf(value));
         }
         if ((value = properties.get("server.girlkun.local")) != null) {
-            LOCAL = String.valueOf(value).toLowerCase().equals("true");
+            LOCAL = String.valueOf(value).equalsIgnoreCase("true");
         }
     }
 

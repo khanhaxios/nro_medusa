@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services.func;
 
 import com.girlkun.models.item.Item;
@@ -80,7 +84,6 @@ public class LuckyRound {
         int gemNeed = (count * PRICE_GEM);
         if (player.inventory.gem < gemNeed) {
             Service.getInstance().sendThongBao(player, "Bạn không đủ ngọc để mở");
-            return;
         } else {
             if (count + player.inventory.itemsBoxCrackBall.size() <= MAX_ITEM_IN_BOX) {
                 player.inventory.gem -= gemNeed;
@@ -98,7 +101,6 @@ public class LuckyRound {
         int goldNeed = (count * PRICE_GOLD);
         if (player.inventory.gold < goldNeed) {
             Service.getInstance().sendThongBao(player, "Bạn không đủ vàng để mở");
-            return;
         } else {
             if (count + player.inventory.itemsBoxCrackBall.size() <= MAX_ITEM_IN_BOX) {
                 player.inventory.gold -= goldNeed;

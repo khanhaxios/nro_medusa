@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.jdbc.daos;
 
 import com.girlkun.database.GirlkunDB;
@@ -651,19 +655,19 @@ public class PlayerDAO {
                 dataArray.clear();
 
                 //data danh hiệu
-                dataArray.add(player.titleitem == true ? 1 : 0);
-                dataArray.add(player.titlett == true ? 1 : 0);
+                dataArray.add(player.titleitem ? 1 : 0);
+                dataArray.add(player.titlett ? 1 : 0);
                 String title = dataArray.toJSONString();
                 dataArray.clear();
-                dataArray.add(player.isTitleUse1 == true ? 1 : 0);
+                dataArray.add(player.isTitleUse1 ? 1 : 0);
                 dataArray.add(player.lastTimeTitle1);
                 String dhtime = dataArray.toJSONString();
                 dataArray.clear();
-                dataArray.add(player.isTitleUse2 == true ? 1 : 0);
+                dataArray.add(player.isTitleUse2 ? 1 : 0);
                 dataArray.add(player.lastTimeTitle2);
                 String dhtime2 = dataArray.toJSONString();
                 dataArray.clear();
-                dataArray.add(player.isTitleUse3 == true ? 1 : 0);
+                dataArray.add(player.isTitleUse3 ? 1 : 0);
                 dataArray.add(player.lastTimeTitle3);
                 String dhtime3 = dataArray.toJSONString();
                 dataArray.clear();
@@ -675,7 +679,7 @@ public class PlayerDAO {
                 String dk_tutien = dataArray.toJSONString();
                 dataArray.clear();
 
-                dataArray.add(player.haveTuTien == true ? 1 : 0);
+                dataArray.add(player.haveTuTien ? 1 : 0);
 //                dataArray.add(player.CapTuTien);
 //                dataArray.add(player.KinhNghiemTT);
                 String TuTien = dataArray.toJSONString();
@@ -1564,7 +1568,7 @@ public class PlayerDAO {
 
     public static boolean subGoldBar(Player player, int num) {
         PreparedStatement ps = null;
-        try (Connection con = GirlkunDB.getConnection();) {
+        try (Connection con = GirlkunDB.getConnection()) {
             ps = con.prepareStatement("update account set thoi_vang = (thoi_vang - ?), active = ? where id = ?");
             ps.setInt(1, num);
             ps.setInt(2, player.getSession().actived ? 1 : 0);
@@ -1589,7 +1593,7 @@ public class PlayerDAO {
 
     public static boolean setIs_gift_box(Player player) {
         PreparedStatement ps = null;
-        try (Connection con = GirlkunDB.getConnection();) {
+        try (Connection con = GirlkunDB.getConnection()) {
             ps = con.prepareStatement("update account set is_gift_box = 0 where id = ?");
             ps.setInt(1, player.getSession().userId);
             ps.executeUpdate();
@@ -1603,7 +1607,7 @@ public class PlayerDAO {
 
     public static void addHistoryReceiveGoldBar(Player player, int goldBefore, int goldAfter, int goldBagBefore, int goldBagAfter, int goldBoxBefore, int goldBoxAfter) {
         PreparedStatement ps = null;
-        try (Connection con = GirlkunDB.getConnection();) {
+        try (Connection con = GirlkunDB.getConnection()) {
             ps = con.prepareStatement("insert into history_receive_goldbar(player_id,player_name,gold_before_receive," + "gold_after_receive,gold_bag_before,gold_bag_after,gold_box_before,gold_box_after) values (?,?,?,?,?,?,?,?)");
             ps.setInt(1, (int) player.id);
             ps.setString(2, player.name);
@@ -1641,7 +1645,7 @@ public class PlayerDAO {
         }
         PreparedStatement ps = null;
         ResultSet rs = null;
-        try (Connection con = GirlkunDB.getConnection();) {
+        try (Connection con = GirlkunDB.getConnection()) {
             ps = con.prepareStatement("update account set reward = ? where id = ?");
             ps.setString(1, dataItemReward);
             ps.setInt(2, player.getSession().userId);
@@ -1660,7 +1664,7 @@ public class PlayerDAO {
 
     public static boolean insertHistoryGold(Player player, int quantily) {
         PreparedStatement ps = null;
-        try (Connection con = GirlkunDB.getConnection();) {
+        try (Connection con = GirlkunDB.getConnection()) {
             ps = con.prepareStatement("insert into history_gold(name,gold) values (?,?)");
             ps.setString(1, player.name);
             ps.setInt(2, quantily);

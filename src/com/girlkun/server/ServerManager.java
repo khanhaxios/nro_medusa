@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.server;
 
 import com.girlkun.database.GirlkunDB;
@@ -29,6 +33,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -81,8 +86,8 @@ public class ServerManager {
                 Socket client = panelSocket.accept();
                 panelClient = client;
                 Logger.log("New client connected: " + client.getInetAddress().getHostAddress());
-                BufferedReader reader = new BufferedReader(new InputStreamReader(panelClient.getInputStream(), "UTF-8"));
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(panelClient.getOutputStream(), "UTF-8"));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(panelClient.getInputStream(), StandardCharsets.UTF_8));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(panelClient.getOutputStream(), StandardCharsets.UTF_8));
                 new Thread(() -> {
                     try {
                         String line;

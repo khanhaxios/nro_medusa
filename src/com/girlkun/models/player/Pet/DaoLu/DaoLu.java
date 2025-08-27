@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.Pet.DaoLu;
 
 import com.girlkun.consts.ConstPlayer;
@@ -365,15 +369,12 @@ public class DaoLu extends Player {
         if (this.isDie() || effectSkill.isHaveEffectSkill()) {
             return;
         }
-        switch (this.status) {
-//            case ATTACK:
-//                if ((mobAttack != null && Util.getDistance(this, master) <= 1500)) {
-//                    break;
-//                }
-            case FOLLOW:
-//            case PROTECT:
-                followMaster(40);
-                break;
+        //            case ATTACK:
+        //                if ((mobAttack != null && Util.getDistance(this, master) <= 1500)) {
+        //                    break;
+        //                }
+        if (this.status == FOLLOW) {//            case PROTECT:
+            followMaster(40);
         }
     }
 

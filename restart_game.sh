@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+# Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+#
+
 # STEP 1: Run the Java client to send M_MAINTAIN
 #!/bin/bash
 

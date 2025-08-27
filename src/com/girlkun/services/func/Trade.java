@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services.func;
 
 import com.girlkun.models.item.Item;
@@ -22,10 +26,10 @@ public class Trade {
     private Player player1;
     private Player player2;
 
-    private long gold1Before;
-    private long gold2Before;
-    private List<Item> bag1Before;
-    private List<Item> bag2Before;
+    private final long gold1Before;
+    private final long gold2Before;
+    private final List<Item> bag1Before;
+    private final List<Item> bag2Before;
 
     private List<Item> itemsBag1;
     private List<Item> itemsBag2;
@@ -97,7 +101,7 @@ public class Trade {
                 if (quantity > item.quantity || quantity < 0) {
                     return;
                 }
-                if (isItemCannotTran(item) == true) {
+                if (isItemCannotTran(item)) {
                     removeItemTrade(pl, index);
                 } else {
                     if (quantity > 99999) {

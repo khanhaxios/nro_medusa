@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.map.challenge;
 
 import com.girlkun.utils.Util;
@@ -12,8 +16,8 @@ public class MartialCongressManager {
 
     private static MartialCongressManager i;
     private long lastUpdate;
-    private static List<MartialCongress> list = new ArrayList<>();
-    private static List<MartialCongress> toRemove = new ArrayList<>();
+    private static final List<MartialCongress> list = new ArrayList<>();
+    private static final List<MartialCongress> toRemove = new ArrayList<>();
 
     public static MartialCongressManager gI() {
         if (i == null) {

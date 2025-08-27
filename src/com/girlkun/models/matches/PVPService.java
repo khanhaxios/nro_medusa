@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.matches;
 
 import com.girlkun.models.matches.pvp.TraThu;
@@ -16,7 +20,7 @@ import java.io.IOException;
 public class PVPService {
 
     private static final int[] GOLD_CHALLENGE = {1000000, 10000000, 100000000};
-    private String[] optionsGoldChallenge;
+    private final String[] optionsGoldChallenge;
     //cmd controller
     private static final byte OPEN_GOLD_SELECT = 0;
     private static final byte ACCEPT_PVP = 1;

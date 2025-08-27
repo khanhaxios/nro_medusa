@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.kygui;
 
 import com.girlkun.database.GirlkunDB;
@@ -34,7 +38,7 @@ public class ShopKyGuiManager {
     
     
     public void save(){
-        try (Connection con = GirlkunDB.getConnection();) {
+        try (Connection con = GirlkunDB.getConnection()) {
             Statement s = con.createStatement();
             s.execute("TRUNCATE shop_ky_gui");
             for(ItemKyGui it : this.listItem){

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.kygui;
 
 import com.girlkun.consts.ConstNpc;
@@ -246,9 +250,9 @@ public class ShopKyGuiService {
                     return;
                 }
                 if (it.goldSell > 0) {
-                    pl.inventory.gold += it.goldSell - it.goldSell * 5 / 100;
+                    pl.inventory.gold += it.goldSell - it.goldSell * 5L / 100;
                 } else if (it.gemSell > 0) {
-                    pl.inventory.ruby += it.gemSell - it.gemSell * 5 / 100;
+                    pl.inventory.ruby += it.gemSell - it.gemSell * 5L / 100;
                 }
                 if (ShopKyGuiManager.gI().listItem.remove(it)) {
                     Service.getInstance().sendMoney(pl);

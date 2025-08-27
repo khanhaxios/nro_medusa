@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services.func;
 
 import com.girlkun.models.item.Item;
@@ -6,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @Stole By Hoàng Việt 💖
+ *  💖
  *
  */
 public class CombineNew {

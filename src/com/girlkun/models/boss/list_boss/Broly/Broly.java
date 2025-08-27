@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.boss.list_boss.Broly;
 
 import com.girlkun.models.boss.Boss;
@@ -93,7 +97,7 @@ public class Broly extends Boss {
             if (isDie()) {
                 try {
                     if (this.nPoint.hpMax >= 4_000_000) {
-                        new SuperBroly(this.zone, (int) 1, (int) 1, BossID.SP_BROLY);
+                        new SuperBroly(this.zone, 1, 1, BossID.SP_BROLY);
                     }
                 } catch (Exception ex) {
                     System.out.println("     Loi ra Super Broly");

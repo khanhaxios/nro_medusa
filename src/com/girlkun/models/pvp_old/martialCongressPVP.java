@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.pvp_old;//package com.girlkun.models.pvp_old;
 //
 //import com.girlkun.models.player.Player;
@@ -5,7 +9,7 @@ package com.girlkun.models.pvp_old;//package com.girlkun.models.pvp_old;
 //
 ///**
 // *
-// * @Stole By Hoàng Việt💖
+// * 💖
 // *
 // */
 //public class martialCongressPVP extends PVP {

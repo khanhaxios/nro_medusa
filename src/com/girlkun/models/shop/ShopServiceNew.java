@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.shop;
 
 import com.girlkun.consts.ConstNpc;
@@ -300,7 +304,7 @@ public class ShopServiceNew {
     public boolean VatphamKoMuanhieu(Player player, int id) {
         Shop shop = player.iDMark.getShopOpen();
         ItemShop it = shop.getItemShop(id);
-        return it != null && it.temp.isUpToUp == true;
+        return it != null && it.temp.isUpToUp;
     }
 
     public void takeItem(Player player, byte type, int tempId) {
@@ -327,7 +331,7 @@ public class ShopServiceNew {
             Service.getInstance().sendThongBao(player, "Không thể thực hiện");
             return;
         }
-        if (VatphamKoMuanhieu(player, tempId) && player.muanhieu == true) {
+        if (VatphamKoMuanhieu(player, tempId) && player.muanhieu) {
             if (player.soluongmuanhieu == 0 && player.idmuanhieu != -1) {
                 Input.gI().muanhieu(player);
             }
@@ -819,6 +823,6 @@ public class ShopServiceNew {
 }
 
 /**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
+ *  Hãy tôn trọng tác
  * giả của mã nguồn này. Xin cảm ơn! - GirlKun
  */

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.boss.list_boss.doanh_trai;
 
 import com.girlkun.consts.ConstPlayer;
@@ -137,7 +141,7 @@ public class TrungUyTrang extends Boss {
     @Override
     public void leaveMap() {
         super.leaveMap();
-        if (Util.canDoWithTime(st, 1800000) || this.isDie() == true) {
+        if (Util.canDoWithTime(st, 1800000) || this.isDie()) {
             BossManager.gI().removeBoss(this);
             this.bossStatus = null;
             this.lastZone = null;

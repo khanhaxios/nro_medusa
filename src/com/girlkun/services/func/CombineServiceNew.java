@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services.func;
 
 import com.girlkun.consts.ConstNpc;
@@ -777,7 +781,7 @@ public class CombineServiceNew {
                         }
                         if (level < MAX_LEVEL_ITEM) {
                             player.combineNew.goldCombine = getGoldNangCapDo(level);
-                            player.combineNew.ratioCombine = (float) player.luyenKhiSu.getPercentUpgradeEquipment(itemDo);
+                            player.combineNew.ratioCombine = player.luyenKhiSu.getPercentUpgradeEquipment(itemDo);
                             player.combineNew.countDaNangCap = getCountDaNangCapDo(level);
                             player.combineNew.countDaBaoVe = (short) getCountDaBaoVe(level);
                             String npcSay = "|2|Hiện tại " + itemDo.template.name + " (+" + level + ")\n|0|";
@@ -5503,11 +5507,7 @@ public class CombineServiceNew {
                 return true;
             } else if (trangBi.template.type == 3 && daNangCap.template.id == 221) {
                 return true;
-            } else if (trangBi.template.type == 4 && daNangCap.template.id == 220) {
-                return true;
-            } else {
-                return false;
-            }
+            } else return trangBi.template.type == 4 && daNangCap.template.id == 220;
         } else {
             return false;
         }
@@ -5523,11 +5523,7 @@ public class CombineServiceNew {
                 return true;
             } else if (trangBi.template.type == 3 && daNangCap.template.id == 221) {
                 return true;
-            } else if (trangBi.template.type == 4 && daNangCap.template.id == 220) {
-                return true;
-            } else {
-                return false;
-            }
+            } else return trangBi.template.type == 4 && daNangCap.template.id == 220;
         } else {
             return false;
         }
@@ -5539,11 +5535,7 @@ public class CombineServiceNew {
 
     private boolean isTrangBiPhaLeHoa(Item item) {
         if (item != null && item.isNotNullItem()) {
-            if ((item.template.type <= 5 || item.template.type == 32) && !item.isTrangBiHSD()) {
-                return true;
-            } else {
-                return false;
-            }
+            return (item.template.type <= 5 || item.template.type == 32) && !item.isTrangBiHSD();
         } else {
             return false;
         }
@@ -6325,7 +6317,4 @@ public class CombineServiceNew {
     }
 }
 
-/**
- * Code được viết bởi HOÀNG VIỆT Vui lòng không sao chép mã nguồn này dưới mọi
- * hình thức.
- */
+

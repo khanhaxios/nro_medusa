@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tuma;
 
 import com.girlkun.consts.ConstNpc;
@@ -78,48 +82,41 @@ public class LuyenHon {
     }
 
     public void showBaseMenu() {
-        StringBuilder text = new StringBuilder();
-        text.append("|7|❖═════ LUYỆN HỒN ═════❖\n");
-        text.append("|5|➤ Tầng đã luyện: ").append(soTangDaLuyen).append(" tầng\n");
-        text.append("|5|➤ Hư Hồn : ").append(soHonChuaLuyen).append(" Hồn\n");
-        text.append("|5|➤ Tinh Hồn: ").append(soHonDaLuyen).append(" / ").append(tongSoHonCanLuyen).append("\n");
-        text.append("|5|➤ Dame Buff: ").append(getDameBuff()).append("%\n");
-        text.append("|5|➤ HP/MP Buff: ").append(getHPMPBuff()).append("%\n");
-        text.append("|5|➤ Ma Khí x: ").append(getMaKhiBuff()).append(" lần\n");
-        text.append("|7|✪ Luyện Hồn càng cao, chỉ số buff càng mạnh!");
-        text.append("\n|7|❖══════════════════════❖");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_HON, -1, text.toString(), "Chú hồn", "Luyện hồn", "Đóng");
+        String text = "|7|❖═════ LUYỆN HỒN ═════❖\n" +
+                "|5|➤ Tầng đã luyện: " + soTangDaLuyen + " tầng\n" +
+                "|5|➤ Hư Hồn : " + soHonChuaLuyen + " Hồn\n" +
+                "|5|➤ Tinh Hồn: " + soHonDaLuyen + " / " + tongSoHonCanLuyen + "\n" +
+                "|5|➤ Dame Buff: " + getDameBuff() + "%\n" +
+                "|5|➤ HP/MP Buff: " + getHPMPBuff() + "%\n" +
+                "|5|➤ Ma Khí x: " + getMaKhiBuff() + " lần\n" +
+                "|7|✪ Luyện Hồn càng cao, chỉ số buff càng mạnh!" +
+                "\n|7|❖══════════════════════❖";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_HON, -1, text, "Chú hồn", "Luyện hồn", "Đóng");
     }
 
     public void showMenuChuHon() {
-        StringBuilder text = new StringBuilder();
 
-        text.append("|7|❖═════ CHÚ HỒN ═════❖\n");
+        String text = "|7|❖═════ CHÚ HỒN ═════❖\n" +
 
 // — Hồn hiện tại —
-        text.append("|5|➤ Hư Hồn   : ").append(soHonChuaLuyen).append(" Hồn\n");
-        text.append("|5|➤ Tinh Hồn : ").append(soHonDaLuyen).append(" / ").append(tongSoHonCanLuyen).append("\n");
+                "|5|➤ Hư Hồn   : " + soHonChuaLuyen + " Hồn\n" +
+                "|5|➤ Tinh Hồn : " + soHonDaLuyen + " / " + tongSoHonCanLuyen + "\n" +
 
 // — Gợi mở hành động —
-        text.append("|7|✦ Bạn muốn Chú Hồn?");
+                "|7|✦ Bạn muốn Chú Hồn?" +
+                "\n|7|❖════════════════════❖";
 
-        text.append("\n|7|❖════════════════════❖");
-
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHU_HON, -1, text.toString(), "1 Lần", "100 Lần", "1000 Lần", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CHU_HON, -1, text, "1 Lần", "100 Lần", "1000 Lần", "Đóng");
     }
 
     public void showMenuLuyenHon() {
-        StringBuilder text = new StringBuilder();
 
-        text.append("|7|❖════ LUYỆN HỒN ════❖\n");
+        String text = "|7|❖════ LUYỆN HỒN ════❖\n" +
+                "|5|➤ Tinh Hồn : " + soHonDaLuyen + " / " + tongSoHonCanLuyen + "\n" +
+                "|7|✦ Bạn muốn tiếp tục luyện hồn?\n" +
+                "|7|❖══════════════════❖";
 
-        text.append("|5|➤ Tinh Hồn : ").append(soHonDaLuyen).append(" / ").append(tongSoHonCanLuyen).append("\n");
-
-        text.append("|7|✦ Bạn muốn tiếp tục luyện hồn?\n");
-
-        text.append("|7|❖══════════════════❖");
-
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONFIRM_LH, -1, text.toString(), "Luyện hồn", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONFIRM_LH, -1, text, "Luyện hồn", "Đóng");
     }
 
     public boolean isLuyenHon() {

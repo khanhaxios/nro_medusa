@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.server;
 
 import java.io.BufferedWriter;
@@ -30,7 +34,7 @@ public class ServerLogSavePlayer implements Runnable {
         return i;
     }
     
-    private List<String> list;
+    private final List<String> list;
     private BufferedWriter bw;
 
     @Override
@@ -39,7 +43,7 @@ public class ServerLogSavePlayer implements Runnable {
             while (!this.list.isEmpty()) {
                 String text = this.list.remove(0);
                 try {
-                    bw.write(text.substring(text.indexOf(":") + 2, text.length()) + "\n");
+                    bw.write(text.substring(text.indexOf(":") + 2) + "\n");
                     bw.flush();
                 } catch (IOException ex) {
                 }

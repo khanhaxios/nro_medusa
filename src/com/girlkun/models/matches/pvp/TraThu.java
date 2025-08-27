@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.matches.pvp;
 
 import com.girlkun.models.matches.PVP;
@@ -10,7 +14,7 @@ import com.girlkun.utils.Util;
 
 /**
  *
- * @Stole By Hoàng Việt❤
+ * ❤
  */
 public class TraThu extends PVP {
 
@@ -50,6 +54,4 @@ public class TraThu extends PVP {
 
 }
 
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức.
- */
+

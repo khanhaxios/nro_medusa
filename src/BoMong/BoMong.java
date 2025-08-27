@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package BoMong;
 
 import com.girlkun.consts.ConstPlayer;

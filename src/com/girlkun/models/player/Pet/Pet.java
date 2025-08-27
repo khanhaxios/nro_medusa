@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.Pet;
 
 import com.girlkun.consts.ConstPlayer;
@@ -567,7 +571,7 @@ public class Pet extends Player {
         for (Player player : zone.getHumanoids()) {
             if (typePk != ConstPlayer.PK_ALL) {
                 if (player.isDie()
-                        || !canAttackPlayer((Player) this, player)
+                        || !canAttackPlayer(this, player)
                         || player == this
                         || (player == this.master)
                         || player == this.master.newpet) {
@@ -601,10 +605,7 @@ public class Pet extends Player {
         if (p1.pvp == null || p2.pvp == null) {
             return false;
         }
-        if (p1.pvp.isInPVP(p2) || p2.pvp.isInPVP(p1)) {
-            return true;
-        }
-        return false;
+        return p1.pvp.isInPVP(p2) || p2.pvp.isInPVP(p1);
     }
 
     private void useSkill1_2(Player plTarget, Mob mobTarget) {
@@ -924,7 +925,7 @@ public class Pet extends Player {
         if (!Util.canDoWithTime(lastTimePeaPet, 10000)) {
             return;
         }
-        if (this.status != GOHOME && !this.isDie() && this.master.autodau == true
+        if (this.status != GOHOME && !this.isDie() && this.master.autodau
                 && (this.nPoint.hp < this.nPoint.hpMax * 30 / 100 || this.nPoint.mp < this.nPoint.mpMax * 30 / 100 || this.nPoint.stamina <= 50)) {
             lastTimePeaPet = System.currentTimeMillis();
             UseItem.gI().eatPea(this.master);

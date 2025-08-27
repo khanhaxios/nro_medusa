@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tutien.luyenthe;
 
 import com.girlkun.consts.ConstNpc;
@@ -50,11 +54,10 @@ public class VoKy {
     }
 
     public String getBaseMenuText() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|Thông tin võ kỹ").append("\n");
-        stringBuilder.append("|5|").append(tenVoKy).append("[").append(getDoThuanThucVoKy()).append("\n");
-        stringBuilder.append("|5|").append(moTaVoKy.replace("#", "?")).append("\n");
-        return stringBuilder.toString();
+        String stringBuilder = "|7|Thông tin võ kỹ" + "\n" +
+                "|5|" + tenVoKy + "[" + getDoThuanThucVoKy() + "\n" +
+                "|5|" + moTaVoKy.replace("#", "?") + "\n";
+        return stringBuilder;
     }
 
     public void addNewBuff() {
@@ -120,14 +123,13 @@ public class VoKy {
 
     public void showBaseMenu() {
         player.iDMark.voKySelected = this;
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|Thông tin võ kỹ").append("\n");
-        stringBuilder.append("|5|").append(tenVoKy).append("[").append(getDoThuanThucVoKy()).append("]").append("\n");
-        stringBuilder.append("|5|").append(moTaVoKy.replace("#", "?")).append("\n");
-        stringBuilder.append("|5|Độ thuần thục ").append(getCurrentExpAsString()).append("\n");
-        stringBuilder.append("|7|Tỷ lệ đột phá ").append(getTyLeDotPha()).append("%").append("\n");
-        stringBuilder.append("|7|Võ kỹ thuần thục càng cao thì càng buff nhiều").append("\n");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_VO_KY, -1, stringBuilder.toString(), "Đột phá", "Xem\nThông Tin");
+        String stringBuilder = "|7|Thông tin võ kỹ" + "\n" +
+                "|5|" + tenVoKy + "[" + getDoThuanThucVoKy() + "]" + "\n" +
+                "|5|" + moTaVoKy.replace("#", "?") + "\n" +
+                "|5|Độ thuần thục " + getCurrentExpAsString() + "\n" +
+                "|7|Tỷ lệ đột phá " + getTyLeDotPha() + "%" + "\n" +
+                "|7|Võ kỹ thuần thục càng cao thì càng buff nhiều" + "\n";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_VO_KY, -1, stringBuilder, "Đột phá", "Xem\nThông Tin");
     }
 
     public void showMenuDotPha() {
@@ -136,13 +138,12 @@ public class VoKy {
             return;
         }
         player.iDMark.voKySelected = this;
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|Đột phá võ kỹ").append("\n");
-        stringBuilder.append("|5|Hiện tại : ").append(tenVoKy).append("[").append(bac).append("]").append("\n");
-        stringBuilder.append("|5|Bậc kế : ").append(tenVoKy).append("[").append(bac + 1).append("]").append("\n");
-        stringBuilder.append("|7|Tỷ lệ thành công : ").append(getTyLeDotPha()).append("\n");
-        stringBuilder.append("|7|Thất bại sẽ giảm 50% độ thuần thục , thành công sẽ reset độ thuần thục");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_DOT_PHA_VK, -1, stringBuilder.toString(), "Đột phá");
+        String stringBuilder = "|7|Đột phá võ kỹ" + "\n" +
+                "|5|Hiện tại : " + tenVoKy + "[" + bac + "]" + "\n" +
+                "|5|Bậc kế : " + tenVoKy + "[" + (bac + 1) + "]" + "\n" +
+                "|7|Tỷ lệ thành công : " + getTyLeDotPha() + "\n" +
+                "|7|Thất bại sẽ giảm 50% độ thuần thục , thành công sẽ reset độ thuần thục";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_DOT_PHA_VK, -1, stringBuilder, "Đột phá");
     }
 
     public void calcPoint() {
@@ -181,10 +182,9 @@ public class VoKy {
     }
 
     public void showMenuThongTinBuff() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|Thông tin tăng phúc võ kỹ").append("\n");
-        stringBuilder.append(getBuff());
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TP_VK, -1, stringBuilder.toString(), "Đóng");
+        String stringBuilder = "|7|Thông tin tăng phúc võ kỹ" + "\n" +
+                getBuff();
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TP_VK, -1, stringBuilder, "Đóng");
     }
 
     private String getCurrentExpAsString() {

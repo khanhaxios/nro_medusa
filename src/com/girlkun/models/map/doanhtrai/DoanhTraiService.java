@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.map.doanhtrai;
 
 import com.girlkun.models.map.Zone;
@@ -163,6 +167,4 @@ public class DoanhTraiService {
 
 }
 
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức.
- */
+

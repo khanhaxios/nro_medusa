@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tuma;
 
 import com.girlkun.consts.ConstNpc;
@@ -109,15 +113,14 @@ public class LuyenCot {
             Service.gI().sendThongBaoOK(player, "Bạn chưa học luyện cốt hãy đến Vách Núi Đen tìm Npc Tu Ma để học");
             return;
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append("|7|❖═════ LUYỆN CỐT ═════❖\n");
-        sb.append("|2|➤ Giai đoạn: ").append(giaiDoan).append("/").append(MAX_GIAI_DOAN).append("\n");
-        sb.append("|2|➤ Tầng hiện tại: ").append(soTang).append("\n");
-        sb.append("|5|➤ Buff Dame: +").append(getDameBuff()).append("%\n");
-        sb.append("|5|➤ Buff HP/MP: +").append(getHPMPBuff()).append("%\n");
-        sb.append("|2|➤ Mảnh Cốt: ").append(slManhCot).append(" / ").append(maxSlManhCot).append("\n");
-        sb.append("|7|✦ Bạn muốn...?");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_COT, -1, sb.toString(),
+        String sb = "|7|❖═════ LUYỆN CỐT ═════❖\n" +
+                "|2|➤ Giai đoạn: " + giaiDoan + "/" + MAX_GIAI_DOAN + "\n" +
+                "|2|➤ Tầng hiện tại: " + soTang + "\n" +
+                "|5|➤ Buff Dame: +" + getDameBuff() + "%\n" +
+                "|5|➤ Buff HP/MP: +" + getHPMPBuff() + "%\n" +
+                "|2|➤ Mảnh Cốt: " + slManhCot + " / " + maxSlManhCot + "\n" +
+                "|7|✦ Bạn muốn...?";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_LUYEN_COT, -1, sb,
                 "Luyện giai đoạn", "Đột phá tầng", "Hướng\ndẫn", "Đóng");
     }
 

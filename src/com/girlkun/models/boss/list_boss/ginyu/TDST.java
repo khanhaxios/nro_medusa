@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.boss.list_boss.ginyu;
 
 import com.girlkun.models.boss.Boss;
@@ -30,7 +34,6 @@ public class TDST extends Boss {
     public void reward(Player plKill) {
         super.reward(plKill);
         if (this.currentLevel == 1) {
-            return;
         }
     }
 
@@ -57,6 +60,4 @@ public class TDST extends Boss {
     private long st;
 }
 
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức.
- */
+

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.boss.list_boss;
 
 import com.girlkun.consts.ConstPlayer;
@@ -12,10 +16,10 @@ import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.Util;
 
 /**
- * @Stole By Hoàng Việt
+ * 
  */
 public class NhanBan extends Boss {
-    private Player playerAtt;
+    private final Player playerAtt;
 
     public NhanBan(int bossID, BossData bossData, Zone zone, Player player) throws Exception {
         super(bossID, bossData);

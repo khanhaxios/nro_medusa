@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tutien.luyenkhi;
 
 import com.girlkun.consts.ConstNpc;
@@ -95,14 +99,13 @@ public class LinhCan {
     }
 
     public void duongLinhCanMenu() {
-        StringBuilder menuText = new StringBuilder();
-        menuText.append("|7|Thông tin Linh Căn").append("\n");
-        menuText.append("|5|Độ tinh khiết : ").append(thuocTinhLinhCan.getParam()).append("%").append("\n");
-        menuText.append("|5|Tỷ lệ thành công : ").append(getTyLeThanhCong()).append("%").append("\n");
-        menuText.append("|5|Cần x1").append(getItemNeed().template.name).append("\n");
-        menuText.append("|7|Dùng thuộc tính linh thạch cùng loại với linh căn của bạn để bồi dưỡng linh căn").append("\n")
-                .append("|7|Sau khi thành công linh căn sẽ tăng lên một chút").append("\n");
-        NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_DUONG_LINH, -1, menuText.toString(), "Dưỡng Linh", "Đóng");
+        String menuText = "|7|Thông tin Linh Căn" + "\n" +
+                "|5|Độ tinh khiết : " + thuocTinhLinhCan.getParam() + "%" + "\n" +
+                "|5|Tỷ lệ thành công : " + getTyLeThanhCong() + "%" + "\n" +
+                "|5|Cần x1" + getItemNeed().template.name + "\n" +
+                "|7|Dùng thuộc tính linh thạch cùng loại với linh căn của bạn để bồi dưỡng linh căn" + "\n" +
+                "|7|Sau khi thành công linh căn sẽ tăng lên một chút" + "\n";
+        NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_DUONG_LINH, -1, menuText, "Dưỡng Linh", "Đóng");
     }
 
     private Item getItemNeed() {

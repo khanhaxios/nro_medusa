@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.utils;
 
 import javax.imageio.*;
@@ -29,7 +33,7 @@ public class GifSequenceWriter {
             ImageOutputStream outputStream,
             int imageType,
             int timeBetweenFramesMS,
-            boolean loopContinuously) throws IIOException, IOException {
+            boolean loopContinuously) throws IOException {
         // my method to create a writer
         gifWriter = getWriter();
         imageWriteParam = gifWriter.getDefaultWriteParam();

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player;
 
 import com.girlkun.models.item.Item;
@@ -425,12 +429,10 @@ public class SetClothes {
             if (item.isNotNullItem()) {
                 boolean isActSet = false;
                 for (Item.ItemOption io : item.itemOptions) {
-                    switch (io.optionTemplate.id) {
-                        case 21:
-                            if (io.param == 120) {
-                                setDTS++;
-                            }
-                            break;
+                    if (io.optionTemplate.id == 21) {
+                        if (io.param == 120) {
+                            setDTS++;
+                        }
                     }
                     if (isActSet) {
                         break;
@@ -459,12 +461,10 @@ public class SetClothes {
             if (item.isNotNullItem()) {
                 boolean isActSet = false;
                 for (Item.ItemOption io : item.itemOptions) {
-                    switch (io.optionTemplate.id) {
-                        case 21:
-                            if (io.param == 15) {
-                                setDTL++;
-                            }
-                            break;
+                    if (io.optionTemplate.id == 21) {
+                        if (io.param == 15) {
+                            setDTL++;
+                        }
                     }
                     if (isActSet) {
                         break;
@@ -501,11 +501,9 @@ public class SetClothes {
                 if (phuKien.isNotNullItem()) {
                     boolean isActSet = false;
                     for (Item.ItemOption io : phuKien.itemOptions) {
-                        switch (io.optionTemplate.id) {
-                            case 247:
-                                pkkhMedusa++;
-                                isActSet = true;
-                                break;
+                        if (io.optionTemplate.id == 247) {
+                            pkkhMedusa++;
+                            isActSet = true;
                         }
                         if (isActSet) {
                             break;

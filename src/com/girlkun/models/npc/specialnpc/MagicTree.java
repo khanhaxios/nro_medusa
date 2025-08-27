@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.npc.specialnpc;
 
 import com.girlkun.consts.ConstNpc;
@@ -63,7 +67,7 @@ public class MagicTree {
                         this.currPeas = this.getMaxPea();
                         this.lastTimeHarvest = System.currentTimeMillis();
                     } else {
-                        this.lastTimeHarvest += (numPeaRelease * getSecondPerPea()) * 1000;
+                        this.lastTimeHarvest += ((long) numPeaRelease * getSecondPerPea()) * 1000;
                     }
                 }
             }

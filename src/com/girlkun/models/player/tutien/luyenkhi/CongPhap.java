@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tutien.luyenkhi;
 
 import com.girlkun.consts.ConstNpc;
@@ -389,19 +393,15 @@ public class CongPhap {
             Service.gI().sendThongBao(tuTien.player, "Bạn chưa học công pháp");
             return;
         }
-        StringBuilder npcSay = new StringBuilder();
 
-        npcSay.append("|7|❖═════ CÔNG PHÁP ═════❖\n");
-        npcSay.append("|5|➤").append(getFullName()).append("\n");
-        npcSay.append("|5|➤ Thuần thục:").append(getCurrentExpStr()).append("\n");
-
-        npcSay.append("|2|➤ Số thuộc tính: ").append(slThuocTinh).append(" thuộc tính\n");
-        npcSay.append("|1|➤ Phẩm chất:").append(phamchat.name).append("\n");
-
-        npcSay.append("|5|➤ Thuộc tính:").append(getThuocTinhName()).append("\n");
-
-        npcSay.append("|7|✦ Bạn muốn...?");
-        NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_CONG_PHAP, -1, npcSay.toString(), "Tăng Phẩm", "Lĩnh ngộ", "Xem Thuộc\nTính", "Đóng");
+        String npcSay = "|7|❖═════ CÔNG PHÁP ═════❖\n" +
+                "|5|➤" + getFullName() + "\n" +
+                "|5|➤ Thuần thục:" + getCurrentExpStr() + "\n" +
+                "|2|➤ Số thuộc tính: " + slThuocTinh + " thuộc tính\n" +
+                "|1|➤ Phẩm chất:" + phamchat.name + "\n" +
+                "|5|➤ Thuộc tính:" + getThuocTinhName() + "\n" +
+                "|7|✦ Bạn muốn...?";
+        NpcService.gI().createMenuConMeo(tuTien.player, ConstNpc.MENU_CONG_PHAP, -1, npcSay, "Tăng Phẩm", "Lĩnh ngộ", "Xem Thuộc\nTính", "Đóng");
     }
 
     public boolean canLevelUp() {

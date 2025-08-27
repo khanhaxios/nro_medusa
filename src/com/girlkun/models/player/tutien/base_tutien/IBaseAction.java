@@ -1,41 +1,45 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tutien.base_tutien;
 
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 
 public interface IBaseAction {
-    public long getExpCanGain(Mob targetMob);
+    long getExpCanGain(Mob targetMob);
 
-    public void levelUp();
+    void levelUp();
 
-    public void levelDown();
+    void levelDown();
 
-    public void resetLevel();
+    void resetLevel();
 
-    public float getLevelUpPercent();
+    float getLevelUpPercent();
 
-    public void openSystem();
+    void openSystem();
 
-    public boolean canLevelUp();
+    boolean canLevelUp();
 
-    public String getName();
+    String getName();
 
-    public String getCurrentExpAsString();
+    String getCurrentExpAsString();
 
-    public float getDameBuff();
+    float getDameBuff();
 
-    public float getHPMPBuff();
+    float getHPMPBuff();
 
-    public float getDefBuff();
+    float getDefBuff();
 
-    public float getPSTBuff();
+    float getPSTBuff();
 
-    public float getHutHPBuff();
+    float getHutHPBuff();
 
-    public float getHutMPBuff();
+    float getHutMPBuff();
 
-    public float getNeBuff();
+    float getNeBuff();
 
-    public float getChinhXacBuff();
+    float getChinhXacBuff();
 
 }

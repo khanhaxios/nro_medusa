@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services.func;
 
 import java.util.HashMap;
@@ -27,7 +31,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
- * @Stole By Hoàng Việt💖
+ * 💖
  *
  */
 public class GoiRongXuong {
@@ -83,7 +87,7 @@ public class GoiRongXuong {
         this.update = new Thread(() -> {
             while (active) {
                 try {
-                    if (isRongxuongAppear == true) {
+                    if (isRongxuongAppear) {
                         if (isPlayerDisconnect) {
                             List<Player> players = mapRongxuongAppear.getPlayers();
                             for (Player plMap : players) {
@@ -131,7 +135,7 @@ public class GoiRongXuong {
     public synchronized void summonRongxuong(Player pl) {
         if (pl.zone.map.mapId == 5) {
             if (checkRongxuongBall(pl)) {
-                if (isRongxuongAppear == true) {
+                if (isRongxuongAppear) {
                     Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
                     return;
                 }
@@ -177,10 +181,8 @@ public class GoiRongXuong {
         } catch (Exception e) {
             dragonStar = this.RongxuongStar;
         }
-        switch (dragonStar) {
-            case 1:
-                NpcService.gI().createMenuRongXuong(pl, ConstNpc.HALLOWEN_1_1, HALLOWEN_SAY, HALLOWEN_1_STAR_WISHES_1);
-                break;
+        if (dragonStar == 1) {
+            NpcService.gI().createMenuRongXuong(pl, ConstNpc.HALLOWEN_1_1, HALLOWEN_SAY, HALLOWEN_1_STAR_WISHES_1);
         }
     }
 
@@ -259,55 +261,53 @@ public class GoiRongXuong {
     }
 
     public void confirmWish() {
-        switch (this.menuRongxuong) {
-            case ConstNpc.HALLOWEN_1_1:
-                switch (this.select) {
-                    case 0: //20k hong ngoc
-                        this.playerRongXuong.inventory.ruby += 20000;
-                        PlayerService.gI().sendInfoHpMpMoney(this.playerRongXuong);
-                        break;
-                    case 1: //20% HP,KI,SD 30 phút
-                        this.playerRongXuong.itemTime.lastTimeBiNgo = System.currentTimeMillis();
-                        this.playerRongXuong.itemTime.isBiNgo = true;
-                        Service.getInstance().point(this.playerRongXuong);
-                        ItemTimeService.gI().sendAllItemTime(this.playerRongXuong);
-                        break;
-                    case 2: //100 Thỏi vàng
-                        if (InventoryServiceNew.gI().getCountEmptyBag(playerRongXuong) != 0) {
-                            Item thoivang = ItemService.gI().createNewItem((short) 457);
-                            thoivang.quantity = 200;
-                            InventoryServiceNew.gI().addItemBag(playerRongXuong, thoivang);
-                            InventoryServiceNew.gI().sendItemBags(playerRongXuong);
-                        } else {
-                            Service.getInstance().sendThongBao(playerRongXuong, "Hành trang không đủ chổ trống");
-                            reOpenRongxuongWishes(playerRongXuong);
-                            return;
-                        }
-                        break;
-                    case 3: //thay chiêu 4 đệ tử
-                        if (playerRongXuong.pet.nPoint.power > 20000000000L) {
-                            if (playerRongXuong.pet != null) {
-                                if (playerRongXuong.pet.playerSkill.skills.get(2).skillId != -1) {
-                                    playerRongXuong.pet.openSkill4();
-                                    Service.getInstance().chatJustForMe(playerRongXuong, playerRongXuong.pet, "Cảm ơn sư phụ");
-                                } else {
-                                    Service.getInstance().sendThongBao(playerRongXuong, "Ít nhất đệ tử ngươi phải có chiêu 3 chứ!");
-                                    reOpenRongxuongWishes(playerRongXuong);
-                                    return;
-                                }
+        if (this.menuRongxuong == ConstNpc.HALLOWEN_1_1) {
+            switch (this.select) {
+                case 0: //20k hong ngoc
+                    this.playerRongXuong.inventory.ruby += 20000;
+                    PlayerService.gI().sendInfoHpMpMoney(this.playerRongXuong);
+                    break;
+                case 1: //20% HP,KI,SD 30 phút
+                    this.playerRongXuong.itemTime.lastTimeBiNgo = System.currentTimeMillis();
+                    this.playerRongXuong.itemTime.isBiNgo = true;
+                    Service.getInstance().point(this.playerRongXuong);
+                    ItemTimeService.gI().sendAllItemTime(this.playerRongXuong);
+                    break;
+                case 2: //100 Thỏi vàng
+                    if (InventoryServiceNew.gI().getCountEmptyBag(playerRongXuong) != 0) {
+                        Item thoivang = ItemService.gI().createNewItem((short) 457);
+                        thoivang.quantity = 200;
+                        InventoryServiceNew.gI().addItemBag(playerRongXuong, thoivang);
+                        InventoryServiceNew.gI().sendItemBags(playerRongXuong);
+                    } else {
+                        Service.getInstance().sendThongBao(playerRongXuong, "Hành trang không đủ chổ trống");
+                        reOpenRongxuongWishes(playerRongXuong);
+                        return;
+                    }
+                    break;
+                case 3: //thay chiêu 4 đệ tử
+                    if (playerRongXuong.pet.nPoint.power > 20000000000L) {
+                        if (playerRongXuong.pet != null) {
+                            if (playerRongXuong.pet.playerSkill.skills.get(2).skillId != -1) {
+                                playerRongXuong.pet.openSkill4();
+                                Service.getInstance().chatJustForMe(playerRongXuong, playerRongXuong.pet, "Cảm ơn sư phụ");
                             } else {
-                                Service.getInstance().sendThongBao(playerRongXuong, "Ngươi làm gì có đệ tử?");
+                                Service.getInstance().sendThongBao(playerRongXuong, "Ít nhất đệ tử ngươi phải có chiêu 3 chứ!");
                                 reOpenRongxuongWishes(playerRongXuong);
                                 return;
                             }
                         } else {
-                            Service.getInstance().sendThongBao(playerRongXuong, "Yêu cầu đệ tử có skill 4");
+                            Service.getInstance().sendThongBao(playerRongXuong, "Ngươi làm gì có đệ tử?");
                             reOpenRongxuongWishes(playerRongXuong);
                             return;
                         }
-                        break;
-                }
-                break;
+                    } else {
+                        Service.getInstance().sendThongBao(playerRongXuong, "Yêu cầu đệ tử có skill 4");
+                        reOpenRongxuongWishes(playerRongXuong);
+                        return;
+                    }
+                    break;
+            }
         }
         RongxuongLeave(this.playerRongXuong, WISHED);
     }
@@ -316,19 +316,15 @@ public class GoiRongXuong {
         this.menuRongxuong = menu;
         this.select = select;
         String wish = null;
-        switch (menu) {
-            case ConstNpc.HALLOWEN_1_1:
-                wish = HALLOWEN_1_STAR_WISHES_1[select];
-                break;
+        if (menu == ConstNpc.HALLOWEN_1_1) {
+            wish = HALLOWEN_1_STAR_WISHES_1[select];
         }
         NpcService.gI().createMenuRongXuong(pl, ConstNpc.HALLOWEN_CONFIRM, "Ngươi có chắc muốn ước?", wish, "Từ chối");
     }
 
     public void reOpenRongxuongWishes(Player pl) {
-        switch (menuRongxuong) {
-            case ConstNpc.HALLOWEN_1_1:
-                NpcService.gI().createMenuRongXuong(pl, ConstNpc.HALLOWEN_1_1, HALLOWEN_SAY, HALLOWEN_1_STAR_WISHES_1);
-                break;
+        if (menuRongxuong == ConstNpc.HALLOWEN_1_1) {
+            NpcService.gI().createMenuRongXuong(pl, ConstNpc.HALLOWEN_1_1, HALLOWEN_SAY, HALLOWEN_1_STAR_WISHES_1);
         }
     }
 

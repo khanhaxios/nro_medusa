@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.mob;
 
 import com.girlkun.consts.ConstMap;
@@ -177,9 +181,7 @@ public class Mob {
 
     public boolean isMemInMap(Player me) {
         if (me.clan != null) {
-            if (me.zone.players.stream().allMatch(pl -> pl != null && pl.zone != null && !pl.isBoss && !pl.isNewPet && pl.zone.zoneId == me.zone.zoneId && pl.clan != null && pl.clan.id == me.clan.id)) {
-                return true;
-            }
+            return me.zone.players.stream().allMatch(pl -> pl != null && pl.zone != null && !pl.isBoss && !pl.isNewPet && pl.zone.zoneId == me.zone.zoneId && pl.clan != null && pl.clan.id == me.clan.id);
         }
         return false;
     }
@@ -990,10 +992,7 @@ public class Mob {
                 }
                 break;
         }
-        if (itemMap != null) {
-            return itemMap;
-        }
-        return null;
+        return itemMap;
     }
 
     private void sendMobStillAliveAffterAttacked(Player player, double dameHit, boolean crit, byte type) {
@@ -1015,8 +1014,3 @@ public class Mob {
         }
     }
 }
-
-/**
- * Code được viết bởi Hoàng Việt Vui lòng không sao chép mã nguồn này dưới mọi
- * hình thức.
- */

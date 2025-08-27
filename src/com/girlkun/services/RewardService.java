@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services;
 
 import com.girlkun.models.Template.ItemLuckyRound;
@@ -743,10 +747,8 @@ public class RewardService {
 
     //vật phẩm không thể giao dịch
     private void initNotTradeOption(ItemMap item) {
-        switch(item.itemTemplate.id){
-            case 2009:
-                item.options.add(new Item.ItemOption(30, 0));
-                break;
+        if (item.itemTemplate.id == 2009) {
+            item.options.add(new Item.ItemOption(30, 0));
         }
     }
 

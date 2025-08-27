@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.map;
 
 import com.girlkun.consts.ConstPlayer;
@@ -581,12 +585,12 @@ public class Zone {
         if (!plInfo.isBoss && !plInfo.isPet && !plInfo.isNewPet && !plInfo.isTrieuhoipet && !plInfo.isDaoLu && !(plInfo instanceof BossDHVT) && !(plInfo instanceof Referee) & !(plInfo instanceof Referee1) & !(plInfo instanceof TestDame) & !(plInfo instanceof MedusaNPC)) {
             Service.getInstance().sendPetFollowToMe(plReceive, plInfo);
             if (plInfo.inventory.itemsBody.get(11).isNotNullItem()) {
-                Service.getInstance().sendFootRv(plInfo, plReceive, (short) plInfo.inventory.itemsBody.get(11).template.id);
+                Service.getInstance().sendFootRv(plInfo, plReceive, plInfo.inventory.itemsBody.get(11).template.id);
             }
         }
         if (plInfo.isPl() && plInfo.name.compareTo("MEDUSA") != 0 && plInfo.name.compareTo("Medusa Linh Xinh Gái") != 0 && plInfo.name.compareTo("TEST DAME") != 0) {
             if (plInfo.inventory.itemsBody.get(5).isNotNullItem()) {
-                Service.getInstance().sendTitleRv(plInfo, plReceive, (short) plInfo.inventory.itemsBody.get(5).template.id);
+                Service.getInstance().sendTitleRv(plInfo, plReceive, plInfo.inventory.itemsBody.get(5).template.id);
             }
         }
         Service.getInstance().sendTitleRv(plInfo, plReceive, (short) 888);

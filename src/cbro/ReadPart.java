@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package cbro;
 
 import java.io.BufferedWriter;
@@ -8,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,10 +49,10 @@ public class ReadPart
                 final JSONArray pis = new JSONArray();
                 for (int k = 0; k < n; ++k) {
                     final JSONArray pi = new JSONArray();
-                    pi.add((Object)dis.readShort());
-                    pi.add((Object)dis.readByte());
-                    pi.add((Object)dis.readByte());
-                    pis.add((Object)pi);
+                    pi.add(dis.readShort());
+                    pi.add(dis.readByte());
+                    pi.add(dis.readByte());
+                    pis.add(pi);
                 }
                 parts.add(new Part(i, type, pis));
                 System.out.println("ID Part " + i + " Type " + type + ", '" + pis.toJSONString() + "');");
@@ -80,7 +85,7 @@ public class ReadPart
     }
     
     private static void writeSqlToFile(final String sql, final String filePath) {
-        try (final Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), "utf-8"))) {
+        try (final Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), StandardCharsets.UTF_8))) {
             writer.write(sql);
         }
         catch (IOException e) {
@@ -90,9 +95,9 @@ public class ReadPart
     
     private static class Part
     {
-        private int id;
-        private int type;
-        private JSONArray pi;
+        private final int id;
+        private final int type;
+        private final JSONArray pi;
         
         public Part(final int id, final int type, final JSONArray pi) {
             this.id = id;

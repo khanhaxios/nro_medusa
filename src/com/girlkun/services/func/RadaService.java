@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services.func;
 
 import com.girlkun.models.player.Player;
@@ -28,10 +32,8 @@ public class RadaService {
     public void controller(Player player, Message msg) {
         try {
             byte type = msg.reader().readByte();
-            switch (type) {
-                case 0:
-                    openRada(player);
-                    break;
+            if (type == 0) {
+                openRada(player);
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -101,7 +103,7 @@ public class RadaService {
                 int check = Util.nextInt(0, 0);
                 msg.writer().writeByte(check); //check
                 if (check == 0) {
-                    msg.writer().writeShort(0 + i); //tempid
+                    msg.writer().writeShort(i); //tempid
                 } else {
                     msg.writer().writeShort(player.getHead());
                     msg.writer().writeShort(player.getBody());

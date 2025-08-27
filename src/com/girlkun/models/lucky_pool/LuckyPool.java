@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.lucky_pool;
 
 import com.girlkun.consts.ConstNpc;
@@ -40,23 +44,21 @@ public class LuckyPool {
     }
 
     public static void showBaseMenu(Player player) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|========= Vòng Quay May Mắn =========").append("\n");
-        stringBuilder.append("|5|Điểm may mắn của bạn là : ").append(player.luckyPoolPlayer.totalLuckyPoint).append("\n");
-        stringBuilder.append("|7|Tỷ lệ ra dòng Sử Thi : ").append((player.luckyPoolPlayer.totalLuckyPoint / 1000) * 100).append("%").append("\n");
-        stringBuilder.append("|7|Tỷ lệ ra dòng Huyền Thoại : ").append((player.luckyPoolPlayer.totalLuckyPoint / 10_000) * 100).append("%").append("\n");
-        stringBuilder.append("|5|Mỗi lần quay sẽ tăng tỷ lệ ra dòng hiếm,vật phẩm quay được sẽ nằm trong túi tạm thời").append("\n");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_QSMM, -1, stringBuilder.toString(), "Quay Số", "Túi\nTạm Thời", "Xóa\nTúi");
+        String stringBuilder = "|7|========= Vòng Quay May Mắn =========" + "\n" +
+                "|5|Điểm may mắn của bạn là : " + player.luckyPoolPlayer.totalLuckyPoint + "\n" +
+                "|7|Tỷ lệ ra dòng Sử Thi : " + (player.luckyPoolPlayer.totalLuckyPoint / 1000) * 100 + "%" + "\n" +
+                "|7|Tỷ lệ ra dòng Huyền Thoại : " + (player.luckyPoolPlayer.totalLuckyPoint / 10_000) * 100 + "%" + "\n" +
+                "|5|Mỗi lần quay sẽ tăng tỷ lệ ra dòng hiếm,vật phẩm quay được sẽ nằm trong túi tạm thời" + "\n";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_QSMM, -1, stringBuilder, "Quay Số", "Túi\nTạm Thời", "Xóa\nTúi");
     }
 
     public static void showMenuQuaySo(Player player) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|========= Vòng Quay May Mắn =========").append("\n");
-        stringBuilder.append("|5|Điểm may mắn của bạn là : ").append(player.luckyPoolPlayer.totalLuckyPoint).append("\n");
-        stringBuilder.append("|7|Tỷ lệ ra dòng Sử Thi : ").append((player.luckyPoolPlayer.totalLuckyPoint / 10000) * 100).append("%").append("\n");
-        stringBuilder.append("|7|Tỷ lệ ra dòng Huyền Thoại : ").append((player.luckyPoolPlayer.totalLuckyPoint / 100000) * 100).append("%").append("\n");
-        stringBuilder.append("|5|Mỗi lần quay sẽ tăng tỷ lệ ra dòng hiếm,vật phẩm quay được sẽ nằm trong túi tạm thời").append("\n");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONFRM_QSMM, -1, stringBuilder.toString(), "Quay\n 1 lần", "Quay\n 10 lần");
+        String stringBuilder = "|7|========= Vòng Quay May Mắn =========" + "\n" +
+                "|5|Điểm may mắn của bạn là : " + player.luckyPoolPlayer.totalLuckyPoint + "\n" +
+                "|7|Tỷ lệ ra dòng Sử Thi : " + (player.luckyPoolPlayer.totalLuckyPoint / 10000) * 100 + "%" + "\n" +
+                "|7|Tỷ lệ ra dòng Huyền Thoại : " + (player.luckyPoolPlayer.totalLuckyPoint / 100000) * 100 + "%" + "\n" +
+                "|5|Mỗi lần quay sẽ tăng tỷ lệ ra dòng hiếm,vật phẩm quay được sẽ nằm trong túi tạm thời" + "\n";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONFRM_QSMM, -1, stringBuilder, "Quay\n 1 lần", "Quay\n 10 lần");
     }
 
     public static void showTuiTamThoi(Player player) {

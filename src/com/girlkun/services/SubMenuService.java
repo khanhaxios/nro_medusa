@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services;
 
 import com.girlkun.consts.ConstNpc;
@@ -98,9 +102,9 @@ public class SubMenuService {
 
     public static class SubMenu {
 
-        private int id;
-        private String caption1;
-        private String caption2;
+        private final int id;
+        private final String caption1;
+        private final String caption2;
 
         public SubMenu(int id, String caption1, String caption2) {
             this.id = id;

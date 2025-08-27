@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.boss.list_boss;
 
 import com.girlkun.models.boss.Boss;
@@ -55,7 +59,7 @@ public class MiNuong extends Boss {
 
     @Override
     public void active() {
-        if (playerTarger.haveBeQuynh == true && playerTarger.batco == false) {
+        if (playerTarger.haveBeQuynh && !playerTarger.batco) {
             int co = Util.nextInt(1, 7);
             Service.getInstance().changeFlag(playerTarger, co);
             Service.getInstance().changeFlag(this, co);
@@ -171,7 +175,6 @@ public class MiNuong extends Boss {
                     ChangeMapService.gI().changeMap(this, this.zone, this.location.x, this.location.y);
                 } else {
                     ChangeMapService.gI().changeMap(this, this.zone, this.location.x, this.location.y);
-                    ;
                 }
 //                this.wakeupAnotherBossWhenAppear();
             } else {

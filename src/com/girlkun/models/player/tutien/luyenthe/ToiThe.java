@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tutien.luyenthe;
 
 import com.girlkun.consts.ConstNpc;
@@ -36,23 +40,21 @@ public class ToiThe {
     }
 
     public void showBaseMenu() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|====== Thông tin tôi thể ======").append("\n");
-        stringBuilder.append("|5|Cấp tôi thể  ").append(tier).append("\n");
-        stringBuilder.append("|5|Dame Buff : ").append(getDameBuff()).append("%").append("\n");
-        stringBuilder.append("|5|HPMP Buff : ").append(getHPMPBuff()).append("%").append("\n");
-        stringBuilder.append("|5|Tỷ lệ thành công  ").append(getPercentLevelUp()).append("%").append("\n");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TOI_THE, -1, stringBuilder.toString(), "Tôi thể", "Đóng");
+        String stringBuilder = "|7|====== Thông tin tôi thể ======" + "\n" +
+                "|5|Cấp tôi thể  " + tier + "\n" +
+                "|5|Dame Buff : " + getDameBuff() + "%" + "\n" +
+                "|5|HPMP Buff : " + getHPMPBuff() + "%" + "\n" +
+                "|5|Tỷ lệ thành công  " + getPercentLevelUp() + "%" + "\n";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_TOI_THE, -1, stringBuilder, "Tôi thể", "Đóng");
     }
 
     public void showMenuToiThe() {
         int nextTier = Math.min(tier + 1, MAX_TIER);
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|====== Tôi thể ======").append("\n");
-        stringBuilder.append("|5|Cấp tôi thể tiếp theo ").append(nextTier).append("\n");
-        stringBuilder.append("|7|Tỷ lệ thành công  ").append(getPercentLevelUp()).append("%").append("\n");
-        stringBuilder.append(getNguyenLieuCan());
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONFIRM_TT, -1, stringBuilder.toString(), "Tôi thể", "Đóng");
+        String stringBuilder = "|7|====== Tôi thể ======" + "\n" +
+                "|5|Cấp tôi thể tiếp theo " + nextTier + "\n" +
+                "|7|Tỷ lệ thành công  " + getPercentLevelUp() + "%" + "\n" +
+                getNguyenLieuCan();
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CONFIRM_TT, -1, stringBuilder, "Tôi thể", "Đóng");
     }
 
     private String getNguyenLieuCan() {

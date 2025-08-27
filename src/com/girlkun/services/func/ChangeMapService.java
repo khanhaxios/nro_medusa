@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services.func;
 
 import com.girlkun.consts.ConstMap;
@@ -413,7 +417,6 @@ public class ChangeMapService {
         Map map = player.zone.map;
         if (map.mapId == Zone.currentMap) {
             Service.gI().sendThongBao(player, "Bạn đã vào map cơ duyên mọi thứ ở đây sẽ được buff nhiều hơn");
-            return;
         }
     }
 
@@ -461,12 +464,12 @@ public class ChangeMapService {
                     Service.gI().sendFlagBag(player);
                 }
             }
-            if (player.haveBeQuynh == true && !Util.canDoWithTime(player.lastTimeHoTong, 20000)) {
+            if (player.haveBeQuynh && !Util.canDoWithTime(player.lastTimeHoTong, 20000)) {
                 resetPoint(player);
                 Service.getInstance().sendThongBao(player, "Đang Hộ tống, không được chuyển map quá nhanh !!");
                 return;
             }
-            if (player.haveBeQuynh == true) {
+            if (player.haveBeQuynh) {
                 player.lastTimeHoTong = System.currentTimeMillis();
             }
             changeMap(player, zoneJoin, -1, -1, xGo, yGo, NON_SPACE_SHIP);
@@ -518,7 +521,7 @@ public class ChangeMapService {
             if (player.pet != null && player.pet.mobMe != null) {
                 msg = new Message(-95);
                 msg.writer().writeByte(0);//type
-                msg.writer().writeInt((int) player.pet.mobMe.id);
+                msg.writer().writeInt(player.pet.mobMe.id);
                 msg.writer().writeShort(player.pet.mobMe.tempId);
                 msg.writer().writeDouble(Util.DoubleGioihang(player.pet.mobMe.point.gethp()));// hp mob
                 Service.getInstance().sendMessAnotherNotMeInMap(player, msg);

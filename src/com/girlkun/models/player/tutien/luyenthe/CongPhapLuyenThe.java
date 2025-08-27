@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tutien.luyenthe;
 
 import com.girlkun.consts.ConstNpc;
@@ -192,22 +196,16 @@ public class CongPhapLuyenThe {
     }
 
     public void showMenuPhaGiai() {
-        StringBuilder sb = new StringBuilder();
 
-        sb.append("|7|❖════ PHÁ GIAI ĐOẠN ❖\n");
+        String sb = "|7|❖════ PHÁ GIAI ĐOẠN ❖\n" +
+                "|7|" + tenCongPhap + "\n" +
+                "|5|➤ Giai đoạn hiện tại [" + giaiDoan + " / 8]\n" +
+                "|5|➤ EXP Giai đoạn      : " + Util.numberToMoney(expGiaiDoan) + " / " + Util.numberToMoney(maxExpGiaiDoan) + "\n" +
+                "|5|➤ Tỷ lệ thành công   : " + String.format("%.1f", getPercentLevelGiaiDoanUp()) + "%\n" +
+                "|7|✦ Khi EXP đạt tối đa, bạn có thể phá giai đoạn để mạnh hơn!" +
+                "\n|7|❖════════════════════❖";
 
-        sb.append("|7|").append(tenCongPhap).append("\n");
-
-        sb.append("|5|➤ Giai đoạn hiện tại [").append(giaiDoan).append(" / 8]\n");
-
-        sb.append("|5|➤ EXP Giai đoạn      : ").append(Util.numberToMoney(expGiaiDoan)).append(" / ").append(Util.numberToMoney(maxExpGiaiDoan)).append("\n");
-
-        sb.append("|5|➤ Tỷ lệ thành công   : ").append(String.format("%.1f", getPercentLevelGiaiDoanUp())).append("%\n");
-
-        sb.append("|7|✦ Khi EXP đạt tối đa, bạn có thể phá giai đoạn để mạnh hơn!");
-        sb.append("\n|7|❖════════════════════❖");
-
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CP_PG, -1, sb.toString(), "Phá giai", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CP_PG, -1, sb, "Phá giai", "Đóng");
     }
 
     public void showBaseMenu() {
@@ -215,32 +213,29 @@ public class CongPhapLuyenThe {
             Service.gI().sendThongBao(player, "Bạn chưa học công pháp");
             return;
         }
-        StringBuilder sb = new StringBuilder();
 
-        sb.append("|7|❖════ THÔNG TIN CÔNG PHÁP LUYỆN THỂ ❖\n");
+        String sb = "|7|❖════ THÔNG TIN CÔNG PHÁP LUYỆN THỂ ❖\n" +
 
 // — Tên công pháp —
-        sb.append("|7|").append(tenCongPhap).append("\n");
+                "|7|" + tenCongPhap + "\n" +
 
 // — Tầng + Giai đoạn —
-        sb.append("|5|➤ Tầng hiện tại ").append(tang).append(" / ").append(MAX_TANG).append("\n");
-        sb.append("|5|➤ Giai đoạn ").append(giaiDoan).append(" / 8\n");
+                "|5|➤ Tầng hiện tại " + tang + " / " + MAX_TANG + "\n" +
+                "|5|➤ Giai đoạn " + giaiDoan + " / 8\n" +
 
 // — EXP các loại —
-        sb.append("|5|➤ EXP Giai đoạn ").append(Util.numberToMoney(expGiaiDoan)).append(" / ").append(Util.numberToMoney(maxExpGiaiDoan)).append("\n");
-
-        sb.append("|5|➤ EXP Công pháp ").append(Util.numberToMoney(exp)).append(" / ").append(Util.numberToMoney(maxExp)).append("\n");
+                "|5|➤ EXP Giai đoạn " + Util.numberToMoney(expGiaiDoan) + " / " + Util.numberToMoney(maxExpGiaiDoan) + "\n" +
+                "|5|➤ EXP Công pháp " + Util.numberToMoney(exp) + " / " + Util.numberToMoney(maxExp) + "\n" +
 
 // — Buff các chỉ số —
-        sb.append("|5|➤ Buff Dame  +").append((int) getDameBuff()).append("%\n");
-        sb.append("|5|➤ Buff HP  +").append((int) getHPBuff()).append("%\n");
-        sb.append("|5|➤ Buff MP  +").append((int) getMpBuff()).append("%\n");
+                "|5|➤ Buff Dame  +" + (int) getDameBuff() + "%\n" +
+                "|5|➤ Buff HP  +" + (int) getHPBuff() + "%\n" +
+                "|5|➤ Buff MP  +" + (int) getMpBuff() + "%\n" +
 
 // — Tỷ lệ nâng giai đoạn —
-        sb.append("|5|➤ Tỷ lệ nâng giai đoạn: ").append(String.format("%.1f", getPercentLevelGiaiDoanUp())).append("%\n");
-
-        sb.append("|7|❖══════════════════════════❖");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CP_LT, -1, sb.toString(), "Phá tầng", "Phá giai", "Đóng");
+                "|5|➤ Tỷ lệ nâng giai đoạn: " + String.format("%.1f", getPercentLevelGiaiDoanUp()) + "%\n" +
+                "|7|❖══════════════════════════❖";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_CP_LT, -1, sb, "Phá tầng", "Phá giai", "Đóng");
     }
 
     public void calcPoint() {

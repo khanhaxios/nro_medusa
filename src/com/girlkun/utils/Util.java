@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.utils;
 
 import com.girlkun.models.boss.BossManager;
@@ -238,11 +242,11 @@ public class Util {
         switch (conD) {
             case 3:
                 power *= 1000;
-                strConvert = strConvert.substring(6, strConvert.length());
+                strConvert = strConvert.substring(6);
                 break;
             case 2:
                 power *= 1_000_000;
-                strConvert = strConvert.substring(6, strConvert.length());
+                strConvert = strConvert.substring(6);
                 break;
             default:
         }
@@ -366,18 +370,12 @@ public class Util {
 
     public static boolean isTrue(int ratio, int typeRatio) {
         int num = Util.nextInt(typeRatio);
-        if (num < ratio) {
-            return true;
-        }
-        return false;
+        return num < ratio;
     }
 
     public static boolean isTrue(long ratio, long typeRatio) {
         long num = Util.nextLong(typeRatio);
-        if (num < ratio) {
-            return true;
-        }
-        return false;
+        return num < ratio;
     }
 
     public static boolean isTrue(float ratio, int typeRatio) {
@@ -409,10 +407,7 @@ public class Util {
     }
 
     public static boolean kituvip(String text) {
-        if (text.contains("[svip]") || text.contains("[vip]") || text.contains("[SVIP]") || text.contains("[VIP]") || text.contains("VIP") || text.contains("vip") || text.contains("SVIP") || text.contains("svip")) {
-            return false;
-        }
-        return true;
+        return !text.contains("[svip]") && !text.contains("[vip]") && !text.contains("[SVIP]") && !text.contains("[VIP]") && !text.contains("VIP") && !text.contains("vip") && !text.contains("SVIP") && !text.contains("svip");
     }
 
     public static boolean canDoWithTime(long lastTime, long miniTimeTarget) {
@@ -684,11 +679,11 @@ public class Util {
     }
 
     public static void ratiItemSen(ItemMap it, int tempId) {
-        List<Integer> ao = Arrays.asList(1389);
-        List<Integer> quan = Arrays.asList(1390);
-        List<Integer> gang = Arrays.asList(1391);
-        List<Integer> giay = Arrays.asList(1392);
-        List<Integer> nhan = Arrays.asList(1393);
+        List<Integer> ao = List.of(1389);
+        List<Integer> quan = List.of(1390);
+        List<Integer> gang = List.of(1391);
+        List<Integer> giay = List.of(1392);
+        List<Integer> nhan = List.of(1393);
         it.options.add(new Item.ItemOption(230, 1));
         it.options.add(new Item.ItemOption(21, 120));
         if (ao.contains(tempId)) {
@@ -863,6 +858,7 @@ public class Util {
                     options.add(new Item.ItemOption(optionId, chiso));
                 }
             }
+            options.add(new Item.ItemOption(93, Util.nextInt(1, 3)));
             itemMap.options = options;
             Service.gI().dropItemMap(zone, itemMap);
         }
@@ -890,6 +886,7 @@ public class Util {
                     options.add(new Item.ItemOption(optionId, chiso));
                 }
             }
+            options.add(new Item.ItemOption(93, Util.nextInt(1, 3)));
             itemMap.options = options;
             Service.gI().dropItemMap(zone, itemMap);
         }
@@ -1013,7 +1010,7 @@ public class Util {
     }
 
     public static Item randomthanlinh(short tempId) {
-        Item it = ItemService.gI().createNewItem((short) tempId);
+        Item it = ItemService.gI().createNewItem(tempId);
         List<Integer> ao = Arrays.asList(555, 557, 559);
         List<Integer> quan = Arrays.asList(556, 558, 560);
         List<Integer> gang = Arrays.asList(562, 564, 566);
@@ -1334,8 +1331,3 @@ public class Util {
         return (byte) critg;
     }
 }
-
-/**
- * Code được viết bởi Hoàng Việt Vui lòng không sao chép mã nguồn này dưới mọi
- * hình thức.
- */

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.server;
 
 import com.girlkun.server.Maintenance;
@@ -18,7 +22,12 @@ import java.util.logging.Level;
 
 public class panel extends JPanel implements ActionListener {
 
-    private JButton baotri, thaydoiexp, thaydoisk, chatserver, kickplayer, doitien;
+    private final JButton baotri;
+    private final JButton thaydoiexp;
+    private final JButton thaydoisk;
+    private final JButton chatserver;
+    private final JButton kickplayer;
+    private final JButton doitien;
 
     public panel() {
         setLayout(new GridBagLayout());

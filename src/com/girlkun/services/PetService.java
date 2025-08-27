@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services;
 
 import com.girlkun.consts.ConstPlayer;
@@ -55,7 +59,7 @@ public class PetService {
     private void createNewDaoLu(Player player, String name, byte typeDaoLu, byte... gender) {
         int[] data = getDataDaoLus(typeDaoLu);
         DaoLu petDaoLu = new DaoLu(player);
-        petDaoLu.typeDaoLu = (byte) typeDaoLu;
+        petDaoLu.typeDaoLu = typeDaoLu;
         petDaoLu.nameDaoLu = name;
         petDaoLu.name = "$[" + petDaoLu.getTypeString() + "] " + petDaoLu.nameDaoLu;
         //"$" + getNameDaoLus(typeDaoLu);
@@ -391,7 +395,7 @@ public class PetService {
             pet.id = -player.id;
             pet.nPoint.power = typePet != 0 ? 1500000 : 2000;
             pet.nPoint.tiemNang = typePet != 0 ? 1500000 : 2000;
-            pet.typePet = (byte) typePet;
+            pet.typePet = typePet;
             pet.nPoint.stamina = 1000;
             pet.nPoint.maxStamina = 1000;
             pet.nPoint.hpg = data[0];

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services.func;
 
 import com.girlkun.consts.ConstNpc;
@@ -434,17 +438,14 @@ public class Input {
                                                     InventoryServiceNew.gI().sendItemBags(player);
                                                     Service.getInstance().sendMoney(player);
                                                     Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "\nSố hệ thống quay ra : " + x + " " + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : " + sotvxiu + " Hồng ngọc vào Xỉu" + "\nKẾT QUẢ : Xỉu" + "\n\nVề bờ");
-                                                    return;
                                                 }
                                             } else if (x == y && x == z) {
                                                 if (player != null) {
                                                     Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "Số hệ thống quay ra : " + x + " " + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : " + sotvxiu + " Hồng ngọc vào Xỉu" + "\nKẾT QUẢ : Tam hoa" + "\n\nXui quá làm lại thôi.");
-                                                    return;
                                                 }
                                             } else if ((x + y + z) > 10) {
                                                 if (player != null) {
                                                     Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "\nSố hệ thống quay ra là :" + " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : " + sotvxiu + " Hồng ngọc vào Xỉu" + "\nKẾT QUẢ : Tài" + "\n\nXui quá làm lại thôi.");
-                                                    return;
                                                 }
                                             }
                                         }
@@ -510,12 +511,10 @@ public class Input {
                                             if (4 <= (x + y + z) && (x + y + z) <= 10) {
                                                 if (player != null) {// tự sửa lại tên lấy
                                                     Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "\nSố hệ thống quay ra là :" + " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : " + sotvtai + " Hồng ngọc vào Tài" + "\nKẾT QUẢ : Xỉu " + "\n\nXui quá làm lại thôi.");
-                                                    return;
                                                 }
                                             } else if (x == y && x == z) {
                                                 if (player != null) {
                                                     Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "Số hệ thống quay ra : " + x + " " + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : " + sotvtai + " Hồng ngọc vào Tài" + "\nKẾT QUẢ : Tam hoa" + "\n\nXui quá làm lại thôi.");
-                                                    return;
                                                 }
                                             } else if ((x + y + z) > 10) {
 
@@ -524,7 +523,6 @@ public class Input {
                                                     InventoryServiceNew.gI().sendItemBags(player);
                                                     Service.getInstance().sendMoney(player);
                                                     Service.gI().sendThongBaoOK(player, "KẾT QUẢ" + "\nSố hệ thống quay ra : " + x + " " + y + " " + z + "\nTổng là : " + tong + "\n\nBạn đã cược : " + sotvtai + " Hồng ngọc vào Tài" + "\nKẾT QUẢ : Tài" + "\n\nVề bờ");
-                                                    return;
                                                 }
                                             }
                                         }
@@ -634,27 +632,27 @@ public class Input {
 
                                 Item itemBuffTemplate = ItemService.gI().createNewItem((short) idItemBuff, slItemBuff);
                                 if (!idOptionBuff.isEmpty()) {
-                                    String arr[] = idOptionBuff.split(";");
+                                    String[] arr = idOptionBuff.split(";");
                                     for (int i = 0; i < arr.length; i++) {
-                                        String arr2[] = arr[i].split("-");
+                                        String[] arr2 = arr[i].split("-");
                                         int idoption = Integer.parseInt(arr2[0].trim());
                                         int param = Integer.parseInt(arr2[1].trim());
                                         itemBuffTemplate.itemOptions.add(new Item.ItemOption(idoption, param));
                                     }
                                 }
                                 if (!idOptionBuff1.isEmpty()) {
-                                    String arr[] = idOptionBuff1.split(";");
+                                    String[] arr = idOptionBuff1.split(";");
                                     for (int i = 0; i < arr.length; i++) {
-                                        String arr2[] = arr[i].split("-");
+                                        String[] arr2 = arr[i].split("-");
                                         int idoption = Integer.parseInt(arr2[0].trim());
                                         int param = Integer.parseInt(arr2[1].trim());
                                         itemBuffTemplate.itemOptions.add(new Item.ItemOption(idoption, param));
                                     }
                                 }
                                 if (!idOptionBuff2.isEmpty()) {
-                                    String arr[] = idOptionBuff2.split(";");
+                                    String[] arr = idOptionBuff2.split(";");
                                     for (int i = 0; i < arr.length; i++) {
-                                        String arr2[] = arr[i].split("-");
+                                        String[] arr2 = arr[i].split("-");
                                         int idoption = Integer.parseInt(arr2[0].trim());
                                         int param = Integer.parseInt(arr2[1].trim());
                                         itemBuffTemplate.itemOptions.add(new Item.ItemOption(idoption, param));
@@ -684,9 +682,9 @@ public class Input {
                         switch (danhhieu) {
                             case 1:
                                 if (Client.gI().getPlayerOrigin(namemain).lastTimeTitle1 == 0) {
-                                    Client.gI().getPlayerOrigin(namemain).lastTimeTitle1 += System.currentTimeMillis() + (1000 * 60 * 60 * 24 * ngay);
+                                    Client.gI().getPlayerOrigin(namemain).lastTimeTitle1 += System.currentTimeMillis() + (1000L * 60 * 60 * 24 * ngay);
                                 } else {
-                                    Client.gI().getPlayerOrigin(namemain).lastTimeTitle1 += (1000 * 60 * 60 * 24 * ngay);
+                                    Client.gI().getPlayerOrigin(namemain).lastTimeTitle1 += (1000L * 60 * 60 * 24 * ngay);
                                 }
                                 Client.gI().getPlayerOrigin(namemain).isTitleUse1 = true;
                                 Service.gI().point(Client.gI().getPlayerOrigin(namemain));
@@ -695,9 +693,9 @@ public class Input {
                                 break;
                             case 2:
                                 if (Client.gI().getPlayerOrigin(namemain).lastTimeTitle2 == 0) {
-                                    Client.gI().getPlayerOrigin(namemain).lastTimeTitle2 += System.currentTimeMillis() + (1000 * 60 * 60 * 24 * ngay);
+                                    Client.gI().getPlayerOrigin(namemain).lastTimeTitle2 += System.currentTimeMillis() + (1000L * 60 * 60 * 24 * ngay);
                                 } else {
-                                    Client.gI().getPlayerOrigin(namemain).lastTimeTitle2 += (1000 * 60 * 60 * 24 * ngay);
+                                    Client.gI().getPlayerOrigin(namemain).lastTimeTitle2 += (1000L * 60 * 60 * 24 * ngay);
                                 }
                                 Client.gI().getPlayerOrigin(namemain).isTitleUse2 = true;
                                 Service.gI().point(Client.gI().getPlayerOrigin(namemain));
@@ -706,9 +704,9 @@ public class Input {
                                 break;
                             case 3:
                                 if (Client.gI().getPlayerOrigin(namemain).lastTimeTitle3 == 0) {
-                                    Client.gI().getPlayerOrigin(namemain).lastTimeTitle3 += System.currentTimeMillis() + (1000 * 60 * 60 * 24 * ngay);
+                                    Client.gI().getPlayerOrigin(namemain).lastTimeTitle3 += System.currentTimeMillis() + (1000L * 60 * 60 * 24 * ngay);
                                 } else {
-                                    Client.gI().getPlayerOrigin(namemain).lastTimeTitle3 += (1000 * 60 * 60 * 24 * ngay);
+                                    Client.gI().getPlayerOrigin(namemain).lastTimeTitle3 += (1000L * 60 * 60 * 24 * ngay);
                                 }
                                 Client.gI().getPlayerOrigin(namemain).isTitleUse3 = true;
                                 Service.gI().point(Client.gI().getPlayerOrigin(namemain));
@@ -812,16 +810,16 @@ public class Input {
                                         thehongngoc = InventoryServiceNew.gI().findItemBag(player, 1132);
                                     } catch (Exception e) {
                                     }
-                                    Item thoiVang = ItemService.gI().createNewItem((short) 861, Manager.SUKIEN != 1 ? (goldTrade) : goldTrade);// x3
+                                    Item thoiVang = ItemService.gI().createNewItem((short) 861, (goldTrade));// x3
                                     InventoryServiceNew.gI().addItemBag(player, thoiVang);
                                     if (thehongngoc != null) {
                                         Service.getInstance().sendThongBao(player, "|3|Bạn đã có Vé tặng ngọc rồi nên không nhận được nữa !!");
-                                        Service.getInstance().sendThongBao(player, "Bạn nhận được " + (Manager.SUKIEN != 1 ? Util.format(goldTrade) : Util.format(goldTrade))//* ratioGold * 2
+                                        Service.getInstance().sendThongBao(player, "Bạn nhận được " + (Util.format(goldTrade))//* ratioGold * 2
                                                 + " " + (thoiVang.template.name));
                                     } else {
                                         Item thehn = ItemService.gI().createNewItem((short) 1132, 1);
                                         InventoryServiceNew.gI().addItemBag(player, thehn);
-                                        Service.getInstance().sendThongBao(player, "Bạn nhận được " + (Manager.SUKIEN != 1 ? Util.format(goldTrade) : Util.format(goldTrade))//* ratioGold * 2
+                                        Service.getInstance().sendThongBao(player, "Bạn nhận được " + (Util.format(goldTrade))//* ratioGold * 2
                                                 + " " + (thoiVang.template.name) + " và 1 Vé tặng hồng ngọc");
                                     }
                                     InventoryServiceNew.gI().sendItemBags(player);
@@ -928,7 +926,7 @@ public class Input {
                                     } else {
                                         Item thehn = ItemService.gI().createNewItem((short) 1132, 1);
                                         InventoryServiceNew.gI().addItemBag(player, thehn);
-                                        Service.getInstance().sendThongBao(player, "Bạn nhận được " + (Manager.SUKIEN != 1 ? Util.format(((goldTrade1 / 100))) : Util.format((goldTrade1 / 100)))//* ratioGold * 2
+                                        Service.getInstance().sendThongBao(player, "Bạn nhận được " + (Util.format(((goldTrade1 / 100))))//* ratioGold * 2
                                                 + " " + (thoiVang.template.name) + " và 1 Vé tặng hồng ngọc");
                                     }
                                     GirlkunDB.executeUpdate("update player set vndd = (vndd + " + goldTrade1 //* coinGold
@@ -1146,8 +1144,8 @@ public class Input {
 
     public static class SubInput {
 
-        private String name;
-        private byte typeInput;
+        private final String name;
+        private final byte typeInput;
 
         public SubInput(String name, byte typeInput) {
             this.name = name;

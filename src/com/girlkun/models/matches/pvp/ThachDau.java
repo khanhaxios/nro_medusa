@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.matches.pvp;
 
 import com.girlkun.models.matches.PVP;
@@ -10,8 +14,8 @@ import com.girlkun.utils.Util;
 
 public class ThachDau extends PVP {
 
-    private int goldThachDau;
-    private long goldReward;
+    private final int goldThachDau;
+    private final long goldReward;
 
     public ThachDau(Player p1, Player p2, int goldThachDau) {
         super(TYPE_PVP.THACH_DAU, p1, p2);
@@ -65,6 +69,6 @@ public class ThachDau extends PVP {
 }
 
 /**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức Hãy tôn trọng tác giả
+ * Hãy tôn trọng tác giả
  * của mã nguồn này Xin cảm ơn! - Girlkun75
  */

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services;
 
 import com.girlkun.consts.ConstNpc;
@@ -578,7 +582,7 @@ public class ClanService {
                     msg = new Message(-50);
                     msg.writer().writeByte(clan.getCurrMembers());
                     for (ClanMember cm : clan.getMembers()) {
-                        msg.writer().writeInt((int) cm.id);
+                        msg.writer().writeInt(cm.id);
                         msg.writer().writeShort(cm.head);
                         msg.writer().writeShort(-1);
                         msg.writer().writeShort(cm.leg);
@@ -620,7 +624,7 @@ public class ClanService {
                 msg.writer().writeByte(player.clan.getCurrMembers());
                 msg.writer().writeByte(player.clan.maxMember);
                 msg.writer().writeByte(player.clan.getRole(player));
-                msg.writer().writeInt((int) player.clan.capsuleClan);
+                msg.writer().writeInt(player.clan.capsuleClan);
                 msg.writer().writeByte(player.clan.level);
                 for (ClanMember cm : player.clan.getMembers()) {
                     msg.writer().writeInt(cm.id);
@@ -852,14 +856,13 @@ public class ClanService {
 
     private void removeClanPlayer(int plId) {
         PreparedStatement ps = null;
-        try (Connection con = GirlkunDB.getConnection();) {
+        try (Connection con = GirlkunDB.getConnection()) {
             ps = con.prepareStatement("update player set clan_id_sv"
                     + Manager.SERVER + " = -1 where id = " + plId);
             ps.executeUpdate();
             ps.close();
         } catch (Exception ex) {
             removeClanPlayer(plId);
-            return;
         } finally {
             try {
                 ps.close();
@@ -952,7 +955,7 @@ public class ClanService {
 
     public void closes() {
         PreparedStatement ps = null;
-        try (Connection con = GirlkunDB.getConnection();) {
+        try (Connection con = GirlkunDB.getConnection()) {
             ps = con.prepareStatement("update clan_sv" + Manager.SERVER
                     + " set slogan = ?, img_id = ?, power_point = ?, max_member = ?, clan_point = ?, "
                     + "level = ?, members = ? , doanh_trai = ? where id = ? limit 1");

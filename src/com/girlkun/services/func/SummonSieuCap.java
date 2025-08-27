@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services.func;
 
 import java.util.HashMap;
@@ -19,7 +23,7 @@ import java.util.List;
 
 /**
  *
- * @Stole By Hoàng Việt💖
+ * 💖
  *
  */
 public class SummonSieuCap {
@@ -70,7 +74,7 @@ public class SummonSieuCap {
         this.update = new Thread(() -> {
             while (active) {
                 try {
-                    if (isSieuCapAppear == true) {
+                    if (isSieuCapAppear) {
                         if (isPlayerDisconnect) {
                             List<Player> players = mapSieuCapAppear.getPlayers();
                             for (Player plMap : players) {
@@ -117,7 +121,7 @@ public class SummonSieuCap {
 
     public synchronized void summonSieuCap(Player pl) {
         if (pl.zone.map.mapId == 5) {
-            if (isSieuCapAppear == true) {
+            if (isSieuCapAppear) {
                 Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
                 return;
             }
@@ -169,10 +173,8 @@ public class SummonSieuCap {
         } catch (Exception e) {
             dragonStar = this.SieuCapStar;
         }
-        switch (dragonStar) {
-            case 1:
-                NpcService.gI().createMenuSieuCap(pl, ConstNpc.SUPER_1, SUPER_SAY, SUPER_1_STAR_WISHES_1);
-                break;
+        if (dragonStar == 1) {
+            NpcService.gI().createMenuSieuCap(pl, ConstNpc.SUPER_1, SUPER_SAY, SUPER_1_STAR_WISHES_1);
         }
     }
 
@@ -215,101 +217,99 @@ public class SummonSieuCap {
     }
 
     public void confirmWish() {
-        switch (this.menuSieuCap) {
-            case ConstNpc.SUPER_1:
-                switch (this.select) {
-                    case 0:
-                        if (InventoryServiceNew.gI().getCountEmptyBag(playerSieuCap) > 0) {
-                            Item ctGohan = ItemService.gI().createNewItem((short) 989);
-                            ctGohan.itemOptions.add(new Item.ItemOption(50, Util.nextInt(20, 250)));
-                            ctGohan.itemOptions.add(new Item.ItemOption(77, Util.nextInt(20, 250)));
-                            ctGohan.itemOptions.add(new Item.ItemOption(103, Util.nextInt(20, 250)));
-                            ctGohan.itemOptions.add(new Item.ItemOption(5, Util.nextInt(20, 30)));
-                            ctGohan.itemOptions.add(new Item.ItemOption(47, Util.nextInt(5, 15)));
+        if (this.menuSieuCap == ConstNpc.SUPER_1) {
+            switch (this.select) {
+                case 0:
+                    if (InventoryServiceNew.gI().getCountEmptyBag(playerSieuCap) > 0) {
+                        Item ctGohan = ItemService.gI().createNewItem((short) 989);
+                        ctGohan.itemOptions.add(new Item.ItemOption(50, Util.nextInt(20, 250)));
+                        ctGohan.itemOptions.add(new Item.ItemOption(77, Util.nextInt(20, 250)));
+                        ctGohan.itemOptions.add(new Item.ItemOption(103, Util.nextInt(20, 250)));
+                        ctGohan.itemOptions.add(new Item.ItemOption(5, Util.nextInt(20, 30)));
+                        ctGohan.itemOptions.add(new Item.ItemOption(47, Util.nextInt(5, 15)));
 
-                            ctGohan.itemOptions.add(new Item.ItemOption(93, 60));
-                            InventoryServiceNew.gI().addItemBag(playerSieuCap, ctGohan);
-                            InventoryServiceNew.gI().sendItemBags(playerSieuCap);
-                        } else {
-                            Service.getInstance().sendThongBao(playerSieuCap, "Hành trang đã đầy");
-                            reOpenSieuCapWishes(playerSieuCap);
-                            return;
-                        }
-                        break;
-                    case 1:
-                        if (InventoryServiceNew.gI().getCountEmptyBag(playerSieuCap) > 0) {
-                            Item ctBiden = ItemService.gI().createNewItem((short) 990);
-                            ctBiden.itemOptions.add(new Item.ItemOption(50, Util.nextInt(20, 250)));
-                            ctBiden.itemOptions.add(new Item.ItemOption(77, Util.nextInt(20, 250)));
-                            ctBiden.itemOptions.add(new Item.ItemOption(103, Util.nextInt(20, 250)));
-                            ctBiden.itemOptions.add(new Item.ItemOption(5, Util.nextInt(20, 30)));
-                            ctBiden.itemOptions.add(new Item.ItemOption(47, Util.nextInt(5, 15)));
+                        ctGohan.itemOptions.add(new Item.ItemOption(93, 60));
+                        InventoryServiceNew.gI().addItemBag(playerSieuCap, ctGohan);
+                        InventoryServiceNew.gI().sendItemBags(playerSieuCap);
+                    } else {
+                        Service.getInstance().sendThongBao(playerSieuCap, "Hành trang đã đầy");
+                        reOpenSieuCapWishes(playerSieuCap);
+                        return;
+                    }
+                    break;
+                case 1:
+                    if (InventoryServiceNew.gI().getCountEmptyBag(playerSieuCap) > 0) {
+                        Item ctBiden = ItemService.gI().createNewItem((short) 990);
+                        ctBiden.itemOptions.add(new Item.ItemOption(50, Util.nextInt(20, 250)));
+                        ctBiden.itemOptions.add(new Item.ItemOption(77, Util.nextInt(20, 250)));
+                        ctBiden.itemOptions.add(new Item.ItemOption(103, Util.nextInt(20, 250)));
+                        ctBiden.itemOptions.add(new Item.ItemOption(5, Util.nextInt(20, 30)));
+                        ctBiden.itemOptions.add(new Item.ItemOption(47, Util.nextInt(5, 15)));
 
-                            ctBiden.itemOptions.add(new Item.ItemOption(93, 60));
-                            InventoryServiceNew.gI().addItemBag(playerSieuCap, ctBiden);
-                            InventoryServiceNew.gI().sendItemBags(playerSieuCap);
-                        } else {
-                            Service.getInstance().sendThongBao(playerSieuCap, "Hành trang đã đầy");
-                            reOpenSieuCapWishes(playerSieuCap);
-                            return;
-                        }
-                        break;
-                    case 2:
-                        if (InventoryServiceNew.gI().getCountEmptyBag(playerSieuCap) > 0) {
-                            Item ctConuong = ItemService.gI().createNewItem((short) 991);
-                            ctConuong.itemOptions.add(new Item.ItemOption(50, Util.nextInt(20, 250)));
-                            ctConuong.itemOptions.add(new Item.ItemOption(77, Util.nextInt(20, 250)));
-                            ctConuong.itemOptions.add(new Item.ItemOption(103, Util.nextInt(20, 250)));
-                            ctConuong.itemOptions.add(new Item.ItemOption(5, Util.nextInt(20, 30)));
-                            ctConuong.itemOptions.add(new Item.ItemOption(47, Util.nextInt(5, 15)));
+                        ctBiden.itemOptions.add(new Item.ItemOption(93, 60));
+                        InventoryServiceNew.gI().addItemBag(playerSieuCap, ctBiden);
+                        InventoryServiceNew.gI().sendItemBags(playerSieuCap);
+                    } else {
+                        Service.getInstance().sendThongBao(playerSieuCap, "Hành trang đã đầy");
+                        reOpenSieuCapWishes(playerSieuCap);
+                        return;
+                    }
+                    break;
+                case 2:
+                    if (InventoryServiceNew.gI().getCountEmptyBag(playerSieuCap) > 0) {
+                        Item ctConuong = ItemService.gI().createNewItem((short) 991);
+                        ctConuong.itemOptions.add(new Item.ItemOption(50, Util.nextInt(20, 250)));
+                        ctConuong.itemOptions.add(new Item.ItemOption(77, Util.nextInt(20, 250)));
+                        ctConuong.itemOptions.add(new Item.ItemOption(103, Util.nextInt(20, 250)));
+                        ctConuong.itemOptions.add(new Item.ItemOption(5, Util.nextInt(20, 30)));
+                        ctConuong.itemOptions.add(new Item.ItemOption(47, Util.nextInt(5, 15)));
 
-                            ctConuong.itemOptions.add(new Item.ItemOption(93, 60));
-                            InventoryServiceNew.gI().addItemBag(playerSieuCap, ctConuong);
-                            InventoryServiceNew.gI().sendItemBags(playerSieuCap);
-                        } else {
-                            Service.getInstance().sendThongBao(playerSieuCap, "Hành trang đã đầy");
-                            reOpenSieuCapWishes(playerSieuCap);
-                            return;
-                        }
-                        break;
-                    case 3:
-                        if (InventoryServiceNew.gI().getCountEmptyBag(playerSieuCap) > 0) {
-                            Item PetThoOm = ItemService.gI().createNewItem((short) 1039);
-                            PetThoOm.itemOptions.add(new Item.ItemOption(50, Util.nextInt(5, 250)));
-                            PetThoOm.itemOptions.add(new Item.ItemOption(77, Util.nextInt(5, 250)));
-                            PetThoOm.itemOptions.add(new Item.ItemOption(103, Util.nextInt(5, 250)));
-                            PetThoOm.itemOptions.add(new Item.ItemOption(93, 60));
-                            InventoryServiceNew.gI().addItemBag(playerSieuCap, PetThoOm);
-                            InventoryServiceNew.gI().sendItemBags(playerSieuCap);
-                        } else {
-                            Service.getInstance().sendThongBao(playerSieuCap, "Hành trang đã đầy");
-                            reOpenSieuCapWishes(playerSieuCap);
-                            return;
-                        }
-                        break;
-                    case 4:
-                        if (InventoryServiceNew.gI().getCountEmptyBag(playerSieuCap) > 0) {
-                            Item PetThoMap = ItemService.gI().createNewItem((short) 1040);
-                            PetThoMap.itemOptions.add(new Item.ItemOption(50, Util.nextInt(5, 250)));
-                            PetThoMap.itemOptions.add(new Item.ItemOption(77, Util.nextInt(5, 250)));
-                            PetThoMap.itemOptions.add(new Item.ItemOption(103, Util.nextInt(5, 250)));
-                            PetThoMap.itemOptions.add(new Item.ItemOption(93, 60));
-                            InventoryServiceNew.gI().addItemBag(playerSieuCap, PetThoMap);
-                            InventoryServiceNew.gI().sendItemBags(playerSieuCap);
-                        } else {
-                            Service.getInstance().sendThongBao(playerSieuCap, "Hành trang đã đầy");
-                            reOpenSieuCapWishes(playerSieuCap);
-                            return;
-                        }
-                        break;
-                    case 5: //50% HP,KI,SD 30 phút
-                        this.playerSieuCap.itemTimesieucap.lastTimeRongSieuCap = System.currentTimeMillis();
-                        this.playerSieuCap.itemTimesieucap.isRongSieuCap = true;
-                        Service.getInstance().point(this.playerSieuCap);
-                        ItemTimeService.gI().sendAllItemTime(this.playerSieuCap);
-                        break;
-                }
-                break;
+                        ctConuong.itemOptions.add(new Item.ItemOption(93, 60));
+                        InventoryServiceNew.gI().addItemBag(playerSieuCap, ctConuong);
+                        InventoryServiceNew.gI().sendItemBags(playerSieuCap);
+                    } else {
+                        Service.getInstance().sendThongBao(playerSieuCap, "Hành trang đã đầy");
+                        reOpenSieuCapWishes(playerSieuCap);
+                        return;
+                    }
+                    break;
+                case 3:
+                    if (InventoryServiceNew.gI().getCountEmptyBag(playerSieuCap) > 0) {
+                        Item PetThoOm = ItemService.gI().createNewItem((short) 1039);
+                        PetThoOm.itemOptions.add(new Item.ItemOption(50, Util.nextInt(5, 250)));
+                        PetThoOm.itemOptions.add(new Item.ItemOption(77, Util.nextInt(5, 250)));
+                        PetThoOm.itemOptions.add(new Item.ItemOption(103, Util.nextInt(5, 250)));
+                        PetThoOm.itemOptions.add(new Item.ItemOption(93, 60));
+                        InventoryServiceNew.gI().addItemBag(playerSieuCap, PetThoOm);
+                        InventoryServiceNew.gI().sendItemBags(playerSieuCap);
+                    } else {
+                        Service.getInstance().sendThongBao(playerSieuCap, "Hành trang đã đầy");
+                        reOpenSieuCapWishes(playerSieuCap);
+                        return;
+                    }
+                    break;
+                case 4:
+                    if (InventoryServiceNew.gI().getCountEmptyBag(playerSieuCap) > 0) {
+                        Item PetThoMap = ItemService.gI().createNewItem((short) 1040);
+                        PetThoMap.itemOptions.add(new Item.ItemOption(50, Util.nextInt(5, 250)));
+                        PetThoMap.itemOptions.add(new Item.ItemOption(77, Util.nextInt(5, 250)));
+                        PetThoMap.itemOptions.add(new Item.ItemOption(103, Util.nextInt(5, 250)));
+                        PetThoMap.itemOptions.add(new Item.ItemOption(93, 60));
+                        InventoryServiceNew.gI().addItemBag(playerSieuCap, PetThoMap);
+                        InventoryServiceNew.gI().sendItemBags(playerSieuCap);
+                    } else {
+                        Service.getInstance().sendThongBao(playerSieuCap, "Hành trang đã đầy");
+                        reOpenSieuCapWishes(playerSieuCap);
+                        return;
+                    }
+                    break;
+                case 5: //50% HP,KI,SD 30 phút
+                    this.playerSieuCap.itemTimesieucap.lastTimeRongSieuCap = System.currentTimeMillis();
+                    this.playerSieuCap.itemTimesieucap.isRongSieuCap = true;
+                    Service.getInstance().point(this.playerSieuCap);
+                    ItemTimeService.gI().sendAllItemTime(this.playerSieuCap);
+                    break;
+            }
         }
         SieuCapLeave(this.playerSieuCap, WISHED);
     }
@@ -318,19 +318,15 @@ public class SummonSieuCap {
         this.menuSieuCap = menu;
         this.select = select;
         String wish = null;
-        switch (menu) {
-            case ConstNpc.SUPER_1:
-                wish = SUPER_1_STAR_WISHES_1[select];
-                break;
+        if (menu == ConstNpc.SUPER_1) {
+            wish = SUPER_1_STAR_WISHES_1[select];
         }
         NpcService.gI().createMenuSieuCap(pl, ConstNpc.SUPER_CONFIRM, "Ngươi có chắc muốn ước?", wish, "Từ chối");
     }
 
     public void reOpenSieuCapWishes(Player pl) {
-        switch (menuSieuCap) {
-            case ConstNpc.SUPER_1:
-                NpcService.gI().createMenuSieuCap(pl, ConstNpc.SUPER_1, SUPER_SAY, SUPER_1_STAR_WISHES_1);
-                break;
+        if (menuSieuCap == ConstNpc.SUPER_1) {
+            NpcService.gI().createMenuSieuCap(pl, ConstNpc.SUPER_1, SUPER_SAY, SUPER_1_STAR_WISHES_1);
         }
     }
 

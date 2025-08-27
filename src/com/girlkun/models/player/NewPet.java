@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player;
 
 import com.girlkun.services.PlayerService;
@@ -5,10 +9,7 @@ import com.girlkun.services.Service;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Util;
 
-/**
- *
- * @Stole By Hoàng Việt
- */
+
 public class NewPet extends Player{
     
     public Player master;

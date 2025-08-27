@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tuma;
 
 import com.girlkun.consts.ConstNpc;
@@ -71,24 +75,23 @@ public class LinhCanTuMa {
     }
 
     public void showBaseMenu() {
-        StringBuilder text = new StringBuilder();
 
-        text.append("|7|❖════ THÔNG TIN MA LINH CĂN ════❖\n");
+        String text = "|7|❖════ THÔNG TIN MA LINH CĂN ════❖\n" +
 // — In trực tiếp tên & mô tả, không có tiền tố —
-        text.append("|5|").append(tenLinhCan).append("\n");
-        text.append("|5|").append(getMoTaLinhCan()).append("\n");
+                "|5|" + tenLinhCan + "\n" +
+                "|5|" + getMoTaLinhCan() + "\n" +
 // — Hệ số buff —
-        text.append("|5|➤ Hệ số buff : x").append(xParam).append(" lần\n");
+                "|5|➤ Hệ số buff : x" + xParam + " lần\n" +
 // — Ma Khí hấp thụ —
-        text.append("|5|➤ Ma Khí đã nuốt : ").append(maKhiDaNuot).append(" điểm\n");
-        text.append("|5|➤ Ma Khí cần nuốt: ").append(maKhiCanNuot).append(" điểm\n");
+                "|5|➤ Ma Khí đã nuốt : " + maKhiDaNuot + " điểm\n" +
+                "|5|➤ Ma Khí cần nuốt: " + maKhiCanNuot + " điểm\n" +
 // — Phẩm chất —
-        text.append("|5|➤ Phẩm chất  : ").append(phamChat).append("\n");
+                "|5|➤ Phẩm chất  : " + phamChat + "\n" +
 
 // — Lời kết/khung —
-        text.append("|7|❖══════════════════════════════❖");
+                "|7|❖══════════════════════════════❖";
 
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MA_TU_LINH_CAN, -1, text.toString(), "Dưỡng\nLinh Căn", "STLC\n" + (player.tuMa.isAttackWithLinhCan ? "Mở" : "Đóng"), "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MA_TU_LINH_CAN, -1, text, "Dưỡng\nLinh Căn", "STLC\n" + (player.tuMa.isAttackWithLinhCan ? "Mở" : "Đóng"), "Đóng");
     }
 
     public void toggleSTLC() {
@@ -96,19 +99,18 @@ public class LinhCanTuMa {
     }
 
     public void duongLinhCan() {
-        StringBuilder text = new StringBuilder();
-        text.append("|7|❖═════ BỒI DƯỠNG LINH CĂN ═════❖\n");
+
+        String text = "|7|❖═════ BỒI DƯỠNG LINH CĂN ═════❖\n" +
 // — Tên linh căn + phần trăm hấp thụ —
-        text.append("|5|➤ ").append(tenLinhCan).append(" [").append(getPercentMakhi()).append("]\n");
+                "|5|➤ " + tenLinhCan + " [" + getPercentMakhi() + "]\n" +
 
 // — Ma khí cần/đang nuốt —
-        text.append("|5|➤ Linh chú:").append(getMaKhiString()).append("\n");
+                "|5|➤ Linh chú:" + getMaKhiString() + "\n" +
 
 // — Câu hỏi lựa chọn —
-        text.append("|1|✦ Bạn muốn dưỡng mấy lần?");
-
-        text.append("\n|7|❖══════════════════════════════❖");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_DUONG_LINH_CAN, -1, text.toString(), "1 lần", "10 lần", "100 lần", "Đóng");
+                "|1|✦ Bạn muốn dưỡng mấy lần?" +
+                "\n|7|❖══════════════════════════════❖";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_DUONG_LINH_CAN, -1, text, "1 lần", "10 lần", "100 lần", "Đóng");
     }
 
     private String getMaKhiString() {

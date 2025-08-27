@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services;
 
 import com.girlkun.models.player.Player;
@@ -12,12 +16,12 @@ import java.util.List;
 
 public class ChatGlobalService implements Runnable {
 
-    private static int COUNT_CHAT = 50;
-    private static int COUNT_WAIT = 50;
+    private static final int COUNT_CHAT = 50;
+    private static final int COUNT_WAIT = 50;
     private static ChatGlobalService i;
 
-    private List<ChatGlobal> listChatting;
-    private List<ChatGlobal> waitingChat;
+    private final List<ChatGlobal> listChatting;
+    private final List<ChatGlobal> waitingChat;
 
     private ChatGlobalService() {
         this.listChatting = new ArrayList<>();
@@ -109,7 +113,7 @@ public class ChatGlobalService implements Runnable {
             msg = new Message(92);
             msg.writer().writeUTF(chat.playerName);
             msg.writer().writeUTF("|5|" + chat.text);
-            msg.writer().writeInt((int) chat.playerId);
+            msg.writer().writeInt(chat.playerId);
             msg.writer().writeShort(chat.head);
             msg.writer().writeShort(-1);
             msg.writer().writeShort(chat.body);

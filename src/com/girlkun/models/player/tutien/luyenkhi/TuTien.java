@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tutien.luyenkhi;
 
 import com.girlkun.consts.ConstNpc;
@@ -249,7 +253,6 @@ public class TuTien extends BasePoint implements IBaseAction {
             restExp();
             Service.gI().point(player);
         } else {
-            return;
         }
     }
 
@@ -593,6 +596,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             for (TienPhap tienPhap1 : tienPhaps) {
                 if (phap.getId() == tienPhap1.getId()) {
                     hasOwner = true;
+                    break;
                 }
             }
             if (!hasOwner) {

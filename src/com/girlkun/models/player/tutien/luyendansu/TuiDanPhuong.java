@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player.tutien.luyendansu;
 
 import com.girlkun.consts.ConstNpc;
@@ -31,11 +35,10 @@ public class TuiDanPhuong {
     }
 
     public void showMenuTui() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("|7|Túi Dan Phương\n");
-        stringBuilder.append("|5|").append("Bạn có thể học đan phương hoặc xem đan phương bạn đang có ở đây");
-        stringBuilder.append("\n");
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_DAN_PHUONG, -1, stringBuilder.toString(), "Học Đan\nPhương", "Xem Đan\nPhương");
+        String stringBuilder = "|7|Túi Dan Phương\n" +
+                "|5|" + "Bạn có thể học đan phương hoặc xem đan phương bạn đang có ở đây" +
+                "\n";
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_DAN_PHUONG, -1, stringBuilder, "Học Đan\nPhương", "Xem Đan\nPhương");
     }
 
     // Hiển thị danh sách DanPhuong theo phân trang

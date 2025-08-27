@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.server;
 
 import com.girlkun.consts.ConstIgnoreName;
@@ -210,9 +214,10 @@ public class Controller implements IMessageHandler {
                     break;
                 case -107:
                     if (player != null) {
-                        switch (player.typeTabPet) {
-                            case 1 -> Service.getInstance().showInfoDaoLu(player);
-                            default -> Service.getInstance().showInfoPet(player);
+                        if (player.typeTabPet == 1) {
+                            Service.getInstance().showInfoDaoLu(player);
+                        } else {
+                            Service.getInstance().showInfoPet(player);
                         }
                     }
                     break;
@@ -225,9 +230,10 @@ public class Controller implements IMessageHandler {
                     break;
                 case -109:
                     if (player != null) {
-                        switch (player.typeTabPet) {
-                            case 1 -> Service.getInstance().InfoDaoLuGoc(player);
-                            default -> Service.getInstance().InfoPetGoc(player);
+                        if (player.typeTabPet == 1) {
+                            Service.getInstance().InfoDaoLuGoc(player);
+                        } else {
+                            Service.getInstance().InfoPetGoc(player);
                         }
                     }
                     break;
@@ -302,8 +308,8 @@ public class Controller implements IMessageHandler {
 //                                    Zone zoneJoin = bosse.zone;
 //                                    zoneJoin = ChangeMapService.gI().checkMapCanJoin(player, zoneJoin);
 //                                    if (zoneJoin != null) {
-                                if (UseItem.gI().maydoboss(player) == true && maydo != null) {
-                                    if (player.haveBeQuynh == false) {
+                                if (UseItem.gI().maydoboss(player) && maydo != null) {
+                                    if (!player.haveBeQuynh) {
                                         ChangeMapService.gI().changeMapInYard(player, bosse.zone, bosse.location.x);
                                         InventoryServiceNew.gI().subQuantityItemsBag(player, maydo, 1);
                                         InventoryServiceNew.gI().sendItemBags(player);
@@ -707,18 +713,15 @@ public class Controller implements IMessageHandler {
                     case 17:
                         byte typee = _msg.reader().readByte();
                         short pointt = _msg.reader().readShort();
-                        switch (player.typeTabPet) {
-                            case 1 -> {
-                                if (player.petDaoLu.nPoint != null) {
-                                    player.petDaoLu.nPoint.increasePoint(typee, pointt);
-                                    Service.getInstance().InfoDaoLuGoc(player);
-                                }
+                        if (player.typeTabPet == 1) {
+                            if (player.petDaoLu.nPoint != null) {
+                                player.petDaoLu.nPoint.increasePoint(typee, pointt);
+                                Service.getInstance().InfoDaoLuGoc(player);
                             }
-                            default -> {
-                                if (player.pet.nPoint != null) {
-                                    player.pet.nPoint.increasePoint(typee, pointt);
-                                    Service.getInstance().InfoPetGoc(player);
-                                }
+                        } else {
+                            if (player.pet.nPoint != null) {
+                                player.pet.nPoint.increasePoint(typee, pointt);
+                                Service.getInstance().InfoPetGoc(player);
                             }
                         }
                         break;
@@ -758,7 +761,7 @@ public class Controller implements IMessageHandler {
                     } else {
                         if (Util.haveSpecialCharacter(name)) {
                             Service.getInstance().sendThongBaoOK(session, "Tên nhân vật không được chứa ký tự đặc biệt");
-                        } else if (Util.kituvip(name) == false) {
+                        } else if (!Util.kituvip(name)) {
                             Service.getInstance().sendThongBaoOK(session, "Tên nhân vật không được chứa ký tự VIP");
                         } else {
                             boolean isNotIgnoreName = true;
@@ -875,17 +878,16 @@ public class Controller implements IMessageHandler {
                     + SummonDragon.gI().mapShenronAppear.map.mapName + " khu " + SummonDragon.gI().mapShenronAppear.zoneId + " đã vào lại Game");
         }
         if (player.petDaoLu != null) {
-            switch (player.petDaoLu.pointCapCanhGioi) {
-                case 10 -> {
-                    ServerNotify.gI().notify("Tất cả quỳ xuống:!!! " + player.name + " sở hữu Đạo Lữ cảnh giới "
-                            + player.petDaoLu.getCapBacCapTinh() + " đã xuất hiện!");
-                    if (Manager.medusa != null) {
-                        ChatGlobalService.gI().npcSystemChat(Manager.medusa,
-                                "Idol " + player.name + " có vợ Đấu Đế đã online ! Mn né ra!!");
-                    }
-//                    DaoLu.effDauDeXuatHien(player);
+            if (player.petDaoLu.pointCapCanhGioi == 10) {
+                ServerNotify.gI().notify("Tất cả quỳ xuống:!!! " + player.name + " sở hữu Đạo Lữ cảnh giới "
+                        + player.petDaoLu.getCapBacCapTinh() + " đã xuất hiện!");
+                if (Manager.medusa != null) {
+                    ChatGlobalService.gI().npcSystemChat(Manager.medusa,
+                            "Idol " + player.name + " có vợ Đấu Đế đã online ! Mn né ra!!");
                 }
-                default -> ServerNotify.gI().notify("Người chơi: " + player.name + " sở hữu Đạo Lữ cảnh giới "
+//                    DaoLu.effDauDeXuatHien(player);
+            } else {
+                ServerNotify.gI().notify("Người chơi: " + player.name + " sở hữu Đạo Lữ cảnh giới "
                         + player.petDaoLu.getCapBacCapTinh() + " đã vào game!");
             }
         } else if (player.TrieuHoiCapBac != -1) {
@@ -896,7 +898,7 @@ public class Controller implements IMessageHandler {
             new Thread(() -> {
                 try {
                     Thread.sleep(1000);
-                    Service.getInstance().sendFoot(player, (short) player.inventory.itemsBody.get(11).template.id);
+                    Service.getInstance().sendFoot(player, player.inventory.itemsBody.get(11).template.id);
                 } catch (Exception e) {
                 }
             }).start();
@@ -967,7 +969,4 @@ public class Controller implements IMessageHandler {
     }
 }
 
-/**
- * Code được viết bởi Hoàng Việt Vui lòng không sao chép mã nguồn này dưới mọi
- * hình thức.
- */
+

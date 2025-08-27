@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.boss.list_boss.gas;
 
 import com.girlkun.consts.ConstPlayer;
@@ -20,12 +24,12 @@ public class DrLyChee extends Boss {
     private static final int[][] FULL_DEMON = new int[][]{{Skill.DEMON, 1}, {Skill.DEMON, 2}, {Skill.DEMON, 3}, {Skill.DEMON, 4}, {Skill.DEMON, 5}, {Skill.DEMON, 6}, {Skill.DEMON, 7}};
     private long lastTimeHapThu;
     private int timeHapThu;
-    private long lastUpdate = System.currentTimeMillis();
+    private final long lastUpdate = System.currentTimeMillis();
     private long timeJoinMap;
-    private int levell;
-    private int initSuper = 0;
+    private final int levell;
+    private final int initSuper = 0;
     protected Player playerAtt;
-    private int timeLive = 200000000;
+    private final int timeLive = 200000000;
 
     public DrLyChee(Zone zone, short level, int dame, int hp, int id) throws Exception {
         super(id, new BossData(

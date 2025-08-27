@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.map;
 
 import java.util.ArrayList;
@@ -22,7 +26,7 @@ public class ItemMap {
     public long playerId;
     public List<ItemOption> options;
 
-    private long createTime;
+    private final long createTime;
 
     public boolean isBlackBall;
     public boolean isNamecBall;

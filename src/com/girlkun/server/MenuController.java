@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.server;
 
 import java.io.IOException;
@@ -26,7 +30,7 @@ public class MenuController {
         if (idnpc == ConstNpc.CALICK && player.zone.map.mapId != 102) {
             npc = NpcManager.getNpc(ConstNpc.CALICK);
         } else if (idnpc == ConstNpc.NPC_CHUYENSINH) {
-            npc = NpcManager.getNpc((byte) ConstNpc.NPC_CHUYENSINH);
+            npc = NpcManager.getNpc(ConstNpc.NPC_CHUYENSINH);
         } else {
             npc = player.zone.map.getNpc(player, idnpc);
         }

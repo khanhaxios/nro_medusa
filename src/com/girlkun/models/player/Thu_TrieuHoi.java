@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player;
 
 import com.girlkun.consts.ConstPlayer;
@@ -223,7 +227,7 @@ public class Thu_TrieuHoi extends Player {
         if (masterr != null && masterr.isDie() || effectSkill.isHaveEffectSkill()) {
             return;
         }
-        if (Util.canDoWithTime(masterr.Autothucan, 900000) && masterr.trangthai == true) {
+        if (Util.canDoWithTime(masterr.Autothucan, 900000) && masterr.trangthai) {
             if (masterr.inventory.ruby < 200) {
                 Service.gI().sendThongBao(masterr,
                         "|7|Không đủ Hồng ngọc");
@@ -370,8 +374,3 @@ public class Thu_TrieuHoi extends Player {
         super.dispose();
     }
 }
-
-/**
- * Code được viết bởi Hoàng Việt
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức.
- */

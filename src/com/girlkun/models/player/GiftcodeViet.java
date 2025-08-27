@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -92,7 +96,7 @@ public class GiftcodeViet {
                         Item itemGiftTemplate = ItemService.gI().createNewItem((short) idItem);
                         if (itemGiftTemplate != null) {
                             Item itemGift = new Item((short) idItem);
-                            JSONArray Op = (JSONArray) JSONValue.parse(job.get((Object) "Option").toString());
+                            JSONArray Op = (JSONArray) JSONValue.parse(job.get("Option").toString());
                             for (Object Option2 : Op) {
                                 JSONObject job2 = (JSONObject) Option2;
                                 itemGift.itemOptions

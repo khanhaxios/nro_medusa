@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player;
 
 import com.girlkun.models.item.Item;
@@ -274,11 +278,7 @@ public class EffectSkin {
 
     private void updateVoHinh() {
         if (this.player.nPoint.wearingVoHinh) {
-            if (Util.canDoWithTime(lastTimeAttack, 5000)) {
-                isVoHinh = true;
-            } else {
-                isVoHinh = false;
-            }
+            isVoHinh = Util.canDoWithTime(lastTimeAttack, 5000);
         }
     }
 

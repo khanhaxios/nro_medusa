@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services.func;
 
 import com.girlkun.consts.ConstMap;
@@ -1386,7 +1390,7 @@ public class UseItem {
                                     InventoryServiceNew.gI().addItemBag(pl, it);
                                     InventoryServiceNew.gI().sendItemBags(pl);
                                     Service.getInstance().sendThongBao(pl, "|4|Bạn đã nhận được " + it.template.name);
-                                    if (pl.haveTuTien == false) {
+                                    if (!pl.haveTuTien) {
                                         pl.tt_cauca++;
                                     }
                                 } else {
@@ -1814,7 +1818,6 @@ public class UseItem {
             } else {
                 Service.getInstance().sendThongBao(player, "Bạn phải có ít nhất 5 ô trống hành trang");
             }
-            return;
         } else if (player.gender == 1) {
             Item itemReward = ItemService.gI().createNewItem((short) 1);
             Item itemReward1 = ItemService.gI().createNewItem((short) 7);
@@ -1858,7 +1861,6 @@ public class UseItem {
             } else {
                 Service.getInstance().sendThongBao(player, "Bạn phải có ít nhất 5 ô trống hành trang");
             }
-            return;
         } else {
             Item itemReward = ItemService.gI().createNewItem((short) 2);
             Item itemReward1 = ItemService.gI().createNewItem((short) 8);
@@ -1901,7 +1903,6 @@ public class UseItem {
             } else {
                 Service.getInstance().sendThongBao(player, "Bạn phải có ít nhất 5 ô trống hành trang");
             }
-            return;
         }
 
     }
@@ -1925,7 +1926,7 @@ public class UseItem {
 
     private void openDanDaoLu(Player pl, Item item, int capDanDuoc) {
         int capdaolu = pl.petDaoLu.pointCapCanhGioi;
-        long tuviAdd = 10 * (DaoLu.getMaxTinh(capdaolu) - pl.petDaoLu.pointCapTinh + 1);
+        long tuviAdd = 10L * (DaoLu.getMaxTinh(capdaolu) - pl.petDaoLu.pointCapTinh + 1);
         if (capdaolu < capDanDuoc) {
             for (int i = 0; i < capDanDuoc - capdaolu; i++) {
                 tuviAdd *= 10;
@@ -2230,23 +2231,17 @@ public class UseItem {
             }
         }
         if (tempId >= GoiRongXuong.XUONG_1_SAO && tempId <= GoiRongXuong.XUONG_7_SAO) {
-            switch (tempId) {
-                case GoiRongXuong.XUONG_1_SAO:
-                    GoiRongXuong.gI().openMenuRongXuong(pl, (byte) (tempId - 701));
-                    break;
-                default:
-                    NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_RONG_XUONG, -1, "Bạn chỉ có thể gọi rồng từ ngọc 1 sao", "Hướng\ndẫn thêm\n(mới)", "OK");
-                    break;
+            if (tempId == GoiRongXuong.XUONG_1_SAO) {
+                GoiRongXuong.gI().openMenuRongXuong(pl, (byte) (tempId - 701));
+            } else {
+                NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_RONG_XUONG, -1, "Bạn chỉ có thể gọi rồng từ ngọc 1 sao", "Hướng\ndẫn thêm\n(mới)", "OK");
             }
         }
         if (tempId == SummonSieuCap.NGOC_RONG_SIEU_CAP) {
-            switch (tempId) {
-                case SummonSieuCap.NGOC_RONG_SIEU_CAP:
-                    SummonSieuCap.gI().openMenuSieuCap(pl, (byte) 1);
-                    break;
-                default:
-                    NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_RONG_SUPER, -1, "Bạn chỉ có thể gọi rồng từ Ngọc rồng Siêu cấp", "Hướng\ndẫn thêm\n(mới)", "OK");
-                    break;
+            if (tempId == SummonSieuCap.NGOC_RONG_SIEU_CAP) {
+                SummonSieuCap.gI().openMenuSieuCap(pl, (byte) 1);
+            } else {
+                NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_RONG_SUPER, -1, "Bạn chỉ có thể gọi rồng từ Ngọc rồng Siêu cấp", "Hướng\ndẫn thêm\n(mới)", "OK");
             }
         }
     }

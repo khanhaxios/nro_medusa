@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services;
 
 import com.girlkun.models.Template.FlagBag;
@@ -10,7 +14,7 @@ import java.util.ArrayList;
 
 public class FlagBagService {
 
-    private List<FlagBag> flagClan = new ArrayList<>();
+    private final List<FlagBag> flagClan = new ArrayList<>();
     private static FlagBagService i;
 
     public static FlagBagService gI() {

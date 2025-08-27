@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.map;
 
 import com.girlkun.consts.ConstMap;
@@ -40,7 +44,7 @@ public class Map implements Runnable {
     public byte bgType;
     public byte type;
 
-    private int[][] tileMap;
+    private final int[][] tileMap;
     public int[] tileTop;
     public int mapWidth;
     public int mapHeight;
@@ -177,17 +181,14 @@ public class Map implements Runnable {
     private void initTrapMap() {
         for (Zone zone : zones) {
             TrapMap trap = null;
-            switch (this.mapId) {
-                case 135:
-                    trap = new TrapMap();
-                    trap.x = 260;
-                    trap.y = 960;
-                    trap.w = 740;
-                    trap.h = 72;
-                    trap.effectId = 49; //xiên
-                    zone.trapMaps.add(trap);
-                    break;
-
+            if (this.mapId == 135) {
+                trap = new TrapMap();
+                trap.x = 260;
+                trap.y = 960;
+                trap.w = 740;
+                trap.h = 72;
+                trap.effectId = 49; //xiên
+                zone.trapMaps.add(trap);
             }
         }
     }
@@ -299,7 +300,7 @@ public class Map implements Runnable {
     //--------------------------------------------------------------------------
     public int yPhysicInTop(int x, int y) {
         try {
-            int rX = (int) x / SIZE;
+            int rX = x / SIZE;
             int rY = 0;
             if (isTileTop(tileMap[y / SIZE][rX])) {
                 return y;

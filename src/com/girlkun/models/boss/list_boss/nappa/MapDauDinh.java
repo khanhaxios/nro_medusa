@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.boss.list_boss.nappa;
 
 import com.girlkun.models.boss.Boss;
@@ -13,10 +17,7 @@ import com.girlkun.services.Service;
 import com.girlkun.services.TaskService;
 import com.girlkun.utils.Util;
 
-/**
- *
- * @Stole By Hoàng Việt
- */
+
 public class MapDauDinh extends Boss {
 
     public MapDauDinh() throws Exception {
@@ -76,6 +77,4 @@ public class MapDauDinh extends Boss {
     }
 }
 
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức.
- */
+

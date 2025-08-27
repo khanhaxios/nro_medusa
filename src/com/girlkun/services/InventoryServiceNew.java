@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services;
 
 import com.girlkun.models.item.Item;
@@ -68,6 +72,7 @@ public class InventoryServiceNew {
             for (ItemOption itemOption : itemOptions) {
                 if (itemOption.optionTemplate.id == optionId) {
                     has = true;
+                    break;
                 }
             }
             if (!has) item = item1;
@@ -230,7 +235,6 @@ public class InventoryServiceNew {
         Service.getInstance().Send_Caitrang(player);
         Service.getInstance().point(player);
         if (itemThrow == null) {
-            return;
         }
     }
 
@@ -615,9 +619,10 @@ public class InventoryServiceNew {
             Service.getInstance().Send_Caitrang(petPl);
             Service.getInstance().Send_Caitrang(player);
             Service.getInstance().point(player);
-            switch (player.typeTabPet) {
-                case 1 -> Service.getInstance().showInfoDaoLu(player);
-                default -> Service.getInstance().showInfoPet(player);
+            if (player.typeTabPet == 1) {
+                Service.getInstance().showInfoDaoLu(player);
+            } else {
+                Service.getInstance().showInfoPet(player);
             }
         }
     }
@@ -1016,9 +1021,8 @@ public class InventoryServiceNew {
      */
     private int[] isItemIncrementalOption(Item item) {
         for (ItemOption io : item.itemOptions) {
-            switch (io.optionTemplate.id) {
-                case 1:
-                    return new int[]{io.optionTemplate.id, io.param};
+            if (io.optionTemplate.id == 1) {
+                return new int[]{io.optionTemplate.id, io.param};
             }
         }
         return new int[]{-1, -1};
@@ -1049,7 +1053,7 @@ public class InventoryServiceNew {
     public byte getIndexBag(Player pl, Item it) {
         for (byte i = 0; i < pl.inventory.itemsBag.size(); ++i) {
             Item item = pl.inventory.itemsBag.get(i);
-            if (item != null && it.equals(item)) {
+            if (it.equals(item)) {
                 return i;
             }
         }

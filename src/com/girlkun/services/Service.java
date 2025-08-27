@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.services;
 
 import com.girlkun.consts.ConstNpc;
@@ -311,15 +315,15 @@ public class Service {
             this.sendMessAllPlayerInMap(player, me);
             me.cleanup();
             if (player.inventory.itemsBody.get(11).isNotNullItem()) {
-                Service.getInstance().sendFoot(player, (short) player.inventory.itemsBody.get(11).template.id);
+                Service.getInstance().sendFoot(player, player.inventory.itemsBody.get(11).template.id);
             }
-            if (player.isTitleUse1 == true && player.lastTimeTitle1 > 0) {
+            if (player.isTitleUse1 && player.lastTimeTitle1 > 0) {
                 Service.getInstance().sendTitle(player, (short) 888);
             }
-            if (player.isTitleUse2 == true && player.lastTimeTitle2 > 0) {
+            if (player.isTitleUse2 && player.lastTimeTitle2 > 0) {
                 Service.getInstance().sendTitle(player, (short) 889);
             }
-            if (player.isTitleUse3 == true && player.lastTimeTitle3 > 0) {
+            if (player.isTitleUse3 && player.lastTimeTitle3 > 0) {
                 Service.getInstance().sendTitle(player, (short) 890);
             }
         } catch (Exception e) {
@@ -371,7 +375,7 @@ public class Service {
             for (int i = 0; i < fr.length; i++) {
                 msg.writer().writeByte(fr[i]);
             }
-            msg.writer().writeShort(smallId == 15067 ? 225 : 225);
+            msg.writer().writeShort(225);
             msg.writer().writeShort(smallId == 15067 ? 222 : 225);
             me.sendMessage(msg);
             msg.cleanup();
@@ -1428,7 +1432,7 @@ public class Service {
                     InventoryServiceNew.gI().sendItemBags(player);
                     Item item = ItemService.gI().createNewItem((short) itemId);
                     Service.getInstance().sendThongBao(player, "NHẬN " + quantity + " " + item.template.name + " [" + item.template.id + "] THÀNH CÔNG!");
-                    Input.log_Follow_Admin(player.getSession().uu, player.getSession().uu, "Buff Đồ lệnh isl", item.template.name, "", (int) quantity);
+                    Input.log_Follow_Admin(player.getSession().uu, player.getSession().uu, "Buff Đồ lệnh isl", item.template.name, "", quantity);
                     return;
                 }
             } else if (text.startsWith("isl ")) {
@@ -1777,7 +1781,7 @@ public class Service {
             player.autoUse = false;
             player.autoUseNow = false;
         } else if (text.equals("adau")) {
-            if (player.autodau == false) {
+            if (!player.autodau) {
                 Service.gI().sendThongBao(player, "|2|Đã Bật Auto Buff Đậu khi HP,KI đệ tử dưới 30%");
                 player.autodau = true;
             } else {
@@ -1785,7 +1789,7 @@ public class Service {
                 player.autodau = false;
             }
         } else if (text.equals("muanhieu")) {
-            if (player.muanhieu == false) {
+            if (!player.muanhieu) {
                 Service.gI().sendThongBao(player, "|2|Đã Bật Auto Mua số lượng lớn");
                 player.muanhieu = true;
             } else {
@@ -2850,7 +2854,7 @@ public class Service {
             sendThongBao(pl, "Không thể đổi cờ lúc này!");
             return;
         }
-        if (pl.haveBeQuynh == true) {
+        if (pl.haveBeQuynh) {
             sendThongBao(pl, "|7|Không thể đổi cờ khi đang Hộ tống!");
             return;
         }
@@ -3027,12 +3031,8 @@ public class Service {
                     if (pl.petDaoLu.playerSkill.skills.get(i).skillId != -1) {
                         msg.writer().writeShort(pl.petDaoLu.playerSkill.skills.get(i).skillId);
                     } else {
-                        switch (i) {
-                            default -> {
-                                msg.writer().writeShort(-1);
-                                msg.writer().writeUTF("Không có kỹ năng!");
-                            }
-                        }
+                        msg.writer().writeShort(-1);
+                        msg.writer().writeUTF("Không có kỹ năng!");
                     }
                 }
                 pl.sendMessage(msg);

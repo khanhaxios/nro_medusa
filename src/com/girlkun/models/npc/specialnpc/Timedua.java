@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.npc.specialnpc;
 
 import com.girlkun.services.func.ChangeMapService;
@@ -87,7 +91,7 @@ public class Timedua {
     }
 
     public void subTimeDone(int d, int h, int m, int s) {
-        this.timeDone -= ((d * 24 * 60 * 60 * 1000) + (h * 60 * 60 * 1000) + (m * 60 * 1000) + (s * 1000));
+        this.timeDone -= (((long) d * 24 * 60 * 60 * 1000) + ((long) h * 60 * 60 * 1000) + ((long) m * 60 * 1000) + (s * 1000L));
         this.sendTimedua();
     }
     

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.sangiaodich.danduoc;
 
 import com.girlkun.consts.ConstNpc;
@@ -88,16 +92,15 @@ public class Transaction {
 
     public void showBaseMenu(Player player) {
         if (player.id == playerAccept.id || player.id == playerRequest.id) {
-            StringBuilder menuText = new StringBuilder();
-            menuText.append("|7|======= Thông tin giao dịch =======").append("\n");
-            menuText.append("|5|Người yêu cầu => ").append(playerRequest.name).append("\n");
-            menuText.append("|5|Người xác nhận => ").append(playerAccept.name).append("\n");
-            menuText.append("|7|======= Vật phẩm giao dịch =======").append("\n");
-            menuText.append(getItemTrade());
-            menuText.append("|7|======= Vật phẩm giao dịch =======").append("\n");
-            menuText.append(getItemReceived());
-            menuText.append("Tổng Giá => ").append(Util.powerToString(totalPrice)).append(" Điểm nạp").append("\n");
-            menuText.append(getStatusString()).append("\n");
+            String menuText = "|7|======= Thông tin giao dịch =======" + "\n" +
+                    "|5|Người yêu cầu => " + playerRequest.name + "\n" +
+                    "|5|Người xác nhận => " + playerAccept.name + "\n" +
+                    "|7|======= Vật phẩm giao dịch =======" + "\n" +
+                    getItemTrade() +
+                    "|7|======= Vật phẩm giao dịch =======" + "\n" +
+                    getItemReceived() +
+                    "Tổng Giá => " + Util.powerToString(totalPrice) + " Điểm nạp" + "\n" +
+                    getStatusString() + "\n";
             String[] options = new String[]{};
             if (player.id == playerAccept.id) {
                 player.iDMark.gdMenuType = 0;
@@ -107,7 +110,7 @@ public class Transaction {
                 options = new String[]{"Khóa\nGiao Dịch", "Hủy\nGiao Dịch", "Lấy\nVật Phẩm"};
             }
             player.iDMark.currentGiaoDich = this;
-            NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_GIAO_DICH, -1, menuText.toString(), options);
+            NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_BASE_GIAO_DICH, -1, menuText, options);
         } else {
             Service.gI().sendThongBao(player, "Bạn không có quyền xem giao dịch này");
         }

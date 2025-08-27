@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
+ */
+
 package com.girlkun.models.player;
 
 import BoMong.BoMong;
@@ -635,7 +639,7 @@ public class Player {
 
     public short getHead() {
         if (effectSkill != null && effectSkill.isBienHinh) {
-            return (short) ConstPlayer.HEAD_BIEN_HINH[this.gender][effectSkill.levelBienHinh - 1];
+            return ConstPlayer.HEAD_BIEN_HINH[this.gender][effectSkill.levelBienHinh - 1];
         }
         if (effectSkill != null && effectSkill.isMonkey) {
             return (short) ConstPlayer.HEADMONKEY[effectSkill.levelMonkey - 1];
@@ -691,7 +695,7 @@ public class Player {
 
     public short getBody() {
         if (effectSkill != null && effectSkill.isBienHinh) {
-            return (short) ConstPlayer.BODY_BIEN_HINH[this.gender][effectSkill.levelBienHinh - 1];
+            return ConstPlayer.BODY_BIEN_HINH[this.gender][effectSkill.levelBienHinh - 1];
         }
         if (effectSkill != null && effectSkill.isMonkey) {
             return 193;
@@ -741,7 +745,7 @@ public class Player {
     public short getLeg() {
         /// Remake By ndq (Zalo - 0372475179) ====================
         if (effectSkill != null && effectSkill.isBienHinh) {
-            return (short) ConstPlayer.LEG_BIEN_HINH[this.gender][effectSkill.levelBienHinh - 1];
+            return ConstPlayer.LEG_BIEN_HINH[this.gender][effectSkill.levelBienHinh - 1];
         }
         if (effectSkill != null && effectSkill.isMonkey) {
             return 194;
@@ -1249,7 +1253,7 @@ public class Player {
                     if (plAtt != null && this.zone.map.mapId == 176) {
                         plAtt.pointPvpVip++;
                         Service.gI().sendThongBao(plAtt, "Bạn vừa hạ đối thủ và nhận được 1 điểm PVP VIP");
-                        if (plAtt.tusat == true) {
+                        if (plAtt.tusat) {
                             ChangeMapService.gI().changeMapNonSpaceship(plAtt, plAtt.gender + 21, -1, 250);
                             PlayerService.gI().hoiSinh(plAtt);
                             plAtt.tusat = false;
