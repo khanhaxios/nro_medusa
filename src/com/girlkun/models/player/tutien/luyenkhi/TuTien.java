@@ -7,6 +7,7 @@ package com.girlkun.models.player.tutien.luyenkhi;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.mob.Mob;
+import com.girlkun.models.player.Pet.ConstPet;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.tutien.base_tutien.BasePoint;
 import com.girlkun.models.player.tutien.base_tutien.CoDuyen;
@@ -229,6 +230,9 @@ public class TuTien extends BasePoint implements IBaseAction {
             }
             linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * getXDiemThienPhu();
             linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * player.nPoint.xHoiLinhKhi / 100;
+            if (player.pet != null && player.pet.typePet == ConstPet.MABU && player.khongThiSu.isKhongThi() && player.khongThiSu.level >= 5) {
+                linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * (15 * player.khongThiSu.level) / 100;
+            }
             addLinhKhi(linhKhiCanHoiPhuc);
             lastTimeHoiPhuc = System.currentTimeMillis();
             // send effect to server
@@ -242,6 +246,9 @@ public class TuTien extends BasePoint implements IBaseAction {
         la += (la * xParam);
         la += (la * getXDiemThienPhu());
         la += la * player.nPoint.xLinhKhi / 100;
+        if (player.pet != null && player.pet.typePet == ConstPet.MABU && player.khongThiSu.isKhongThi() && player.khongThiSu.level >= 7) {
+            la += la * (30 * player.khongThiSu.level) / 100;
+        }
         return (la + (la * congPhap.tlLinhKhiBuff / 100)) * Math.max(1, congPhap.xLinhKhiBuff);
     }
 
@@ -650,23 +657,9 @@ public class TuTien extends BasePoint implements IBaseAction {
             return;
         }
 
-        String info = ""
-                + "|7|❖ THÔNG TIN TU TIÊN ❖\n"
-                + "|5|✦ Cảnh giới: " + getFormatName() + "\n"
-                + "|5|✧ Tu vi: " + getCurrentExpAsString() + "\n"
-                + "|5|✦ Linh khí: " + Util.powerToString(linhKhiPoint) + "/" + Util.powerToString(maxLinhKhiPoint) + "\n"
-                + "|7|✧ Căn cốt: " + canCot + "\n"
-                + "|7|✦ Ngộ tính: " + ngoTinh + "\n"
-                + "|5|✧ Thiên phú: " + getThienPhu() + "\n"
-                + "|5|✦ Đã tu luyện: " + getYearOpened() + "\n"
-                + "|2|✯ Cảnh giới tiếp theo: " + getNextLevelStr() + "\n"
-                + "|1|✪ Tỷ lệ đột phá: " + getLevelUpPercent() + "%\n"
-                + "|7|✦ Cảnh giới càng cao, tỷ lệ đột phá càng thấp\n"
-                + "|5|❖ Đánh giá tổng thể: " + pointForMe();
+        String info = "" + "|7|❖ THÔNG TIN TU TIÊN ❖\n" + "|5|✦ Cảnh giới: " + getFormatName() + "\n" + "|5|✧ Tu vi: " + getCurrentExpAsString() + "\n" + "|5|✦ Linh khí: " + Util.powerToString(linhKhiPoint) + "/" + Util.powerToString(maxLinhKhiPoint) + "\n" + "|7|✧ Căn cốt: " + canCot + "\n" + "|7|✦ Ngộ tính: " + ngoTinh + "\n" + "|5|✧ Thiên phú: " + getThienPhu() + "\n" + "|5|✦ Đã tu luyện: " + getYearOpened() + "\n" + "|2|✯ Cảnh giới tiếp theo: " + getNextLevelStr() + "\n" + "|1|✪ Tỷ lệ đột phá: " + getLevelUpPercent() + "%\n" + "|7|✦ Cảnh giới càng cao, tỷ lệ đột phá càng thấp\n" + "|5|❖ Đánh giá tổng thể: " + pointForMe();
 
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN, -1, info,
-                "Chức Năng\nTu Tiên", "Thông Tin\nCông Pháp", "Thông Tin\nTiên Pháp",
-                "Thông Tin\nLinh Căn", "Cài đặt\nLinh Khí", "Auto\nNghề Phụ", "Pháp bảo");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN, -1, info, "Chức Năng\nTu Tiên", "Thông Tin\nCông Pháp", "Thông Tin\nTiên Pháp", "Thông Tin\nLinh Căn", "Cài đặt\nLinh Khí", "Auto\nNghề Phụ", "Pháp bảo");
     }
 
 
@@ -731,22 +724,9 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public void showMenuTuTien() {
-        String npcSay = "|7|❖ Thông Tin Thuộc Tính Tu Tiên ❖\n"
-                + "|2|➤ HP & MP: " + getHPMPBuff() + "%\n"
-                + "|2|➤ Sát Thương: +" + getDameBuff() + "%\n"
-                + "|1|➤ Phòng Thủ: +" + getDefBuff() + "%\n"
-                + "|1|➤ Né Tránh: +" + getNeBuff() + "%\n"
-                + "|1|➤ Chính Xác: +" + getChinhXacBuff() + "%\n"
-                + "|1|➤ Thể Chất: +" + theChat + " Điểm\n"
-                + "|1|➤ Sức Mạnh: +" + sucManh + " Điểm\n"
-                + "|1|➤ Tốc Độ: +" + nhanhNhen + " Điểm\n"
-                + "|1|➤ Tinh Thần: +" + tinhThan + " Điểm\n"
-                + "|5|➤ Đột Phá Thiên Đạo:" + (xParam - 1) + " lần\n"
-                + "|5|➤ Chiến Lực:" + (Util.powerToString(getChienLuc())) + " điểm\n"
-                + "|7|✧ Cảnh giới càng cao, thuộc tính càng mạnh!";
+        String npcSay = "|7|❖ Thông Tin Thuộc Tính Tu Tiên ❖\n" + "|2|➤ HP & MP: " + getHPMPBuff() + "%\n" + "|2|➤ Sát Thương: +" + getDameBuff() + "%\n" + "|1|➤ Phòng Thủ: +" + getDefBuff() + "%\n" + "|1|➤ Né Tránh: +" + getNeBuff() + "%\n" + "|1|➤ Chính Xác: +" + getChinhXacBuff() + "%\n" + "|1|➤ Thể Chất: +" + theChat + " Điểm\n" + "|1|➤ Sức Mạnh: +" + sucManh + " Điểm\n" + "|1|➤ Tốc Độ: +" + nhanhNhen + " Điểm\n" + "|1|➤ Tinh Thần: +" + tinhThan + " Điểm\n" + "|5|➤ Đột Phá Thiên Đạo:" + (xParam - 1) + " lần\n" + "|5|➤ Chiến Lực:" + (Util.powerToString(getChienLuc())) + " điểm\n" + "|7|✧ Cảnh giới càng cao, thuộc tính càng mạnh!";
 
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN_F, -1, npcSay,
-                "Đột Phá\nCảnh Giới", "Tán Công", "Đóng");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN_F, -1, npcSay, "Đột Phá\nCảnh Giới", "Tán Công", "Đóng");
     }
 
 //    public void showMenuTuTien() {

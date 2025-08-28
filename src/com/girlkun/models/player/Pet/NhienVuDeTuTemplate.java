@@ -24,11 +24,15 @@ public class NhienVuDeTuTemplate {
         return I;
     }
 
+    public static List<NhiemVuDeTuPhu> getNhiemVu(int key) {
+        return new ArrayList<>(nhiemVuDeTus.get(key));
+    }
+
     public void initTemplate() {
         // nhiem vu cho de mabu
         List<NhiemVuDeTuPhu> MABU_LIST = new ArrayList<>();
         MABU_LIST.add(new NhiemVuDeTuPhu("Tiêu Diệt Ma nhân Bư", "Tìm kiếm và tiêu diệt # lần Boss Ma Nhân Bư", 10, TaskType.KILL_BOSS, BossID.MABU));
-        MABU_LIST.add(new NhiemVuDeTuPhu("Thử Thách Thể Lực", "Hãy chạy # mét", 2000000, TaskType.RUN, -1));
+        MABU_LIST.add(new NhiemVuDeTuPhu("Thử Thách Thể Lực", "Hãy chạy # mét", 20000000, TaskType.RUN, -1));
         MABU_LIST.add(new NhiemVuDeTuPhu("Tìm Kiếm Nguyên Liệu", "Hãy tìm # huyết đan để nuôi trứng Ma Nhân Bư", 1000, TaskType.FIND_ITEM, 2077));
         MABU_LIST.add(new NhiemVuDeTuPhu("Luyện Tập Gian Khổ", "Hãy tìm và tiêu diệt # Mộc Nhân", 9999, TaskType.KILL_MOB, 0));
         MABU_LIST.add(new NhiemVuDeTuPhu("Tìm Kiếm Ma Nhân Bư Chuyển Thế", "Hãy đi tìm chuyển thế của Ma Nhân Bư là Boss HẮC ÁM HỦY DIỆT và tiêu diệt # lần", 10, TaskType.KILL_BOSS, BossID.BOSS_HAC));

@@ -576,7 +576,7 @@ public class Util {
                 break;
             case 2:
                 it.itemOptions.add(new Item.ItemOption(0, Util.nextInt(10000) + 1000000));
-                it.itemOptions.add(new Item.ItemOption(50, Util.nextInt(12) + 100));
+                it.itemOptions.add(new Item.ItemOption(50, Util.nextInt(12) + 200));
                 break;
             case 3:
                 it.itemOptions.add(new Item.ItemOption(23, Util.nextInt(100, 200) + 1500));

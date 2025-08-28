@@ -7151,11 +7151,8 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player) && mapId == 14) {
-                    String menuText = "|7|Nhiệm Vụ Đệ Tử" + "\n" +
-                            "|5|Bạn có thể nhận các loại nhiệm vụ đệ tử ở đây và sau khi hoàn thành" + "\n" + "|5|Bạn có thể nhận đệ tử rồi" + "\n" +
-                            "|7|Lưu ý nếu bạn từ bỏ nhiệm vụ thì bạn sẽ phải làm lại từ đầu" + "\n" +
-                            "|1|Bạn muốn?";
-                    String[] selections = new String[]{"Nhiệm vụ\nhiện tại", "Nhận nhiệm\nvụ", "Từ bỏ\nnhiệm vụ"};
+                    String menuText = "|7|Nhiệm Vụ Đệ Tử" + "\n" + "|5|Bạn có thể nhận các loại nhiệm vụ đệ tử ở đây và sau khi hoàn thành" + "\n" + "|5|Bạn có thể nhận đệ tử rồi" + "\n" + "|7|Lưu ý nếu bạn từ bỏ nhiệm vụ thì bạn sẽ phải làm lại từ đầu" + "\n" + "|1|Bạn muốn?";
+                    String[] selections = new String[]{"Nhiệm vụ\nhiện tại", "Nhận nhiệm\nvụ", "Từ bỏ\nnhiệm vụ", "Thông tin\nđệ"};
                     createOtherMenu(player, ConstNpc.BASE_MENU, menuText, selections);
                 }
             }
@@ -7181,6 +7178,15 @@ public class NpcFactory {
                                 return;
                             }
                             createOtherMenu(player, ConstNpc.CONFIRM_BO_NV, "Bạn có chắc muốn bỏ nhiệm vụ?", "Đồng ý", "Đóng");
+                            break;
+                        case 3:
+                            StringBuilder menuText = new StringBuilder();
+                            menuText.append("|7|Thông tin đệ tử").append("\n");
+                            menuText.append("|5|Đệ Mabu tăng 15% x cấp khống thi các chỉ số SD,HP,KI và tăng sát thương linh căn bằng ").append("\n");
+                            menuText.append("|5| 5% * cấp khống thi khi lên khống thi level 3").append("\n");
+                            menuText.append("|5| và tăng tổng linh khí bằng 30% * cấp khống thi ở khống thi level 7").append("\n");
+                            menuText.append("|5| và tăng 30 * cấp khống thi tốc độ hồi linh khí ở level khống thi 5").append("\n");
+                            createOtherMenu(player, ConstNpc.IGNORE_MENU, menuText.toString(), "Đóng");
                             break;
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.CONFIRM_BO_NV) {

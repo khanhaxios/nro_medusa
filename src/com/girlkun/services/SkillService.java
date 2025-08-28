@@ -1221,7 +1221,7 @@ public class SkillService {
         return dame;
     }
 
-    public int SUBLEVEL_PENALTY = 8;
+    public int SUBLEVEL_PENALTY = 10;
 
     private double subDameWithCanhGioi(Player attacker, Player target, double damage) {
         int attLevel = getLevel(attacker);
@@ -1271,7 +1271,7 @@ public class SkillService {
         short paramOfLinhCan = 0;
         if (plAtt.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             if (plAtt.khongThiSu.isKhongThi() && plAtt.khongThiSu.level > 3 && plAtt.pet != null && plAtt.pet.typePet == ConstPet.MABU) {
-                paramOfLinhCan += 15 * plAtt.khongThiSu.level;
+                paramOfLinhCan += 5 * plAtt.khongThiSu.level;
             }
         }
 
@@ -1289,7 +1289,7 @@ public class SkillService {
                 return;
             }
             paramOfLinhCan += plAtt.tuTien.linhCan.getThuocTinhLinhCan().getParam();
-
+            paramOfLinhCan += paramOfLinhCan * plAtt.nPoint.xDameLinhCan / 100;
             if (plAtt.tuTien.congPhap.isLearn()) {
                 if (plAtt.tuTien.congPhap.xDameThuocTinh > 0) {
                     paramOfLinhCan += paramOfLinhCan * plAtt.tuTien.congPhap.xDameThuocTinh / 100;
@@ -1299,12 +1299,14 @@ public class SkillService {
                 paramOfLinhCan += plAtt.luyenDanSu.danDuocEffect.stLinhCanBuff;
             }
             if (plAtt.nPoint.khiLinhType == plAtt.tuTien.linhCan.getLinhCanType()) {
-                paramOfLinhCan += (12 * plAtt.nPoint.phamKhiLinh);
+                paramOfLinhCan += (6 * plAtt.nPoint.phamKhiLinh);
             }
             if (plAtt.nPoint.typeNguHanh == plAtt.tuTien.linhCan.getLinhCanType()) {
-                paramOfLinhCan += (12 * plAtt.nPoint.phamKhiLinh);
+                paramOfLinhCan += (6 * plAtt.nPoint.phamKhiLinh);
             }
-            paramOfLinhCan += paramOfLinhCan * plAtt.nPoint.xDameLinhCan / 100;
+            paramOfLinhCan += plAtt.tuTien.linhKhiPoint / 10_000_000;
+
+
             switch (plAtt.tuTien.linhCan.getLinhCanType()) {
                 case 0:
                     // kim

@@ -13,6 +13,7 @@ import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class NhiemVuDeTu {
     public int currentTaskIndex = -1;
@@ -132,8 +133,8 @@ public class NhiemVuDeTu {
     }
 
     public void init(int taskType) {
-        this.type = PetTaskType.fromTaskType(taskType).getTaskKey();
-        this.subTask = NhienVuDeTuTemplate.nhiemVuDeTus.get(taskType);
+        this.type = Objects.requireNonNull(PetTaskType.fromTaskType(taskType)).getTaskKey();
+        this.subTask = NhienVuDeTuTemplate.getNhiemVu(taskType);
         this.currentTaskIndex = 0;
     }
 
