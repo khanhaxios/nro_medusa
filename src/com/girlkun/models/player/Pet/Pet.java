@@ -356,6 +356,19 @@ public class Pet extends Player {
         }
     }
 
+    public static void fusionEffect(Player player, int type) {
+        Message msg;
+        try {
+            msg = new Message(125);
+            msg.writer().writeByte(type);
+            msg.writer().writeInt((int) player.id);
+            Service.getInstance().sendMessAllPlayerInMap(player, msg);
+            msg.cleanup();
+        } catch (Exception e) {
+
+        }
+    }
+
     public long lastTimeMoveIdle;
     private int timeMoveIdle;
     public boolean idle;

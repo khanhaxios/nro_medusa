@@ -914,7 +914,7 @@ public class NPoint {
             }
         }
         //+hp đệ
-        if (this.player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
+        if (this.player.pet != null && this.player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             this.hpMax += this.player.pet.nPoint.hpMax;
             if (this.player.khongThiSu.isKhongThi()) {
                 this.hpMax += this.hpMax * player.khongThiSu.getHPMPBuff() / 100;
@@ -1169,7 +1169,7 @@ public class NPoint {
         if (this.player.setClothes.nhatan == 5) {
             this.mpMax += (this.mpMax * 5 / 100);
         }
-        if (this.player.fusion.typeFusion != 0) {
+        if (this.player.pet != null && this.player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             this.mpMax += this.player.pet.nPoint.mpMax;
             if (this.player.khongThiSu.isKhongThi()) {
                 this.mpMax += this.mpMax * player.khongThiSu.getHPMPBuff() / 100;
@@ -1397,7 +1397,7 @@ public class NPoint {
             this.dame += (this.dame * tl / 100);
         }
 
-        if (this.player.fusion.typeFusion != 0) {
+        if (this.player.pet != null && this.player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             this.dame += this.player.pet.nPoint.dame;
             if (this.player.khongThiSu.isKhongThi()) {
                 this.dame += this.dame * player.khongThiSu.getDameBuff() / 100;

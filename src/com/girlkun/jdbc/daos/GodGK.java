@@ -736,6 +736,11 @@ public class GodGK {
                                 pet.nPoint.hp = hp;
                                 pet.nPoint.mp = mp;
                                 player.pet = pet;
+                            } else if (player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
+                                player.fusion.typeFusion = ConstPlayer.NON_FUSION;
+                                Pet.fusionEffect(player, ConstPlayer.NON_FUSION);
+                                Service.getInstance().Send_Caitrang(player);
+                                Service.getInstance().point(player);
                             }
 
                             //data pet dao nu
