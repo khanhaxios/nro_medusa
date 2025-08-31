@@ -64,7 +64,7 @@ public class BossViet extends Boss {
 
     @Override
     public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean isSTChuan) {
-        damage = 50;
+        damage = 500;
         isSTChuan = true;
         return super.injured(plAtt, damage, piercing, isMobAttack, isSTChuan);
     }

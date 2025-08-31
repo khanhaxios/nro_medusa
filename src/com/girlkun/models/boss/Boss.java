@@ -557,6 +557,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     @Override
     public double injured(Player plAtt, double damage, boolean piercing, boolean isMobAttack, boolean isSTChuan) {
+        if (damage < 0) damage = 1;
         damage = Math.abs(damage);
         if (this.isDie()) return 0;
         if (!isSTChuan) {

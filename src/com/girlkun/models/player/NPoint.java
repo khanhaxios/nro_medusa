@@ -423,8 +423,11 @@ public class NPoint {
                         case 50: //Sức đánh+#%
                             dameAdd += io.param;
                             break;
-                        case 77, 194, 221: //HP+#%
+                        case 77, 194: //HP+#%
                             this.tlHp.add(io.param);
+                            break;
+                        case 221, 251:
+                            this.tlHp.add((int) (io.param * 1.5));
                             break;
                         case 80: //HP+#%/30s
                             this.tlHpHoi += io.param;
@@ -450,8 +453,11 @@ public class NPoint {
                         case 100: //+#% vàng từ quái
                             this.tlGold += io.param;
                             break;
-                        case 103, 195, 222: //KI +#%
+                        case 103, 195: //KI +#%
                             this.tlMp.add(io.param);
+                            break;
+                        case 222, 252:
+                            this.tlMp.add((int) (io.param * 1.5));
                             break;
                         case 104: //Biến #% tấn công quái thành HP
                             this.tlHutHpMob += io.param;
@@ -472,8 +478,11 @@ public class NPoint {
                         case 117: //Đẹp +#% SĐ cho mình và người xung quanh
                             this.tlSDDep.add(io.param);
                             break;
-                        case 147, 196, 219, 232: //+#% sức đánh
+                        case 147, 196: //+#% sức đánh
                             this.tlDame.add(io.param);
+                            break;
+                        case 219, 232:
+                            this.tlDame.add((int) (io.param * 1.5));
                             break;
                         case 155: //Giảm 50% sức đánh, HP, KI và +#% SM, TN, vàng từ quái
                             this.tlSubSD += 50;
@@ -598,7 +607,6 @@ public class NPoint {
                             phamKhiLinh = io.param;
                             khiLinhType = 8;
                             break;
-
                     }
                 }
                 if (dameSSSAdd > 0) {
@@ -2365,7 +2373,10 @@ public class NPoint {
             return getHpMpLimit() / 10;
         }
         if (type == 2) {
-            return getHpMpLimit() * 5;
+            if (player.isPet) {
+                Pet pet = (Pet) player;
+                return getHpMpLimit() * (pet.typePet + 2);
+            }
         }
         return getHpMpLimit();
     }
@@ -2417,7 +2428,19 @@ public class NPoint {
     }
 
     public int getDameLimit(int type) {
-        return type == 0 ? getDameLimit() : type == 1 ? getDameLimit() / 10 : getDameLimit() * 5;
+        if (type == 0) {
+            return getDameLimit();
+        }
+        if (type == 1) {
+            return getDameLimit() / 10;
+        }
+        if (type == 2) {
+            if (player.isPet) {
+                Pet pet = (Pet) player;
+                return getDameLimit() * (pet.typePet + 1);
+            }
+        }
+        return getDameLimit();
     }
 
     public int getDameLimitPet() {

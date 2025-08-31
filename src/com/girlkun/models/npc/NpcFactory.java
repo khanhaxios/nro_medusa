@@ -7209,7 +7209,7 @@ public class NpcFactory {
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENHU_CT_NHIEM_VU) {
                     if (select == 0) {
-                        if (!player.nhiemVuDeTu.getCurrentTask().isDone) {
+                        if (!player.nhiemVuDeTu.getCurrentTask().isDoneTask()) {
                             Service.gI().sendThongBao(player, "Bạn cần hoàn thành nhiệm vụ giai đoạn này");
                             return;
                         }
@@ -8126,7 +8126,7 @@ public class NpcFactory {
                             case 0:
                                 boolean isDotPhaCao = player.tuTien.subLevel == 10;
                                 // dot pha
-                                String text = "|7|❖ ĐỘT PHÁ CẢNH GIỚI ❖\n" + "|5| Cảnh giới hiện tại: |2|" + player.tuTien.getFormatName() + "\n" + "|5| Cảnh giới kế tiếp: |2|" + player.tuTien.getNextLevelStr() + "\n" + "|1|🔮 Tu vi: |5|" + player.tuTien.getCurrentExpAsString() + "\n" + "|1|Tỷ lệ đột phá: |2|" + player.tuTien.getLevelUpPercent() + "%\n" + "|1|⚡ Thiên đạo (hiếm): |2|" + (player.tuTien.getLevelUpPercent() / 5) + "%\n" + "|7| Dùng đan dược để tăng tỷ lệ thành công!";
+                                String text = "|7|❖ ĐỘT PHÁ CẢNH GIỚI ❖\n" + "|5| Cảnh giới hiện tại: |2|" + player.tuTien.getFormatName() + "\n" + "|5| Cảnh giới kế tiếp: |2|" + player.tuTien.getNextLevelStr() + "\n" + "|1|Tu vi: " + player.tuTien.getCurrentExpAsString() + "\n" + "|1|Tỷ lệ đột phá: " + player.tuTien.getLevelUpPercent() + "%\n" + "|1|Thiên đạo (hiếm):" + (player.tuTien.getLevelUpPercent() / 5) + "%\n" + "|7| Dùng đan dược để tăng tỷ lệ thành công!";
                                 if (isDotPhaCao) {
                                     NpcService.gI().createMenuConMeo(player, ConstNpc.TU_TIEN_DOT_PHA, -1, text, "Đột phá\nThiên đạo", "Đột phá thường", "Từ Chối");
                                 } else {

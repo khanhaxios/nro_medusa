@@ -7,6 +7,7 @@ package com.girlkun.models.player.Pet;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.player.Player;
+import com.girlkun.utils.Util;
 
 public class NhiemVuDeTuPhu {
     public String mota;
@@ -31,15 +32,18 @@ public class NhiemVuDeTuPhu {
 
     public void checkDoneTask() {
         currentCount += 1;
-        isDone = currentCount >= totalCount;
+    }
+
+    public boolean isDoneTask() {
+        return currentCount >= totalCount;
     }
 
     public void showBaseMenu(Player player, Npc npc) {
         String stringBuilder = "|7|Nhiệm Vụ Hiện Tại" + "\n" +
                 "|5|" + tenNhiemVu + "\n" +
                 "|1|" + mota.replaceAll("#", String.valueOf(totalCount)) + "\n" +
-                "|2|Tiến độ : " + currentCount + "/" + totalCount + "\n" +
-                "|7|Trạng thái :" + (isDone ? "Hoàn thành" : "Chưa hoàn thành") + "\n";
+                "|2|Tiến độ : " + Util.powerToString(currentCount) + "/" + Util.powerToString(totalCount) + "\n" +
+                "|7|Trạng thái :" + (isDoneTask() ? "Hoàn thành" : "Chưa hoàn thành") + "\n";
         npc.createOtherMenu(player, ConstNpc.MENHU_CT_NHIEM_VU, stringBuilder, "Giao Nhiệm\nVụ", "Đóng");
     }
 }

@@ -1244,8 +1244,12 @@ public class Manager {
                         top.setInfo2(TuTien.CANH_GIOI[rs.getByte("sm")]);
                         break;
                     case QUERY_TOP_TU_MA:
-                        top.setInfo1(TuMa.CANH_GIOI[rs.getInt("sm") / 10]);
-                        top.setInfo2(TuMa.CANH_GIOI[rs.getInt("sm") / 10]);
+                        int canhGioi = rs.getInt("sm") / 10;
+                        if (canhGioi > TuMa.CANH_GIOI.length - 1) {
+                            canhGioi = TuMa.CANH_GIOI.length - 1;
+                        }
+                        top.setInfo1(TuMa.CANH_GIOI[canhGioi]);
+                        top.setInfo2(TuMa.CANH_GIOI[canhGioi]);
                         break;
                     case QUERY_TOP_LUYEN_THE:
                         top.setInfo1("Luyện thể " + rs.getInt("sm") + " Tầng");

@@ -27,7 +27,7 @@ public class NhiemVuDeTu {
     }
 
     public boolean isDone() {
-        return (currentTaskIndex == subTask.size() - 1) && getCurrentTask().isDone;
+        return (currentTaskIndex == subTask.size() - 1) && getCurrentTask().isDoneTask();
     }
 
     public void sendNextTask() {
