@@ -1739,6 +1739,8 @@ public class Service {
         } else if (text.equals("tt")) {
             infoall(player);
             return;
+        } else if (text.equals("atnp")) {
+            player.showMenuAutoNghePhu();
         } else if (text.equals("lt")) {
             player.luyenThe.showInfo();
             return;

@@ -9,7 +9,6 @@ import com.girlkun.models.item.Item;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.skill.Skill;
-import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,8 +81,13 @@ public class NhiemVuDeTu {
     public void checkDoneTaskRun() {
         if (currentTaskIndex < 0 || currentTaskIndex >= subTask.size()) return;
         NhiemVuDeTuPhu task = subTask.get(currentTaskIndex);
-        if (task.type == TaskType.RUN && !Util.canDoWithTime(player.location.lastTimeHold, 2000)) {
-            task.checkDoneTask();
+        if (task.type == TaskType.RUN) {
+            if (player.location.countRun > 5) {
+                task.checkDoneTask();
+                player.location.countRun = 0;
+            } else {
+                player.location.countRun++;
+            }
         }
     }
 

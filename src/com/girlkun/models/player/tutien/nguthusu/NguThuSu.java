@@ -37,7 +37,7 @@ public class NguThuSu extends BasePoint implements IBaseAction {
         if (isNguThu() && Util.canDoWithTime(lastTimeGetExp, 2000)) {
             addExp(getExpCanGain(null));
             lastTimeGetExp = System.currentTimeMillis();
-            if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 5_000 >= 0 && player.tuTien.isAutoDotPhaNguThu) {
+            if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 5_000 >= 0 && player.isAutoDotPhaNguThu) {
                 if (Util.isTrue(getLevelUpPercent(), 300)) {
                     this.levelUp();
                     Service.gI().sendThongBao(player, "Tự động đột phá ngự thú sư thành công");

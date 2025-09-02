@@ -7799,7 +7799,7 @@ public class NpcFactory {
                         }
                         break;
                     case ConstNpc.MENU_AUTO_DOT_PHA_NGHE_PHU:
-                        player.tuTien.switchAutoDotPhaNghePhu(select);
+                        player.switchAutoDotPhaNghePhu(select);
                         break;
                     case ConstNpc.MENU_INFO_SGD_ZENO:
                         if (select == 0) {
@@ -8136,7 +8136,7 @@ public class NpcFactory {
                                 player.tuTien.showCaiDatLinhKhi();
                                 break;
                             case 5:
-                                player.tuTien.showMenuAutoNghePhu();
+                                player.showMenuAutoNghePhu();
                                 break;
                             case 6:
                                 player.showMenuPhapBao();

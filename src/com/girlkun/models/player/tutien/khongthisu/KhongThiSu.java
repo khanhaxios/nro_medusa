@@ -31,8 +31,9 @@ public class KhongThiSu extends BasePoint implements IBaseAction {
 
     public void update() {
         if (isKhongThi()) {
-            if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 5_000 >= 0 && player.tuTien.isAutoDotPhaKhongThi) {
-                if (Util.isTrue(getLevelUpPercent(), 300)) {
+
+            if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 5_000 >= 0 && player.isAutoDotPhaKhongThi) {
+                if (Util.isTrue(getLevelUpPercent(), 500)) {
                     this.levelUp();
                     Service.gI().sendThongBao(player, "Tự động đột phá khống thi sư thành công");
                 } else {
@@ -55,7 +56,7 @@ public class KhongThiSu extends BasePoint implements IBaseAction {
         if (canLevelUp()) {
             level += 1;
             restExp();
-            Service.gI().sendThongBao(player, "Đột phá phù chú sư thành công");
+            Service.gI().sendThongBao(player, "Đột phá khống thi sư thành công");
         }
     }
 

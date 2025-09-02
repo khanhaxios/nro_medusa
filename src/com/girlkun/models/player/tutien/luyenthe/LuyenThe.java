@@ -408,4 +408,8 @@ public class LuyenThe extends BaseTuDuy {
         toiThe = new ToiThe(player);
         Service.gI().sendThongBao(player, "Bạn đã tán công luyện thể");
     }
+
+    public void subChanKhi(int i) {
+        chanKhi -= i;
+    }
 }

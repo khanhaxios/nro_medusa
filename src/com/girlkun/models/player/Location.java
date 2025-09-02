@@ -12,4 +12,5 @@ public class Location {
 
     public long lastTimeplayerMove;
     public long lastTimeHold;
+    public int countRun;
 }

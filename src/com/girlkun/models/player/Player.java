@@ -279,6 +279,8 @@ public class Player {
     public boolean isNhanQuaDenBu = false;
     public long lastTimeLeaveClan;
 
+    public boolean isAutoDotPhaKhongThi;
+
     public Player() {
         nhiemVuDeTu = new NhiemVuDeTu(this);
         lastTimeSavePlayer = System.currentTimeMillis();
@@ -1548,5 +1550,58 @@ public class Player {
         phapBaos.set(typePhapBaoHandling, null);
         Service.gI().sendThongBaoOK(this, "Đã vứt bỏ pháp bảo");
     }
+
+    public boolean isAutoDotPhaLinhThuc = false;
+    public boolean isAutoDotPhaPhuChu = false;
+    public boolean isAutoDotPhaNguThu = false;
+    public boolean isAutoDotPhaLuyenDan = false;
+    public boolean isAutoDotPhaTranPhap = false;
+
+    public void switchAutoDotPhaNghePhu(int select) {
+        switch (select) {
+            case 0 -> {
+                if (!linhThucSu.isLinhThuc()) {
+                    return;
+                }
+                isAutoDotPhaLinhThuc = !isAutoDotPhaLinhThuc;
+            }
+            case 1 -> {
+                if (!this.phuChuSu.isPhuChu()) {
+                    return;
+                }
+                isAutoDotPhaPhuChu = !isAutoDotPhaPhuChu;
+            }
+            case 2 -> {
+                if (khongThiSu.isKhongThi()) {
+                    return;
+                }
+                isAutoDotPhaKhongThi = !isAutoDotPhaKhongThi;
+            }
+            case 3 -> {
+                if (nguThuSu.isNguThu()) {
+                    return;
+                }
+                isAutoDotPhaNguThu = !isAutoDotPhaNguThu;
+            }
+            case 4 -> {
+                if (luyenDanSu.isLuyenDan()) {
+                    return;
+                }
+                isAutoDotPhaLuyenDan = !isAutoDotPhaLuyenDan;
+            }
+            case 5 -> {
+                if (tranPhapSu.isTranPhap()) {
+                    return;
+                }
+                isAutoDotPhaTranPhap = !isAutoDotPhaTranPhap;
+            }
+        }
+        showMenuAutoNghePhu();
+    }
+
+    public void showMenuAutoNghePhu() {
+        String text = "|7|Cài đặt auto đột phá nghề phụ\n|5|Bạn có thể lựa chọn tắt , bật tự động đột phá nghề phụ ở đây";
+        NpcService.gI().createMenuConMeo(this, ConstNpc.MENU_AUTO_DOT_PHA_NGHE_PHU, -1, text, "Linh thực\n" + (isAutoDotPhaLinhThuc ? "BẬT" : "TẮT"), "Phù chú\n" + (!isAutoDotPhaPhuChu ? "BẬT" : "TẮT"), "Khống thi\n" + (!isAutoDotPhaKhongThi ? "BẬT" : "TẮT"), "Ngự thú\n" + (!isAutoDotPhaNguThu ? "BẬT" : "TẮT"), "Luyện đan\n" + (!isAutoDotPhaLuyenDan ? "BẬT" : "TẮT"), "Trận pháp\n" + (!isAutoDotPhaTranPhap ? "BẬT" : "TẮT"));
+    }
+
 }
-//nplayer

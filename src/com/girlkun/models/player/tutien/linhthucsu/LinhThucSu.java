@@ -39,7 +39,7 @@ public class LinhThucSu extends BasePoint implements IBaseAction {
     }
 
     public void update() {
-        if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 5_000 >= 0 && player.tuTien.isAutoDotPhaLinhThuc) {
+        if (exp == maxExp && level + 1 <= MAX_LEVEL && player.inventory.ruby - 5_000 >= 0 && player.isAutoDotPhaLinhThuc) {
             if (Util.isTrue(getLevelUpPercent(), 100)) {
                 this.levelUp();
                 Service.gI().sendThongBao(player, "Tự động đột phá linh thực sư thành công");
@@ -236,10 +236,6 @@ public class LinhThucSu extends BasePoint implements IBaseAction {
     }
 
     public void nauAn() {
-        if (!player.tuTien.canHandleWithLinhKhiPoint(1)) {
-            Service.gI().sendThongBao(player, "Không đủ linh lực để nấu ăn");
-            return;
-        }
         Item it1 = InventoryServiceNew.gI().findItemBag(player, 2050);
         Item it2 = InventoryServiceNew.gI().findItemBag(player, 2048);
         if (it1 == null || it2 == null || it2.quantity < 10) {
@@ -269,5 +265,14 @@ public class LinhThucSu extends BasePoint implements IBaseAction {
             Service.gI().sendThongBao(player, "Nấu ăn thất bại");
         }
         addExp(getExpCanGain(null));
+        if (player.tuTien.isTuTien()) {
+            player.tuTien.subLinhKhiPercent(1);
+        }
+        if (player.tuMa.isTuMa()) {
+            player.tuMa.subMaKhi(10);
+        }
+        if (player.luyenThe.isLuyenTheReal()) {
+            player.luyenThe.subChanKhi(10);
+        }
     }
 }

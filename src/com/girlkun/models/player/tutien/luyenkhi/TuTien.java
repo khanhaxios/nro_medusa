@@ -32,12 +32,6 @@ public class TuTien extends BasePoint implements IBaseAction {
     public byte MAX_USE_TP = 2;
     long lastTimeAddExp = System.currentTimeMillis();
     long lastTimeAddDoTT = System.currentTimeMillis();
-    public boolean isAutoDotPhaLinhThuc = false;
-    public boolean isAutoDotPhaNguThu = false;
-    public boolean isAutoDotPhaPhuChu = false;
-    public boolean isAutoDotPhaKhongThi = false;
-    public boolean isAutoDotPhaTranPhap = false;
-    public boolean isAutoDotPhaLuyenDan = false;
 
     public static final String[] CANH_GIOI = new String[]{"Luyện Khí", "Trúc Cơ", "Kim Đan", "Nguyên Anh", "Hóa Thần", "Phong Thánh", "Thần Chiếu", "Huyền Linh", "Quy Nguyên", "Du Tầm", "Không Luân", "Tam Thiên", "Tứ Trụ", "Dạ Ma Thiên Cảnh", "Tu Di Sơn Chủ", "Tinh Hà Thánh Nhân", "Thần Quỷ Mạt Trắc", "Đạo Lộ Chi Cảnh", "Thánh Tôn Chi Cảnh"};
     public static final long[] LEVEL_EXP = new long[]{100, 200, 500, 1000, 5000, 60000, 200000, 3000000, 5000000, 10000000, 12_000_000, 15_000_000, 20_000_000, 30_000_000, 50_000_000, 70_000_000, 100_000_000, 150_000_000, 500_000_000}; // 19
@@ -869,36 +863,6 @@ public class TuTien extends BasePoint implements IBaseAction {
 //            }
 //        }
 //    }
-
-    public void showMenuAutoNghePhu() {
-        String text = "|7|Cài đặt auto đột phá nghề phụ\n|5|Bạn có thể lưa chọn tắt bật tự động đột phá nghề phụ ở đây";
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_AUTO_DOT_PHA_NGHE_PHU, -1, text, "Linh thực\n" + (isAutoDotPhaLinhThuc ? "BẬT" : "TẮT"), "Phù chú\n" + (!isAutoDotPhaPhuChu ? "BẬT" : "TẮT"), "Khống thi\n" + (!isAutoDotPhaKhongThi ? "BẬT" : "TẮT"), "Ngự thú\n" + (!isAutoDotPhaNguThu ? "BẬT" : "TẮT"), "Luyện đan\n" + (!isAutoDotPhaLuyenDan ? "BẬT" : "TẮT"), "Trận pháp\n" + (!isAutoDotPhaTranPhap ? "BẬT" : "TẮT"));
-    }
-
-    public void switchAutoDotPhaNghePhu(int select) {
-        switch (select) {
-            case 0:
-                isAutoDotPhaLinhThuc = !isAutoDotPhaLinhThuc;
-                break;
-            case 1:
-                isAutoDotPhaPhuChu = !isAutoDotPhaPhuChu;
-                break;
-            case 2:
-                isAutoDotPhaKhongThi = !isAutoDotPhaKhongThi;
-                break;
-            case 3:
-                isAutoDotPhaNguThu = !isAutoDotPhaNguThu;
-                break;
-            case 4:
-                isAutoDotPhaLuyenDan = !isAutoDotPhaLuyenDan;
-                break;
-            case 5:
-                isAutoDotPhaTranPhap = !isAutoDotPhaTranPhap;
-                break;
-        }
-        showMenuAutoNghePhu();
-    }
-
     public boolean gapTamMa() {
         long tamMaLc = Util.nextLong(getChienLuc() - 1000, getChienLuc() + 1000);
         boolean isSuccess = Util.isTrue((long) (ngoTinh + canCot) * Math.max(xParam, 2), tamMaLc);
