@@ -1,10 +1,10 @@
 /*
  * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
  */
-
 package com.girlkun.models.player.Pet;
 
 import com.girlkun.models.boss.BossID;
+import com.girlkun.models.player.NPoint;
 import com.girlkun.utils.Logger;
 
 import java.util.ArrayList;
@@ -42,7 +42,16 @@ public class NhienVuDeTuTemplate {
         MABU_LIST.add(new NhiemVuDeTuPhu("Đột Phá Giới Hạn", "Chuyển Sinh # Lần", 10, TaskType.CHUYEN_SINH, -1));
         MABU_LIST.add(new NhiemVuDeTuPhu("Nhiệm vụ cuối cùng", "Đột phá cảnh giới # lần", 6, TaskType.DOT_PHA_CANH_GIOI, -1));
         nhiemVuDeTus.put(PetTaskType.MABU.getTaskKey(), MABU_LIST);
-
+        List<NhiemVuDeTuPhu> BERRUS_LIST = new ArrayList<>();
+        BERRUS_LIST.add(new NhiemVuDeTuPhu("Linh hồn Berrus", "Tìm kiếm # hồn Berrus", 20, TaskType.FIND_ITEM, 1108));
+        BERRUS_LIST.add(new NhiemVuDeTuPhu("Học trò Thiên Sứ", "Tìm và đánh bại Thiên Sứ Wish # lần", 20, TaskType.KILL_BOSS, BossID.THIEN_SU_WHIS));
+        BERRUS_LIST.add(new NhiemVuDeTuPhu("Huynh Đệ Tương Ái", "Tìm và đánh bại thần hủy diệt Champa # lần", 20, TaskType.KILL_BOSS, BossID.THAN_HUY_DIET_CHAMPA));
+        BERRUS_LIST.add(new NhiemVuDeTuPhu("Kế thừa thần vị", "Đạt cảnh giới chức nghiệp cấp #", 50, TaskType.DAT_CANH_GIOI, -1));
+        BERRUS_LIST.add(new NhiemVuDeTuPhu("Học sức mạnh Hủy Diệt", "Dùng Kỹ Năng Đặc Biệt # lần", 200, TaskType.USE_SKILL, 4));
+        BERRUS_LIST.add(new NhiemVuDeTuPhu("Rèn Luyện Cơ Sở", "Chuyển Sinh # lần", 10, TaskType.CHUYEN_SINH, -1));
+        BERRUS_LIST.add(new NhiemVuDeTuPhu("Rèn Luyện Thể Lực", "Chạy # mét", 3000000, TaskType.RUN, -1));
+        BERRUS_LIST.add(new NhiemVuDeTuPhu("Siêu Cấp Sư Phụ", "Đệ tử mở giới hạn sức mạnh # lần", NPoint.MAX_LIMIT, TaskType.MO_GIOI_HAN, -1));
+        nhiemVuDeTus.put(PetTaskType.BERRUS.getTaskKey(), BERRUS_LIST);
         Logger.log("Init nhiệm vụ đệ tử thành công\n");
     }
 }

@@ -119,6 +119,23 @@ public class NhiemVuDeTu {
         }
     }
 
+    public void checkDoneTaskMoGioiHan() {
+        if (currentTaskIndex < 0 || currentTaskIndex >= subTask.size()) return;
+        NhiemVuDeTuPhu task = subTask.get(currentTaskIndex);
+        if (task.type == TaskType.MO_GIOI_HAN) {
+            task.checkDoneTask();
+        }
+    }
+
+    public void checkDoneTaskDatCanhGioi(int canhGioi) {
+        if (currentTaskIndex < 0 || currentTaskIndex >= subTask.size()) return;
+        NhiemVuDeTuPhu task = subTask.get(currentTaskIndex);
+        if (task.type == TaskType.DAT_CANH_GIOI) {
+            task.currentCount = canhGioi;
+        }
+    }
+
+
     public void checkDoneTaskDotPha() {
         if (currentTaskIndex < 0 || currentTaskIndex >= subTask.size()) return;
         NhiemVuDeTuPhu task = subTask.get(currentTaskIndex);

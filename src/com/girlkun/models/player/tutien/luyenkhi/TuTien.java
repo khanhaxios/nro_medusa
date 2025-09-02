@@ -140,6 +140,7 @@ public class TuTien extends BasePoint implements IBaseAction {
                 }
                 if (player.nhiemVuDeTu != null) {
                     player.nhiemVuDeTu.checkDoneTaskDotPha();
+                    player.nhiemVuDeTu.checkDoneTaskDatCanhGioi(level * 10 + subLevel);
                 }
                 Service.gI().sendThongBao(player, "Chúc mừng bạn đã đột phá lên " + (player.iDMark.dotPhaThienDao ? "Thiên đạo " : "") + getFormatName());
             } else {
@@ -150,6 +151,7 @@ public class TuTien extends BasePoint implements IBaseAction {
             Service.gI().sendThongBao(player, "Bạn đã đột phá lên " + getFormatName());
             if (player.nhiemVuDeTu != null) {
                 player.nhiemVuDeTu.checkDoneTaskDotPha();
+                player.nhiemVuDeTu.checkDoneTaskDatCanhGioi(level * 10 + subLevel);
             }
         }
         restExp();
@@ -233,6 +235,9 @@ public class TuTien extends BasePoint implements IBaseAction {
             if (player.pet != null && player.pet.typePet == ConstPet.MABU && player.khongThiSu.isKhongThi() && player.khongThiSu.level >= 5) {
                 linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * (15 * player.khongThiSu.level) / 100;
             }
+            if (player.pet != null && player.pet.typePet == ConstPet.BERUS && player.khongThiSu.isKhongThi() && player.khongThiSu.level >= 5) {
+                linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * (30 * player.khongThiSu.level) / 100;
+            }
             addLinhKhi(linhKhiCanHoiPhuc);
             lastTimeHoiPhuc = System.currentTimeMillis();
             // send effect to server
@@ -248,6 +253,9 @@ public class TuTien extends BasePoint implements IBaseAction {
         la += la * player.nPoint.xLinhKhi / 100;
         if (player.pet != null && player.pet.typePet == ConstPet.MABU && player.khongThiSu.isKhongThi() && player.khongThiSu.level >= 7) {
             la += la * (30 * player.khongThiSu.level) / 100;
+        }
+        if (player.pet != null && player.pet.typePet == ConstPet.BERUS && player.khongThiSu.isKhongThi() && player.khongThiSu.level >= 7) {
+            la += la * (40 * player.khongThiSu.level) / 100;
         }
         return (la + (la * congPhap.tlLinhKhiBuff / 100)) * Math.max(1, congPhap.xLinhKhiBuff);
     }

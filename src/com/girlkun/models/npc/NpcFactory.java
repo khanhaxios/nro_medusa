@@ -2937,8 +2937,7 @@ public class NpcFactory {
                         mtv = "Tài khoản của bạn chưa được Mở thành viên nên còn bị khóa mõm với không giao dịch được!!!";
                     }
                     if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cố Gắng Có Làm Mới Có Ăn Con, đừng lo lắng cho ta.\n".replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê" : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru" : "Vua Vegeta") + "Ta đang giữ tiền tiết kiệm của con\n|1| Hiện tại con đang có: " + player.getSession().goldBar + " Thỏi vàng" + "\n\n|7| Cấp VIP được tính như sau:" + "\n|2| Quy đổi tiền <500.000đ = Tân Thủ (Nhận 30 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >2000.000đ và <5.000.000đ = VIP (Nhận 100 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >5.000.000đ = SVIP (Nhận 300 Thỏi vàng/Ngày)" + "\n|3|TỔNG QUY ĐỔI : " + Util.format(player.vnd) + "đ" + "\n\n|7|Cấp VIP hiện tại của bạn là : " + checkvnd + "\n|1| Điểm danh hằng ngày sẽ nhận được " + thoivang + " Thỏi vàng" + "\n|1| ***" + mtv + "***", "Đổi Mật Khẩu", "Nhận 200tr Ngọc xanh", "Nhận\nVàng", "Giftcode", "Điểm danh\nngày", "Đến\n Khu Test Dame", "Mở thành viên", "Nhận quà\nđền bù");
-
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cố Gắng Có Làm Mới Có Ăn Con, đừng lo lắng cho ta.\n".replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê" : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru" : "Vua Vegeta") + "Ta đang giữ tiền tiết kiệm của con\n|1| Hiện tại con đang có: " + player.getSession().goldBar + " Thỏi vàng" + "\n\n|7| Cấp VIP được tính như sau:" + "\n|2| Quy đổi tiền <500.000đ = Tân Thủ (Nhận 30 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >2000.000đ và <5.000.000đ = VIP (Nhận 100 Thỏi vàng/Ngày)" + "\n Quy đổi tiền >5.000.000đ = SVIP (Nhận 300 Thỏi vàng/Ngày)" + "\n|3|TỔNG QUY ĐỔI : " + Util.format(player.vnd) + "đ" + "\n\n|7|Cấp VIP hiện tại của bạn là : " + checkvnd + "\n|1| Điểm danh hằng ngày sẽ nhận được " + thoivang + " Thỏi vàng" + "\n|1| ***" + mtv + "***", "Đổi Mật Khẩu", "Nhận 200tr Ngọc xanh", "Nhận\nVàng", "Giftcode", "Điểm danh\nngày", "Đến\n Khu Test Dame", "Mở thành viên", "Nhận quà\n2/9");
                     }
                 }
             }
@@ -7180,14 +7179,27 @@ public class NpcFactory {
                             createOtherMenu(player, ConstNpc.CONFIRM_BO_NV, "Bạn có chắc muốn bỏ nhiệm vụ?", "Đồng ý", "Đóng");
                             break;
                         case 3:
-                            StringBuilder menuText = new StringBuilder();
-                            menuText.append("|7|Thông tin đệ tử").append("\n");
-                            menuText.append("|5|Đệ Mabu tăng 15% x cấp khống thi các chỉ số SD,HP,KI và tăng sát thương linh căn bằng ").append("\n");
-                            menuText.append("|5| 5% * cấp khống thi khi lên khống thi level 3").append("\n");
-                            menuText.append("|5| và tăng tổng linh khí bằng 30% * cấp khống thi ở khống thi level 7").append("\n");
-                            menuText.append("|5| và tăng 30 * cấp khống thi tốc độ hồi linh khí ở level khống thi 5").append("\n");
-                            createOtherMenu(player, ConstNpc.IGNORE_MENU, menuText.toString(), "Đóng");
+                            createOtherMenu(player, ConstNpc.MEBU_TT_DE, "Bạn muốn xem?", "Mabu", "Berus");
                             break;
+                    }
+                } else if (player.iDMark.getIndexMenu() == ConstNpc.MEBU_TT_DE) {
+                    if (select == 0) {
+                        StringBuilder menuText = new StringBuilder();
+                        menuText.append("|7|Thông tin đệ tử").append("\n");
+                        menuText.append("|5|Tăng 15% x Cấp Khống Thi SD,HP,KI").append("\n");
+                        menuText.append("|5|Tăng STLC bằng 5% * Cấp Khống Thi ( Mở Khóa Ở Level 3)").append("\n");
+                        menuText.append("|5|Tăng tổng linh khí bằng 30% x Cấp Khống Thi ( Mở Khóa Ở Level 5)").append("\n");
+                        menuText.append("|5|Tăng tốc độ hồi linh khí bằng 30% x Cấp Khống Thi ( Mở Khóa Ở Level 7)").append("\n");
+                        createOtherMenu(player, ConstNpc.IGNORE_MENU, menuText.toString(), "Đóng");
+                    }
+                    if (select == 1) {
+                        StringBuilder menuText = new StringBuilder();
+                        menuText.append("|7|Thông tin đệ tử").append("\n");
+                        menuText.append("|5|Tăng 30% x Cấp Khống Thi SD,HP,KI").append("\n");
+                        menuText.append("|5|Tăng STLC bằng 8% * Cấp Khống Thi ( Mở Khóa Ở Level 3)").append("\n");
+                        menuText.append("|5|Tăng tổng linh khí bằng 40% x Cấp Khống Thi ( Mở Khóa Ở Level 5)").append("\n");
+                        menuText.append("|5|Tăng tốc độ hồi linh khí bằng 40% x Cấp Khống Thi ( Mở Khóa Ở Level 7)").append("\n");
+                        createOtherMenu(player, ConstNpc.IGNORE_MENU, menuText.toString(), "Đóng");
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.CONFIRM_BO_NV) {
                     if (select == 0) {
@@ -7206,6 +7218,13 @@ public class NpcFactory {
                     if (select == 0) {
                         player.nhiemVuDeTu.init(PetTaskType.MABU.getTaskKey());
                         Service.gI().sendThongBao(player, "Bạn đã nhận nhiệm vụ đệ Ma Nhân Bư");
+                    } else if (select == 1) {
+                        if (player.pet.typePet < ConstPet.MABU) {
+                            Service.gI().sendThongBao(player, "Bạn cần có đệ tử Ma Nhân Bư trước");
+                            return;
+                        }
+                        player.nhiemVuDeTu.init(PetTaskType.BERRUS.getTaskKey());
+                        Service.gI().sendThongBao(player, "Bạn đã nhận nhiệm vụ đệ Berrus");
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENHU_CT_NHIEM_VU) {
                     if (select == 0) {
@@ -7217,9 +7236,12 @@ public class NpcFactory {
                         Service.gI().sendThongBao(player, "Giao nhiệm vụ thành công");
                         if (player.nhiemVuDeTu.isDone()) {
                             // cho de tu
-                            if (player.nhiemVuDeTu.type == 0) {// mabu
+                            if (player.nhiemVuDeTu.type == PetTaskType.MABU.getTaskKey()) {// mabu
                                 PetService.gI().createPet(player, ConstPet.MABU, player.pet.nPoint.limitPower, (byte) Util.nextInt(0, 2));
                                 Service.gI().sendThongBao(player, "Bạn đã nhận được đệ tử Ma Nhân Bư");
+                            } else if (player.nhiemVuDeTu.type == PetTaskType.BERRUS.getTaskKey()) {
+                                PetService.gI().createPet(player, ConstPet.BERUS, player.gender);
+                                Service.gI().sendThongBao(player, "Bạn đã nhận được đệ tử Berus");
                             }
                             player.nhiemVuDeTu.dispose();
                         }

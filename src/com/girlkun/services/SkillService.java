@@ -1273,6 +1273,9 @@ public class SkillService {
             if (plAtt.khongThiSu.isKhongThi() && plAtt.khongThiSu.level > 3 && plAtt.pet != null && plAtt.pet.typePet == ConstPet.MABU) {
                 paramOfLinhCan += 5 * plAtt.khongThiSu.level;
             }
+            if (plAtt.khongThiSu.isKhongThi() && plAtt.khongThiSu.level > 3 && plAtt.pet != null && plAtt.pet.typePet == ConstPet.MABU) {
+                paramOfLinhCan += 8 * plAtt.khongThiSu.level;
+            }
         }
 
         dameHit = plInjure.injured(plAtt, miss ? 0 : damGoc, false, false, hasXaydaSkill);
@@ -1445,6 +1448,14 @@ public class SkillService {
             if (plAtt.nPoint.xDameLinhCan > 0) {
                 paramOfLinhCanTuma += plAtt.nPoint.xDameLinhCan / 100f;
             }
+            if (plAtt.fusion.typeFusion != ConstPlayer.NON_FUSION) {
+                if (plAtt.khongThiSu.isKhongThi() && plAtt.khongThiSu.level > 3 && plAtt.pet != null && plAtt.pet.typePet == ConstPet.MABU) {
+                    paramOfLinhCanTuma += 5 * plAtt.khongThiSu.level;
+                }
+                if (plAtt.khongThiSu.isKhongThi() && plAtt.khongThiSu.level > 3 && plAtt.pet != null && plAtt.pet.typePet == ConstPet.MABU) {
+                    paramOfLinhCanTuma += 8 * plAtt.khongThiSu.level;
+                }
+            }
             switch (plAtt.tuMa.linhCanTuMa.typeLinhCan) {
                 case 0:
                     double hp = plInjure.injured(plAtt, (plAtt.nPoint.hpMax) * (paramOfLinhCanTuma), false, false, true);
@@ -1467,7 +1478,7 @@ public class SkillService {
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameB, (byte) 0);
                     break;
                 case 3:
-                    double dameC = plInjure.injured(plAtt, (dameHit * 3) * paramOfLinhCanTuma, false, false, true);
+                    double dameC = plInjure.injured(plAtt, (dameHit) * paramOfLinhCanTuma, false, false, true);
                     sendMessagePlayerAttackPlayer(plAtt, plInjure, dameC, (byte) 0);
                     if (Util.isTrue(paramOfLinhCanTuma * Util.nextInt(2, 3), Util.nextInt(100, 120))) {
                         if (!plInjure.effectSkill.isStun) {

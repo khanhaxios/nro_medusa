@@ -7,7 +7,6 @@ package com.girlkun.services;
 import com.girlkun.models.player.NPoint;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
-import java.awt.Point;
 
 
 public class OpenPowerService {
@@ -30,16 +29,16 @@ public class OpenPowerService {
     public boolean openPowerSpeed(Player player) {
         if (player.nPoint.limitPower < NPoint.MAX_LIMIT) {
             if (player.nPoint.power >= 17900000000L) {
-            player.nPoint.limitPower++;
-            if (player.nPoint.limitPower > NPoint.MAX_LIMIT) {
-                player.nPoint.limitPower = NPoint.MAX_LIMIT;
-            }
-            if (!player.isPet) {
-                Service.getInstance().sendThongBao(player, "Giới hạn sức mạnh của bạn đã được tăng lên 1 bậc");
-            } else {
-                Service.getInstance().sendThongBao(((Pet) player).master, "Giới hạn sức mạnh của đệ tử đã được tăng lên 1 bậc");
-            }
-            return true;
+                player.nPoint.limitPower++;
+                if (!player.isPet) {
+                    Service.getInstance().sendThongBao(player, "Giới hạn sức mạnh của bạn đã được tăng lên 1 bậc");
+                } else {
+                    if (player.getMaster() != null && player.getMaster().nhiemVuDeTu != null) {
+                        player.getMaster().nhiemVuDeTu.checkDoneTaskMoGioiHan();
+                    }
+                    Service.getInstance().sendThongBao(((Pet) player).master, "Giới hạn sức mạnh của đệ tử đã được tăng lên 1 bậc");
+                }
+                return true;
             } else {
                 if (!player.isPet) {
                     Service.getInstance().sendThongBao(player, "Sức mạnh của bạn không đủ để thực hiện");

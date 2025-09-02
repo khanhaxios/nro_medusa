@@ -934,6 +934,9 @@ public class NPoint {
                 this.hpMax += (this.hpMax * Math.max(20, player.khongThiSu.level * 20) / 100);
                 this.tyLeGiamDame += Math.max(5, player.khongThiSu.level * 5);
             }
+            if (((Pet) this.player).typePet == ConstPet.BERUS) {
+                this.hpMax += (this.hpMax * Math.max(30, player.khongThiSu.level * 30) / 100);
+            }
         }
         if (this.player.isPl()) {
             if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 7 || this.player.TrieuHoiCapBac == 8 || this.player.TrieuHoiCapBac == 9 || this.player.TrieuHoiCapBac == 10)) {
@@ -1188,6 +1191,9 @@ public class NPoint {
             if (((Pet) this.player).typePet == ConstPet.MABU) {
                 this.mpMax += (this.mpMax * Math.max(20, player.khongThiSu.level * 20) / 100);
             }
+            if (((Pet) this.player).typePet == ConstPet.MABU) {
+                this.mpMax += (this.mpMax * Math.max(30, player.khongThiSu.level * 30) / 100);
+            }
         }
         if (this.player.isPl()) {
             if (this.player.TrieuHoipet != null && this.player.TrieuHoipet.getStatus() != Thu_TrieuHoi.GOHOME && (this.player.TrieuHoiCapBac == 7 || this.player.TrieuHoiCapBac == 8 || this.player.TrieuHoiCapBac == 9 || this.player.TrieuHoiCapBac == 10)) {
@@ -1300,8 +1306,6 @@ public class NPoint {
         if (this.player.effectFlagBag.useXienCa) {
             this.mpMax += (this.mpMax * 5 / 100);
         }
-
-
         // biến hình
         if (this.player.effectSkill.isBienHinh) {
             if (!this.player.isPet || ((Pet) this.player).status != Pet.FUSION) {
@@ -1309,7 +1313,6 @@ public class NPoint {
                 this.mpMax += calPercent(this.mpMax, percent);
             }
         }
-
         //phu kien kich hoat
         switch (this.player.setClothes.pkkhMedusa) {
             case 2 -> this.mpMax += this.mpMax * 20 / 100;
@@ -1416,6 +1419,10 @@ public class NPoint {
             if (((Pet) this.player).typePet == ConstPet.MABU) {
                 this.dame += (this.dame * Math.max(5, player.khongThiSu.level * 5) / 100);
                 this.tlDameCrit.add(Math.max(15, player.khongThiSu.level * 15));
+            }
+            if (((Pet) this.player).typePet == ConstPet.BERUS) {
+                this.dame += (this.dame * Math.max(5, player.khongThiSu.level * 10) / 100);
+                this.tlDameCrit.add(Math.max(25, player.khongThiSu.level * 25));
             }
         }
 
@@ -1975,7 +1982,7 @@ public class NPoint {
                 if (this.player.setClothes.setTienXayda == 5) {
                     percentXDame = 300;
                 }
-                dameAttack = this.hpMax / 5;
+                dameAttack = this.hpMax / 20;
                 if (player.tuMa.isTuMa()) {
                     percentXDame *= Math.max(1, player.tuMa.maTinh);
                 }
@@ -1985,7 +1992,7 @@ public class NPoint {
                 if (intrinsic.id == 17) {
                     percentDameIntrinsic = intrinsic.param1;
                 }
-                dameAttack = this.hpMax / 2;
+                dameAttack = this.hpMax / 5;
                 if (player.tuMa.isTuMa()) {
                     percentDameSkill *= Math.max(1, player.tuMa.maTinh);
                 }
