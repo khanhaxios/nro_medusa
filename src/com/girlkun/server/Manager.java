@@ -29,6 +29,7 @@ import com.girlkun.models.player.Player;
 import com.girlkun.models.player.Referee;
 import com.girlkun.models.player.Referee1;
 import com.girlkun.models.player.TestDame;
+import com.girlkun.models.player.congphap.CongPhapTemplate;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tuma.TuMaTemplate;
 import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
@@ -263,11 +264,12 @@ public class Manager {
         NpcFactory.createNpcRongSieuCap();
         TuTienTemplate.getI().initTemplate();
         TuMaTemplate.getI().initTuMaTemplate();
-        this.initMap();
+        CongPhapTemplate.getI().initTemplate();
         NguyenLieuFactory.loadNguyenLieu();
         DanPhuongFactory.getInstance().initTemplate();
         VoKyFactory.initTemplate();
         NhienVuDeTuTemplate.getI().initTemplate();
+        this.initMap();
         new Thread(TopService.gI()).start();
         sanGiaoDichBuaZeno = new SanGiaoDichBuaZeno();
     }

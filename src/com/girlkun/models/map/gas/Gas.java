@@ -72,6 +72,7 @@ public class Gas {
     private void resetGas() {
         for (Zone zone : zones) {
             for (Mob m : zone.mobs) {
+                m.injured(null, m.point.maxHp + 1000, true, (byte) 0);
                 Mob.initMopbKhiGas(m, this.level);
                 m.hoiSinh();
                 m.sendMobHoiSinh();

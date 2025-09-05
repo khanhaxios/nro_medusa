@@ -188,13 +188,8 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
                 lastTimeTruDiemKhangTinh = System.currentTimeMillis();
             }
             if (canLevelUp() && player.inventory.ruby - 5_000 >= 0 && player.isAutoDotPhaLuyenDan) {
-                // try dot pha
-                if (Util.isTrue(getLevelUpPercent(), 100)) {
-                    levelUp();
-                    Service.gI().sendThongBao(player, "Tự động đột phá luyện đan sư thành công");
-                } else {
-                    Service.gI().sendThongBao(player, "Tự động đột phá luyện đan sư thất bại");
-                }
+                levelUp();
+                Service.gI().sendThongBao(player, "Tự động đột phá luyện đan sư thành công");
                 player.inventory.ruby -= 5_000;
                 Service.gI().sendMoney(player);
             }

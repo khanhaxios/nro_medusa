@@ -300,11 +300,6 @@ public class TuTienTemplate {
             initCongPhap();
             initTienPhap();
             initCoDuyen();
-            iniDanPhuong();
         }
-    }
-
-    private void iniDanPhuong() {
-
     }
 }

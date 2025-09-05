@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "tenCongPhap": "Ngọc Thanh Tâm Pháp",
+    "maxLevel": 14,
+    "maxPham": 5,
+    "thuoctinh": "Chính đạo – Thanh tâm – Lấy tĩnh dưỡng làm gốc",
+    "mota": "Công pháp chuyên về tu tâm dưỡng tính, giúp người tu hành tĩnh lặng như mặt hồ, không dễ bị ma chướng xâm nhập. Người luyện thành có thể giữ tâm cảnh sáng suốt, tinh thần bền bỉ, chân nguyên lưu chuyển đều hòa, thích hợp để đặt nền móng vững chắc cho cảnh giới cao hơn."
+  },
+  {
+    "id": 2,
+    "tenCongPhap": "Thiên Cương Khí Quyết",
+    "maxLevel": 16,
+    "maxPham": 3,
+    "thuoctinh": "Chính đạo – Cương mãnh – Lấy khí hộ thân",
+    "mota": "Công pháp cường hãn, tu luyện sẽ khiến chân nguyên hóa thành Thiên Cương Khí, hộ thể bất phá, như có áo giáp vô hình. Người đạt thành tựu cao có thể cứng rắn đối kháng pháp khí và đòn công kích mạnh mẽ từ đối thủ."
+  },
+  {
+    "id": 3,
+    "tenCongPhap": "Thái Huyền Luyện Khí Kinh",
+    "maxLevel": 18,
+    "maxPham": 4,
+    "thuoctinh": "Chính đạo – Huyền môn – Lấy linh khí làm cốt",
+    "mota": "Công pháp thượng thừa của Thái Huyền Môn, luyện khí để xây dựng nền tảng pháp lực vô cùng bền chắc. Khi tu đến đại thành, linh khí trong cơ thể tuần hoàn như chu thiên bất tận, căn cơ vững chãi, gần như không thể bị phá hủy."
+  },
+  {
+    "id": 4,
+    "tenCongPhap": "Thanh Vân Quyết",
+    "maxLevel": 12,
+    "maxPham": 2,
+    "thuoctinh": "Chính đạo – Thanh linh – Lấy thanh khí làm gốc",
+    "mota": "Công pháp uyển chuyển, tu luyện khiến chân nguyên nhẹ nhàng như mây, giúp tăng cường khả năng khinh thân và độ linh hoạt trong chiến đấu. Người luyện thành thường có tốc độ di chuyển nhanh, thân pháp phiêu dật, khó nắm bắt."
+  },
+  {
+    "id": 5,
+    "tenCongPhap": "Địa Tâm Huyền Công",
+    "maxLevel": 10,
+    "maxPham": 5,
+    "thuoctinh": "Chính đạo – Trầm ổn – Lấy đất làm gốc",
+    "mota": "Công pháp trầm hậu, người tu luyện hấp thu linh lực từ lòng đất, khiến căn cơ vững chắc như núi. Khi đạt thành tựu, chân nguyên vô cùng nặng nề và ổn định, công kích có sức nghiền nát, phòng thủ lại kiên cố không gì sánh được."
+  },
+  {
+    "id": 6,
+    "tenCongPhap": "Hạo Nhiên Chính Khí",
+    "maxLevel": 15,
+    "maxPham": 4,
+    "thuoctinh": "Chính đạo – Chính khí – Lấy thiên đạo làm gốc",
+    "mota": "Công pháp chính khí vô song, người tu luyện sẽ mang trong mình khí tức hạo nhiên, trấn áp tà ma, khiến cho yêu vật khó lại gần. Khi đạt cảnh giới cao, chính khí hộ thể, đao thương bất nhập, tà khí tan biến."
+  },
+  {
+    "id": 7,
+    "tenCongPhap": "Thái Thanh Chân Kinh",
+    "maxLevel": 18,
+    "maxPham": 5,
+    "thuoctinh": "Chính đạo – Đạo gia – Lấy tinh khí thần hợp nhất",
+    "mota": "Thượng thừa đạo pháp của Thái Thanh, dung hòa tinh, khí, thần làm một. Người luyện thành không chỉ có chân nguyên hùng hậu mà tâm cảnh cũng đạt đến cảnh giới hợp nhất với thiên địa."
+  },
+  {
+    "id": 8,
+    "tenCongPhap": "Cửu Chuyển Linh Khí Quyết",
+    "maxLevel": 18,
+    "maxPham": 3,
+    "thuoctinh": "Chính đạo – Luyện khí – Lấy chuyển hóa làm gốc",
+    "mota": "Công pháp huyền diệu với chín tầng chuyển hóa, mỗi tầng đều tinh luyện chân nguyên thêm một bậc. Khi hoàn thành chín chuyển, linh khí trong đan điền tinh khiết vô cùng, lực lượng mạnh mẽ vượt xa người cùng cảnh giới."
+  },
+  {
+    "id": 9,
+    "tenCongPhap": "Thanh Liên Tâm Pháp",
+    "maxLevel": 11,
+    "maxPham": 2,
+    "thuoctinh": "Chính đạo – Thanh khiết – Lấy tịnh tâm làm gốc",
+    "mota": "Người tu luyện tâm pháp này sẽ thanh khiết như hoa sen, tâm không vướng bụi trần, chân nguyên lưu chuyển thông suốt. Tâm cảnh vững vàng, cực kỳ thích hợp để chống lại ma chướng khi độ kiếp."
+  },
+  {
+    "id": 10,
+    "tenCongPhap": "Huyền Ngọc Luyện Khí Điển",
+    "maxLevel": 17,
+    "maxPham": 5,
+    "thuoctinh": "Chính đạo – Nội tu – Lấy chân nguyên bồi dưỡng thân thể",
+    "mota": "Công pháp cổ xưa khắc trên ngọc giản, chuyên luyện khí để dưỡng thân, khiến thân thể và chân nguyên cùng tăng tiến. Người luyện thành có thể đạt đến trạng thái 'ngọc thể bất hoại', công thủ toàn diện."
+  },
+  {
+    "id": 11,
+    "tenCongPhap": "Âm Dương Hòa Hợp Công",
+    "maxLevel": 18,
+    "maxPham": 5,
+    "thuoctinh": "Chính đạo – Âm dương – Lấy cân bằng làm gốc",
+    "mota": "Công pháp dung hòa âm khí và dương khí, người tu luyện có thể điều khiển hai loại lực lượng cùng lúc. Khi đạt cảnh giới cao, có thể dùng âm để khắc dương, dùng dương để chế âm, biến hóa khôn lường."
+  },
+  {
+    "id": 12,
+    "tenCongPhap": "Cửu Thiên Linh Tâm Quyết",
+    "maxLevel": 16,
+    "maxPham": 4,
+    "thuoctinh": "Chính đạo – Linh tâm – Lấy minh ngộ làm gốc",
+    "mota": "Người luyện công pháp này khai mở linh tâm, cảm ứng thiên đạo rõ ràng hơn thường nhân. Chân nguyên sinh ra tinh khiết, dễ dàng lĩnh hội các loại thần thông, pháp thuật khác."
+  },
+  {
+    "id": 13,
+    "tenCongPhap": "Ngũ Hành Nguyên Công",
+    "maxLevel": 18,
+    "maxPham": 3,
+    "thuoctinh": "Chính đạo – Ngũ hành – Lấy tương sinh tương khắc làm gốc",
+    "mota": "Công pháp dựa trên ngũ hành chi lực: Kim, Mộc, Thủy, Hỏa, Thổ. Người luyện thành có thể vận dụng linh khí để phát huy uy lực ngũ hành, biến hóa công thủ toàn diện, khắc chế nhiều loại công pháp khác."
+  },
+  {
+    "id": 14,
+    "tenCongPhap": "Thanh Phong Quyết",
+    "maxLevel": 12,
+    "maxPham": 2,
+    "thuoctinh": "Chính đạo – Linh hoạt – Lấy phong khí làm gốc",
+    "mota": "Công pháp nhẹ nhàng, luyện thành thì thân pháp như gió, di chuyển nhanh nhẹn, khó bị trúng chiêu. Ngoài ra còn có khả năng mượn sức gió để tăng cường đòn công kích."
+  },
+  {
+    "id": 15,
+    "tenCongPhap": "Kim Cang Bất Hoại Công",
+    "maxLevel": 17,
+    "maxPham": 5,
+    "thuoctinh": "Chính đạo – Kim cang – Lấy phòng ngự làm gốc",
+    "mota": "Công pháp phòng ngự nổi tiếng, tu luyện sẽ khiến thân thể cứng rắn như kim cang, đao thương bất nhập. Khi đạt đại thành, toàn thân có thể phát ra kim quang hộ thể, giảm mạnh sát thương từ địch thủ."
+  },
+  {
+    "id": 16,
+    "tenCongPhap": "Tử Hà Thần Công",
+    "maxLevel": 18,
+    "maxPham": 4,
+    "thuoctinh": "Chính đạo – Thần quang – Lấy tử khí làm gốc",
+    "mota": "Công pháp hấp thu tử khí trong trời đất, luyện hóa thành thần quang tử hà. Khi vận công, toàn thân bao phủ bởi ánh sáng tím rực rỡ, có khả năng trấn áp tà khí và tăng uy lực pháp thuật."
+  },
+  {
+    "id": 17,
+    "tenCongPhap": "Huyền Băng Tâm Pháp",
+    "maxLevel": 14,
+    "maxPham": 3,
+    "thuoctinh": "Chính đạo – Hàn băng – Lấy tĩnh lạnh làm gốc",
+    "mota": "Người luyện công pháp này hấp thu hàn khí thiên địa, khiến tâm cảnh băng thanh ngọc khiết, ít bị dục niệm chi phối. Khi vận dụng chiến đấu, chân nguyên mang theo hàn băng khí, có thể làm chậm tốc độ của địch."
+  },
+  {
+    "id": 18,
+    "tenCongPhap": "Thần Hỏa Diễm Tâm Quyết",
+    "maxLevel": 15,
+    "maxPham": 5,
+    "thuoctinh": "Chính đạo – Liệt hỏa – Lấy hỏa diễm làm gốc",
+    "mota": "Công pháp bùng nổ như hỏa diễm, tu luyện sẽ khiến chân nguyên hóa thành ngọn lửa thần diễm. Khi thi triển, uy lực cực lớn, thiêu đốt vạn vật, thích hợp cho người thiên phú hỏa linh căn."
+  },
+  {
+    "id": 19,
+    "tenCongPhap": "Thái Âm Nguyệt Hoa Kinh",
+    "maxLevel": 12,
+    "maxPham": 2,
+    "thuoctinh": "Chính đạo – Âm nguyệt – Lấy ánh trăng làm gốc",
+    "mota": "Công pháp hấp thu ánh sáng của mặt trăng, rèn luyện chân nguyên nhu hòa nhưng ẩn chứa sức mạnh tiềm tàng. Người luyện thành có thể vận dụng ánh trăng để chữa thương, đồng thời gây nhiễu đối thủ trong đêm tối."
+  },
+  {
+    "id": 20,
+    "tenCongPhap": "Hỗn Nguyên Chân Công",
+    "maxLevel": 18,
+    "maxPham": 5,
+    "thuoctinh": "Chính đạo – Hỗn nguyên – Lấy dung hợp làm gốc",
+    "mota": "Công pháp thượng thừa dung hợp mọi loại linh khí, không phân biệt âm dương hay ngũ hành. Người luyện thành có thể tùy ý chuyển hóa chân nguyên, khắc chế hầu hết công pháp khác, được xem là vô cùng bá đạo."
+  }
+]

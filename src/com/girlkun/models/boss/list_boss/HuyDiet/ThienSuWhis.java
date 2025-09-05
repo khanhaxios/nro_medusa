@@ -26,7 +26,6 @@ public class ThienSuWhis extends Boss {
     public void reward(Player plKill) {
         plKill.achievement.plusCount(3);
         plKill.inventory.event++;
-        Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
         ItemMap itemMap = null;
         if (Util.isTrue(5, 100)) {
@@ -40,6 +39,11 @@ public class ThienSuWhis extends Boss {
         } else {
             Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id));
         }
+    }
+
+    @Override
+    public void die(Player plKill) {
+        super.die(plKill);
     }
 
     @Override

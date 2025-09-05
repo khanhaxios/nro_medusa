@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "tenCongPhap": "Huyết Hải Ma Công",
+    "maxLevel": 18,
+    "maxPham": 5,
+    "thuoctinh": "Ma đạo – Huyết luyện – Lấy huyết khí làm gốc",
+    "mota": "Công pháp tà ác, người tu luyện hấp thu huyết khí của sinh linh để bồi dưỡng chân nguyên. Khi vận công, huyết quang ngập trời, càng giết chóc nhiều thì thực lực càng tăng, nhưng dễ bị ma tính xâm chiếm."
+  },
+  {
+    "id": 2,
+    "tenCongPhap": "Cửu Âm Minh Công",
+    "maxLevel": 17,
+    "maxPham": 4,
+    "thuoctinh": "Ma đạo – Âm hàn – Lấy minh khí làm gốc",
+    "mota": "Người tu luyện hấp thu âm khí từ cửu u địa phủ, chân nguyên trở nên âm hàn lạnh lẽo. Khi thi triển pháp thuật có thể làm đông cứng huyết mạch đối thủ, khiến chúng suy yếu dần trong âm hàn."
+  },
+  {
+    "id": 3,
+    "tenCongPhap": "Thiên Ma Biến",
+    "maxLevel": 15,
+    "maxPham": 3,
+    "thuoctinh": "Ma đạo – Hóa ma – Lấy ma thân làm gốc",
+    "mota": "Công pháp đặc thù cho phép người tu hành biến đổi thân thể thành Ma Tướng, tăng mạnh lực lượng trong thời gian ngắn. Tuy nhiên, nếu lạm dụng sẽ khiến thần trí dần bị ma khí khống chế."
+  },
+  {
+    "id": 4,
+    "tenCongPhap": "Luyện Hồn Đại Pháp",
+    "maxLevel": 12,
+    "maxPham": 2,
+    "thuoctinh": "Ma đạo – Linh hồn – Lấy hồn phách làm gốc",
+    "mota": "Công pháp tàn độc, chuyên luyện hóa hồn phách của sinh linh để cường đại nguyên thần. Người luyện thành có thể triệu hoán hồn ma làm trợ thủ, nhưng bản thân cũng dễ rơi vào cảnh hồn phách bất ổn."
+  },
+  {
+    "id": 5,
+    "tenCongPhap": "Ma Âm Tà Điển",
+    "maxLevel": 14,
+    "maxPham": 5,
+    "thuoctinh": "Ma đạo – Tà âm – Lấy tiếng ma làm gốc",
+    "mota": "Công pháp kỳ dị, khi vận công có thể phát ra ma âm chấn động tâm thần, khiến đối thủ lạc lối trong ảo giác. Người luyện thành đại thành có thể dùng ma âm phá vỡ tâm trí kẻ thù mà không cần động thủ."
+  },
+  {
+    "id": 6,
+    "tenCongPhap": "Huyết Linh Tâm Kinh",
+    "maxLevel": 18,
+    "maxPham": 4,
+    "thuoctinh": "Ma đạo – Huyết linh – Lấy huyết mạch làm gốc",
+    "mota": "Công pháp ma đạo cổ xưa, hấp thu huyết mạch của kẻ thù để cường hóa bản thân. Người luyện thành có thể dung hợp huyết lực của nhiều chủng tộc, thân thể cường đại, nhưng tiềm ẩn nguy cơ tẩu hỏa nhập ma."
+  },
+  {
+    "id": 7,
+    "tenCongPhap": "U Minh Chân Công",
+    "maxLevel": 13,
+    "maxPham": 3,
+    "thuoctinh": "Ma đạo – U minh – Lấy tử khí làm gốc",
+    "mota": "Người luyện công pháp này có thể hấp thu tử khí nơi nghĩa địa, khiến cơ thể quỷ mị như u hồn. Khi chiến đấu, chỉ cần một ánh mắt đã có thể làm đối thủ cảm nhận cái chết cận kề."
+  },
+  {
+    "id": 8,
+    "tenCongPhap": "Hắc Ma Cửu Chuyển",
+    "maxLevel": 18,
+    "maxPham": 5,
+    "thuoctinh": "Ma đạo – Hắc ám – Lấy chuyển hóa làm gốc",
+    "mota": "Công pháp cực kỳ tà dị, gồm chín chuyển, mỗi chuyển đều lột xác thân thể và chân nguyên. Sau khi hoàn thành, người luyện sẽ trở thành hóa thân hắc ma, thân bất tử bất diệt, nhưng nhân tính hoàn toàn bị diệt sạch."
+  },
+  {
+    "id": 9,
+    "tenCongPhap": "Tà Hỏa Diệm Công",
+    "maxLevel": 16,
+    "maxPham": 2,
+    "thuoctinh": "Ma đạo – Tà hỏa – Lấy ma viêm làm gốc",
+    "mota": "Công pháp hấp thu ngọn lửa tà viêm, khi vận công hỏa diễm đen kịt bao phủ toàn thân, thiêu cháy cả linh hồn đối thủ. Tuy nhiên, người luyện dễ bị tà hỏa phản phệ, thiêu đốt chính mình."
+  },
+  {
+    "id": 10,
+    "tenCongPhap": "Vạn Quỷ Ngự Linh Kinh",
+    "maxLevel": 15,
+    "maxPham": 5,
+    "thuoctinh": "Ma đạo – Quỷ đạo – Lấy ngự linh làm gốc",
+    "mota": "Công pháp khủng bố, người tu hành nuôi dưỡng vạn quỷ trong cơ thể, mỗi một quỷ hồn là một sức mạnh. Khi thi triển, có thể triệu hồi đại quân quỷ ảnh, dọa người đến hồn phi phách tán."
+  },
+  {
+    "id": 11,
+    "tenCongPhap": "Huyết Ảnh Ma Quyết",
+    "maxLevel": 14,
+    "maxPham": 3,
+    "thuoctinh": "Ma đạo – Huyết ảnh – Lấy sát khí làm gốc",
+    "mota": "Người luyện công pháp này có thể hóa thành huyết ảnh, thân pháp quỷ dị, công kích tàn độc. Mỗi lần giết chóc, huyết ảnh càng thêm đậm đặc, tăng cường sức mạnh cho chủ nhân."
+  },
+  {
+    "id": 12,
+    "tenCongPhap": "Âm Phong Tà Công",
+    "maxLevel": 12,
+    "maxPham": 2,
+    "thuoctinh": "Ma đạo – Âm phong – Lấy hắc phong làm gốc",
+    "mota": "Công pháp khai thác sức mạnh của âm phong nơi cửu u, khi vận công có thể tạo ra hắc phong lạnh buốt cắt da thịt. Người luyện thành có thể che giấu tung tích, ra tay giết người trong chớp mắt."
+  },
+  {
+    "id": 13,
+    "tenCongPhap": "Thiên Ma Hấp Hồn Đại Pháp",
+    "maxLevel": 18,
+    "maxPham": 5,
+    "thuoctinh": "Ma đạo – Hấp hồn – Lấy tinh hồn làm gốc",
+    "mota": "Công pháp bá đạo, có thể hút lấy linh hồn đối thủ để bổ sung nguyên khí cho bản thân. Người luyện đến cực hạn, chỉ cần một cái nhìn cũng có thể khiến hồn phách kẻ yếu lập tức bị rút ra ngoài."
+  },
+  {
+    "id": 14,
+    "tenCongPhap": "Hắc Ngục Minh Điển",
+    "maxLevel": 17,
+    "maxPham": 4,
+    "thuoctinh": "Ma đạo – Hắc ngục – Lấy địa ngục làm gốc",
+    "mota": "Công pháp xuất phát từ truyền thuyết địa ngục, tu luyện sẽ tạo ra hắc ngục trong cơ thể, trấn áp và luyện hóa kẻ thù. Khi đạt đại thành, mỗi chiêu mỗi thức đều mang theo uy lực của địa ngục."
+  },
+  {
+    "id": 15,
+    "tenCongPhap": "Tà Ảnh Huyễn Tâm Kinh",
+    "maxLevel": 16,
+    "maxPham": 5,
+    "thuoctinh": "Ma đạo – Huyễn tâm – Lấy ảo ảnh làm gốc",
+    "mota": "Công pháp quỷ dị, khi vận dụng có thể tạo ra vô số ảo ảnh tà ma, mê hoặc tâm thần đối thủ. Người luyện thành đại thành có thể khiến kẻ địch chìm trong ảo cảnh, khó phân biệt thật giả mà tự hủy diệt."
+  },
+  {
+    "id": 16,
+    "tenCongPhap": "Vong Linh Tế Huyết Điển",
+    "maxLevel": 18,
+    "maxPham": 4,
+    "thuoctinh": "Ma đạo – Tế huyết – Ngự linh",
+    "mota": "Công pháp dùng huyết tế dẫn vong linh quy phục. Người luyện có thể ký khế ước với u linh làm hộ vệ, nhưng mỗi lần tế luyện đều làm tăng ma tính, dễ tổn thương đạo tâm."
+  },
+  {
+    "id": 17,
+    "tenCongPhap": "Ma Viêm Cửu Diệt Công",
+    "maxLevel": 13,
+    "maxPham": 3,
+    "thuoctinh": "Ma đạo – Tà hỏa – Thiêu diệt",
+    "mota": "Hấp thu ma viêm từ địa mạch hắc diễm, phân chín tầng diệt lực. Mỗi tầng mở ra, hỏa diễm càng khó dập tắt, có thể thiêu hủy pháp trận và binh khí thường."
+  },
+  {
+    "id": 18,
+    "tenCongPhap": "U Linh Ngự Ảnh Quyết",
+    "maxLevel": 12,
+    "maxPham": 2,
+    "thuoctinh": "Ma đạo – Ảnh dực – Ẩn hình",
+    "mota": "Tu luyện khiến chân nguyên hòa vào bóng tối, ẩn nặc khí tức, hành tung quỷ mị. Khi xuất thủ có thể mượn bóng tạo sát chiêu bất ngờ, nhưng dưới nhật quang mạnh sẽ suy yếu."
+  },
+  {
+    "id": 19,
+    "tenCongPhap": "Thiên Ma Tâm Ấn",
+    "maxLevel": 16,
+    "maxPham": 5,
+    "thuoctinh": "Ma đạo – Tâm thuật – Khống niệm",
+    "mota": "Lấy tâm in ma ấn, dao động thần hồn đối thủ. Kẻ bị ấn trúng dễ sinh ảo giác, ý chí suy kiệt. Người luyện nếu tâm không vững sẽ bị phản chấn, ma ấn ăn ngược vào thần trí."
+  },
+  {
+    "id": 20,
+    "tenCongPhap": "Hắc Huyền Luyện Ngục Kinh",
+    "maxLevel": 18,
+    "maxPham": 5,
+    "thuoctinh": "Ma đạo – Luyện ngục – Trấn áp",
+    "mota": "Dựng hắc ngục trong đan điền, trấn áp và luyện hóa vạn vật thành ma nguyên. Đại thành có thể mở hư không luyện ngục ngoài thân, nhưng tiêu hao kinh người và dễ chiêu cảm thiên phạt."
+  }
+]

@@ -566,8 +566,7 @@ public class Util {
 
     public static Item ratioItemTien(int temId, byte gender) {
         Item it = ItemService.gI().createItemSetKichHoat(temId, 1);
-        short[] ids = idDoThanTien[gender];
-        switch (ids[it.template.type]) {
+        switch (it.template.type) {
             case 0:
                 it.itemOptions.add(new Item.ItemOption(47, Util.nextInt(100, 200) + 20000));
                 break;
@@ -587,7 +586,6 @@ public class Util {
                 it.itemOptions.add(new Item.ItemOption(5, Util.nextInt(10) + 100));
                 break;
         }
-        it.itemOptions.add(new Item.ItemOption(41, 0));
         return it;
     }
 

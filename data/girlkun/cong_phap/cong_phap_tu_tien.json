@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "tenCongPhap": "Huyền Thiên Công",
+    "maxLevel": 18,
+    "maxPham": 5,
+    "thuoctinh": "Chính đạo – Huyền môn – Lấy khí làm gốc",
+    "mota": "Đây là một loại công pháp nền tảng nhưng cực kỳ thâm sâu, được mệnh danh là căn nguyên của vạn pháp. Người tu luyện sẽ hấp thu thiên địa linh khí, luyện hóa trong đan điền, từ đó sinh ra chân nguyên tinh thuần, hơn hẳn những công pháp bình thường."
+  },
+  {
+    "id": 2,
+    "tenCongPhap": "Thanh Ngọc Tâm Quyết",
+    "maxLevel": 12,
+    "maxPham": 3,
+    "thuoctinh": "Chính đạo – Thanh tịnh – Lấy tâm làm chủ",
+    "mota": "Một môn tâm pháp thanh khiết, lấy tĩnh chế động, giúp người tu hành ngưng thần tụ khí, giữ vững đạo tâm không dao động. Khi tu luyện đến cảnh giới cao, có thể ngưng tụ linh khí thành kết giới phòng hộ."
+  },
+  {
+    "id": 3,
+    "tenCongPhap": "Cửu Dương Chân Kinh",
+    "maxLevel": 15,
+    "maxPham": 4,
+    "thuoctinh": "Chính đạo – Thuần dương – Cường hóa chân nguyên",
+    "mota": "Một môn đại công pháp nổi tiếng cương mãnh, dùng dương khí thuần túy để luyện hóa thân thể và kinh mạch. Chân nguyên luyện thành nóng rực như hỏa diễm, vừa có khả năng trị thương, vừa có sức tấn công cực mạnh."
+  },
+  {
+    "id": 4,
+    "tenCongPhap": "Thái Thanh Công",
+    "maxLevel": 9,
+    "maxPham": 2,
+    "thuoctinh": "Đạo gia – Thanh minh – Tịnh hóa khí tức",
+    "mota": "Công pháp truyền thừa từ Thái Thanh đạo mạch, lấy việc điều hòa âm dương trong cơ thể làm gốc. Khi tu luyện thành công, chân nguyên trở nên tinh khiết vô cùng, dễ dàng tương hợp với các loại pháp thuật khác."
+  },
+  {
+    "id": 5,
+    "tenCongPhap": "Ngũ Hành Nguyên Kinh",
+    "maxLevel": 17,
+    "maxPham": 5,
+    "thuoctinh": "Ngũ hành – Thiên địa – Dung hợp vạn vật",
+    "mota": "Một loại công pháp thượng cổ, lấy ngũ hành Kim – Mộc – Thủy – Hỏa – Thổ làm căn cơ. Người tu luyện có thể hấp thu linh khí ngũ hành để tạo ra chân nguyên ngũ sắc, biến hóa khôn lường, công thủ toàn diện."
+  },
+  {
+    "id": 6,
+    "tenCongPhap": "Hỗn Nguyên Chân Kinh",
+    "maxLevel": 14,
+    "maxPham": 4,
+    "thuoctinh": "Chính đạo – Hỗn độn – Dung hợp nguyên khí",
+    "mota": "Một công pháp cực kỳ huyền ảo, lấy hỗn nguyên khí làm căn cơ, dung hợp vạn vật trong thiên địa. Khi luyện đến tầng cao, chân nguyên biến thành hỗn nguyên chi khí, có thể khắc chế đa số pháp thuật."
+  },
+  {
+    "id": 7,
+    "tenCongPhap": "Vạn Linh Tụ Khí Quyết",
+    "maxLevel": 11,
+    "maxPham": 3,
+    "thuoctinh": "Chính đạo – Thiên địa – Dẫn dắt linh khí",
+    "mota": "Công pháp chuyên hấp dẫn linh khí từ vạn vật: thảo mộc, sơn hà, nhật nguyệt. Người tu luyện càng lâu, khả năng hấp thu linh khí càng lớn, chân nguyên dồi dào như biển cả."
+  },
+  {
+    "id": 8,
+    "tenCongPhap": "Thái Ất Huyền Công",
+    "maxLevel": 18,
+    "maxPham": 5,
+    "thuoctinh": "Đạo gia – Thái Ất – Biến hóa linh động",
+    "mota": "Công pháp cổ truyền của Thái Ất đạo thống, lấy biến hóa làm cốt lõi. Chân nguyên tu luyện ra vừa nhu vừa cương, có thể chuyển đổi linh hoạt để ứng phó với nhiều tình huống chiến đấu khác nhau."
+  },
+  {
+    "id": 9,
+    "tenCongPhap": "Âm Dương Hòa Hợp Quyết",
+    "maxLevel": 16,
+    "maxPham": 4,
+    "thuoctinh": "Âm Dương – Cân bằng – Dung hợp",
+    "mota": "Một loại công pháp cực hiếm, lấy âm dương làm đạo, dung hợp đối lập để sinh ra sức mạnh vô song. Khi đại thành, có thể hóa giải phần lớn tà khí, đồng thời chân nguyên có sức công phá cực mạnh."
+  },
+  {
+    "id": 10,
+    "tenCongPhap": "Thiên Cương Chính Khí Kinh",
+    "maxLevel": 8,
+    "maxPham": 2,
+    "thuoctinh": "Chính đạo – Cương chính – Trấn áp tà ma",
+    "mota": "Một môn chính khí chi công, lấy thiên cương làm gốc. Người tu luyện thành tựu chính khí hùng hậu, có khả năng trấn áp tà vật, quỷ hồn, đồng thời gia tăng sức mạnh và sức chịu đựng bản thân."
+  },
+  {
+    "id": 11,
+    "tenCongPhap": "Thái Hư Linh Khí Quyết",
+    "maxLevel": 10,
+    "maxPham": 3,
+    "thuoctinh": "Chính đạo – Hư không – Dẫn động linh khí",
+    "mota": "Một công pháp kỳ lạ, lấy hư không làm đạo, hấp thu linh khí từ khoảng không vô tận. Người tu hành càng tinh thâm, càng có thể dẫn động linh khí trong thiên địa với tốc độ kinh người."
+  },
+  {
+    "id": 12,
+    "tenCongPhap": "Cửu Thiên Linh Vận Kinh",
+    "maxLevel": 18,
+    "maxPham": 5,
+    "thuoctinh": "Chính đạo – Thiên vận – Tụ khí cường thân",
+    "mota": "Công pháp thượng thừa có thể dẫn động thiên vận, lấy linh khí chín tầng trời mà bồi dưỡng đan điền. Khi tu luyện thành công, chân nguyên như dòng thác đổ, uy lực kinh thiên động địa."
+  },
+  {
+    "id": 13,
+    "tenCongPhap": "Huyết Mạch Linh Quyết",
+    "maxLevel": 13,
+    "maxPham": 2,
+    "thuoctinh": "Huyết khí – Linh mạch – Tăng tốc tu luyện",
+    "mota": "Loại công pháp đặc thù, dung hợp huyết mạch bản thân với thiên địa linh khí. Người tu luyện dễ dàng đột phá cảnh giới, nhưng phải trả giá bằng việc tiêu hao huyết lực."
+  },
+  {
+    "id": 14,
+    "tenCongPhap": "Tinh Hà Dẫn Khí Công",
+    "maxLevel": 15,
+    "maxPham": 4,
+    "thuoctinh": "Chính đạo – Tinh thần – Hấp thu tinh quang",
+    "mota": "Công pháp cổ xưa, lấy tinh hà trên trời làm nguồn lực. Người tu hành mỗi khi tọa thiền dưới bầu trời sao sẽ hấp thụ tinh quang, khiến chân nguyên sáng như ngân hà, vừa đẹp vừa mạnh mẽ."
+  },
+  {
+    "id": 15,
+    "tenCongPhap": "Địa Tâm Nguyên Lực Kinh",
+    "maxLevel": 7,
+    "maxPham": 1,
+    "thuoctinh": "Thổ hệ – Ổn định – Bền bỉ",
+    "mota": "Một loại công pháp ít thấy, hấp thu lực lượng từ tâm mạch của đại địa. Chân nguyên tu thành vô cùng trầm ổn, thiên về phòng ngự và tăng sức chịu đựng, phù hợp với người kiên nhẫn, tu chậm nhưng chắc."
+  },
+  {
+    "id": 16,
+    "tenCongPhap": "Huyền Âm Tụ Khí Kinh",
+    "maxLevel": 12,
+    "maxPham": 3,
+    "thuoctinh": "Âm hệ – U tịch – Ngưng tụ hàn khí",
+    "mota": "Công pháp lấy âm hàn làm gốc, chuyên hấp thu linh khí âm lãnh trong thiên địa. Khi tu luyện đại thành, chân nguyên lạnh buốt thấu xương, có thể khắc chế hỏa hệ công pháp."
+  },
+  {
+    "id": 17,
+    "tenCongPhap": "Thái Dương Chân Nguyên Quyết",
+    "maxLevel": 18,
+    "maxPham": 5,
+    "thuoctinh": "Hỏa hệ – Thuần dương – Cương mãnh",
+    "mota": "Một loại công pháp bá đạo, lấy nhật quang làm nguồn lực. Chân nguyên luyện thành sáng rực như thái dương, có khả năng thiêu đốt tà khí, đồng thời gia tăng sức mạnh tấn công vượt bậc."
+  },
+  {
+    "id": 18,
+    "tenCongPhap": "Vô Cực Tụ Linh Công",
+    "maxLevel": 9,
+    "maxPham": 2,
+    "thuoctinh": "Chính đạo – Vô cực – Tụ linh vô tận",
+    "mota": "Công pháp này chú trọng vào khả năng tích trữ linh khí. Người tu luyện có thể gom linh khí khắp nơi vào cơ thể, khi chiến đấu bùng nổ ra sẽ tạo thành uy lực kinh thiên."
+  },
+  {
+    "id": 19,
+    "tenCongPhap": "Lưu Thủy Tâm Pháp",
+    "maxLevel": 14,
+    "maxPham": 4,
+    "thuoctinh": "Thủy hệ – Nhu hòa – Linh động",
+    "mota": "Một công pháp lấy nước làm đạo, chân nguyên lưu chuyển như thủy lưu bất tuyệt. Người tu luyện càng lâu, càng đạt đến cảnh giới nhu mà không gãy, mềm mà vẫn mạnh, biến hóa linh hoạt vô cùng."
+  },
+  {
+    "id": 20,
+    "tenCongPhap": "Thiên Địa Linh Vũ Kinh",
+    "maxLevel": 16,
+    "maxPham": 5,
+    "thuoctinh": "Thiên địa – Linh vũ – Khí tức thuần khiết",
+    "mota": "Công pháp hiếm có, hấp thu linh vũ từ thiên địa để luyện hóa chân nguyên. Khi thành tựu, chân nguyên trong sạch đến mức không vướng bụi trần, dễ dàng dung hợp với pháp thuật cao cấp."
+  }
+]

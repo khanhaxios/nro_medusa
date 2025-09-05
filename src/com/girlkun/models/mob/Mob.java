@@ -80,13 +80,13 @@ public class Mob {
     }
 
     public static void initMopbKhiGas(Mob mob, short level) {
-        mob.point.dame = (level * 3250 * mob.level * 4) * 5;
-        mob.point.maxHp = (level * 50_000 * mob.point.hp + level * 7263 * mob.tempId) / 2;
+        mob.point.dame = (level * 1234 * mob.level * 4) * 5;
+        mob.point.maxHp = (level * 1234 * mob.point.hp + level * 1234 * mob.tempId) / 2;
     }
 
     public static void initMopbbdkb(Mob mob, int level) {
-        mob.point.dame = (level * 32500 * mob.level * 4);
-        mob.point.maxHp = ((level * 10_000 * mob.point.hp) + (level * 7263 * mob.tempId));
+        mob.point.dame = (level * 1234 * mob.level * 4);
+        mob.point.maxHp = ((level * 1234 * mob.point.hp) + (level * 1234 * mob.tempId));
     }
 
     public static boolean isCantJoinMap(int idMap) {

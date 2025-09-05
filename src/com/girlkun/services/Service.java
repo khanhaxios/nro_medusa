@@ -3394,8 +3394,3 @@ public class Service {
         }
     }
 }
-
-/**
- * Code được viết bởi NDQ Vui lòng không sao chép mã nguồn này dưới mọi hình
- * thức.
- */

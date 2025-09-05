@@ -75,6 +75,7 @@ public class BanDoKhoBau {
     private void resetBanDoKhoBau() {
         for (Zone zone : zones) {
             for (Mob m : zone.mobs) {
+                m.injured(null, m.point.maxHp + 1000, true, (byte) 0);
                 Mob.initMopbbdkb(m, this.level);
                 m.hoiSinh();
                 m.sendMobHoiSinh();

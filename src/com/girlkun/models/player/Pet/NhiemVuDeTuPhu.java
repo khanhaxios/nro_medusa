@@ -9,7 +9,7 @@ import com.girlkun.models.npc.Npc;
 import com.girlkun.models.player.Player;
 import com.girlkun.utils.Util;
 
-public class NhiemVuDeTuPhu {
+public class NhiemVuDeTuPhu implements Cloneable {
     public String mota;
     public int currentCount;
     public int totalCount;
@@ -45,5 +45,19 @@ public class NhiemVuDeTuPhu {
                 "|2|Tiến độ : " + Util.powerToString(currentCount) + "/" + Util.powerToString(totalCount) + "\n" +
                 "|7|Trạng thái :" + (isDoneTask() ? "Hoàn thành" : "Chưa hoàn thành") + "\n";
         npc.createOtherMenu(player, ConstNpc.MENHU_CT_NHIEM_VU, stringBuilder, "Giao Nhiệm\nVụ", "Đóng");
+    }
+
+    @Override
+    public NhiemVuDeTuPhu clone() {
+        NhiemVuDeTuPhu copy = new NhiemVuDeTuPhu(
+                this.tenNhiemVu,
+                this.mota,
+                this.totalCount,
+                this.type,
+                this.targetId
+        );
+        copy.currentCount = 0;
+        copy.isDone = false;
+        return copy;
     }
 }
