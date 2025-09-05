@@ -15,4 +15,4 @@ if [ ! -z "$PID" ]; then
 fi
 
 # Start game
-nohup java -jar ./game.jar > game.log 2>&1 &
+nohup java -jar ./gameplayopen.jar > game.log 2>&1 &

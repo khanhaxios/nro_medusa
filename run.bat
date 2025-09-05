@@ -1,3 +1,3 @@
 chcp.com 65001
-java -jar ./game.jar
+java -jar ./out/artifacts/game_jar/gameplayopen.jar
 pause
