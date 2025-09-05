@@ -894,7 +894,7 @@ public class Mob {
                 list.add(new ItemMap(zone, 457, Math.max(levell / 100, 1), this.location.x, yEnd, player.id));
             }
             // ty le roi ruong go , bac
-            if (Util.isTrue(levell, 100)) {
+            if (Util.isTrue(levell / 10, 100)) {
                 // roi ruong go
                 list.add(new ItemMap(zone, 570, 1, this.location.x, yEnd, player.id));
             }
