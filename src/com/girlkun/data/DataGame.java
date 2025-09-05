@@ -355,7 +355,7 @@ public class DataGame {
             byte[] icon = FileIO.readFile("data/girlkun/icon/x" + session.zoomLevel + "/" + id + ".png");
             msg = new Message(-67);
             msg.writer().writeInt(id);
-            msg.writer().writeInt(icon.length);
+//            msg.writer().writeInt(icon.length);
             msg.writer().write(icon);
             session.sendMessage(msg);
             msg.cleanup();
