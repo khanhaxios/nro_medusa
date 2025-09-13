@@ -498,15 +498,16 @@ public class Pet extends Player {
                                     PlayerService.gI().playerMove(this, 452, 336);
                                     directAtHome = -1;
                                 }
-                            } else if (this.zone.map.mapId == 22) {
+                            } else if (this.zone.map.mapId == 23) {
                                 if (directAtHome == -1) {
-                                    PlayerService.gI().playerMove(this, 250, 336);
+                                    PlayerService.gI().playerMove(this, 750, 336);
                                     directAtHome = 1;
                                 } else {
-                                    PlayerService.gI().playerMove(this, 200, 336);
+                                    PlayerService.gI().playerMove(this, 700, 336);
                                     directAtHome = -1;
                                 }
                             }
+                            idle = false;
                             Service.getInstance().chatJustForMe(master, this, "H2O + C12H22O11 -> Uống ngọt lắm sư phụ ạ!");
                             lastTimeMoveAtHome = System.currentTimeMillis();
                         }

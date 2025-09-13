@@ -35,7 +35,7 @@ public class BossZeno2 extends Boss {
         if (plKill.chienthan.tasknow == 10) {
             plKill.chienthan.dalamduoc++;
         }
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         int[] NRs = new int[]{722};
         int randomNR = new Random().nextInt(NRs.length);

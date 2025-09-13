@@ -59,7 +59,7 @@ public class SkillSpecial {
     public long lastTimeSkillSpecial;
 
     private void update() {
-        if (this.isStartSkillSpecial = true) {
+        if (this.isStartSkillSpecial) {
             SkillService.gI().updateSkillSpecial(player);
         }
     }

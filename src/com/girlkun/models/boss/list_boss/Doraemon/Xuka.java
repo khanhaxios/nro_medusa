@@ -24,7 +24,7 @@ public class Xuka extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.achievement.plusCount(3);
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         int[] itemDos = new int[]{555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567};
         int[] NRs = new int[]{17, 16};

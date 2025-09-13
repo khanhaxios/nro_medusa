@@ -161,7 +161,7 @@ public class CombineServiceNew {
         switch (player.combineNew.typeCombine) {
             case PHAN_RA_TRANG_BI:
                 // check all is trang bi
-                if (player.combineNew.itemsCombine.size() == 0) {
+                if (player.combineNew.itemsCombine.isEmpty()) {
                     Service.gI().sendThongBaoOK(player, "Hãy đặt trang bị bất kỳ vào nào");
                     return;
                 }
@@ -1242,7 +1242,7 @@ public class CombineServiceNew {
                 }
                 break;
             case PHAN_RA_DO_THAN_LINH:
-                if (player.combineNew.itemsCombine.size() == 0) {
+                if (player.combineNew.itemsCombine.isEmpty()) {
                     this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Con hãy đưa ta đồ thần linh để phân rã", "Đóng");
                     return;
                 }
@@ -1271,7 +1271,7 @@ public class CombineServiceNew {
                 }
                 break;
             case CHUYEN_HOA_DO_HUY_DIET:
-                if (player.combineNew.itemsCombine.size() == 0) {
+                if (player.combineNew.itemsCombine.isEmpty()) {
                     this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Con hãy đưa ta đồ Hủy diệt", "Đóng");
                     return;
                 }
@@ -1299,7 +1299,7 @@ public class CombineServiceNew {
                 }
                 break;
             case NANG_CAP_DO_TS:
-                if (player.combineNew.itemsCombine.size() == 0) {
+                if (player.combineNew.itemsCombine.isEmpty()) {
                     this.npcwhists.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hãy đưa ta 2 món Hủy Diệt bất kì và 1 món Thần Linh cùng loại", "Đóng");
                     return;
                 }
@@ -1333,7 +1333,7 @@ public class CombineServiceNew {
                 }
                 break;
             case NANG_CAP_SKH_VIP:
-                if (player.combineNew.itemsCombine.size() == 0) {
+                if (player.combineNew.itemsCombine.isEmpty()) {
                     this.npcthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hãy đưa ta 1 món thiên sứ và 2 món SKH ngẫu nhiên", "Đóng");
                     return;
                 }
@@ -2706,7 +2706,7 @@ public class CombineServiceNew {
         List<Item> items = player.combineNew.itemsCombine;
         int point = 0;
         int lhPoint = 0;
-        if (items.size() == 0) {
+        if (items.isEmpty()) {
             Service.gI().sendThongBaoOK(player, "Không có đồ nào để phân rã");
             return;
         }

@@ -741,7 +741,7 @@ public class Player {
                 }
             }
 
-            if (inventory.itemsBody.size() > 0 && inventory.itemsBody.get(0).isNotNullItem()) {
+            if (!inventory.itemsBody.isEmpty() && inventory.itemsBody.get(0).isNotNullItem()) {
                 return inventory.itemsBody.get(0).template.part;
             }
         }

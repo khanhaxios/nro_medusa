@@ -33,7 +33,7 @@ public class BossZeno3 extends Boss {
         if (plKill.chienthan.tasknow == 10) {
             plKill.chienthan.dalamduoc++;
         }
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         ItemMap it1 = new ItemMap(this.zone, 1517, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);

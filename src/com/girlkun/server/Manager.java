@@ -29,6 +29,7 @@ import com.girlkun.models.player.Player;
 import com.girlkun.models.player.Referee;
 import com.girlkun.models.player.Referee1;
 import com.girlkun.models.player.TestDame;
+import com.girlkun.models.player.congphap.CongPhapOptionTemplate;
 import com.girlkun.models.player.congphap.CongPhapTemplate;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tuma.TuMaTemplate;
@@ -265,6 +266,7 @@ public class Manager {
         TuTienTemplate.getI().initTemplate();
         TuMaTemplate.getI().initTuMaTemplate();
         CongPhapTemplate.getI().initTemplate();
+        CongPhapOptionTemplate.initTemplate();
         NguyenLieuFactory.loadNguyenLieu();
         DanPhuongFactory.getInstance().initTemplate();
         VoKyFactory.initTemplate();

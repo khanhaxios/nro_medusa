@@ -379,7 +379,9 @@ public class LuyenKhiSu {
     }
 
     public void addExp(long bounceExp) {
+        bounceExp += bounceExp * player.tuTien.congPhap.tlExpLucNghe / 100;
         this.exp += bounceExp;
+
         if (this.exp > maxExp) {
             this.exp = maxExp;
         }

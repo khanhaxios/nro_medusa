@@ -31,7 +31,7 @@ public class BossNGOC1 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         int randHN = Util.nextInt(10000, 50000);
         // Rơi HN
         ItemMap it = new ItemMap(this.zone, 861, randHN, this.location.x, this.zone.map.yPhysicInTop(this.location.x,

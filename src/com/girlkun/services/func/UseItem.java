@@ -1698,15 +1698,9 @@ public class UseItem {
                 }
                 icon[1] = 930;
                 Service.getInstance().sendThongBao(pl, "Bạn đã nhận được " + Util.format(vang) + " Vàng");
-                if (item.template.id == 1335 || item.template.id == 1336) {
-                    pl.NguHanhSonPoint += 2;
-                    Service.gI().sendMoney(pl);
-                    Service.getInstance().sendThongBao(pl, "|4|Bạn nhận được 2 Điểm Sự kiện");
-                } else {
-                    pl.NguHanhSonPoint += 2;
-                    Service.gI().sendMoney(pl);
-                    Service.getInstance().sendThongBao(pl, "|4|Bạn nhận được 2 Điểm Sự kiện");
-                }
+                pl.NguHanhSonPoint += 2;
+                Service.gI().sendMoney(pl);
+                Service.getInstance().sendThongBao(pl, "|4|Bạn nhận được 2 Điểm Sự kiện");
             } else {
                 Item it = ItemService.gI().createNewItem(rac[index2]);
                 if (item.template.id == 1337) {
@@ -2238,11 +2232,9 @@ public class UseItem {
             }
         }
         if (tempId == SummonSieuCap.NGOC_RONG_SIEU_CAP) {
-            if (tempId == SummonSieuCap.NGOC_RONG_SIEU_CAP) {
-                SummonSieuCap.gI().openMenuSieuCap(pl, (byte) 1);
-            } else {
-                NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_RONG_SUPER, -1, "Bạn chỉ có thể gọi rồng từ Ngọc rồng Siêu cấp", "Hướng\ndẫn thêm\n(mới)", "OK");
-            }
+            SummonSieuCap.gI().openMenuSieuCap(pl, (byte) 1);
+        } else {
+            NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_RONG_SUPER, -1, "Bạn chỉ có thể gọi rồng từ Ngọc rồng Siêu cấp", "Hướng\ndẫn thêm\n(mới)", "OK");
         }
     }
 

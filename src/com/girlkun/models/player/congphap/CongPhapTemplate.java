@@ -4,6 +4,7 @@
 
 package com.girlkun.models.player.congphap;
 
+import com.girlkun.models.player.Player;
 import com.girlkun.utils.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -25,6 +26,20 @@ public class CongPhapTemplate {
             I = new CongPhapTemplate();
         }
         return I;
+    }
+
+    public static CongPhapTuTien getById(Player player, int id) {
+        CongPhapTuTien congPhapTuTien = new CongPhapTuTien(player);
+        if (CongPhapTemplate.getI().CONG_PHAP_TU_TIEN.containsKey(id)) {
+            CongPhapTuTien template = CongPhapTemplate.getI().CONG_PHAP_TU_TIEN.get(id);
+            congPhapTuTien.id = template.id;
+            congPhapTuTien.tenCongPhap = template.tenCongPhap;
+            congPhapTuTien.mota = template.mota;
+            congPhapTuTien.thuoctinh = template.thuoctinh;
+            congPhapTuTien.maxLevel = template.maxLevel;
+            congPhapTuTien.maxPham = template.maxPham;
+        }
+        return congPhapTuTien;
     }
 
     public void initTemplate() {
@@ -94,5 +109,15 @@ public class CongPhapTemplate {
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
+    }
+
+    public CongPhapTuTien getCongPhapTuTien(int i) {
+        CongPhapTuTien congPhapTuTien = CONG_PHAP_TU_TIEN.get(i);
+        return new CongPhapTuTien(congPhapTuTien.id, congPhapTuTien.tenCongPhap, congPhapTuTien.mota, congPhapTuTien.thuoctinh, congPhapTuTien.maxLevel, congPhapTuTien.maxPham);
+    }
+
+    public CongPhapTuMa getCongPhapTuMa(int i) {
+        CongPhapTuMa congPhapTuMa = CONG_PHAP_TU_MA.get(i);
+        return new CongPhapTuMa(congPhapTuMa.id, congPhapTuMa.tenCongPhap, congPhapTuMa.mota, congPhapTuMa.thuoctinh, congPhapTuMa.maxLevel, congPhapTuMa.maxPham);
     }
 }

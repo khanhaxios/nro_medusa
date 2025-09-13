@@ -313,7 +313,7 @@ public class Thu_TrieuHoi extends Player {
                                 PlayerService.gI().playerMove(this, 452, 336);
                                 directAtHome = -1;
                             }
-                        } else if (this.zone.map.mapId == 22) {
+                        } else if (this.zone.map.mapId == 23) {
                             if (directAtHome == -1) {
                                 PlayerService.gI().playerMove(this, 250, 336);
                                 directAtHome = 1;

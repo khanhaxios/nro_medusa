@@ -66,13 +66,8 @@ public class ImageUtil2 {
             DataInputStream dis = new DataInputStream(new FileInputStream("data/girlkun/mob/x" + zoomlv + "/" + mob));
             int typeRead = dis.readByte();
 //            System.out.println("type read: " + typeRead);
-            if (typeRead != 0) {
-                data = new byte[dis.readInt()];
-                dis.read(data);
-            } else {
-                data = new byte[dis.readInt()];
-                dis.read(data);
-            }
+            data = new byte[dis.readInt()];
+            dis.read(data);
             byte[] dataImage = new byte[dis.readInt()];
             dis.read(dataImage);
             oriImage = ImageIO.read(new ByteArrayInputStream(dataImage));

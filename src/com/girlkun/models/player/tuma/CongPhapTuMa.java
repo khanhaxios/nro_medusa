@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2025. Code By KanDev if u want share this source pla don't remove this copy right
  */
-
 package com.girlkun.models.player.tuma;
 
 import com.girlkun.consts.ConstNpc;
@@ -485,7 +484,6 @@ public class CongPhapTuMa {
     }
 
     public void showThongTinHuyetDan() {
-
         String text = "|7|❖════ THÔNG TIN HUYẾT ĐAN ════❖\n" +
                 "|5|➤ Dame Buff : " + totalBuffDameHuyetDan + "\n" +
                 "|5|➤ HP Buff   : " + totalBuffHpHuyetDan + "\n" +
@@ -493,5 +491,9 @@ public class CongPhapTuMa {
                 "|7|❖════════════════════════════❖";
 
         NpcService.gI().createMenuConMeo(player, ConstNpc.IGNORE_MENU, -1, text, "Đóng");
+    }
+
+    public void dispose() {
+        player = null;
     }
 }

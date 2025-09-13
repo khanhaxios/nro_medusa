@@ -13,6 +13,7 @@ import com.girlkun.models.player.Fusion;
 import com.girlkun.models.player.Inventory;
 import com.girlkun.models.player.Pet.NhiemVuDeTuPhu;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.congphap.CongPhapOption;
 import com.girlkun.models.player.huyet_mach.Huyet;
 import com.girlkun.models.player.phapbao.PhapBao;
 import com.girlkun.models.player.tutien.luyendansu.DanDuoc;
@@ -1107,28 +1108,26 @@ public class PlayerDAO {
                     jsonArray.add(dataBasePoint);
                     dataBasePoint = new JSONArray();
                     if (player.tuTien.congPhap.tenCongPhap != null) {
-                        dataBasePoint.add(player.tuTien.congPhap.tlDameBuff);
-                        dataBasePoint.add(player.tuTien.congPhap.tlHpBuff);
-                        dataBasePoint.add(player.tuTien.congPhap.tlMpBuff);
-                        dataBasePoint.add(player.tuTien.congPhap.tlHutHPBuff);
-                        dataBasePoint.add(player.tuTien.congPhap.tlHutMPBuff);
-                        dataBasePoint.add(player.tuTien.congPhap.tlAnCapVang);
-                        dataBasePoint.add(player.tuTien.congPhap.tlLinhKhiBuff);
-                        dataBasePoint.add(player.tuTien.congPhap.hutDame);
-                        dataBasePoint.add(player.tuTien.congPhap.hutHp);
-                        dataBasePoint.add(player.tuTien.congPhap.hutMp);
-                        dataBasePoint.add(player.tuTien.congPhap.xDameThuocTinh);
-                        dataBasePoint.add(player.tuTien.congPhap.totalHutDame);
-                        dataBasePoint.add(player.tuTien.congPhap.totalHutHp);
-                        dataBasePoint.add(player.tuTien.congPhap.totalHutMp);
-                        dataBasePoint.add(player.tuTien.congPhap.xTocDoKhoiPhucLinhKhi);
-                        dataBasePoint.add(player.tuTien.congPhap.xLinhKhiBuff);
+                        dataBasePoint.add(player.tuTien.congPhap.id);
+                        dataBasePoint.add(player.tuTien.congPhap.heCongPhap);
+                        dataBasePoint.add(player.tuTien.congPhap.level);
+                        dataBasePoint.add(player.tuTien.congPhap.tier);
+                        dataBasePoint.add(player.tuTien.congPhap.exp);
+                        dataBasePoint.add(player.tuTien.congPhap.maxExp);
+                        dataBasePoint.add(player.tuTien.congPhap.expPham);
+                        dataBasePoint.add(player.tuTien.congPhap.maxExpPham);
+                        dataBasePoint.add(player.tuTien.congPhap.maxLevel);
+                        dataBasePoint.add(player.tuTien.congPhap.maxPham);
 
-                        dataBasePoint.add(player.tuTien.congPhap.tenCongPhap);
-                        dataBasePoint.add(player.tuTien.congPhap.thuoctinh);
-                        dataBasePoint.add(player.tuTien.congPhap.phamchat.id);
-                        dataBasePoint.add(player.tuTien.congPhap.doThuanThuc);
-                        dataBasePoint.add(player.tuTien.congPhap.maxDoThuanThuc);
+                        // save option cong phap
+                        JSONArray dtOptions = new JSONArray();
+                        for (CongPhapOption optionCongPhap : player.tuTien.congPhap.optionCongPhaps) {
+                            JSONArray dptOption = new JSONArray();
+                            dptOption.add(optionCongPhap.id);
+                            dptOption.add(optionCongPhap.param);
+                            dtOptions.add(dptOption);
+                        }
+                        dataBasePoint.add(dtOptions.toJSONString());
                     }
                     jsonArray.add(dataBasePoint);
                     // data tien phap
@@ -1395,17 +1394,19 @@ public class PlayerDAO {
                     dataBasePoint.add(player.tuMa.nhanhNhen);
                     jsonArray.add(dataBasePoint);
                     dataBasePoint = new JSONArray();
-                    dataBasePoint.add(player.tuMa.congPhapTuMa.ten);
-                    dataBasePoint.add(player.tuMa.congPhapTuMa.tyLeLinhNgo);
-                    dataBasePoint.add(player.tuMa.congPhapTuMa.phamChat);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.tenCongPhap);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.id);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.maxPham);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.tier);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.maxLevel);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.level);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.dlThonPhe);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.deTuThonPhe);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.dameBuff);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.hpBuff);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.mpBuff);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.totalDameBuff);
-                    dataBasePoint.add(player.tuMa.congPhapTuMa.totalHpBuff);
-                    dataBasePoint.add(player.tuMa.congPhapTuMa.totalMpBuff);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.totalHpMpBuff);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.totalBuffDameHuyetDan);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.totalBuffHpHuyetDan);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.totalBuffMpHuyetDan);
@@ -1413,6 +1414,11 @@ public class PlayerDAO {
                     dataBasePoint.add(player.tuMa.congPhapTuMa.tongDameThonPhe);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.tongHpThonPhe);
                     dataBasePoint.add(player.tuMa.congPhapTuMa.tongMpThonPhe);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.heCongPhap);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.exp);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.maxExp);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.expPham);
+                    dataBasePoint.add(player.tuMa.congPhapTuMa.maxExpPham);
                     jsonArray.add(dataBasePoint);
                     dataBasePoint = new JSONArray();
                     dataBasePoint.add(player.tuMa.linhCanTuMa.typeLinhCan);

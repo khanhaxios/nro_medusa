@@ -7,8 +7,6 @@ package com.girlkun.services;
 import com.girlkun.consts.ConstMob;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.consts.ConstPlayer;
-import com.girlkun.jdbc.daos.PlayerDAO;
-import com.girlkun.models.player.Player;
 import com.girlkun.consts.ConstTask;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
@@ -17,19 +15,19 @@ import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.npc.Npc;
-
-import static com.girlkun.models.player.Inventory.LIMIT_GOLD;
-
+import com.girlkun.models.player.Player;
 import com.girlkun.models.task.SideTaskTemplate;
 import com.girlkun.models.task.SubTaskMain;
 import com.girlkun.models.task.TaskMain;
-import com.girlkun.server.Manager;
 import com.girlkun.network.io.Message;
+import com.girlkun.server.Manager;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.girlkun.models.player.Inventory.LIMIT_GOLD;
 
 
 public class TaskService {
@@ -1051,8 +1049,6 @@ public class TaskService {
             return player.gender == ConstPlayer.TRAI_DAT ? 1 : (player.gender == ConstPlayer.NAMEC ? 8 : 15);
         } else if (id == ConstTask.MAP_VACH_NUI) {
             return player.gender == ConstPlayer.TRAI_DAT ? 39 : (player.gender == ConstPlayer.NAMEC ? 40 : 41);
-        } else if (id == ConstTask.MAP_200) {
-            return player.gender == ConstPlayer.TRAI_DAT ? 2 : (player.gender == ConstPlayer.NAMEC ? 9 : 16);
         } else if (id == ConstTask.MAP_TTVT) {
             return player.gender == ConstPlayer.TRAI_DAT ? 24 : (player.gender == ConstPlayer.NAMEC ? 25 : 26);
         } else if (id == ConstTask.MAP_QUAI_BAY_600) {

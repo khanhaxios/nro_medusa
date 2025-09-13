@@ -6,6 +6,7 @@ package com.girlkun.services.func;
 
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Client;
+import com.girlkun.server.ServerManager;
 import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.ItemService;
 import com.girlkun.services.Service;
@@ -79,7 +80,7 @@ public class TaiXiu implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (ServerManager.isRunning) {
             try {
                 long timeLeft = TaiXiu.gI().lastTimeEnd - System.currentTimeMillis();
                 if (timeLeft <= 0) {

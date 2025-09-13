@@ -15,4 +15,12 @@ if [ ! -z "$PID" ]; then
 fi
 
 # Start game
-nohup java -jar ./gameplayopen.jar > game.log 2>&1 &
+nohup java -Xms3g -Xmx3g \
+-XX:+UseG1GC \
+-XX:MaxGCPauseMillis=200 \
+-XX:InitiatingHeapOccupancyPercent=45 \
+-XX:+ParallelRefProcEnabled \
+-XX:+UnlockExperimentalVMOptions \
+-XX:+DisableExplicitGC \
+-jar ./gameplayopen.jar > game.log 2>&1 &
+

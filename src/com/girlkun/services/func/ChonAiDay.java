@@ -12,6 +12,7 @@ package com.girlkun.services.func;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Client;
+import com.girlkun.server.ServerManager;
 import com.girlkun.services.ChatGlobalService;
 import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.ItemService;
@@ -66,7 +67,7 @@ public class ChonAiDay  implements Runnable{
     
     @Override
     public void run() {
-        while (true) {
+        while (ServerManager.isRunning) {
             try{
                 if(((ChonAiDay.gI().lastTimeEnd - System.currentTimeMillis())/1000) <= 0){
                     List<Player> listN = new ArrayList<>();

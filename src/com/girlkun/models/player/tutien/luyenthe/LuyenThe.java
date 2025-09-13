@@ -41,7 +41,7 @@ public class LuyenThe extends BaseTuDuy {
         if (congPhapLuyenThe.isLearn()) {
             congPhapLuyenThe.calcPoint();
         }
-        if (voKyList.size() > 0) {
+        if (!voKyList.isEmpty()) {
             for (VoKy voKy : voKyList) {
                 voKy.calcPoint();
             }
@@ -320,7 +320,7 @@ public class LuyenThe extends BaseTuDuy {
 
     public String getAllVoKy() {
         StringBuilder vks = new StringBuilder();
-        if (voKyList.size() == 0) {
+        if (voKyList.isEmpty()) {
             vks = new StringBuilder("|1|Không có võ kỹ nào");
             return vks.toString();
         }
@@ -332,7 +332,7 @@ public class LuyenThe extends BaseTuDuy {
 
     public String[] getAllVoKySelect() {
         String[] strings = new String[voKyList.size() + 1];
-        if (voKyList.size() == 0) {
+        if (voKyList.isEmpty()) {
             return new String[]{"Đóng"};
         }
         for (int i = 0; i < voKyList.size(); i++) {

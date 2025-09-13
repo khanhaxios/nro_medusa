@@ -29,7 +29,7 @@ public class ThanHuyDiet extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.achievement.plusCount(3);
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
         ItemMap itemMap = null;

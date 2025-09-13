@@ -30,7 +30,7 @@ public class BossTET11 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         int a = 0;
         for (int i = 0; i < 8; i++) {

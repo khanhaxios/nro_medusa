@@ -154,7 +154,8 @@ public class Service {
 //                    }
 //                    if ((player.isTitleUse1 || player.isTitleUse1 && player.lastTimeTitle1 == 0) && (player.isTitleUse2 || player.isTitleUse2 && player.lastTimeTitle2 == 0)) {
 //                        me.writer().writeShort(73);
-////                        System.out.println("73 tren");
+
+    /// /                        System.out.println("73 tren");
 //                    }
 //                }
 //            }
@@ -1350,7 +1351,10 @@ public class Service {
             String freePhysicalMemoryStr = decimalFormat.format((double) freePhysicalMemorySize / (1024 * 1024 * 1024));
             if (text.equals("admin")) {
                 int songuoi = Client.gI().getPlayers().size();
-                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Quản trị admin Linh Cute. Số người online: " + songuoi + "\n" + "|7|Thread hiện tại: " + Thread.activeCount() + "\n" + "|1|Sessions: " + GirlkunSessionManager.gI().getSessions().size() + "\n"
+                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1,
+                        "Quản trị admin Kan Dev. Số người online: " + songuoi
+                                + "\n|7|Thread hiện tại: " + Thread.activeCount()
+                                + "\n|1|Sessions: " + GirlkunSessionManager.gI().getSessions().size()
                                 + "\n Thread :" + Thread.activeCount()
                                 + "\nSố lượng CPU: " + avaiableProcessors
                                 + "\n|5|Tỷ lệ sử dụng CPU : " + cpuUsage + "%"
@@ -2038,9 +2042,9 @@ public class Service {
             Message msg;
             try {
                 msg = new Message(-42);
-                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpg + player.tuTien.congPhap.hutHp));
-                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpg + player.tuTien.congPhap.hutMp));
-                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.dameg + player.tuTien.congPhap.hutDame));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpg));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpg));
+                msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.dameg));
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hpMax));// hp full
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.mpMax));// mp full
                 msg.writer().writeDouble(Util.DoubleGioihang(player.nPoint.hp));// hp

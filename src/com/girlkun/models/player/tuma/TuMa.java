@@ -7,11 +7,15 @@ package com.girlkun.models.player.tuma;
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.congphap.CongPhapFactory;
+import com.girlkun.models.player.congphap.CongPhapTuMa;
 import com.girlkun.models.player.tutien.base_tutien.BaseTuDuy;
 import com.girlkun.models.player.tutien.base_tutien.IBaseAction;
 import com.girlkun.models.player.tutien.khongthisu.KhongThiSu;
+import com.girlkun.models.player.tutien.linhthucsu.LinhThucSu;
 import com.girlkun.models.player.tutien.luyendansu.LuyenDanSu;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
+import com.girlkun.models.player.tutien.luyenkhisu.LuyenKhiSu;
 import com.girlkun.models.player.tutien.tranphapsu.TranPhapSu;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
@@ -32,7 +36,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     public LinhCanTuMa linhCanTuMa;
     public int maTinh;
 
-    public CongPhapTuMa congPhapTuMa;
+    public com.girlkun.models.player.congphap.CongPhapTuMa congPhapTuMa;
 
     public static final String[] CANH_GIOI = new String[]{"Luyện Hồn", "Ngưng Ma", "Huyết Đan", "Ma Anh", "Hóa Ma", "Ma Tôn", "Hắc Ma", "U Linh", "Quỷ Hồn", "Ma Du", "Vô Ảnh", "Tam Huyết", "Tứ Hồn", "Dạ Ma Sát Cảnh", "Thống Ma Chi Chủ", "Tà Ma Đại Đế", "Vạn Tà Chi Thể", "Ma Lộ Vô Cực", "Chân Ma Thánh Tôn"};
     public static final long[] LEVEL_EXP = new long[]{100, 200, 500, 1000, 5000, 60000, 200000, 3000000, 5000000, 10000000, 12_000_000, 15_000_000, 20_000_000, 30_000_000, 50_000_000, 70_000_000, 100_000_000, 150_000_000, 500_000_000}; // 19
@@ -44,7 +48,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
 
     public TuMa(Player player) {
         this.player = player;
-        congPhapTuMa = new CongPhapTuMa(player);
+        congPhapTuMa = new com.girlkun.models.player.congphap.CongPhapTuMa(player);
         linhCanTuMa = new LinhCanTuMa(player);
         luyenHon = new LuyenHon(player);
         luyenCot = new LuyenCot(player);
@@ -68,7 +72,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
 
     @Override
     public long getExpCanGain(Mob targetMob) {
-        long exp = Math.min((long) (targetMob.point.maxHp / 1_000_000) * Math.max(player.tuMa.congPhapTuMa.phamChat, 1), Util.nextInt(1000, 50000));
+        long exp = Math.min((long) (targetMob.point.maxHp / 1_000_000) * Math.max(player.tuMa.congPhapTuMa.tier, 1), Util.nextInt(1000, 50000));
         if (player.nPoint.xTuVi > 0) {
             exp += exp * player.nPoint.xTuVi / 100;
         }
@@ -99,7 +103,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     }
 
     private long calcMaxMaKhi() {
-        long m = (BASE_LINH_KHI[level / 10] + BASE_SUB_LINH_KHI[level % 10]) * (congPhapTuMa.phamChat + 1 + maTinh);
+        long m = (BASE_LINH_KHI[level / 10] + BASE_SUB_LINH_KHI[level % 10]) * (congPhapTuMa.tier + 1 + maTinh);
         m += m * player.nPoint.xLinhKhi / 100;
         m *= 3;
         return m;
@@ -111,7 +115,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     }
 
     private long getNextLevelExp() {
-        return (LEVEL_EXP[level / 10] + SUB_LEVEL_EXP[level / 10]) * (congPhapTuMa.phamChat + 700);
+        return (LEVEL_EXP[level / 10] + SUB_LEVEL_EXP[level / 10]) * (congPhapTuMa.tier + 700);
     }
 
     @Override
@@ -124,7 +128,9 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
 
     @Override
     public void resetLevel() {
-
+        level = 0;
+        restExp();
+        restMaKhi();
     }
 
     public String getMaTinhDanhGia() {
@@ -185,21 +191,25 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     }
 
     public void update() {
-        if (congPhapTuMa != null && congPhapTuMa.ten != null) {
+        if (congPhapTuMa != null && congPhapTuMa.tenCongPhap != null) {
             congPhapTuMa.update();
         }
     }
 
     public void ratioCongPhap() {
         int typeLinhCan = Util.nextInt(0, 4);
-        CongPhapTuMa congPhapTuMa1 = TuMaTemplate.CONG_PHAP.get(typeLinhCan);
-        congPhapTuMa1.player = player;
-        this.congPhapTuMa = congPhapTuMa1;
-        Service.gI().sendThongBao(player, "Bạn đã học được " + congPhapTuMa1.ten);
+        com.girlkun.models.player.congphap.CongPhapTuMa congPhapTuMa1 = CongPhapFactory.gI().createCongPhapTuMaSoCap((byte) typeLinhCan, player);
+        this.congPhapTuMa.doiCongPhap(congPhapTuMa1);
+        Service.gI().sendThongBao(player, "Bạn đã học được " + congPhapTuMa1.tenCongPhap);
     }
 
     public boolean canLevelUp() {
-        return exp == maxExp;
+        boolean isMaxExp = exp == maxExp;
+        return isMaxExp && isNotMaxLevel();
+    }
+
+    public boolean isNotMaxLevel() {
+        return (level + 1) / 10 < congPhapTuMa.level;
     }
 
     public String getSubName() {
@@ -229,14 +239,14 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     @Override
     public float getDameBuff() {
         float percentBuff = (getBaseBuffByLevel(1) + (getSubLevelOtherBuff()));
-        percentBuff *= (congPhapTuMa.phamChat + 1 + maTinh);
+        percentBuff *= (congPhapTuMa.tier + 1 + maTinh);
         return percentBuff;
     }
 
     @Override
     public float getHPMPBuff() {
         float percentBuff = (getBaseBuffByLevel(3) + (getSubLevelHpMpBuff()));
-        percentBuff *= (congPhapTuMa.phamChat + 1 + maTinh);
+        percentBuff *= (congPhapTuMa.tier + 1 + maTinh);
         return percentBuff;
     }
 
@@ -336,10 +346,10 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     public void calcPoint() {
         player.nPoint.xDameLinhCan += tinhThan;
         player.nPoint.tlDameCrit.add(nhanhNhen * 100);
-        if (congPhapTuMa != null && congPhapTuMa.ten != null) {
+        if (congPhapTuMa != null && congPhapTuMa.tenCongPhap != null) {
             congPhapTuMa.calcPoint();
-            player.nPoint.tlHutHp += getHutHPBuff();
-            player.nPoint.tlHutMp += getHutMPBuff();
+            player.nPoint.tlHutHp += (short) getHutHPBuff();
+            player.nPoint.tlHutMp += (short) getHutMPBuff();
         }
         if (luyenHon != null && luyenHon.isOpen) {
             luyenHon.calcPoint();
@@ -350,7 +360,6 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     }
 
     public void showMenuTuMa() {
-
         String text = "|7|❖═════ THÔNG TIN MA TU ═════❖\n" +
                 "|5|➤ Dame Buff: " + getDameBuff() + "%\n" +
                 "|5|➤ HP/MP Buff: " + getHPMPBuff() + "%\n" +
@@ -362,17 +371,18 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
                 "|5|➤ Tu vi: " + getCurrentExpAsString() + "\n" +
                 "|7|✪ Ma Tu không có bình cảnh – phá giới vô hạn!\n" +
                 "|7|❖══════════════════════════❖";
-
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MA_TU_DOT_PHA, -1, text, "Đột phá", "Đóng");
     }
 
 
     public void dotPha() {
-        if (canLevelUp()) {
-            levelUp();
-        } else {
-            Service.gI().sendThongBao(player, "Tu vi chưa đủ");
+        if (!canLevelUp()) {
+            Service.gI().sendThongBao(player, "Tu vi chưa đủ hoặc công pháp chưa đủ cấp yêu cầu");
+            return;
         }
+        levelUp();
+        Service.gI().point(player);
+        Service.gI().sendThongBao(player, " Chúc mừng bạn đã đột phá thành công " + getName());
     }
 
     public void nhapMa() {
@@ -380,6 +390,9 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
         player.luyenDanSu = new LuyenDanSu(player);
         player.tranPhapSu = new TranPhapSu(player);
         player.khongThiSu = new KhongThiSu(player);
+        player.luyenDanSu = new LuyenDanSu(player);
+        player.luyenKhiSu = new LuyenKhiSu(player);
+        player.linhThucSu = new LinhThucSu(player);
         // remove all tu tien data
         player.tuMa = new TuMa(player);
         player.tuMa.openSystem();
@@ -407,7 +420,6 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
         luyenCot = new LuyenCot(player);
         exp = 0;
         maxExp = getNextLevelExp();
-        maKhiPoint = 0;
         maKhiPoint = calcMaxMaKhi();
         maTinh = 0;
         timeTuMa = System.currentTimeMillis();

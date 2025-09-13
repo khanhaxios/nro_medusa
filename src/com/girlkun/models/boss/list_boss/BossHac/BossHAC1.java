@@ -30,7 +30,7 @@ public class BossHAC1 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         ItemMap it = new ItemMap(this.zone, 1428, 10, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);

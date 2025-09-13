@@ -25,7 +25,7 @@ public class ThienSuWhis extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.achievement.plusCount(3);
-        plKill.inventory.event++;
+        
         byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
         ItemMap itemMap = null;
         if (Util.isTrue(5, 100)) {

@@ -25,7 +25,7 @@ public class SuperAndroid17 extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.achievement.plusCount(3);
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         int[] itemDos = new int[]{579, 457};
         int[] NRs = new int[]{17, 16, 15};

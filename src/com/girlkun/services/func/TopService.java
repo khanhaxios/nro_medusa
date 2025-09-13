@@ -9,6 +9,7 @@ import com.girlkun.models.player.Player;
 import com.girlkun.network.io.Message;
 import com.girlkun.server.Client;
 import com.girlkun.server.Manager;
+import com.girlkun.server.ServerManager;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
 
@@ -106,7 +107,7 @@ public class TopService implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (ServerManager.isRunning) {
             try {
                 if (Manager.timeRealTop + (30 * 60 * 1000) < System.currentTimeMillis()) {
                     Manager.timeRealTop = System.currentTimeMillis();

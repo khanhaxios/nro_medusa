@@ -1421,7 +1421,7 @@ public class ItemService {
     public List<ItemOption> getListOptionItemShop(short id) {
         List<ItemOption> list = new ArrayList<>();
         Manager.SHOPS.forEach(shop -> shop.tabShops.forEach(tabShop -> tabShop.itemShops.forEach(itemShop -> {
-            if (itemShop.temp.id == id && list.size() == 0) {
+            if (itemShop.temp.id == id && list.isEmpty()) {
                 list.addAll(itemShop.options);
             }
         })));

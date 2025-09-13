@@ -62,7 +62,7 @@ public class LuckyPool {
     }
 
     public static void showTuiTamThoi(Player player) {
-        if (player.luckyPoolPlayer.itemBags.size() == 0) {
+        if (player.luckyPoolPlayer.itemBags.isEmpty()) {
             Service.gI().sendThongBao(player, "Không có vật phẩm nào trong rương");
             return;
         }

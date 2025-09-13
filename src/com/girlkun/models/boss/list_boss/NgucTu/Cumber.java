@@ -32,7 +32,7 @@ public class Cumber extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.achievement.plusCount(3);
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         Util.ratioTrangBi(zone, 1, this.location.x, this.location.y, plKill.id, 20, 1);
         Util.ratioRoiBuaZeno(zone, 1, this.location.x, this.location.y, plKill.id);

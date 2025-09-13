@@ -6,6 +6,7 @@ package com.girlkun.models.matches.pvp;
 
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Manager;
+import com.girlkun.server.ServerManager;
 import com.girlkun.utils.Util;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class DaiHoiVoThuat implements Runnable{
     
     @Override
     public void run() {
-        while (true) {
+        while (ServerManager.isRunning) {
             Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
             try { 
                 Second = calendar.get(Calendar.SECOND);
@@ -71,6 +72,7 @@ public class DaiHoiVoThuat implements Runnable{
                 DaiHoiVoThuatService.gI(getDaiHoiNow()).Update();
                 Thread.sleep(1000);
             }catch(Exception e){
+                e.printStackTrace();
             }
         }
     }

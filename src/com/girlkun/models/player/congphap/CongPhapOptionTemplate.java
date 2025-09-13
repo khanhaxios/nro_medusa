@@ -32,7 +32,7 @@ public class CongPhapOptionTemplate {
         congPhapTienOptions.add(new CongPhapOption(17, "Tăng # sát thương quang"));
         congPhapTienOptions.add(new CongPhapOption(18, "Tăng # sát thương ám"));
         congPhapTienOptions.add(new CongPhapOption(19, "Tăng # tu vi nhận được"));
-        congPhapTienOptions.add(new CongPhapOption(20, "Tăng #5% tu vi nhận được"));
+        congPhapTienOptions.add(new CongPhapOption(20, "Tăng #% tu vi nhận được"));
 
         congPhapTienOptions.add(new CongPhapOption(21, "Tăng # thể chất"));
         congPhapTienOptions.add(new CongPhapOption(22, "Tăng # tinh thần"));
@@ -55,5 +55,18 @@ public class CongPhapOptionTemplate {
 
         congPhapTienOptions.add(new CongPhapOption(38, "Tăng #% tỷ lệ đột phá"));
         congPhapTienOptions.add(new CongPhapOption(39, "Tăng #% tỷ lệ đột phá thiên đạo"));
+
+        congPhapTienOptions.add(new CongPhapOption(40, "Tăng #% exp lục nghệ nhận được"));
+        congPhapTienOptions.add(new CongPhapOption(41, "Giảm #% thời gian hồi tu vi"));
+    }
+
+    public static CongPhapOption getTienOption(int i) {
+        if (i < 0 || i >= congPhapTienOptions.size()) {
+            return null;
+        }
+        CongPhapOption congPhapOption = new CongPhapOption();
+        congPhapOption.id = congPhapTienOptions.get(i).id;
+        congPhapOption.name = congPhapTienOptions.get(i).name;
+        return congPhapOption;
     }
 }

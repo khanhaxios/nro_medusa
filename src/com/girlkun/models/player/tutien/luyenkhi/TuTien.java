@@ -9,6 +9,8 @@ import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Pet.ConstPet;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.congphap.CongPhapFactory;
+import com.girlkun.models.player.congphap.CongPhapTuTien;
 import com.girlkun.models.player.tutien.base_tutien.BasePoint;
 import com.girlkun.models.player.tutien.base_tutien.CoDuyen;
 import com.girlkun.models.player.tutien.base_tutien.IBaseAction;
@@ -29,9 +31,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     public long lastimeCoDuyen = System.currentTimeMillis();
     public CoDuyen currentCoDuyen;
     long lastTimeHoiPhuc = System.currentTimeMillis();
-    public byte MAX_USE_TP = 2;
     long lastTimeAddExp = System.currentTimeMillis();
-    long lastTimeAddDoTT = System.currentTimeMillis();
 
     public static final String[] CANH_GIOI = new String[]{"Luyện Khí", "Trúc Cơ", "Kim Đan", "Nguyên Anh", "Hóa Thần", "Phong Thánh", "Thần Chiếu", "Huyền Linh", "Quy Nguyên", "Du Tầm", "Không Luân", "Tam Thiên", "Tứ Trụ", "Dạ Ma Thiên Cảnh", "Tu Di Sơn Chủ", "Tinh Hà Thánh Nhân", "Thần Quỷ Mạt Trắc", "Đạo Lộ Chi Cảnh", "Thánh Tôn Chi Cảnh"};
     public static final long[] LEVEL_EXP = new long[]{100, 200, 500, 1000, 5000, 60000, 200000, 3000000, 5000000, 10000000, 12_000_000, 15_000_000, 20_000_000, 30_000_000, 50_000_000, 70_000_000, 100_000_000, 150_000_000, 500_000_000}; // 19
@@ -39,6 +39,14 @@ public class TuTien extends BasePoint implements IBaseAction {
     public static final long[] BASE_LINH_KHI = new long[]{1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000, 20000000, 50000000, 100000000, 200000000, 500000000, 1000000000};
     public static final long[] BASE_SUB_LINH_KHI = new long[]{100, 200, 300, 400, 500, 600, 700, 800, 900, 1000};
     public static final long[] BASE_EXP_BUFF = new long[]{1, 2, 5, 10, 15, 20, 25, 50, 100, 120, 140, 200, 210, 230, 300, 350, 360, 400, 500};
+
+    public int newCanCot = 0;
+    public int newNgoTinh = 0;
+
+    public int newTc;
+    public int newTT;
+    public int newNN;
+    public int newSM;
 
     public static final long[] BASE_LINH_KHI_HOI_PHUC = new long[]{
             /* 0  */     20L,
@@ -65,7 +73,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     public LinhCan linhCan;
     public List<TienPhap> tienPhaps;
     public byte MAX_SL_TIEN_PHAP = 1;
-    public CongPhap congPhap;
+    public CongPhapTuTien congPhap;
     public List<TienPhap> tienPhapsUsed = new ArrayList<>();
 
     public boolean isAttackWithLinhCan = true;
@@ -75,7 +83,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     public TuTien(Player player) {
         super(player);
         linhCan = new LinhCan(this);
-        congPhap = new CongPhap(this);
+        congPhap = new CongPhapTuTien(player);
         tienPhaps = new ArrayList<>();
         currentCoDuyen = null;
     }
@@ -103,7 +111,15 @@ public class TuTien extends BasePoint implements IBaseAction {
         }
 
         long finalDiem = (long) ((baseDiem * tyLexDiemTuMob) * xDiem);
-        finalDiem *= congPhap.xLinhKhiBuff;
+        finalDiem *= (long) (congPhap.tlTuViNhanDuoc / 100f);
+        return finalDiem;
+    }
+
+    public long getExpCanGain() {
+        float xDiem = getXDiemThienPhu();
+        long baseDiem = 10;
+        long finalDiem = (long) ((baseDiem * Util.nextInt(1, 3)) * xDiem);
+        finalDiem *= (long) (congPhap.tlTuViNhanDuoc / 100f);
         return finalDiem;
     }
 
@@ -118,8 +134,8 @@ public class TuTien extends BasePoint implements IBaseAction {
                     float basePointPlus = 100;
                     byte tyLeCanCot = (byte) Util.nextInt(3, 7);
                     float pointCanCot = (basePointPlus / 100f) * (tyLeCanCot * 10);
-                    canCot += pointCanCot;
-                    ngoTinh += basePointPlus - pointCanCot;
+                    canCot += (int) pointCanCot;
+                    ngoTinh += (int) (basePointPlus - pointCanCot);
                     Service.gI().sendThongBaoOK(player, "Đột phá  " + CANH_GIOI[level] + " bạn được tẩy tủy căn cốt +" + pointCanCot + ",Ngộ tính + " + (basePointPlus - pointCanCot));
                     if (xParam <= 1) {
                         xParam = 2;
@@ -155,19 +171,27 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public void calcPoint() {
-        player.nPoint.tlchinhxac += player.nPoint.tlchinhxac * getChinhXacBuff() / 100;
-        player.nPoint.tlNeDon += player.nPoint.tlNeDon * getNeBuff() / 100;
-        player.nPoint.tlHutHp += getHutHPBuff();
-        player.nPoint.tlHutMp += getHutMPBuff();
-        player.nPoint.xDameLinhCan += tinhThan;
-        player.nPoint.tlDameCrit.add(nhanhNhen * 100);
+        if (congPhap.isLearn()) {
+            newCanCot = canCot + (congPhap.canCot) + (canCot * congPhap.tlCanCot / 100);
+            newNgoTinh = ngoTinh + (congPhap.ngoTinh) + (ngoTinh * congPhap.tlNgoTinh / 100);
+            newTc = theChat + (congPhap.theChat) + (theChat * congPhap.tlTheChat / 100);
+            newTT = tinhThan + (congPhap.tinhThan) + (tinhThan * congPhap.tlTinhThan / 100);
+            newNN = nhanhNhen + (congPhap.nhanhNhen) + (nhanhNhen * congPhap.tlNhanhNhen / 100);
+            newSM = sucManh + (congPhap.sucManh) + (sucManh * congPhap.tlSucManh / 100);
+        }
+        player.nPoint.tlchinhxac += (short) (player.nPoint.tlchinhxac * getChinhXacBuff() / 100);
+        player.nPoint.tlNeDon += (short) (player.nPoint.tlNeDon * getNeBuff() / 100);
+        player.nPoint.tlHutHp += (short) getHutHPBuff();
+        player.nPoint.tlHutMp += (short) getHutMPBuff();
+        player.nPoint.xDameLinhCan += newTT;
+        player.nPoint.tlDameCrit.add(newNN * 100);
         if (linhCan != null) {
             player.nPoint.tlDameCrit.add((int) linhCan.getThuocTinhLinhCan().getParam());
         }
         if (congPhap != null) {
-            congPhap.calcPoint(player);
+            congPhap.calcPoint();
         }
-        if (tienPhaps.size() > 0) {
+        if (!tienPhaps.isEmpty()) {
             for (TienPhap tienPhap : tienPhaps) {
                 tienPhap.calcPoint(player);
             }
@@ -217,14 +241,16 @@ public class TuTien extends BasePoint implements IBaseAction {
     public void hoiPhucLinhKhi() {
         if (linhKhiPoint < maxLinhKhiPoint) {
             int lv = Math.min(level, BASE_LINH_KHI_HOI_PHUC.length - 1);
-            long linhKhiCanHoiPhuc = ((BASE_LINH_KHI_HOI_PHUC[lv] * Math.max(1, congPhap.xTocDoKhoiPhucLinhKhi))) * Math.max(1, xParam);
+            long linhKhiCanHoiPhuc = ((BASE_LINH_KHI_HOI_PHUC[lv] * Math.max(1, xParam)));
+            linhKhiCanHoiPhuc += congPhap.linhKhiHoiMoiLan;
+            linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * congPhap.tlLinhKhiHoiMoiLan / 100;
             if (player.mach.isOpen) {
-                linhKhiCanHoiPhuc += player.mach.linhKhiBuff;
+                linhKhiCanHoiPhuc += (long) player.mach.linhKhiBuff;
             }
             if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffLinhKhi()) {
-                linhKhiCanHoiPhuc *= player.luyenDanSu.danDuocEffect.xBuffLinhKhi;
+                linhKhiCanHoiPhuc *= (long) player.luyenDanSu.danDuocEffect.xBuffLinhKhi;
             }
-            linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * getXDiemThienPhu();
+            linhKhiCanHoiPhuc += (long) (linhKhiCanHoiPhuc * getXDiemThienPhu());
             linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * player.nPoint.xHoiLinhKhi / 100;
             if (player.pet != null && player.pet.typePet == ConstPet.MABU && player.khongThiSu.isKhongThi() && player.khongThiSu.level >= 5) {
                 linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * (15 * player.khongThiSu.level) / 100;
@@ -232,18 +258,20 @@ public class TuTien extends BasePoint implements IBaseAction {
             if (player.pet != null && player.pet.typePet == ConstPet.BERUS && player.khongThiSu.isKhongThi() && player.khongThiSu.level >= 5) {
                 linhKhiCanHoiPhuc += linhKhiCanHoiPhuc * (30 * player.khongThiSu.level) / 100;
             }
+            if (congPhap.heCongPhap != linhCan.getLinhCanType()) {
+                linhKhiCanHoiPhuc /= 10;
+            } else {
+                linhKhiCanHoiPhuc *= 2;
+            }
             addLinhKhi(linhKhiCanHoiPhuc);
             lastTimeHoiPhuc = System.currentTimeMillis();
-            // send effect to server
-//            PlayerService.gI().sendHoiPhucLinhKhi(player, linhKhiCanHoiPhuc);
-//            PlayerService.gI().sendLinhKhiPoint(player);
         }
     }
 
     public long calcMaxLinhKhiPoint() {
-        long la = BASE_LINH_KHI[level] + (BASE_LINH_KHI[level] * (Math.max(1, congPhap.xLinhKhiBuff))) + BASE_SUB_LINH_KHI[subLevel - 1];
+        long la = BASE_LINH_KHI[level] + (BASE_LINH_KHI[level] + BASE_SUB_LINH_KHI[subLevel - 1]);
         la += (la * xParam);
-        la += (la * getXDiemThienPhu());
+        la += (long) (la * getXDiemThienPhu());
         la += la * player.nPoint.xLinhKhi / 100;
         if (player.pet != null && player.pet.typePet == ConstPet.MABU && player.khongThiSu.isKhongThi() && player.khongThiSu.level >= 7) {
             la += la * (30 * player.khongThiSu.level) / 100;
@@ -251,7 +279,10 @@ public class TuTien extends BasePoint implements IBaseAction {
         if (player.pet != null && player.pet.typePet == ConstPet.BERUS && player.khongThiSu.isKhongThi() && player.khongThiSu.level >= 7) {
             la += la * (40 * player.khongThiSu.level) / 100;
         }
-        return (la + (la * congPhap.tlLinhKhiBuff / 100)) * Math.max(1, congPhap.xLinhKhiBuff);
+        if (congPhap.heCongPhap != linhCan.getLinhCanType()) {
+            la /= 10;
+        }
+        return (la);
     }
 
     @Override
@@ -262,6 +293,15 @@ public class TuTien extends BasePoint implements IBaseAction {
             restExp();
             Service.gI().point(player);
         } else {
+            if (level > 0) {
+                level--;
+                subLevel = 10;
+                Service.gI().sendThongBao(player, "Bạn đã lui bước xuống " + getFormatName());
+                restExp();
+                Service.gI().point(player);
+            } else {
+                Service.gI().sendThongBao(player, "Bạn đã ở cấp thấp nhất.");
+            }
         }
     }
 
@@ -293,10 +333,12 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     @Override
     public float getLevelUpPercent() {
+        float pc = 1f;
         if (level <= LEVEL_UP_PERCENT.length - 1) {
-            return ((getXDiemThienPhu() * 6) + LEVEL_UP_PERCENT[level]) + (stackTlDotPha * 2) + (congPhap.phamchat.id);
+            pc = ((getXDiemThienPhu() * 6) + LEVEL_UP_PERCENT[level]) + (stackTlDotPha * 2) + (congPhap.tier);
         }
-        return 1f;
+        pc += congPhap.tangTyLeDotPha;
+        return pc;
     }
 
     @Override
@@ -487,28 +529,35 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     public void update() {
         if (isTuTien() && player.isPl()) {
-            // dau tien la cong exp //
-            if (exp < maxExp && !player.isDie() && Util.canDoWithTime(lastTimeAddExp, 5000)) {
+            if (exp < maxExp && !player.isDie() && Util.canDoWithTime(lastTimeAddExp, congPhap.getTimeAddTuVi())) {
                 if (player.tuTien.congPhap != null && player.tuTien.congPhap.tenCongPhap != null) {
-                    long expAdd = (long) (getXDiemThienPhu() * (BASE_EXP_BUFF[level] + (SUB_LEVEL_EXP[subLevel - 1] / 10))) * Math.max(1, congPhap.phamchat.id + 1);
-                    expAdd += expAdd * player.nPoint.xTuVi / 100;
-                    addExp(expAdd * Math.max(1, xParam));
-//                    PlayerService.gI().sendTuTienAddTuVi(player, expAdd);
-//                    PlayerService.gI().sendTuTienTuVi(player);
+                    long expAdd = getExpAdd();
+                    addExp(expAdd);
                     lastTimeAddExp = System.currentTimeMillis();
                 }
             }
             if (maxLinhKhiPoint == 0) {
                 maxLinhKhiPoint = calcMaxLinhKhiPoint();
             }
-            if (congPhap.tenCongPhap != null && linhKhiPoint < maxLinhKhiPoint && !player.isDie() && Util.canDoWithTime(lastTimeHoiPhuc, 1000)) {
+            if (congPhap.tenCongPhap != null && linhKhiPoint < maxLinhKhiPoint && !player.isDie() && Util.canDoWithTime(lastTimeHoiPhuc, congPhap.getTimeHoiLinhKhi())) {
                 hoiPhucLinhKhi();
+                congPhap.update();
             }
-//            if (!player.isDie()) {
-//                randomizedCoDuyen();
-//            }
-//            tienPhaps.forEach(TienPhap::update);
         }
+    }
+
+    private long getExpAdd() {
+        long expAdd = (long) (getXDiemThienPhu() * (BASE_EXP_BUFF[level] + ((float) SUB_LEVEL_EXP[subLevel - 1] / 10))) * Math.max(1, (congPhap.tier + 1));
+        expAdd += expAdd * player.nPoint.xTuVi / 100;
+        expAdd += expAdd * Math.max(1, xParam);
+        expAdd += expAdd * congPhap.tlTuViNhanDuoc / 100;
+        expAdd += congPhap.tuviNhanDuoc;
+        if (congPhap.heCongPhap != linhCan.getLinhCanType()) {
+            expAdd /= 10;
+        } else {
+            expAdd *= 2;
+        }
+        return expAdd;
     }
 
 
@@ -577,16 +626,10 @@ public class TuTien extends BasePoint implements IBaseAction {
             Service.gI().sendThongBao(player, "Bạn đã học công pháp rồi mà.");
             return;
         }
-        CongPhap cpTem = getCongPhapByLinhCan(select);
-//        if (cpTem.thuoctinh != linhCan.getLinhCanType()) {
-//            Service.gI().sendThongBao(player, "Công pháp không phù hợp với linh căn của bạn");
-//            return;
-//        }
-        cpTem.tuTien = this;
+        CongPhapTuTien cpTem = CongPhapFactory.gI().createCongPhapTuTienSoCapByHe(select, player);
         congPhap = cpTem;
-        congPhap.ratioNewCongPhap();
         PlayerDAO.subvnd(player, 100000);
-        Service.gI().sendThongBao(player, "Bạn đã học " + congPhap.getFullName());
+        Service.gI().sendThongBao(player, "Bạn đã học " + congPhap.tenCongPhap);
     }
 
     public void ratioNewTienPhap() {
@@ -612,7 +655,7 @@ public class TuTien extends BasePoint implements IBaseAction {
                 canRandomTP.add(phap);
             }
         }
-        if (canRandomTP.size() > 0) {
+        if (!canRandomTP.isEmpty()) {
             tienPhap = canRandomTP.get(Util.nextInt(0, canRandomTP.size() - 1));
         }
         if (tienPhap == null) {
@@ -659,26 +702,30 @@ public class TuTien extends BasePoint implements IBaseAction {
             return;
         }
 
-        String info = "" + "|7|❖ THÔNG TIN TU TIÊN ❖\n" + "|5|✦ Cảnh giới: " + getFormatName() + "\n" + "|5|✧ Tu vi: " + getCurrentExpAsString() + "\n" + "|5|✦ Linh khí: " + Util.powerToString(linhKhiPoint) + "/" + Util.powerToString(maxLinhKhiPoint) + "\n" + "|7|✧ Căn cốt: " + canCot + "\n" + "|7|✦ Ngộ tính: " + ngoTinh + "\n" + "|5|✧ Thiên phú: " + getThienPhu() + "\n" + "|5|✦ Đã tu luyện: " + getYearOpened() + "\n" + "|2|✯ Cảnh giới tiếp theo: " + getNextLevelStr() + "\n" + "|1|✪ Tỷ lệ đột phá: " + getLevelUpPercent() + "%\n" + "|7|✦ Cảnh giới càng cao, tỷ lệ đột phá càng thấp\n" + "|5|❖ Đánh giá tổng thể: " + pointForMe();
+        String info = "" + "|7|❖ THÔNG TIN TU TIÊN ❖\n" + "|5|✦ Cảnh giới: " + getFormatName() + "\n" + "|5|✧ Tu vi: " + getCurrentExpAsString() + "\n" + "|5|✦ Linh khí: " + Util.powerToString(linhKhiPoint) + "/" + Util.powerToString(maxLinhKhiPoint) + "\n" + "|7|✧ Căn cốt: " + newCanCot + "\n" + "|7|✦ Ngộ tính: " + newNgoTinh + "\n" + "|5|✧ Thiên phú: " + getThienPhu() + "\n" + "|5|✦ Đã tu luyện: " + getYearOpened() + "\n" + "|2|✯ Cảnh giới tiếp theo: " + getNextLevelStr() + "\n" + "|1|✪ Tỷ lệ đột phá: " + getLevelUpPercent() + "%\n" + "|7|✦ Cảnh giới càng cao, tỷ lệ đột phá càng thấp\n" + "|5|❖ Đánh giá tổng thể: " + pointForMe();
 
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN, -1, info, "Chức Năng\nTu Tiên", "Thông Tin\nCông Pháp", "Thông Tin\nTiên Pháp", "Thông Tin\nLinh Căn", "Cài đặt\nLinh Khí", "Auto\nNghề Phụ", "Pháp bảo");
     }
 
+    @Override
+    public float getXDiemCanCot() {
+        return newCanCot / 1400f;
+    }
 
-//    public void getInfoStr() {
-//        if (!player.tuTien.isTuTien()) {
-//            Service.gI().sendThongBaoOK(player, "Bạn cần mở tu tiên");
-//            return;
-//        }
-//        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN, -1, "|7|Thông Tin Tu Tiên\n" + "|5|Cảnh Giới : " + getFormatName() + "\n" + "|5|Tu Vi : " + getCurrentExpAsString() + "\n" + "Linh Khí : " + Util.powerToString(linhKhiPoint) + "/" + Util.powerToString(maxLinhKhiPoint) + "\n|7|Căn Cốt : " + canCot + "\n" + "|7|Ngộ tính : " + ngoTinh + "\n" + "Thiên phú : " + getThienPhu() + "\nĐã tu luyện : " + getYearOpened() + "\n" + "|2|Cảnh giới tiếp theo : " + getNextLevelStr() + "\n" + "|1|Tỷ lệ đột phá : " + getLevelUpPercent() + "\n" + "|7|Cảnh giới càng cao tỷ lệ đột phá càng thấp" + "\n" + "|5|Đánh giá : " + pointForMe(), "Chức Năng\nTu Tiên", "Thông Tin\nCông Pháp", "Thông Tin\nTiên Pháp", "Thông Tin\nLinh Căn", "Cài đặt\nLinh Khí", "Auto\nNghề Phụ", "Pháp bảo");
-//        // handle process string
-//    }
+    @Override
+    public float getXDiemNgoTinh() {
+        return newNgoTinh / 1400f;
+    }
+
+    @Override
+    public float getXDiemThienPhu() {
+        return super.getXDiemThienPhu();
+    }
 
     public String pointForMe() {
         int diem = 0;
         diem += (level + (subLevel)) * level;
-        congPhap.calcSlThuocTinh();
-        diem += congPhap.slThuocTinh;
+        diem += congPhap.optionCongPhaps.size();
         diem += linhCan.getThuocTinhLinhCan().getParam();
         diem += (tienPhaps.size() * 5);
         String[] danhGia = new String[]{"Yếu Gà Một Cái", "Có Chút Thành Tựu", "Uy Trấn Một Phương", "Vang Danh Vạn Cổ", "Đạp Nát Tinh Không"};
@@ -693,9 +740,6 @@ public class TuTien extends BasePoint implements IBaseAction {
         }
         if (diem > 500) {
             return danhGia[1];
-        }
-        if (diem > 100) {
-            return danhGia[0];
         }
         return danhGia[0];
     }
@@ -726,7 +770,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public void showMenuTuTien() {
-        String npcSay = "|7|❖ Thông Tin Thuộc Tính Tu Tiên ❖\n" + "|2|➤ HP & MP: " + getHPMPBuff() + "%\n" + "|2|➤ Sát Thương: +" + getDameBuff() + "%\n" + "|1|➤ Phòng Thủ: +" + getDefBuff() + "%\n" + "|1|➤ Né Tránh: +" + getNeBuff() + "%\n" + "|1|➤ Chính Xác: +" + getChinhXacBuff() + "%\n" + "|1|➤ Thể Chất: +" + theChat + " Điểm\n" + "|1|➤ Sức Mạnh: +" + sucManh + " Điểm\n" + "|1|➤ Tốc Độ: +" + nhanhNhen + " Điểm\n" + "|1|➤ Tinh Thần: +" + tinhThan + " Điểm\n" + "|5|➤ Đột Phá Thiên Đạo:" + (xParam - 1) + " lần\n" + "|5|➤ Chiến Lực:" + (Util.powerToString(getChienLuc())) + " điểm\n" + "|7|✧ Cảnh giới càng cao, thuộc tính càng mạnh!";
+        String npcSay = "|7|❖ Thông Tin Thuộc Tính Tu Tiên ❖\n" + "|2|➤ HP & MP: " + getHPMPBuff() + "%\n" + "|2|➤ Sát Thương: +" + getDameBuff() + "%\n" + "|1|➤ Phòng Thủ: +" + getDefBuff() + "%\n" + "|1|➤ Né Tránh: +" + getNeBuff() + "%\n" + "|1|➤ Chính Xác: +" + getChinhXacBuff() + "%\n" + "|1|➤ Thể Chất: +" + newTc + " Điểm\n" + "|1|➤ Sức Mạnh: +" + newSM + " Điểm\n" + "|1|➤ Tốc Độ: +" + newNN + " Điểm\n" + "|1|➤ Tinh Thần: +" + newTT + " Điểm\n" + "|5|➤ Đột Phá Thiên Đạo:" + (xParam - 1) + " lần\n" + "|5|➤ Chiến Lực:" + (Util.powerToString(getChienLuc())) + " điểm\n" + "|7|✧ Cảnh giới càng cao, thuộc tính càng mạnh!";
 
         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_PLAYER_TU_TIEN_F, -1, npcSay, "Đột Phá\nCảnh Giới", "Tán Công", "Đóng");
     }
@@ -791,35 +835,9 @@ public class TuTien extends BasePoint implements IBaseAction {
         return percent;
     }
 
-    public void handleHutChiSo() {
-        if (congPhap != null) {
-            if (congPhap.hutDame > 0) {
-                congPhap.totalHutDame += congPhap.hutDame;
-                if (congPhap.totalHutDame > congPhap.phamchat.maxHutDame) {
-                    congPhap.totalHutDame = congPhap.phamchat.maxHutDame;
-                } else {
-                    Service.gI().sendThongBao(player, "Bạn được tăng cường " + congPhap.hutDame + " sức đánh từ việc tiêu diệt quái");
-                }
-            }
-            if (congPhap.hutHp > 0) {
-                congPhap.totalHutHp += congPhap.totalHutHp;
-                if (congPhap.totalHutHp > congPhap.phamchat.maxHutHpMp) {
-                    congPhap.totalHutHp = congPhap.phamchat.maxHutHpMp;
-                }
-            }
-            if (congPhap.hutMp > 0) {
-                congPhap.totalHutMp += congPhap.hutMp;
-                if (congPhap.totalHutMp > congPhap.phamchat.maxHutHpMp) {
-                    congPhap.totalHutMp = congPhap.phamchat.maxHutHpMp;
-                }
-            }
-        }
-    }
-
     public void rewnewLinhCanEffect() {
         if (player.isAdmin()) {
             linhCan = ratioLinhCan(true);
-            congPhap = new CongPhap(player.tuTien);
             Service.gI().sendThongBao(player, "Đã tẩy linh căn thành công");
             return;
         }
@@ -831,19 +849,14 @@ public class TuTien extends BasePoint implements IBaseAction {
                 return;
             }
             if (Util.isTrue(1, 100)) {
-                LinhCan oldLinhCan = linhCan;
                 linhCan = ratioLinhCan(false);
-                // renew cong phap
-                if (oldLinhCan.getLinhCanType() != linhCan.getLinhCanType()) {
-                    congPhap = new CongPhap(player.tuTien);
-                }
             } else {
                 linhCan.getThuocTinhLinhCan().setParam(linhCan.getThuocTinhLinhCan().ratioThuocTinhLinhCan());
             }
         }
     }
 
-//    public void useBestAttackTienPhap() {
+    //    public void useBestAttackTienPhap() {
 //        if (this.tienPhaps.size() == 0) return;
 //        if (tienPhapsUsed.size() + 1 > MAX_USE_TP) return;
 //        TienPhap best = null;
@@ -880,7 +893,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     private long getChienLuc() {
-        return (long) ((Math.max(level, 1) + Math.max(subLevel, 1)) * Math.max(xParam, 2) * Math.max(getXDiemThienPhu(), 2) * Math.max(congPhap.phamchat.id, 2) * Math.max(linhCan.getThuocTinhLinhCan().getParam(), 2));
+        return (long) ((Math.max(level, 1) + Math.max(subLevel, 1)) * Math.max(xParam, 2) * Math.max(getXDiemThienPhu(), 2) * Math.max(congPhap.tier, 2) * Math.max(linhCan.getThuocTinhLinhCan().getParam(), 2));
     }
 
     public void subExp(long l) {
@@ -900,12 +913,20 @@ public class TuTien extends BasePoint implements IBaseAction {
         subLevel = 0;
         exp = 0;
         maxExp = getMaxExp();
-        congPhap = new CongPhap(this);
+        congPhap = new CongPhapTuTien(player);
         linhCan = new LinhCan(this);
         tienPhaps = new ArrayList<>();
         xParam = 0;
         canCot = 0;
         ngoTinh = 0;
         Service.gI().sendThongBao(player, "Bạn đã tán công tu tiên");
+    }
+
+    public void resetCanhGioi() {
+        level = 0;
+        subLevel = 1;
+        exp = 0;
+        maxExp = getMaxExp();
+        Service.gI().sendThongBao(player, "Bạn đã reset cảnh giới tu tiên");
     }
 }

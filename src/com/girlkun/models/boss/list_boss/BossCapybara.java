@@ -19,7 +19,7 @@ public class BossCapybara extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         int ratio = Util.nextInt(1, 10);
         if (Util.isTrue(ratio, 100)) {

@@ -32,7 +32,7 @@ public class XenBoHung extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.achievement.plusCount(3);
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         ItemMap it = new ItemMap(this.zone, 16, 1, this.location.x, this.location.y, plKill.id);
         Service.getInstance().dropItemMap(this.zone, it);

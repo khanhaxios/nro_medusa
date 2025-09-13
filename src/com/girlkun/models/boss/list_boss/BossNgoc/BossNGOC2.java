@@ -30,7 +30,7 @@ public class BossNGOC2 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         int randHN = Util.nextInt(10000, 50000);
         plKill.getMaster().inventory.ruby += randHN;
         Service.gI().sendMoney(plKill);

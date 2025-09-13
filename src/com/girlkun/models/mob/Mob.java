@@ -151,8 +151,6 @@ public class Mob {
                     if (plAtt.nhiemVuDeTu != null) {
                         plAtt.nhiemVuDeTu.checkDoneTaskKillMob(this);
                     }
-                    // hut dame
-                    plAtt.tuTien.handleHutChiSo();
                 }
                 this.lastTimeDie = System.currentTimeMillis();
                 if (this.id == 13) {
@@ -586,7 +584,7 @@ public class Mob {
                 player.tuMa.addExp(exp);
 //                PlayerService.gI().sendTuTienAddTuVi(player, exp);
 //                PlayerService.gI().sendTuTienTuVi(player);
-                if (player.tuMa.congPhapTuMa != null && player.tuMa.congPhapTuMa.ten != null) {
+                if (player.tuMa.congPhapTuMa != null && player.tuMa.congPhapTuMa.tenCongPhap != null) {
                     player.tuMa.congPhapTuMa.handleHutMaKhi(this);
                 }
             }
@@ -617,27 +615,19 @@ public class Mob {
                 list.add(new ItemMap(zone, 2050, Util.nextInt(1, 2), this.location.x, yEnd, player.id));
             }
         }
-
-        if (player.tuTien.isTuTien() && player.tuTien.congPhap.getTenCongPhap() != null) {
-            long dtt = player.tuTien.congPhap.phamchat.id + 1 + Util.nextInt(10);
-            if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffCongPhap()) {
-                dtt *= player.luyenDanSu.danDuocEffect.xBuffCongPhap;
-            }
-            player.tuTien.congPhap.addDoThuanThuc(dtt);
-        }
         if (player.tuMa.isTuMa()) {
             // roi huyet dan
             if (Util.isTrue(5, 100)) {
                 list.add(new ItemMap(zone, 2077, 1, this.location.x, yEnd, player.id));
             }
             // roi hon
-            if (player.tuMa.luyenHon.isOpen && player.tuMa.congPhapTuMa.ten != null) {
-                if (Util.isTrue(30 + player.tuMa.congPhapTuMa.phamChat + 1, 100)) {
+            if (player.tuMa.luyenHon.isOpen && player.tuMa.congPhapTuMa.tenCongPhap != null) {
+                if (Util.isTrue(30 + player.tuMa.congPhapTuMa.tier + 1, 100)) {
                     player.tuMa.luyenHon.addHon(1);
                 }
             }
-            if (player.tuMa.luyenCot.isOpen && player.tuMa.congPhapTuMa.ten != null) {
-                if (Util.isTrue(5 + player.tuMa.congPhapTuMa.phamChat + 1, 100)) {
+            if (player.tuMa.luyenCot.isOpen && player.tuMa.congPhapTuMa.tenCongPhap != null) {
+                if (Util.isTrue(5 + player.tuMa.congPhapTuMa.tier + 1, 100)) {
                     player.tuMa.luyenCot.addManhCot(Util.nextInt(1, 5));
                 }
             }

@@ -28,7 +28,7 @@ public class BossViet extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         int[] itemDos = new int[]{2030};
         int[] NRs = new int[]{722};

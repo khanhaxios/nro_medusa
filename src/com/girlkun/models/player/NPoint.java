@@ -620,28 +620,7 @@ public class NPoint {
 
             }
         }
-        if (player.luyenThe != null && player.luyenThe.isLuyenTheReal()) {
-            player.luyenThe.calcPoint();
-        }
-        if (player.tuTien != null && player.tuTien.isTuTien()) {
-            player.tuTien.calcPoint();
-        }
-        if (player.huyet.isKichHoat()) {
-            player.huyet.calcPoint();
-        }
-        if (player.mach != null && player.mach.isOpen) {
-            player.mach.calcPoint();
-        }
-        if (player.tuMa != null && player.tuMa.isTuMa()) {
-            player.tuMa.calcPoint();
-        }
-        if (!player.phapBaos.isEmpty()) {
-            for (PhapBao phapBao : player.phapBaos) {
-                if (phapBao != null) {
-                    phapBao.calcPoint();
-                }
-            }
-        }
+
         if (this.player.isPl() && this.player.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
             for (Item item : this.player.inventory.itemsBag) {
                 if (item.isNotNullItem() && item.template.id == 921) {
@@ -709,9 +688,31 @@ public class NPoint {
                 }
             }
         }
-
+        if (player.luyenThe != null && player.luyenThe.isLuyenTheReal()) {
+            player.luyenThe.calcPoint();
+        }
+        if (player.tuTien != null && player.tuTien.isTuTien()) {
+            player.tuTien.calcPoint();
+        }
+        if (player.huyet.isKichHoat()) {
+            player.huyet.calcPoint();
+        }
+        if (player.mach != null && player.mach.isOpen) {
+            player.mach.calcPoint();
+        }
+        if (player.tuMa != null && player.tuMa.isTuMa()) {
+            player.tuMa.calcPoint();
+        }
+        if (!player.phapBaos.isEmpty()) {
+            for (PhapBao phapBao : player.phapBaos) {
+                if (phapBao != null) {
+                    phapBao.calcPoint();
+                }
+            }
+        }
         setDameTrainArmor();
         setBasePoint();
+
     }
 
     private void calcFusionPoint(Item item) {
@@ -1114,13 +1115,13 @@ public class NPoint {
         this.hpMax += pointAdd;
         // diem the chat
         if ((player.tuTien != null && player.tuTien.isTuTien())) {
-            this.hpMax += this.hpMax * (player.tuTien.theChat * 20) / 100;
+            this.hpMax += this.hpMax * (player.tuTien.newTc * 20) / 100;
         }
         if (player.tuMa != null && player.tuMa.isTuMa()) {
             this.hpMax += this.hpMax * (player.tuMa.theChat * 5) / 100;
         }
         if (player.luyenThe != null && player.luyenThe.isLuyenTheReal()) {
-            this.hpMax += this.hpMax * (player.luyenThe.sucManh * 30) / 100;
+            this.hpMax += this.hpMax * (player.luyenThe.theChat * 30) / 100;
         }
         if (player.taixiu.chuyensinh > 0) {
             this.hpMax += this.hpMax * (3 * player.taixiu.chuyensinh) / 100;
@@ -1347,7 +1348,7 @@ public class NPoint {
         }
         this.mpMax += pointAdd;
         if ((player.tuTien != null && player.tuTien.isTuTien())) {
-            this.mpMax += this.mpMax * (player.tuTien.theChat * 20) / 100;
+            this.mpMax += this.mpMax * (player.tuTien.newTc * 20) / 100;
         }
         if (player.tuMa != null && player.tuMa.isTuMa()) {
             this.mpMax += this.mpMax * (player.tuMa.theChat * 5) / 100;

@@ -25,7 +25,7 @@ public class Black extends Boss {
     @Override
     public void reward(Player plKill) {
         plKill.achievement.plusCount(3);
-        plKill.inventory.event++;
+        
         long dn = Util.nextInt(10000, 25000);
         plKill.session.vnd += dn;
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss và " + dn + " Điểm nạp");

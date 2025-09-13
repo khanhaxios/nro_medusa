@@ -6,10 +6,10 @@ package com.girlkun.services;
 
 import com.girlkun.models.player.Player;
 import com.girlkun.network.io.Message;
-import com.girlkun.server.io.MySession;
+import com.girlkun.server.ServerManager;
 import com.girlkun.utils.Logger;
-import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -82,7 +82,7 @@ public class ChatGlobalService implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (ServerManager.isRunning) {
             try {
                 if (!listChatting.isEmpty()) {
                     ChatGlobal chat = listChatting.get(0);

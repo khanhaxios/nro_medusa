@@ -355,7 +355,7 @@ public class PhapBao implements Cloneable {
     }
 
     public void khoaDong(Item.ItemOption itemOption) {
-        if (dongKhoa.stream().filter(t -> (t.optionTemplate.id == itemOption.optionTemplate.id && t.param == itemOption.param)).toList().size() > 0) {
+        if (!dongKhoa.stream().filter(t -> (t.optionTemplate.id == itemOption.optionTemplate.id && t.param == itemOption.param)).toList().isEmpty()) {
             dongKhoa.removeIf(f -> (f.optionTemplate.id == itemOption.optionTemplate.id && f.param == itemOption.param));
             Service.gI().sendThongBao(player, "Đã mở khóa dòng " + itemOption.getOptionString());
         } else {

@@ -510,6 +510,14 @@ public class ConstNpc {
     public static final int CONFIRM_BO_NV = -9821732;
     public static final int MENHU_CT_NHIEM_VU = -2987122;
     public static final int MEBU_TT_DE = -6128378;
+    public static final int MENU_CP_TU_TIEN = -1312321;
+    public static final int MENU_CP_TU_TIEN_TANG_CAP = -23122222;
+    public static final int MENU_CP_TU_TIEN_TANG_PHAM = -219839721;
+    public static final int MENU_KICH_HOAT_CONG_PHAP_TU_MA = -2103712;
+    public static final int MENU_THANG_CAP_CONG_PHAP_TU_MA = -9128731;
+    public static final int MENU_THANG_PHAM_CONG_PHAP_TU_MA = -21683123;
+    public static final int MENU_DOI_CONG_PHAP_TU_MA = -9217321;
+    public static final int MENU_CAN_NUOT_CONG_PHAP_TU_MA = -9281732;
 }
 
 /**

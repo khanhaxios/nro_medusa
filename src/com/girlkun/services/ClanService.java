@@ -126,17 +126,15 @@ public class ClanService {
     public void getClan(Player player, Message msg) {
         try {
             byte action = msg.reader().readByte();
+            byte imgId;
             switch (action) {
-                case REQUEST_FLAGS_CHOOSE_CREATE_CLAN:
+                case REQUEST_FLAGS_CHOOSE_CREATE_CLAN, REQUEST_FLAGS_CHOOSE_CHANGE_CLAN:
                     FlagBagService.gI().sendListFlagClan(player);
                     break;
                 case ACCEPT_CREATE_CLAN:
-                    byte imgId = msg.reader().readByte();
+                    imgId = msg.reader().readByte();
                     String name = msg.reader().readUTF();
                     createClan(player, imgId, name);
-                    break;
-                case REQUEST_FLAGS_CHOOSE_CHANGE_CLAN:
-                    FlagBagService.gI().sendListFlagClan(player);
                     break;
                 case ACCEPT_CHANGE_INFO_CLAN:
                     imgId = msg.reader().readByte();

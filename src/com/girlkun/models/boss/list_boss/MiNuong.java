@@ -171,11 +171,7 @@ public class MiNuong extends Boss {
         }
         if (this.zone != null) {
             if (this.currentLevel == 0) {
-                if (this.parentBoss == null) {
-                    ChangeMapService.gI().changeMap(this, this.zone, this.location.x, this.location.y);
-                } else {
-                    ChangeMapService.gI().changeMap(this, this.zone, this.location.x, this.location.y);
-                }
+                ChangeMapService.gI().changeMap(this, this.zone, this.location.x, this.location.y);
 //                this.wakeupAnotherBossWhenAppear();
             } else {
                 ChangeMapService.gI().changeMap(this, this.zone, this.location.x, this.location.y);

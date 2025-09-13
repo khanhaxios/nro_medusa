@@ -31,7 +31,7 @@ public class BossMOI1 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         int randTK = Util.nextInt(1, 50);
         // Hoa Hon Thach

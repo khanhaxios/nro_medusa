@@ -171,7 +171,7 @@ public class Clan {
     }
 
     public List<ClanMessage> getCurrClanMessages() {
-        List<ClanMessage> list = new ArrayList();
+        List<ClanMessage> list = new ArrayList<>();
         if (this.clanMessages.size() <= 20) {
             list.addAll(this.clanMessages);
         } else {

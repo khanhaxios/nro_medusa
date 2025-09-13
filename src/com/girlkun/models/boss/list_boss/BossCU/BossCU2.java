@@ -30,7 +30,6 @@ public class BossCU2 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
         int a = 0;
         for (int i = 0; i < 8; i++) {
             ItemMap it1 = new ItemMap(this.zone, 1340, 1, this.location.x + a, this.zone.map.yPhysicInTop(this.location.x,

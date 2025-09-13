@@ -51,7 +51,9 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
 
     @Override
     public long getExpCanGain(Mob targetMob) {
-        return level * 100;
+        long expAdd = level * 100;
+        expAdd += expAdd * player.tuTien.congPhap.tlExpLucNghe / 100;
+        return expAdd;
     }
 
     @Override
@@ -349,7 +351,7 @@ public class LuyenDanSu extends BasePoint implements IBaseAction {
     }
 
     public void showMenuChonDanPhuong() {
-        if (player.luyenDanSu.danPhuongs.size() == 0) {
+        if (player.luyenDanSu.danPhuongs.isEmpty()) {
             Service.gI().sendThongBao(player, "Bạn chưa học đan phương nào cả");
             return;
         }

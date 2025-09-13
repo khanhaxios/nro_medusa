@@ -30,7 +30,7 @@ public class BossVANG1 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 100 Thỏi Vàng");
         ItemMap it = new ItemMap(this.zone, 457, 92, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);

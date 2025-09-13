@@ -31,7 +31,7 @@ public class BossCU extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         // drop da medusa
         ItemMap daMedusa = new ItemMap(this.zone, 1079, Util.nextInt(1, 3), this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);

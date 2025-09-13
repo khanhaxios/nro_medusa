@@ -31,8 +31,8 @@ public class BossGokuUI2 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
-        plKill.inventory.event++;
+        
+        
         Util.ratioTrangBi(zone, 1, this.location.x, this.location.y, plKill.id, 5, 5);
         ItemMap dns = new ItemMap(zone, 674, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                 this.location.y - 24), plKill.id);

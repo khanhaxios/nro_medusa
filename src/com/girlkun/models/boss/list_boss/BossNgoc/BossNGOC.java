@@ -29,7 +29,7 @@ public class BossNGOC extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 50k Hồng Ngọc");
 
         plKill.getMaster().inventory.ruby += Util.nextInt(10000, 50000);

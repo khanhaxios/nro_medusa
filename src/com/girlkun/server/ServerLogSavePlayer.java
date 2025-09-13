@@ -39,7 +39,7 @@ public class ServerLogSavePlayer implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (ServerManager.isRunning) {
             while (!this.list.isEmpty()) {
                 String text = this.list.remove(0);
                 try {

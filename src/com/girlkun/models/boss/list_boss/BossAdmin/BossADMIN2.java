@@ -31,7 +31,7 @@ public class BossADMIN2 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         //SK 2T9
 //        ItemMap beDa = new ItemMap(this.zone, 1541, 2, this.location.x, this.zone.map.yPhysicInTop(this.location.x,

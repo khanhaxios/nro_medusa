@@ -194,7 +194,7 @@ public class Trade {
                 if (item.template.id == 590 || item.template.id == 1129 || item.template.id == 921 || item.template.id == 1132) {
                     return true;
                 } else if (item.template.id == 457 || item.template.id == 1416 || item.template.id == 1417 || item.template.id == 1066 || item.template.id == 1067 || item.template.id == 1068 || item.template.id == 1069 || item.template.id == 1070
-                        || item.template.id == 1078 || item.template.id == 611 || item.template.id == 1132 || item.template.id == 2000 || item.template.id == 2001 || item.template.id != 2002 || item.template.id != 380) {
+                        || item.template.id == 1078 || item.template.id == 611 || item.template.id == 2000 || item.template.id == 2001 || item.template.id != 2002 || item.template.id != 380) {
                     return false;
                 }
             case 5: //cải trang

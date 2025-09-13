@@ -26,7 +26,7 @@ public class BossChienThan extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         int[] DaTienMon = new int[]{1260, 1261, 1262};
         int randomDA = new Random().nextInt(DaTienMon.length);

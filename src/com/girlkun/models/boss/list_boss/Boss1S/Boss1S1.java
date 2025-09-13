@@ -34,7 +34,7 @@ public class Boss1S1 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");
         byte randomDo = (byte) new Random().nextInt(Manager.itemIds_TL.length - 1);
         if (Util.isTrue(50, 100)) {

@@ -35,7 +35,7 @@ public class MaTroiXanh extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        plKill.inventory.event++;
+        
         plKill.inventory.eventSanMa++;
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm sự kiện săn Ma");
         Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 1 điểm săn Boss");

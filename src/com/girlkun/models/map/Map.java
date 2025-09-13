@@ -20,6 +20,7 @@ import com.girlkun.models.npc.Npc;
 import com.girlkun.models.npc.NpcFactory;
 import com.girlkun.models.player.Player;
 import com.girlkun.server.Manager;
+import com.girlkun.server.ServerManager;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
@@ -126,7 +127,7 @@ public class Map implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (ServerManager.isRunning) {
             try {
                 long st = System.currentTimeMillis();
                 for (Zone zone : this.zones) {
@@ -328,7 +329,7 @@ public class Map implements Runnable {
 
     public boolean hasPlayersInAnyZone() {
         for (Zone zone : zones) {
-            if (zone.getHumanoids().size() > 0) {
+            if (!zone.getHumanoids().isEmpty()) {
                 return true;
             }
         }

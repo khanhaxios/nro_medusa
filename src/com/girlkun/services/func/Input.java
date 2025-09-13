@@ -302,7 +302,7 @@ public class Input {
                     GiftcodeViet.gI().giftCode(player, text[0]);
                     break;
                 case FIND_PLAYER:
-                    Player pl = Client.gI().getPlayerOrigin(text[0]);
+                    Player pl = Client.gI().getPlayerById(Integer.parseInt(text[0]));
                     if (pl != null) {
                         NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_FIND_PLAYER, -1, "Ngài muốn..?", new String[]{"Đi tới\n" + pl.name, "Gọi " + pl.name + "\ntới đây", "Đổi tên", "Ban", "Kick"}, pl);
                     } else {

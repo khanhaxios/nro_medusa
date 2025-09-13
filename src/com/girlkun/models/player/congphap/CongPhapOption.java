@@ -7,7 +7,7 @@ package com.girlkun.models.player.congphap;
 public class CongPhapOption {
     public int id;
     public String name;
-    public String param;
+    public int param;
 
     public String getName() {
         return name.replace("#", String.valueOf(param));
@@ -21,7 +21,7 @@ public class CongPhapOption {
         this.name = name;
     }
 
-    public CongPhapOption(int id, String name, String param) {
+    public CongPhapOption(int id, String name, int param) {
         this.id = id;
         this.name = name;
         this.param = param;
