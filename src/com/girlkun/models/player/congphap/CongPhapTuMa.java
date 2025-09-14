@@ -89,6 +89,7 @@ public class CongPhapTuMa extends BaseCongPhap {
         isKichHoat = true;
         totalDameBuff += getDameBuffByLevel();
         totalHpMpBuff += getHpMpBuffByLevel();
+        Service.gI().point(player);
         Service.gI().sendThongBao(player, String.format("Bạn đã kích hoạt công pháp %s thành công", tenCongPhap));
     }
 

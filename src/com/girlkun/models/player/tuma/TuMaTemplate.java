@@ -18,7 +18,6 @@ public class TuMaTemplate {
     }
 
     public static List<LinhCanTuMa> LINH_CAN = new ArrayList<>();
-    public static List<CongPhapTuMa> CONG_PHAP = new ArrayList<>();
 
     public void initLinhCan() {
         LINH_CAN.add(new LinhCanTuMa("Huyết Linh Căn", "Linh căn khát máu hút #% HP của đối thủ chuyển thành của mình", 0, (byte) 0));
@@ -28,16 +27,7 @@ public class TuMaTemplate {
         LINH_CAN.add(new LinhCanTuMa("Bạo Thực Linh Căn", "Linh căn cuồng bạo gây sát thương bằng #%Hp của đối thủ", 0, (byte) 4));
     }
 
-    public void initCongPhap() {
-        CONG_PHAP.add(new CongPhapTuMa("Hấp Huyết Tà Pháp"));
-        CONG_PHAP.add(new CongPhapTuMa("Thiên Sát"));
-        CONG_PHAP.add(new CongPhapTuMa("Ma Ảnh Quyết"));
-        CONG_PHAP.add(new CongPhapTuMa("Hắc Ngọc Tịch"));
-        CONG_PHAP.add(new CongPhapTuMa("Bạo Thực Lục"));
-    }
-
     public void initTuMaTemplate() {
         initLinhCan();
-        initCongPhap();
     }
 }

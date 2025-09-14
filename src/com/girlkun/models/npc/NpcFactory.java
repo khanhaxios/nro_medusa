@@ -7645,6 +7645,21 @@ public class NpcFactory {
                                 break;
                         }
                         break;
+                    case ConstNpc.MENU_KICH_HOAT_CONG_PHAP_TU_MA:
+                        if (select == 0) {
+                            player.tuMa.congPhapTuMa.kickHoat();
+                        }
+                        break;
+                    case ConstNpc.MENU_THANG_CAP_CONG_PHAP_TU_MA:
+                        if (select == 0) {
+                            player.tuMa.congPhapTuMa.levelUp();
+                        }
+                        break;
+                    case ConstNpc.MENU_THANG_PHAM_CONG_PHAP_TU_MA:
+                        if (select == 0) {
+                            player.tuMa.congPhapTuMa.tangPham();
+                        }
+                        break;
                     case ConstNpc.MENU_CHON_THON_PHE:
                         if (select == 0) {
                             player.tuMa.congPhapTuMa.thonPheDeTu();

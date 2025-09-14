@@ -26,7 +26,7 @@ public class CongPhapFactory {
     }
 
     public CongPhapTuMa createCongPhapTuMaSoCap(byte heCongPhap, Player player) {
-        CongPhapTuMa congPhapTuMa = CongPhapTemplate.getI().getCongPhapTuMa(Util.nextInt(1, CongPhapTemplate.getI().CONG_PHAP_TU_MA.size() - 1));
+        CongPhapTuMa congPhapTuMa = CongPhapTemplate.getI().getCongPhapTuMa(Util.nextInt(1, CongPhapTemplate.getI().CONG_PHAP_TU_MA.size()));
         congPhapTuMa.heCongPhap = heCongPhap;
         congPhapTuMa.tier = 0;
         congPhapTuMa.level = 0;
@@ -43,7 +43,7 @@ public class CongPhapFactory {
     }
 
     public CongPhapTuTien createCongPhapTuTienSoCapByHe(int select, Player player) {
-        CongPhapTuTien congPhapTuTien = CongPhapTemplate.getI().getCongPhapTuTien(Util.nextInt(0, CongPhapTemplate.getI().CONG_PHAP_TU_TIEN.size() - 1));
+        CongPhapTuTien congPhapTuTien = CongPhapTemplate.getI().getCongPhapTuTien(Util.nextInt(1, CongPhapTemplate.getI().CONG_PHAP_TU_TIEN.size()));
         congPhapTuTien.heCongPhap = select;
         congPhapTuTien.player = player;
         congPhapTuTien.tier = 0;
