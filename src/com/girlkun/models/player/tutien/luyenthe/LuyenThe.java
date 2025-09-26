@@ -5,10 +5,15 @@
 package com.girlkun.models.player.tutien.luyenthe;
 
 import com.girlkun.consts.ConstNpc;
+import com.girlkun.models.item.Item;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.congphap.CongPhapLuyenThe;
+import com.girlkun.models.player.congphap.CongPhapOption;
+import com.girlkun.models.player.the_chat.BaseTheChat;
 import com.girlkun.models.player.tutien.base_tutien.BaseTuDuy;
 import com.girlkun.server.Manager;
+import com.girlkun.services.InventoryServiceNew;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
@@ -49,8 +54,8 @@ public class LuyenThe extends BaseTuDuy {
         if (toiThe != null && toiThe.isOpen()) {
             toiThe.calcPoint();
         }
-        player.nPoint.tlHutHp += getHutHPBuff();
-        player.nPoint.tlHutMp += getHPMPBuff();
+        player.nPoint.tlHutHp += (short) getHutHPBuff();
+        player.nPoint.tlHutMp += (short) getHPMPBuff();
         player.nPoint.xDameLinhCan += tinhThan;
         player.nPoint.tlDameCrit.add(nhanhNhen * 100);
         if (player.nPoint.xDameLinhCan > 0) {
@@ -60,7 +65,7 @@ public class LuyenThe extends BaseTuDuy {
 
     public int getMaxSlVK() {
         if (congPhapLuyenThe.isLearn()) {
-            return Math.max(congPhapLuyenThe.tang, 1);
+            return Math.max(congPhapLuyenThe.getLevel(), 1);
         }
         return 0;
     }
@@ -68,10 +73,25 @@ public class LuyenThe extends BaseTuDuy {
     public long getExpCanGain(Mob targetMob) {
         long exp = ((long) level * Util.nextInt(1, 3)) * targetMob.level;
         if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffLt()) {
-            exp *= player.luyenDanSu.danDuocEffect.xBuffLt;
+            exp *= (long) player.luyenDanSu.danDuocEffect.xBuffLt;
         }
-        if (congPhapLuyenThe != null && congPhapLuyenThe.isLearn() && congPhapLuyenThe.type == 0) {
-            exp *= 20;
+        if (player.nPoint.xTuVi > 0) {
+            exp += exp * player.nPoint.xTuVi / 100;
+        }
+        if (congPhapLuyenThe.isLearn()) {
+            for (CongPhapOption congPhapOption : congPhapLuyenThe.congPhapOptions) {
+                if (congPhapOption.id == 0) {
+                    exp += exp * congPhapOption.param / 100;
+                }
+            }
+        }
+        return exp;
+    }
+
+    public long getExpCanGain() {
+        long exp = ((long) level * Util.nextInt(1, 3));
+        if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffLt()) {
+            exp *= player.luyenDanSu.danDuocEffect.xBuffLt;
         }
         if (player.nPoint.xTuVi > 0) {
             exp += exp * player.nPoint.xTuVi / 100;
@@ -81,11 +101,6 @@ public class LuyenThe extends BaseTuDuy {
 
     public long calcMaxChanKhi() {
         long chanKhi = Math.max(level, 1) * 100_000L;
-        if (congPhapLuyenThe.isLearn()) {
-            if (congPhapLuyenThe.type == 1) {
-                chanKhi *= 5;
-            }
-        }
         chanKhi += chanKhi * player.nPoint.xLinhKhi / 100;
         return chanKhi;
     }
@@ -104,6 +119,10 @@ public class LuyenThe extends BaseTuDuy {
 
     public void levelUp() {
         if (canLevelUp()) {
+            if (!checkCongPhapCanLevelUp()) {
+                Service.gI().sendThongBao(player, "Bạn cần đột phá công pháp trước");
+                return;
+            }
             restExp();
             level += 1;
             timeThatBai = 0;
@@ -116,6 +135,56 @@ public class LuyenThe extends BaseTuDuy {
                 player.nhiemVuDeTu.checkDoneTaskDotPha();
             }
             Service.gI().point(player);
+        }
+    }
+
+    public void update() {
+        if (canLevelUp()) {
+            if (!checkCongPhapCanLevelUp()) {
+                player.isAutoDotPha = false;
+                return;
+            }
+            short[] idsItemNeed = new short[]{1264, 1265, 1266};
+            Item item1 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[0]);
+            Item item2 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[1]);
+            Item item3 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[2]);
+            if (item1 == null || item2 == null || item3 == null) {
+                return;
+            }
+            if (!canLevelUp) {
+                return;
+            }
+            float ratioUp = player.luyenThe.getLevelUpPercent();
+            if (Util.isTrue(ratioUp, 100)) {
+                player.luyenThe.levelUp();
+                Service.gI().sendThongBao(player, "Đột phá thành công");
+            } else {
+                player.luyenThe.restExp();
+                if (player.luyenThe.isNotLuyenThe()) {
+                    if (player.luyenThe.level < 30) {
+                        if (player.luyenThe.timeThatBai + 1 <= 10) {
+                            player.luyenThe.timeThatBai++;
+                        }
+                    } else if (player.luyenThe.level < 50) {
+                        if (player.luyenThe.timeThatBai + 1 <= 5) {
+                            player.luyenThe.timeThatBai++;
+                        }
+                    } else if (player.luyenThe.level < 90) {
+                        if (player.luyenThe.timeThatBai + 1 <= 3) {
+                            player.luyenThe.timeThatBai++;
+                        }
+                    }
+                } else {
+                    if (player.luyenThe.timeThatBai < 50) {
+                        player.luyenThe.timeThatBai++;
+                    }
+                }
+                Service.gI().sendThongBao(player, "Đột phá thất bại");
+            }
+            InventoryServiceNew.gI().subQuantityItemsBag(player, item1, player.luyenThe.level * 20);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, item2, player.luyenThe.level * 20);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, item3, player.luyenThe.level * 20);
+            InventoryServiceNew.gI().sendItemBags(player);
         }
     }
 
@@ -172,11 +241,6 @@ public class LuyenThe extends BaseTuDuy {
 
             percent = (exp / (maxExp * 1f)) * basePercent + timeThatBai;
         }
-
-        if (congPhapLuyenThe != null && congPhapLuyenThe.isLearn() && congPhapLuyenThe.type == 0) {
-            percent *= 2.5f;
-        }
-
         return percent;
     }
 
@@ -198,6 +262,10 @@ public class LuyenThe extends BaseTuDuy {
         return (level < MAX_LEVEL_FINAL) && canLevelUp;
     }
 
+    private boolean checkCongPhapCanLevelUp() {
+        return level / 555 <= congPhapLuyenThe.getLevel();
+    }
+
     public String getName() {
         return "Luyện Thể Tầng " + level;
     }
@@ -210,26 +278,45 @@ public class LuyenThe extends BaseTuDuy {
     }
 
     public float getDameBuff() {
+        int param = 0;
+        for (CongPhapOption congPhapOption : congPhapLuyenThe.congPhapOptions) {
+            if (congPhapOption.id == 6) {
+                param = congPhapOption.param;
+            }
+        }
+        float percent = (Math.max(1, level) * 6);
         if (isNotLuyenThe()) {
             return Math.max(1, level) * 3f;
         } else {
-            return Math.max(1, level) * 6;
+            return percent + (percent * param / 100);
         }
     }
 
     public float getHPMPBuff() {
+        int param = 0;
+        for (CongPhapOption congPhapOption : congPhapLuyenThe.congPhapOptions) {
+            if (congPhapOption.id == 6) {
+                param = congPhapOption.param;
+            }
+        }
         if (isNotLuyenThe()) {
             return Math.max(1, level) * 6f;
         } else {
-            return Math.max(1, level) * 10;
+            return (Math.max(1, level) * 10) + param;
         }
     }
 
     public float getDefBuff() {
+        int param = 0;
+        for (CongPhapOption congPhapOption : congPhapLuyenThe.congPhapOptions) {
+            if (congPhapOption.id == 6) {
+                param = congPhapOption.param;
+            }
+        }
         if (isNotLuyenThe()) {
             return Math.max(1, level) * 1f;
         } else {
-            return Math.max(1, level) * 2f;
+            return (Math.max(1, level) * 2f) + param;
         }
     }
 
@@ -411,5 +498,14 @@ public class LuyenThe extends BaseTuDuy {
 
     public void subChanKhi(int i) {
         chanKhi -= i;
+    }
+
+    public void showDoiCongPhapMenu(CongPhapLuyenThe congPhapLuyenThe) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("|7|Công pháp hiện tại").append("\n");
+        stringBuilder.append(this.congPhapLuyenThe.getThuocTinh());
+        stringBuilder.append("|7|Công pháp sẽ đổi").append("\n");
+        stringBuilder.append(congPhapLuyenThe.getThuocTinh());
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_D_CP_LT_CF, -1, stringBuilder.toString(), "Đổi CP", "Đóng");
     }
 }

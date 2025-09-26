@@ -16,6 +16,7 @@ import com.girlkun.models.player.Player;
 import com.girlkun.models.player.congphap.CongPhapOption;
 import com.girlkun.models.player.huyet_mach.Huyet;
 import com.girlkun.models.player.phapbao.PhapBao;
+import com.girlkun.models.player.the_chat.TheChatOption;
 import com.girlkun.models.player.tutien.luyendansu.DanDuoc;
 import com.girlkun.models.player.tutien.luyendansu.DanDuocEffect;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuong;
@@ -1274,14 +1275,22 @@ public class PlayerDAO {
 
                     JSONArray arrayCongPhap = new JSONArray();
                     if (player.luyenThe.congPhapLuyenThe.isLearn()) {
-                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.type);
-                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.tang);
-                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.tenCongPhap);
-                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.exp);
-                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.maxExp);
-                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.expGiaiDoan);
-                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.maxExpGiaiDoan);
-                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.giaiDoan);
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.id);
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.getLevel());
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.getTier());
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.getExp());
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.getMaxExp());
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.getExpTier());
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.getMaxExpTier());
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.maxPham);
+                        arrayCongPhap.add(player.luyenThe.congPhapLuyenThe.maxLevel);
+                        JSONArray arrayOtp = new JSONArray();
+                        for (CongPhapOption congPhapOption : player.luyenThe.congPhapLuyenThe.congPhapOptions) {
+                            JSONArray arrayOtpD = new JSONArray();
+                            arrayOtpD.add(congPhapOption.id);
+                            arrayOtpD.add(congPhapOption.param);
+                            arrayOtp.add(arrayOtpD);
+                        }
                     }
 
                     jsonArray.add(arrayCongPhap);
@@ -1564,9 +1573,35 @@ public class PlayerDAO {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            String dataThechat = new JSONArray().toJSONString();
+            try {
+                if (player.theChat != null && player.theChat.isKichHoat()) {
+                    jsonArray = new JSONArray();
+                    jsonArray.add(player.theChat.type);
+                    jsonArray.add(player.theChat.tenTheChat);
+                    jsonArray.add(player.theChat.giaiDoan);
+                    jsonArray.add(player.theChat.phamChat);
+                    jsonArray.add(player.theChat.exp);
+                    jsonArray.add(player.theChat.maxExp);
+                    jsonArray.add(player.theChat.expTayTuy);
+                    jsonArray.add(player.theChat.maxExpTayTuy);
+                    jsonArray.add(player.theChat.tyLePham);
+                    JSONArray otps = new JSONArray();
+                    for (TheChatOption theChatOption : player.theChat.theChatOptions) {
+                        JSONArray opt = new JSONArray();
+                        opt.add(theChatOption.id);
+                        opt.add(theChatOption.param);
+                        opt.add(theChatOption.name);
+                        otps.add(opt);
+                    }
+                    jsonArray.add(otps);
+                    dataThechat = jsonArray.toJSONString();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             // save sql
-            int rowEffect = GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?,data_tu_ma = ?,data_phap_bao=?,data_huyet =  ? ,data_mach=? ,detu=? where player_id=?", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, dataHuyet, dataMach, dataDeTu, player.id);
+            int rowEffect = GirlkunDB.executeUpdate("update tu_tien set data_tu_tien = ?,data_luyen_the = ? ,data_tran_phap = ?,data_ngu_thu=?,data_luyen_dan=?,data_phu_chu=?,data_linh_thuc = ?,data_khong_thi =  ?,data_tu_ma = ?,data_phap_bao=?,data_huyet =  ? ,data_mach=? ,detu=? ,the_chat=? where player_id=?", dataTuTien, dataLT, dataTranPhap, dataNguThu, dataLD, dataPC, dataLinhT, dataKT, dataTuMa, dataPhapBao, dataHuyet, dataMach, dataDeTu, dataThechat, player.id);
             Logger.log(String.valueOf(rowEffect));
         } catch (Exception e) {
             Logger.error("Loi save data tu tien" + e.getMessage());

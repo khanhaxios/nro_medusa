@@ -31,6 +31,7 @@ import com.girlkun.models.player.Referee1;
 import com.girlkun.models.player.TestDame;
 import com.girlkun.models.player.congphap.CongPhapOptionTemplate;
 import com.girlkun.models.player.congphap.CongPhapTemplate;
+import com.girlkun.models.player.the_chat.TheChatOption;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tuma.TuMaTemplate;
 import com.girlkun.models.player.tutien.base_tutien.TuTienTemplate;
@@ -267,6 +268,7 @@ public class Manager {
         TuMaTemplate.getI().initTuMaTemplate();
         CongPhapTemplate.getI().initTemplate();
         CongPhapOptionTemplate.initTemplate();
+        TheChatOption.initOptionTemplate();
         NguyenLieuFactory.loadNguyenLieu();
         DanPhuongFactory.getInstance().initTemplate();
         VoKyFactory.initTemplate();
@@ -404,7 +406,8 @@ public class Manager {
 //            MAPS.add(map);
 //            map.initMob(mapTemp.mobTemp, mapTemp.mobLevel, mapTemp.mobHp, mapTemp.mobX, mapTemp.mobY);
 //            map.initNpc(mapTemp.npcId, mapTemp.npcX, mapTemp.npcY);
-////            new Thread(map, "Update map " + map.mapName).start();
+
+    /// /            new Thread(map, "Update map " + map.mapName).start();
 //        }
 //        new Thread(() -> {
 //            while (!Maintenance.isRuning) {
@@ -443,7 +446,6 @@ public class Manager {
 //
 //        Logger.success("Init map thành công!\n");
 //    }
-
     public static void loadPart() {
         JSONValue jv = new JSONValue();
         JSONArray dataArray = null;

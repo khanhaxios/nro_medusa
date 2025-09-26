@@ -109,12 +109,14 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         this.name = "[" + TuTien.CANH_GIOI[this.level] + "]" + data.getName();
         this.gender = data.getGender();
         this.nPoint.mpg = 7_5_2002;
-        this.nPoint.dameg = (long) data.getDame();
-        this.nPoint.hpg = data.getHp()[Util.nextInt(0, data.getHp().length - 1)] * 1200;
+        this.nPoint.dameg = (long) data.getDame() / 100;
+        this.nPoint.hpg = data.getHp()[Util.nextInt(0, data.getHp().length - 1)] * 500;
         this.nPoint.hp = nPoint.hpg;
         this.nPoint.calPoint();
         this.initSkill();
         this.resetBase();
+        this.nPoint.tyLeGiamDame = Util.nextInt(50, 60) + level + subLevel;
+        this.nPoint.tlGiamDameChuan = Util.nextInt(60, 70) + level + subLevel;
     }
 
     protected void initSkill() {

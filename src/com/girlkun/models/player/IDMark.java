@@ -5,7 +5,9 @@
 package com.girlkun.models.player;
 
 import com.girlkun.consts.ConstNpc;
+import com.girlkun.models.item.Item;
 import com.girlkun.models.npc.Npc;
+import com.girlkun.models.player.congphap.CongPhapLuyenThe;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuong;
 import com.girlkun.models.player.tutien.luyenthe.VoKy;
 import com.girlkun.models.sangiaodich.danduoc.Transaction;
@@ -29,6 +31,8 @@ public class IDMark {
     public int choseLevelBdkb;
     public int timeWaitGoToBkb;
     public int timeWaitGoToGas;
+    public Item itemCuongHoaPhapBao;
+    public CongPhapLuyenThe congPhapLt;
     private int typeChangeMap; //capsule, ngọc rồng đen...
     private int indexMenu; //menu npc
     private int typeInput; //input

@@ -37,6 +37,9 @@ import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.huyet_mach.Huyet;
 import com.girlkun.models.player.huyet_mach.Mach;
 import com.girlkun.models.player.phapbao.PhapBao;
+import com.girlkun.models.player.the_chat.AmDuongThanhThe;
+import com.girlkun.models.player.the_chat.BaseTheChat;
+import com.girlkun.models.player.the_chat.HoangCoThanhThe;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.khongthisu.KhongThiSu;
 import com.girlkun.models.player.tutien.linhthucsu.LinhThucSu;
@@ -70,12 +73,13 @@ public class Player {
     public int pointPvpthuong;
     public int pointPvpVip;
     public boolean autoUse;
-
+    public BaseTheChat theChat;
     public LuckyPoolPlayer luckyPoolPlayer;
     public PhapBao phapBaoTamThoi;
     public boolean autoUseNow;
     public TranPhapSu tranPhapSu;
     public boolean muanhieu;
+    public boolean isAutoDotPha = false;
     public boolean useCanCau;
     public long lasttimeCanCau;
     public int iconCancau;
@@ -282,6 +286,7 @@ public class Player {
     public boolean isAutoDotPhaKhongThi;
 
     public Player() {
+        theChat = new BaseTheChat(this);
         nhiemVuDeTu = new NhiemVuDeTu(this);
         lastTimeSavePlayer = System.currentTimeMillis();
         lastTimeUseOption = System.currentTimeMillis();
@@ -1219,9 +1224,10 @@ public class Player {
             }
             if (!isStChuan) {
                 if (this.nPoint.tyLeGiamDame > 0) {
-                    damage -= damage * nPoint.tyLeGiamDame / 100;
+                    damage -= damage * nPoint.tyLeGiamDame / 1000;
                 }
             }
+            damage -= damage * nPoint.tlGiamDameChuan / 1000;
             if (plAtt != null) {
                 if (tuTien.isTuTien() && tuTien.linhCan.getLinhCanType() == 8 && damage > this.nPoint.hp && plAtt.tuTien.linhCan.getLinhCanType() != 7) {
                     damage = 0;
@@ -1232,15 +1238,25 @@ public class Player {
                     damage = 0;
                 }
             }
+
+            if (theChat instanceof HoangCoThanhThe hoangCoThanhThe) {
+                damage = hoangCoThanhThe.handleGiamDame(damage);
+            }
+
+            if (theChat instanceof AmDuongThanhThe amDuongThanhThe) {
+                damage = amDuongThanhThe.handleSubDame(damage);
+            }
             if (damage > nPoint.hp) {
                 this.nPoint.hp = 0;
             } else {
                 this.nPoint.subHP(damage);
             }
-            // healing hp after get dame
-//            if (tuTien != null && tuTien.isAutoUseTienPhap && (nPoint.hp / nPoint.hpMax * 100) < 20) {
-//                tuTien.useBestHealingTienPhap();
-//            }
+            if (this.luyenThe.isLuyenTheReal()) {
+                if (luyenThe.congPhapLuyenThe.isLearn()) {
+                    luyenThe.congPhapLuyenThe.addExp(luyenThe.congPhapLuyenThe.getExpCanGain());
+                }
+            }
+
             if (isDie()) {
                 if (this.isPl()) {
                     if (plAtt != null && this.zone.map.mapId == 175) {
@@ -1282,8 +1298,11 @@ public class Player {
         if (tuTien != null && tuTien.isTuTien()) {
             tuTien.subExp(tuTien.maxExp / 100);
         }
-        if (luyenThe.isLuyenTheReal()) {
+        if (luyenThe.isLuyenThe() || luyenThe.isLuyenTheReal()) {
             luyenThe.subExp(luyenThe.maxExp / 100);
+        }
+        if (tuMa.isTuMa()) {
+            tuMa.subExp(tuMa.maxExp / 100);
         }
         //xóa phù
         if (this.effectSkin.xHPKI > 1) {
@@ -1597,6 +1616,11 @@ public class Player {
             }
         }
         showMenuAutoNghePhu();
+    }
+
+    public void showMenuNghePhu() {
+        String text = "|7|Thông tin Lục Nghệ" + "\n" + "|5|Bạn có thể xem thông tin lục nghệ ở đây";
+        NpcService.gI().createMenuConMeo(this, ConstNpc.MENU_ALL_LUC_NGHE, -1, text, "Linh Thực", "Luyện Đan", "Luyện Khí", "Luyện Phù", "Trận Pháp", "Khống Thi", "Ngự Thú", "Auto");
     }
 
     public void showMenuAutoNghePhu() {

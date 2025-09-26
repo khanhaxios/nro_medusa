@@ -42,6 +42,7 @@ import com.girlkun.models.player.Pet.PetTaskType;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.Thu_TrieuHoi;
 import com.girlkun.models.player.phapbao.PhapBao;
+import com.girlkun.models.player.the_chat.BaseTheChat;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.base_tutien.CoDuyen;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
@@ -2249,7 +2250,7 @@ public class NpcFactory {
                     if (player.tuMa.isTuMa()) {
                         createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ở Đây không tiếp ma tu", "Đóng");
                     } else {
-                        createOtherMenu(player, ConstNpc.MENU_NPC_TU_TIEN, "Tu tiên a , nghèo thì tu cái gì tiên", "Giới Thiệu", "Học Tu \nTiên", "Học Tiên\nPháp", "Học Công Pháp", "Truyền Công", "Bí Kíp\nTu Tiên", "Huyết Mạch", "Tán Công");
+                        createOtherMenu(player, ConstNpc.MENU_NPC_TU_TIEN, "Tu tiên a , nghèo thì tu cái gì tiên", "Giới Thiệu", "Học Tu \nTiên", "Học Tiên\nPháp", "Học Công Pháp", "Truyền Công", "Thể Chất", "Huyết Mạch", "Tán Công");
                     }
                 }
             }
@@ -2296,14 +2297,25 @@ public class NpcFactory {
                                 break;
                             case 4:
                                 createOtherMenu(player, ConstNpc.TRUYEN_CONG_TU_TIEN, "Truyền công là biện pháp nhanh nhất để lên cấp tu tiên", "Truyền Công", "Từ Chối");
-//                                Truyen Công
                                 break;
                             case 5:
-                                createOtherMenu(player, ConstNpc.MENU_KH_HM, "Huyết mạch là một phần bổ trợ rất mạch giúp kích phát thêm tiềm năng từ bản thân", "Huyết", "Mạch");
+                                // the chat
+                                createOtherMenu(player, ConstNpc.THE_CHAT, "Thể chất là một phần mạnh mẽ trong hệ thống tu luyện", "Kích hoạt", "Từ chối");
                                 break;
                             case 6:
+                                createOtherMenu(player, ConstNpc.MENU_KH_HM, "Huyết mạch là một phần bổ trợ rất mạch giúp kích phát thêm tiềm năng từ bản thân", "Huyết", "Mạch");
+                                break;
+                            case 7:
                                 player.tuTien.reset();
                                 break;
+                        }
+                    } else if (player.iDMark.getIndexMenu() == ConstNpc.THE_CHAT) {
+                        if (select == 0) {
+                            player.theChat = player.theChat.kichHoat();
+                            if (player.theChat != null) {
+                                Service.gI().point(player);
+                                Service.gI().sendThongBaoOK(player, "Kích hoạt thể chất thành công");
+                            }
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_KH_HM) {
                         switch (select) {
@@ -2350,7 +2362,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
-                    createOtherMenu(player, ConstNpc.BASE_MENU, "Đi đến đường cùng ?  Nhập ma a", "Tu Ma", "Học\nCông Pháp", "Luyện hồn", "Huyết mạch", "Luyện cốt", "Tán Công");
+                    createOtherMenu(player, ConstNpc.BASE_MENU, "Đi đến đường cùng ?  Nhập ma a", "Tu Ma", "Học\nCông Pháp", "Luyện hồn", "Huyết mạch", "Luyện cốt", "Thể chất", "Tán Công");
                 }
             }
 
@@ -2429,8 +2441,19 @@ public class NpcFactory {
                             player.tuMa.luyenCot.openSystem();
                             break;
                         case 5:
+                            createOtherMenu(player, ConstNpc.THE_CHAT, "Thể chất giúp mày nhanh mạnh hơn", "Kích hoạt", "Từ chối");
+                            break;
+                        case 6:
                             player.tuMa.reset();
                             break;
+                    }
+                } else if (player.iDMark.getIndexMenu() == ConstNpc.THE_CHAT) {
+                    if (select == 0) {
+                        player.theChat = player.theChat.kichHoat();
+                        if (player.theChat != null) {
+                            Service.gI().point(player);
+                            Service.gI().sendThongBao(player, "Kích hoạt thể chất thành công");
+                        }
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_KH_HM) {
                     switch (select) {
@@ -2457,7 +2480,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player) && mapId == 5) {
-                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Huyết mạch", "Công Pháp", "Chuyển Sinh", "Tán Công");
+                    createOtherMenu(player, ConstNpc.MENU_NPC_LUYEN_THE, "Cần học luyện thể ? Nôn tiền ra đê", "Mở\nLuyện Thể", "Truyền công", "Huyết mạch", "Công Pháp", "Chuyển Sinh", "Thể chất", "Tán Công");
                 }
             }
 
@@ -2482,8 +2505,19 @@ public class NpcFactory {
                             this.createOtherMenu(player, ConstNpc.MENU_CHUYEN_SINH, "|7|CHUYỂN SINH" + "\n\n|1|Yêu cầu Sức mạnh đạt 100 tỷ" + "\nĐã học Skill " + player.tenskill9(player.gender) + "\n\n|2|Sau khi chuyển sinh Thành công" + "\n-Sức mạnh trở về 1,5 Triệu" + "\n-Cấp chuyển sinh tăng 1 Cấp" + "\n\n|1|Sức Mạnh: " + Util.powerToStringNDQ(player.nPoint.power) + "/" + " 100 Tỷ" + "\n|3|=>Mỗi cấp chuyển sinh sẽ cộng hp/ki/sd riêng vào chỉ số gốc" + "\n\n|7|Chuyển sinh Thất bại sẽ Giảm 50 Tỷ Sức mạnh", "Chuyển sinh", "Thông tin\nchuyển sinh");
                             break;
                         case 5:
+                            this.createOtherMenu(player, ConstNpc.THE_CHAT, "Thể chất giúp bạn mạnh hơn rất nhiều", "Kích hoạt", "Từ chối");
+                            break;
+                        case 6:
                             createOtherMenu(player, -1231232, "Bạn có chắc muốn tán công không?", "Tán công", "Đóng");
                             break;
+                    }
+                } else if (player.iDMark.getIndexMenu() == ConstNpc.THE_CHAT) {
+                    if (select == 0) {
+                        player.theChat = player.theChat.kichHoat();
+                        if (player.theChat != null) {
+                            Service.gI().point(player);
+                            Service.gI().sendThongBaoOK(player, "Kích hoạt thể chất thành công");
+                        }
                     }
                 } else if (player.iDMark.getIndexMenu() == -1231232) {
                     if (select == 0) {
@@ -2554,7 +2588,7 @@ public class NpcFactory {
                             Service.gI().sendThongBao(player, "Bạn đã tu nghề phụ khác không thể học công pháp luyện thể");
                             return;
                         }
-                        player.luyenThe.congPhapLuyenThe.hocCongPhap((byte) Util.nextInt(0, 1));
+                        player.luyenThe.congPhapLuyenThe.hocCongPhap();
                     }
                 } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_KH_HM) {
                     switch (select) {
@@ -7367,19 +7401,38 @@ public class NpcFactory {
                                 break;
                         }
                         break;
+                    case ConstNpc.MENU_CP_LT_TP:
+                        switch (select) {
+                            case 0:
+                                player.luyenThe.congPhapLuyenThe.nangPham();
+                                break;
+                            case 1:
+                                player.luyenThe.congPhapLuyenThe.showBaseMenu();
+                                break;
+                        }
+                        break;
                     case ConstNpc.MENU_CP_LT:
+                        switch (select) {
+                            case 0:
+                                player.luyenThe.congPhapLuyenThe.showMenuTangCap();
+                                break;
+                            case 1:
+                                player.luyenThe.congPhapLuyenThe.showMenuTangPham();
+                                break;
+                            case 2:
+                                player.luyenThe.congPhapLuyenThe.showMenuThuocTinh();
+                                break;
+
+                        }
+                        break;
+                    case ConstNpc.MENU_TC_CP_LT:
                         switch (select) {
                             case 0:
                                 player.luyenThe.congPhapLuyenThe.levelUp();
                                 break;
                             case 1:
-                                player.luyenThe.congPhapLuyenThe.showMenuPhaGiai();
+                                player.luyenThe.congPhapLuyenThe.showBaseMenu();
                                 break;
-                        }
-                        break;
-                    case ConstNpc.MENU_CP_PG:
-                        if (select == 0) {
-                            player.luyenThe.congPhapLuyenThe.dotPhaGiaiDoan();
                         }
                         break;
                     case ConstNpc.MENU_XEM_NGUYEN_LIEU:
@@ -7498,6 +7551,8 @@ public class NpcFactory {
                             return;
                         }
                         paa.addExpNangCap(Util.nextInt(1, 100));
+                        InventoryServiceNew.gI().subQuantityItemsBag(player, player.iDMark.itemCuongHoaPhapBao, 1);
+                        InventoryServiceNew.gI().sendItemBags(player);
                         break;
                     case ConstNpc.TRANG_BI_PHAP_BAO:
                         switch (select) {
@@ -7966,7 +8021,6 @@ public class NpcFactory {
                             } else {
                                 player.luyenThe.toiThe.showBaseMenu();
                             }
-
                         }
                         break;
                     case ConstNpc.MENU_KH_TT:
@@ -7996,6 +8050,32 @@ public class NpcFactory {
                             return;
                         }
                         player.luyenThe.voKyList.get(select).showBaseMenu();
+                        break;
+                    case ConstNpc.BASE_MENU_TC:
+                        switch (select) {
+                            case 0:
+                                player.theChat.showMenuPhaGiai();
+                                break;
+                            case 1:
+                                player.theChat.showMenuTayTuy();
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_PHA_GIAI:
+                        if (select == 0) {
+                            player.theChat.phaGiai();
+                        }
+                        if (select == 1) {
+                            player.theChat.showBaseMenu();
+                        }
+                        break;
+                    case ConstNpc.MENU_TAY_TUY:
+                        if (select == 0) {
+                            player.theChat.tayTuy();
+                        }
+                        if (select == 1) {
+                            player.theChat.showBaseMenu();
+                        }
                         break;
                     case ConstNpc.MENU_VO_KY:
                         if (player.iDMark.voKySelected != null) {
@@ -8030,13 +8110,25 @@ public class NpcFactory {
                     case ConstNpc.MENU_TP_VK:
                         player.luyenThe.showVoKy();
                         break;
+                    case ConstNpc.MENU_DOI_CP_LT:
+                        if (select == 0) {
+                            player.luyenThe.showDoiCongPhapMenu(player.iDMark.congPhapLt);
+                        } else if (select == 1) {
+                            player.luyenThe.congPhapLuyenThe.nuotCongPhap(player.iDMark.congPhapLt);
+                        }
+                        break;
+                    case ConstNpc.MENU_D_CP_LT_CF:
+                        if (select == 0) {
+                            player.luyenThe.congPhapLuyenThe.doiCongPhap(player.iDMark.congPhapLt);
+                        }
+                        break;
                     case ConstNpc.CONFIRM_DOT_PHA_LUYEN_THE:
                         if (select == 0) {
                             short[] idsItemNeed = new short[]{1264, 1265, 1266};
                             Item item1 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[0]);
                             Item item2 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[1]);
                             Item item3 = InventoryServiceNew.gI().findItemBag(player, idsItemNeed[2]);
-                            byte nextLevel = (byte) (player.luyenThe.level + 1);
+                            int nextLevel = (player.luyenThe.level + 1);
                             if (item1 == null || item2 == null || item3 == null || item1.quantity < (nextLevel * 20) || item2.quantity < (nextLevel * 10) || item3.quantity < (nextLevel * 10)) {
                                 Service.gI().sendThongBao(player, "Bạn thiếu tài liệu rồi");
                                 return;
@@ -8155,16 +8247,12 @@ public class NpcFactory {
                             Service.gI().sendThongBao(player, "Tu Vi Của Bạn Chưa Đủ Hãy Đợi Thêm");
                             return;
                         }
-                        if (!player.tuTien.hasLinhKhi()) {
-                            Service.gI().sendThongBao(player, "Đột phá cần đầy đủ lượng linh khí hãy bổ sung");
-                            return;
-                        }
                         if (player.inventory.ruby - (player.tuTien.level + 1) * 5_000 < 0) {
                             Service.gI().sendThongBao(player, "Đột phá cần " + (player.tuTien.level + 1) * 10_000 + " hồng ngọc");
                             return;
                         }
                         if (!player.tuTien.canHandleWithLinhKhiPoint(50)) {
-                            Service.gI().sendThongBao(player, "Cần 50% tổng lượng linh khí");
+                            Service.gI().sendThongBao(player, "Cần 50% tổng lượng linh khí để đột phá");
                             return;
                         }
                         if (player.tuTien.subLevel == 10) {
@@ -8727,6 +8815,83 @@ public class NpcFactory {
                     case ConstNpc.MENU_CHON_CAP_BT:
                         player.iDMark.capCheBongTai = (byte) select;
                         CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.CHE_TAO_BT);
+                        break;
+                    case ConstNpc.MENU_ALL_TU_TIEN:
+                        switch (select) {
+                            case 0:
+                                Service.gI().chat(player, "tu");
+                                break;
+                            case 1:
+                                Service.gI().chat(player, "tthm");
+                                break;
+                            case 2:
+                                player.theChat.showBaseMenu();
+                                break;
+                            case 3:
+                                player.showMenuNghePhu();
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_ALL_TU_MA:
+                        switch (select) {
+                            case 0:
+                                Service.gI().chat(player, "ma");
+                                break;
+                            case 1:
+                                Service.gI().chat(player, "tthm");
+                                break;
+                            case 2:
+                                player.theChat.showBaseMenu();
+                                break;
+                            case 3:
+                                player.showMenuNghePhu();
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_ALL_LUYEN_THE:
+                        switch (select) {
+                            case 0:
+                                Service.gI().chat(player, "lt");
+                                break;
+                            case 1:
+                                Service.gI().chat(player, "tthm");
+                                break;
+                            case 2:
+                                player.theChat.showBaseMenu();
+                                break;
+                            case 3:
+                                player.showMenuNghePhu();
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_ALL_LUC_NGHE:
+                        switch (select) {
+                            case 0:
+                                Service.gI().chat(player, "ttlt");
+                                break;
+                            case 1:
+                                Service.gI().chat(player, "ttld");
+                                break;
+                            case 2:
+                                Service.gI().chat(player, "ttlk");
+                                break;
+                            case 3:
+                                Service.gI().chat(player, "ttpc");
+                                break;
+                            case 4:
+                                Service.gI().chat(player, "tttp");
+                                break;
+                            case 5:
+                                Service.gI().chat(player, "ttkt");
+                                break;
+                            case 6:
+                                Service.gI().chat(player, "ttnt");
+                                break;
+                            case 7:
+                                player.showMenuAutoNghePhu();
+                                break;
+
+                        }
                         break;
                     case ConstNpc.MENU_CHE_DO:
                         if (!player.tuTien.canHandleWithLinhKhiPoint(10)) {

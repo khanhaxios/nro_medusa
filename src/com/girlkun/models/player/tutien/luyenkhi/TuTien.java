@@ -184,7 +184,7 @@ public class TuTien extends BasePoint implements IBaseAction {
         player.nPoint.tlHutHp += (short) getHutHPBuff();
         player.nPoint.tlHutMp += (short) getHutMPBuff();
         player.nPoint.xDameLinhCan += newTT;
-        player.nPoint.tlDameCrit.add(newNN * 100);
+        player.nPoint.tlDameCrit.add(newNN * 20);
         if (linhCan != null) {
             player.nPoint.tlDameCrit.add((int) linhCan.getThuocTinhLinhCan().getParam());
         }
@@ -320,7 +320,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     private float getSubLevelOtherBuff() {
-        return Math.max(1f, this.subLevel * 1f);
+        return Math.max(2f, this.subLevel * 2f);
     }
 
     private float getSubLevelOtherBuff(float pt) {
@@ -328,7 +328,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     private float getSubLevelHpMpBuff() {
-        return Math.max(1f, this.subLevel * 1f);
+        return Math.max(2f, this.subLevel * 2f);
     }
 
     @Override
@@ -337,7 +337,7 @@ public class TuTien extends BasePoint implements IBaseAction {
         if (level <= LEVEL_UP_PERCENT.length - 1) {
             pc = ((getXDiemThienPhu() * 6) + LEVEL_UP_PERCENT[level]) + (stackTlDotPha * 2) + (congPhap.tier);
         }
-        pc += congPhap.tangTyLeDotPha;
+        pc += congPhap.tangTyLeDotPha - (subLevel);
         return pc;
     }
 
@@ -460,7 +460,7 @@ public class TuTien extends BasePoint implements IBaseAction {
     }
 
     public boolean hasLinhKhi() {
-        return linhKhiPoint == maxLinhKhiPoint;
+        return linhKhiPoint > 0;
     }
 
     @Override
@@ -475,10 +475,7 @@ public class TuTien extends BasePoint implements IBaseAction {
 
     @Override
     public float getDameBuff() {
-        float percentBuff = (getBaseBuffByLevel(2) + (getSubLevelOtherBuff() + (Math.max(1, level - 1) * 10)));
-        if (level >= 5) {
-            percentBuff *= 2;
-        }
+        float percentBuff = (getBaseBuffByLevel(3) + (getSubLevelOtherBuff() + (Math.max(1, level - 1) * 10)));
         return percentBuff + (percentBuff * xParam);
     }
 
@@ -543,6 +540,48 @@ public class TuTien extends BasePoint implements IBaseAction {
                 hoiPhucLinhKhi();
                 congPhap.update();
             }
+            if (player.isAutoDotPha && canLevelUp() && player.inventory.ruby - (player.tuTien.level + 1) * 5_000 < 0 && player.tuTien.canHandleWithLinhKhiPoint(50)) {
+                handleAutoDotPha();
+            }
+        }
+    }
+
+    private void handleAutoDotPha() {
+        boolean isDotPhaCao = subLevel == 10;
+        // dot pha
+        if (isDotPhaCao) {
+            player.isAutoDotPha = false;
+            return;
+        }
+        float subPercent1 = player.luyenDanSu.diemKhangTinh / 10f;
+        float ratio = player.tuTien.getLevelUpPercent();
+        if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isBuffMayMan()) {
+            ratio += player.luyenDanSu.danDuocEffect.pointMayMan;
+        }
+        if (Util.isTrue(ratio - subPercent1, 150)) {
+            boolean isSuccess = true;
+            if (player.tuTien.level > 2) {
+                int baseGapTamMa = 20 + player.tuTien.level + player.tuTien.subLevel;
+                if (player.luyenDanSu.isLuyenDan() && player.luyenDanSu.danDuocEffect.isUseDanTranhTamMa) {
+                    baseGapTamMa -= player.luyenDanSu.danDuocEffect.tranhTamMaPercent;
+                    if (baseGapTamMa < 0) {
+                        baseGapTamMa = 0;
+                    }
+                    player.luyenDanSu.danDuocEffect.resetDanTranhTamMa();
+                }
+                if (Util.isTrue(baseGapTamMa, 100)) {
+                    // gap tam ma
+                    isSuccess = player.tuTien.gapTamMa();
+                }
+            }
+            if (isSuccess) {
+                player.tuTien.levelUp();
+            }
+        } else {
+            player.tuTien.restExp();
+            player.tuTien.restLinhKhi();
+            player.tuTien.addStackDp(1);
+            Service.gI().sendThongBao(player, "Bạn đã đột phá thất bại , mất hết tu vi và linh khí hiện tại");
         }
     }
 

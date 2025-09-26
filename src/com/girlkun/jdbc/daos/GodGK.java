@@ -24,17 +24,19 @@ import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.NhiemVuDeTu;
 import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.congphap.CongPhapLuyenThe;
 import com.girlkun.models.player.congphap.CongPhapOption;
 import com.girlkun.models.player.congphap.CongPhapOptionTemplate;
 import com.girlkun.models.player.congphap.CongPhapTemplate;
 import com.girlkun.models.player.huyet_mach.Huyet;
 import com.girlkun.models.player.huyet_mach.Mach;
 import com.girlkun.models.player.phapbao.PhapBao;
+import com.girlkun.models.player.the_chat.BaseTheChat;
+import com.girlkun.models.player.the_chat.TheChatOption;
 import com.girlkun.models.player.tuma.TuMa;
 import com.girlkun.models.player.tutien.luyendansu.*;
 import com.girlkun.models.player.tutien.luyenkhi.TienPhap;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
-import com.girlkun.models.player.tutien.luyenthe.CongPhapLuyenThe;
 import com.girlkun.models.player.tutien.luyenthe.VoKy;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.models.task.TaskMain;
@@ -1228,18 +1230,48 @@ public class GodGK {
                             player.luyenThe.sucManh = Integer.parseInt(jsonArray.get(8).toString());
                             player.luyenThe.nhanhNhen = Integer.parseInt(jsonArray.get(9).toString());
                             JSONArray cpObj = (JSONArray) JSONValue.parse(String.valueOf(jsonArray.get(10)));
-                            if (cpObj != null && cpObj.size() > 0) {
+                            if (cpObj != null && !cpObj.isEmpty()) {
                                 if (player.luyenThe.congPhapLuyenThe == null) {
                                     player.luyenThe.congPhapLuyenThe = new CongPhapLuyenThe(player);
                                 }
-                                player.luyenThe.congPhapLuyenThe.type = Byte.parseByte(cpObj.get(0).toString());
-                                player.luyenThe.congPhapLuyenThe.tang = Byte.parseByte(cpObj.get(1).toString());
-                                player.luyenThe.congPhapLuyenThe.tenCongPhap = cpObj.get(2).toString();
-                                player.luyenThe.congPhapLuyenThe.exp = Long.parseLong(cpObj.get(3).toString());
-                                player.luyenThe.congPhapLuyenThe.maxExp = Long.parseLong(cpObj.get(4).toString());
-                                player.luyenThe.congPhapLuyenThe.expGiaiDoan = Long.parseLong(cpObj.get(5).toString());
-                                player.luyenThe.congPhapLuyenThe.maxExpGiaiDoan = Long.parseLong(cpObj.get(6).toString());
-                                player.luyenThe.congPhapLuyenThe.giaiDoan = Byte.parseByte(cpObj.get(7).toString());
+                                int id = Integer.parseInt(cpObj.get(0).toString());
+                                // Same order as when writing
+                                player.luyenThe.congPhapLuyenThe.setLevel(
+                                        Integer.parseInt(cpObj.get(1).toString())
+                                );
+                                player.luyenThe.congPhapLuyenThe.setTier(
+                                        Integer.parseInt(cpObj.get(2).toString())
+                                );
+                                player.luyenThe.congPhapLuyenThe.setExp(
+                                        Long.parseLong(cpObj.get(3).toString())
+                                );
+                                player.luyenThe.congPhapLuyenThe.setMaxExp(
+                                        Long.parseLong(cpObj.get(4).toString())
+                                );
+                                player.luyenThe.congPhapLuyenThe.setExpTier(
+                                        Long.parseLong(cpObj.get(5).toString())
+                                );
+                                player.luyenThe.congPhapLuyenThe.setMaxExpTier(
+                                        Long.parseLong(cpObj.get(6).toString())
+                                );
+                                player.luyenThe.congPhapLuyenThe.maxPham =
+                                        Byte.parseByte(cpObj.get(7).toString());
+                                player.luyenThe.congPhapLuyenThe.maxLevel =
+                                        Byte.parseByte(cpObj.get(8).toString());
+
+                                // Read options
+                                if (cpObj.size() > 9) {
+                                    JSONArray arrOptions = (JSONArray) cpObj.get(9);
+                                    player.luyenThe.congPhapLuyenThe.congPhapOptions.clear();
+                                    for (Object obj : arrOptions) {
+                                        JSONArray arrOpt = (JSONArray) obj;
+                                        int otpId = Integer.parseInt(arrOpt.get(0).toString());
+                                        int param = Integer.parseInt(arrOpt.get(1).toString());
+                                        CongPhapOption option = CongPhapOptionTemplate.getLuyenTheOption(otpId);
+                                        option.param = param;
+                                        player.luyenThe.congPhapLuyenThe.congPhapOptions.add(option);
+                                    }
+                                }
                             }
                             JSONArray voKyObj = (JSONArray) JSONValue.parse(jsonArray.get(11).toString());
                             if (voKyObj != null && voKyObj.size() > 0) {
@@ -1598,6 +1630,50 @@ public class GodGK {
                             int currentIndex = Integer.parseInt(jsonArray.get(1).toString());
                             int currentCount = Integer.parseInt(jsonArray.get(2).toString());
                             player.nhiemVuDeTu.onLoad(type, currentIndex, currentCount);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+//                load data
+
+                try {
+                    String dataThechat = rs.getString("thechat"); // lấy cột "thechat" trong DB
+                    if (dataThechat != null && !dataThechat.isEmpty()) {
+                        JSONArray jsonArray = (JSONArray) JSONValue.parse(dataThechat);
+
+                        if (jsonArray != null && jsonArray.size() > 0) {
+                            if (player.theChat == null) {
+                                player.theChat = new BaseTheChat(player); // tạo mới nếu chưa có
+                            }
+                            int type = Integer.parseInt(jsonArray.get(0).toString());
+                            player.theChat = BaseTheChat.getTheChatByType(type, player);
+                            // load các field theo đúng thứ tự đã ghi khi write
+                            player.theChat.tenTheChat = jsonArray.get(1).toString();
+                            player.theChat.giaiDoan = Integer.parseInt(jsonArray.get(2).toString());
+                            player.theChat.phamChat = Integer.parseInt(jsonArray.get(3).toString());
+                            player.theChat.exp = Long.parseLong(jsonArray.get(4).toString());
+                            player.theChat.maxExp = Long.parseLong(jsonArray.get(5).toString());
+                            player.theChat.expTayTuy = Long.parseLong(jsonArray.get(6).toString());
+                            player.theChat.maxExpTayTuy = Long.parseLong(jsonArray.get(7).toString());
+                            player.theChat.tyLePham = Integer.parseInt(jsonArray.get(8).toString());
+
+                            // parse danh sách option
+                            JSONArray otps = (JSONArray) jsonArray.get(9);
+                            if (otps != null) {
+                                player.theChat.theChatOptions.clear(); // clear nếu có sẵn
+                                for (Object obj : otps) {
+                                    JSONArray opt = (JSONArray) obj;
+                                    if (opt != null && opt.size() >= 3) {
+                                        TheChatOption option = new TheChatOption();
+                                        option.id = Integer.parseInt(opt.get(0).toString());
+                                        option.param = Integer.parseInt(opt.get(1).toString());
+                                        option.name = opt.get(2).toString();
+                                        player.theChat.theChatOptions.add(option);
+                                    }
+                                }
+                            }
                         }
                     }
                 } catch (Exception e) {

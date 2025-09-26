@@ -30,12 +30,6 @@ public class BossVANG1 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        
-        Service.getInstance().sendThongBao(plKill, "Bạn đã nhận được 100 Thỏi Vàng");
-        ItemMap it = new ItemMap(this.zone, 457, 92, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                this.location.y - 24), plKill.id);
-        it.options.add(new Item.ItemOption(30, 0));
-        Service.getInstance().dropItemMap(this.zone, it);
         int a = 0;
         for (int i = 0; i < 8; i++) {
             ItemMap it1 = new ItemMap(this.zone, 457, 1, this.location.x + a,
@@ -45,9 +39,6 @@ public class BossVANG1 extends Boss {
             Service.getInstance().dropItemMap(this.zone, it1);
             a += 10;
         }
-        ItemMap it2 = new ItemMap(this.zone, 457, 1, this.location.x - 10, this.zone.map.yPhysicInTop(this.location.x,
-                this.location.y - 24), plKill.id);
-        Service.getInstance().dropItemMap(this.zone, it2);
     }
 
     @Override

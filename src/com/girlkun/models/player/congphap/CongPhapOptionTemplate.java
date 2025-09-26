@@ -10,6 +10,8 @@ import java.util.List;
 public class CongPhapOptionTemplate {
     public static List<CongPhapOption> congPhapTienOptions = new ArrayList<>();
 
+    public static List<CongPhapOption> congPhapLuyenTheOptions = new ArrayList<>();
+
     public static void initTemplate() {
         congPhapTienOptions.add(new CongPhapOption(0, "Tăng #% tốc độ hồi linh khí"));
         congPhapTienOptions.add(new CongPhapOption(1, "Tăng #% căn cốt"));
@@ -58,6 +60,26 @@ public class CongPhapOptionTemplate {
 
         congPhapTienOptions.add(new CongPhapOption(40, "Tăng #% exp lục nghệ nhận được"));
         congPhapTienOptions.add(new CongPhapOption(41, "Giảm #% thời gian hồi tu vi"));
+
+
+        ///options cong phap lt
+        congPhapLuyenTheOptions.add(new CongPhapOption(0, "Tăng #% tốc độ tu luyện"));
+        congPhapLuyenTheOptions.add(new CongPhapOption(1, "Tăng #% kinh nghiệm công pháp"));
+        congPhapLuyenTheOptions.add(new CongPhapOption(2, "Tăng #% chỉ số công pháp"));
+        congPhapLuyenTheOptions.add(new CongPhapOption(3, "Tăng #% chỉ số thể chất"));
+        congPhapLuyenTheOptions.add(new CongPhapOption(4, "Tăng #% chỉ số tôi thể"));
+        congPhapLuyenTheOptions.add(new CongPhapOption(5, "Tăng #% chỉ số võ kỹ"));
+        congPhapLuyenTheOptions.add(new CongPhapOption(6, "Tăng #% chỉ số luyện thể"));
+    }
+
+    public static CongPhapOption getLuyenTheOption(int i) {
+        if (i < 0 || i >= congPhapLuyenTheOptions.size()) {
+            return null;
+        }
+        CongPhapOption congPhapOption = new CongPhapOption();
+        congPhapOption.id = congPhapLuyenTheOptions.get(i).id;
+        congPhapOption.name = congPhapLuyenTheOptions.get(i).name;
+        return congPhapOption;
     }
 
     public static CongPhapOption getTienOption(int i) {

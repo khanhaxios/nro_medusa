@@ -4,6 +4,7 @@
 
 package com.girlkun.server;
 
+import com.girlkun.Log;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.jdbc.daos.HistoryTransactionDAO;
 import com.girlkun.models.boss.BossManager;
@@ -41,6 +42,7 @@ public class ServerManager {
 
     public static String timeStart;
 
+    public ServerSocket controllerApiSocker;
     public ServerSocket panelSocket;
     public Socket panelClient;
     public static final Map<Object, Object> CLIENTS = new HashMap<>();
@@ -156,7 +158,7 @@ public class ServerManager {
                             }
                         }
                     } catch (Exception e) {
-
+                        Logger.logException(ServerManager.class, e);
                     }
                 }).start();
             }
@@ -164,6 +166,7 @@ public class ServerManager {
             Logger.error("Error when init panel server socket " + e.getMessage());
         }
     }
+
 
     public void run() {
         delaylogin = System.currentTimeMillis();

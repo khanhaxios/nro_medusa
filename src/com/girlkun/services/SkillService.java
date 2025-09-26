@@ -15,6 +15,7 @@ import com.girlkun.models.player.Pet.Pet;
 import com.girlkun.models.player.Player;
 import com.girlkun.models.player.SkillSpecial;
 import com.girlkun.models.player.Thu_TrieuHoi;
+import com.girlkun.models.player.the_chat.HoangCoThanhThe;
 import com.girlkun.models.player.tutien.luyenkhi.TuTien;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.network.io.Message;
@@ -1196,23 +1197,23 @@ public class SkillService {
 
     private double subDameWithCanhGioi(Player plAtt, Player plInjure) {
         double dame = plAtt.nPoint.getDameAttack(false);
-        int attLevel = getLevel(plAtt);
-        int attSub = getSubLevel(plAtt);
-        int targetLevel = getLevel(plInjure);
-        int targetSub = getSubLevel(plInjure);
-
-        if (attLevel < 0 || targetLevel < 0) {
-            return dame;
-        }
-
-        int attackScore = attLevel * 10 + attSub;
-        int targetScore = targetLevel * 10 + targetSub;
-
-        if (attackScore < targetScore) {
-            int gap = targetScore - attackScore;
-            int reductionPercent = gap * SUBLEVEL_PENALTY;
-            dame -= dame * reductionPercent / 100.0;
-        }
+//        int attLevel = getLevel(plAtt);
+//        int attSub = getSubLevel(plAtt);
+//        int targetLevel = getLevel(plInjure);
+//        int targetSub = getSubLevel(plInjure);
+//
+//        if (attLevel < 0 || targetLevel < 0) {
+//            return dame;
+//        }
+//
+//        int attackScore = attLevel * 10 + attSub;
+//        int targetScore = targetLevel * 10 + targetSub;
+//
+//        if (attackScore < targetScore) {
+//            int gap = targetScore - attackScore;
+//            int reductionPercent = gap * SUBLEVEL_PENALTY;
+//            dame -= dame * reductionPercent / 100.0;
+//        }
 
         return dame;
     }
@@ -1220,23 +1221,23 @@ public class SkillService {
     public int SUBLEVEL_PENALTY = 10;
 
     private double subDameWithCanhGioi(Player attacker, Player target, double damage) {
-        int attLevel = getLevel(attacker);
-        int attSub = getSubLevel(attacker);
-        int targetLevel = getLevel(target);
-        int targetSub = getSubLevel(target);
-
-        if (attLevel < 0 || targetLevel < 0) {
-            return damage;
-        }
-
-        int attackScore = attLevel * 10 + attSub;
-        int targetScore = targetLevel * 10 + targetSub;
-
-        if (attackScore < targetScore) {
-            int gap = targetScore - attackScore;
-            int reductionPercent = gap * SUBLEVEL_PENALTY;
-            damage -= damage * reductionPercent / 100.0;
-        }
+//        int attLevel = getLevel(attacker);
+//        int attSub = getSubLevel(attacker);
+//        int targetLevel = getLevel(target);
+//        int targetSub = getSubLevel(target);
+//
+//        if (attLevel < 0 || targetLevel < 0) {
+//            return damage;
+//        }
+//
+//        int attackScore = attLevel * 10 + attSub;
+//        int targetScore = targetLevel * 10 + targetSub;
+//
+//        if (attackScore < targetScore) {
+//            int gap = targetScore - attackScore;
+//            int reductionPercent = gap * SUBLEVEL_PENALTY;
+//            damage -= damage * reductionPercent / 100.0;
+//        }
 
         return damage;
     }
@@ -1267,14 +1268,19 @@ public class SkillService {
         short paramOfLinhCan = 0;
         if (plAtt.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             if (plAtt.khongThiSu.isKhongThi() && plAtt.khongThiSu.level > 3 && plAtt.pet != null && plAtt.pet.typePet == ConstPet.MABU) {
-                paramOfLinhCan += 5 * plAtt.khongThiSu.level;
+                paramOfLinhCan += (short) (5 * plAtt.khongThiSu.level);
             }
             if (plAtt.khongThiSu.isKhongThi() && plAtt.khongThiSu.level > 3 && plAtt.pet != null && plAtt.pet.typePet == ConstPet.MABU) {
-                paramOfLinhCan += 8 * plAtt.khongThiSu.level;
+                paramOfLinhCan += (short) (8 * plAtt.khongThiSu.level);
             }
         }
 
+        // hanlde for the chat
+        if (plAtt.theChat instanceof HoangCoThanhThe hoangCoThanhThe) {
+            dameHit = hoangCoThanhThe.handleBuffDame(dameHit);
+        }
         dameHit = plInjure.injured(plAtt, miss ? 0 : damGoc, false, false, hasXaydaSkill);
+
         phanSatThuong(plAtt, plInjure, Util.DoubleGioihan(dameHit));
         hutHPMP(plAtt, dameHit, false);
         hutLinhKhi(plAtt);
@@ -1714,6 +1720,9 @@ public class SkillService {
                 if (plAtt.charms.tdDeTu > System.currentTimeMillis()) {
                     dameHit *= 2;
                 }
+            }
+            if (plAtt.theChat instanceof HoangCoThanhThe hoangCoThanhThe) {
+                dameHit = hoangCoThanhThe.handleBuffDame(dameHit);
             }
             if (miss) {
                 dameHit = 0;

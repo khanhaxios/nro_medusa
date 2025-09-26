@@ -11,6 +11,7 @@ import com.girlkun.models.map.Zone;
 import com.girlkun.models.mob.Mob;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.congphap.*;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuong;
 import com.girlkun.models.player.tutien.luyendansu.DanPhuongFactory;
 import com.girlkun.server.Client;
@@ -50,6 +51,188 @@ public class Util {
 
     public static boolean contains(String[] arr, String key) {
         return Arrays.toString(arr).contains(key);
+    }
+
+    public static int[] OPTION_RARE = new int[]{2, 3, 9, 20, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37};
+    public static int[] OPTION_COMMON = new int[]{0, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24};
+    public static int[] OPTION_VIP = new int[]{38, 39, 40, 41};
+
+    public static int[] OPTION_LT = new int[]{0, 1, 2, 3, 4, 5, 6};
+
+    public static CongPhapTuTien ratioCongPhapTuTien(int level) {
+        CongPhapTuTien congPhapTuTien = CongPhapTemplate.getI().getCongPhapTuTien(Util.nextInt(1, CongPhapTemplate.getI().CONG_PHAP_TU_TIEN.size() - 1));
+        if (congPhapTuTien != null) {
+            int dong = 1;
+            if (Util.isTrue(50, 100)) {
+                dong = 2;
+            }
+            if (Util.isTrue(20, 100)) {
+                dong = 3;
+            }
+            if (Util.isTrue(1, 100)) {
+                dong = 4;
+            }
+            if (Util.isTrue(1, 1000)) {
+                dong = 5;
+            }
+            if (Util.isTrue(1, 10000)) {
+                dong = 9;
+            }
+            int otpId;
+            for (int i = 0; i < dong; i++) {
+                if (Util.isTrue(50, 100)) {
+                    otpId = OPTION_COMMON[Util.nextInt(0, OPTION_COMMON.length - 1)];
+                    CongPhapOption congPhapOption = CongPhapOptionTemplate.getTienOption(otpId);
+                    if (congPhapOption != null) {
+                        if (Util.isTrue(50, 100)) {
+                            congPhapOption.param += CongPhapTuTien.getParamBuff(otpId, level);
+                        }
+                        if (Util.isTrue(20, 100)) {
+                            congPhapOption.param += CongPhapTuTien.getParamBuff(otpId, level);
+                        }
+                        if (Util.isTrue(1, 100)) {
+                            congPhapOption.param += CongPhapTuTien.getParamBuff(otpId, level);
+                        }
+                        congPhapTuTien.optionCongPhaps.add(congPhapOption);
+                    }
+                }
+                if (Util.isTrue(20, 100)) {
+                    otpId = OPTION_RARE[Util.nextInt(0, OPTION_RARE.length - 1)];
+                    CongPhapOption congPhapOption = CongPhapOptionTemplate.getTienOption(otpId);
+                    if (congPhapOption != null) {
+                        if (Util.isTrue(50, 100)) {
+                            congPhapOption.param += CongPhapTuTien.getParamBuff(otpId, level);
+                        }
+                        if (Util.isTrue(20, 100)) {
+                            congPhapOption.param += CongPhapTuTien.getParamBuff(otpId, level);
+                        }
+                        if (Util.isTrue(1, 100)) {
+                            congPhapOption.param += CongPhapTuTien.getParamBuff(otpId, level);
+                        }
+                        congPhapTuTien.optionCongPhaps.add(congPhapOption);
+                    }
+                }
+                if (Util.isTrue(1, 100)) {
+                    otpId = OPTION_VIP[Util.nextInt(0, OPTION_VIP.length - 1)];
+                    CongPhapOption congPhapOption = CongPhapOptionTemplate.getTienOption(otpId);
+                    if (congPhapOption != null) {
+                        congPhapOption.param = CongPhapTuTien.getParamBuff(otpId, level);
+                        if (Util.isTrue(50, 100)) {
+                            congPhapOption.param += CongPhapTuTien.getParamBuff(otpId, level);
+                        }
+                        if (Util.isTrue(20, 100)) {
+                            congPhapOption.param += CongPhapTuTien.getParamBuff(otpId, level);
+                        }
+                        if (Util.isTrue(1, 100)) {
+                            congPhapOption.param += CongPhapTuTien.getParamBuff(otpId, level);
+                        }
+                        congPhapTuTien.optionCongPhaps.add(congPhapOption);
+                    }
+                }
+            }
+            congPhapTuTien.maxLevel = level;
+            congPhapTuTien.maxPham = 1;
+            if (Util.isTrue(50, 100)) {
+                congPhapTuTien.maxPham = 2;
+            }
+            if (Util.isTrue(10, 100)) {
+                congPhapTuTien.maxLevel = 3;
+            }
+            if (Util.isTrue(5, 100)) {
+                congPhapTuTien.maxPham = 4;
+            }
+            if (Util.isTrue(.3f, 100)) {
+                congPhapTuTien.maxPham = 5;
+            }
+            if (Util.isTrue(1, 1000)) {
+                congPhapTuTien.maxLevel = 6;
+            }
+        }
+        return congPhapTuTien;
+    }
+
+    public static CongPhapLuyenThe ratioCongPhapLuyenThe(int level) {
+        CongPhapLuyenThe congPhapLuyenThe = CongPhapTemplate.getI().getCongPhapLuyenThe(Util.nextInt(1, CongPhapTemplate.getI().CONG_PHAP_LUYEN_THE.size() - 1));
+        if (congPhapLuyenThe != null) {
+            int dong = 1;
+            if (Util.isTrue(50, 100)) {
+                dong = 2;
+            }
+            if (Util.isTrue(20, 100)) {
+                dong = 3;
+            }
+            if (Util.isTrue(1, 100)) {
+                dong = 4;
+            }
+            if (Util.isTrue(1, 1000)) {
+                dong = 5;
+            }
+            if (Util.isTrue(1, 10000)) {
+                dong = 9;
+            }
+            int otpId;
+            for (int i = 0; i < dong; i++) {
+                if (Util.isTrue(50, 100)) {
+                    otpId = OPTION_LT[Util.nextInt(0, OPTION_LT.length - 1)];
+                    CongPhapOption congPhapOption = CongPhapOptionTemplate.getLuyenTheOption(otpId);
+                    if (congPhapOption != null) {
+                        congPhapOption.param = CongPhapLuyenThe.getParamBuff(otpId, level);
+                        if (Util.isTrue(50, 100)) {
+                            congPhapOption.param += CongPhapLuyenThe.getParamBuff(otpId, level);
+                        }
+                        if (Util.isTrue(20, 100)) {
+                            congPhapOption.param += CongPhapLuyenThe.getParamBuff(otpId, level);
+                        }
+                        if (Util.isTrue(1, 100)) {
+                            congPhapOption.param += CongPhapLuyenThe.getParamBuff(otpId, level);
+                        }
+                        congPhapLuyenThe.congPhapOptions.add(congPhapOption);
+                    }
+                }
+            }
+            congPhapLuyenThe.maxLevel = level;
+            congPhapLuyenThe.maxPham = 1;
+            if (Util.isTrue(50, 100)) {
+                congPhapLuyenThe.maxPham = 2;
+            }
+            if (Util.isTrue(10, 100)) {
+                congPhapLuyenThe.maxLevel = 3;
+            }
+            if (Util.isTrue(5, 100)) {
+                congPhapLuyenThe.maxPham = 4;
+            }
+            if (Util.isTrue(.3f, 100)) {
+                congPhapLuyenThe.maxPham = 5;
+            }
+            if (Util.isTrue(1, 1000)) {
+                congPhapLuyenThe.maxLevel = 6;
+            }
+        }
+        return congPhapLuyenThe;
+    }
+
+    public static CongPhapTuMa ratioCongPhapTuMa(int level) {
+        CongPhapTuMa congPhapTuMa = CongPhapTemplate.getI().getCongPhapTuMa(Util.nextInt(1, CongPhapTemplate.getI().CONG_PHAP_TU_MA.size() - 1));
+        if (congPhapTuMa != null) {
+            congPhapTuMa.maxLevel = level;
+            congPhapTuMa.maxPham = 1;
+            if (Util.isTrue(50, 100)) {
+                congPhapTuMa.maxPham = 2;
+            }
+            if (Util.isTrue(10, 100)) {
+                congPhapTuMa.maxLevel = 3;
+            }
+            if (Util.isTrue(5, 100)) {
+                congPhapTuMa.maxPham = 4;
+            }
+            if (Util.isTrue(.3f, 100)) {
+                congPhapTuMa.maxPham = 5;
+            }
+            if (Util.isTrue(1, 1000)) {
+                congPhapTuMa.maxPham = 6;
+            }
+        }
+        return congPhapTuMa;
     }
 
     public static void setTimeout(Runnable runnable, int delay) {
@@ -554,8 +737,6 @@ public class Util {
             }
         }
     }
-
-
     public int getOptionSKHTien(short idOption) {
         return idOption + 3;
     }

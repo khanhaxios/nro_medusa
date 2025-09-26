@@ -32,9 +32,11 @@ import com.girlkun.utils.Logger;
 import com.girlkun.utils.SkillUtil;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
 
+@Slf4j
 public class UseItem {
     private static final int ITEM_BOX_TO_BODY_OR_BAG = 0;
     private static final int ITEM_BAG_TO_BOX = 1;
@@ -300,6 +302,22 @@ public class UseItem {
                 }
                 default:
                     switch (item.template.id) {
+                        case 902, 880, 670, 669, 900, 1017:
+                            if (!pl.theChat.isKichHoat()) {
+                                Service.gI().sendThongBao(pl, "Bạn chưa kích hoạt thể chất không thể dùng");
+                                return;
+                            }
+                            long exp = Util.nextInt(1, 100);
+                            pl.theChat.addExp(exp);
+                            break;
+                        case 882, 881, 903:
+                            if (!pl.theChat.isKichHoat()) {
+                                Service.gI().sendThongBao(pl, "Bạn chưa kích hoạt thể chất không thể dùng");
+                                return;
+                            }
+                            long expPham = Util.nextInt(1, 100);
+                            pl.theChat.addExpTayTuy(expPham);
+                            break;
                         case 571:
                             // ruong bac
                             if (!Util.canDoWithTime(item.createTime, 86_400_000)) {
@@ -381,8 +399,7 @@ public class UseItem {
                             break;
                         case 2079:
                             // cuong hoa cho phap bao nao
-                            InventoryServiceNew.gI().subQuantityItemsBag(pl, item, 1);
-                            InventoryServiceNew.gI().sendItemBags(pl);
+                            pl.iDMark.itemCuongHoaPhapBao = item;
                             // add exp
                             NpcService.gI().createMenuConMeo(pl, ConstNpc.CHON_PHAP_BAO_CUONG_HOA, -1, "|7|Cường hóa pháp bảo\n|5|Bạn muốn cường hóa pháp bảo nào?", "Khôi", "Thủ", "Bộ", "Y", "Khí");
                             break;
@@ -852,17 +869,17 @@ public class UseItem {
         // ====== Tỷ lệ phần thưởng ======
         // Tỷ lệ tính theo phần trăm (0 - 100)
         int rateRubyBigBonus = 5;      // Tỷ lệ ra thêm 10tr ruby
-        int rateDN = 80;              // Điểm nạp luôn có
+        int rateDN = 10;              // Điểm nạp luôn có
         int rateThangTinhThach = 70;   // 70% ra thăng tinh thạch
         int rateDaLuyenThe = 80;       // 80% ra đá luyện thể
-        int rateNguHanhThach = 50;     // 50% ra ngũ hành thạch
+        int rateNguHanhThach = 10;     // 50% ra ngũ hành thạch
         int rateItemBuff = 60;         // 60% ra item buff
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Mở rương vàng thành công bạn nhận được").append("\n");
+        stringBuilder.append("Mở Rương Vàng thành công bạn nhận được").append("\n");
 
         // ====== Hồng ngọc ======
-        long ruby = 1_000_000;
+        long ruby = Util.nextInt(100_000, 1_000_000);
         if (Util.isTrue(rateRubyBigBonus, 100)) {
             ruby += 10_000_000;
         }

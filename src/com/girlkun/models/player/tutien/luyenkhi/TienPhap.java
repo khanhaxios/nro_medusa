@@ -82,7 +82,7 @@ public class TienPhap {
                 player.nPoint.hpAdd += player.nPoint.hpAdd * xParam / 100;
                 break;
             case 2:
-                player.nPoint.dameAdd += xParam;
+                player.nPoint.dameAdd += player.nPoint.dameAdd * xParam / 100;
                 break;
             case 4:
                 player.nPoint.tyLeGiamDame += xParam;

@@ -16,6 +16,8 @@ import com.girlkun.services.Service;
 import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.utils.Util;
 
+import static com.girlkun.models.player.congphap.CongPhapLuyenThe.getPhamNam;
+
 public class CongPhapTuMa extends BaseCongPhap {
     public int level;
     public byte heCongPhap;
@@ -106,21 +108,7 @@ public class CongPhapTuMa extends BaseCongPhap {
     }
 
     public String getPhamName() {
-        switch (tier) {
-            case 0:
-                return "Phàm";
-            case 1:
-                return "Linh";
-            case 2:
-                return "Vương";
-            case 3:
-                return "Hoàng";
-            case 4:
-                return "Đế";
-            case 5:
-                return "Tiên";
-        }
-        return "Không xác định";
+        return getPhamNam(tier);
     }
 
 
@@ -347,6 +335,10 @@ public class CongPhapTuMa extends BaseCongPhap {
     }
 
     public void showBaseMenu() {
+        if (tenCongPhap == null) {
+            Service.gI().sendThongBao(player, "Bạn chưa học công pháp");
+            return;
+        }
         StringBuilder menu = new StringBuilder();
         menu.append(String.format("|7|Thông Tin Công Pháp\n"));
         menu.append(String.format("|5|%s", getTenCongPhap()));

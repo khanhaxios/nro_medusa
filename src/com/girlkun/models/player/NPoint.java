@@ -28,6 +28,7 @@ import java.util.List;
 public class NPoint {
 
     public static final byte MAX_LIMIT = 13;
+    public int tlGiamDameChuan;
 
     private Player player;
 
@@ -58,7 +59,7 @@ public class NPoint {
     public int tlDameQuang;
     public int tlDameAm;
 
-    public byte tyLeGiamDame = 0;
+    public int tyLeGiamDame = 0;
     public boolean isCrit;
     public boolean isCrit100;
 
@@ -691,6 +692,9 @@ public class NPoint {
         if (player.luyenThe != null && player.luyenThe.isLuyenTheReal()) {
             player.luyenThe.calcPoint();
         }
+        if (player.theChat != null && player.theChat.isKichHoat()) {
+            player.theChat.handleTheChat();
+        }
         if (player.tuTien != null && player.tuTien.isTuTien()) {
             player.tuTien.calcPoint();
         }
@@ -933,7 +937,7 @@ public class NPoint {
         if (this.player.isPet && ((Pet) this.player).master.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             if (((Pet) this.player).typePet == ConstPet.MABU) {
                 this.hpMax += (this.hpMax * Math.max(20, player.khongThiSu.level * 20) / 100);
-                this.tyLeGiamDame += Math.max(5, player.khongThiSu.level * 5);
+                this.tyLeGiamDame += Math.max(2, player.khongThiSu.level * 2);
             }
             if (((Pet) this.player).typePet == ConstPet.BERUS) {
                 this.hpMax += (this.hpMax * Math.max(30, player.khongThiSu.level * 30) / 100);
@@ -1812,6 +1816,7 @@ public class NPoint {
         this.tlDame.clear();
         this.tlDameCrit.clear();
         this.tyLeGiamDame = 0;
+        this.tlGiamDameChuan = 0;
         this.tlDameAttMob.clear();
         this.tlHpHoiBanThanVaDongDoi = 0;
         this.tlMpHoiBanThanVaDongDoi = 0;

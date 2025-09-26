@@ -19,6 +19,7 @@ import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.map.Zone;
 import com.girlkun.models.matches.TOP;
 import com.girlkun.models.mob.Mob;
+import com.girlkun.models.npc.Npc;
 import com.girlkun.models.player.NewPet;
 import com.girlkun.models.player.Pet.DaoLu.DaoLu;
 import com.girlkun.models.player.Pet.Pet;
@@ -1712,6 +1713,30 @@ public class Service {
                 Service.gI().sendMoney(player);
                 Service.gI().sendThongBaoOK(player, "Đã reset hồng ngọc về 0");
             }
+            return;
+        }
+        if (text.equals("tienmathe")) {
+            int typeMenu = -1;
+            if (player.tuTien.isTuTien()) {
+                typeMenu = 0;
+            } else if (player.tuMa.isTuMa()) {
+                typeMenu = 1;
+            } else if (player.luyenThe.isLuyenThe()) {
+                typeMenu = 2;
+            }
+            if (typeMenu == -1) {
+                Service.gI().sendThongBao(player, "Bạn chưa học gì cả");
+                return;
+            }
+            if (typeMenu == 0) {
+                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ALL_TU_TIEN, -1, "|7|Menu Tu Tiên", "Tu Tiên", "Huyết Mạch", "Thể Chất", "Lục Nghệ");
+                return;
+            }
+            if (typeMenu == 1) {
+                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ALL_TU_MA, -1, "|7|Menu Tu Ma", "Tu ma", "Huyết Mạch", "Thể Chất", "Lục Nghệ");
+                return;
+            }
+            NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ALL_LUYEN_THE, -1, "|7|Menu Luyện Thể", "Luyện thể", "Huyết Mạch", "Thể Chất", "Lục Nghệ");
             return;
         }
         // phan gia do

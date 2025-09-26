@@ -6,6 +6,7 @@ package com.girlkun.models.player.tutien.luyenthe;
 
 import com.girlkun.consts.ConstNpc;
 import com.girlkun.models.player.Player;
+import com.girlkun.models.player.congphap.CongPhapOption;
 import com.girlkun.services.NpcService;
 import com.girlkun.services.Service;
 import com.girlkun.utils.Util;
@@ -147,22 +148,30 @@ public class VoKy {
     }
 
     public void calcPoint() {
+        int param = 0;
+        if (player.luyenThe.congPhapLuyenThe.isLearn()) {
+            for (CongPhapOption congPhapOption : player.luyenThe.congPhapLuyenThe.congPhapOptions) {
+                if (congPhapOption.id == 5) {
+                    param = congPhapOption.param;
+                }
+            }
+        }
         for (int i = 0; i < buff.length; i++) {
             switch (type) {
                 case 0:
-                    player.nPoint.tlDame.add(buff[i]);
+                    player.nPoint.tlDame.add(buff[i] + param);
                     // cong suc danh
                     break;
                 case 1:
-                    player.nPoint.tlDameCrit.add(buff[i]);
+                    player.nPoint.tlDameCrit.add(buff[i] + param);
                     // cong sat thuong chi mang
                     break;
                 case 2:
-                    player.nPoint.tyLeGiamDame += buff[i];
+                    player.nPoint.tyLeGiamDame += (buff[i] + param);
                     // cong khang dame
                     break;
                 case 3:
-                    player.nPoint.tlNeDon += buff[i];
+                    player.nPoint.tlNeDon += (short) (buff[i] + param);
                     break;
             }
         }

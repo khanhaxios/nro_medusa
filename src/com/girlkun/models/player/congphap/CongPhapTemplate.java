@@ -120,4 +120,9 @@ public class CongPhapTemplate {
         CongPhapTuMa congPhapTuMa = CONG_PHAP_TU_MA.get(i);
         return new CongPhapTuMa(congPhapTuMa.id, congPhapTuMa.tenCongPhap, congPhapTuMa.mota, congPhapTuMa.thuoctinh, congPhapTuMa.maxLevel, congPhapTuMa.maxPham);
     }
+
+    public CongPhapLuyenThe getCongPhapLuyenThe(int i) {
+        CongPhapLuyenThe congPhapLuyenThe = CONG_PHAP_LUYEN_THE.get(i);
+        return new CongPhapLuyenThe(congPhapLuyenThe.id, congPhapLuyenThe.tenCongPhap, congPhapLuyenThe.mota, congPhapLuyenThe.thuoctinh, congPhapLuyenThe.maxLevel, congPhapLuyenThe.maxPham);
+    }
 }

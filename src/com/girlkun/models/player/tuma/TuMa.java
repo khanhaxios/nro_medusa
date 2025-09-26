@@ -72,7 +72,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
 
     @Override
     public long getExpCanGain(Mob targetMob) {
-        long exp = Math.min((long) (targetMob.point.maxHp / 1_000_000) * Math.max(player.tuMa.congPhapTuMa.tier, 1), Util.nextInt(1000, 50000));
+        long exp = Math.min((long) (targetMob.point.maxHp / 100_000) * Math.max(player.tuMa.congPhapTuMa.tier, 1), Util.nextInt(1000, 50000));
         if (player.nPoint.xTuVi > 0) {
             exp += exp * player.nPoint.xTuVi / 100;
         }
@@ -81,8 +81,8 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
 
     @Override
     public void levelUp() {
-        if (Util.isTrue(level, 180)) {
-            Service.gI().sendThongBao(player, "Bạn đã nhập ma quá sâu dẫn đến đột phá thất bại");
+        if (!Util.isTrue(getLevelUpPercent(), 100)) {
+            Service.gI().sendThongBao(player, "Đột phá thất bại");
             restExp();
             return;
         }
@@ -95,6 +95,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
         }
         restExp();
         restMaKhi();
+        Service.gI().point(player);
         Service.gI().sendThongBao(player, "Chúc mừng bạn đã đột phá thành công " + getName());
     }
 
@@ -115,7 +116,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     }
 
     private long getNextLevelExp() {
-        return (LEVEL_EXP[level / 10] + SUB_LEVEL_EXP[level / 10]) * (congPhapTuMa.tier + 700);
+        return (LEVEL_EXP[level / 10] + SUB_LEVEL_EXP[level % 10]) * (congPhapTuMa.tier + 500);
     }
 
     @Override
@@ -155,12 +156,19 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
         if (maTinh >= 19 && maTinh <= 20) {
             return "Ma Thần";
         }
-        return "Vô Danh Ma"; // fallback cho giá trị không hợp lệ hoặc = 0
+        return "Vô Danh Ma";
     }
 
     @Override
     public float getLevelUpPercent() {
-        return 0;
+        int bigLevel = level / 10;
+        int smallLevel = level % 10;
+        float basePercent = 100f / bigLevel;
+        basePercent -= smallLevel;
+        if (basePercent < 0) {
+            basePercent = 0.3f * smallLevel;
+        }
+        return basePercent;
     }
 
     @Override
@@ -193,6 +201,18 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     public void update() {
         if (congPhapTuMa != null && congPhapTuMa.tenCongPhap != null) {
             congPhapTuMa.update();
+        }
+        if (isTuMa()) {
+            long rubyNeed = 3_000L * player.tuMa.level;
+            if (exp == maxExp && player.isAutoDotPha && player.inventory.ruby - rubyNeed < 0) {
+                if (!isNotMaxLevel()) {
+                    player.isAutoDotPha = false;
+                    return;
+                }
+                player.inventory.ruby -= rubyNeed;
+                Service.gI().sendMoney(player);
+                player.tuMa.dotPha();
+            }
         }
     }
 
@@ -238,7 +258,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
 
     @Override
     public float getDameBuff() {
-        float percentBuff = (getBaseBuffByLevel(1) + (getSubLevelOtherBuff()));
+        float percentBuff = (getBaseBuffByLevel(3) + (getSubLevelOtherBuff()));
         percentBuff *= (congPhapTuMa.tier + 1 + maTinh);
         return percentBuff;
     }
@@ -255,7 +275,7 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     }
 
     private float getSubLevelOtherBuff() {
-        return Math.max(1f, (this.level % 10) * 1f);
+        return Math.max(2f, (this.level % 10) * 2f);
     }
 
     private float getSubLevelOtherBuff(float pt) {
@@ -346,10 +366,11 @@ public class TuMa extends BaseTuDuy implements IBaseAction {
     public void calcPoint() {
         player.nPoint.xDameLinhCan += tinhThan;
         player.nPoint.tlDameCrit.add(nhanhNhen * 100);
+        player.nPoint.tlHutHp += (short) getHutHPBuff();
+        player.nPoint.tlHutMp += (short) getHutMPBuff();
+
         if (congPhapTuMa != null && congPhapTuMa.tenCongPhap != null) {
             congPhapTuMa.calcPoint();
-            player.nPoint.tlHutHp += (short) getHutHPBuff();
-            player.nPoint.tlHutMp += (short) getHutMPBuff();
         }
         if (luyenHon != null && luyenHon.isOpen) {
             luyenHon.calcPoint();

@@ -14,6 +14,8 @@ import com.girlkun.utils.Util;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.girlkun.models.player.congphap.CongPhapLuyenThe.getPhamNam;
+
 public class CongPhapTuTien extends BaseCongPhap {
     private static final int MAX_TIER = 5;
     public Player player;
@@ -91,6 +93,10 @@ public class CongPhapTuTien extends BaseCongPhap {
 
     public CongPhapTuTien(int id, String tenCongPhap, String mota, String thuoctinh, int maxLevel, int maxPham) {
         super(id, tenCongPhap, mota, thuoctinh, maxLevel, maxPham);
+    }
+
+    public static int getParamBuff(int id, int tier) {
+        return getParam(id, tier);
     }
 
     public void addExp(long ex) {
@@ -180,7 +186,21 @@ public class CongPhapTuTien extends BaseCongPhap {
         if (isNuotPhamCaoHon) {
             return 100f;
         }
-        return getBasePercent();
+        switch (tier) {
+            case 0:
+                return 100f;
+            case 1:
+                return 50f;
+            case 2:
+                return 20f;
+            case 3:
+                return 1f;
+            case 4:
+                return .5f;
+            case 5:
+                return .3f;
+        }
+        return .3f;
     }
 
     private float getBasePercent() {
@@ -291,21 +311,11 @@ public class CongPhapTuTien extends BaseCongPhap {
     }
 
     public String getPhamName() {
-        switch (tier) {
-            case 0:
-                return "Phàm";
-            case 1:
-                return "Linh";
-            case 2:
-                return "Vương";
-            case 3:
-                return "Hoàng";
-            case 4:
-                return "Đế";
-            case 5:
-                return "Tiên";
-        }
-        return "Không xác định";
+        return getPhamNam(tier);
+    }
+
+    public String getPhamName(int tier) {
+        return getPhamNam(tier);
     }
 
     public String getTenCongPhap() {
@@ -495,6 +505,49 @@ public class CongPhapTuTien extends BaseCongPhap {
         return 0;
     }
 
+    public static int getParam(int id, int tier) {
+        switch (id) {
+            case 0:
+                return Math.max(1, tier);
+            case 1, 3:
+                return 2 * tier;
+            case 2:
+                return 2 * Math.max(tier - 2, 1);
+            case 4, 5:
+                return Util.nextInt(1, 10 * tier);
+            case 6:
+                return Util.nextInt(1, 1000 * tier);
+            case 7:
+                return 5 * tier;
+            case 8:
+                return Util.nextInt(1, 100000 * tier);
+            case 9:
+                return tier;
+            case 10, 11, 12, 13, 14, 15, 16, 17, 18:
+                return Util.nextInt(1, 100000 * tier);
+            case 19:
+                return Util.nextInt(1, 1000 * tier);
+            case 20:
+                return 2 * tier;
+            case 21, 22, 23, 24:
+                return Util.nextInt(1, 5 * tier);
+            case 25, 26, 27, 28:
+                return 5 * tier;
+            case 29, 30, 31, 32, 33, 34, 35, 36, 37:
+                return 2 * tier;
+            case 38:
+                return tier;
+            case 39:
+                return tier / 5;
+            case 40:
+                return 5 * tier;
+            case 41:
+                return Math.max(1, tier);
+        }
+        return 0;
+    }
+
+
     public int getTimeHoiExp() {
         int timeHoi = 12_000;
         return timeHoi;
@@ -530,7 +583,8 @@ public class CongPhapTuTien extends BaseCongPhap {
         stringBuilder.append("|7|Công pháp").append("\n");
         stringBuilder.append("|5|").append(getTenCongPhap()).append("\n");
         stringBuilder.append("|2|Kinh Nghiệm : ").append(getCurrentExpAsString()).append("\n");
-        stringBuilder.append("|2|Phẩm : ").append(getPhamExpAsString()).append("\n");
+        stringBuilder.append("|2|Phẩm tối đa : ").append(getPhamName(maxPham)).append("\n");
+        stringBuilder.append("|2|Cấp tối đa : ").append(TuTien.CANH_GIOI[maxLevel]).append("\n");
         stringBuilder.append("|5|Hệ công pháp : ").append(getHeCongPhapAsString()).append("\n");
         stringBuilder.append("|2|").append(thuoctinh).append("\n");
         stringBuilder.append("|5|").append(mota).append("\n");

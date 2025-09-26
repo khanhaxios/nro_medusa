@@ -557,19 +557,8 @@ public class Mob {
             if (player.luyenThe != null && player.luyenThe.isLuyenThe()) {
                 long exp = player.luyenThe.getExpCanGain(this);
                 player.luyenThe.addExp(exp);
-                if (player.luyenThe.isLuyenTheReal()) {
-                    player.luyenThe.addChanKhi(exp);
-                }
-                // send data kn luyen the
-                PlayerService.gI().sendOtherOrigan(player, (byte) 1, exp);
+//                PlayerService.gI().sendOtherOrigan(player, (byte) 1, exp);
                 // add exp cong phap
-                if (player.luyenThe.congPhapLuyenThe.isLearn()) {
-                    if (player.luyenThe.congPhapLuyenThe.giaiDoan == 8) {
-                        player.luyenThe.congPhapLuyenThe.addExp(player.luyenThe.congPhapLuyenThe.getExpCanGain());
-                    } else {
-                        player.luyenThe.congPhapLuyenThe.addExpGiaiDoan(player.luyenThe.congPhapLuyenThe.getExpCanGain());
-                    }
-                }
                 // roi manh bi tich
                 if (Util.isTrue(1, 500)) {
                     // rơi cong phap chan giai
@@ -879,7 +868,7 @@ public class Mob {
                 short temIds = (short) Util.nextInt(1260, 1266);
                 list.add(new ItemMap(zone, temIds, Math.max(levell / 100, 1), this.location.x, yEnd, player.id));
             }
-            if (Util.isTrue(levell / 2, 500)) {
+            if (Util.isTrue(levell / 10, 500)) {
                 // roi thoi vàng
                 list.add(new ItemMap(zone, 457, Math.max(levell / 100, 1), this.location.x, yEnd, player.id));
             }
